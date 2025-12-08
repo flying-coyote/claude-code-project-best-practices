@@ -1,17 +1,17 @@
 # Index
 
-*Auto-generated: 2025-12-08 18:05*
+*Auto-generated: 2025-12-08 18:14*
 
 ## Summary
 
-**Total documents**: 32
+**Total documents**: 33
 
 | Directory | Count |
 |-----------|-------|
 | patterns | 10 |
 | presets | 4 |
 | prompts | 2 |
-| root | 5 |
+| root | 6 |
 | skills | 3 |
 | skills/examples/content-reviewer | 1 |
 | skills/examples/detection-rule-reviewer | 1 |
@@ -28,6 +28,7 @@
 
 - [ARCHITECTURE.md](ARCHITECTURE.md)
 - [DECISIONS.md](DECISIONS.md)
+- [INDEX.md](INDEX.md)
 - [PLAN.md](PLAN.md)
 - [README.md](README.md)
 - [SOURCES.md](SOURCES.md)
