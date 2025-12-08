@@ -41,6 +41,10 @@ All content must:
 - `mcp-failure-modes.md` - 7 failure modes + 3 production patterns
 - `advanced-tool-use.md` - Tool search and programmatic calling
 - `evidence-tiers.md` - Citation quality classification
+- `progressive-disclosure.md` - 3-tier skill architecture
+- `advanced-hooks.md` - PostToolUse, Stop hooks
+- `documentation-maintenance.md` - ARCH/PLAN/INDEX trio
+- `memory-architecture.md` - Lifecycle-based memory
 
 ## Skills Directory
 

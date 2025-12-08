@@ -146,3 +146,10 @@ Skills that would benefit from input examples:
 | 85% token reduction (Tool Search) | Anthropic measurements | A |
 | 37% token reduction (PTC) | Anthropic measurements | A |
 | 72% → 90% accuracy (Examples) | Anthropic internal testing | A |
+
+---
+
+## Related Patterns
+
+- [Context Engineering](./context-engineering.md) - Correctness over compression philosophy
+- [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient skill architecture

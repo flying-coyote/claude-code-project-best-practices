@@ -105,3 +105,10 @@ Example:
 - Tracks evidence tier per hypothesis
 - Requires higher tier for validation
 - Distinguishes speculation from evidence
+
+---
+
+## Related Patterns
+
+- [Agent Principles](./agent-principles.md) - Production AI reliability principles
+- [Context Engineering](./context-engineering.md) - Correctness over compression

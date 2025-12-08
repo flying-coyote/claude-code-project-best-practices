@@ -90,3 +90,11 @@ The session-start hook implements:
 - "Verify before work" - checks uncommitted changes, in-progress tasks
 - Context loading - shows branch, recent commits, current phase
 - Warning surfacing - alerts about potential issues before new work
+
+---
+
+## Related Patterns
+
+- [Memory Architecture](./memory-architecture.md) - Lifecycle-based information management
+- [Documentation Maintenance](./documentation-maintenance.md) - ARCH/PLAN/INDEX trio
+- [Advanced Hooks](./advanced-hooks.md) - SessionStart implementation patterns

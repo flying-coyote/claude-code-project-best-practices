@@ -57,6 +57,8 @@ Based on the answers, create:
 
 Use this structure, customized for the preset:
 
+**Note**: The template below uses placeholder syntax for clarity. Replace `[PLACEHOLDER]` values with actual content when creating the file.
+
 ```markdown
 # [PROJECT_NAME] Project Context
 

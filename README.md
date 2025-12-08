@@ -71,10 +71,21 @@ Project-type configurations with appropriate defaults:
 - **[hybrid.md](presets/hybrid.md)** - Mixed-purpose projects
 
 ### Patterns
-Best practices documentation:
-- **[long-running-agent.md](patterns/long-running-agent.md)** - Anthropic's agent harness patterns
-- **[advanced-tool-use.md](patterns/advanced-tool-use.md)** - Tool optimization techniques
-- **[evidence-tiers.md](patterns/evidence-tiers.md)** - Citation and evidence standards
+
+Core implementation patterns documented with evidence tiers:
+
+| Pattern | Use When | Key Insight | Source |
+|---------|----------|-------------|--------|
+| [Long-Running Agent](patterns/long-running-agent.md) | Starting project | External artifacts as memory | Anthropic |
+| [Context Engineering](patterns/context-engineering.md) | Structuring context | Correctness > compression | Nate B. Jones |
+| [Agent Principles](patterns/agent-principles.md) | Building production AI | 6 principles for reliability | Nate B. Jones |
+| [MCP Failure Modes](patterns/mcp-failure-modes.md) | Integrating MCP servers | 7 failure modes + 3 patterns | Nate B. Jones |
+| [Advanced Tool Use](patterns/advanced-tool-use.md) | Optimizing token usage | Tool search, programmatic calling | Anthropic |
+| [Evidence Tiers](patterns/evidence-tiers.md) | Managing citations | Tier A-D classification | Production |
+| [Progressive Disclosure](patterns/progressive-disclosure.md) | Large skills (200+ lines) | 3-tier architecture, 70% token savings | Production |
+| [Advanced Hooks](patterns/advanced-hooks.md) | Automating workflows | PostToolUse, Stop hooks | Production |
+| [Documentation Maintenance](patterns/documentation-maintenance.md) | Keeping docs current | ARCH/PLAN/INDEX trio | Production |
+| [Memory Architecture](patterns/memory-architecture.md) | Context lifecycle | 4-tier memory model | Nate B. Jones |
 
 ### Skills
 Reusable AI behavior patterns:
