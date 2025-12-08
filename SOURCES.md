@@ -51,12 +51,47 @@ All patterns in this repository are derived from authoritative sources and produ
   - Effective prompting patterns
   - Common pitfalls to avoid
 
-### Community Patterns
+### Community Skills and Patterns
 - **Source**: Claude Code community discussions
 - **Topics**:
   - Skill organization patterns
   - Hook implementation strategies
   - Cross-project consistency approaches
+
+---
+
+## Community Skill Sources (Tier C)
+
+These community repositories provide excellent examples and inspiration for Claude skills:
+
+### Fabric Framework
+- **Author**: Daniel Miessler
+- **URL**: https://github.com/danielmiessler/fabric
+- **Description**: An open-source framework for augmenting humans using AI, featuring 200+ patterns
+- **Relevance**: While not Claude-specific, demonstrates excellent prompt engineering patterns that translate well to Claude skills
+
+### obra/superpowers
+- **URL**: https://github.com/obra/superpowers
+- **Description**: Curated collection of AI-assisted development patterns
+- **Relevance**: Examples of skill-like behaviors for coding workflows
+
+### Anthropic Official Skills Examples
+- **URL**: https://github.com/anthropics/skills
+- **Description**: Official skill examples from Anthropic
+- **Relevance**: Reference implementation patterns
+
+### Simon Willison's Analysis
+- **URL**: https://simonwillison.net/2025/Oct/16/claude-skills/
+- **Description**: Technical analysis of Claude skills system
+- **Relevance**: Deep dive into how skills work and best practices
+
+### Security-Specific Sources
+- **MITRE ATT&CK**: https://attack.mitre.org/
+  - Foundation for threat-model-reviewer and detection-rule-reviewer skills
+- **Sigma Rules Project**: https://github.com/SigmaHQ/sigma
+  - Reference for detection rule patterns
+- **OWASP Threat Modeling**: https://owasp.org/www-community/Threat_Modeling
+  - Methodology basis for threat modeling skills
 
 ---
 

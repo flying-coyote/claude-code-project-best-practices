@@ -126,11 +126,29 @@ Document how skills work together:
 
 This repo includes sanitized examples of universal skills:
 
-### [systematic-debugger](examples/systematic-debugger/SKILL.md)
+### Development Skills
+
+#### [systematic-debugger](examples/systematic-debugger/SKILL.md)
 4-phase debugging: REPRODUCE → ISOLATE → UNDERSTAND → FIX
 
-### [tdd-enforcer](examples/tdd-enforcer/SKILL.md)
+#### [tdd-enforcer](examples/tdd-enforcer/SKILL.md)
 Test-driven development: RED → GREEN → REFACTOR
+
+#### [git-workflow-helper](examples/git-workflow-helper/SKILL.md)
+Git best practices: commits, branches, PRs, and safe operations
+
+### Analysis Skills
+
+#### [ultrathink-analyst](examples/ultrathink-analyst/SKILL.md)
+Deep analysis: FRAME → ANALYZE → SYNTHESIZE methodology
+
+### Security Skills
+
+#### [threat-model-reviewer](examples/threat-model-reviewer/SKILL.md)
+Threat modeling: UNDERSTAND → IDENTIFY (STRIDE) → ASSESS → MITIGATE
+
+#### [detection-rule-reviewer](examples/detection-rule-reviewer/SKILL.md)
+Detection engineering: accuracy, performance, evasion resistance, operational quality
 
 ## Creating Your Own Skills
 

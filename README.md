@@ -80,7 +80,13 @@ Best practices documentation:
 Reusable AI behavior patterns:
 - **[skills/README.md](skills/README.md)** - How to create and use skills
 - **[skills/SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)** - Template for new skills
-- **[skills/examples/](skills/examples/)** - Example skills (debugger, TDD)
+- **[skills/examples/](skills/examples/)** - Example skills:
+  - `systematic-debugger` - 4-phase debugging methodology
+  - `tdd-enforcer` - Test-driven development enforcement
+  - `git-workflow-helper` - Git best practices and safe operations
+  - `ultrathink-analyst` - Deep analysis (FRAME-ANALYZE-SYNTHESIZE)
+  - `threat-model-reviewer` - Security threat modeling (STRIDE)
+  - `detection-rule-reviewer` - SIEM/detection engineering quality
 
 ### Examples
 Complete `.claude/` directories you can reference:
