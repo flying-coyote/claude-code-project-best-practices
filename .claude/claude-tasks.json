@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "project": "claude-code-project-best-practices",
+    "created": "2025-12-08",
+    "last_updated": "2025-12-08",
+    "update_protocol": "Only toggle status fields. Do NOT remove or edit task descriptions."
+  },
+  "active_tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Maintain self-compliance",
+      "description": "Ensure this repo follows all patterns it documents",
+      "status": "completed",
+      "priority": "high",
+      "created": "2025-12-08"
+    },
+    {
+      "id": "TASK-002",
+      "title": "Update example projects",
+      "description": "Add new patterns (progressive disclosure, advanced hooks) to example projects",
+      "status": "pending",
+      "priority": "medium",
+      "created": "2025-12-08"
+    }
+  ],
+  "completed_tasks": [
+    {
+      "id": "TASK-000",
+      "title": "Initial pattern documentation",
+      "description": "Document Anthropic long-running agent and advanced tool use patterns",
+      "status": "completed",
+      "completed_date": "2025-12-07"
+    }
+  ],
+  "recurring_tasks": [
+    {
+      "id": "RECURRING-001",
+      "title": "Weekly documentation review",
+      "description": "Check ARCHITECTURE.md and PLAN.md are current",
+      "frequency": "weekly",
+      "last_completed": null
+    },
+    {
+      "id": "RECURRING-002",
+      "title": "Validate patterns still work",
+      "description": "Test documented patterns against latest Claude Code version",
+      "frequency": "monthly",
+      "last_completed": null
+    }
+  ]
+}
