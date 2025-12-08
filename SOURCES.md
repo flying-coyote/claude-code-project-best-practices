@@ -22,7 +22,7 @@ All patterns in this repository are derived from authoritative sources and produ
 - **Title**: "Introducing advanced tool use on the Claude Developer Platform"
 - **Source**: Anthropic Developer Blog
 - **Date**: November 24, 2025
-- **URL**: https://www.anthropic.com/developer-blog/advanced-tool-use
+- **URL**: https://www.anthropic.com/engineering/advanced-tool-use
 - **Beta Header**: `advanced-tool-use-2025-11-20`
 - **Key Insights**:
   - Tool Search Tool: 85% token reduction
@@ -64,18 +64,45 @@ All patterns in this repository are derived from authoritative sources and produ
 
 These sources directly influenced the design of the skill structure and project scaffolding patterns in this repository:
 
-### Nate B. Jones - Memory Prompts Methodology
+### Nate B. Jones - AI Implementation Patterns
 - **Author**: Nate B. Jones
 - **Substack**: https://natesnewsletter.substack.com
 - **Website**: https://www.natebjones.com/
-- **Key Article**: "Million-Dollar Workflows in 10 Minutes"
-- **Description**: AI strategist and former Head of Product at Amazon Prime Video. Created the "Memory Prompts" methodology for systematic AI memory architecture.
-- **Key Concepts**:
-  - **4-Prompt System**: Memory Architecture Designer, Context Library Builder, Project Brief Compiler, Retrieval Strategy Planner
-  - **Lifecycle-Aware Context**: PERMANENT/EVERGREEN/PROJECT-SCOPED/SESSION-SCOPED information types
-  - **Retrieval Strategy**: Task-type-based patterns (planning/execution/review modes)
-  - **Fact vs Assumption Separation**: Distinguishing confirmed facts from working assumptions
-- **Influence on This Repo**: The skill structure (IDENTITY/GOAL/STEPS/OUTPUT) and context retrieval patterns draw from Memory Prompts methodology
+- **Description**: AI strategist and former Head of Product at Amazon Prime Video. Created the "Memory Prompts" methodology and extensive documentation of AI implementation patterns from 100+ production builds.
+
+#### Key Articles (used in this repo)
+
+| Article | Pattern | Key Insights |
+|---------|---------|--------------|
+| [Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive) | [Context Engineering](../patterns/context-engineering.md) | Deterministic vs probabilistic context, correctness over compression |
+| [2025 Agent Build Bible](https://natesnewsletter.substack.com/p/why-your-ai-breaks-in-production) | [Agent Principles](../patterns/agent-principles.md) | 6 principles for production AI, semantic validation |
+| [MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving) | [MCP Failure Modes](../patterns/mcp-failure-modes.md) | 7 failure modes, Intelligence Layer/Sidecar/Batch patterns |
+| Million-Dollar Workflows in 10 Minutes | Skills structure | IDENTITY/GOAL/STEPS/OUTPUT skill format |
+
+#### Core Concepts
+
+- **Memory Prompts Methodology**
+  - 4-Prompt System: Memory Architecture Designer, Context Library Builder, Project Brief Compiler, Retrieval Strategy Planner
+  - Lifecycle-Aware Context: PERMANENT/EVERGREEN/PROJECT-SCOPED/SESSION-SCOPED information types
+  - Retrieval Strategy: Task-type-based patterns (planning/execution/review modes)
+  - Fact vs Assumption Separation: Distinguishing confirmed facts from working assumptions
+
+- **Context Engineering**
+  - Two-layer architecture: deterministic (user-controlled) vs probabilistic (AI-discovered)
+  - "Correctness trumps compression" - semantic relevance over token efficiency
+  - Semantic highway design for guided AI discovery
+
+- **Production AI Principles**
+  - AI violates assumptions so fundamental we don't realize we're making them
+  - Hybrid architecture: traditional systems for trust, AI for intelligence
+  - Monitoring lies: traditional metrics miss semantic failures
+
+- **MCP Integration**
+  - 300-800ms baseline latency makes MCP unsuitable for transaction paths
+  - Intelligence Layer pattern: background analysis, not real-time execution
+  - ~43% of MCP servers have security vulnerabilities
+
+- **Influence on This Repo**: Skill structure, context patterns, and three pattern files derive from Nate B. Jones' work
 
 ### Daniel Miessler - Fabric Framework & Scaffolding Philosophy
 - **Author**: Daniel Miessler

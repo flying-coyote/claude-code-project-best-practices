@@ -1,6 +1,6 @@
 # Advanced Tool Use Patterns
 
-**Source**: Anthropic Developer Blog (November 24, 2025)
+**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/advanced-tool-use) (November 24, 2025)
 **Beta Header**: `advanced-tool-use-2025-11-20`
 
 ## The Problem Space

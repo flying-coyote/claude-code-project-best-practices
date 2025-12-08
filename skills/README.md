@@ -188,9 +188,69 @@ What should the skill NOT do?
 One skill = one pattern. Don't combine debugging + testing + deployment.
 
 ### Progressive Disclosure
-- SKILL.md: Core methodology (~300-500 lines)
-- workflows/: Extended procedures (separate files)
-- references/: Supporting materials
+
+Complex skills should use subdirectories to manage complexity:
+
+```
+skill-name/
+├── SKILL.md           # Core methodology (300-500 lines max)
+├── workflows/         # Extended multi-step procedures
+│   ├── phase-1.md     # Detailed phase 1 steps
+│   └── phase-2.md     # Detailed phase 2 steps
+└── references/        # Supporting materials
+    ├── checklist.md   # Quick reference checklist
+    └── examples.md    # Extended examples
+```
+
+**When to use Progressive Disclosure:**
+- Core SKILL.md exceeds 500 lines
+- Multiple distinct workflows exist
+- Reference materials are frequently updated
+- Different users need different levels of detail
+
+**Example: hypothesis-validator skill**
+```
+hypothesis-validator/
+├── SKILL.md                    # Core validation methodology
+├── workflows/
+│   ├── hypothesis-identification.md  # How to extract hypotheses
+│   ├── validation-methodology.md     # 4-step validation process
+│   ├── expert-validation.md          # Expert engagement workflow
+│   └── documentation.md              # How to record results
+└── references/
+    ├── confidence-levels.md          # HIGH/MEDIUM/LOW definitions
+    └── evidence-tiers.md             # Tier 1-5 classification
+```
+
+### Cross-Project Skill Deployment
+
+For skills that should be available across all projects:
+
+```
+~/.claude/skills/              # Global personal skills
+├── systematic-debugger/
+│   └── SKILL.md
+├── tdd-enforcer/
+│   └── SKILL.md
+├── git-workflow-helper/
+│   └── SKILL.md
+└── ultrathink-analyst/
+    └── SKILL.md
+```
+
+**Benefits of personal skills:**
+- Consistent behavior across all projects
+- Single point of maintenance
+- No duplication in project repos
+- Immediate availability in new projects
+
+**When to use personal vs. project skills:**
+
+| Skill Type | Location | Examples |
+|------------|----------|----------|
+| Universal patterns | `~/.claude/skills/` | Debugging, TDD, Git workflow |
+| Domain-specific | `.claude/skills/` | SIEM queries, API conventions |
+| Organization-specific | `.claude/skills/` | Company coding standards |
 
 ### Read-Only by Default
 Most skills should guide, not automatically change things:
