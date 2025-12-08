@@ -138,3 +138,7 @@ You are a [role] who [core capability]. Your role is to [primary function]. You 
 **Created**: [Date]
 **Source**: [Where methodology came from]
 **Applies to**: [What project types]
+
+---
+
+*This template structure (IDENTITY/GOAL/STEPS/OUTPUT) is adapted from [Daniel Miessler's Fabric](https://github.com/danielmiessler/fabric) pattern format.*

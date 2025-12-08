@@ -60,15 +60,48 @@ All patterns in this repository are derived from authoritative sources and produ
 
 ---
 
+## Foundational Influences (Tier B)
+
+These sources directly influenced the design of the skill structure and project scaffolding patterns in this repository:
+
+### Nate B. Jones - Memory Prompts Methodology
+- **Author**: Nate B. Jones
+- **Substack**: https://natesnewsletter.substack.com
+- **Website**: https://www.natebjones.com/
+- **Key Article**: "Million-Dollar Workflows in 10 Minutes"
+- **Description**: AI strategist and former Head of Product at Amazon Prime Video. Created the "Memory Prompts" methodology for systematic AI memory architecture.
+- **Key Concepts**:
+  - **4-Prompt System**: Memory Architecture Designer, Context Library Builder, Project Brief Compiler, Retrieval Strategy Planner
+  - **Lifecycle-Aware Context**: PERMANENT/EVERGREEN/PROJECT-SCOPED/SESSION-SCOPED information types
+  - **Retrieval Strategy**: Task-type-based patterns (planning/execution/review modes)
+  - **Fact vs Assumption Separation**: Distinguishing confirmed facts from working assumptions
+- **Influence on This Repo**: The skill structure (IDENTITY/GOAL/STEPS/OUTPUT) and context retrieval patterns draw from Memory Prompts methodology
+
+### Daniel Miessler - Fabric Framework & Scaffolding Philosophy
+- **Author**: Daniel Miessler
+- **GitHub**: https://github.com/danielmiessler/fabric
+- **Website**: https://danielmiessler.com
+- **Description**: Security professional and creator of Fabric, an open-source framework for augmenting humans using AI with 200+ reusable patterns
+- **Key Concepts**:
+  - **"Solve Once, Reuse Forever"**: Modular, reusable prompt patterns
+  - **Scaffolding > Models**: "The scaffolding matters more. Building great scaffolding requires tons of user empathy."
+  - **Spec-Driven Development**: Structured project evolution with clear specifications
+  - **Pattern Structure**: IDENTITY/GOAL/STEPS/OUTPUT format for systematic prompt engineering
+- **Influence on This Repo**:
+  - Skill template structure directly adapted from Fabric patterns
+  - Philosophy of modular, composable AI behaviors
+  - Evidence-based approach to AI augmentation
+
+---
+
 ## Community Skill Sources (Tier C)
 
-These community repositories provide excellent examples and inspiration for Claude skills:
+These community repositories provide additional examples and inspiration for Claude skills:
 
-### Fabric Framework
-- **Author**: Daniel Miessler
+### Fabric Framework (Implementation Reference)
 - **URL**: https://github.com/danielmiessler/fabric
-- **Description**: An open-source framework for augmenting humans using AI, featuring 200+ patterns
-- **Relevance**: While not Claude-specific, demonstrates excellent prompt engineering patterns that translate well to Claude skills
+- **Description**: 200+ battle-tested patterns from 300+ contributors
+- **Relevance**: Reference implementation for pattern structure and composability
 
 ### obra/superpowers
 - **URL**: https://github.com/obra/superpowers

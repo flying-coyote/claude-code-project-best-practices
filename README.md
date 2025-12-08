@@ -124,12 +124,16 @@ See **[DECISIONS.md](DECISIONS.md)** for detailed reasoning on:
 - Why AI-guided setup instead of scripts
 - What to include vs. exclude
 
-## Sources
+## Sources & Acknowledgments
 
 See **[SOURCES.md](SOURCES.md)** for all references, including:
 - Anthropic Engineering Blog posts
 - Claude Code documentation
 - Production validation from real projects
+
+**Foundational influences on this repo's design:**
+- **[Daniel Miessler's Fabric](https://github.com/danielmiessler/fabric)** - The IDENTITY/GOAL/STEPS/OUTPUT pattern structure and "scaffolding > models" philosophy
+- **[Nate B. Jones's Memory Prompts](https://natesnewsletter.substack.com)** - Context lifecycle management and retrieval strategy patterns
 
 ## Contributing
 
