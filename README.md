@@ -25,8 +25,11 @@ your-project/
 └── .claude/
     ├── CLAUDE.md           # Project context Claude reads every session
     ├── settings.json       # Hook configurations (optional)
-    └── hooks/              # Automation scripts (optional)
-        └── session-start.sh
+    ├── hooks/              # Automation scripts (optional)
+    │   └── session-start.sh
+    └── skills/             # Project-specific skills (optional)
+        └── my-skill/
+            └── SKILL.md
 ```
 
 This approach is based on Anthropic's own engineering patterns for long-running agents.
@@ -72,6 +75,12 @@ Best practices documentation:
 - **[long-running-agent.md](patterns/long-running-agent.md)** - Anthropic's agent harness patterns
 - **[advanced-tool-use.md](patterns/advanced-tool-use.md)** - Tool optimization techniques
 - **[evidence-tiers.md](patterns/evidence-tiers.md)** - Citation and evidence standards
+
+### Skills
+Reusable AI behavior patterns:
+- **[skills/README.md](skills/README.md)** - How to create and use skills
+- **[skills/SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)** - Template for new skills
+- **[skills/examples/](skills/examples/)** - Example skills (debugger, TDD)
 
 ### Examples
 Complete `.claude/` directories you can reference:
