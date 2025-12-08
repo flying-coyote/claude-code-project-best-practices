@@ -103,10 +103,39 @@ These community repositories provide additional examples and inspiration for Cla
 - **Description**: 200+ battle-tested patterns from 300+ contributors
 - **Relevance**: Reference implementation for pattern structure and composability
 
+### Agent OS (Spec-Driven Framework)
+- **Author**: Brian Casel (BuilderMethods)
+- **URL**: https://github.com/buildermethods/agent-os
+- **Description**: Spec-driven development framework that "transforms AI coding agents from confused interns into productive developers"
+- **Key Concepts**:
+  - Specification-driven methodology for AI agents
+  - Structured project configuration (YAML-based)
+  - Technology choices and codebase-specific standards
+  - Works with Claude Code, Cursor, and other AI assistants
+- **Relevance**: Influenced project scaffolding approach and spec-driven philosophy
+
 ### obra/superpowers
 - **URL**: https://github.com/obra/superpowers
 - **Description**: Curated collection of AI-assisted development patterns
 - **Relevance**: Examples of skill-like behaviors for coding workflows
+
+### awesome-claude-skills
+- **Author**: BehiSecc
+- **URL**: https://github.com/BehiSecc/awesome-claude-skills
+- **Description**: Curated list of 40+ Claude skills across 10 categories
+- **Categories**: Document skills, Development tools, Data analysis, Scientific research, Writing, Learning, Media, Collaboration, Security, Automation
+- **Relevance**: Community skill discovery and categorization reference
+
+### Cybersecurity AI (CAI)
+- **Author**: Alias Robotics
+- **URL**: https://github.com/aliasrobotics/cai
+- **Description**: Open-source framework for AI-powered security automation with 300+ model integrations
+- **Key Features**:
+  - Agent-based architecture for security tasks
+  - Built-in reconnaissance, exploitation, and privilege escalation tools
+  - Guardrails against prompt injection
+  - Battle-tested in CTFs and bug bounties
+- **Relevance**: Reference for security-focused AI agent patterns and guardrails
 
 ### Anthropic Official Skills Examples
 - **URL**: https://github.com/anthropics/skills
