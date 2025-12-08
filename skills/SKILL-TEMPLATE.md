@@ -27,6 +27,18 @@ You are a [role] who [core capability]. Your role is to [primary function]. You 
 - [Exclusion 2 - common false positive]
 - [When user explicitly wants different approach]
 
+## WORKFLOW ROUTING
+
+For skills using [progressive disclosure](../patterns/progressive-disclosure.md), map user intents to workflow files:
+
+**User Intent** → **Workflow File** → **Action**
+
+"[phrase pattern 1]" → `workflows/[operation-1].md` → [outcome]
+"[phrase pattern 2]" → `workflows/[operation-2].md` → [outcome]
+"[phrase pattern 3]" → `references/[database-1].md` → [quick lookup]
+
+*(Remove this section if skill is small enough to not need progressive disclosure)*
+
 ## STEPS
 
 ### Phase 1: [Name]
@@ -131,6 +143,20 @@ You are a [role] who [core capability]. Your role is to [primary function]. You 
 1. **[Skill 1]**: [What it does]
 2. **[Skill 2]**: [What it does]
 3. **[Skill 3]**: [What it does]
+
+## SECURITY
+
+See [SECURITY-GUIDELINES.md](./SECURITY-GUIDELINES.md) for full security framework.
+
+**Risk Level**: 🟢 ZERO RISK | 🟡 LOW RISK | 🟠 MEDIUM RISK | 🔴 HIGH RISK
+
+**Scope**: [What this skill processes - e.g., "Git-controlled project files only"]
+
+**Controls** (if MEDIUM/HIGH RISK):
+1. [Control 1 - e.g., "User confirmation required"]
+2. [Control 2 - e.g., "Provenance tracking enabled"]
+
+**Security Assumption**: [Trust model - e.g., "All processed files are version-controlled"]
 
 ---
 
