@@ -85,6 +85,8 @@ Reusable AI behavior patterns:
   - `tdd-enforcer` - Test-driven development enforcement
   - `git-workflow-helper` - Git best practices and safe operations
   - `ultrathink-analyst` - Deep analysis (FRAME-ANALYZE-SYNTHESIZE)
+  - `content-reviewer` - Publication quality (evidence tiers, voice, balance)
+  - `research-extractor` - Systematic research synthesis
   - `threat-model-reviewer` - Security threat modeling (STRIDE)
   - `detection-rule-reviewer` - SIEM/detection engineering quality
 

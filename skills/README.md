@@ -142,6 +142,14 @@ Git best practices: commits, branches, PRs, and safe operations
 #### [ultrathink-analyst](examples/ultrathink-analyst/SKILL.md)
 Deep analysis: FRAME → ANALYZE → SYNTHESIZE methodology
 
+### Content & Research Skills
+
+#### [content-reviewer](examples/content-reviewer/SKILL.md)
+Publication quality: evidence tiers, intellectual honesty, professional voice, balanced perspective
+
+#### [research-extractor](examples/research-extractor/SKILL.md)
+Research synthesis: systematic extraction of concepts, evidence, hypotheses from sources
+
 ### Security Skills
 
 #### [threat-model-reviewer](examples/threat-model-reviewer/SKILL.md)
