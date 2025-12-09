@@ -164,6 +164,19 @@ These community repositories provide additional examples and inspiration for Cla
   - Battle-tested in CTFs and bug bounties
 - **Relevance**: Reference for security-focused AI agent patterns and guardrails
 
+### RAPTOR (Recursive Autonomous Penetration Testing and Observation Robot)
+- **Author**: gadievron
+- **URL**: https://github.com/gadievron/raptor
+- **Description**: AI-powered security testing platform built on Claude Code that automates offensive and defensive security research
+- **Key Features**:
+  - Static analysis with Semgrep and CodeQL (dataflow validation)
+  - Binary fuzzing with AFL++
+  - LLM-driven vulnerability analysis and exploit generation
+  - Automated patch development for identified vulnerabilities
+  - GitHub forensics for evidence-backed repository investigations
+  - Multi-LLM support (Claude, GPT-4, Gemini)
+- **Relevance**: Reference implementation for Claude Code in security automation, demonstrates modular security tool integration with AI reasoning
+
 ### Anthropic Official Skills Examples
 - **URL**: https://github.com/anthropics/skills
 - **Description**: Official skill examples from Anthropic
