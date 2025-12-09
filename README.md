@@ -41,7 +41,7 @@ This approach is based on Anthropic's own engineering patterns for long-running 
 Copy this prompt into Claude Code:
 
 ```
-Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/main/prompts/BOOTSTRAP-NEW-PROJECT.md and follow its instructions to set up Claude infrastructure for this project.
+Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/refs/heads/master/prompts/BOOTSTRAP-NEW-PROJECT.md and follow its instructions to set up Claude infrastructure for this project.
 ```
 
 ### For an Existing Project
@@ -49,7 +49,7 @@ Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-p
 Copy this prompt into Claude Code:
 
 ```
-Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/main/prompts/AUDIT-EXISTING-PROJECT.md and follow its instructions to review this project against best practices.
+Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/refs/heads/master/prompts/AUDIT-EXISTING-PROJECT.md and follow its instructions to review this project against best practices.
 ```
 
 ## What's Included
