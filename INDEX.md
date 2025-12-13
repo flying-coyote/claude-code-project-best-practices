@@ -1,6 +1,6 @@
 # Index
 
-*Auto-generated: 2025-12-13 14:58*
+*Auto-generated: 2025-12-13 15:06*
 
 ## Summary
 
@@ -37,41 +37,35 @@
 
 - [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
 - [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
-## Presets
-
-- [coding.md](presets/coding.md)
-- [hybrid.md](presets/hybrid.md)
-- [research.md](presets/research.md)
-- [writing.md](presets/writing.md)
 ## Skills
 
 - [README.md](skills/README.md)
 - [SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)
 - [SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)
-## Skills / Examples / Detection-Rule-Reviewer
-
-- [SKILL.md](skills/examples/detection-rule-reviewer/SKILL.md)
-## Skills / Examples / Systematic-Debugger
-
-- [SKILL.md](skills/examples/systematic-debugger/SKILL.md)
 ## Skills / Examples / Ultrathink-Analyst
 
 - [SKILL.md](skills/examples/ultrathink-analyst/SKILL.md)
-## Skills / Examples / Threat-Model-Reviewer
-
-- [SKILL.md](skills/examples/threat-model-reviewer/SKILL.md)
-## Skills / Examples / Git-Workflow-Helper
-
-- [SKILL.md](skills/examples/git-workflow-helper/SKILL.md)
-## Skills / Examples / Content-Reviewer
-
-- [SKILL.md](skills/examples/content-reviewer/SKILL.md)
-## Skills / Examples / Research-Extractor
-
-- [SKILL.md](skills/examples/research-extractor/SKILL.md)
 ## Skills / Examples / Tdd-Enforcer
 
 - [SKILL.md](skills/examples/tdd-enforcer/SKILL.md)
+## Skills / Examples / Research-Extractor
+
+- [SKILL.md](skills/examples/research-extractor/SKILL.md)
+## Skills / Examples / Detection-Rule-Reviewer
+
+- [SKILL.md](skills/examples/detection-rule-reviewer/SKILL.md)
+## Skills / Examples / Threat-Model-Reviewer
+
+- [SKILL.md](skills/examples/threat-model-reviewer/SKILL.md)
+## Skills / Examples / Content-Reviewer
+
+- [SKILL.md](skills/examples/content-reviewer/SKILL.md)
+## Skills / Examples / Git-Workflow-Helper
+
+- [SKILL.md](skills/examples/git-workflow-helper/SKILL.md)
+## Skills / Examples / Systematic-Debugger
+
+- [SKILL.md](skills/examples/systematic-debugger/SKILL.md)
 ## Patterns
 
 - [advanced-hooks.md](patterns/advanced-hooks.md)
@@ -84,6 +78,12 @@
 - [mcp-failure-modes.md](patterns/mcp-failure-modes.md)
 - [memory-architecture.md](patterns/memory-architecture.md)
 - [progressive-disclosure.md](patterns/progressive-disclosure.md)
+## Presets
+
+- [coding.md](presets/coding.md)
+- [hybrid.md](presets/hybrid.md)
+- [research.md](presets/research.md)
+- [writing.md](presets/writing.md)
 
 ---
 
