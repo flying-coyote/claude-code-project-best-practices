@@ -29,7 +29,9 @@ You are a [role] who [core capability]. Your role is to [primary function]. You 
 
 ## WORKFLOW ROUTING (SYSTEM PROMPT)
 
-For skills using [progressive disclosure](../patterns/progressive-disclosure.md), map user intents to workflow files:
+For skills using [progressive disclosure](../patterns/progressive-disclosure.md), choose routing format based on complexity:
+
+### Simple Routing (For skills with 1-3 workflows)
 
 **User Intent** → **Workflow File** → **Action**
 
@@ -37,7 +39,20 @@ For skills using [progressive disclosure](../patterns/progressive-disclosure.md)
 "[phrase pattern 2]" → `workflows/[operation-2].md` → [outcome]
 "[phrase pattern 3]" → `references/[database-1].md` → [quick lookup]
 
-*(Remove this section if skill is small enough to not need progressive disclosure)*
+### Multi-Workflow Routing (For skills with 4+ workflows)
+
+**This skill uses multi-workflow structure**. Choose the appropriate workflow based on [operation/phase/task]:
+
+| Workflow | File | When to Use |
+|----------|------|-------------|
+| **[Operation 1]** | `workflows/[file-1].md` | [When to use this workflow] |
+| **[Operation 2]** | `workflows/[file-2].md` | [When to use this workflow] |
+| **[Operation 3]** | `workflows/[file-3].md` | [When to use this workflow] |
+
+**Standard Sequence**: [workflow-1] → [workflow-2] → [workflow-3]
+**Common Patterns**: [Pattern 1], [Pattern 2], [Pattern 3]
+
+*(Remove this section if skill is <100 lines and doesn't need progressive disclosure)*
 
 ## QUICK REFERENCE
 

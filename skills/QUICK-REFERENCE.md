@@ -242,40 +242,78 @@ This repository includes 8 production-validated example skills demonstrating com
 
 ## Progressive Disclosure Pattern
 
-Several example skills demonstrate progressive disclosure (3-tier context loading):
+Skills can use two approaches for context optimization:
 
-### Tier 1: SKILL.md (Always Loaded)
-- Trigger conditions
-- Workflow routing table
-- Quick reference
-- Security classification
+### Simple 3-Tier (Best for 200-500 lines)
 
-### Tier 2: workflows/ (Loaded on Demand)
-- Detailed step-by-step protocols
-- Decision trees
-- Quality standards
-
-### Tier 3: references/ (Just-in-Time Lookup)
-- Quick-lookup databases
-- Evidence tier frameworks
-- Template libraries
+**Tier 1**: SKILL.md (Always Loaded) - Routing, triggers, quick reference
+**Tier 2**: workflows/ (On Demand) - Detailed protocols
+**Tier 3**: references/ (Just-in-Time) - Lookup databases
 
 **Token savings**: 50-86% reduction (measured across 4 production skills)
 
-**Example**:
+### Multi-Workflow (Best for 500+ lines)
+
+For complex skills with multiple distinct operations:
+
+**Example: ultrathink-analyst** (3-phase analysis)
 ```
-research-extractor/
-├── SKILL.md              # 121 lines (was 542 lines)
-├── workflows/
-│   ├── extraction.md     # Loaded when extracting
-│   ├── validation.md     # Loaded when validating
-│   └── documentation.md  # Loaded when documenting
-└── references/
-    ├── evidence-tiers.md # Loaded for tier lookup
-    └── templates.md      # Loaded for output format
+ultrathink-analyst/
+├── SKILL.md                           # 160 lines (routing document)
+└── workflows/
+    ├── frame-problem-definition.md    # 155 lines (FRAME phase)
+    ├── analyze-deep-investigation.md  # 200 lines (ANALYZE phase)
+    └── synthesize-integration.md      # 270 lines (SYNTHESIZE phase)
 ```
 
+**User Experience**:
+- User says "ultrathink analyze database options"
+- SKILL.md loads (160 lines) → routes to ANALYZE workflow
+- Only `analyze-deep-investigation.md` loads (200 lines)
+- Total: 360 lines vs 625 lines if single-file
+
+**Common Multi-Workflow Patterns**:
+- **Phase-based**: FRAME → ANALYZE → SYNTHESIZE (ultrathink-analyst)
+- **Operation-based**: commit / branch / push / PR / conflicts (git-workflow-helper)
+- **Task-based**: capture / classify / add-to-bibliography / check (academic-citation-manager)
+
+### When to Use Each
+
+| Skill Size | Operations | Pattern | Example |
+|------------|-----------|---------|---------|
+| 100-200 lines | Single purpose | Single-file SKILL.md | systematic-debugger |
+| 200-500 lines | One workflow + references | Simple 3-tier | hypothesis-validator |
+| 500-1000 lines | 3-5 operations | Multi-workflow | ultrathink-analyst |
+| 1000+ lines | 5+ operations | Multi-workflow | git-workflow-helper |
+
 **Reference**: See [progressive-disclosure.md](../patterns/progressive-disclosure.md) for full pattern
+
+---
+
+## Multi-Workflow Routing Tables
+
+For skills with multiple workflows, use routing tables:
+
+```markdown
+## WORKFLOW ROUTING
+
+**This skill uses multi-workflow structure**. Choose workflow based on operation:
+
+| Workflow | File | When to Use |
+|----------|------|-------------|
+| **FRAME** | `workflows/frame-problem-definition.md` | Starting analysis |
+| **ANALYZE** | `workflows/analyze-deep-investigation.md` | Exploring alternatives |
+| **SYNTHESIZE** | `workflows/synthesize-integration.md` | Generating recommendations |
+
+**Standard Sequence**: FRAME → ANALYZE → SYNTHESIZE
+**Common Patterns**: Technology evaluation, strategic decision, architecture choice
+```
+
+**Best Practices**:
+- Use kebab-case for workflow files (`frame-problem-definition.md`)
+- Target 200-500 lines per workflow (maintainability)
+- Document common sequences (which workflows typically used together)
+- Clear "When to Use" column (helps routing decision)
 
 ---
 

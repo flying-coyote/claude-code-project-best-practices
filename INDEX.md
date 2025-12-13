@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2025-12-13 15:49*
+*Auto-generated: 2025-12-13 16:01*
 
 ## Summary
 
-**Total documents**: 39
+**Total documents**: 42
 
 | Directory | Count |
 |-----------|-------|
@@ -22,6 +22,7 @@
 | skills/examples/tdd-enforcer | 1 |
 | skills/examples/threat-model-reviewer | 1 |
 | skills/examples/ultrathink-analyst | 1 |
+| skills/examples/ultrathink-analyst/workflows | 3 |
 | templates | 1 |
 
 ---
@@ -48,6 +49,11 @@
 ## Skills / Examples / Ultrathink-Analyst
 
 - [SKILL.md](skills/examples/ultrathink-analyst/SKILL.md)
+## Skills / Examples / Ultrathink-Analyst / Workflows
+
+- [analyze-deep-investigation.md](skills/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
+- [frame-problem-definition.md](skills/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
+- [synthesize-integration.md](skills/examples/ultrathink-analyst/workflows/synthesize-integration.md)
 ## Skills / Examples / Tdd-Enforcer
 
 - [SKILL.md](skills/examples/tdd-enforcer/SKILL.md)

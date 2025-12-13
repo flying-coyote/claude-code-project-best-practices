@@ -93,6 +93,8 @@ The critical addition that makes progressive disclosure work is an explicit rout
 
 ## Measured Results
 
+### Single-File to Multi-File Refactoring
+
 Production testing on 4 skills showed significant token savings:
 
 | Skill | Before | After | Reduction |
@@ -104,11 +106,29 @@ Production testing on 4 skills showed significant token savings:
 
 **Average reduction**: ~73% token savings per skill activation
 
+### Multi-Workflow Structure (Advanced Pattern)
+
+Production refactoring of 3 large personal skills (Dec 2025):
+
+| Skill | Single-File | Multi-Workflow | Workflows | Avg per Workflow |
+|-------|-------------|----------------|-----------|------------------|
+| ultrathink-analyst | 748 lines | 957 lines (4 files) | 3 | 203 lines |
+| git-workflow-helper | 587 lines | 2,216 lines (6 files) | 5 | 383 lines |
+| academic-citation-manager | 534 lines | 1,503 lines (5 files) | 4 | 345 lines |
+
+**Key Insight**: Total content increased (more comprehensive), but **conditional loading** means only relevant workflow loaded per interaction.
+
+**Example**: git-workflow-helper
+- **Before**: 587 lines loaded for every git operation
+- **After**: 269 lines (routing) + ~350 lines (specific workflow) = ~620 lines for operation
+- **Benefit**: Each workflow <500 lines (maintainability), clear separation of concerns
+
 **Additional benefits**:
 - Faster skill activation (less context to process)
 - Improved context management (only load what's needed)
 - Clearer skill structure (separation of concerns)
 - Better maintainability (workflows can be updated independently)
+- Enables skill expansion without bloat (add workflows without affecting base size)
 
 ---
 
@@ -195,10 +215,108 @@ mkdir -p .claude/skills/[skill-name]/references
 
 ---
 
+## Multi-Workflow Pattern (Advanced)
+
+For complex skills with multiple distinct operations, use **multi-workflow structure** instead of simple 3-tier:
+
+### Structure
+
+```
+.claude/skills/git-workflow-helper/
+├── SKILL.md                           # Routing document (~270 lines)
+└── workflows/
+    ├── commit.md                      # Commit workflow (~340 lines)
+    ├── branch.md                      # Branch management (~340 lines)
+    ├── push.md                        # Push operations (~330 lines)
+    ├── pull-request.md                # PR workflow (~470 lines)
+    └── conflict-resolution.md         # Merge conflicts (~470 lines)
+```
+
+### Routing Table Format
+
+Use table format for multi-workflow skills:
+
+```markdown
+## WORKFLOW ROUTING
+
+**This skill uses multi-workflow structure**. Choose the appropriate workflow based on operation:
+
+| Workflow | File | When to Use |
+|----------|------|-------------|
+| **Commit** | `workflows/commit.md` | Creating commits, message guidance, pre-commit checks |
+| **Branch** | `workflows/branch.md` | Creating/managing branches, worktrees, naming |
+| **Push** | `workflows/push.md` | Pushing to remote, force push, upstream tracking |
+| **Pull Request** | `workflows/pull-request.md` | Creating PRs, code review, merging |
+| **Conflict Resolution** | `workflows/conflict-resolution.md` | Resolving merge conflicts, aborting operations |
+
+**Common Sequences**:
+- **New Feature**: branch.md → commit.md → push.md → pull-request.md
+- **Hotfix**: branch.md → commit.md → push.md → pull-request.md (expedited)
+- **Conflict Handling**: push.md (pull fails) → conflict-resolution.md → push.md
+```
+
+### Example: ultrathink-analyst
+
+Phase-based routing for analysis methodology:
+
+```markdown
+## WORKFLOW ROUTING
+
+**This skill uses multi-workflow structure**. Choose workflow based on analysis phase:
+
+| Workflow | File | When to Use |
+|----------|------|-------------|
+| **FRAME: Problem Definition** | `workflows/frame-problem-definition.md` | Starting analysis, understand problem before solutions |
+| **ANALYZE: Deep Investigation** | `workflows/analyze-deep-investigation.md` | After FRAME, exploring alternatives and trade-offs |
+| **SYNTHESIZE: Integration** | `workflows/synthesize-integration.md` | After ANALYZE, generating insights and recommendations |
+
+**Standard Sequence**: FRAME → ANALYZE → SYNTHESIZE (complete all three for full analysis)
+
+**Partial Workflows**: Can execute single phase if user requests specific step, but recommend full 3-phase for complex problems.
+```
+
+### When to Use Multi-Workflow
+
+**Use multi-workflow when**:
+- Skill has 5+ distinct operations (e.g., git: commit, branch, push, PR, conflicts)
+- Operations rarely used together (commit vs conflict resolution)
+- Each operation >200 lines of methodology
+- Skill serves multiple user intents that don't overlap
+
+**Use simple 3-tier when**:
+- Skill has single workflow with reference data
+- Operations frequently used together
+- Each piece <200 lines
+- Linear progression through steps
+
+### Workflow Size Guidelines
+
+**Target**: 200-500 lines per workflow
+- **Under 200 lines**: Consider merging workflows
+- **200-500 lines**: Optimal (maintainable, comprehensible)
+- **Over 500 lines**: Consider splitting into sub-workflows
+
+**Example from production**:
+- git-workflow-helper: 5 workflows, average 383 lines ✅
+- ultrathink-analyst: 3 workflows, average 203 lines ✅
+- academic-citation-manager: 4 workflows, average 345 lines ✅
+
+---
+
 ## Best Practices
 
 ### Workflow Naming
-Use verb phrases: `search-contradictions.md`, not `contradictions-search.md`
+
+**Use kebab-case** (Daniel Miessler PAI pattern):
+- ✅ `commit.md`, `branch.md`, `push.md`
+- ✅ `frame-problem-definition.md`
+- ✅ `conflict-resolution.md`
+- ❌ `Commit.md`, `create_branch.md`, `pushToRemote.md`
+
+**Use verb phrases or operation names**:
+- ✅ `search-contradictions.md` (verb phrase)
+- ✅ `commit.md` (operation name)
+- ❌ `contradictions-search.md` (noun-first)
 
 ### Reference vs Workflow
 - **References**: Databases, frameworks, checklists (lookup)
@@ -219,15 +337,33 @@ Always end SKILL.md with:
 
 ## When to Use Progressive Disclosure
 
-**Good candidates** (high value):
-- Skills with >200 lines
-- Skills with multiple distinct operations
-- Skills with reference databases
+### Decision Matrix
 
-**Skip progressive disclosure** (low value):
+| Skill Characteristics | Pattern | Example |
+|----------------------|---------|---------|
+| **100-200 lines, single purpose** | Single-file SKILL.md | systematic-debugger (simple) |
+| **200-500 lines, has references** | 3-tier (SKILL + workflows + references) | hypothesis-validator |
+| **500-1000 lines, multiple operations** | Multi-workflow (SKILL + 3-5 workflows) | ultrathink-analyst (3 phases) |
+| **1000+ lines, complex operations** | Multi-workflow (SKILL + 5+ workflows) | git-workflow-helper (5 operations) |
+
+### Good Candidates (High Value)
+
+**Simple 3-tier**:
+- Skills with >200 lines
+- Single workflow with reference data
+- Research/analysis skills with frameworks
+
+**Multi-workflow**:
+- Skills with 5+ distinct operations
+- Complex skills where users need one operation at a time
+- Skills that would be >1000 lines as single file
+
+### Skip Progressive Disclosure (Low Value)
+
 - Skills under 100 lines
 - Single-purpose skills
 - Already concise skills
+- Skills where all content needed together
 
 ---
 
