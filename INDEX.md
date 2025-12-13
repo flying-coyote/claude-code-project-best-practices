@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2025-12-13 15:39*
+*Auto-generated: 2025-12-13 15:49*
 
 ## Summary
 
-**Total documents**: 37
+**Total documents**: 39
 
 | Directory | Count |
 |-----------|-------|
@@ -16,11 +16,13 @@
 | skills/examples/content-reviewer | 1 |
 | skills/examples/detection-rule-reviewer | 1 |
 | skills/examples/git-workflow-helper | 1 |
+| skills/examples/hypothesis-validator | 1 |
 | skills/examples/research-extractor | 1 |
 | skills/examples/systematic-debugger | 1 |
 | skills/examples/tdd-enforcer | 1 |
 | skills/examples/threat-model-reviewer | 1 |
 | skills/examples/ultrathink-analyst | 1 |
+| templates | 1 |
 
 ---
 
@@ -52,6 +54,9 @@
 ## Skills / Examples / Research-Extractor
 
 - [SKILL.md](skills/examples/research-extractor/SKILL.md)
+## Skills / Examples / Hypothesis-Validator
+
+- [SKILL.md](skills/examples/hypothesis-validator/SKILL.md)
 ## Skills / Examples / Detection-Rule-Reviewer
 
 - [SKILL.md](skills/examples/detection-rule-reviewer/SKILL.md)
@@ -81,6 +86,9 @@
 - [mcp-failure-modes.md](patterns/mcp-failure-modes.md)
 - [memory-architecture.md](patterns/memory-architecture.md)
 - [progressive-disclosure.md](patterns/progressive-disclosure.md)
+## Templates
+
+- [ADR-TEMPLATE.md](templates/ADR-TEMPLATE.md)
 ## Presets
 
 - [coding.md](presets/coding.md)

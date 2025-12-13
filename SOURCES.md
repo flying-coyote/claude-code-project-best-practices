@@ -201,6 +201,32 @@ These community repositories provide additional examples and inspiration for Cla
 
 These patterns have been validated across 12+ production projects:
 
+### flying-coyote/second-brain
+- **Author**: Jeremy (flying-coyote)
+- **Repository**: https://github.com/flying-coyote/second-brain
+- **Description**: Production cybersecurity research knowledge management system with advanced Claude Code infrastructure
+- **Key Contributions to This Repo**:
+  - **Progressive Disclosure Pattern**: 73% average token reduction across 4 production skills
+  - **Dual Evidence Tier System**: Tier 1-5 (research evidence) + Tier A-D (source quality)
+  - **MITRE ATLAS Security Mapping**: Adversarial ML technique mapping for skills security
+  - **Confidence Scoring Methodology**: HIGH/MEDIUM/LOW assessment framework
+  - **ADR Framework for Research**: Architecture Decision Records adapted for hypothesis-driven work
+- **Production Metrics**:
+  - 21 Claude skills across 9 repositories (6 personal + 15 project-specific)
+  - 46 hypotheses tracked with confidence scoring
+  - 25+ documented contradictions resolved via ADRs
+  - 70+ pre-approved tool patterns for friction reduction
+  - 5-layer defense for HIGH RISK skills (external document processing)
+- **Validation Scope**:
+  - Software development projects (4)
+  - Content creation (blog, book manuscript)
+  - Research projects (literature review, hypothesis validation)
+  - Government partnership (CISA collaboration)
+- **Evidence Tier**: B (Production-validated implementations with measured outcomes)
+- **Relevance**: Primary source for progressive disclosure, confidence scoring, and security patterns in this repository
+
+---
+
 ### Project Categories Tested
 1. **Software Development** (4 projects)
    - Python libraries

@@ -1,7 +1,7 @@
 # Architecture
 
 **Purpose**: System design, directory structure, and current phase status
-**Last Updated**: December 8, 2025
+**Last Updated**: December 13, 2025
 
 ---
 
@@ -23,6 +23,7 @@ This repository documents and validates patterns for Claude Code projects. It se
 - v1.0: Initial patterns from Anthropic (Nov 2025)
 - v1.1: Nate B. Jones patterns added (Dec 8, 2025)
 - v1.2: Self-compliance - repo follows its own patterns (Dec 8, 2025)
+- v1.3: Production patterns from second-brain integration (Dec 13, 2025)
 
 ---
 
@@ -39,15 +40,17 @@ claude-code-project-best-practices/
 │   │   └── stop-doc-check.sh  # Documentation currency
 │   └── claude-tasks.json      # Task tracking
 │
-├── patterns/                   # Core implementation patterns
+├── patterns/                   # Core implementation patterns (12 total)
 │   ├── long-running-agent.md  # Anthropic harness patterns
 │   ├── context-engineering.md # Deterministic vs probabilistic
 │   ├── agent-principles.md    # 6 production principles
 │   ├── mcp-failure-modes.md   # 7 failure modes
 │   ├── advanced-tool-use.md   # Tool search, programmatic calling
-│   ├── evidence-tiers.md      # Citation quality
-│   ├── progressive-disclosure.md  # 3-tier skill architecture
+│   ├── evidence-tiers.md      # Dual tier system (A-D + 1-5)
+│   ├── confidence-scoring.md  # HIGH/MEDIUM/LOW hypothesis confidence
+│   ├── progressive-disclosure.md  # 3-tier skill architecture (73% reduction)
 │   ├── advanced-hooks.md      # PostToolUse, Stop hooks
+│   ├── architecture-decision-records.md  # ADR framework
 │   ├── documentation-maintenance.md  # ARCH/PLAN/INDEX trio
 │   └── memory-architecture.md # Lifecycle-based memory
 │

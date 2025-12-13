@@ -81,23 +81,28 @@ Core implementation patterns documented with evidence tiers:
 | [Agent Principles](patterns/agent-principles.md) | Building production AI | 6 principles for reliability | Nate B. Jones |
 | [MCP Failure Modes](patterns/mcp-failure-modes.md) | Integrating MCP servers | 7 failure modes + 3 patterns | Nate B. Jones |
 | [Advanced Tool Use](patterns/advanced-tool-use.md) | Optimizing token usage | Tool search, programmatic calling | Anthropic |
-| [Evidence Tiers](patterns/evidence-tiers.md) | Managing citations | Tier A-D classification | Production |
-| [Progressive Disclosure](patterns/progressive-disclosure.md) | Large skills (200+ lines) | 3-tier architecture, 70% token savings | Production |
+| [Evidence Tiers](patterns/evidence-tiers.md) | Managing citations | Dual tier system (A-D + 1-5) | Production |
+| [Confidence Scoring](patterns/confidence-scoring.md) | Hypothesis validation | HIGH/MEDIUM/LOW with evidence mapping | Production |
+| [Progressive Disclosure](patterns/progressive-disclosure.md) | Large skills (200+ lines) | 3-tier architecture, 73% token savings | Production |
 | [Advanced Hooks](patterns/advanced-hooks.md) | Automating workflows | PostToolUse, Stop hooks | Production |
 | [Documentation Maintenance](patterns/documentation-maintenance.md) | Keeping docs current | ARCH/PLAN/INDEX trio | Production |
 | [Memory Architecture](patterns/memory-architecture.md) | Context lifecycle | 4-tier memory model | Nate B. Jones |
+| [Architecture Decision Records](patterns/architecture-decision-records.md) | Documenting decisions | Why decisions were made, not just what | Software Eng |
 
 ### Skills
 Reusable AI behavior patterns:
-- **[skills/README.md](skills/README.md)** - How to create and use skills
+- **[skills/README.md](skills/README.md)** - Comprehensive skills guide
+- **[skills/QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)** - Fast skill lookup and integration patterns
 - **[skills/SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)** - Template for new skills
-- **[skills/examples/](skills/examples/)** - Example skills:
-  - `systematic-debugger` - 4-phase debugging methodology
-  - `tdd-enforcer` - Test-driven development enforcement
+- **[skills/SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)** - Security framework with MITRE ATLAS mapping
+- **[skills/examples/](skills/examples/)** - 9 production-validated example skills:
+  - `systematic-debugger` - 4-phase debugging methodology (REPRODUCE-ISOLATE-UNDERSTAND-FIX)
+  - `tdd-enforcer` - Test-driven development enforcement (RED-GREEN-REFACTOR)
   - `git-workflow-helper` - Git best practices and safe operations
   - `ultrathink-analyst` - Deep analysis (FRAME-ANALYZE-SYNTHESIZE)
   - `content-reviewer` - Publication quality (evidence tiers, voice, balance)
-  - `research-extractor` - Systematic research synthesis
+  - `research-extractor` - Systematic research synthesis (HIGH RISK - 5-layer defense)
+  - `hypothesis-validator` - Research hypothesis validation with confidence scoring
   - `threat-model-reviewer` - Security threat modeling (STRIDE)
   - `detection-rule-reviewer` - SIEM/detection engineering quality
 
