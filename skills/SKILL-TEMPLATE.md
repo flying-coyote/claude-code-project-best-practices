@@ -27,7 +27,7 @@ You are a [role] who [core capability]. Your role is to [primary function]. You 
 - [Exclusion 2 - common false positive]
 - [When user explicitly wants different approach]
 
-## WORKFLOW ROUTING
+## WORKFLOW ROUTING (SYSTEM PROMPT)
 
 For skills using [progressive disclosure](../patterns/progressive-disclosure.md), map user intents to workflow files:
 
@@ -38,6 +38,20 @@ For skills using [progressive disclosure](../patterns/progressive-disclosure.md)
 "[phrase pattern 3]" → `references/[database-1].md` → [quick lookup]
 
 *(Remove this section if skill is small enough to not need progressive disclosure)*
+
+## QUICK REFERENCE
+
+**[Key Framework/Concept]**:
+- Element 1: Brief description
+- Element 2: Brief description
+- Element 3: Brief description
+
+**[Critical Checklist/Matrix]**:
+1. ✅ Item 1
+2. ✅ Item 2
+3. ✅ Item 3
+
+*(Include 1-2 essential frameworks or checklists that are needed frequently. Keep concise.)*
 
 ## STEPS
 

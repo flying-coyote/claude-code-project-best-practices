@@ -1,18 +1,18 @@
 # Index
 
-*Auto-generated: 2025-12-13 15:06*
+*Auto-generated: 2025-12-13 15:39*
 
 ## Summary
 
-**Total documents**: 34
+**Total documents**: 37
 
 | Directory | Count |
 |-----------|-------|
-| patterns | 10 |
+| patterns | 12 |
 | presets | 4 |
 | prompts | 2 |
 | root | 7 |
-| skills | 3 |
+| skills | 4 |
 | skills/examples/content-reviewer | 1 |
 | skills/examples/detection-rule-reviewer | 1 |
 | skills/examples/git-workflow-helper | 1 |
@@ -39,6 +39,7 @@
 - [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
 ## Skills
 
+- [QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)
 - [README.md](skills/README.md)
 - [SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)
 - [SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)
@@ -71,6 +72,8 @@
 - [advanced-hooks.md](patterns/advanced-hooks.md)
 - [advanced-tool-use.md](patterns/advanced-tool-use.md)
 - [agent-principles.md](patterns/agent-principles.md)
+- [architecture-decision-records.md](patterns/architecture-decision-records.md)
+- [confidence-scoring.md](patterns/confidence-scoring.md)
 - [context-engineering.md](patterns/context-engineering.md)
 - [documentation-maintenance.md](patterns/documentation-maintenance.md)
 - [evidence-tiers.md](patterns/evidence-tiers.md)

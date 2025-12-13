@@ -302,15 +302,40 @@ Results vary based on data volume and query patterns."
 ## INTEGRATION WITH OTHER SKILLS
 
 **Works WITH:**
+- **academic-citation-manager**: Validates evidence tier classification
+- **hypothesis-validator**: Checks confidence levels match evidence
 - **research-extractor**: Extract evidence before writing
 - **git-workflow-helper**: Commit reviewed content
 
 **Sequence:**
 1. Author drafts content
 2. **Content Reviewer**: Quality assessment
-3. Author revises based on feedback
-4. **Content Reviewer**: Final check
-5. **Git Workflow Helper**: Commit publication-ready content
+3. **Academic Citation Manager**: Validate evidence tiers (if needed)
+4. **Hypothesis Validator**: Check claims match confidence (if research content)
+5. Author revises based on feedback
+6. **Content Reviewer**: Final check
+7. **Git Workflow Helper**: Commit publication-ready content
+
+## SECURITY
+
+**Risk Level**: 🟡 LOW RISK
+
+**Scope**: Reviews user-drafted content (git-controlled or user-provided text)
+
+**Controls**:
+- Reviews content only, doesn't process external documents
+- All content is user-provided or from project files
+- No external API calls or data exfiltration
+
+**Security Assumption**: Content being reviewed is from trusted sources (user-written or version-controlled)
+
+---
+
+## Related Patterns
+
+- [Evidence Tiers](../../patterns/evidence-tiers.md) - Dual classification system (A-D for sources, 1-5 for research)
+- [Confidence Scoring](../../patterns/confidence-scoring.md) - Matching confidence language to evidence
+- [Agent Principles](../../patterns/agent-principles.md) - Accuracy and intellectual honesty
 
 ---
 

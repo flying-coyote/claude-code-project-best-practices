@@ -76,7 +76,7 @@ Contains:
 The critical addition that makes progressive disclosure work is an explicit routing section in SKILL.md:
 
 ```markdown
-## Workflow Routing (SYSTEM PROMPT)
+## WORKFLOW ROUTING (SYSTEM PROMPT)
 
 **User Intent** → **Workflow File** → **Action**
 
@@ -87,19 +87,28 @@ The critical addition that makes progressive disclosure work is an explicit rout
 
 **Why this matters**: Without explicit routing, Claude won't know when to load which workflow. The routing section acts as a dispatch table.
 
+**Note**: The "(SYSTEM PROMPT)" label indicates this section is loaded with every skill activation and serves as the routing logic for on-demand workflow loading.
+
 ---
 
 ## Measured Results
 
-Pilot testing on 3 skills showed significant token savings:
+Production testing on 4 skills showed significant token savings:
 
 | Skill | Before | After | Reduction |
 |-------|--------|-------|-----------|
 | contradiction-detector | 327 lines | 75 lines | **77%** |
 | hypothesis-validator | 218 lines | 109 lines | **50%** |
 | publication-quality-checker | 739 lines | 104 lines | **86%** |
+| research-extractor | 542 lines | 121 lines | **78%** |
 
-**Average reduction**: ~70% token savings per skill activation
+**Average reduction**: ~73% token savings per skill activation
+
+**Additional benefits**:
+- Faster skill activation (less context to process)
+- Improved context management (only load what's needed)
+- Clearer skill structure (separation of concerns)
+- Better maintainability (workflows can be updated independently)
 
 ---
 
@@ -124,18 +133,22 @@ allowed-tools: [Tool1, Tool2, Tool3]
 - [False positive 1]
 - [False positive 2]
 
-## Workflow Routing (SYSTEM PROMPT)
+## WORKFLOW ROUTING (SYSTEM PROMPT)
 
 **User Intent** → **Workflow File** → **Action**
 
 "[phrase pattern 1]" → `workflows/[file-1].md` → [outcome]
 "[phrase pattern 2]" → `workflows/[file-2].md` → [outcome]
 
-## Quick Reference
+## QUICK REFERENCE
 
 **[Essential Framework]**:
 - [Element 1]: [Brief description]
 - [Element 2]: [Brief description]
+
+**[Critical Checklist]**:
+1. ✅ [Item 1]
+2. ✅ [Item 2]
 
 ## Integration with Other Skills
 

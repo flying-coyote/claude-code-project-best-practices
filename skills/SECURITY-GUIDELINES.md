@@ -221,6 +221,53 @@ Every skill should include a Security section:
 
 ---
 
+## MITRE ATLAS Mapping
+
+Skills security threats map to [MITRE ATLAS](https://atlas.mitre.org/) adversarial ML techniques:
+
+| ATLAS Technique | Description | Our Mitigation | Risk Level |
+|-----------------|-------------|----------------|------------|
+| **AML.T0051** | LLM Prompt Injection | Layers 3-5 (User confirmation, injection detection, provenance) | HIGH |
+| **AML.T0043** | Craft Adversarial Data | Layers 1-2 (Source classification, content summary) | HIGH |
+| **AML.T0054** | LLM Jailbreak | Layer 2 (Outcome-based governance, behavioral policies) | MEDIUM |
+| **AML.T0024** | Exfiltrate ML Artifacts | Layer 4 (Provenance tracking, audit logging) | MEDIUM |
+| **AML.T0020** | Poison Training Data | User confirmation for writes, git rollback capability | LOW |
+| **AML.T0040** | ML Supply Chain Compromise | Project-controlled skills, external reference validation | LOW |
+
+### Defense-in-Depth Strategy
+
+```
+Layer 5: Injection Detection     ────► Detects AML.T0051 (Prompt Injection)
+         │
+Layer 4: Provenance Tracking     ────► Prevents AML.T0024 (Exfiltration)
+         │
+Layer 3: User Confirmation       ────► Blocks AML.T0051, AML.T0054
+         │
+Layer 2: Content Summary First   ────► Mitigates AML.T0043 (Adversarial Data)
+         │
+Layer 1: Source Classification   ────► Identifies AML.T0043, AML.T0040
+```
+
+### Attack Surface by Risk Level
+
+**HIGH RISK Skills** (External documents):
+- Exposed to: AML.T0051, AML.T0043, AML.T0054, AML.T0024
+- Defense: All 5 layers required
+
+**MEDIUM RISK Skills** (Controlled external content):
+- Exposed to: AML.T0051, AML.T0054
+- Defense: Layers 3-4 required
+
+**LOW RISK Skills** (Trusted structured sources):
+- Exposed to: AML.T0040
+- Defense: Source validation required
+
+**ZERO RISK Skills** (Git-controlled files):
+- Exposed to: None (trust model assumes version control)
+- Defense: Standard git security practices
+
+---
+
 ## Incident Response Reference
 
 If injection suspected:
@@ -229,6 +276,19 @@ If injection suspected:
 3. **Alert** - Notify user with details
 4. **Rollback** - Use git to restore if changes made
 5. **Review** - Analyze attack pattern for future prevention
+6. **Update** - Add detection patterns to Layer 5
+
+**Incident Log Format**:
+```markdown
+**Incident**: [YYYY-MM-DD]-[number]
+**Severity**: CRITICAL | HIGH | MEDIUM | LOW
+**Skill**: [affected skill name]
+**ATLAS Technique**: [AML.Txxxx]
+**Detection**: [how discovered]
+**Pattern**: [attack technique details]
+**Action**: [response taken]
+**Prevention**: [changes to prevent recurrence]
+```
 
 ---
 
