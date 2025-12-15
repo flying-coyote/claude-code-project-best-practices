@@ -184,6 +184,22 @@ These community repositories provide additional examples and inspiration for Cla
   - Multi-LLM support (Claude, GPT-4, Gemini)
 - **Relevance**: Reference implementation for Claude Code in security automation, demonstrates modular security tool integration with AI reasoning
 
+### Claude Code Templates (aitmpl.com)
+- **Author**: Daniel Avila (davila7)
+- **URL**: https://github.com/davila7/claude-code-templates
+- **Website**: https://www.aitmpl.com
+- **NPM**: https://www.npmjs.com/package/claude-code-templates
+- **Description**: CLI tool providing 400+ ready-to-use components for Claude Code including 100+ agents, 159+ commands, hooks, MCPs, and project templates
+- **Key Features**:
+  - Pre-built agents for common workflows (frontend-developer, code-reviewer, security-auditor)
+  - MCP integrations for GitHub, PostgreSQL, Stripe, AWS
+  - Progressive disclosure skills for PDF/Excel workflows
+  - Analytics dashboard and conversation monitoring tools
+  - Component attribution from wshobson/agents (48 agents, MIT) and awesome-claude-code (21 commands)
+- **Installation**: `npx claude-code-templates@latest`
+- **Stars**: 12.6k+ (as of Dec 2025)
+- **Relevance**: Ready-to-use implementations of patterns documented in this repository; complementary resource for users who want pre-built components rather than building from scratch
+
 ### Anthropic Official Skills Examples
 - **URL**: https://github.com/anthropics/skills
 - **Description**: Official skill examples from Anthropic

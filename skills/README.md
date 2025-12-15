@@ -297,8 +297,33 @@ allowed-tools: Read, Grep, Glob, Bash, Write, Edit  # Can modify
 - Documentation standards
 - Presentation patterns
 
+## Pre-Built Skills & Components
+
+If you prefer ready-to-use implementations over building from scratch, **[claude-code-templates](https://github.com/davila7/claude-code-templates)** provides 400+ components:
+
+```bash
+# Interactive setup
+npx claude-code-templates@latest
+
+# Install specific agents
+npx claude-code-templates@latest --agent development-team/frontend-developer --yes
+npx claude-code-templates@latest --agent development-tools/code-reviewer --yes
+
+# Browse components at https://www.aitmpl.com
+```
+
+| Component | Count | Examples |
+|-----------|-------|----------|
+| Agents | 100+ | frontend-developer, code-reviewer, security-auditor |
+| Commands | 159+ | /generate-tests, /optimize-bundle |
+| MCPs | Multiple | GitHub, PostgreSQL, Stripe, AWS |
+| Hooks | Multiple | Pre-commit validation |
+
+This complements the patterns in this repository - we teach the **why** and **how**, claude-code-templates provides **ready-made** implementations.
+
 ## Further Reading
 
 - [Anthropic Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
 - [Example Skills in this repo](examples/)
 - [DECISIONS.md](../DECISIONS.md) for design rationale
+- [claude-code-templates](https://github.com/davila7/claude-code-templates) for pre-built components
