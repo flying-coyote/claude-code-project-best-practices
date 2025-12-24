@@ -48,6 +48,7 @@ Ask the user:
 1. "What is the name of this project?" (suggest the directory name as default)
 2. "In 1-2 sentences, what is this project's purpose?"
 3. "Do you want a session-start hook? This shows git status and recent commits when you start Claude Code sessions. [Recommended: Yes]"
+4. "Do you have repeatable workflows that Claude should follow consistently? (e.g., debugging methodology, code review process, deployment checklist) [If yes, we'll create skills for them]"
 
 ### Step 4: Create the Infrastructure
 
@@ -207,11 +208,28 @@ Recommend:
 2. Start a new Claude Code session to see the hook in action (if installed)
 3. Consider adding a `.claude/settings.local.json` for tool permissions
 
+### Step 7: Explain Extension Options
+
+Briefly explain the extension mechanisms available for future customization:
+
+"As your project evolves, you can extend Claude Code with:
+
+| Need | Solution | Location |
+|------|----------|----------|
+| Repeatable methodologies | **Skill** | `.claude/skills/` |
+| User-initiated actions | **Slash Command** | `.claude/commands/` |
+| External API/database access | **MCP Server** | Configure in `settings.json` |
+| Automatic enforcement | **Hook** | `.claude/hooks/` |
+| Team distribution | **Plugin** | Package all of the above |
+
+**Quick decision**: If it's a *methodology* Claude should follow → Skill. If it needs *external data* → MCP."
+
 ---
 
 ## Reference
 
 For more information, see:
 - Full documentation: https://github.com/flying-coyote/claude-code-project-best-practices
+- Extension mechanisms guide: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/patterns/plugins-and-extensions.md
 - Design decisions: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/DECISIONS.md
 - Pattern sources: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/SOURCES.md
