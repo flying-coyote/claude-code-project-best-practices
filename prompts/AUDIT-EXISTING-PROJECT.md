@@ -27,6 +27,15 @@ cat .claude/CLAUDE.md 2>/dev/null || echo "No CLAUDE.md"
 # Check for hooks
 ls -la .claude/hooks/ 2>/dev/null || echo "No hooks directory"
 
+# Check for skills
+ls -la .claude/skills/ 2>/dev/null || echo "No skills directory"
+
+# Check for commands (slash commands)
+ls -la .claude/commands/ 2>/dev/null || echo "No commands directory"
+
+# Check for MCP configuration
+cat .claude/settings.json 2>/dev/null | grep -A5 "mcpServers" || echo "No MCP servers configured"
+
 # Check git status
 git status 2>/dev/null || echo "Not a git repository"
 ```
@@ -58,6 +67,9 @@ Create a report with this structure:
 | CLAUDE.md | ✅ Present / ❌ Missing / ⚠️ Incomplete | |
 | settings.json | ✅ Present / ❌ Missing | |
 | Session hook | ✅ Present / ❌ Missing | |
+| Skills | ✅ Present / ❌ None | Count if present |
+| Slash commands | ✅ Present / ❌ None | Count if present |
+| MCP servers | ✅ Configured / ❌ None | List if present |
 | Git repository | ✅ Yes / ❌ No | |
 
 ### Recommendations
@@ -90,6 +102,30 @@ Check for these best practices:
 #### Settings Configuration
 - [ ] Hooks are properly configured
 - [ ] Permissions are appropriately scoped (if settings.local.json exists)
+
+#### Extension Mechanisms (if present)
+
+Evaluate whether the right extension mechanism is used for each need:
+
+| Need | Recommended | Check |
+|------|-------------|-------|
+| External API/database access | MCP Server | Is MCP used appropriately? |
+| Repeatable methodologies | Skill | Are skills focused and context-aware? |
+| User-initiated actions | Slash Command | Are commands explicit and discoverable? |
+| Automatic enforcement | Hook | Are hooks non-blocking and scoped? |
+| Team distribution | Plugin | Is plugin versioned and documented? |
+
+**Skills Review** (if present):
+- [ ] Each skill is focused (one methodology per skill)
+- [ ] Descriptions are third-person (required for auto-activation)
+- [ ] "DO NOT ACTIVATE" conditions are documented
+- [ ] allowed-tools are appropriately scoped
+
+**MCP Review** (if present):
+- [ ] MCP is used for connectivity, not methodology
+- [ ] Not placed in latency-sensitive paths
+- [ ] Minimal permissions per server
+- [ ] Known/trusted sources only
 
 #### Project-Specific Concerns
 
@@ -124,18 +160,27 @@ Rank recommendations by impact:
 
 **Low Priority** (nice to have):
 - Could add more context
-- Could add slash commands
-- Could add project-specific skills
+- Could add slash commands for common workflows
+- Could add project-specific skills for repeatable methodologies
+- Could add MCP servers for external integrations
+
+**Extension Mechanism Misuse** (fix if found):
+- Skill used where MCP needed (external data access)
+- MCP used where Skill needed (teaching methodology)
+- Hook doing what should be a Skill (complex analysis)
+- Slash command that should auto-activate (make it a Skill instead)
 
 ### Step 6: Offer to Implement
 
 After presenting the report, ask:
 
 "Would you like me to implement any of these recommendations? I can:
-1. Create missing files
+1. Create missing core files (CLAUDE.md, settings.json)
 2. Update existing CLAUDE.md
 3. Add session hook
-4. All of the above
+4. Create a skill for a repeatable workflow you have
+5. Add a slash command for a common action
+6. All core infrastructure (options 1-3)
 
 Which would you like me to do?"
 
@@ -209,5 +254,6 @@ exit 0
 
 For more information, see:
 - Full documentation: https://github.com/flying-coyote/claude-code-project-best-practices
+- Extension mechanisms guide: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/patterns/plugins-and-extensions.md
 - Design decisions: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/DECISIONS.md
 - Pattern sources: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/SOURCES.md
