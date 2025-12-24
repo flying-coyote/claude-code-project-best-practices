@@ -208,7 +208,20 @@ These community repositories provide additional examples and inspiration for Cla
 ### Simon Willison's Analysis
 - **URL**: https://simonwillison.net/2025/Oct/16/claude-skills/
 - **Description**: Technical analysis of Claude skills system
-- **Relevance**: Deep dive into how skills work and best practices
+- **Relevance**: Deep dive into how skills work and best practices; key insight that skills may be bigger than MCP due to simplicity
+
+### Plugins and Extensions Comparison Sources
+- **IntuitionLabs**: https://intuitionlabs.ai/articles/claude-skills-vs-mcp
+  - Technical comparison of Skills vs MCP
+  - Key insight: "MCP provides connectivity; Skills provide methodology"
+- **alexop.dev**: https://alexop.dev/posts/understanding-claude-code-full-stack/
+  - Full stack explanation: MCP, Skills, Subagents, Hooks
+  - Decision framework for when to use each extension mechanism
+- **Composio**: https://composio.dev/blog/claude-code-plugin
+  - Practical guide to Claude Code plugins
+  - Plugin structure and best practices
+- **awesome-claude-code-plugins**: https://github.com/ccplugins/awesome-claude-code-plugins
+  - Curated list of community plugins, slash commands, subagents, MCP servers, hooks
 
 ### Security-Specific Sources
 - **MITRE ATT&CK**: https://attack.mitre.org/

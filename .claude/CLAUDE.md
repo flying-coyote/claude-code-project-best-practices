@@ -45,6 +45,7 @@ All content must:
 - `advanced-hooks.md` - PostToolUse, Stop hooks
 - `documentation-maintenance.md` - ARCH/PLAN/INDEX trio
 - `memory-architecture.md` - Lifecycle-based memory
+- `plugins-and-extensions.md` - Plugin vs skill vs MCP decision framework
 
 ## Skills Directory
 
