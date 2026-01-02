@@ -1,78 +1,103 @@
 # Plan
 
 **Purpose**: Current priorities, immediate next actions, success metrics
-**Last Updated**: December 8, 2025
+**Last Updated**: January 2, 2026
 
 ---
 
 ## Current Focus
 
-**Phase**: Self-compliance completion
-**Goal**: Make this repo fully follow its own documented patterns
+**Phase**: v1.3 Maintenance + Pattern Expansion
+**Goal**: Maintain documentation currency, address practical gaps
 
 ---
 
-## Recent Accomplishments
+## Current Status
 
-### December 8, 2025
-- [x] Added 4 new patterns from production validation
-  - progressive-disclosure.md
-  - advanced-hooks.md
-  - documentation-maintenance.md
-  - memory-architecture.md
-- [x] Created meta-project infrastructure (.claude/)
-- [x] Added security guidelines for skills
-- [x] Updated SKILL-TEMPLATE.md with Workflow Routing + Security
-- [x] Created ARCHITECTURE.md
-- [x] Created PLAN.md
-- [x] Added PostToolUse and Stop hooks
-- [x] Created INDEX.md automation
+The repository is stable and production-ready. Key metrics achieved:
 
-### December 7, 2025
-- [x] Added Nate B. Jones patterns (context-engineering, agent-principles, mcp-failure-modes)
-- [x] Fixed broken URL in SOURCES.md
-- [x] Expanded SOURCES.md with article mapping
+| Metric | Status |
+|--------|--------|
+| Patterns | 17 documented |
+| Skills | 9 examples |
+| Self-compliance | 100% |
+| Source attribution | 100% |
+| Total documents | 48 |
+
+See [ARCHIVE.md](ARCHIVE.md) for completed milestones.
 
 ---
 
 ## Current Priorities
 
 ### High Priority
-1. **Validation**: Test all patterns on this repo itself
-2. **Documentation**: Ensure all new patterns have examples
+
+| Item | Effort | Status |
+|------|--------|--------|
+| Keep ARCHITECTURE.md current with directory structure | Low | 🔄 Ongoing |
+| Monitor Anthropic Engineering Blog for new patterns | Low | 🔄 Weekly |
+| Review community sources per cadence in SOURCES.md | Low | 🔄 Monthly |
 
 ### Medium Priority
-3. **Examples**: Update example projects with new patterns
-4. **Community**: Consider accepting contributions
+
+| Item | Effort | Notes |
+|------|--------|-------|
+| Add troubleshooting/FAQ section | Medium | Common issues from production use |
+| Refresh example projects | Medium | Ensure alignment with 17 patterns |
+| Add pattern quality checklist | Low | Practical validation tool |
 
 ### Low Priority
-5. **Automation**: Add more hook patterns
-6. **Testing**: Create pattern validation tests
+
+| Item | Effort | Notes |
+|------|--------|-------|
+| Cross-project skill deployment docs | High | Gather use cases first |
+| Consider MCP server for patterns | High | Needs design decisions |
 
 ---
 
 ## Backlog
 
-- [ ] Add Fabric pattern integration guide
-- [ ] Document cross-project skill deployment in detail
-- [ ] Create video walkthrough of setup process
-- [ ] Add troubleshooting guide for common issues
-- [ ] Consider MCP server for pattern lookup
+Items to consider when capacity allows:
+
+- [ ] Troubleshooting guide for common setup issues
+- [ ] Pattern quality checklist (replaces vague "testing" goal)
+- [ ] Refresh example projects to match current 17 patterns
+- [ ] Document cross-project skill deployment (when use cases emerge)
 
 ---
 
-## Success Metrics
+## Deferred Items
 
-| Metric | Target | Current |
-|--------|--------|---------|
-| Patterns documented | 10+ | 10 |
-| Example skills | 8+ | 8 |
-| Self-compliance | 100% | 100% |
-| Source attribution | 100% | 100% |
+These were evaluated and consciously deferred (see [ARCHIVE.md](ARCHIVE.md)):
+
+| Item | Reason |
+|------|--------|
+| MCP server for pattern lookup | Prerequisites: transport protocol, operations, hosting |
+| Video walkthrough | Out of scope (requires external infrastructure) |
+| Fabric integration guide | Low priority (Tier C source) |
+
+---
+
+## Open Questions
+
+| Question | Context |
+|----------|---------|
+| What should "pattern validation" mean? | Options: Markdown linting, link checking, human review checklist, or automated tests |
+| What use cases exist for cross-project sync? | Need community feedback before designing |
+
+---
+
+## Review Cadence
+
+| Source Type | Frequency | Next Review |
+|-------------|-----------|-------------|
+| Anthropic Engineering Blog | Weekly | Ongoing |
+| awesome-claude-code lists | Monthly | Feb 2026 |
+| SDD frameworks (Spec Kit, BMAD) | Quarterly | Apr 2026 |
 
 ---
 
 ## Next Review
 
-**When**: After next pattern addition
-**Focus**: Validate new patterns work in practice
+**When**: After next pattern addition or monthly (Feb 2026)
+**Focus**: Check for new Anthropic patterns, community feedback
