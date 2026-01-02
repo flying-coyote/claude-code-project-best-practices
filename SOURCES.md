@@ -248,6 +248,55 @@ These individuals have developed principled methodologies for AI-assisted develo
   - Orchestrator pattern informs [Subagent Orchestration](patterns/subagent-orchestration.md)
 - **Evidence Tier**: A (Principled methodology with open-source implementations, production-validated across thousands of engineers)
 
+### Aniket Panjwani - Plan-Then-Act & Domain Knowledge Embedding
+- **Author**: Dr. Aniket Panjwani (@aniketapanjwani)
+- **Twitter/X**: https://x.com/aniketapanjwani
+- **Website**: https://aniketpanjwani.com
+- **Newsletter**: [Content Quant](https://contentquant.io/)
+- **LinkedIn**: https://www.linkedin.com/in/aniket-a-panjwani/
+- **Description**: PhD Economics (Northwestern), Senior MLOps Engineer at Early Warning Services (Zelle). Rare combination of academic research methodology + production ML engineering. Demonstrates Claude Code best practices for both software development and knowledge work (research, content creation).
+
+#### Core Framework: Plan-Then-Act + Domain Skills
+
+| Concept | Purpose | SDD Alignment |
+|---------|---------|---------------|
+| **Plan-Then-Act** | Break work into plan step + action step | = Specify → Implement phases |
+| **Domain Skills** | Embed expertise into reusable Claude skills | = Specify phase (knowledge as context) |
+| **Phase-Based Skills** | Separate skills per workflow phase (research → write → polish) | = Tasks phase decomposition |
+| **Selective MCP Loading** | Enable MCPs per-project to manage context | = Context engineering |
+
+#### The 5 Tips Framework
+
+From his [viral X thread](https://x.com/aniketapanjwani/status/1999487999604605345):
+
+1. **Use /plan** - "One of the keys to success with agentic coding is to break up whatever you're doing into a plan step and an action step."
+2. **Use voice input** (Superwhisper) - Speak faster than type; Claude Code handles stream-of-consciousness
+3. **Selective MCPs** - Each MCP consumes context; enable only what's needed per project
+4. **Use plugins/skills** - Extensibility through skills is why Claude Code leads
+5. **YOLO mode** (`--dangerously-skip-permissions`) - "The real magic of Claude Code is just letting it cook"
+
+#### Key Insights
+
+- **"Claude Code is the future of social science"** - Skills and subagents allow researchers to embed domain knowledge productively
+- **Non-coding applications** - Automated research/creation/polishing workflows for local newsletters in 5-10 minutes using distinct skills per phase
+- **For social science workflows** (EDA, regressions, causal analysis) - Claude Code and Codex are "far superior to Cursor"
+
+#### Production Validation
+
+| Project | Description | Relevance |
+|---------|-------------|-----------|
+| Payload CMS Newsletter Plugin | Built entirely with Claude Code | Production validation of agentic coding |
+| Local CMS | AI-powered SaaS for local media | Real-world AI product |
+| Custom MCP Server | Autonomous content creation pipeline | MCP implementation example |
+| Zelle Fraud Detection | ML pipelines catching millions in fraud | Enterprise-scale ML engineering |
+
+- **Influence on This Repo**:
+  - Plan-then-act validates SDD's Specify→Implement flow from practitioner perspective
+  - Domain knowledge embedding documented in [Skills for Domain Knowledge](patterns/skills-domain-knowledge.md)
+  - Phase-based skill separation reinforces progressive disclosure pattern
+  - Non-engineering use cases validate SDD for knowledge work beyond software
+- **Evidence Tier**: A (PhD research rigor + production ML engineering + actionable best practices with measured outcomes)
+
 ---
 
 ## Foundational Influences (Tier B)

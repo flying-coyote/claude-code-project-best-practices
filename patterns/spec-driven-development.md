@@ -58,6 +58,7 @@ Execute tasks according to established plan and specifications.
 | Pattern | SDD Phase | What It Implements |
 |---------|-----------|-------------------|
 | [Planning-First Development](./planning-first-development.md) | Specify + Plan | "Great Planning is Great Prompting" principle |
+| [Skills for Domain Knowledge](./skills-domain-knowledge.md) | Specify | Domain expertise as deterministic context |
 | [Context Engineering](./context-engineering.md) | Specify | Specs as deterministic context |
 | [Documentation Maintenance](./documentation-maintenance.md) | Plan | ARCH/PLAN/INDEX as spec artifacts |
 | [Long-Running Agent](./long-running-agent.md) | Tasks + Implement | External artifacts, one feature at a time |
