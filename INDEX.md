@@ -1,6 +1,6 @@
 # Index
 
-*Auto-generated: 2026-01-02 05:28*
+*Auto-generated: 2026-01-02 05:41*
 
 ## Summary
 
@@ -36,15 +36,54 @@
 - [PLAN.md](PLAN.md)
 - [README.md](README.md)
 - [SOURCES.md](SOURCES.md)
+## Skills
+
+- [QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)
+- [README.md](skills/README.md)
+- [SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)
+- [SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)
+## Skills / Examples / Research-Extractor
+
+- [SKILL.md](skills/examples/research-extractor/SKILL.md)
+## Skills / Examples / Content-Reviewer
+
+- [SKILL.md](skills/examples/content-reviewer/SKILL.md)
+## Skills / Examples / Ultrathink-Analyst
+
+- [SKILL.md](skills/examples/ultrathink-analyst/SKILL.md)
+## Skills / Examples / Ultrathink-Analyst / Workflows
+
+- [analyze-deep-investigation.md](skills/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
+- [frame-problem-definition.md](skills/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
+- [synthesize-integration.md](skills/examples/ultrathink-analyst/workflows/synthesize-integration.md)
+## Skills / Examples / Systematic-Debugger
+
+- [SKILL.md](skills/examples/systematic-debugger/SKILL.md)
+## Skills / Examples / Hypothesis-Validator
+
+- [SKILL.md](skills/examples/hypothesis-validator/SKILL.md)
+## Skills / Examples / Git-Workflow-Helper
+
+- [SKILL.md](skills/examples/git-workflow-helper/SKILL.md)
+## Skills / Examples / Tdd-Enforcer
+
+- [SKILL.md](skills/examples/tdd-enforcer/SKILL.md)
+## Skills / Examples / Detection-Rule-Reviewer
+
+- [SKILL.md](skills/examples/detection-rule-reviewer/SKILL.md)
+## Skills / Examples / Threat-Model-Reviewer
+
+- [SKILL.md](skills/examples/threat-model-reviewer/SKILL.md)
+## Prompts
+
+- [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
+- [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
 ## Presets
 
 - [coding.md](presets/coding.md)
 - [hybrid.md](presets/hybrid.md)
 - [research.md](presets/research.md)
 - [writing.md](presets/writing.md)
-## Templates
-
-- [ADR-TEMPLATE.md](templates/ADR-TEMPLATE.md)
 ## Patterns
 
 - [advanced-hooks.md](patterns/advanced-hooks.md)
@@ -61,48 +100,9 @@
 - [plugins-and-extensions.md](patterns/plugins-and-extensions.md)
 - [progressive-disclosure.md](patterns/progressive-disclosure.md)
 - [spec-driven-development.md](patterns/spec-driven-development.md)
-## Skills
+## Templates
 
-- [QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)
-- [README.md](skills/README.md)
-- [SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)
-- [SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)
-## Skills / Examples / Ultrathink-Analyst
-
-- [SKILL.md](skills/examples/ultrathink-analyst/SKILL.md)
-## Skills / Examples / Ultrathink-Analyst / Workflows
-
-- [analyze-deep-investigation.md](skills/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
-- [frame-problem-definition.md](skills/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
-- [synthesize-integration.md](skills/examples/ultrathink-analyst/workflows/synthesize-integration.md)
-## Skills / Examples / Research-Extractor
-
-- [SKILL.md](skills/examples/research-extractor/SKILL.md)
-## Skills / Examples / Git-Workflow-Helper
-
-- [SKILL.md](skills/examples/git-workflow-helper/SKILL.md)
-## Skills / Examples / Hypothesis-Validator
-
-- [SKILL.md](skills/examples/hypothesis-validator/SKILL.md)
-## Skills / Examples / Content-Reviewer
-
-- [SKILL.md](skills/examples/content-reviewer/SKILL.md)
-## Skills / Examples / Systematic-Debugger
-
-- [SKILL.md](skills/examples/systematic-debugger/SKILL.md)
-## Skills / Examples / Threat-Model-Reviewer
-
-- [SKILL.md](skills/examples/threat-model-reviewer/SKILL.md)
-## Skills / Examples / Detection-Rule-Reviewer
-
-- [SKILL.md](skills/examples/detection-rule-reviewer/SKILL.md)
-## Skills / Examples / Tdd-Enforcer
-
-- [SKILL.md](skills/examples/tdd-enforcer/SKILL.md)
-## Prompts
-
-- [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
-- [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
+- [ADR-TEMPLATE.md](templates/ADR-TEMPLATE.md)
 
 ---
 
