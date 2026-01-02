@@ -1,38 +1,40 @@
-# Claude Code Project Best Practices
+# AI-Driven Development Best Practices
 
-A curated collection of patterns and prompts for building excellent Claude Code projects.
+A curated collection of patterns and prompts for AI-driven software development, using Claude Code as the primary implementation context.
+
+**Methodology**: We adopt [spec-driven development (SDD)](patterns/spec-driven-development.md) as our foundational approach, aligned with industry standards like [GitHub Spec Kit](https://github.com/github/spec-kit) and [agentskills.io](https://agentskills.io).
 
 ## The Problem
 
-When you start a new project with Claude Code, or work on an existing one, Claude has no memory of:
-- What this project is about
-- Your quality standards and conventions
-- The current state of work
-- What happened in previous sessions
-
-Each session starts fresh. This leads to:
-- Repeated explanations of project context
-- Inconsistent code quality and conventions
-- Lost context between sessions
-- Wasted time re-establishing understanding
+When you use AI coding agents without structure:
+- Inconsistent results across sessions
+- Context loss in complex features
+- "Works but wrong" implementations
+- Difficult to maintain or extend
+- Poor team coordination
 
 ## The Solution
 
-A **project foundation** that gives Claude persistent context through a `.claude/` directory containing:
+A **spec-driven approach** that gives AI agents persistent context through structured artifacts:
 
 ```
 your-project/
-└── .claude/
-    ├── CLAUDE.md           # Project context Claude reads every session
-    ├── settings.json       # Hook configurations (optional)
-    ├── hooks/              # Automation scripts (optional)
-    │   └── session-start.sh
-    └── skills/             # Project-specific skills (optional)
-        └── my-skill/
-            └── SKILL.md
+├── specs/                  # Feature specifications (Specify phase)
+├── ARCHITECTURE.md         # System design (Plan phase)
+├── PLAN.md                 # Current priorities (Tasks phase)
+└── .claude/                # Claude Code implementation
+    ├── CLAUDE.md           # Project context
+    ├── settings.json       # Hook configurations
+    ├── hooks/              # Automation scripts
+    ├── commands/           # Slash commands
+    └── skills/             # Reusable methodologies
 ```
 
-This approach is based on Anthropic's own engineering patterns for long-running agents.
+This approach implements the **4-phase SDD model**:
+1. **Specify** → Define what to build (CLAUDE.md, specs/)
+2. **Plan** → Technical design (ARCHITECTURE.md, DECISIONS.md)
+3. **Tasks** → Break down work (PLAN.md, TodoWrite)
+4. **Implement** → Execute with context (skills, hooks, one feature at a time)
 
 ## Quick Start
 
@@ -70,24 +72,43 @@ Project-type configurations with appropriate defaults:
 - **[research.md](presets/research.md)** - Analysis projects (evidence tiers, hypotheses)
 - **[hybrid.md](presets/hybrid.md)** - Mixed-purpose projects
 
-### Patterns
+### Patterns (by SDD Phase)
 
-Core implementation patterns documented with evidence tiers:
+Core implementation patterns organized by the spec-driven development phase they support:
 
-| Pattern | Use When | Key Insight | Source |
-|---------|----------|-------------|--------|
-| [Long-Running Agent](patterns/long-running-agent.md) | Starting project | External artifacts as memory | Anthropic |
-| [Context Engineering](patterns/context-engineering.md) | Structuring context | Correctness > compression | Nate B. Jones |
-| [Agent Principles](patterns/agent-principles.md) | Building production AI | 6 principles for reliability | Nate B. Jones |
-| [MCP Failure Modes](patterns/mcp-failure-modes.md) | Integrating MCP servers | 7 failure modes + 3 patterns | Nate B. Jones |
-| [Advanced Tool Use](patterns/advanced-tool-use.md) | Optimizing token usage | Tool search, programmatic calling | Anthropic |
-| [Evidence Tiers](patterns/evidence-tiers.md) | Managing citations | Dual tier system (A-D + 1-5) | Production |
-| [Confidence Scoring](patterns/confidence-scoring.md) | Hypothesis validation | HIGH/MEDIUM/LOW with evidence mapping | Production |
-| [Progressive Disclosure](patterns/progressive-disclosure.md) | Large skills (200+ lines) | 3-tier architecture, 73% token savings | Production |
-| [Advanced Hooks](patterns/advanced-hooks.md) | Automating workflows | PostToolUse, Stop hooks | Production |
-| [Documentation Maintenance](patterns/documentation-maintenance.md) | Keeping docs current | ARCH/PLAN/INDEX trio | Production |
-| [Memory Architecture](patterns/memory-architecture.md) | Context lifecycle | 4-tier memory model | Nate B. Jones |
-| [Architecture Decision Records](patterns/architecture-decision-records.md) | Documenting decisions | Why decisions were made, not just what | Software Eng |
+#### Foundational
+| Pattern | Key Insight | Source |
+|---------|-------------|--------|
+| [Spec-Driven Development](patterns/spec-driven-development.md) | 4-phase model: Specify→Plan→Tasks→Implement | GitHub Spec Kit |
+
+#### Specify Phase
+| Pattern | Key Insight | Source |
+|---------|-------------|--------|
+| [Context Engineering](patterns/context-engineering.md) | Specs as deterministic context; correctness > compression | Nate B. Jones |
+| [Memory Architecture](patterns/memory-architecture.md) | 4-tier lifecycle model for information management | Nate B. Jones |
+
+#### Plan Phase
+| Pattern | Key Insight | Source |
+|---------|-------------|--------|
+| [Documentation Maintenance](patterns/documentation-maintenance.md) | ARCH/PLAN/INDEX trio as spec artifacts | Production |
+| [Architecture Decision Records](patterns/architecture-decision-records.md) | Document why, not just what | Software Eng |
+| [Evidence Tiers](patterns/evidence-tiers.md) | Dual tier system (A-D + 1-5) for claims | Production |
+
+#### Tasks + Implement Phase
+| Pattern | Key Insight | Source |
+|---------|-------------|--------|
+| [Long-Running Agent](patterns/long-running-agent.md) | External artifacts as memory; one feature at a time | Anthropic |
+| [Progressive Disclosure](patterns/progressive-disclosure.md) | 3-tier architecture; 73% token savings | Production |
+| [Advanced Hooks](patterns/advanced-hooks.md) | PreToolUse, PostToolUse, Stop hooks for quality gates | Production |
+| [Advanced Tool Use](patterns/advanced-tool-use.md) | Tool search, programmatic calling | Anthropic |
+
+#### Cross-Phase
+| Pattern | Key Insight | Source |
+|---------|-------------|--------|
+| [Agent Principles](patterns/agent-principles.md) | 6 principles for production AI reliability | Nate B. Jones |
+| [MCP Failure Modes](patterns/mcp-failure-modes.md) | 7 failure modes + OWASP security guidance | Nate B. Jones + OWASP |
+| [Plugins and Extensions](patterns/plugins-and-extensions.md) | When to use Skills vs MCP vs Hooks vs Commands | Production |
+| [Confidence Scoring](patterns/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework | Production |
 
 ### Skills
 Reusable AI behavior patterns:
@@ -113,26 +134,30 @@ Complete `.claude/` directories you can reference:
 
 ## Core Principles
 
-### 1. Context is King
-Claude works better when it understands your project. A good `CLAUDE.md` file provides:
-- Project purpose (what and why)
-- Current phase (where we are)
-- Quality standards (how we work)
-- Conventions (consistency rules)
+### 1. Specify Before Implement
+The SDD 4-phase model ensures clarity before code:
+- **Specify**: What are we building and why?
+- **Plan**: How will we build it?
+- **Tasks**: What are the concrete steps?
+- **Implement**: Execute with full context
 
 ### 2. External Artifacts as Memory
 From Anthropic's engineering blog:
 > "External artifacts become the agent's memory. Progress files, git history, and structured feature lists persist across sessions."
 
-### 3. Verify Before Work
-The session-start hook implements Anthropic's "verify before work" pattern:
-- Check for uncommitted changes
-- Show recent commits for context
-- Surface any in-progress work
-- Prevent starting with broken state
+Specs, architecture docs, and task files bridge session boundaries.
 
-### 4. Minimal by Default
-Start with just `CLAUDE.md`. Add hooks only if you need them. Don't over-engineer.
+### 3. Scale Rigor to Complexity
+- **Simple bug fix**: Skip to Tasks phase, brief spec in commit message
+- **Small feature (<1 day)**: Combine Specify+Plan, then implement
+- **Complex feature**: Full 4-phase workflow with specs/
+- **Exploratory work**: "Vibe code" first, retrofit specs if keeping
+
+### 4. Cross-Platform Awareness
+These patterns work across AI coding tools:
+- Skills follow [agentskills.io](https://agentskills.io) open standard (Claude, Codex, Cursor, etc.)
+- SDD methodology applies to any AI coding agent
+- Claude Code is our implementation context, not the only option
 
 ## Why This Approach?
 
@@ -146,12 +171,18 @@ See **[DECISIONS.md](DECISIONS.md)** for detailed reasoning on:
 
 See **[SOURCES.md](SOURCES.md)** for all references, including:
 - Anthropic Engineering Blog posts
-- Claude Code documentation
+- Industry standards (GitHub Spec Kit, agentskills.io, OWASP MCP Guide)
 - Production validation from real projects
 
-**Foundational influences on this repo's design:**
-- **[Daniel Miessler's Fabric](https://github.com/danielmiessler/fabric)** - The IDENTITY/GOAL/STEPS/OUTPUT pattern structure and "scaffolding > models" philosophy
-- **[Nate B. Jones's Memory Prompts](https://natesnewsletter.substack.com)** - Context lifecycle management and retrieval strategy patterns
+**Aligned standards:**
+- **[GitHub Spec Kit](https://github.com/github/spec-kit)** - 4-phase SDD model (59K+ stars)
+- **[agentskills.io](https://agentskills.io)** - Open standard for cross-platform skills
+- **[OWASP MCP Security Guide](https://genai.owasp.org)** - MCP security best practices
+
+**Foundational influences:**
+- **[Daniel Miessler's Fabric](https://github.com/danielmiessler/fabric)** - Pattern structure and "scaffolding > models" philosophy
+- **[Nate B. Jones's Memory Prompts](https://natesnewsletter.substack.com)** - Context lifecycle management
+- **[BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD)** - Multi-agent architecture patterns
 
 ## Contributing
 

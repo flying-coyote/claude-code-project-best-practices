@@ -38,6 +38,74 @@ All patterns in this repository are derived from authoritative sources and produ
   - Slash commands structure
   - Skills system
 
+#### Context Engineering for AI Agents
+- **Title**: "Effective context engineering for AI agents"
+- **Source**: Anthropic Engineering Blog
+- **Date**: September 2025
+- **URL**: https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
+- **Key Insights**:
+  - Context engineering supersedes prompt engineering for agents
+  - Context rot: accuracy decreases as token count increases
+  - Iterative context curation during inference cycles
+  - 54% benchmark gains from scratchpad techniques
+- **Pattern**: [Context Engineering](patterns/context-engineering.md)
+
+#### Claude Code Sub-agents
+- **Source**: Anthropic Official Documentation
+- **URL**: https://docs.anthropic.com/en/docs/claude-code/sub-agents
+- **Key Insights**:
+  - Specialized subagent types (Explore, Plan, general-purpose)
+  - Parallel execution patterns
+  - Context isolation for fresh context windows
+- **Pattern**: [Subagent Orchestration](patterns/subagent-orchestration.md)
+
+#### Claude Code Hooks Reference
+- **Source**: Anthropic Official Documentation
+- **URL**: https://docs.anthropic.com/en/docs/claude-code/hooks
+- **Key Insights**:
+  - PreToolUse input modification (v2.0.10+)
+  - PostToolUse output formatting
+  - PermissionRequest hooks (v2.0.45+)
+  - SubagentStop and SessionEnd hooks
+- **Pattern**: [Advanced Hooks](patterns/advanced-hooks.md)
+
+### OWASP Security Standards
+
+#### OWASP MCP Top 10
+- **Source**: OWASP Foundation
+- **URL**: https://owasp.org/www-project-mcp-top-10/
+- **Date**: 2025
+- **Key Risks**:
+  - Tool poisoning and rug pull attacks
+  - Schema poisoning
+  - Memory poisoning
+  - Supply chain attacks
+- **Pattern**: [MCP Failure Modes](patterns/mcp-failure-modes.md)
+
+#### OWASP Guide for Securely Using Third-Party MCP Servers
+- **Source**: OWASP GenAI Security Project
+- **URL**: https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/
+- **Version**: 1.0 (October 2025)
+- **Contributors**: ServiceNow, IBM, Google, AWS, SAP, and others
+- **Key Insights**:
+  - Defense-in-depth checklist for MCP
+  - Server verification (version pinning, checksums)
+  - OAuth 2.1/OIDC authorization
+  - Trusted MCP registry governance
+- **Pattern**: [MCP Failure Modes](patterns/mcp-failure-modes.md)
+
+### Agent Skills Open Standard
+- **Title**: "Agent Skills Specification"
+- **Source**: Anthropic (open standard)
+- **URL**: https://agentskills.io/specification
+- **Repository**: https://github.com/anthropics/skills
+- **Key Insights**:
+  - Cross-platform skill format (Claude Code, Cursor, VS Code, Codex CLI)
+  - Required fields: name, description
+  - SKILL.md with YAML frontmatter
+  - Progressive disclosure via directory structure
+- **Pattern**: [SKILL-TEMPLATE](skills/SKILL-TEMPLATE.md)
+
 ---
 
 ## Secondary Sources (Tier B)
@@ -71,11 +139,11 @@ All patterns in this repository are derived from authoritative sources and produ
 
 ---
 
-## Spec-Driven Development Frameworks (Tier B)
+## Spec-Driven Development Standards (Tier A)
 
-These frameworks represent the emerging discipline of spec-driven development for AI coding agents:
+These represent the industry-standard methodologies for AI-driven development that this repository adopts:
 
-### GitHub Spec Kit
+### GitHub Spec Kit (Foundational)
 - **Author**: GitHub
 - **URL**: https://github.com/github/spec-kit
 - **Stars**: 59,000+ (as of Jan 2026)
@@ -86,7 +154,7 @@ These frameworks represent the emerging discipline of spec-driven development fo
   - Constitution command for project governing principles
   - Supports 16+ coding agents including Claude Code
 - **Pattern**: [Spec-Driven Development](patterns/spec-driven-development.md)
-- **Evidence Tier**: B (Major vendor, widely adopted)
+- **Evidence Tier**: A (Industry standard - 59K+ stars, adopted by this repository as foundational methodology)
 
 ### BMAD Method
 - **Author**: Brian (BMad) Madison
@@ -451,7 +519,8 @@ This repository uses a tiered evidence system:
 
 ### Tier A: Primary Sources
 - Direct from Anthropic (engineering blog, documentation)
-- Official specifications and standards
+- Official specifications and standards (agentskills.io, OWASP)
+- Industry-standard frameworks (GitHub Spec Kit 59K+ stars)
 - First-party production data
 
 ### Tier B: Validated Secondary

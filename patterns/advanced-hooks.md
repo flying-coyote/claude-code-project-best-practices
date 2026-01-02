@@ -1,11 +1,31 @@
 # Advanced Hook Patterns
 
-**Source**: Production-validated patterns from 12+ projects
-**Evidence Tier**: B (Production validated with measured outcomes)
+**Source**: Production-validated patterns + [Claude Code Hooks Reference](https://docs.anthropic.com/en/docs/claude-code/hooks)
+**Evidence Tier**: A (Primary vendor documentation) + B (Production validated)
 
-## Beyond SessionStart
+## SDD Phase Alignment
 
-Most Claude Code users only implement SessionStart hooks. Advanced patterns leverage other hook types for powerful automation.
+**Phase**: Implement (quality gates, automation)
+
+Hooks enforce quality at implementation time:
+- **PreToolUse**: Validate/modify inputs before execution
+- **PostToolUse**: Verify/format outputs after execution
+- **Stop**: Ensure documentation/checkpoints before session end
+
+---
+
+## Hook Events Overview
+
+| Hook | When Fires | Can Block | Can Modify | Min Version |
+|------|-----------|-----------|------------|-------------|
+| **SessionStart** | Session begins | No | Context | - |
+| **PreToolUse** | Before tool execution | ✅ Yes | ✅ Inputs (v2.0.10+) | - |
+| **PostToolUse** | After tool completion | No | Output display | - |
+| **UserPromptSubmit** | User submits prompt | No | Prompt text | - |
+| **PermissionRequest** | Permission needed | ✅ Yes | Response | v2.0.45+ |
+| **Stop** | Agent finishes turn | ✅ Continue | - | - |
+| **SubagentStop** | Subagent finishes | No | - | v1.0.41+ |
+| **SessionEnd** | Session terminates | No | - | - |
 
 ---
 
@@ -15,9 +35,9 @@ Most Claude Code users only implement SessionStart hooks. Advanced patterns leve
 |------|-------|--------|----------|
 | **SessionStart** | HIGH | LOW | Context loading, environment setup |
 | **PostToolUse** | HIGH | MEDIUM | Auto-regeneration, validation |
+| **PreToolUse** | HIGH | MEDIUM | Input modification, security gates (v2.0.10+) |
 | **Stop** | MEDIUM | LOW | Documentation reminders |
 | **UserPromptSubmit** | MEDIUM | HIGH | Skill activation hints |
-| **PreToolUse** | LOW | LOW | Security gates |
 
 ---
 
@@ -252,18 +272,25 @@ sys.exit(0)
 
 ---
 
-## Hook 4: PreToolUse - Security Gate
+## Hook 4: PreToolUse - Security Gate and Input Modification
 
-**Purpose**: Block dangerous operations before execution
+**Purpose**: Block dangerous operations OR modify inputs before execution
 
 **When it fires**: Before any tool is executed
 
-**Use cases**:
-- Block `rm -rf /` and similar
-- Prevent accidental force pushes
-- Gate sensitive operations
+**Capabilities** (v2.0.10+):
+- **Block**: Return exit code 2 to prevent execution
+- **Modify**: Return JSON with `updatedInput` to change tool parameters
+- **Allow**: Return exit code 0 to proceed unchanged
 
-### Implementation
+**Use cases**:
+- Block `rm -rf /` and similar dangerous commands
+- Prevent accidental force pushes
+- Auto-add `--dry-run` flags to destructive operations
+- Enforce commit message conventions
+- Redirect file paths to sandboxed locations
+
+### Implementation: Security Gate (Block)
 
 `.claude/hooks/pre-tool-use-security.sh`:
 ```bash
@@ -286,6 +313,97 @@ if [ "$TOOL" = "Bash" ]; then
 fi
 
 exit 0  # Allow
+```
+
+### Implementation: Input Modification (v2.0.10+)
+
+`.claude/hooks/pre-tool-use-modify.py`:
+```python
+#!/usr/bin/env python3
+"""
+PreToolUse hook that modifies tool inputs before execution.
+Requires Claude Code v2.0.10+
+"""
+import json
+import sys
+
+try:
+    hook_input = json.load(sys.stdin)
+    tool = hook_input.get('tool', '')
+    params = hook_input.get('parameters', {})
+except:
+    sys.exit(0)  # Allow on parse error
+
+modified = False
+
+# Example: Auto-add dry-run to destructive git commands
+if tool == 'Bash':
+    command = params.get('command', '')
+
+    # Add --dry-run to git clean
+    if 'git clean' in command and '--dry-run' not in command:
+        params['command'] = command.replace('git clean', 'git clean --dry-run')
+        modified = True
+
+    # Enforce commit message format
+    if 'git commit -m' in command:
+        # Ensure conventional commit prefix
+        if not any(p in command for p in ['feat:', 'fix:', 'docs:', 'refactor:', 'test:', 'chore:']):
+            # Could block or auto-prefix - here we just warn
+            pass
+
+if modified:
+    # Return modified input
+    print(json.dumps({
+        "decision": "approve",
+        "reason": "Input modified for safety",
+        "updatedInput": {"parameters": params}
+    }))
+else:
+    # Allow unchanged
+    print(json.dumps({"decision": "approve"}))
+
+sys.exit(0)
+```
+
+### JSON Output Format
+
+Hooks can return JSON to control behavior:
+
+```json
+{
+  "decision": "approve|block|allow|deny",
+  "reason": "Explanation shown to Claude",
+  "updatedInput": {
+    "parameters": { "modified": "params" }
+  }
+}
+```
+
+| Field | Purpose |
+|-------|---------|
+| `decision` | `approve`/`allow` to proceed, `block`/`deny` to stop |
+| `reason` | Message shown to Claude when blocked |
+| `updatedInput` | Modified tool parameters (v2.0.10+) |
+
+### Configuration
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/hooks/pre-tool-use-modify.py"
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
 
 ---
@@ -350,3 +468,14 @@ Full `settings.json` with all hooks:
 
 - [Long-Running Agent](./long-running-agent.md) - Verify before work startup protocol
 - [Documentation Maintenance](./documentation-maintenance.md) - Three-document system
+- [Subagent Orchestration](./subagent-orchestration.md) - SubagentStop hook usage
+
+---
+
+## Sources
+
+- [Claude Code Hooks Reference](https://docs.anthropic.com/en/docs/claude-code/hooks)
+- [Claude Blog: How to Configure Hooks](https://claude.com/blog/how-to-configure-hooks)
+- Production validation from 12+ projects
+
+*Last updated: January 2026*
