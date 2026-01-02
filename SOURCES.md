@@ -195,6 +195,61 @@ These represent the industry-standard methodologies for AI-driven development th
 
 ---
 
+## Practitioner Educators (Tier A)
+
+These individuals have developed principled methodologies for AI-assisted development that directly inform this repository:
+
+### IndyDevDan (Dan Diemer) - Principled AI Coding Framework
+- **Author**: Dan Diemer (@IndyDevDan)
+- **GitHub**: https://github.com/disler
+- **YouTube**: https://youtube.com/@IndyDevDan
+- **Website**: https://agenticengineer.com
+- **Courses**:
+  - [Principled AI Coding (PAIC)](https://agenticengineer.com/principled-ai-coding) - Foundational principles
+  - [Tactical Agentic Coding (TAC)](https://agenticengineer.com/tactical-agentic-coding) - Advanced orchestration
+- **Description**: Seasoned software engineer (10+ years) and early GenAI adopter. Creator of the "Context-Prompt-Model" framework and "Great Planning is Great Prompting" principle. Teaches principles over tools, focusing on enduring concepts that survive tool churn.
+
+#### Core Framework: "The Big Three"
+
+| Pillar | Purpose | SDD Alignment |
+|--------|---------|---------------|
+| **Context** | Provide AI with information it needs for success | = Specify phase (specs as deterministic context) |
+| **Prompt** | Design precise queries that get accurate results | = Tasks phase (task specification) |
+| **Model** | Choose and leverage the right tools for tasks | = Implement phase (tool selection) |
+
+#### Key Principles
+
+1. **"Great Planning is Great Prompting"** - The core insight that planning effort directly improves AI output quality. Aligns with SDD's Specify→Plan phases.
+2. **Principles over Tools** - "Yesterday it was Cursor, today it's Windsurf, tomorrow it'll be something else... learn to endure change with principle."
+3. **Plan → Spec → Build Workflow** - Intermediate specification step before coding, matching SDD's 4-phase model.
+4. **Prompts as Programming Primitives** - Prompts deserve the same engineering rigor as code.
+5. **Massive Spec Prompts** - Feature requirements → fully generated code in a single prompt via comprehensive specs.
+
+#### Open Source Artifacts
+
+| Repository | Purpose | Relevance |
+|------------|---------|-----------|
+| [single-file-agents](https://github.com/disler/single-file-agents) | Single-purpose Python agents demonstrating precise prompt patterns | Reference for minimal, focused agent design |
+| [indydevtools](https://github.com/disler/indydevtools) | Agentic engineering toolbox for autonomous problem-solving | Multi-agent architecture patterns |
+| [claude-code-hooks-multi-agent-observability](https://github.com/disler/claude-code-hooks-multi-agent-observability) | Real-time monitoring for parallel Claude Code agents | Production observability patterns |
+| [infinite-agentic-loop](https://github.com/disler/infinite-agentic-loop) | Two-prompt system for continuous agent operation | Advanced orchestration patterns |
+
+#### Advanced Concepts (TAC Course)
+
+- **Orchestrator Agent**: "The one agent to rule them all" - single interface to command agent fleets
+- **Agent Experts**: Solve "agents forget" with Act → Learn → Reuse workflow
+- **7-Level Prompt Hierarchy**: From simple prompts to self-improving meta prompts
+- **Agentic Layers**: Building blocks leading to "The Codebase Singularity"
+
+- **Influence on This Repo**:
+  - Direct validation of SDD methodology from practitioner perspective
+  - Context-Prompt-Model framework reinforces specs-as-context pattern
+  - "Great Planning" principle documented in [Planning-First Development](patterns/planning-first-development.md)
+  - Orchestrator pattern informs [Subagent Orchestration](patterns/subagent-orchestration.md)
+- **Evidence Tier**: A (Principled methodology with open-source implementations, production-validated across thousands of engineers)
+
+---
+
 ## Foundational Influences (Tier B)
 
 These sources directly influenced the design of the skill structure and project scaffolding patterns in this repository:
