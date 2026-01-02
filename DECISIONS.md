@@ -193,72 +193,84 @@ These were considered but deferred:
 
 ---
 
-## Decision 8: Positioning Relative to SDD Frameworks and Ecosystem
+## Decision 8: Adopting Spec-Driven Development as Foundational Methodology
 
 ### Context
 
-With the emergence of spec-driven development (SDD) frameworks (BMAD, GitHub Spec Kit, Kiro, Agent OS) and numerous community "awesome-claude-code" repositories, this project needed to define its scope and relationship to these resources.
+Spec-driven development (SDD) has emerged as an industry standard for AI-assisted development in 2025:
+- GitHub Spec Kit: 59K+ stars, tool-agnostic 4-phase workflow
+- Kiro (AWS): IDE with specs built-in
+- BMAD Method: Multi-agent lifecycle management
+- Agent Skills: Now an open standard (agentskills.io), adopted by OpenAI
+
+The question: Should this project remain narrowly "Claude Code-specific" or align with industry best practices?
 
 ### Alternatives Considered
 
 | Approach | Pros | Cons |
 |----------|------|------|
-| **Document everything** | Comprehensive resource | Scope creep, maintenance burden |
-| **SDD framework focus** | Riding emerging trend | Not Claude Code-native |
-| **Curated list style** | Easy discovery | Shallow, duplicates existing lists |
-| **Claude Code-native patterns** | Deep, unique value | Narrower scope |
+| **Stay Claude Code-specific** | Deep expertise, clear scope | May age poorly, fights standardization |
+| **Become tool-agnostic SDD resource** | Broader audience | Loses depth, duplicates Spec Kit |
+| **Adopt SDD methodology, Claude Code implementation** | Industry-aligned, maintains depth | Requires reframing existing content |
 
-### Decision: Claude Code-Native Patterns with Ecosystem Awareness
+### Decision: Adopt SDD as Methodology, Claude Code as Primary Implementation
 
-**What this repository is:**
-- Claude Code-native patterns (skills, hooks, MCP, subagents, CLAUDE.md)
-- Evidence-based documentation (Tier A/B sources required)
-- Production-validated implementations
+**This repository documents AI-driven development best practices**, using Claude Code as the primary implementation context. We adopt industry-standard SDD principles rather than treating them as external.
 
-**What this repository is not:**
-- Not an SDD framework (like BMAD, Spec Kit, Kiro)
-- Not a curated list (like awesome-claude-code)
-- Not a template marketplace (like claude-code-templates)
-- Not cross-platform (unlike Cursor/Windsurf rules)
+### Core Methodology (Aligned with Spec Kit)
 
-### Relationship to SDD Frameworks
+The 4-phase model applies to all significant work:
 
-SDD frameworks operate at the **specification layer**; this repository operates at the **execution layer**:
+| Phase | Purpose | Claude Code Implementation |
+|-------|---------|---------------------------|
+| **Specify** | Define what to build | CLAUDE.md, requirements in specs/ |
+| **Plan** | Technical design | Architecture docs, design decisions |
+| **Tasks** | Break down work | Structured task lists, TodoWrite |
+| **Implement** | Execute with context | Skills, hooks, one feature at a time |
 
-```
-SDD Frameworks → Planning & Specification
-This Repository → Claude Code-Native Execution Patterns
-Claude Code    → Execution Engine
-```
+### What This Means for Content
 
-**Complementary, not competitive.** Document integration points, not framework internals.
+**Reframe existing patterns as SDD implementations:**
+- `long-running-agent.md` → SDD's external artifacts pattern in Claude Code
+- `context-engineering.md` → How specs become deterministic context
+- `memory-architecture.md` → Living documentation pattern
+- `documentation-maintenance.md` → ARCH/PLAN/INDEX as spec artifacts
 
-### Content Boundaries
+**Elevate Spec Kit, BMAD, Kiro from "sources to monitor" to "aligned standards":**
+- GitHub Spec Kit: Reference implementation of 4-phase model
+- BMAD: Reference for multi-agent patterns
+- Kiro: Reference for IDE-integrated specs
 
-| Document | Don't Document |
-|----------|----------------|
-| Patterns using Claude Code native features | Framework-specific configurations |
-| Integration points with external tools | Cross-platform rule syntax |
-| Evidence-based best practices | Pre-built templates/components |
+### Evidence Tier Alignment
+
+| Source | Previous Tier | New Tier | Rationale |
+|--------|---------------|----------|-----------|
+| GitHub Spec Kit | B (secondary) | A (standard) | 59K stars, industry adoption |
+| Kiro (AWS) | B (secondary) | B (major vendor) | AWS official, emerging |
+| BMAD Method | C (community) | B (validated) | Production use, MIT licensed |
+| agentskills.io | - | A (specification) | Open standard, multi-vendor |
 
 ### Staying Current: Review Cadence
 
 | Source Type | Frequency | Action |
 |-------------|-----------|--------|
 | Anthropic Engineering Blog | Weekly | Incorporate immediately |
-| awesome-claude-code lists | Monthly | Check for emerging patterns |
-| SDD frameworks | Quarterly | Update integration points |
-| Community best practices | Quarterly | Cross-validate patterns |
+| Spec Kit / agentskills.io | Weekly | Align with spec changes |
+| SDD frameworks (BMAD, Kiro) | Monthly | Adopt proven patterns |
+| Community resources | Monthly | Validate and incorporate |
 
-### Differentiation
+### Trade-offs Accepted
 
-| Dimension | This Repository | Curated Lists | SDD Frameworks |
-|-----------|-----------------|---------------|----------------|
-| Depth | Deep patterns | Links/summaries | Methodology |
-| Focus | Claude Code native | Discovery | Full lifecycle |
-| Evidence | Tier A/B required | Varies | Varies |
+1. **Broader scope** requires more maintenance, but aligns with industry direction
+2. **Less Claude Code-specific** but patterns still use Claude Code as primary example
+3. **Adopting external methodology** rather than inventing our own, but standing on proven foundations
 
-**Trade-off accepted**: Narrower scope means some users will need multiple resources. This is preferable to shallow coverage of everything.
+### Migration Path
+
+Existing patterns remain valid—they implement SDD principles. New content should:
+1. Reference the phase it supports (Specify/Plan/Tasks/Implement)
+2. Show Claude Code implementation of cross-platform patterns
+3. Acknowledge when patterns work across tools
 
 ---
 

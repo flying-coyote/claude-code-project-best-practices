@@ -1,179 +1,127 @@
-# Spec-Driven Development for AI Coding Agents
+# Spec-Driven Development: The Foundational Methodology
 
-**Source**: [GitHub Spec Kit](https://github.com/github/spec-kit), [ThoughtWorks Analysis](https://www.thoughtworks.com/en-us/insights/blog/agile-engineering-practices/spec-driven-development-unpacking-2025-new-engineering-practices)
-**Evidence Tier**: B (Validated secondary - major vendor implementations)
+**Source**: [GitHub Spec Kit](https://github.com/github/spec-kit) (59K+ stars), [agentskills.io](https://agentskills.io) (open standard)
+**Evidence Tier**: A (Industry standard - major vendor adoption, cross-platform specification)
 
 ## Overview
 
-Spec-driven development (SDD) emerged in 2025 as one of the most significant AI-assisted engineering practices. It addresses the limitations of "vibe coding" by requiring structured specifications before AI-generated implementation.
+Spec-driven development (SDD) is the foundational methodology for AI-assisted development. This repository adopts SDD principles, with Claude Code as the primary implementation context.
 
 > "Spec-driven development uses well-crafted software requirement specifications as prompts, aided by AI coding agents, to generate executable code."
 > — ThoughtWorks
 
----
-
-## The Problem SDD Solves
-
-### Vibe Coding Limitations
-
-When using AI coding agents without structure:
-- Inconsistent results across sessions
-- Context loss in complex features
-- "Works but wrong" implementations
-- Difficult to maintain or extend
-- Poor team coordination
-
-### SDD Solution
-
-Specifications become the **source of truth**:
-- Shared understanding between human and AI
-- Reproducible outcomes
-- Living documentation that evolves with code
-- Team coordination artifact
+**This is not an external framework we reference—it's the methodology we implement.**
 
 ---
 
-## Major Frameworks (2025)
+## The 4-Phase Model
 
-| Framework | Approach | Best For | Link |
-|-----------|----------|----------|------|
-| **GitHub Spec Kit** | 4-phase workflow (Specify→Plan→Tasks→Implement) | Individual developers, feature-level | [github/spec-kit](https://github.com/github/spec-kit) |
-| **BMAD Method** | Multi-agent team (19+ specialized agents) | Large projects, full lifecycle | [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) |
-| **Kiro (AWS)** | IDE with specs built-in (requirements.md, design.md, tasks.md) | Greenfield projects | [kiro.dev](https://kiro.dev/) |
-| **Agent OS** | Spec-driven system for any AI coding tool | Customizable workflows | [buildermethods/agent-os](https://github.com/buildermethods/agent-os) |
+All significant work follows this structure (aligned with GitHub Spec Kit):
 
----
-
-## GitHub Spec Kit: The 4-Phase Model
-
-### Phase 1: Specify (`/speckit.specify`)
+### Phase 1: Specify
 Define **what** to build—requirements and user stories focusing on the "what" and "why."
 
-### Phase 2: Plan (`/speckit.plan`)
+**Claude Code Implementation:**
+- CLAUDE.md for project context
+- `specs/` directory for feature requirements
+- Slash command: `/specify` to gather requirements
+
+### Phase 2: Plan
 Create technical strategy—technology stack, architecture decisions, engineering constraints.
 
-### Phase 3: Tasks (`/speckit.tasks`)
+**Claude Code Implementation:**
+- ARCHITECTURE.md for system design
+- DECISIONS.md for trade-off rationale
+- Slash command: `/plan` to create technical design
+
+### Phase 3: Tasks
 Generate actionable task lists from the implementation plan.
 
-### Phase 4: Implement (`/speckit.implement`)
+**Claude Code Implementation:**
+- TodoWrite tool for structured task management
+- JSON task files for complex features
+- PLAN.md for current priorities
+
+### Phase 4: Implement
 Execute tasks according to established plan and specifications.
 
-### Supporting Commands
-- **Constitution**: Establish project governing principles
-- **Clarify**: Resolve underspecified areas before planning
-- **Analyze**: Verify cross-artifact consistency
+**Claude Code Implementation:**
+- Skills for repeatable methodologies
+- Hooks for quality gates
+- One feature at a time (long-running agent pattern)
+- Git commits as checkpoints
 
 ---
 
-## BMAD Method: Multi-Agent Architecture
+## How Existing Patterns Implement SDD
 
-### Core Concept
-A complete AI "project team" with specialized agents:
-- **Analyst Agent**: Research and requirements gathering
-- **PM Agent**: Product requirements documents
-- **Architect Agent**: System design and tech choices
-- **Developer Agent**: Implementation
-- **Scrum Master Agent**: Story breakdown and coordination
-
-### Two-Phase Approach
-1. **Agentic Planning**: Agents collaborate on PRDs and architecture
-2. **Context-Engineered Development**: Hyper-detailed stories with complete context
-
-### Agent-as-Code
-Each agent is a self-contained markdown file with embedded YAML configuration—version-controllable and shareable.
+| Pattern | SDD Phase | What It Implements |
+|---------|-----------|-------------------|
+| [Context Engineering](./context-engineering.md) | Specify | Specs as deterministic context |
+| [Documentation Maintenance](./documentation-maintenance.md) | Plan | ARCH/PLAN/INDEX as spec artifacts |
+| [Long-Running Agent](./long-running-agent.md) | Tasks + Implement | External artifacts, one feature at a time |
+| [Memory Architecture](./memory-architecture.md) | All phases | Lifecycle-based information management |
+| [Progressive Disclosure](./progressive-disclosure.md) | Implement | Token-efficient methodology loading |
 
 ---
 
-## When to Use Spec-Driven Development
+## Reference Implementations
 
-### Good Fit ✓
+These frameworks represent proven implementations of SDD:
 
-| Scenario | Why SDD Helps |
-|----------|---------------|
-| Complex features | Specs prevent scope creep and context loss |
+| Framework | Strength | Use As Reference For |
+|-----------|----------|---------------------|
+| **[GitHub Spec Kit](https://github.com/github/spec-kit)** | Tool-agnostic 4-phase model | Phase structure, slash commands |
+| **[BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD)** | Multi-agent architecture | Agent-as-code, document sharding |
+| **[Kiro (AWS)](https://kiro.dev/)** | IDE integration | Agent hooks, spec file structure |
+| **[Agent OS](https://github.com/buildermethods/agent-os)** | Customizable workflows | Phase customization |
+
+---
+
+## When to Apply Full SDD Rigor
+
+### Full 4-Phase (Complex Work)
+
+| Scenario | Why |
+|----------|-----|
+| Features touching multiple files/systems | Specs prevent scope creep |
 | Team projects | Shared specifications enable coordination |
-| Greenfield development | Clean start benefits from upfront planning |
+| Work spanning multiple sessions | Specs bridge context loss |
 | Regulated environments | Specs provide audit trail |
-| Long-running implementations | External artifacts bridge sessions |
 
-### Poor Fit ✗
+### Lightweight SDD (Simple Work)
 
-| Scenario | Why SDD Struggles |
-|----------|-------------------|
-| Rapid prototyping | Overhead slows exploration |
-| Highly exploratory work | Requirements unknown upfront |
-| Small bug fixes | Overkill for simple changes |
-| Performance-critical code | Requires human expertise |
-| Existing codebases | Retrofitting specs is difficult |
+| Scenario | Approach |
+|----------|----------|
+| Bug fixes | Skip to Tasks phase, brief spec in commit message |
+| Small features (<1 day) | Combine Specify+Plan, then implement |
+| Exploratory prototyping | "Vibe code" first, retrofit specs if keeping |
 
----
-
-## Criticisms and Limitations
-
-### Documented Challenges
-
-1. **Waterfall Concerns**
-   > "SDD reminds some of the Waterfall model, which required massive documentation before coding."
-   > — [Marmelab Analysis](https://marmelab.com/blog/2025/11/12/spec-driven-development-waterfall-strikes-back.html)
-
-2. **Context Window Limits**
-   Large specifications hit context window limits, fragmenting agent understanding.
-
-3. **Natural Language Ambiguity**
-   Specs written in natural language face inherent ambiguity—AI may interpret differently than intended.
-
-4. **Instruction Following**
-   > "Even with all of these files and templates... agents frequently don't follow all the instructions."
-   > — ThoughtWorks
-
-5. **Code Bloat**
-   Martin Fowler's experiments: Kiro generated 5,000 lines for a tool that should have been 800 lines.
-
-6. **Team Adoption**
-   67% of teams report extra debugging time during learning phase.
+**Principle**: Scale rigor to complexity. Don't over-specify simple work.
 
 ---
 
-## Integration with Claude Code Patterns
+## Known Limitations
 
-### Complementary Relationship
+### Documented Challenges (Be Aware)
 
-SDD frameworks can **use Claude Code as an execution engine**. This repository focuses on Claude Code-native patterns that work within or alongside SDD:
+1. **Waterfall Risk**: Over-specifying before learning through implementation
+2. **Context Window Limits**: Large specs can fragment agent understanding
+3. **Natural Language Ambiguity**: AI may interpret specs differently than intended
+4. **Instruction Following**: Agents don't always follow all spec details
 
-```
-┌─────────────────────────────────────────────────────────┐
-│           SDD Framework (BMAD, Spec Kit, etc.)          │
-│                    Specification Layer                   │
-├─────────────────────────────────────────────────────────┤
-│                    Claude Code                           │
-│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐    │
-│  │ Skills  │  │  Hooks  │  │   MCP   │  │Subagents│    │
-│  └─────────┘  └─────────┘  └─────────┘  └─────────┘    │
-│                    Execution Layer                       │
-└─────────────────────────────────────────────────────────┘
-```
+### Mitigations
 
-### Pattern Alignment
-
-| This Repo's Pattern | SDD Parallel | Integration Point |
-|---------------------|--------------|-------------------|
-| [Long-Running Agent](./long-running-agent.md) | External artifacts | Specs as persistent memory |
-| [Context Engineering](./context-engineering.md) | Deterministic context | Specs as semantic highways |
-| [Documentation Maintenance](./documentation-maintenance.md) | Living documentation | Specs as living docs |
-| [Memory Architecture](./memory-architecture.md) | Project-scoped memory | Specs define project context |
-
-### Key Difference
-
-| Claude Code Native | SDD Frameworks |
-|--------------------|----------------|
-| Progressive disclosure (load on demand) | Full spec upfront |
-| Token efficiency prioritized | Comprehensive documentation first |
-| Incremental, one-feature-at-a-time | Multi-agent parallel planning |
-| Skills for methodology | Agents for roles |
+| Challenge | Mitigation |
+|-----------|------------|
+| Waterfall risk | Iterate specs during implementation, not just before |
+| Context limits | Progressive disclosure, document sharding (BMAD pattern) |
+| Ambiguity | Acceptance criteria, examples, test cases in specs |
+| Instruction following | Hooks for enforcement, verification steps |
 
 ---
 
-## Implementing Spec-Driven Workflows in Claude Code
+## Implementing SDD in Claude Code
 
 ### Option 1: Use Existing Framework
 
