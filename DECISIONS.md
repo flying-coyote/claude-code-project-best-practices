@@ -193,4 +193,73 @@ These were considered but deferred:
 
 ---
 
-*Last updated: December 2025*
+## Decision 8: Positioning Relative to SDD Frameworks and Ecosystem
+
+### Context
+
+With the emergence of spec-driven development (SDD) frameworks (BMAD, GitHub Spec Kit, Kiro, Agent OS) and numerous community "awesome-claude-code" repositories, this project needed to define its scope and relationship to these resources.
+
+### Alternatives Considered
+
+| Approach | Pros | Cons |
+|----------|------|------|
+| **Document everything** | Comprehensive resource | Scope creep, maintenance burden |
+| **SDD framework focus** | Riding emerging trend | Not Claude Code-native |
+| **Curated list style** | Easy discovery | Shallow, duplicates existing lists |
+| **Claude Code-native patterns** | Deep, unique value | Narrower scope |
+
+### Decision: Claude Code-Native Patterns with Ecosystem Awareness
+
+**What this repository is:**
+- Claude Code-native patterns (skills, hooks, MCP, subagents, CLAUDE.md)
+- Evidence-based documentation (Tier A/B sources required)
+- Production-validated implementations
+
+**What this repository is not:**
+- Not an SDD framework (like BMAD, Spec Kit, Kiro)
+- Not a curated list (like awesome-claude-code)
+- Not a template marketplace (like claude-code-templates)
+- Not cross-platform (unlike Cursor/Windsurf rules)
+
+### Relationship to SDD Frameworks
+
+SDD frameworks operate at the **specification layer**; this repository operates at the **execution layer**:
+
+```
+SDD Frameworks → Planning & Specification
+This Repository → Claude Code-Native Execution Patterns
+Claude Code    → Execution Engine
+```
+
+**Complementary, not competitive.** Document integration points, not framework internals.
+
+### Content Boundaries
+
+| Document | Don't Document |
+|----------|----------------|
+| Patterns using Claude Code native features | Framework-specific configurations |
+| Integration points with external tools | Cross-platform rule syntax |
+| Evidence-based best practices | Pre-built templates/components |
+
+### Staying Current: Review Cadence
+
+| Source Type | Frequency | Action |
+|-------------|-----------|--------|
+| Anthropic Engineering Blog | Weekly | Incorporate immediately |
+| awesome-claude-code lists | Monthly | Check for emerging patterns |
+| SDD frameworks | Quarterly | Update integration points |
+| Community best practices | Quarterly | Cross-validate patterns |
+
+### Differentiation
+
+| Dimension | This Repository | Curated Lists | SDD Frameworks |
+|-----------|-----------------|---------------|----------------|
+| Depth | Deep patterns | Links/summaries | Methodology |
+| Focus | Claude Code native | Discovery | Full lifecycle |
+| Evidence | Tier A/B required | Varies | Varies |
+
+**Trade-off accepted**: Narrower scope means some users will need multiple resources. This is preferable to shallow coverage of everything.
+
+---
+
+*Last updated: January 2026*

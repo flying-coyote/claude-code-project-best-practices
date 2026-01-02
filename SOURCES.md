@@ -302,63 +302,80 @@ These community repositories provide additional examples and inspiration for Cla
 
 ## Claude Code Best Practices Repositories (Tier C)
 
-These repositories provide community-maintained best practices and should be periodically reviewed to ensure this project remains current:
+These repositories provide community-maintained best practices and should be periodically reviewed to ensure this project remains current.
+
+**Verification Status Legend:**
+- ✅ **Verified**: Reviewed and confirmed high-quality
+- 🔍 **Discovered**: Found via search, needs review
+- ⚠️ **Stale**: Last commit >6 months ago
 
 ### Curated Lists (Primary Review Sources)
 
-| Repository | Stars | Focus | Review Priority |
-|------------|-------|-------|-----------------|
-| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | 18k+ | Commands, workflows, patterns | HIGH |
-| [jqueryscript/awesome-claude-code](https://github.com/jqueryscript/awesome-claude-code) | - | Tools, IDE integrations, frameworks | HIGH |
-| [josix/awesome-claude-md](https://github.com/josix/awesome-claude-md) | - | CLAUDE.md examples and patterns | HIGH |
-| [ccplugins/awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins) | - | Plugins, commands, hooks | MEDIUM |
-| [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) | - | Skills resources and tools | MEDIUM |
+| Repository | Status | Stars | Focus | Priority |
+|------------|--------|-------|-------|----------|
+| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | ✅ Verified | 18k+ | Commands, workflows, patterns | HIGH |
+| [jqueryscript/awesome-claude-code](https://github.com/jqueryscript/awesome-claude-code) | 🔍 Discovered | - | Tools, IDE integrations | HIGH |
+| [josix/awesome-claude-md](https://github.com/josix/awesome-claude-md) | 🔍 Discovered | - | CLAUDE.md examples | HIGH |
+| [ccplugins/awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins) | 🔍 Discovered | - | Plugins, hooks | MEDIUM |
+| [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) | 🔍 Discovered | - | Skills resources | MEDIUM |
 
 ### Best Practices Repositories
 
-| Repository | Author | Description |
+| Repository | Status | Description |
 |------------|--------|-------------|
-| [awattar/claude-code-best-practices](https://github.com/awattar/claude-code-best-practices) | awattar | Patterns and examples for Claude Code integration |
-| [anuraag2601/claude-code-best-practices](https://github.com/anuraag2601/claude-code-best-practices) | anuraag2601 | Battle-tested practices from real projects |
-| [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) | ykdojo | 40+ tips including status line, system prompt optimization |
-| [Cranot/claude-code-guide](https://github.com/Cranot/claude-code-guide) | Cranot | Comprehensive guide to Claude Code features |
-| [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) | zebbern | Tips, tricks, optimization, hidden commands |
-| [jmckinley/claude-code-resources](https://github.com/jmckinley/claude-code-resources) | jmckinley | Production agents, templates, 100+ workflows |
+| [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) | ✅ Verified | 40+ tips, status line, system prompt optimization |
+| [awattar/claude-code-best-practices](https://github.com/awattar/claude-code-best-practices) | 🔍 Discovered | Patterns and examples for Claude Code |
+| [anuraag2601/claude-code-best-practices](https://github.com/anuraag2601/claude-code-best-practices) | 🔍 Discovered | Battle-tested practices from real projects |
+| [Cranot/claude-code-guide](https://github.com/Cranot/claude-code-guide) | 🔍 Discovered | Comprehensive guide to features |
+| [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) | 🔍 Discovered | Tips, tricks, hidden commands |
+| [jmckinley/claude-code-resources](https://github.com/jmckinley/claude-code-resources) | 🔍 Discovered | Production agents, 100+ workflows |
 
 ### Template and Configuration Repositories
 
-| Repository | Description |
-|------------|-------------|
-| [centminmod/my-claude-code-setup](https://github.com/centminmod/my-claude-code-setup) | Starter template with memory bank system |
-| [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow/wiki/CLAUDE-MD-Templates) | CLAUDE.md templates for different project types |
-| [ArthurClune/claude-md-examples](https://github.com/ArthurClune/claude-md-examples) | Sample CLAUDE.md files |
+| Repository | Status | Description |
+|------------|--------|-------------|
+| [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) | ✅ Verified | 400+ components, CLI tool (12.6k stars) |
+| [centminmod/my-claude-code-setup](https://github.com/centminmod/my-claude-code-setup) | 🔍 Discovered | Starter template with memory bank |
+| [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow/wiki/CLAUDE-MD-Templates) | 🔍 Discovered | CLAUDE.md templates by project type |
+| [ArthurClune/claude-md-examples](https://github.com/ArthurClune/claude-md-examples) | 🔍 Discovered | Sample CLAUDE.md files |
 
 ### Cross-Platform AI Coding Resources
 
-| Repository | Description |
-|------------|-------------|
-| [instructa/ai-prompts](https://github.com/instructa/ai-prompts) | Prompts for Cursor, CLINE, Windsurf, Copilot |
-| [Bhartendu-Kumar/rules_template](https://github.com/Bhartendu-Kumar/rules_template) | Cross-platform rules for multiple AI assistants |
-| [obviousworks/vibe-coding-ai-rules](https://github.com/obviousworks/vibe-coding-ai-rules) | AI-optimized rules for Windsurf, Cursor |
-| [nibzard/awesome-agentic-patterns](https://github.com/nibzard/awesome-agentic-patterns) | Curated catalogue of agentic AI patterns |
+| Repository | Status | Description |
+|------------|--------|-------------|
+| [instructa/ai-prompts](https://github.com/instructa/ai-prompts) | 🔍 Discovered | Prompts for Cursor, CLINE, Windsurf, Copilot |
+| [Bhartendu-Kumar/rules_template](https://github.com/Bhartendu-Kumar/rules_template) | 🔍 Discovered | Cross-platform rules for AI assistants |
+| [obviousworks/vibe-coding-ai-rules](https://github.com/obviousworks/vibe-coding-ai-rules) | 🔍 Discovered | AI-optimized rules for Windsurf, Cursor |
+| [nibzard/awesome-agentic-patterns](https://github.com/nibzard/awesome-agentic-patterns) | 🔍 Discovered | Curated agentic AI patterns |
 
 ### Agentic Development Frameworks
 
-| Repository | Description |
-|------------|-------------|
-| [microsoft/autogen](https://github.com/microsoft/autogen) | Programming framework for agentic AI |
-| [e2b-dev/awesome-ai-agents](https://github.com/e2b-dev/awesome-ai-agents) | List of AI autonomous agents |
-| [panaversity/learn-agentic-ai](https://github.com/panaversity/learn-agentic-ai) | Agentic AI learning with DACA design pattern |
+| Repository | Status | Description |
+|------------|--------|-------------|
+| [danielmiessler/fabric](https://github.com/danielmiessler/fabric) | ✅ Verified | 200+ AI patterns, foundational influence |
+| [microsoft/autogen](https://github.com/microsoft/autogen) | ✅ Verified | Microsoft's agentic AI framework |
+| [anthropics/skills](https://github.com/anthropics/skills) | ✅ Verified | Official Anthropic skills examples |
+| [e2b-dev/awesome-ai-agents](https://github.com/e2b-dev/awesome-ai-agents) | 🔍 Discovered | List of AI autonomous agents |
+| [panaversity/learn-agentic-ai](https://github.com/panaversity/learn-agentic-ai) | 🔍 Discovered | Agentic AI with DACA pattern |
 
 ### Review Cadence
 
-| Source Type | Review Frequency |
-|-------------|------------------|
-| Anthropic Engineering Blog | Weekly |
-| awesome-claude-code lists | Monthly |
-| Best practices repositories | Monthly |
-| SDD frameworks (Spec Kit, BMAD) | Quarterly |
-| Cross-platform resources | Quarterly |
+| Source Type | Frequency | Next Review |
+|-------------|-----------|-------------|
+| Anthropic Engineering Blog | Weekly | Ongoing |
+| awesome-claude-code lists | Monthly | Feb 2026 |
+| Best practices repositories | Monthly | Feb 2026 |
+| SDD frameworks (Spec Kit, BMAD) | Quarterly | Apr 2026 |
+| Cross-platform resources | Quarterly | Apr 2026 |
+
+### Verification Process
+
+When reviewing a discovered repository:
+1. Check last commit date (active maintenance?)
+2. Review star count and fork activity
+3. Scan README for quality and completeness
+4. Check if patterns align with Claude Code capabilities
+5. Update status to ✅ Verified or ⚠️ Stale
 
 ---
 
