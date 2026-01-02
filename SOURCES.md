@@ -195,6 +195,110 @@ These represent the industry-standard methodologies for AI-driven development th
 
 ---
 
+## Practitioner Educators (Tier A)
+
+These individuals have developed principled methodologies for AI-assisted development that directly inform this repository:
+
+### IndyDevDan (Dan Diemer) - Principled AI Coding Framework
+- **Author**: Dan Diemer (@IndyDevDan)
+- **GitHub**: https://github.com/disler
+- **YouTube**: https://youtube.com/@IndyDevDan
+- **Website**: https://agenticengineer.com
+- **Courses**:
+  - [Principled AI Coding (PAIC)](https://agenticengineer.com/principled-ai-coding) - Foundational principles
+  - [Tactical Agentic Coding (TAC)](https://agenticengineer.com/tactical-agentic-coding) - Advanced orchestration
+- **Description**: Seasoned software engineer (10+ years) and early GenAI adopter. Creator of the "Context-Prompt-Model" framework and "Great Planning is Great Prompting" principle. Teaches principles over tools, focusing on enduring concepts that survive tool churn.
+
+#### Core Framework: "The Big Three"
+
+| Pillar | Purpose | SDD Alignment |
+|--------|---------|---------------|
+| **Context** | Provide AI with information it needs for success | = Specify phase (specs as deterministic context) |
+| **Prompt** | Design precise queries that get accurate results | = Tasks phase (task specification) |
+| **Model** | Choose and leverage the right tools for tasks | = Implement phase (tool selection) |
+
+#### Key Principles
+
+1. **"Great Planning is Great Prompting"** - The core insight that planning effort directly improves AI output quality. Aligns with SDD's Specify→Plan phases.
+2. **Principles over Tools** - "Yesterday it was Cursor, today it's Windsurf, tomorrow it'll be something else... learn to endure change with principle."
+3. **Plan → Spec → Build Workflow** - Intermediate specification step before coding, matching SDD's 4-phase model.
+4. **Prompts as Programming Primitives** - Prompts deserve the same engineering rigor as code.
+5. **Massive Spec Prompts** - Feature requirements → fully generated code in a single prompt via comprehensive specs.
+
+#### Open Source Artifacts
+
+| Repository | Purpose | Relevance |
+|------------|---------|-----------|
+| [single-file-agents](https://github.com/disler/single-file-agents) | Single-purpose Python agents demonstrating precise prompt patterns | Reference for minimal, focused agent design |
+| [indydevtools](https://github.com/disler/indydevtools) | Agentic engineering toolbox for autonomous problem-solving | Multi-agent architecture patterns |
+| [claude-code-hooks-multi-agent-observability](https://github.com/disler/claude-code-hooks-multi-agent-observability) | Real-time monitoring for parallel Claude Code agents | Production observability patterns |
+| [infinite-agentic-loop](https://github.com/disler/infinite-agentic-loop) | Two-prompt system for continuous agent operation | Advanced orchestration patterns |
+
+#### Advanced Concepts (TAC Course)
+
+- **Orchestrator Agent**: "The one agent to rule them all" - single interface to command agent fleets
+- **Agent Experts**: Solve "agents forget" with Act → Learn → Reuse workflow
+- **7-Level Prompt Hierarchy**: From simple prompts to self-improving meta prompts
+- **Agentic Layers**: Building blocks leading to "The Codebase Singularity"
+
+- **Influence on This Repo**:
+  - Direct validation of SDD methodology from practitioner perspective
+  - Context-Prompt-Model framework reinforces specs-as-context pattern
+  - "Great Planning" principle documented in [Planning-First Development](patterns/planning-first-development.md)
+  - Orchestrator pattern informs [Subagent Orchestration](patterns/subagent-orchestration.md)
+- **Evidence Tier**: A (Principled methodology with open-source implementations, production-validated across thousands of engineers)
+
+### Aniket Panjwani - Plan-Then-Act & Domain Knowledge Embedding
+- **Author**: Dr. Aniket Panjwani (@aniketapanjwani)
+- **Twitter/X**: https://x.com/aniketapanjwani
+- **Website**: https://aniketpanjwani.com
+- **Newsletter**: [Content Quant](https://contentquant.io/)
+- **LinkedIn**: https://www.linkedin.com/in/aniket-a-panjwani/
+- **Description**: PhD Economics (Northwestern), Senior MLOps Engineer at Early Warning Services (Zelle). Rare combination of academic research methodology + production ML engineering. Demonstrates Claude Code best practices for both software development and knowledge work (research, content creation).
+
+#### Core Framework: Plan-Then-Act + Domain Skills
+
+| Concept | Purpose | SDD Alignment |
+|---------|---------|---------------|
+| **Plan-Then-Act** | Break work into plan step + action step | = Specify → Implement phases |
+| **Domain Skills** | Embed expertise into reusable Claude skills | = Specify phase (knowledge as context) |
+| **Phase-Based Skills** | Separate skills per workflow phase (research → write → polish) | = Tasks phase decomposition |
+| **Selective MCP Loading** | Enable MCPs per-project to manage context | = Context engineering |
+
+#### The 5 Tips Framework
+
+From his [viral X thread](https://x.com/aniketapanjwani/status/1999487999604605345):
+
+1. **Use /plan** - "One of the keys to success with agentic coding is to break up whatever you're doing into a plan step and an action step."
+2. **Use voice input** (Superwhisper) - Speak faster than type; Claude Code handles stream-of-consciousness
+3. **Selective MCPs** - Each MCP consumes context; enable only what's needed per project
+4. **Use plugins/skills** - Extensibility through skills is why Claude Code leads
+5. **YOLO mode** (`--dangerously-skip-permissions`) - "The real magic of Claude Code is just letting it cook"
+
+#### Key Insights
+
+- **"Claude Code is the future of social science"** - Skills and subagents allow researchers to embed domain knowledge productively
+- **Non-coding applications** - Automated research/creation/polishing workflows for local newsletters in 5-10 minutes using distinct skills per phase
+- **For social science workflows** (EDA, regressions, causal analysis) - Claude Code and Codex are "far superior to Cursor"
+
+#### Production Validation
+
+| Project | Description | Relevance |
+|---------|-------------|-----------|
+| Payload CMS Newsletter Plugin | Built entirely with Claude Code | Production validation of agentic coding |
+| Local CMS | AI-powered SaaS for local media | Real-world AI product |
+| Custom MCP Server | Autonomous content creation pipeline | MCP implementation example |
+| Zelle Fraud Detection | ML pipelines catching millions in fraud | Enterprise-scale ML engineering |
+
+- **Influence on This Repo**:
+  - Plan-then-act validates SDD's Specify→Implement flow from practitioner perspective
+  - Domain knowledge embedding documented in [Skills for Domain Knowledge](patterns/skills-domain-knowledge.md)
+  - Phase-based skill separation reinforces progressive disclosure pattern
+  - Non-engineering use cases validate SDD for knowledge work beyond software
+- **Evidence Tier**: A (PhD research rigor + production ML engineering + actionable best practices with measured outcomes)
+
+---
+
 ## Foundational Influences (Tier B)
 
 These sources directly influenced the design of the skill structure and project scaffolding patterns in this repository:
