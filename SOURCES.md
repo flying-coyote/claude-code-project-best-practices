@@ -58,6 +58,73 @@ All patterns in this repository are derived from authoritative sources and produ
   - Hook implementation strategies
   - Cross-project consistency approaches
 
+### Agent Skills Open Standard
+- **Title**: "Equipping agents for the real world with Agent Skills"
+- **Source**: Anthropic Engineering
+- **Date**: December 2025
+- **URL**: https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills
+- **Specification**: https://agentskills.io
+- **Key Insights**:
+  - Agent Skills released as open standard
+  - Adopted by OpenAI for Codex CLI and ChatGPT
+  - Cross-platform portability for skills
+
+---
+
+## Spec-Driven Development Frameworks (Tier B)
+
+These frameworks represent the emerging discipline of spec-driven development for AI coding agents:
+
+### GitHub Spec Kit
+- **Author**: GitHub
+- **URL**: https://github.com/github/spec-kit
+- **Stars**: 59,000+ (as of Jan 2026)
+- **License**: MIT
+- **Description**: Tool-agnostic toolkit for spec-driven development with AI coding agents
+- **Key Concepts**:
+  - 4-phase workflow: Specify → Plan → Tasks → Implement
+  - Constitution command for project governing principles
+  - Supports 16+ coding agents including Claude Code
+- **Pattern**: [Spec-Driven Development](patterns/spec-driven-development.md)
+- **Evidence Tier**: B (Major vendor, widely adopted)
+
+### BMAD Method
+- **Author**: Brian (BMad) Madison
+- **URL**: https://github.com/bmad-code-org/BMAD-METHOD
+- **License**: MIT
+- **Description**: Multi-agent methodology with 19+ specialized AI agents for full project lifecycle
+- **Key Concepts**:
+  - Agent-as-Code paradigm (agents as markdown files)
+  - Two-phase approach: Agentic Planning + Context-Engineered Development
+  - Scale-Adaptive Intelligence
+  - Document Sharding for token optimization
+- **Claude Code Port**: https://github.com/24601/BMAD-AT-CLAUDE
+- **Pattern**: [Spec-Driven Development](patterns/spec-driven-development.md)
+- **Evidence Tier**: C (Community-driven, MIT licensed)
+
+### Kiro (AWS)
+- **Author**: Amazon Web Services
+- **URL**: https://kiro.dev
+- **Launch**: July 2025 (AWS Summit NYC)
+- **Description**: VS Code-based IDE with spec-driven development built-in
+- **Key Concepts**:
+  - Three spec files: requirements.md, design.md, tasks.md
+  - Agent Hooks for event-driven automation
+  - MCP integration for multimodal context
+- **Analysis**: [InfoQ Coverage](https://www.infoq.com/news/2025/08/aws-kiro-spec-driven-agent/)
+- **Pattern**: [Spec-Driven Development](patterns/spec-driven-development.md)
+- **Evidence Tier**: B (Major vendor implementation)
+
+### ThoughtWorks Analysis
+- **Title**: "Spec-driven development: Unpacking one of 2025's key new AI-assisted engineering practices"
+- **Source**: ThoughtWorks Insights
+- **URL**: https://www.thoughtworks.com/en-us/insights/blog/agile-engineering-practices/spec-driven-development-unpacking-2025-new-engineering-practices
+- **Key Insights**:
+  - SDD as one of 2025's most significant practices
+  - Challenges with agent instruction following
+  - Balance between structure and agility
+- **Evidence Tier**: B (Industry analyst)
+
 ---
 
 ## Foundational Influences (Tier B)
@@ -233,6 +300,68 @@ These community repositories provide additional examples and inspiration for Cla
 
 ---
 
+## Claude Code Best Practices Repositories (Tier C)
+
+These repositories provide community-maintained best practices and should be periodically reviewed to ensure this project remains current:
+
+### Curated Lists (Primary Review Sources)
+
+| Repository | Stars | Focus | Review Priority |
+|------------|-------|-------|-----------------|
+| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | 18k+ | Commands, workflows, patterns | HIGH |
+| [jqueryscript/awesome-claude-code](https://github.com/jqueryscript/awesome-claude-code) | - | Tools, IDE integrations, frameworks | HIGH |
+| [josix/awesome-claude-md](https://github.com/josix/awesome-claude-md) | - | CLAUDE.md examples and patterns | HIGH |
+| [ccplugins/awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins) | - | Plugins, commands, hooks | MEDIUM |
+| [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) | - | Skills resources and tools | MEDIUM |
+
+### Best Practices Repositories
+
+| Repository | Author | Description |
+|------------|--------|-------------|
+| [awattar/claude-code-best-practices](https://github.com/awattar/claude-code-best-practices) | awattar | Patterns and examples for Claude Code integration |
+| [anuraag2601/claude-code-best-practices](https://github.com/anuraag2601/claude-code-best-practices) | anuraag2601 | Battle-tested practices from real projects |
+| [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) | ykdojo | 40+ tips including status line, system prompt optimization |
+| [Cranot/claude-code-guide](https://github.com/Cranot/claude-code-guide) | Cranot | Comprehensive guide to Claude Code features |
+| [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) | zebbern | Tips, tricks, optimization, hidden commands |
+| [jmckinley/claude-code-resources](https://github.com/jmckinley/claude-code-resources) | jmckinley | Production agents, templates, 100+ workflows |
+
+### Template and Configuration Repositories
+
+| Repository | Description |
+|------------|-------------|
+| [centminmod/my-claude-code-setup](https://github.com/centminmod/my-claude-code-setup) | Starter template with memory bank system |
+| [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow/wiki/CLAUDE-MD-Templates) | CLAUDE.md templates for different project types |
+| [ArthurClune/claude-md-examples](https://github.com/ArthurClune/claude-md-examples) | Sample CLAUDE.md files |
+
+### Cross-Platform AI Coding Resources
+
+| Repository | Description |
+|------------|-------------|
+| [instructa/ai-prompts](https://github.com/instructa/ai-prompts) | Prompts for Cursor, CLINE, Windsurf, Copilot |
+| [Bhartendu-Kumar/rules_template](https://github.com/Bhartendu-Kumar/rules_template) | Cross-platform rules for multiple AI assistants |
+| [obviousworks/vibe-coding-ai-rules](https://github.com/obviousworks/vibe-coding-ai-rules) | AI-optimized rules for Windsurf, Cursor |
+| [nibzard/awesome-agentic-patterns](https://github.com/nibzard/awesome-agentic-patterns) | Curated catalogue of agentic AI patterns |
+
+### Agentic Development Frameworks
+
+| Repository | Description |
+|------------|-------------|
+| [microsoft/autogen](https://github.com/microsoft/autogen) | Programming framework for agentic AI |
+| [e2b-dev/awesome-ai-agents](https://github.com/e2b-dev/awesome-ai-agents) | List of AI autonomous agents |
+| [panaversity/learn-agentic-ai](https://github.com/panaversity/learn-agentic-ai) | Agentic AI learning with DACA design pattern |
+
+### Review Cadence
+
+| Source Type | Review Frequency |
+|-------------|------------------|
+| Anthropic Engineering Blog | Weekly |
+| awesome-claude-code lists | Monthly |
+| Best practices repositories | Monthly |
+| SDD frameworks (Spec Kit, BMAD) | Quarterly |
+| Cross-platform resources | Quarterly |
+
+---
+
 ## Production Validation (Tier B)
 
 These patterns have been validated across 12+ production projects:
@@ -356,4 +485,4 @@ This sources document is updated when:
 - Additional production validation is completed
 - Community contributions add new references
 
-*Last updated: December 2025*
+*Last updated: January 2026*

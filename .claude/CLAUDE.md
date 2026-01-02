@@ -46,6 +46,7 @@ All content must:
 - `documentation-maintenance.md` - ARCH/PLAN/INDEX trio
 - `memory-architecture.md` - Lifecycle-based memory
 - `plugins-and-extensions.md` - Plugin vs skill vs MCP decision framework
+- `spec-driven-development.md` - SDD frameworks integration (Spec Kit, BMAD, Kiro)
 
 ## Skills Directory
 
