@@ -193,4 +193,85 @@ These were considered but deferred:
 
 ---
 
-*Last updated: December 2025*
+## Decision 8: Adopting Spec-Driven Development as Foundational Methodology
+
+### Context
+
+Spec-driven development (SDD) has emerged as an industry standard for AI-assisted development in 2025:
+- GitHub Spec Kit: 59K+ stars, tool-agnostic 4-phase workflow
+- Kiro (AWS): IDE with specs built-in
+- BMAD Method: Multi-agent lifecycle management
+- Agent Skills: Now an open standard (agentskills.io), adopted by OpenAI
+
+The question: Should this project remain narrowly "Claude Code-specific" or align with industry best practices?
+
+### Alternatives Considered
+
+| Approach | Pros | Cons |
+|----------|------|------|
+| **Stay Claude Code-specific** | Deep expertise, clear scope | May age poorly, fights standardization |
+| **Become tool-agnostic SDD resource** | Broader audience | Loses depth, duplicates Spec Kit |
+| **Adopt SDD methodology, Claude Code implementation** | Industry-aligned, maintains depth | Requires reframing existing content |
+
+### Decision: Adopt SDD as Methodology, Claude Code as Primary Implementation
+
+**This repository documents AI-driven development best practices**, using Claude Code as the primary implementation context. We adopt industry-standard SDD principles rather than treating them as external.
+
+### Core Methodology (Aligned with Spec Kit)
+
+The 4-phase model applies to all significant work:
+
+| Phase | Purpose | Claude Code Implementation |
+|-------|---------|---------------------------|
+| **Specify** | Define what to build | CLAUDE.md, requirements in specs/ |
+| **Plan** | Technical design | Architecture docs, design decisions |
+| **Tasks** | Break down work | Structured task lists, TodoWrite |
+| **Implement** | Execute with context | Skills, hooks, one feature at a time |
+
+### What This Means for Content
+
+**Reframe existing patterns as SDD implementations:**
+- `long-running-agent.md` → SDD's external artifacts pattern in Claude Code
+- `context-engineering.md` → How specs become deterministic context
+- `memory-architecture.md` → Living documentation pattern
+- `documentation-maintenance.md` → ARCH/PLAN/INDEX as spec artifacts
+
+**Elevate Spec Kit, BMAD, Kiro from "sources to monitor" to "aligned standards":**
+- GitHub Spec Kit: Reference implementation of 4-phase model
+- BMAD: Reference for multi-agent patterns
+- Kiro: Reference for IDE-integrated specs
+
+### Evidence Tier Alignment
+
+| Source | Previous Tier | New Tier | Rationale |
+|--------|---------------|----------|-----------|
+| GitHub Spec Kit | B (secondary) | A (standard) | 59K stars, industry adoption |
+| Kiro (AWS) | B (secondary) | B (major vendor) | AWS official, emerging |
+| BMAD Method | C (community) | B (validated) | Production use, MIT licensed |
+| agentskills.io | - | A (specification) | Open standard, multi-vendor |
+
+### Staying Current: Review Cadence
+
+| Source Type | Frequency | Action |
+|-------------|-----------|--------|
+| Anthropic Engineering Blog | Weekly | Incorporate immediately |
+| Spec Kit / agentskills.io | Weekly | Align with spec changes |
+| SDD frameworks (BMAD, Kiro) | Monthly | Adopt proven patterns |
+| Community resources | Monthly | Validate and incorporate |
+
+### Trade-offs Accepted
+
+1. **Broader scope** requires more maintenance, but aligns with industry direction
+2. **Less Claude Code-specific** but patterns still use Claude Code as primary example
+3. **Adopting external methodology** rather than inventing our own, but standing on proven foundations
+
+### Migration Path
+
+Existing patterns remain valid—they implement SDD principles. New content should:
+1. Reference the phase it supports (Specify/Plan/Tasks/Implement)
+2. Show Claude Code implementation of cross-platform patterns
+3. Acknowledge when patterns work across tools
+
+---
+
+*Last updated: January 2026*

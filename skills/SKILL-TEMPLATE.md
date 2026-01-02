@@ -1,8 +1,37 @@
 ---
-name: Your Skill Name
-description: Brief description of when this skill activates. Include trigger keywords. Write in third person. Max 1024 characters.
-allowed-tools: Read, Grep, Glob
+# Agent Skills Standard (agentskills.io) - REQUIRED FIELDS
+name: your-skill-name   # Required: lowercase, hyphens for spaces
+description: |          # Required: Complete description of what skill does and when to use it
+  Brief description of when this skill activates. Include trigger keywords.
+  Write in third person (for auto-activation). Max 1024 characters.
+  Example: "Guides debugging with systematic REPRODUCE-ISOLATE-UNDERSTAND-FIX methodology"
+
+# OPTIONAL FIELDS (Claude Code specific)
+allowed-tools: Read, Grep, Glob  # Restrict available tools (security)
+# model: sonnet                  # Override model for this skill
+# version: 1.0                   # Skill version
 ---
+
+<!--
+AGENT SKILLS STANDARD COMPLIANCE (agentskills.io)
+
+This template follows the Agent Skills open standard for cross-platform compatibility.
+Skills using this format work in: Claude Code, Cursor, VS Code Copilot, Codex CLI, and other
+adopting platforms.
+
+REQUIRED:
+- SKILL.md file with YAML frontmatter (name + description)
+- Markdown instructions body
+
+OPTIONAL STRUCTURE:
+your-skill/
+├── SKILL.md           # Required: frontmatter + instructions
+├── scripts/           # Optional: executable code
+├── references/        # Optional: docs loaded on-demand (progressive disclosure)
+└── assets/            # Optional: templates, data files
+
+See: https://agentskills.io/specification
+-->
 
 # Your Skill Name
 
@@ -196,4 +225,26 @@ See [SECURITY-GUIDELINES.md](./SECURITY-GUIDELINES.md) for full security framewo
 
 ---
 
+## Cross-Platform Compatibility
+
+This skill follows the [Agent Skills open standard](https://agentskills.io/specification):
+
+| Platform | Support | Notes |
+|----------|---------|-------|
+| Claude Code | ✅ Full | Native support |
+| Cursor | ✅ Full | Via skills directory |
+| VS Code Copilot | ✅ Full | Via agent skills |
+| Codex CLI | ✅ Full | OpenAI adoption |
+| Other platforms | 🔄 Varies | Check platform docs |
+
+**Portability requirements**:
+- YAML frontmatter with `name` and `description` only
+- Markdown body with instructions
+- Scripts in `scripts/` must be self-contained
+- No platform-specific tool references in core instructions
+
+---
+
 *This template structure (IDENTITY/GOAL/STEPS/OUTPUT) is adapted from [Daniel Miessler's Fabric](https://github.com/danielmiessler/fabric) pattern format.*
+
+*Agent Skills format: [agentskills.io](https://agentskills.io) | [Anthropic Skills Repository](https://github.com/anthropics/skills)*

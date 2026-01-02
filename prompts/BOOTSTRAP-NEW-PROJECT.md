@@ -4,11 +4,16 @@ Copy everything below the line and paste it into Claude Code to set up your proj
 
 ---
 
-You are setting up Claude Code infrastructure for this project using best practices from https://github.com/flying-coyote/claude-code-project-best-practices
+You are setting up AI-driven development infrastructure for this project using best practices from https://github.com/flying-coyote/claude-code-project-best-practices
+
+This setup implements:
+1. **Spec-driven development (SDD)** - The 4-phase model (Specify→Plan→Tasks→Implement)
+2. **Claude Code infrastructure** - CLAUDE.md, hooks, skills
+3. **Cross-platform patterns** - agentskills.io compliant where applicable
 
 ## Your Task
 
-Create a `.claude/` directory with appropriate configuration for this project. Follow these steps:
+Create appropriate project infrastructure based on complexity. Follow these steps:
 
 ### Step 1: Assess the Project
 
@@ -45,14 +50,120 @@ Ask: "I recommend the **[preset]** preset for this project. Does that fit, or wo
 ### Step 3: Gather Project Information
 
 Ask the user:
+
+**Basic Info:**
 1. "What is the name of this project?" (suggest the directory name as default)
 2. "In 1-2 sentences, what is this project's purpose?"
-3. "Do you want a session-start hook? This shows git status and recent commits when you start Claude Code sessions. [Recommended: Yes]"
-4. "Do you have repeatable workflows that Claude should follow consistently? (e.g., debugging methodology, code review process, deployment checklist) [If yes, we'll create skills for them]"
+
+**Complexity Assessment (determines SDD rigor):**
+3. "How complex is this project?
+   - **Simple**: Bug fixes, small features (<1 day) → Minimal setup
+   - **Medium**: Features 1-3 days, few files → Lightweight SDD
+   - **Complex**: Multi-day, multi-file, team project → Full SDD with specs/"
+
+**SDD Artifacts (for medium/complex):**
+4. "Do you want SDD artifacts?
+   - `specs/` directory for feature requirements
+   - `ARCHITECTURE.md` for system design
+   - `DECISIONS.md` for rationale
+   [Recommended for complex projects: Yes]"
+
+**Claude Code Infrastructure:**
+5. "Do you want a session-start hook? Shows git status and recent commits. [Recommended: Yes]"
+6. "Do you have repeatable workflows? (e.g., debugging, code review, deployment) [If yes, we'll create agentskills.io-compliant skills]"
+7. "Are there complex tasks that could run in parallel? (e.g., research, analysis) [If yes, we'll set up subagent definitions]"
 
 ### Step 4: Create the Infrastructure
 
 Based on the answers, create:
+
+#### For Complex Projects: SDD Artifacts
+
+**Create `specs/README.md`** (if SDD artifacts requested):
+```markdown
+# Specifications
+
+This directory contains feature specifications following the SDD Specify phase.
+
+## Structure
+
+```
+specs/
+├── README.md           # This file
+├── feature-name/       # One directory per feature
+│   ├── requirements.md # What to build and why
+│   └── acceptance.md   # How to verify it's done
+```
+
+## Template
+
+When adding a new feature, create `specs/<feature-name>/requirements.md`:
+
+```markdown
+# [Feature Name]
+
+## Summary
+[1-2 sentence description]
+
+## User Stories
+- As a [role], I want [capability] so that [benefit]
+
+## Requirements
+- [ ] Requirement 1
+- [ ] Requirement 2
+
+## Out of Scope
+- [What this does NOT include]
+
+## Acceptance Criteria
+- [ ] Criterion 1
+- [ ] Criterion 2
+```
+```
+
+**Create `ARCHITECTURE.md`** (if SDD artifacts requested):
+```markdown
+# Architecture
+
+## Overview
+[High-level system description]
+
+## Key Components
+- **Component 1**: [Description]
+- **Component 2**: [Description]
+
+## Technology Choices
+| Area | Choice | Rationale |
+|------|--------|-----------|
+| Language | [X] | [Why] |
+| Framework | [X] | [Why] |
+
+## Constraints
+- [Constraint 1]
+- [Constraint 2]
+```
+
+**Create `DECISIONS.md`** (if SDD artifacts requested):
+```markdown
+# Design Decisions
+
+## Decision 1: [Title]
+
+### Context
+[What prompted this decision]
+
+### Options Considered
+| Option | Pros | Cons |
+|--------|------|------|
+| A | ... | ... |
+| B | ... | ... |
+
+### Decision
+[What we chose and why]
+
+### Consequences
+[What this means going forward]
+```
 
 #### Always Create: `.claude/CLAUDE.md`
 

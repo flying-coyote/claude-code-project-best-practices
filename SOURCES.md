@@ -38,6 +38,74 @@ All patterns in this repository are derived from authoritative sources and produ
   - Slash commands structure
   - Skills system
 
+#### Context Engineering for AI Agents
+- **Title**: "Effective context engineering for AI agents"
+- **Source**: Anthropic Engineering Blog
+- **Date**: September 2025
+- **URL**: https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
+- **Key Insights**:
+  - Context engineering supersedes prompt engineering for agents
+  - Context rot: accuracy decreases as token count increases
+  - Iterative context curation during inference cycles
+  - 54% benchmark gains from scratchpad techniques
+- **Pattern**: [Context Engineering](patterns/context-engineering.md)
+
+#### Claude Code Sub-agents
+- **Source**: Anthropic Official Documentation
+- **URL**: https://docs.anthropic.com/en/docs/claude-code/sub-agents
+- **Key Insights**:
+  - Specialized subagent types (Explore, Plan, general-purpose)
+  - Parallel execution patterns
+  - Context isolation for fresh context windows
+- **Pattern**: [Subagent Orchestration](patterns/subagent-orchestration.md)
+
+#### Claude Code Hooks Reference
+- **Source**: Anthropic Official Documentation
+- **URL**: https://docs.anthropic.com/en/docs/claude-code/hooks
+- **Key Insights**:
+  - PreToolUse input modification (v2.0.10+)
+  - PostToolUse output formatting
+  - PermissionRequest hooks (v2.0.45+)
+  - SubagentStop and SessionEnd hooks
+- **Pattern**: [Advanced Hooks](patterns/advanced-hooks.md)
+
+### OWASP Security Standards
+
+#### OWASP MCP Top 10
+- **Source**: OWASP Foundation
+- **URL**: https://owasp.org/www-project-mcp-top-10/
+- **Date**: 2025
+- **Key Risks**:
+  - Tool poisoning and rug pull attacks
+  - Schema poisoning
+  - Memory poisoning
+  - Supply chain attacks
+- **Pattern**: [MCP Failure Modes](patterns/mcp-failure-modes.md)
+
+#### OWASP Guide for Securely Using Third-Party MCP Servers
+- **Source**: OWASP GenAI Security Project
+- **URL**: https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/
+- **Version**: 1.0 (October 2025)
+- **Contributors**: ServiceNow, IBM, Google, AWS, SAP, and others
+- **Key Insights**:
+  - Defense-in-depth checklist for MCP
+  - Server verification (version pinning, checksums)
+  - OAuth 2.1/OIDC authorization
+  - Trusted MCP registry governance
+- **Pattern**: [MCP Failure Modes](patterns/mcp-failure-modes.md)
+
+### Agent Skills Open Standard
+- **Title**: "Agent Skills Specification"
+- **Source**: Anthropic (open standard)
+- **URL**: https://agentskills.io/specification
+- **Repository**: https://github.com/anthropics/skills
+- **Key Insights**:
+  - Cross-platform skill format (Claude Code, Cursor, VS Code, Codex CLI)
+  - Required fields: name, description
+  - SKILL.md with YAML frontmatter
+  - Progressive disclosure via directory structure
+- **Pattern**: [SKILL-TEMPLATE](skills/SKILL-TEMPLATE.md)
+
 ---
 
 ## Secondary Sources (Tier B)
@@ -57,6 +125,73 @@ All patterns in this repository are derived from authoritative sources and produ
   - Skill organization patterns
   - Hook implementation strategies
   - Cross-project consistency approaches
+
+### Agent Skills Open Standard
+- **Title**: "Equipping agents for the real world with Agent Skills"
+- **Source**: Anthropic Engineering
+- **Date**: December 2025
+- **URL**: https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills
+- **Specification**: https://agentskills.io
+- **Key Insights**:
+  - Agent Skills released as open standard
+  - Adopted by OpenAI for Codex CLI and ChatGPT
+  - Cross-platform portability for skills
+
+---
+
+## Spec-Driven Development Standards (Tier A)
+
+These represent the industry-standard methodologies for AI-driven development that this repository adopts:
+
+### GitHub Spec Kit (Foundational)
+- **Author**: GitHub
+- **URL**: https://github.com/github/spec-kit
+- **Stars**: 59,000+ (as of Jan 2026)
+- **License**: MIT
+- **Description**: Tool-agnostic toolkit for spec-driven development with AI coding agents
+- **Key Concepts**:
+  - 4-phase workflow: Specify → Plan → Tasks → Implement
+  - Constitution command for project governing principles
+  - Supports 16+ coding agents including Claude Code
+- **Pattern**: [Spec-Driven Development](patterns/spec-driven-development.md)
+- **Evidence Tier**: A (Industry standard - 59K+ stars, adopted by this repository as foundational methodology)
+
+### BMAD Method
+- **Author**: Brian (BMad) Madison
+- **URL**: https://github.com/bmad-code-org/BMAD-METHOD
+- **License**: MIT
+- **Description**: Multi-agent methodology with 19+ specialized AI agents for full project lifecycle
+- **Key Concepts**:
+  - Agent-as-Code paradigm (agents as markdown files)
+  - Two-phase approach: Agentic Planning + Context-Engineered Development
+  - Scale-Adaptive Intelligence
+  - Document Sharding for token optimization
+- **Claude Code Port**: https://github.com/24601/BMAD-AT-CLAUDE
+- **Pattern**: [Spec-Driven Development](patterns/spec-driven-development.md)
+- **Evidence Tier**: C (Community-driven, MIT licensed)
+
+### Kiro (AWS)
+- **Author**: Amazon Web Services
+- **URL**: https://kiro.dev
+- **Launch**: July 2025 (AWS Summit NYC)
+- **Description**: VS Code-based IDE with spec-driven development built-in
+- **Key Concepts**:
+  - Three spec files: requirements.md, design.md, tasks.md
+  - Agent Hooks for event-driven automation
+  - MCP integration for multimodal context
+- **Analysis**: [InfoQ Coverage](https://www.infoq.com/news/2025/08/aws-kiro-spec-driven-agent/)
+- **Pattern**: [Spec-Driven Development](patterns/spec-driven-development.md)
+- **Evidence Tier**: B (Major vendor implementation)
+
+### ThoughtWorks Analysis
+- **Title**: "Spec-driven development: Unpacking one of 2025's key new AI-assisted engineering practices"
+- **Source**: ThoughtWorks Insights
+- **URL**: https://www.thoughtworks.com/en-us/insights/blog/agile-engineering-practices/spec-driven-development-unpacking-2025-new-engineering-practices
+- **Key Insights**:
+  - SDD as one of 2025's most significant practices
+  - Challenges with agent instruction following
+  - Balance between structure and agility
+- **Evidence Tier**: B (Industry analyst)
 
 ---
 
@@ -233,6 +368,85 @@ These community repositories provide additional examples and inspiration for Cla
 
 ---
 
+## Claude Code Best Practices Repositories (Tier C)
+
+These repositories provide community-maintained best practices and should be periodically reviewed to ensure this project remains current.
+
+**Verification Status Legend:**
+- ✅ **Verified**: Reviewed and confirmed high-quality
+- 🔍 **Discovered**: Found via search, needs review
+- ⚠️ **Stale**: Last commit >6 months ago
+
+### Curated Lists (Primary Review Sources)
+
+| Repository | Status | Stars | Focus | Priority |
+|------------|--------|-------|-------|----------|
+| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | ✅ Verified | 18k+ | Commands, workflows, patterns | HIGH |
+| [jqueryscript/awesome-claude-code](https://github.com/jqueryscript/awesome-claude-code) | 🔍 Discovered | - | Tools, IDE integrations | HIGH |
+| [josix/awesome-claude-md](https://github.com/josix/awesome-claude-md) | 🔍 Discovered | - | CLAUDE.md examples | HIGH |
+| [ccplugins/awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins) | 🔍 Discovered | - | Plugins, hooks | MEDIUM |
+| [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) | 🔍 Discovered | - | Skills resources | MEDIUM |
+
+### Best Practices Repositories
+
+| Repository | Status | Description |
+|------------|--------|-------------|
+| [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) | ✅ Verified | 40+ tips, status line, system prompt optimization |
+| [awattar/claude-code-best-practices](https://github.com/awattar/claude-code-best-practices) | 🔍 Discovered | Patterns and examples for Claude Code |
+| [anuraag2601/claude-code-best-practices](https://github.com/anuraag2601/claude-code-best-practices) | 🔍 Discovered | Battle-tested practices from real projects |
+| [Cranot/claude-code-guide](https://github.com/Cranot/claude-code-guide) | 🔍 Discovered | Comprehensive guide to features |
+| [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) | 🔍 Discovered | Tips, tricks, hidden commands |
+| [jmckinley/claude-code-resources](https://github.com/jmckinley/claude-code-resources) | 🔍 Discovered | Production agents, 100+ workflows |
+
+### Template and Configuration Repositories
+
+| Repository | Status | Description |
+|------------|--------|-------------|
+| [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) | ✅ Verified | 400+ components, CLI tool (12.6k stars) |
+| [centminmod/my-claude-code-setup](https://github.com/centminmod/my-claude-code-setup) | 🔍 Discovered | Starter template with memory bank |
+| [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow/wiki/CLAUDE-MD-Templates) | 🔍 Discovered | CLAUDE.md templates by project type |
+| [ArthurClune/claude-md-examples](https://github.com/ArthurClune/claude-md-examples) | 🔍 Discovered | Sample CLAUDE.md files |
+
+### Cross-Platform AI Coding Resources
+
+| Repository | Status | Description |
+|------------|--------|-------------|
+| [instructa/ai-prompts](https://github.com/instructa/ai-prompts) | 🔍 Discovered | Prompts for Cursor, CLINE, Windsurf, Copilot |
+| [Bhartendu-Kumar/rules_template](https://github.com/Bhartendu-Kumar/rules_template) | 🔍 Discovered | Cross-platform rules for AI assistants |
+| [obviousworks/vibe-coding-ai-rules](https://github.com/obviousworks/vibe-coding-ai-rules) | 🔍 Discovered | AI-optimized rules for Windsurf, Cursor |
+| [nibzard/awesome-agentic-patterns](https://github.com/nibzard/awesome-agentic-patterns) | 🔍 Discovered | Curated agentic AI patterns |
+
+### Agentic Development Frameworks
+
+| Repository | Status | Description |
+|------------|--------|-------------|
+| [danielmiessler/fabric](https://github.com/danielmiessler/fabric) | ✅ Verified | 200+ AI patterns, foundational influence |
+| [microsoft/autogen](https://github.com/microsoft/autogen) | ✅ Verified | Microsoft's agentic AI framework |
+| [anthropics/skills](https://github.com/anthropics/skills) | ✅ Verified | Official Anthropic skills examples |
+| [e2b-dev/awesome-ai-agents](https://github.com/e2b-dev/awesome-ai-agents) | 🔍 Discovered | List of AI autonomous agents |
+| [panaversity/learn-agentic-ai](https://github.com/panaversity/learn-agentic-ai) | 🔍 Discovered | Agentic AI with DACA pattern |
+
+### Review Cadence
+
+| Source Type | Frequency | Next Review |
+|-------------|-----------|-------------|
+| Anthropic Engineering Blog | Weekly | Ongoing |
+| awesome-claude-code lists | Monthly | Feb 2026 |
+| Best practices repositories | Monthly | Feb 2026 |
+| SDD frameworks (Spec Kit, BMAD) | Quarterly | Apr 2026 |
+| Cross-platform resources | Quarterly | Apr 2026 |
+
+### Verification Process
+
+When reviewing a discovered repository:
+1. Check last commit date (active maintenance?)
+2. Review star count and fork activity
+3. Scan README for quality and completeness
+4. Check if patterns align with Claude Code capabilities
+5. Update status to ✅ Verified or ⚠️ Stale
+
+---
+
 ## Production Validation (Tier B)
 
 These patterns have been validated across 12+ production projects:
@@ -305,7 +519,8 @@ This repository uses a tiered evidence system:
 
 ### Tier A: Primary Sources
 - Direct from Anthropic (engineering blog, documentation)
-- Official specifications and standards
+- Official specifications and standards (agentskills.io, OWASP)
+- Industry-standard frameworks (GitHub Spec Kit 59K+ stars)
 - First-party production data
 
 ### Tier B: Validated Secondary
@@ -356,4 +571,4 @@ This sources document is updated when:
 - Additional production validation is completed
 - Community contributions add new references
 
-*Last updated: December 2025*
+*Last updated: January 2026*

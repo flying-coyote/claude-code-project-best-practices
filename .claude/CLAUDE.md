@@ -1,24 +1,37 @@
-# Claude Code Project Best Practices - Meta-Project
+# AI-Driven Development Best Practices
 
 ## Project Purpose
 
-Develop, document, and validate patterns for Claude Code projects. This repository serves as:
-- **Reference implementation** of patterns described within
-- **Teaching resource** for Claude Code users
-- **Validation testbed** for pattern effectiveness
+Document and validate best practices for AI-driven software development, using Claude Code as the primary implementation context. This repository:
+- **Adopts spec-driven development (SDD)** as the foundational methodology
+- **Implements patterns** with Claude Code (skills, hooks, MCP, CLAUDE.md)
+- **Aligns with industry standards** (GitHub Spec Kit, agentskills.io)
+- **Validates through production use** before documenting
+
+## Core Methodology
+
+We follow the **4-phase SDD model** (aligned with GitHub Spec Kit):
+
+| Phase | Purpose | Claude Code Implementation |
+|-------|---------|---------------------------|
+| **Specify** | Define what to build | CLAUDE.md, specs/ directory |
+| **Plan** | Technical design | ARCHITECTURE.md, DECISIONS.md |
+| **Tasks** | Break down work | TodoWrite, JSON task files |
+| **Implement** | Execute with context | Skills, hooks, one feature at a time |
 
 ## Current Phase
 
-**Status**: Post-v1.0 (Maintenance + Pattern Expansion)
-**Focus**: Adding mature patterns from production validation
+**Status**: Post-v1.0 (Maintenance + SDD Alignment)
+**Focus**: Aligning patterns with industry-standard SDD methodology
 
 ## Quality Standards
 
 All content must:
+- Align with SDD principles (specify before implement)
+- Reference which SDD phase it supports
 - Be backed by authoritative sources (see SOURCES.md)
-- Include evidence tier classification where claims are made
+- Acknowledge when patterns work across AI coding tools
 - Be validated in production before documenting
-- Follow patterns it teaches (this repo practices what it preaches)
 
 ## Key Files
 
@@ -33,18 +46,28 @@ All content must:
 | examples/ | Complete project examples |
 | presets/ | Quick-start configurations by project type |
 
-## Patterns Directory
+## Patterns Directory (by SDD Phase)
 
-- `long-running-agent.md` - External artifacts, verify before work
-- `context-engineering.md` - Deterministic vs probabilistic context
+### Foundational
+- `spec-driven-development.md` - **Core methodology** (4-phase model, reference implementations)
+
+### Specify Phase
+- `context-engineering.md` - Specs as deterministic context
+- `memory-architecture.md` - Lifecycle-based information management
+
+### Plan Phase
+- `documentation-maintenance.md` - ARCH/PLAN/INDEX as spec artifacts
+- `evidence-tiers.md` - Citation quality classification
+
+### Tasks + Implement Phase
+- `long-running-agent.md` - External artifacts, one feature at a time
+- `progressive-disclosure.md` - Token-efficient methodology loading
+- `advanced-hooks.md` - Quality gates, PostToolUse, Stop hooks
+- `advanced-tool-use.md` - Tool search and programmatic calling
+
+### Cross-Phase
 - `agent-principles.md` - 6 production AI principles
 - `mcp-failure-modes.md` - 7 failure modes + 3 production patterns
-- `advanced-tool-use.md` - Tool search and programmatic calling
-- `evidence-tiers.md` - Citation quality classification
-- `progressive-disclosure.md` - 3-tier skill architecture
-- `advanced-hooks.md` - PostToolUse, Stop hooks
-- `documentation-maintenance.md` - ARCH/PLAN/INDEX trio
-- `memory-architecture.md` - Lifecycle-based memory
 - `plugins-and-extensions.md` - Plugin vs skill vs MCP decision framework
 
 ## Skills Directory

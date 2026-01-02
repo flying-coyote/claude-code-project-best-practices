@@ -1,7 +1,11 @@
-# MCP Failure Modes
+# MCP Failure Modes and Security
 
-**Source**: [Nate B. Jones - MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving)
-**Evidence Tier**: B (Validated secondary - expert practitioner)
+**Sources**:
+- [Nate B. Jones - MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving) (Evidence Tier B)
+- [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) (Evidence Tier A)
+- [OWASP Guide for Securely Using Third-Party MCP Servers](https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/) (Evidence Tier A)
+
+**Evidence Tier**: A (Industry standard - OWASP security framework)
 
 ## The Core Problem
 
@@ -154,10 +158,77 @@ Is this request time-sensitive?
         └── Execution → Keep traditional
 ```
 
-## Security Checklist
+---
+
+## OWASP MCP Security Framework
+
+The [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) identifies critical security risks in MCP deployments. Key attack patterns:
+
+### Attack Patterns
+
+| Attack | Description | Impact |
+|--------|-------------|--------|
+| **Tool Poisoning** | Malicious commands embedded in tool descriptions | LLM executes hidden instructions, unauthorized data access |
+| **Rug Pull** | Legitimate tool replaced with malicious version | Complete compromise of trusted workflow |
+| **Schema Poisoning** | Corrupted interface definitions mislead the model | Model takes unintended actions |
+| **Tool Shadowing** | Fake/duplicate tools intercept interactions | Data interception, altered responses |
+| **Memory Poisoning** | Agent's memory corrupted with false information | Persistent manipulation of agent behavior |
+| **Cross-Server Interference** | Multiple MCP servers create unintended execution chains | Privilege escalation, data leakage |
+| **Supply Chain Attacks** | Compromised dependencies in MCP packages | Execution-level backdoors |
+
+### Defense-in-Depth Checklist
+
+Based on [OWASP's Practical Guide](https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/):
+
+**Server Verification**:
+- [ ] Pin MCP server version at approval time
+- [ ] Use hash/checksum to verify tool descriptions unchanged
+- [ ] Verify server source is from trusted registry
+- [ ] Check for known vulnerabilities before deployment
+
+**Authorization & Access**:
+- [ ] Enforce OAuth 2.1/OIDC authentication
+- [ ] Apply least-privilege per server
+- [ ] Implement human-in-the-loop for sensitive operations
+- [ ] Use scoped tokens per context (no broad permissions)
+
+**Runtime Protection**:
+- [ ] Sandbox MCP servers (container isolation)
+- [ ] Implement behavioral monitoring for anomalies
+- [ ] Content security policies for tool descriptions
+- [ ] Rate limiting and circuit breakers
+
+**Governance**:
+- [ ] Maintain trusted MCP registry
+- [ ] Require dual sign-off (security + domain owners)
+- [ ] Staged deployment with monitoring
+- [ ] Periodic re-validation of approved servers
+
+### Quick Security Assessment
+
+Before adding any MCP server, answer:
+
+```
+1. Is the source verified and trusted?
+   └── NO → Don't use it
+
+2. Does it request more permissions than needed?
+   └── YES → Reduce scope or reject
+
+3. Can it be sandboxed?
+   └── NO → Extra scrutiny on data access
+
+4. Is there a less privileged alternative?
+   └── YES → Use the alternative
+```
+
+---
+
+## Security Checklist (Consolidated)
 
 Before deploying any MCP server:
 
+**Implementation Security**:
 - [ ] Minimal capabilities (no kitchen sink)
 - [ ] Scoped permissions per context
 - [ ] Audit logging enabled
@@ -165,6 +236,14 @@ Before deploying any MCP server:
 - [ ] Data exposure assessment
 - [ ] Rate limiting configured
 - [ ] Graceful degradation path
+
+**OWASP Compliance**:
+- [ ] Server version pinned and checksummed
+- [ ] OAuth 2.1/OIDC authentication enforced
+- [ ] Sandboxing implemented
+- [ ] Human-in-the-loop for sensitive operations
+- [ ] Listed in trusted internal registry
+- [ ] Periodic re-validation scheduled
 
 ---
 
@@ -185,6 +264,31 @@ Claude Code's MCP integration should follow these patterns:
 
 ---
 
+## SDD Phase Alignment
+
+**Phase**: Cross-phase (security applies to all phases)
+
+| SDD Phase | MCP Security Application |
+|-----------|-------------------------|
+| **Specify** | Define MCP requirements and security constraints |
+| **Plan** | Design MCP architecture with security controls |
+| **Tasks** | Include security verification in task breakdown |
+| **Implement** | Apply defense-in-depth, verify compliance |
+
+---
+
 ## Related Patterns
+
 - [Advanced Tool Use](./advanced-tool-use.md) - Tool Search for token efficiency
 - [Context Engineering](./context-engineering.md) - Security in context design
+- [Plugins and Extensions](./plugins-and-extensions.md) - When to use MCP vs alternatives
+
+---
+
+## Sources
+
+- [Nate B. Jones - MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving)
+- [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)
+- [OWASP Guide for Securely Using Third-Party MCP Servers v1.0](https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/)
+
+*Last updated: January 2026*

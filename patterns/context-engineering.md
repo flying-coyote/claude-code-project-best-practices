@@ -1,11 +1,19 @@
 # Context Engineering
 
-**Source**: [Nate B. Jones - Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive)
-**Evidence Tier**: B (Validated secondary - expert practitioner)
+**Sources**:
+- [Anthropic - Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Evidence Tier A)
+- [Nate B. Jones - Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive) (Evidence Tier B)
+
+**Evidence Tier**: A (Primary vendor documentation)
+
+**SDD Phase**: Specify (context as specification artifacts)
 
 ## The Core Insight
 
-Traditional prompt engineering focuses on what you *tell* the AI. Context engineering focuses on what the AI *discovers*.
+> "Building with language models is becoming less about finding the right words and phrases for your prompts, and more about answering the broader question of 'what configuration of context is most likely to generate our model's desired behavior?'"
+> — Anthropic Engineering Blog
+
+Traditional prompt engineering focuses on what you *tell* the AI. Context engineering focuses on what the AI *discovers* and how context is curated throughout inference.
 
 When Claude researches a topic, your prompt may represent only 0.1% of the total context it actually processes. This fundamentally shifts how we should design AI systems.
 
@@ -97,6 +105,40 @@ Context engineering creates new attack surfaces:
 - Measure context quality, not token quantity
 - Iterate based on failure modes
 
+## Context Rot
+
+From Anthropic's research:
+
+> "As the number of tokens in the context window increases, the model's ability to accurately recall information from that context decreases."
+
+**Implications**:
+- Longer context ≠ better context
+- Recency bias affects recall
+- Position in context matters (needle-in-haystack problem)
+
+**Mitigations**:
+1. **Progressive disclosure**: Load information on-demand, not up-front
+2. **Document sharding**: Break large specs into focused chunks
+3. **Context summarization**: Compress historical context before it rots
+4. **Strategic placement**: Put critical info at context boundaries
+
+## Iterative Context Curation
+
+Unlike static prompt engineering, context engineering is iterative:
+
+```
+[Initial Context] → [Model Response] → [New Information]
+        ↑                                       |
+        └──────── [Curated Context] ←──────────┘
+```
+
+Each inference cycle:
+1. Generates new potentially-relevant data
+2. Requires curation decisions (what to keep/discard)
+3. Must prevent context from exceeding useful limits
+
+**This is why specs matter**: External artifacts (specs/, ARCHITECTURE.md) provide stable reference points that don't rot, unlike accumulated conversation context.
+
 ## Quality Metrics
 
 Track context effectiveness, not just efficiency:
@@ -121,5 +163,17 @@ The goal isn't to tell Claude everything—it's to help Claude find the right th
 ---
 
 ## Related Patterns
+
 - [Long-Running Agent Patterns](./long-running-agent.md) - External artifacts as memory
 - [Advanced Tool Use](./advanced-tool-use.md) - Token-efficient tool integration
+- [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient methodology loading
+- [Memory Architecture](./memory-architecture.md) - Lifecycle-based information management
+
+---
+
+## Sources
+
+- [Anthropic - Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (September 2025)
+- [Nate B. Jones - Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive)
+
+*Last updated: January 2026*
