@@ -1,7 +1,7 @@
 # Architecture
 
 **Purpose**: System design, directory structure, and current phase status
-**Last Updated**: December 13, 2025
+**Last Updated**: January 2, 2026
 
 ---
 
@@ -40,33 +40,40 @@ claude-code-project-best-practices/
 │   │   └── stop-doc-check.sh  # Documentation currency
 │   └── claude-tasks.json      # Task tracking
 │
-├── patterns/                   # Core implementation patterns (12 total)
-│   ├── long-running-agent.md  # Anthropic harness patterns
-│   ├── context-engineering.md # Deterministic vs probabilistic
-│   ├── agent-principles.md    # 6 production principles
-│   ├── mcp-failure-modes.md   # 7 failure modes
-│   ├── advanced-tool-use.md   # Tool search, programmatic calling
-│   ├── evidence-tiers.md      # Dual tier system (A-D + 1-5)
-│   ├── confidence-scoring.md  # HIGH/MEDIUM/LOW hypothesis confidence
-│   ├── progressive-disclosure.md  # 3-tier skill architecture (73% reduction)
+├── patterns/                   # Core implementation patterns (17 total)
 │   ├── advanced-hooks.md      # PostToolUse, Stop hooks
+│   ├── advanced-tool-use.md   # Tool search, programmatic calling
+│   ├── agent-principles.md    # 6 production principles
 │   ├── architecture-decision-records.md  # ADR framework
+│   ├── confidence-scoring.md  # HIGH/MEDIUM/LOW hypothesis confidence
+│   ├── context-engineering.md # Deterministic vs probabilistic
 │   ├── documentation-maintenance.md  # ARCH/PLAN/INDEX trio
-│   └── memory-architecture.md # Lifecycle-based memory
+│   ├── evidence-tiers.md      # Dual tier system (A-D + 1-5)
+│   ├── long-running-agent.md  # Anthropic harness patterns
+│   ├── mcp-failure-modes.md   # 7 failure modes
+│   ├── memory-architecture.md # Lifecycle-based memory
+│   ├── planning-first-development.md  # "Great Planning is Great Prompting"
+│   ├── plugins-and-extensions.md  # Skills vs MCP vs Hooks decision
+│   ├── progressive-disclosure.md  # 3-tier skill architecture (73% reduction)
+│   ├── skills-domain-knowledge.md  # Domain expertise as persistent context
+│   ├── spec-driven-development.md  # 4-phase SDD model (foundational)
+│   └── subagent-orchestration.md  # Multi-agent patterns
 │
 ├── skills/                     # Skill documentation
 │   ├── README.md              # Skills guide
+│   ├── QUICK-REFERENCE.md     # Fast lookup
 │   ├── SKILL-TEMPLATE.md      # Template with all sections
 │   ├── SECURITY-GUIDELINES.md # Risk classification
-│   └── examples/              # 8 example skills
+│   └── examples/              # 9 example skills
+│       ├── content-reviewer/
+│       ├── detection-rule-reviewer/
+│       ├── git-workflow-helper/
+│       ├── hypothesis-validator/
+│       ├── research-extractor/
 │       ├── systematic-debugger/
 │       ├── tdd-enforcer/
-│       ├── git-workflow-helper/
-│       ├── ultrathink-analyst/
-│       ├── content-reviewer/
-│       ├── research-extractor/
 │       ├── threat-model-reviewer/
-│       └── detection-rule-reviewer/
+│       └── ultrathink-analyst/ (with 3 workflows)
 │
 ├── templates/                  # Ready-to-use templates
 │   ├── CLAUDE.md.template     # Handlebars template
@@ -90,12 +97,17 @@ claude-code-project-best-practices/
 ├── automation/                 # Scripts
 │   └── generate_index.py      # INDEX.md generator
 │
+├── research/                   # Research and analysis
+│   └── ai-creators-analysis.md # Tier A source analysis
+│
 ├── ARCHITECTURE.md            # This file (strategic)
-├── PLAN.md                    # Current priorities (tactical)
+├── ARCHIVE.md                 # Completed work and milestones
+├── CONTRIBUTING.md            # Contribution guidelines
+├── DECISIONS.md               # Design rationale
 ├── INDEX.md                   # Auto-generated inventory
+├── PLAN.md                    # Current priorities (tactical)
 ├── README.md                  # Project overview
-├── SOURCES.md                 # All sources with evidence tiers
-└── DECISIONS.md               # Design rationale
+└── SOURCES.md                 # All sources with evidence tiers
 ```
 
 ---
