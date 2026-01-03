@@ -227,3 +227,5 @@ project/
 - [Context Engineering](./context-engineering.md) - Deterministic vs probabilistic context
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient skill loading
 - [Documentation Maintenance](./documentation-maintenance.md) - Keeping memory current
+
+*Last updated: January 2026*

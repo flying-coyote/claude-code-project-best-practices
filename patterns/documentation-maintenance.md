@@ -249,3 +249,5 @@ project/
 
 - [Advanced Hooks](./advanced-hooks.md) - PostToolUse for INDEX.md automation
 - [Long-Running Agent](./long-running-agent.md) - External artifacts as memory
+
+*Last updated: January 2026*

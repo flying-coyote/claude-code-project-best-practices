@@ -179,3 +179,5 @@ These principles manifest in Claude Code patterns:
 ## Related Patterns
 - [Long-Running Agent](./long-running-agent.md) - External artifacts as memory
 - [Context Engineering](./context-engineering.md) - Deterministic vs probabilistic context
+
+*Last updated: January 2026*

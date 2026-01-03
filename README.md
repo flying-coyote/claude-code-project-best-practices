@@ -134,6 +134,7 @@ Reusable AI behavior patterns:
 Complete `.claude/` directories you can reference:
 - **[examples/coding-project/](examples/coding-project/)** - Software development setup
 - **[examples/writing-project/](examples/writing-project/)** - Content creation setup
+- **[examples/research-project/](examples/research-project/)** - Research and analysis setup
 
 ## Core Principles
 

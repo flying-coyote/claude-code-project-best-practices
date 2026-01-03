@@ -1,6 +1,7 @@
 # Advanced Tool Use Patterns
 
 **Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/advanced-tool-use) (November 24, 2025)
+**Evidence Tier**: A (Primary vendor documentation)
 **Beta Header**: `advanced-tool-use-2025-11-20`
 
 ## The Problem Space
@@ -153,3 +154,5 @@ Skills that would benefit from input examples:
 
 - [Context Engineering](./context-engineering.md) - Correctness over compression philosophy
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient skill architecture
+
+*Last updated: January 2026*

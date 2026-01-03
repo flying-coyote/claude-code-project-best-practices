@@ -371,3 +371,5 @@ Always end SKILL.md with:
 
 - [Long-Running Agent](./long-running-agent.md) - External artifacts as memory
 - [Context Engineering](./context-engineering.md) - Semantic highways for discovery
+
+*Last updated: January 2026*

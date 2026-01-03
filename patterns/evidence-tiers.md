@@ -219,3 +219,5 @@ Date: November 24, 2024
 
 - [Agent Principles](./agent-principles.md) - Production AI reliability principles
 - [Context Engineering](./context-engineering.md) - Correctness over compression
+
+*Last updated: January 2026*

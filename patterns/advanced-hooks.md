@@ -454,6 +454,30 @@ Full `settings.json` with all hooks:
 
 ---
 
+## Anti-Patterns
+
+### ❌ Over-Engineering Hooks Early
+**Problem**: Adding complex hooks before understanding needs
+**Symptom**: Maintenance burden, hooks that don't provide value
+**Solution**: Start with SessionStart only; add others based on actual pain points
+
+### ❌ Blocking Hooks for Non-Critical Checks
+**Problem**: Making hooks synchronous when async would suffice
+**Symptom**: Slow AI interactions, user frustration
+**Solution**: Use non-blocking checks unless action must be prevented
+
+### ❌ Silent Hook Failures
+**Problem**: Hooks that fail without user awareness
+**Symptom**: Quality gates bypassed without notice
+**Solution**: Output hook status clearly; fail loudly for critical hooks
+
+### ❌ Hooks Without Documentation
+**Problem**: Complex hook logic without explanation
+**Symptom**: Team members disable hooks they don't understand
+**Solution**: Comment purpose and behavior in hook scripts
+
+---
+
 ## Implementation Priority
 
 1. **Start with SessionStart** - Immediate value, low effort

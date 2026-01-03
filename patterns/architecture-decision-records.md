@@ -508,3 +508,5 @@ Maintain an index in ARCHITECTURE.md:
 **Created**: 2025-12-13
 **Source**: Adapted from software engineering practice, validated in research contexts
 **Applies to**: Software projects, research projects, enterprise governance
+
+*Last updated: January 2026*

@@ -2,6 +2,7 @@
 
 **Source**: Anthropic Engineering Blog (November 2025)
 **URL**: https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents
+**Evidence Tier**: A (Primary vendor documentation)
 
 ## The Core Problem
 
@@ -93,8 +94,34 @@ The session-start hook implements:
 
 ---
 
+## Anti-Patterns
+
+### ❌ One-Shotting Complex Features
+**Problem**: Trying to complete entire projects in a single session
+**Symptom**: Context exhaustion, abandoned work, no rollback points
+**Solution**: One feature at a time with git commits as checkpoints
+
+### ❌ In-Memory State Only
+**Problem**: Keeping critical context only in conversation history
+**Symptom**: Lost progress when session ends or context rotates
+**Solution**: Externalize to progress files, git commits, task lists
+
+### ❌ Skipping "Verify Before Work"
+**Problem**: Starting work without checking project state
+**Symptom**: Building on broken foundations, conflicting changes
+**Solution**: Always run verification (git status, basic tests) at session start
+
+### ❌ Premature Victory Declaration
+**Problem**: Agent declares "done" after partial implementation
+**Symptom**: Features that work in isolation but fail in integration
+**Solution**: Use pass/fail status per feature, require E2E validation
+
+---
+
 ## Related Patterns
 
 - [Memory Architecture](./memory-architecture.md) - Lifecycle-based information management
 - [Documentation Maintenance](./documentation-maintenance.md) - ARCH/PLAN/INDEX trio
 - [Advanced Hooks](./advanced-hooks.md) - SessionStart implementation patterns
+
+*Last updated: January 2026*

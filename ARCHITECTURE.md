@@ -40,10 +40,11 @@ claude-code-project-best-practices/
 │   │   └── stop-doc-check.sh  # Documentation currency
 │   └── claude-tasks.json      # Task tracking
 │
-├── patterns/                   # Core implementation patterns (18 total)
+├── patterns/                   # Core implementation patterns (20 total)
 │   ├── advanced-hooks.md      # PostToolUse, Stop hooks
 │   ├── advanced-tool-use.md   # Tool search, programmatic calling
 │   ├── agent-principles.md    # 6 production principles
+│   ├── ai-image-generation.md # AI asset generation for development
 │   ├── architecture-decision-records.md  # ADR framework
 │   ├── confidence-scoring.md  # HIGH/MEDIUM/LOW hypothesis confidence
 │   ├── context-engineering.md # Deterministic vs probabilistic
@@ -55,6 +56,7 @@ claude-code-project-best-practices/
 │   ├── planning-first-development.md  # "Great Planning is Great Prompting"
 │   ├── plugins-and-extensions.md  # Skills vs MCP vs Hooks decision
 │   ├── progressive-disclosure.md  # 3-tier skill architecture (73% reduction)
+│   ├── recursive-evolution.md # Self-Evolution Algorithm
 │   ├── skills-domain-knowledge.md  # Domain expertise as persistent context
 │   ├── spec-driven-development.md  # 4-phase SDD model (foundational)
 │   ├── subagent-orchestration.md  # Multi-agent patterns
@@ -65,11 +67,12 @@ claude-code-project-best-practices/
 │   ├── QUICK-REFERENCE.md     # Fast lookup
 │   ├── SKILL-TEMPLATE.md      # Template with all sections
 │   ├── SECURITY-GUIDELINES.md # Risk classification
-│   └── examples/              # 9 example skills
+│   └── examples/              # 10 example skills
 │       ├── content-reviewer/
 │       ├── detection-rule-reviewer/
 │       ├── git-workflow-helper/
 │       ├── hypothesis-validator/
+│       ├── recursive-analyst/
 │       ├── research-extractor/
 │       ├── systematic-debugger/
 │       ├── tdd-enforcer/
@@ -83,6 +86,7 @@ claude-code-project-best-practices/
 │
 ├── examples/                   # Complete project examples
 │   ├── coding-project/        # Software development setup
+│   ├── research-project/      # Research and analysis setup
 │   └── writing-project/       # Content creation setup
 │
 ├── presets/                    # Quick-start configurations

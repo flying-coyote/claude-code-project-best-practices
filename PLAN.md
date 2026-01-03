@@ -18,11 +18,11 @@ The repository is stable and production-ready. Key metrics achieved:
 
 | Metric | Status |
 |--------|--------|
-| Patterns | 17 documented |
-| Skills | 9 examples |
+| Patterns | 20 documented |
+| Skills | 10 examples |
 | Self-compliance | 100% |
 | Source attribution | 100% |
-| Total documents | 48 |
+| Total documents | 55 |
 
 See [ARCHIVE.md](ARCHIVE.md) for completed milestones.
 

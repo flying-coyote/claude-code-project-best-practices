@@ -210,6 +210,30 @@ Evaluate full SDD frameworks:
 
 ---
 
+## Anti-Patterns
+
+### ❌ Vibe Coding Without Specs
+**Problem**: Jumping straight to implementation without defining requirements
+**Symptom**: AI produces working code that doesn't match your mental model
+**Solution**: Even 5-minute specs prevent hours of rework
+
+### ❌ Over-Specifying Simple Tasks
+**Problem**: Full 4-phase process for trivial changes
+**Symptom**: 30 minutes of spec work for a 2-minute fix
+**Solution**: Scale rigor to complexity (bug fix = commit message spec)
+
+### ❌ Specs as Write-Once Documents
+**Problem**: Creating specs then ignoring them during implementation
+**Symptom**: Drift between spec and reality
+**Solution**: Treat specs as living artifacts; update when requirements change
+
+### ❌ Skipping Verification
+**Problem**: Assuming AI output matches spec without checking
+**Symptom**: "Works but wrong" implementations
+**Solution**: Review implementation against acceptance criteria before committing
+
+---
+
 ## Related Patterns
 
 - [Long-Running Agent](./long-running-agent.md) - External artifacts as memory
