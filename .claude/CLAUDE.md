@@ -69,12 +69,13 @@ All content must:
 - `agent-principles.md` - 6 production AI principles
 - `mcp-failure-modes.md` - 7 failure modes + 3 production patterns
 - `plugins-and-extensions.md` - Plugin vs skill vs MCP decision framework
+- `recursive-evolution.md` - Self-Evolution Algorithm (multi-candidate, judge loop, crossover)
 
 ## Skills Directory
 
 - `README.md` - Comprehensive skills guide
 - `SKILL-TEMPLATE.md` - Template for creating skills
-- `examples/` - 8 production-validated example skills
+- `examples/` - 10 production-validated example skills
 
 ## Development Guidelines
 

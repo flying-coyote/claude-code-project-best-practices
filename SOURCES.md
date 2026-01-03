@@ -472,6 +472,58 @@ These community repositories provide additional examples and inspiration for Cla
 
 ---
 
+## Self-Evolution Algorithm Sources (Tier B)
+
+These sources document the Self-Evolution Algorithm (TTD-DR) used in the [Recursive Evolution](patterns/recursive-evolution.md) pattern:
+
+### Google TTD-DR Paper
+- **Title**: "Deep Researcher with Test-Time Diffusion"
+- **Authors**: Google Research
+- **URL**: https://arxiv.org/abs/2502.04675
+- **Date**: February 2025
+- **Key Concepts**:
+  - Self-Evolution Algorithm for research synthesis
+  - Multi-candidate initialization with diverse configurations
+  - Component-wise evolution (Plan, Search, Answer)
+  - Recursive feedback loop with "Environment Judge"
+  - Crossover synthesis for merging insights
+- **Evidence Tier**: B (Academic research with community implementations)
+
+### OptILLM Deep Research Plugin
+- **Author**: codelion
+- **URL**: https://github.com/codelion/optillm
+- **Plugin Path**: `optillm/plugins/deep_research/`
+- **Description**: Production-ready implementation of TTD-DR algorithm
+- **Key Features**:
+  - Iterative denoising with quality thresholds
+  - Gap analysis with priority classification
+  - 6-dimension quality scoring (completeness, accuracy, depth, coherence, citations, improvement)
+  - Termination conditions: completeness > 0.9 OR (improvement < 0.03 AND completeness > 0.7)
+  - Component fitness tracking
+- **Evidence Tier**: B (Production implementation with active maintenance)
+
+### AI-Engineering-101 Tutorial
+- **Author**: Saurav Prateek
+- **URL**: https://github.com/SauravP97/AI-Engineering-101
+- **Path**: `/self-evolution-google/agent.ipynb`
+- **Video**: [Google Self-Evolution Algorithm for Deep Researcher](https://www.youtube.com/watch?v=example)
+- **Description**: Educational implementation demonstrating core algorithm
+- **Key Implementation**:
+  - 3 candidates with diverse configs: T=0.5/1.0/1.5, top_k=30/40/50
+  - 3 refinement iterations per candidate
+  - Environment Judge evaluating against web search results
+  - Crossover function merging evolved answers
+- **Evidence Tier**: C (Educational implementation)
+
+### Additional TTD-DR Implementations (Tier C)
+
+| Repository | Description | Evidence Tier |
+|------------|-------------|---------------|
+| [MMU-RAG Competition](https://github.com/eamag/MMU-RAG-competition) | Faithful TTD-DR implementation designed for single 24GB GPU | C (Competition entry) |
+| [TTD-DR Dify](https://github.com/fdb02983rhy/TTD-DR-Dify) | Low-code/visual TTD-DR workflow in Dify platform | C (Community port) |
+
+---
+
 ## Claude Code Best Practices Repositories (Tier C)
 
 These repositories provide community-maintained best practices and should be periodically reviewed to ensure this project remains current.

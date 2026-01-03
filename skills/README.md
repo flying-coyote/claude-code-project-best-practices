@@ -142,6 +142,9 @@ Git best practices: commits, branches, PRs, and safe operations
 #### [ultrathink-analyst](examples/ultrathink-analyst/SKILL.md)
 Deep analysis: FRAME → ANALYZE → SYNTHESIZE methodology
 
+#### [recursive-analyst](examples/recursive-analyst/SKILL.md)
+Self-Evolution Algorithm: Multi-candidate → Iterative refinement → Crossover synthesis
+
 ### Content & Research Skills
 
 #### [content-reviewer](examples/content-reviewer/SKILL.md)

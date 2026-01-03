@@ -193,6 +193,58 @@ Subagents return a single final message. Structure your prompt to ensure:
 
 ---
 
+## Pattern 5: Diversity Sampling (Self-Evolution)
+
+**Use Case**: Exploring multiple solution approaches for the same problem
+
+Unlike traditional parallel research (different tasks), diversity sampling runs the **same task** with different approaches to explore the solution space.
+
+```
+Traditional Parallel:              Diversity Sampling:
+[Subagent 1: Find APIs]           [Candidate 1: Conservative analysis]
+[Subagent 2: Find schemas]   vs   [Candidate 2: Balanced analysis]
+[Subagent 3: Find auth]           [Candidate 3: Creative analysis]
+      ↓                                  ↓
+Different information             Different perspectives on SAME problem
+```
+
+### Implementation
+
+Spawn 3 candidates with different analytical approaches:
+
+```markdown
+## Diversity Sampling Setup
+
+Launch 3 subagents IN PARALLEL (single message, multiple Task calls):
+
+[Task 1: Conservative Candidate]
+- subagent_type: "general-purpose"
+- prompt: "Analyze [TOPIC] with CONSERVATIVE approach:
+  Focus on established patterns, proven solutions, risk mitigation"
+
+[Task 2: Balanced Candidate]
+- subagent_type: "general-purpose"
+- prompt: "Analyze [TOPIC] with BALANCED approach:
+  Consider trade-offs, apply best practices, acknowledge alternatives"
+
+[Task 3: Creative Candidate]
+- subagent_type: "general-purpose"
+- prompt: "Analyze [TOPIC] with CREATIVE approach:
+  Explore novel angles, challenge assumptions, consider innovations"
+```
+
+### Crossover Synthesis
+
+After candidates complete, synthesize:
+1. Identify unique strengths of each approach
+2. Note where candidates agree (high confidence)
+3. Reconcile conflicts (favor stronger evidence)
+4. Merge into superior combined output
+
+**Related**: See [Recursive Evolution](./recursive-evolution.md) for full Self-Evolution Algorithm with iterative refinement.
+
+---
+
 ## Application Examples
 
 ### Research Project
@@ -225,6 +277,7 @@ Then implement sequentially in parent with full context.
 
 ## Related Patterns
 
+- [Recursive Evolution](./recursive-evolution.md) - Full Self-Evolution Algorithm with iterative refinement
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient methodology loading
 - [Context Engineering](./context-engineering.md) - Managing context effectively

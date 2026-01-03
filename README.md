@@ -109,6 +109,7 @@ Core implementation patterns organized by the spec-driven development phase they
 | [MCP Failure Modes](patterns/mcp-failure-modes.md) | 7 failure modes + OWASP security guidance | Nate B. Jones + OWASP |
 | [Plugins and Extensions](patterns/plugins-and-extensions.md) | When to use Skills vs MCP vs Hooks vs Commands | Production |
 | [Confidence Scoring](patterns/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework | Production |
+| [Recursive Evolution](patterns/recursive-evolution.md) | Self-Evolution Algorithm: multi-candidate, judge loop, crossover | Google TTD-DR |
 
 ### Skills
 Reusable AI behavior patterns:
@@ -116,11 +117,12 @@ Reusable AI behavior patterns:
 - **[skills/QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)** - Fast skill lookup and integration patterns
 - **[skills/SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)** - Template for new skills
 - **[skills/SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)** - Security framework with MITRE ATLAS mapping
-- **[skills/examples/](skills/examples/)** - 9 production-validated example skills:
+- **[skills/examples/](skills/examples/)** - 10 production-validated example skills:
   - `systematic-debugger` - 4-phase debugging methodology (REPRODUCE-ISOLATE-UNDERSTAND-FIX)
   - `tdd-enforcer` - Test-driven development enforcement (RED-GREEN-REFACTOR)
   - `git-workflow-helper` - Git best practices and safe operations
   - `ultrathink-analyst` - Deep analysis (FRAME-ANALYZE-SYNTHESIZE)
+  - `recursive-analyst` - Self-Evolution Algorithm (multi-candidate, judge loop, crossover)
   - `content-reviewer` - Publication quality (evidence tiers, voice, balance)
   - `research-extractor` - Systematic research synthesis (HIGH RISK - 5-layer defense)
   - `hypothesis-validator` - Research hypothesis validation with confidence scoring
