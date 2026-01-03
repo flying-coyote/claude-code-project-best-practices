@@ -307,7 +307,7 @@ Need to extend Claude Code?
 
 ## Related Patterns
 
-- [MCP Failure Modes](./mcp-failure-modes.md) - 7 failure modes + production patterns
+- [MCP Patterns](./mcp-patterns.md) - Failure modes + positive patterns + security
 - [Skills README](../skills/README.md) - Comprehensive skills guide
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient skill architecture
 

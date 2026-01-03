@@ -1,4 +1,4 @@
-# MCP Failure Modes and Security
+# MCP Patterns and Security
 
 **Sources**:
 - [Nate B. Jones - MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving) (Evidence Tier B)
@@ -143,6 +143,117 @@ Teams are connecting MCP wrong. The Model Context Protocol is powerful, but its 
 ```
 [Day's Data] → [Overnight Batch] → [MCP Processing] → [Morning Report]
 ```
+
+---
+
+## When MCP IS the Right Choice
+
+While the failure modes above highlight what to avoid, MCP excels in specific development scenarios. For Claude Code specifically:
+
+### Ideal MCP Use Cases
+
+| Use Case | Why MCP Works | Example Servers |
+|----------|---------------|-----------------|
+| **Database Inspection** | Read-only analysis, no transaction impact | Postgres, SQLite, MongoDB |
+| **Knowledge Search** | Background retrieval, user controls timing | Obsidian, Notion, memory servers |
+| **External APIs** | Development assistance, not production paths | GitHub, Linear, Jira |
+| **File System Access** | Controlled scope, sandboxed operations | filesystem (with constraints) |
+| **Development Tools** | Analysis during development, not runtime | Security scanners, linters |
+
+### Database Inspection Pattern
+
+**Best Use Case**: Understanding data structure and querying during development.
+
+```
+Claude Code → MCP (Postgres) → Read Schema/Query Data
+                ↓
+        Development Insights (not production transactions)
+```
+
+**Implementation**:
+```json
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres",
+               "postgresql://user:pass@localhost/dev_db"]
+    }
+  }
+}
+```
+
+**Key Constraint**: Connect to development/read-replica databases, never production write paths.
+
+### Knowledge Base Pattern
+
+**Best Use Case**: Searching documentation, notes, and project context.
+
+```
+Claude Code → MCP (Obsidian/Notion) → Search Knowledge Base
+                ↓
+        Relevant Context for Current Task
+```
+
+**Why It Works**:
+- User controls when to invoke (not in hot paths)
+- Latency acceptable for research operations
+- Enhances context without blocking workflow
+
+### External Service Integration Pattern
+
+**Best Use Case**: Fetching project context from external tools during development.
+
+```
+Claude Code → MCP (GitHub/Linear) → Fetch Issues/PRs
+                ↓
+        Context for Implementation Decisions
+```
+
+**Implementation Guidance**:
+- Read-only operations preferred
+- Write operations require explicit user confirmation
+- Never automate without human-in-the-loop
+
+### Quick-Start MCP Configuration
+
+For development workflows, start with high-value, low-risk servers:
+
+```json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem",
+               "/path/to/allowed/directory"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    }
+  }
+}
+```
+
+**Selection Criteria**:
+1. **Official servers first** - Anthropic-maintained servers are most trustworthy
+2. **Read-only when possible** - Reduces risk surface
+3. **Scoped access** - Limit filesystem to specific directories
+4. **Development databases only** - Never connect to production
+
+### MCP vs Alternatives Decision
+
+Before adding MCP, consider if alternatives suffice:
+
+| Need | MCP Required? | Alternative |
+|------|--------------|-------------|
+| Database queries | Yes, for rich interaction | Direct CLI with Bash tool |
+| File reading | No | Native Read tool |
+| Git operations | No | Native Bash with git |
+| API calls | Maybe | WebFetch for simple GET |
+| Knowledge search | Yes, for integrated experience | Manual file reading |
+
+**Rule of Thumb**: Use MCP when you need persistent, stateful connections or rich protocol interactions that native tools can't provide.
 
 ---
 

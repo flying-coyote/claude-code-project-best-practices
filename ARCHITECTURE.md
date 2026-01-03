@@ -40,7 +40,7 @@ claude-code-project-best-practices/
 │   │   └── stop-doc-check.sh  # Documentation currency
 │   └── claude-tasks.json      # Task tracking
 │
-├── patterns/                   # Core implementation patterns (17 total)
+├── patterns/                   # Core implementation patterns (18 total)
 │   ├── advanced-hooks.md      # PostToolUse, Stop hooks
 │   ├── advanced-tool-use.md   # Tool search, programmatic calling
 │   ├── agent-principles.md    # 6 production principles
@@ -50,14 +50,15 @@ claude-code-project-best-practices/
 │   ├── documentation-maintenance.md  # ARCH/PLAN/INDEX trio
 │   ├── evidence-tiers.md      # Dual tier system (A-D + 1-5)
 │   ├── long-running-agent.md  # Anthropic harness patterns
-│   ├── mcp-failure-modes.md   # 7 failure modes
+│   ├── mcp-patterns.md        # Failure modes + positive patterns
 │   ├── memory-architecture.md # Lifecycle-based memory
 │   ├── planning-first-development.md  # "Great Planning is Great Prompting"
 │   ├── plugins-and-extensions.md  # Skills vs MCP vs Hooks decision
 │   ├── progressive-disclosure.md  # 3-tier skill architecture (73% reduction)
 │   ├── skills-domain-knowledge.md  # Domain expertise as persistent context
 │   ├── spec-driven-development.md  # 4-phase SDD model (foundational)
-│   └── subagent-orchestration.md  # Multi-agent patterns
+│   ├── subagent-orchestration.md  # Multi-agent patterns
+│   └── tool-ecosystem.md          # Claude Code vs alternatives
 │
 ├── skills/                     # Skill documentation
 │   ├── README.md              # Skills guide

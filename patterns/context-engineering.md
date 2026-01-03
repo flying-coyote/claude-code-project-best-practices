@@ -162,6 +162,76 @@ The goal isn't to tell Claude everything—it's to help Claude find the right th
 
 ---
 
+## Context Extraction Tools
+
+While context engineering focuses on architecture and principles, these tools help automate context preparation:
+
+### repomix (formerly repopack)
+
+**Repository**: https://github.com/yamadashy/repomix
+
+Packs an entire repository into a single, AI-friendly file optimized for use as context.
+
+```bash
+# Install
+npm install -g repomix
+
+# Generate context file
+repomix
+
+# With options
+repomix --output context.txt --ignore "node_modules,dist"
+```
+
+**Use Case**: Initial project onboarding, comprehensive codebase analysis, when you need the AI to understand the full project structure.
+
+**Trade-off**: Generates large context files. Use judiciously—not every task needs full repo context.
+
+### code2prompt
+
+**Repository**: https://github.com/mufeedvh/code2prompt
+
+Converts codebases into token-optimized prompts with intelligent filtering.
+
+```bash
+# Install
+cargo install code2prompt
+
+# Generate prompt
+code2prompt --path /path/to/project
+```
+
+**Use Case**: Creating focused context for specific tasks, stripping unnecessary files/comments.
+
+**Trade-off**: More aggressive optimization may lose context that matters.
+
+### When to Use Context Tools
+
+| Scenario | Tool | Rationale |
+|----------|------|-----------|
+| New project onboarding | repomix | Need full structure understanding |
+| Focused code review | code2prompt | Targeted context, minimal tokens |
+| Architecture discussion | repomix | Broad understanding required |
+| Bug fixing | Neither | Use Claude's file reading directly |
+| Routine development | Neither | CLAUDE.md + on-demand discovery |
+
+**Key Insight**: These tools are for **initial context loading**, not ongoing development. Once Claude Code is in a session, its native file reading and exploration is more effective than pre-generated context files.
+
+### Integration with Claude Code
+
+```bash
+# Generate context, then reference in prompt
+repomix --output .context/repo-overview.txt
+
+# In CLAUDE.md
+## Project Overview
+For full codebase context, see `.context/repo-overview.txt`
+```
+
+**Anti-pattern**: Don't regenerate context files constantly. They're for bootstrapping, not session maintenance.
+
+---
+
 ## Related Patterns
 
 - [Long-Running Agent Patterns](./long-running-agent.md) - External artifacts as memory

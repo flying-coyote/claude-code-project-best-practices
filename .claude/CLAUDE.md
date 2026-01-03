@@ -67,7 +67,7 @@ All content must:
 
 ### Cross-Phase
 - `agent-principles.md` - 6 production AI principles
-- `mcp-failure-modes.md` - 7 failure modes + 3 production patterns
+- `mcp-patterns.md` - Failure modes + positive patterns + security
 - `plugins-and-extensions.md` - Plugin vs skill vs MCP decision framework
 - `recursive-evolution.md` - Self-Evolution Algorithm (multi-candidate, judge loop, crossover)
 

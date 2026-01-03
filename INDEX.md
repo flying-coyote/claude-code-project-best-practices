@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-01-02 20:29*
+*Auto-generated: 2026-01-02 20:44*
 
 ## Summary
 
-**Total documents**: 53
+**Total documents**: 54
 
 | Directory | Count |
 |-----------|-------|
-| patterns | 18 |
+| patterns | 19 |
 | presets | 4 |
 | prompts | 2 |
 | research | 1 |
@@ -103,7 +103,7 @@
 - [documentation-maintenance.md](patterns/documentation-maintenance.md)
 - [evidence-tiers.md](patterns/evidence-tiers.md)
 - [long-running-agent.md](patterns/long-running-agent.md)
-- [mcp-failure-modes.md](patterns/mcp-failure-modes.md)
+- [mcp-patterns.md](patterns/mcp-patterns.md)
 - [memory-architecture.md](patterns/memory-architecture.md)
 - [planning-first-development.md](patterns/planning-first-development.md)
 - [plugins-and-extensions.md](patterns/plugins-and-extensions.md)
@@ -112,6 +112,7 @@
 - [skills-domain-knowledge.md](patterns/skills-domain-knowledge.md)
 - [spec-driven-development.md](patterns/spec-driven-development.md)
 - [subagent-orchestration.md](patterns/subagent-orchestration.md)
+- [tool-ecosystem.md](patterns/tool-ecosystem.md)
 ## Templates
 
 - [ADR-TEMPLATE.md](templates/ADR-TEMPLATE.md)

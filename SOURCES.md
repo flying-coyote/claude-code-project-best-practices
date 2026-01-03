@@ -80,7 +80,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Schema poisoning
   - Memory poisoning
   - Supply chain attacks
-- **Pattern**: [MCP Failure Modes](patterns/mcp-failure-modes.md)
+- **Pattern**: [MCP Patterns](patterns/mcp-patterns.md)
 
 #### OWASP Guide for Securely Using Third-Party MCP Servers
 - **Source**: OWASP GenAI Security Project
@@ -92,7 +92,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Server verification (version pinning, checksums)
   - OAuth 2.1/OIDC authorization
   - Trusted MCP registry governance
-- **Pattern**: [MCP Failure Modes](patterns/mcp-failure-modes.md)
+- **Pattern**: [MCP Patterns](patterns/mcp-patterns.md)
 
 ### Agent Skills Open Standard
 - **Title**: "Agent Skills Specification"
@@ -136,6 +136,32 @@ All patterns in this repository are derived from authoritative sources and produ
   - Agent Skills released as open standard
   - Adopted by OpenAI for Codex CLI and ChatGPT
   - Cross-platform portability for skills
+
+---
+
+## AI Coding Ecosystem Tools (Tier C)
+
+These tools complement Claude Code or provide alternative approaches to AI-assisted development. Tier C reflects community-driven, production-validated tools.
+
+### Alternative AI Coding Agents
+
+| Tool | Repository | Key Feature | Use Case |
+|------|------------|-------------|----------|
+| **Aider** | [paul-gauthier/aider](https://github.com/paul-gauthier/aider) | Git-centric workflow, local model support (Ollama) | Privacy-sensitive, offline-first |
+| **OpenHands** | [All-Hands-AI/OpenHands](https://github.com/All-Hands-AI/OpenHands) | Dockerized autonomous agents | Sandboxed execution, reproducibility |
+| **Goose** | [block/goose](https://github.com/block/goose) | Extensible local agent framework | Custom agent development |
+| **Cursor** | [cursor.sh](https://cursor.sh) | VS Code fork with native AI | IDE-native experience |
+
+- **Pattern**: [Tool Ecosystem](patterns/tool-ecosystem.md)
+
+### Context Extraction Tools
+
+| Tool | Repository | Purpose |
+|------|------------|---------|
+| **repomix** | [yamadashy/repomix](https://github.com/yamadashy/repomix) | Pack repository into AI-friendly single file |
+| **code2prompt** | [mufeedvh/code2prompt](https://github.com/mufeedvh/code2prompt) | Token-optimized codebase context extraction |
+
+- **Pattern**: [Context Engineering](patterns/context-engineering.md)
 
 ---
 
@@ -315,7 +341,7 @@ These sources directly influenced the design of the skill structure and project 
 |---------|---------|--------------|
 | [Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive) | [Context Engineering](../patterns/context-engineering.md) | Deterministic vs probabilistic context, correctness over compression |
 | [2025 Agent Build Bible](https://natesnewsletter.substack.com/p/why-your-ai-breaks-in-production) | [Agent Principles](../patterns/agent-principles.md) | 6 principles for production AI, semantic validation |
-| [MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving) | [MCP Failure Modes](../patterns/mcp-failure-modes.md) | 7 failure modes, Intelligence Layer/Sidecar/Batch patterns |
+| [MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving) | [MCP Patterns](../patterns/mcp-patterns.md) | 7 failure modes, Intelligence Layer/Sidecar/Batch patterns |
 | Million-Dollar Workflows in 10 Minutes | Skills structure | IDENTITY/GOAL/STEPS/OUTPUT skill format |
 
 #### Core Concepts

@@ -106,10 +106,11 @@ Core implementation patterns organized by the spec-driven development phase they
 | Pattern | Key Insight | Source |
 |---------|-------------|--------|
 | [Agent Principles](patterns/agent-principles.md) | 6 principles for production AI reliability | Nate B. Jones |
-| [MCP Failure Modes](patterns/mcp-failure-modes.md) | 7 failure modes + OWASP security guidance | Nate B. Jones + OWASP |
+| [MCP Patterns](patterns/mcp-patterns.md) | 7 failure modes + positive patterns + OWASP security | Nate B. Jones + OWASP |
 | [Plugins and Extensions](patterns/plugins-and-extensions.md) | When to use Skills vs MCP vs Hooks vs Commands | Production |
 | [Confidence Scoring](patterns/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework | Production |
 | [Recursive Evolution](patterns/recursive-evolution.md) | Self-Evolution Algorithm: multi-candidate, judge loop, crossover | Google TTD-DR |
+| [Tool Ecosystem](patterns/tool-ecosystem.md) | When Claude Code vs alternatives (Aider, Cursor, OpenHands) | Community |
 
 ### Skills
 Reusable AI behavior patterns:

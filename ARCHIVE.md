@@ -36,7 +36,7 @@
 - Added Nate B. Jones patterns:
   - context-engineering.md
   - agent-principles.md
-  - mcp-failure-modes.md
+  - mcp-patterns.md
 - Fixed broken URL in SOURCES.md
 - Expanded SOURCES.md with article mapping
 
