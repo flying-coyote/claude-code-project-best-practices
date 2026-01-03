@@ -245,6 +245,146 @@ After candidates complete, synthesize:
 
 ---
 
+## Pattern 6: Worktree Isolation
+
+**Use Case**: Safe parallel execution of multiple agents on the same codebase
+
+The core insight from multi-agent orchestration tools: **"Safety enables autonomy"** — structural isolation through git worktrees allows agents to work autonomously because worst-case scenarios are contained.
+
+### Architecture
+
+```
+Main Branch (Protected)
+    │
+    ├── Worktree 1: Agent A working on Feature X
+    │       └── Isolated directory, full git history
+    │
+    ├── Worktree 2: Agent B working on Feature Y
+    │       └── Isolated directory, full git history
+    │
+    └── Worktree 3: Agent C working on Bug Fix Z
+            └── Isolated directory, full git history
+
+Result: Parallel development with zero risk to main branch
+```
+
+### Key Benefits
+
+| Benefit | Description |
+|---------|-------------|
+| **Main branch protection** | Agents can't corrupt main; worst case = discard branch |
+| **True parallelism** | No file locking needed; each agent has own filesystem |
+| **Easy rollback** | Failed experiments = delete worktree, no cleanup |
+| **Conflict isolation** | Merge conflicts handled at integration, not during work |
+
+### Three-Layer Merge Resolution
+
+When integrating worktree changes back to main:
+
+```
+Layer 1: Standard git auto-merge
+    ↓ (if conflicts)
+Layer 2: AI processes ONLY conflicting sections (~98% token savings)
+    ↓ (if still unresolved)
+Layer 3: Full-file AI resolution (fallback)
+```
+
+**Token Efficiency**: Processing only conflict hunks rather than full files saves ~98% of tokens on merge operations.
+
+### Implementation with Claude Code
+
+While Claude Code doesn't natively manage worktrees, the pattern applies when:
+- Running multiple Claude Code instances on different branches
+- Using external orchestration (Auto-Claude, scripts)
+- Coordinating team members with AI agents
+
+```bash
+# Create isolated worktree for agent work
+git worktree add ../feature-x-workspace feature-x
+
+# Agent works in isolated directory
+cd ../feature-x-workspace
+# ... agent makes changes ...
+
+# Integrate back when ready
+git worktree remove ../feature-x-workspace
+```
+
+**Sources**: Auto-Claude, ccswarm (Tier C - community tools)
+
+---
+
+## Pattern 7: Tiered Model Strategy
+
+**Use Case**: Optimizing cost and latency by matching model capability to task complexity
+
+Not all tasks require the most powerful model. A tiered strategy allocates model resources based on task criticality.
+
+### Model Tier Framework
+
+| Tier | Model | Task Types | Rationale |
+|------|-------|------------|-----------|
+| **Tier 1** | Opus | Architecture, security review, complex reasoning | Highest capability for critical decisions |
+| **Tier 2** | Sonnet | Standard development, moderate complexity | Balanced cost/capability for most work |
+| **Tier 3** | Haiku | Fast operations, simple tasks, high volume | Speed and cost optimization |
+
+### Claude Code Implementation
+
+Use the `model` parameter in Task tool calls:
+
+```markdown
+## Tiered Subagent Deployment
+
+### Critical Task (Tier 1 - Opus)
+Task tool with:
+- subagent_type: "Plan"
+- model: "opus"
+- prompt: "Design security architecture for authentication system"
+
+### Standard Task (Tier 2 - Sonnet, default)
+Task tool with:
+- subagent_type: "Explore"
+- prompt: "Find all files related to user authentication"
+
+### Fast Task (Tier 3 - Haiku)
+Task tool with:
+- subagent_type: "Explore"
+- model: "haiku"
+- prompt: "Count lines of code in src/ directory"
+```
+
+### Decision Matrix
+
+| Task Characteristic | Recommended Tier |
+|---------------------|------------------|
+| Security implications | Tier 1 (Opus) |
+| Architectural decisions | Tier 1 (Opus) |
+| Complex multi-step reasoning | Tier 1 (Opus) |
+| Standard code generation | Tier 2 (Sonnet) |
+| Code review | Tier 2 (Sonnet) |
+| File search/exploration | Tier 3 (Haiku) |
+| Simple transformations | Tier 3 (Haiku) |
+| High-volume operations | Tier 3 (Haiku) |
+
+### Cost/Latency Trade-offs
+
+```
+                    Capability
+                        ↑
+           Opus ────────●
+                        │
+          Sonnet ───────●
+                        │
+           Haiku ───────●
+                        └──────────────→ Speed/Cost
+```
+
+**Rule of Thumb**: Default to Sonnet; escalate to Opus for critical decisions; drop to Haiku for volume operations.
+
+**Sources**: wshobson/agents (Tier C - community tool, 24.2k stars)
+
+---
+
 ## Application Examples
 
 ### Research Project
@@ -286,7 +426,13 @@ Then implement sequentially in parent with full context.
 
 ## Sources
 
+**Primary (Tier A)**:
 - [Claude Code Sub-agents Documentation](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
 - [Anthropic Engineering Blog: Effective Harnesses](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
+
+**Community Tools (Tier C)**:
+- [Auto-Claude](https://github.com/AndyMik90/Auto-Claude) - Worktree isolation, parallel agents (5.1k stars)
+- [wshobson/agents](https://github.com/wshobson/agents) - Tiered model strategy (24.2k stars)
+- [ccswarm](https://github.com/nwiizo/ccswarm) - Git worktree + channel-based communication
 
 *Last updated: January 2026*

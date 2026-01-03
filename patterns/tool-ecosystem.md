@@ -36,6 +36,7 @@ This pattern helps developers choose the right AI coding tool for their context.
 | **Containerized agents** | OpenHands | Sandboxed execution, reproducibility |
 | **Multi-model orchestration** | Goose | Extensible local agent framework |
 | **GitHub Copilot investment** | Copilot Chat | Existing enterprise licenses |
+| **Multi-agent orchestration** | Auto-Claude | Parallel agents, worktree isolation, autonomous workflows |
 
 ---
 
@@ -177,6 +178,11 @@ Some developers use multiple tools strategically:
 - **Repository**: https://github.com/block/goose
 - **Key Feature**: Extensible local agent framework
 - **Best For**: Custom agent development, local-first workflows
+
+### Auto-Claude
+- **Repository**: https://github.com/AndyMik90/Auto-Claude
+- **Key Feature**: Multi-agent orchestration with git worktree isolation
+- **Best For**: Autonomous parallel development, safe experimentation
 
 ---
 
