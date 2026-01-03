@@ -359,6 +359,30 @@ fi
 
 ---
 
+## Anti-Patterns
+
+### ❌ AI for Brand-Critical Assets
+**Problem**: Using AI image generation for brand identity, logos, or marketing materials
+**Symptom**: Inconsistent brand representation, professional appearance degraded
+**Solution**: Reserve AI for development assets; use professional design for brand materials
+
+### ❌ Expecting Reliable Text Rendering
+**Problem**: Relying on AI to render text, labels, or captions in images
+**Symptom**: Misspelled, garbled, or missing text in generated images
+**Solution**: Generate images without text; add text in post-processing with design tools
+
+### ❌ On-Demand Production Generation
+**Problem**: Generating images at request time in production applications
+**Symptom**: Slow response times, rate limit errors, unpredictable results for users
+**Solution**: Pre-generate assets; use AI generation in build/CI pipelines only
+
+### ❌ Ignoring Style Templates
+**Problem**: Ad-hoc prompts without consistent style guidance
+**Symptom**: Visually inconsistent assets across project
+**Solution**: Create and maintain style templates in `styles/` directory
+
+---
+
 ## Sources
 
 - [google-image-gen-api-starter](https://github.com/AI-Engineer-Skool/google-image-gen-api-starter) - CLI tool for Gemini image generation

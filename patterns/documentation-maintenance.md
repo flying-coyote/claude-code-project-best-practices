@@ -245,6 +245,30 @@ project/
 
 ---
 
+## Anti-Patterns
+
+### ❌ Manual INDEX.md Maintenance
+**Problem**: Manually updating document indexes after file changes
+**Symptom**: INDEX.md constantly out of sync, maintenance fatigue
+**Solution**: Automate with PostToolUse hook and `generate_index.py` script
+
+### ❌ Expecting Real-Time Doc Updates
+**Problem**: Demanding documentation updates during intensive work periods
+**Symptom**: Interruption fatigue, documentation updates abandoned
+**Solution**: Accept drift during work; use slash commands at natural checkpoints
+
+### ❌ Single Monolithic Doc
+**Problem**: Maintaining one large document for all project context
+**Symptom**: Information hard to find, staleness spread throughout
+**Solution**: Three-document system (ARCHITECTURE, PLAN, INDEX) with different update triggers
+
+### ❌ No Staleness Alerts
+**Problem**: Letting documentation drift without any notification
+**Symptom**: Outdated docs discovered only when causing problems
+**Solution**: Stop hook reminder for docs older than 7 days with recent activity
+
+---
+
 ## Related Patterns
 
 - [Advanced Hooks](./advanced-hooks.md) - PostToolUse for INDEX.md automation

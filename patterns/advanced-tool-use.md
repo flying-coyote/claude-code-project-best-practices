@@ -150,6 +150,30 @@ Skills that would benefit from input examples:
 
 ---
 
+## Anti-Patterns
+
+### ❌ Always Loading All Tools
+**Problem**: Including all tool definitions in every context
+**Symptom**: 50K+ tokens consumed before conversation starts, context exhaustion
+**Solution**: Use `defer_loading: true` for specialized tools, enable tool search
+
+### ❌ Ignoring Context Pollution
+**Problem**: Letting full tool results enter context without summarization
+**Symptom**: Large files (logs, data) consume entire context window
+**Solution**: Use programmatic tool calling to filter/aggregate before results enter context
+
+### ❌ Schema-Only Tool Definitions
+**Problem**: Relying solely on JSON Schema without usage examples
+**Symptom**: 72% accuracy when examples would yield 90%
+**Solution**: Add `input_examples` showing correct parameter patterns
+
+### ❌ Excessive Sequential Calls
+**Problem**: Making tool calls one at a time when parallelization is possible
+**Symptom**: Slow responses, unnecessary inference passes
+**Solution**: Use programmatic calling for batch operations (asyncio.gather pattern)
+
+---
+
 ## Related Patterns
 
 - [Context Engineering](./context-engineering.md) - Correctness over compression philosophy

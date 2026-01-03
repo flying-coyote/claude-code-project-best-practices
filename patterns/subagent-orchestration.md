@@ -424,6 +424,30 @@ Then implement sequentially in parent with full context.
 
 ---
 
+## Anti-Patterns
+
+### ❌ Over-Delegation
+**Problem**: Spawning subagents for every small task
+**Symptom**: Subagent overhead exceeds benefit, fragmented workflow
+**Solution**: Reserve subagents for tasks taking 30+ seconds or needing fresh context
+
+### ❌ Parallel Write Operations
+**Problem**: Running multiple subagents that write to the same files
+**Symptom**: Race conditions, overwritten changes, corrupted state
+**Solution**: Only parallelize read operations; sequence all writes
+
+### ❌ Assuming Shared Context
+**Problem**: Writing subagent prompts that reference "the code we discussed"
+**Symptom**: Subagent returns irrelevant results, misunderstands task
+**Solution**: Include complete context in prompt—subagents have no conversation history
+
+### ❌ Ignoring Result Synthesis
+**Problem**: Collecting subagent results without integrating findings
+**Symptom**: Fragmented understanding, missed connections between findings
+**Solution**: Always synthesize and reconcile results after parallel subagent completion
+
+---
+
 ## Sources
 
 **Primary (Tier A)**:

@@ -176,6 +176,30 @@ These principles manifest in Claude Code patterns:
 
 ---
 
+## Anti-Patterns
+
+### ❌ Expecting Deterministic Output
+**Problem**: Assuming AI will always produce identical output for same input
+**Symptom**: Flaky tests, inconsistent behavior across sessions
+**Solution**: Design for "good enough" responses, use semantic similarity not exact match
+
+### ❌ Trusting Traditional Metrics
+**Problem**: Relying on latency/uptime to indicate AI system health
+**Symptom**: Fast, successful responses that are semantically wrong
+**Solution**: Implement semantic evaluation, human review sampling, output quality metrics
+
+### ❌ AI-Only Critical Paths
+**Problem**: Routing authentication, payments, or security through AI without fallback
+**Symptom**: Security vulnerabilities, unpredictable failures in critical flows
+**Solution**: Keep trust infrastructure traditional; use AI for intelligence, not gatekeeping
+
+### ❌ Stateless AI Design
+**Problem**: Treating AI like stateless microservices
+**Symptom**: Users repeat context every session, cross-session workflows break
+**Solution**: External artifacts (CLAUDE.md, task files, git) as persistent memory
+
+---
+
 ## Related Patterns
 - [Long-Running Agent](./long-running-agent.md) - External artifacts as memory
 - [Context Engineering](./context-engineering.md) - Deterministic vs probabilistic context

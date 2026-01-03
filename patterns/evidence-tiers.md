@@ -215,6 +215,30 @@ Date: November 24, 2024
 
 ---
 
+## Anti-Patterns
+
+### ❌ Tier D Presented as Fact
+**Problem**: Citing speculation, social media, or personal opinions as authoritative
+**Symptom**: Unfounded claims in publications, damaged credibility
+**Solution**: Always label Tier D as speculation; never present as established fact
+
+### ❌ Single-Source Strong Claims
+**Problem**: Making definitive assertions based on one source
+**Symptom**: Claims that fail under scrutiny, cherry-picked evidence
+**Solution**: Require Tier A-B evidence for strong claims; corroborate Tier C
+
+### ❌ Ignoring Contradictions
+**Problem**: Dismissing conflicting evidence that challenges preferred conclusion
+**Symptom**: Biased analysis, missed nuance, intellectual dishonesty
+**Solution**: Document contradictions explicitly; favor higher tier when sources conflict
+
+### ❌ Vendor Claims Without Validation
+**Problem**: Accepting vendor whitepapers (Tier C/4) at face value
+**Symptom**: Overstated benefits, surprise limitations in production
+**Solution**: Treat vendor claims as hypotheses; validate with POC or independent benchmark
+
+---
+
 ## Related Patterns
 
 - [Agent Principles](./agent-principles.md) - Production AI reliability principles

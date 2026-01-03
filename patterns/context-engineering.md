@@ -241,6 +241,30 @@ For full codebase context, see `.context/repo-overview.txt`
 
 ---
 
+## Anti-Patterns
+
+### ❌ Optimizing Tokens Over Correctness
+**Problem**: Compressing context aggressively to save tokens
+**Symptom**: Wrong answers, missed context, wasted human time on rework
+**Solution**: Prioritize semantic relevance and accuracy; efficiency is last priority
+
+### ❌ Preloading Everything
+**Problem**: Stuffing all possible context into system prompt upfront
+**Symptom**: Context window exhaustion, needle-in-haystack retrieval failures
+**Solution**: Create semantic highways; let AI discover what it needs on-demand
+
+### ❌ Trusting External MCP Content
+**Problem**: Accepting MCP-fetched content without validation
+**Symptom**: Prompt injection vulnerabilities, corrupted reasoning
+**Solution**: Audit all content entering context; sanitize external data
+
+### ❌ Regenerating Context Files Constantly
+**Problem**: Running repomix/code2prompt on every session
+**Symptom**: Stale context files, wasted setup time, context drift
+**Solution**: Generate context files for bootstrapping only; use native file reading during sessions
+
+---
+
 ## Sources
 
 - [Anthropic - Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (September 2025)

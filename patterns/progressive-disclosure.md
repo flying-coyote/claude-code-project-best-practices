@@ -367,6 +367,30 @@ Always end SKILL.md with:
 
 ---
 
+## Anti-Patterns
+
+### ❌ Monolithic Skill Files
+**Problem**: Keeping all skill content in a single 500+ line SKILL.md
+**Symptom**: 100% of tokens loaded for every activation, even simple queries
+**Solution**: Extract workflows to `workflows/`, references to `references/`
+
+### ❌ Missing Workflow Routing
+**Problem**: Multi-file structure without explicit routing section in SKILL.md
+**Symptom**: Claude doesn't know when to load which workflow file
+**Solution**: Add explicit "WORKFLOW ROUTING" section mapping user intents to files
+
+### ❌ Over-Splitting Simple Skills
+**Problem**: Applying progressive disclosure to skills under 200 lines
+**Symptom**: Maintenance overhead exceeds token savings
+**Solution**: Only split skills >200 lines with distinct operations
+
+### ❌ Orphaned Workflows
+**Problem**: Workflow files not referenced in SKILL.md routing or footer
+**Symptom**: Workflows never loaded, wasted content
+**Solution**: Every workflow must appear in routing table and footer links
+
+---
+
 ## Related Patterns
 
 - [Long-Running Agent](./long-running-agent.md) - External artifacts as memory
