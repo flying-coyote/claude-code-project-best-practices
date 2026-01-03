@@ -163,6 +163,14 @@ These tools complement Claude Code or provide alternative approaches to AI-assis
 
 - **Pattern**: [Context Engineering](patterns/context-engineering.md)
 
+### AI Asset Generation Tools
+
+| Tool | Repository | API | Purpose |
+|------|------------|-----|---------|
+| **google-image-gen-api-starter** | [AI-Engineer-Skool/google-image-gen-api-starter](https://github.com/AI-Engineer-Skool/google-image-gen-api-starter) | Google Gemini | CLI for image generation with style templates |
+
+- **Pattern**: [AI Image Generation](patterns/ai-image-generation.md), [Tool Ecosystem](patterns/tool-ecosystem.md)
+
 ---
 
 ## Spec-Driven Development Standards (Tier A)

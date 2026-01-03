@@ -186,6 +186,39 @@ Some developers use multiple tools strategically:
 
 ---
 
+## Complementary Tools
+
+Beyond AI coding agents, these tools integrate with development workflows for specific tasks:
+
+### AI Image Generation
+
+#### google-image-gen-api-starter
+- **Repository**: https://github.com/AI-Engineer-Skool/google-image-gen-api-starter
+- **Key Feature**: CLI for Gemini image generation with style templates
+- **API**: Google Gemini (gemini-3-pro-image-preview)
+- **Best For**: Documentation assets, visual prototypes, automated asset pipelines
+
+**Quick Start**:
+```bash
+# Install
+git clone https://github.com/AI-Engineer-Skool/google-image-gen-api-starter
+cd google-image-gen-api-starter
+uv sync
+
+# Configure
+cp .env.example .env
+# Add GOOGLE_AI_API_KEY from https://aistudio.google.com/apikey
+
+# Generate
+uv run python main.py output.png "A 3D diagram of microservices architecture"
+```
+
+**Style Templates**: Reusable prompt templates in `styles/*.md` ensure visual consistency across generated assets.
+
+**Pattern**: See [AI Image Generation](./ai-image-generation.md) for comprehensive integration guidance.
+
+---
+
 ## Maintaining Tool Independence
 
 ### Recommendations

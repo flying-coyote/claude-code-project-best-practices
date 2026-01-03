@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-01-02 21:10*
+*Auto-generated: 2026-01-02 21:28*
 
 ## Summary
 
-**Total documents**: 54
+**Total documents**: 55
 
 | Directory | Count |
 |-----------|-------|
-| patterns | 19 |
+| patterns | 20 |
 | presets | 4 |
 | prompts | 2 |
 | research | 1 |
@@ -97,6 +97,7 @@
 - [advanced-hooks.md](patterns/advanced-hooks.md)
 - [advanced-tool-use.md](patterns/advanced-tool-use.md)
 - [agent-principles.md](patterns/agent-principles.md)
+- [ai-image-generation.md](patterns/ai-image-generation.md)
 - [architecture-decision-records.md](patterns/architecture-decision-records.md)
 - [confidence-scoring.md](patterns/confidence-scoring.md)
 - [context-engineering.md](patterns/context-engineering.md)
