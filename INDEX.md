@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-01-02 21:42*
+*Auto-generated: 2026-01-02 21:54*
 
 ## Summary
 
-**Total documents**: 55
+**Total documents**: 56
 
 | Directory | Count |
 |-----------|-------|
@@ -26,6 +26,7 @@
 | skills/examples/threat-model-reviewer | 1 |
 | skills/examples/ultrathink-analyst | 1 |
 | skills/examples/ultrathink-analyst/workflows | 3 |
+| specs | 1 |
 | templates | 1 |
 
 ---
@@ -117,6 +118,9 @@
 ## Templates
 
 - [ADR-TEMPLATE.md](templates/ADR-TEMPLATE.md)
+## Specs
+
+- [PATTERN-TEMPLATE.md](specs/PATTERN-TEMPLATE.md)
 ## Presets
 
 - [coding.md](presets/coding.md)
