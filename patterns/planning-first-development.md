@@ -161,6 +161,129 @@ Check:
 
 ---
 
+## Question-Driven Specification
+
+Before writing specs, systematically gather requirements through structured questioning. This technique uses Claude's AskUserQuestion tool to surface requirements, constraints, and edge cases that might otherwise be missed.
+
+### The Pattern
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│               QUESTION-DRIVEN SPECIFICATION                  │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│   1. Enter Plan Mode                                         │
+│          ↓                                                   │
+│   2. Claude asks structured questions (scaled to complexity) │
+│          ↓                                                   │
+│   3. User answers → Requirements crystallize                 │
+│          ↓                                                   │
+│   4. Generate spec from answers                              │
+│          ↓                                                   │
+│   5. User approves spec → Exit plan mode → Implement         │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Question Count by Complexity
+
+| Task Complexity | Question Count | Examples |
+|-----------------|----------------|----------|
+| **Simple** | 3-5 questions | Bug fix, styling change, add field |
+| **Medium** | 8-12 questions | New feature, refactoring, API endpoint |
+| **Complex** | 15-25 questions | Architecture change, multi-component feature |
+
+**Principle**: Thorough questioning prevents downstream errors, but over-questioning simple tasks wastes time.
+
+### Question Categories
+
+Structure questions across these domains:
+
+**1. Requirements & Goals**
+- What problem are we solving?
+- Who is the user?
+- What does success look like?
+
+**2. Constraints & Boundaries**
+- What cannot change?
+- What patterns must we follow?
+- What dependencies exist?
+
+**3. Technical Approach**
+- What files are involved?
+- What's the preferred architecture?
+- What third-party tools/libraries?
+
+**4. Edge Cases & Error Handling**
+- What happens when X fails?
+- What are the boundary conditions?
+- What validation is required?
+
+**5. Verification & Testing**
+- How do we know it works?
+- What tests are needed?
+- Who approves completion?
+
+### Implementation in Claude Code
+
+Use plan mode (Shift+Tab) with explicit questioning phase:
+
+```markdown
+## Before Implementing [Feature]
+
+Enter plan mode and systematically ask about:
+
+### Phase 1: Requirements (3-5 questions)
+- Problem definition
+- Success criteria
+- User perspective
+
+### Phase 2: Technical (3-5 questions)
+- Files/modules involved
+- Patterns to follow
+- Dependencies
+
+### Phase 3: Edge Cases (2-4 questions)
+- Failure modes
+- Validation rules
+- Error handling
+
+### Phase 4: Verification (2-3 questions)
+- Test requirements
+- Approval process
+- Definition of done
+
+After gathering answers, generate specification for approval.
+```
+
+### Integration with Spec Files
+
+Answers should flow into persistent artifacts:
+
+| Question Domain | Artifact Destination |
+|-----------------|---------------------|
+| Requirements & Goals | `specs/[feature].md` |
+| Technical Approach | `ARCHITECTURE.md` or spec file |
+| Key Decisions | `DECISIONS.md` |
+| Session Context | `CLAUDE.md` (if reusable) |
+
+**Anti-Pattern**: Keeping all answers in ephemeral chat. Persist valuable context for future sessions.
+
+### When to Use This Pattern
+
+**Use When:**
+- Starting a new feature (greenfield or brownfield)
+- Requirements are ambiguous
+- Multiple valid approaches exist
+- Stakeholder alignment is critical
+
+**Skip When:**
+- Bug fix with clear reproduction steps
+- Trivial changes with obvious requirements
+- Following an existing, approved spec
+
+---
+
 ## Practical Patterns
 
 ### Pattern 1: The Planning Prompt
@@ -386,8 +509,12 @@ Present this plan for approval before writing any code.
 
 ## Sources
 
+**Primary (Tier A/B)**:
 - [IndyDevDan - Principled AI Coding](https://agenticengineer.com/principled-ai-coding) - "Great Planning is Great Prompting" principle
 - [GitHub Spec Kit](https://github.com/github/spec-kit) - 4-phase SDD model
 - [Anthropic - Claude Code Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices) - Context and prompting guidance
+
+**Community Patterns (Tier C)**:
+- Question-Driven Specification - Structured requirements elicitation via AskUserQuestion (EngineerPrompt methodology)
 
 *Last updated: January 2026*
