@@ -23,12 +23,16 @@ Choose this preset when your project:
 
 ## Recommended Components
 
-| Component | Recommended | Why |
-|-----------|-------------|-----|
-| CLAUDE.md | Yes (required) | Project context |
-| Session hook | Yes | Shows current work status |
-| Post-tool hook | Optional | Auto-update indexes if used |
-| Stop hook | Optional | Reminder to update docs |
+| Component | Tier | Recommended | Why |
+|-----------|------|-------------|-----|
+| permissions.allow | 1 | ✅ Yes (baseline) | Pre-approve git read commands |
+| Stop hook | 1 | ✅ Yes (baseline) | Uncommitted/unpushed reminders |
+| CLAUDE.md | 2 | ✅ Yes | Project context, voice guidelines |
+| Session hook | 2 | ✅ Yes | Shows current work status |
+| Post-tool hook | 2 | Optional | Auto-update indexes if used |
+| GitHub Actions | 3 | For teams | @.claude content reviews |
+
+See [Project Infrastructure Pattern](../patterns/project-infrastructure.md) for the full tiered approach.
 
 ## Git Workflow
 

@@ -1,16 +1,16 @@
 # Index
 
-*Auto-generated: 2026-01-10 15:57*
+*Auto-generated: 2026-01-10 16:09*
 
 ## Summary
 
-**Total documents**: 58
+**Total documents**: 60
 
 | Directory | Count |
 |-----------|-------|
-| patterns | 22 |
+| patterns | 23 |
 | presets | 4 |
-| prompts | 2 |
+| prompts | 3 |
 | research | 1 |
 | root | 8 |
 | skills | 4 |
@@ -45,6 +45,7 @@
 
 - [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
 - [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
+- [SETUP-PROJECT.md](prompts/SETUP-PROJECT.md)
 ## Skills
 
 - [QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)
@@ -112,6 +113,7 @@
 - [planning-first-development.md](patterns/planning-first-development.md)
 - [plugins-and-extensions.md](patterns/plugins-and-extensions.md)
 - [progressive-disclosure.md](patterns/progressive-disclosure.md)
+- [project-infrastructure.md](patterns/project-infrastructure.md)
 - [recursive-evolution.md](patterns/recursive-evolution.md)
 - [skills-domain-knowledge.md](patterns/skills-domain-knowledge.md)
 - [spec-driven-development.md](patterns/spec-driven-development.md)

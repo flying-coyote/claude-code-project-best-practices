@@ -23,12 +23,16 @@ Choose this preset when your project:
 
 ## Recommended Components
 
-| Component | Recommended | Why |
-|-----------|-------------|-----|
-| CLAUDE.md | Yes (required) | Project context |
-| Session hook | Yes | Shows research status |
-| Post-tool hook | No | Unless tracking indexes |
-| Stop hook | Optional | Reminder to document findings |
+| Component | Tier | Recommended | Why |
+|-----------|------|-------------|-----|
+| permissions.allow | 1 | ✅ Yes (baseline) | Pre-approve git read commands |
+| Stop hook | 1 | ✅ Yes (baseline) | Uncommitted/unpushed reminders |
+| CLAUDE.md | 2 | ✅ Yes | Project context, evidence tiers |
+| Session hook | 2 | ✅ Yes | Shows research status |
+| Post-tool hook | 2 | Optional | Auto-update indexes if tracking |
+| GitHub Actions | 3 | For teams | @.claude research reviews |
+
+See [Project Infrastructure Pattern](../patterns/project-infrastructure.md) for the full tiered approach.
 
 ## Evidence Tier System
 

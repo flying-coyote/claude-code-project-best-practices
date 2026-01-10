@@ -38,27 +38,55 @@ This approach implements the **4-phase SDD model**:
 
 ## Quick Start
 
-### For a New Project
+### The Three Tiers
 
-Copy this prompt into Claude Code:
+Every project uses the same infrastructure pattern - just choose your tier:
+
+| Tier | When | Time | What You Get |
+|------|------|------|--------------|
+| **Tier 1: Baseline** | All projects | 5 min | Stop hook + permissions |
+| **Tier 2: Active** | Weekly work | 15 min | + CLAUDE.md + SessionStart |
+| **Tier 3: Team** | Collaborators | 30 min | + GitHub Actions + /commit-push-pr |
+
+**There's no difference between "new" and "existing" projects** - both follow the same tiered approach.
+
+### Apply Tier 1 Now (5 minutes)
+
+Run this in your project to get baseline protection:
+
+```bash
+mkdir -p .claude && cat > .claude/settings.json << 'EOF'
+{
+  "permissions": {
+    "allow": ["Bash(git status*)", "Bash(git diff*)", "Bash(git log*)"]
+  },
+  "hooks": {
+    "Stop": [{
+      "matcher": "",
+      "hooks": [{
+        "type": "command",
+        "command": "bash -c 'if ! git diff --quiet 2>/dev/null; then echo \"⚠️ Uncommitted changes\"; fi'"
+      }]
+    }]
+  }
+}
+EOF
+```
+
+### Full Setup (Interactive)
+
+For Tier 2/3 setup with CLAUDE.md, hooks, and GitHub Actions:
 
 ```
-Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/refs/heads/master/prompts/BOOTSTRAP-NEW-PROJECT.md and follow its instructions to set up Claude infrastructure for this project.
+Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/refs/heads/master/prompts/SETUP-PROJECT.md and follow its instructions.
 ```
 
-### For an Existing Project
-
-Copy this prompt into Claude Code:
-
-```
-Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/refs/heads/master/prompts/AUDIT-EXISTING-PROJECT.md and follow its instructions to review this project against best practices.
-```
+See **[Project Infrastructure Pattern](patterns/project-infrastructure.md)** for the complete tiered approach.
 
 ## What's Included
 
 ### Prompts
-- **[BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)** - Interactive setup for new projects
-- **[AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)** - Review and improve existing projects
+- **[SETUP-PROJECT.md](prompts/SETUP-PROJECT.md)** - Unified tiered setup for any project (replaces separate new/existing prompts)
 
 ### Templates
 - **[CLAUDE.md.template](templates/CLAUDE.md.template)** - Project context template
