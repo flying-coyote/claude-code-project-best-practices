@@ -24,6 +24,22 @@ We follow the **4-phase SDD model** (aligned with GitHub Spec Kit):
 **Status**: Post-v1.0 (Maintenance + SDD Alignment)
 **Focus**: Aligning patterns with industry-standard SDD methodology
 
+## Recent Learnings (Team Memory)
+
+Capture mistakes and insights as they happen. Update 2-3x per week.
+
+### 2026-01-10 - Self-compliance audit
+**What happened**: Documented Boris Cherny's best practices but didn't apply them to this project
+**Prevention**: Always run self-compliance audit after documenting new patterns
+
+### 2026-01-10 - Settings schema change
+**What happened**: Used `allowedTools` which is now `permissions.allow`
+**Prevention**: Check schema errors carefully - Claude Code validates settings.json
+
+### 2026-01-09 - Missing pattern cross-references
+**What happened**: New patterns (parallel-sessions, github-actions) created without updating related patterns
+**Prevention**: Update "Related Patterns" section in all affected files
+
 ## Quality Standards
 
 All content must:

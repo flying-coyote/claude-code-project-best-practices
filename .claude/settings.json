@@ -1,4 +1,16 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git add*)",
+      "Bash(gh pr view*)",
+      "Bash(gh pr list*)",
+      "Bash(python3 automation/*)"
+    ]
+  },
   "hooks": {
     "SessionStart": [
       {
