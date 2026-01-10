@@ -449,6 +449,57 @@ Task tool with:
 | Simple transformations | Tier 3 (Haiku) |
 | High-volume operations | Tier 3 (Haiku) |
 
+---
+
+## Pattern 8: Thinking Mode Strategy
+
+**Use Case**: Maximizing code quality with minimal steering corrections
+
+Claude Opus 4.5 with extended thinking mode produces significantly higher-quality output, especially for complex tasks.
+
+### Boris Cherny's Recommendation
+
+> "I use [Opus 4.5 with extended thinking] for everything. It's the best coding model I've ever used... It's slower than 4.0 was, but because it's more reliable there's less course correcting and steering it towards what I wanted."
+> — Boris Cherny, Claude Code Creator
+
+### When to Use Thinking Mode
+
+| Scenario | Thinking Mode | Rationale |
+|----------|--------------|-----------|
+| **Architecture design** | ✅ Yes | Complex trade-offs benefit from extended reasoning |
+| **Security review** | ✅ Yes | Thoroughness critical, speed secondary |
+| **Multi-file refactoring** | ✅ Yes | Need to hold many considerations simultaneously |
+| **Debugging complex issues** | ✅ Yes | Root cause analysis requires deep reasoning |
+| **Simple file edits** | ❌ No | Overhead not justified |
+| **Quick searches** | ❌ No | Speed matters more than depth |
+| **High-volume operations** | ❌ No | Latency compounds |
+
+### Trade-offs
+
+| Factor | With Thinking | Without Thinking |
+|--------|--------------|------------------|
+| **Latency** | Higher (2-3x) | Standard |
+| **Quality** | Higher | Good |
+| **Steering corrections** | Fewer | More frequent |
+| **Token usage** | Higher | Lower |
+| **Total time to completion** | Often lower (fewer retries) | Higher if steering needed |
+
+### Implementation
+
+Claude Code uses thinking mode based on the model setting. Opus 4.5 is the recommended default:
+
+```bash
+# Set default model (in claude.json or via CLI)
+claude --model claude-opus-4-5-20251101
+
+# Or configure in settings.json
+{
+  "model": "claude-opus-4-5-20251101"
+}
+```
+
+**Key insight**: The time spent on extended thinking often saves more time by reducing back-and-forth steering corrections. Quality improves 2-3x with verification steps.
+
 ### Cost/Latency Trade-offs
 
 ```

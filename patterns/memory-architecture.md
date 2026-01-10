@@ -222,10 +222,64 @@ project/
 
 ---
 
+## Production Implementation: claude-mem
+
+For teams seeking automated memory management, **[claude-mem](https://github.com/thedotmack/claude-mem)** provides a production-ready implementation of the memory architecture concepts documented here.
+
+### Key Features
+
+| Feature | Implementation | Benefit |
+|---------|---------------|---------|
+| **5 Lifecycle Hooks** | SessionStart → UserPromptSubmit → PostToolUse → Summary → SessionEnd | Complete conversation capture |
+| **AI Compression** | Automatic summarization with ~10x token savings | Efficient long-term storage |
+| **Vector Search** | Chroma-based semantic retrieval | Find relevant past context |
+| **Privacy Controls** | `<private>` tags exclude content from storage | Protect sensitive information |
+| **Web Viewer** | localhost:37777 dashboard | Browse and search past sessions |
+
+### Integration with This Pattern
+
+| Memory Lifecycle | claude-mem Implementation |
+|-----------------|---------------------------|
+| PERMANENT | Profile stored in vector database |
+| EVERGREEN | Skills and reference content indexed |
+| PROJECT | Project context auto-captured per session |
+| SESSION | Real-time conversation logging with compression |
+
+### When to Use claude-mem
+
+**Good fit**:
+- Teams with many Claude Code sessions to track
+- Projects requiring historical context lookup
+- Need for automatic conversation archiving
+- Privacy requirements (selective capture with `<private>`)
+
+**Overkill**:
+- Single-user, single-project workflows
+- Projects with simple, self-contained tasks
+- When manual CLAUDE.md maintenance is sufficient
+
+### Setup
+
+```bash
+# Install via npm
+npm install -g claude-mem
+
+# Initialize in project
+claude-mem init
+
+# Start web viewer
+claude-mem serve
+```
+
+For full documentation, see [claude-mem GitHub](https://github.com/thedotmack/claude-mem).
+
+---
+
 ## Related Patterns
 
 - [Context Engineering](./context-engineering.md) - Deterministic vs probabilistic context
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient skill loading
 - [Documentation Maintenance](./documentation-maintenance.md) - Keeping memory current
+- [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
 
 *Last updated: January 2026*

@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-01-10 14:17*
+*Auto-generated: 2026-01-10 15:54*
 
 ## Summary
 
-**Total documents**: 56
+**Total documents**: 58
 
 | Directory | Count |
 |-----------|-------|
-| patterns | 20 |
+| patterns | 22 |
 | presets | 4 |
 | prompts | 2 |
 | research | 1 |
@@ -104,9 +104,11 @@
 - [context-engineering.md](patterns/context-engineering.md)
 - [documentation-maintenance.md](patterns/documentation-maintenance.md)
 - [evidence-tiers.md](patterns/evidence-tiers.md)
+- [github-actions-integration.md](patterns/github-actions-integration.md)
 - [long-running-agent.md](patterns/long-running-agent.md)
 - [mcp-patterns.md](patterns/mcp-patterns.md)
 - [memory-architecture.md](patterns/memory-architecture.md)
+- [parallel-sessions.md](patterns/parallel-sessions.md)
 - [planning-first-development.md](patterns/planning-first-development.md)
 - [plugins-and-extensions.md](patterns/plugins-and-extensions.md)
 - [progressive-disclosure.md](patterns/progressive-disclosure.md)

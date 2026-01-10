@@ -360,6 +360,84 @@ Run `/doctor` periodically to validate your permission configuration.
 
 ---
 
+## /permissions Workflow
+
+### Boris Cherny's Pre-Allow Pattern
+
+> "I use /permissions to pre-allow common commands like `bun run build:*` and `bun run test:*` so Claude doesn't have to ask every time."
+> — Boris Cherny, Claude Code Creator
+
+### Setting Up Pre-Approved Commands
+
+Use the `/permissions` command to configure commonly-used commands that shouldn't require approval:
+
+```bash
+# Interactive permission management
+/permissions
+
+# This opens the permission configuration UI
+```
+
+### Recommended Pre-Allow List
+
+For typical development workflows:
+
+```json
+{
+  "allowedTools": [
+    "Bash(npm run build*)",
+    "Bash(npm run test*)",
+    "Bash(npm run lint*)",
+    "Bash(bun run build*)",
+    "Bash(bun run test*)",
+    "Bash(git status)",
+    "Bash(git diff*)",
+    "Bash(git log*)",
+    "Bash(git branch*)",
+    "Bash(gh pr view*)",
+    "Bash(gh pr list*)"
+  ]
+}
+```
+
+### Team Permission Sharing
+
+Share pre-approved commands via `.claude/settings.json`:
+
+```json
+{
+  "allowedTools": [
+    "Bash(npm run *)",
+    "Bash(npx vitest*)",
+    "Bash(npx tsc*)",
+    "Bash(gh pr *)",
+    "Bash(docker compose *)"
+  ],
+  "disallowedTools": [
+    "Bash(rm -rf /)",
+    "Bash(git push --force)",
+    "Bash(docker system prune -a)"
+  ]
+}
+```
+
+### Permission Workflow Best Practices
+
+1. **Start with read-only** - Pre-allow `git status`, `git log`, `gh pr list`
+2. **Add build/test commands** - Most common friction point
+3. **Avoid broad write permissions** - Don't pre-allow `rm *` or `git push *`
+4. **Use wildcards strategically** - `npm run test:*` covers test:unit, test:e2e, etc.
+5. **Review periodically** - `/doctor` shows unreachable rules
+
+### Per-Project vs Global
+
+| Location | Scope | Use For |
+|----------|-------|---------|
+| `.claude/settings.json` | This project only | Project-specific tooling (bun, pnpm, etc.) |
+| `~/.claude/settings.json` | All projects | Universal commands (git status, gh pr) |
+
+---
+
 ## Team Standardization
 
 ### Plugin Governance

@@ -412,6 +412,121 @@ Hooks can return JSON to control behavior:
 
 ---
 
+## Hook 5: PostToolUse - Code Formatting (Boris Cherny Pattern)
+
+**Purpose**: Automatically format code after Claude writes files
+
+> "I have a post-tool-use hook that runs Prettier after every Write."
+> — Boris Cherny, Claude Code Creator
+
+**When it fires**: After Write or Edit operations
+
+**Use cases**:
+- Auto-format with Prettier (JavaScript/TypeScript)
+- Auto-format with Black (Python)
+- Auto-lint with ESLint
+- Auto-format with gofmt (Go)
+
+### Implementation
+
+`.claude/hooks/post-tool-use-format.sh`:
+```bash
+#!/bin/bash
+# Auto-format code after Write/Edit operations
+
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$PROJECT_ROOT" || exit 0
+
+# Read hook input
+read -r input
+TOOL=$(echo "$input" | jq -r '.tool // "unknown"')
+
+# Only run on Write/Edit
+if [ "$TOOL" != "Write" ] && [ "$TOOL" != "Edit" ]; then
+    exit 0
+fi
+
+# Get the file path from tool parameters
+FILE_PATH=$(echo "$input" | jq -r '.parameters.file_path // .parameters.filePath // ""')
+
+if [ -z "$FILE_PATH" ]; then
+    exit 0
+fi
+
+# Determine formatter based on file extension
+EXT="${FILE_PATH##*.}"
+
+case "$EXT" in
+    js|jsx|ts|tsx|json|md)
+        # JavaScript/TypeScript - Prettier
+        if command -v prettier &> /dev/null; then
+            prettier --write "$FILE_PATH" 2>/dev/null
+            if [ $? -eq 0 ]; then
+                echo "✨ Formatted with Prettier: $(basename "$FILE_PATH")"
+            fi
+        fi
+        ;;
+    py)
+        # Python - Black
+        if command -v black &> /dev/null; then
+            black --quiet "$FILE_PATH" 2>/dev/null
+            if [ $? -eq 0 ]; then
+                echo "✨ Formatted with Black: $(basename "$FILE_PATH")"
+            fi
+        fi
+        ;;
+    go)
+        # Go - gofmt
+        if command -v gofmt &> /dev/null; then
+            gofmt -w "$FILE_PATH" 2>/dev/null
+            if [ $? -eq 0 ]; then
+                echo "✨ Formatted with gofmt: $(basename "$FILE_PATH")"
+            fi
+        fi
+        ;;
+    rs)
+        # Rust - rustfmt
+        if command -v rustfmt &> /dev/null; then
+            rustfmt "$FILE_PATH" 2>/dev/null
+            if [ $? -eq 0 ]; then
+                echo "✨ Formatted with rustfmt: $(basename "$FILE_PATH")"
+            fi
+        fi
+        ;;
+esac
+
+exit 0  # Non-blocking
+```
+
+### Configuration
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post-tool-use-format.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Benefits
+
+- **Consistent code style** - All Claude-generated code matches project standards
+- **No manual formatting** - Removes friction from development workflow
+- **Silent when not needed** - Only outputs when formatting occurred
+- **Language-aware** - Uses appropriate formatter per file type
+
+---
+
 ## Combined Configuration
 
 Full `settings.json` with all hooks:

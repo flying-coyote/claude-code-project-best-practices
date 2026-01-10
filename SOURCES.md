@@ -4,6 +4,31 @@ All patterns in this repository are derived from authoritative sources and produ
 
 ## Primary Sources (Tier A)
 
+### Boris Cherny (Claude Code Creator)
+
+**Role**: Engineering Manager at Anthropic, creator of Claude Code
+**Interview Sources**:
+- [Paddo.dev: How Boris Uses Claude Code](https://paddo.dev/blog/how-boris-uses-claude-code/) (January 2026)
+- [VentureBeat: Creator of Claude Code Workflow](https://venturebeat.com/technology/the-creator-of-claude-code-just-revealed-his-workflow-and-developers-are) (January 2026)
+- [Anthropic Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
+
+**Key Workflow Insights**:
+1. **Parallel Sessions**: Run 5 terminal instances + 5-10 web sessions simultaneously
+2. **Opus 4.5 with Thinking**: Use for all tasks—slower but requires less steering
+3. **CLAUDE.md as Team Memory**: Update multi-weekly, capture mistakes as they happen
+4. **Plan Mode First**: Always for non-trivial work
+5. **Custom Slash Commands**: `/commit-push-pr` used dozens of times daily
+6. **PostToolUse Auto-Formatting**: Run formatters (prettier, black) after Write
+7. **Pre-Allow Permissions**: `/permissions` to allow `bun run build:*`, `bun run test:*`
+8. **MCP for External Tools**: When native tools insufficient
+9. **Verification = 2-3x Quality**: Subagent verification before finalizing
+10. **Background Agents**: Stop hooks to avoid lost work
+11. **GitHub Actions + @.claude**: Trigger Claude from CI/CD
+12. **Skip Exotic Customization**: Standard patterns over novel approaches
+
+**Pattern References**: [Parallel Sessions](patterns/parallel-sessions.md), [Subagent Orchestration](patterns/subagent-orchestration.md), [Documentation Maintenance](patterns/documentation-maintenance.md), [GitHub Actions Integration](patterns/github-actions-integration.md)
+**Evidence Tier**: A (Primary vendor/creator)
+
 ### Anthropic Engineering Blog
 
 #### Long-Running Agent Harness Patterns
@@ -415,6 +440,19 @@ These sources directly influenced the design of the skill structure and project 
 ## Community Skill Sources (Tier C)
 
 These community repositories provide additional examples and inspiration for Claude skills:
+
+### claude-mem (Persistent Memory Plugin)
+- **Author**: thedotmack
+- **URL**: https://github.com/thedotmack/claude-mem
+- **Description**: Automatic session capture with AI compression for persistent Claude Code memory
+- **Key Features**:
+  - 5 lifecycle hooks: SessionStart → UserPromptSubmit → PostToolUse → Summary → SessionEnd
+  - Progressive disclosure (~10x token savings via AI compression)
+  - Vector search via Chroma for semantic retrieval
+  - Web viewer at localhost:37777
+  - Privacy controls with `<private>` tags
+- **Relevance**: Production implementation of concepts in [Memory Architecture](patterns/memory-architecture.md) and [Long-Running Agent](patterns/long-running-agent.md)
+- **Evidence Tier**: C (Community tool with production validation)
 
 ### Fabric Framework (Implementation Reference)
 - **URL**: https://github.com/danielmiessler/fabric

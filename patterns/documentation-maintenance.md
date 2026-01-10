@@ -211,6 +211,84 @@ Recommended:
 
 ---
 
+## Team CLAUDE.md Pattern
+
+### Boris Cherny's Team Approach
+
+> "Anytime we see Claude do something incorrectly we add it [to CLAUDE.md]... It's like team memory."
+> — Boris Cherny, Claude Code Creator
+
+### Multi-Weekly Update Cadence
+
+**Recommended frequency**: 2-3 times per week (not just weekly)
+
+**When to update CLAUDE.md**:
+- After Claude makes a mistake → Document the correction immediately
+- After a PR review catches an AI-generated issue → Add prevention rule
+- After discovering a pattern works well → Codify it
+- Before major feature work → Ensure context is current
+
+### Mistake Capture Workflow
+
+```markdown
+## Mistakes to Avoid (Team Learning)
+
+### [Date] - [Brief description]
+**What happened**: Claude did X when it should have done Y
+**Prevention**: [Rule to add to CLAUDE.md]
+
+Example:
+### 2026-01-08 - Import path confusion
+**What happened**: Claude used relative imports (`../utils`) instead of absolute (`@/utils`)
+**Prevention**: Always use absolute imports with `@/` prefix for src/ directory
+```
+
+### @.claude PR Tagging
+
+For teams using GitHub Actions with Claude Code:
+
+1. Tag PRs with `@.claude` in description or comments
+2. Claude Code GitHub Action triggers review
+3. Findings added to CLAUDE.md if significant
+
+```markdown
+## From PR Reviews
+
+- **PR #142**: Don't use `any` type - prefer `unknown` with type guards
+- **PR #156**: Always add loading states to async operations
+- **PR #163**: Database queries need explicit timeouts
+```
+
+### Team CLAUDE.md Structure
+
+```markdown
+# CLAUDE.md
+
+## Project Context
+[Standard project-specific context]
+
+## Team Conventions
+[Coding standards, agreed patterns]
+
+## Recent Learnings (Updated 2-3x/week)
+[Mistakes captured as they happen]
+
+## From PR Reviews
+[Patterns discovered during code review]
+
+## Integration Notes
+[How this project connects to others]
+```
+
+### Best Practices
+
+1. **Capture immediately** - Don't wait for weekly review
+2. **Be specific** - Include the exact pattern/anti-pattern
+3. **Date entries** - Track when learning occurred
+4. **Prune regularly** - Move stable rules to conventions section
+
+---
+
 ## Stop Hook Reminder
 
 Add documentation currency check at session end:

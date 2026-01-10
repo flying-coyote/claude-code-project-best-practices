@@ -348,6 +348,105 @@ allowed-tools: Read, Grep, Glob, Bash, Write, Edit  # Can modify
 **Source**: Community best practices
 ```
 
+## Production Slash Command Examples
+
+### /commit-push-pr (Boris Cherny's Daily Driver)
+
+> "I use [/commit-push-pr] dozens of times a day."
+> — Boris Cherny, Claude Code Creator
+
+Create a chained workflow command that commits, pushes, and creates a PR in one action.
+
+`.claude/commands/commit-push-pr.md`:
+```markdown
+---
+description: Commit current changes, push to remote, and create a PR. Use when ready to submit work for review.
+allowed-tools: Bash
+---
+
+# Commit, Push, and Create PR
+
+Execute a complete git workflow in sequence:
+
+1. **Stage and Commit**
+   - Run `git status` to see changes
+   - Stage all relevant changes (skip .env, credentials)
+   - Create commit with conventional prefix (feat:, fix:, docs:, etc.)
+
+2. **Push to Remote**
+   - Push to current branch with tracking: `git push -u origin HEAD`
+
+3. **Create Pull Request**
+   - Use `gh pr create` with:
+     - Title from commit message
+     - Body with Summary and Test Plan sections
+     - Appropriate labels if detectable
+
+4. **Return PR URL**
+   - Output the PR URL for easy access
+
+## Chaining Pattern
+```bash
+git add -A && \
+git commit -m "$(cat <<'EOF'
+feat: Add user authentication
+
+- Implement JWT token handling
+- Add login/logout endpoints
+- Include rate limiting
+
+Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+EOF
+)" && \
+git push -u origin HEAD && \
+gh pr create --fill
+```
+```
+
+### /quick-test (Pre-Commit Validation)
+
+`.claude/commands/quick-test.md`:
+```markdown
+---
+description: Run quick validation before committing. Use before /commit-push-pr.
+allowed-tools: Bash
+---
+
+# Quick Pre-Commit Validation
+
+1. Run type checking (if applicable)
+2. Run linting
+3. Run fast unit tests (skip slow/integration)
+4. Report any failures clearly
+
+If all pass, suggest: "Ready for /commit-push-pr"
+```
+
+### /context-prep (Inline Bash for Context)
+
+Use inline bash to pre-compute context before Claude starts:
+
+`.claude/commands/context-prep.md`:
+```markdown
+---
+description: Gather project context for complex tasks. Use at session start.
+allowed-tools: Bash, Read, Glob
+---
+
+# Context Preparation
+
+Gather essential context upfront:
+
+1. **Git State**: `git status --short && git log --oneline -5`
+2. **Recent Changes**: `git diff --stat HEAD~5`
+3. **Test Status**: `npm test -- --passWithNoTests --silent 2>&1 | tail -5`
+4. **Open TODOs**: `grep -r "TODO" src/ --include="*.ts" | head -10`
+
+Present summary in compact format for efficient token usage.
+```
+
+---
+
 ## Common Skill Categories
 
 ### Development Skills
