@@ -39,4 +39,16 @@ if [ -n "$WARNINGS" ]; then
     echo ""
 fi
 
+# Check for uncommitted changes
+if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
+    UNCOMMITTED=$(git status --short 2>/dev/null | wc -l | tr -d ' ')
+    echo "⚠️  $UNCOMMITTED uncommitted change(s) - consider committing before ending"
+fi
+
+# Check for unpushed commits
+UNPUSHED=$(git log origin/master..HEAD --oneline 2>/dev/null | wc -l | tr -d ' ')
+if [ "$UNPUSHED" -gt 0 ]; then
+    echo "⚠️  $UNPUSHED unpushed commit(s) - consider: git push origin master"
+fi
+
 exit 0  # Non-blocking reminder

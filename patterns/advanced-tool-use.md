@@ -140,6 +140,52 @@ Skills that would benefit from input examples:
 2. **For MCP Servers**: Consider `defer_loading` for specialized tools
 3. **For Research Workflows**: Use programmatic calling for batch operations
 
+---
+
+## LSP Tool (December 2025)
+
+Claude Code includes a Language Server Protocol (LSP) tool providing IDE-like code intelligence capabilities.
+
+### Available Operations
+
+| Operation | Purpose | Use Case |
+|-----------|---------|----------|
+| **Go-to-definition** | Navigate to where symbol is defined | Understanding function/class implementation |
+| **Find references** | Locate all usages of a symbol | Impact analysis before refactoring |
+| **Hover documentation** | Get type info and docs for symbol | Quick reference without leaving context |
+
+### When LSP Excels
+
+| Scenario | Why LSP Helps |
+|----------|---------------|
+| **Refactoring prep** | Find all usages before renaming |
+| **Understanding unfamiliar code** | Jump to definitions, see type signatures |
+| **API exploration** | Hover for documentation without searching |
+| **Impact analysis** | Find references before modifying |
+
+### LSP vs. Traditional Search
+
+| Task | LSP | Grep/Glob |
+|------|-----|-----------|
+| Find function definition | ✅ Precise (language-aware) | ⚠️ May find false positives |
+| Find all usages | ✅ Semantic (knows imports, aliases) | ⚠️ String matching only |
+| Type information | ✅ Available | ❌ Not available |
+| Cross-file navigation | ✅ Handles imports correctly | ⚠️ Requires manual tracing |
+
+### Limitations
+
+- **Language support varies**: TypeScript/JavaScript excellent, others may be limited
+- **Project setup required**: LSP needs proper project configuration (tsconfig, etc.)
+- **Not for text search**: Use Grep for pattern matching, LSP for semantic operations
+
+### Best Practice: Combine Tools
+
+```
+1. Grep/Glob: Find candidate files by pattern
+2. LSP: Navigate precisely within those files
+3. Read: Examine full context when needed
+```
+
 ## Evidence Quality
 
 | Claim | Source | Tier |

@@ -26,10 +26,11 @@ Conduct weekly review of project status and documentation currency.
    - What documentation needs refresh?
 
 5. **Update PLAN.md**:
-   - Move completed items to accomplishments section
+   - Add completed items to "Completed This Cycle" section
    - Update current priorities
    - Note any blockers
    - Update metrics if counts changed
+   - Update "Last Updated" date
 
 6. **Commit**:
    ```

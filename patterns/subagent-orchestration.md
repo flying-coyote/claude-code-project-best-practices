@@ -115,6 +115,89 @@ Parent Agent (after implementing):
 Result: Independent verification without implementation bias
 ```
 
+### 5. Background Agent Pattern (v2.0.60+)
+
+**Use Case**: Long-running tasks that don't block the main conversation
+
+```
+Parent Agent:
+├── [Background Subagent] "Run full test suite and report failures"
+│   └── Runs asynchronously, notifies on completion
+└── Continue working on other tasks while tests run
+```
+
+**Implementation**:
+```
+Task tool with:
+- subagent_type: "general-purpose"
+- run_in_background: true
+- prompt: "Run the full test suite, analyze any failures, suggest fixes"
+```
+
+**Benefits**:
+- Main conversation continues unblocked
+- Long operations (tests, builds, analysis) run in parallel
+- Results available when ready via TaskOutput tool
+
+**When to use**:
+- Test suite execution (5+ minutes)
+- Large codebase analysis
+- Build processes
+- Any task where waiting blocks productivity
+
+### 6. Subagent Resumption Pattern (v2.1.0+)
+
+**Use Case**: Continuing interrupted subagent work
+
+Claude can now pause and resume subagents, preserving their context:
+
+```
+Initial subagent work:
+└── [Subagent: Plan] "Design auth architecture"
+    └── Returns partial plan + agent_id: "abc123"
+
+Later resumption:
+└── [Task with resume: "abc123"]
+    "Continue the auth design, focusing on token refresh"
+    └── Subagent continues with full previous context
+```
+
+**Implementation**:
+```
+Task tool with:
+- resume: "abc123"  # Agent ID from previous invocation
+- prompt: "Continue where you left off, now focusing on X"
+```
+
+**When to use**:
+- Complex multi-session planning
+- Research that spans multiple interactions
+- Iterative design refinement
+- When new information requires revisiting previous analysis
+
+### 7. Real-Time Steering Pattern (v2.1.0+)
+
+**Use Case**: Redirecting Claude mid-task without starting over
+
+You can send messages while Claude is working to adjust direction:
+
+```
+User: "Analyze the authentication system"
+[Claude starts analyzing...]
+User (mid-task): "Focus specifically on the OAuth flow, skip JWT"
+[Claude adjusts without losing progress]
+```
+
+**Benefits**:
+- Course-correct without restarting
+- Refine scope as understanding develops
+- Efficient for exploratory tasks
+
+**Best Practices**:
+- Use for clarification, not complete pivots
+- Keep steering messages concise
+- Allow current tool operation to complete before steering takes effect
+
 ---
 
 ## Best Practices

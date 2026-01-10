@@ -241,6 +241,30 @@ For development workflows, start with high-value, low-risk servers:
 3. **Scoped access** - Limit filesystem to specific directories
 4. **Development databases only** - Never connect to production
 
+### Dynamic Tool Updates (v2.1.0+)
+
+MCP servers now support `list_changed` notifications, enabling dynamic updates without reconnection:
+
+**How it works**:
+- Server notifies Claude Code when tools/prompts/resources change
+- Claude Code refreshes available tools automatically
+- No session restart required
+
+**Use cases**:
+- Development servers that add tools at runtime
+- Context-sensitive tool availability
+- Feature flags controlling tool exposure
+
+**Implementation** (server-side):
+```typescript
+// Server sends notification when tools change
+server.notification({
+  method: "notifications/tools/list_changed"
+});
+```
+
+**Benefit**: Hot-swappable MCP capabilities during active sessions.
+
 ### MCP vs Alternatives Decision
 
 Before adding MCP, consider if alternatives suffice:
@@ -385,6 +409,32 @@ Claude Code's MCP integration should follow these patterns:
 | **Plan** | Design MCP architecture with security controls |
 | **Tasks** | Include security verification in task breakdown |
 | **Implement** | Apply defense-in-depth, verify compliance |
+
+---
+
+## Anti-Patterns
+
+The 7 Failure Modes documented above represent the primary anti-patterns. Additionally:
+
+### ❌ MCP as First Solution
+**Problem**: Reaching for MCP when simpler alternatives exist
+**Symptom**: Complex MCP setup for tasks native tools handle
+**Solution**: Check if WebFetch, Bash, or native file tools suffice before adding MCP
+
+### ❌ Trusting Community Servers Blindly
+**Problem**: Installing MCP servers without security review
+**Symptom**: ~43% of servers have command injection vulnerabilities
+**Solution**: Apply OWASP MCP checklist, prefer official servers, review before trusting
+
+### ❌ MCP for Real-Time Operations
+**Problem**: Placing MCP in latency-sensitive paths
+**Symptom**: 300-800ms baseline destroys user experience
+**Solution**: Use Intelligence Layer/Sidecar/Batch patterns instead
+
+### ❌ Over-Permissioned Servers
+**Problem**: Granting broad permissions "to make it work"
+**Symptom**: Data leakage, compliance violations, AI accessing unintended data
+**Solution**: Principle of least privilege, scoped tokens, regular audits
 
 ---
 

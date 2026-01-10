@@ -37,6 +37,7 @@ This pattern helps developers choose the right AI coding tool for their context.
 | **Multi-model orchestration** | Goose | Extensible local agent framework |
 | **GitHub Copilot investment** | Copilot Chat | Existing enterprise licenses |
 | **Multi-agent orchestration** | Auto-Claude | Parallel agents, worktree isolation, autonomous workflows |
+| **Browser automation** | Playwright | Mature, battle-tested, production-ready |
 
 ---
 
@@ -190,6 +191,61 @@ Some developers use multiple tools strategically:
 
 Beyond AI coding agents, these tools integrate with development workflows for specific tasks:
 
+### Browser Automation
+
+#### Claude in Chrome (Beta) vs Playwright
+
+Claude Code offers a "Claude in Chrome" feature (via Chrome extension) that enables browser control directly from the CLI. However, **this feature is still in Beta** and not recommended for production workflows.
+
+| Aspect | Claude in Chrome | Playwright |
+|--------|-----------------|------------|
+| **Maturity** | Beta (December 2025) | Production-ready (5+ years) |
+| **Reliability** | Experimental, evolving | Battle-tested, stable APIs |
+| **Documentation** | Limited | Comprehensive |
+| **Community** | Emerging | Large, established |
+| **CI/CD Integration** | Not designed for | First-class support |
+| **Cross-browser** | Chrome only | Chrome, Firefox, Safari, Edge |
+| **Debugging** | Limited tooling | Trace viewer, codegen, inspector |
+
+**Recommendation**: Use **Playwright** for browser automation until Claude in Chrome matures and thought leaders in the AI coding space validate it for production use.
+
+#### Playwright Integration
+
+```bash
+# Install
+npm init playwright@latest
+
+# Or with Python
+pip install playwright
+playwright install
+```
+
+**Use Cases with Claude Code**:
+- Web scraping for research tasks
+- E2E testing automation
+- Screenshot capture for documentation
+- Form filling and data entry automation
+
+**Pattern**: Claude Code generates Playwright scripts, which execute in a controlled browser context:
+
+```python
+# Claude Code can generate and execute this
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+    page.goto("https://example.com")
+    # Automated interactions...
+    browser.close()
+```
+
+**Why This Works Better**:
+1. **Separation of concerns** - Claude reasons, Playwright executes
+2. **Reproducibility** - Scripts can be version-controlled and rerun
+3. **Debugging** - Playwright's tooling helps diagnose failures
+4. **No beta dependencies** - Production reliability from day one
+
 ### AI Image Generation
 
 #### google-image-gen-api-starter
@@ -252,6 +308,7 @@ uv run python main.py output.png "A 3D diagram of microservices architecture"
 - [OpenHands](https://github.com/All-Hands-AI/OpenHands) - Dockerized agents
 - [Goose](https://github.com/block/goose) - Extensible local agent
 - [Cursor](https://cursor.sh) - AI-native IDE
+- [Playwright](https://playwright.dev) - Browser automation (recommended over Claude in Chrome Beta)
 - [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
 
 *Last updated: January 2026*

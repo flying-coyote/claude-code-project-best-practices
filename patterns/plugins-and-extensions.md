@@ -202,10 +202,25 @@ Hook (deterministic) ──triggers──▶ Subagent (intelligent)
 1. **Anthropic Official Marketplace** (`claude-plugins-official`)
    - Automatically available in Claude Code
    - Run `/plugin` → Discover tab
+   - **Keep updated**: Run `/plugin marketplace update claude-plugins-official` periodically
 
 2. **Anthropic Demo Plugins** (`claude-code-plugins`)
    - Example plugins showing capabilities
    - Must add manually
+
+### Marketplace Maintenance
+
+Keep your plugin sources current:
+
+```bash
+# Update the official marketplace (recommended: weekly or before searching for new plugins)
+/plugin marketplace update claude-plugins-official
+
+# View available marketplaces
+/plugin marketplace list
+```
+
+**Why this matters**: The official marketplace receives new plugins and updates regularly. Running the update ensures you see the latest vetted plugins when browsing.
 
 ### Community Marketplaces
 
@@ -257,6 +272,91 @@ Need to extend Claude Code?
 └─► Need to distribute/share?
     └─► Package as Plugin
 ```
+
+---
+
+## Permission Configuration
+
+### Settings Hierarchy
+
+Claude Code settings follow a specific precedence order:
+
+```
+CLI Arguments (highest priority)
+    ↓
+Project Settings (.claude/settings.json)
+    ↓
+Global Settings (~/.claude/settings.json, lowest priority)
+```
+
+**Implication**: Project settings override global, CLI overrides both.
+
+### Wildcard Permissions (v2.1.0+)
+
+Permission rules now support wildcard patterns for flexible tool access control.
+
+#### Bash Wildcards
+
+```json
+{
+  "allowedTools": [
+    "Bash(npm *)",           // Any npm command
+    "Bash(* install)",       // Any install command
+    "Bash(git * main)",      // Git commands targeting main
+    "Bash(*-h)",             // Any help flag
+    "Bash(* --help)",        // Any help command
+    "Bash(python -m *)"      // Any Python module
+  ]
+}
+```
+
+#### Pattern Syntax
+
+| Pattern | Matches | Example |
+|---------|---------|---------|
+| `Bash(npm *)` | npm followed by anything | `npm install`, `npm run build` |
+| `Bash(* install)` | Anything ending in install | `pip install`, `brew install` |
+| `Bash(git * main)` | Git commands with main | `git push origin main` |
+| `Bash(*-h)` | Short help flags | `python -h`, `docker -h` |
+
+#### MCP Server Wildcards
+
+```json
+{
+  "allowedTools": [
+    "mcp__github__*",        // All tools from GitHub MCP server
+    "mcp__postgres__*",      // All tools from Postgres MCP server
+    "mcp__*__read*"          // All read operations from any MCP
+  ]
+}
+```
+
+#### Disabling Specific Agents
+
+```json
+{
+  "disallowedTools": [
+    "Task(general-purpose)", // Disable general-purpose subagent
+    "Task(Explore)"          // Disable Explore subagent
+  ]
+}
+```
+
+### Permission Detection (/doctor)
+
+As of v2.1.3, the `/doctor` command detects and warns about:
+- Unreachable permission rules (e.g., rules shadowed by broader patterns)
+- Source tracking for each permission rule
+- Conflicting allow/disallow entries
+
+Run `/doctor` periodically to validate your permission configuration.
+
+### Best Practices
+
+1. **Start restrictive** - Allow specific commands, not `Bash(*)`
+2. **Use wildcards for families** - `npm *` instead of listing every npm command
+3. **Document intent** - Add comments explaining why permissions exist
+4. **Review with /doctor** - Check for shadowed or conflicting rules
 
 ---
 
@@ -322,4 +422,4 @@ Need to extend Claude Code?
 - [Composio: Improving your coding workflow with Claude Code Plugins](https://composio.dev/blog/claude-code-plugin)
 - [awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins)
 
-*Last updated: December 2025*
+*Last updated: January 2026*

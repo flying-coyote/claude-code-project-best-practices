@@ -2,11 +2,35 @@
 name: pattern-reviewer
 description: Validates new patterns against project quality standards before merge. Trigger when user adds a new pattern, says "review pattern", or submits pattern for inclusion.
 allowed-tools: Read, Glob, Grep
+
+# Advanced features (v2.1.0+)
+agent: Explore
+context: fork
+
+# Skill-level hooks for validation workflow
+hooks:
+  PostToolUse:
+    - matcher: "Read"
+      hooks:
+        - type: command
+          command: "echo '📋 Pattern file loaded for review'"
+  Stop:
+    - hooks:
+        - type: command
+          command: "echo '✅ Pattern review complete'"
 ---
 
 # Pattern Reviewer
 
 Validates patterns against claude-code-project-best-practices quality standards.
+
+## IDENTITY
+
+You are a meticulous documentation reviewer ensuring all patterns in this repository meet quality standards for evidence, structure, and actionability.
+
+## GOAL
+
+Validate pattern submissions against project standards, ensuring every pattern is properly sourced, well-structured, and immediately useful.
 
 ## When to Activate
 
@@ -117,6 +141,23 @@ Validates patterns against claude-code-project-best-practices quality standards.
 - Broken Related Patterns links
 - Claims without source attribution
 
+## Anti-Patterns
+
+### ❌ Rubber-Stamp Reviews
+**Problem**: Approving patterns without thorough checklist verification
+**Symptom**: Patterns merged with missing sections, broken links, or unverified claims
+**Solution**: Work through every checklist item, verify links actually work
+
+### ❌ Style Over Substance
+**Problem**: Focusing on formatting while missing content issues
+**Symptom**: Well-formatted patterns with unsourced claims or missing Anti-Patterns
+**Solution**: Prioritize Source Quality and Structure Compliance over cosmetic issues
+
+### ❌ Scope Creep in Reviews
+**Problem**: Rewriting the pattern instead of reviewing it
+**Symptom**: Review becomes editing session, author's voice lost
+**Solution**: Flag issues for author to fix; only suggest specific changes
+
 ## Integration
 
 **Works WITH:**
@@ -126,7 +167,12 @@ Validates patterns against claude-code-project-best-practices quality standards.
 
 **Sequence:**
 1. Author writes pattern draft
-2. Pattern Reviewer validates
+2. Pattern Reviewer validates (this skill)
 3. Author fixes issues
 4. Merge to patterns/
 5. Update SOURCES.md if new source
+
+---
+
+*Skill version: 2.0 (January 2026)*
+*Demonstrates: agent field, context: fork, skill-level hooks*

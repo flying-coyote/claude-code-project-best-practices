@@ -2,6 +2,8 @@
 
 Skills are reusable AI behavior patterns that activate based on context. They're one of the most powerful features of mature Claude Code projects.
 
+> **Note**: As of Claude Code 2.1.3, slash commands and skills are **unified**. Custom slash commands are now skills with no behavioral difference.
+
 ## What Are Skills?
 
 A skill is a markdown file that teaches Claude:
@@ -21,6 +23,15 @@ your-project/.claude/skills/ # Project skills (this project only)
 └── project-skill/
     └── SKILL.md
 ```
+
+### Hot-Reload Behavior (v2.1.0+)
+
+Skills **automatically reload** when modified. No restart required:
+- Add new skill → immediately available
+- Edit existing skill → changes take effect instantly
+- Delete skill → removed from availability
+
+This enables rapid skill iteration without interrupting your session.
 
 ## Skill Structure
 
@@ -63,6 +74,68 @@ What is the skill trying to achieve?
 ## ANTI-PATTERNS
 [What NOT to do]
 ```
+
+### Advanced Frontmatter Fields (v2.1.0+)
+
+Skills support additional frontmatter fields for advanced control:
+
+```yaml
+---
+name: Skill Name
+description: Third-person description of when to trigger.
+allowed-tools: Read, Grep, Glob
+
+# Agent execution (v2.1.0+)
+agent: Explore                    # Which agent type executes this skill
+                                  # Options: Explore, Plan, general-purpose, claude-code-guide
+
+# Context isolation (v2.1.0+)
+context: fork                     # Run skill in isolated context
+                                  # Prevents skill from seeing/affecting main conversation
+
+# Inline hooks (v2.1.0+)
+hooks:
+  PreToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "bash .claude/hooks/validate-bash.sh"
+  PostToolUse:
+    - matcher: "Write"
+      hooks:
+        - type: command
+          command: "bash .claude/hooks/lint-on-write.sh"
+  Stop:
+    - hooks:
+        - type: command
+          command: "bash .claude/hooks/skill-cleanup.sh"
+---
+```
+
+| Field | Purpose | When to Use |
+|-------|---------|-------------|
+| `agent` | Specifies execution agent type | When skill needs specialized behavior (fast exploration, planning) |
+| `context: fork` | Isolates skill execution | When skill shouldn't pollute main conversation context |
+| `hooks` | Skill-specific hook overrides | When skill needs custom validation, logging, or cleanup |
+
+### Context Forking Example
+
+Use `context: fork` when a skill should run independently:
+
+```yaml
+---
+name: codebase-analyzer
+description: Deep analysis of codebase architecture. Use when exploring unfamiliar code.
+agent: Explore
+context: fork           # Skill runs in isolated context
+allowed-tools: Read, Grep, Glob
+---
+```
+
+**Benefits of forking**:
+- Skill's intermediate work doesn't consume parent context
+- Clean separation between analysis and implementation
+- Failed/abandoned analysis doesn't pollute conversation
 
 ## Key Design Principles
 

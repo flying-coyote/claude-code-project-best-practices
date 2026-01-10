@@ -38,6 +38,17 @@ All patterns in this repository are derived from authoritative sources and produ
   - Slash commands structure
   - Skills system
 
+### Claude Code Changelog
+- **Source**: Anthropic GitHub Repository
+- **URL**: https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
+- **Releases**: https://github.com/anthropics/claude-code/releases
+- **Key Updates Referenced** (as of January 2026):
+  - v2.1.3: Unified slash commands and skills, permission rule detection in /doctor, 10-minute hook timeout
+  - v2.1.0: Skill hot-reload, context forking, skill-level hooks, wildcard permissions, subagent resumption, real-time steering, MCP list_changed notifications
+  - v2.0.76: LSP tool (go-to-definition, find references, hover)
+  - v2.0.60: Background agent support
+- **Pattern References**: [Advanced Hooks](patterns/advanced-hooks.md), [Skills README](skills/README.md), [Subagent Orchestration](patterns/subagent-orchestration.md), [Plugins and Extensions](patterns/plugins-and-extensions.md)
+
 #### Context Engineering for AI Agents
 - **Title**: "Effective context engineering for AI agents"
 - **Source**: Anthropic Engineering Blog

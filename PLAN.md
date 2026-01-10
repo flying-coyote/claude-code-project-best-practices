@@ -1,7 +1,7 @@
 # Plan
 
 **Purpose**: Current priorities, immediate next actions, success metrics
-**Last Updated**: January 2, 2026
+**Last Updated**: January 10, 2026
 
 ---
 
@@ -22,9 +22,26 @@ The repository is stable and production-ready. Key metrics achieved:
 | Skills | 10 examples |
 | Self-compliance | 100% |
 | Source attribution | 100% |
-| Total documents | 55 |
+| Total documents | 56 |
 
 See [ARCHIVE.md](ARCHIVE.md) for completed milestones.
+
+---
+
+## Completed This Cycle
+
+Items completed since last archive (ready for next ARCHIVE.md update):
+
+| Item | Completed | Notes |
+|------|-----------|-------|
+| Research Claude Code v2.1 updates | Jan 10, 2026 | Added 14 new features to 6 pattern files |
+| Self-compliance audit | Jan 10, 2026 | 97% → 100%, fixed 3 minor issues |
+| Enhanced pattern-reviewer skill | Jan 10, 2026 | Added agent, context:fork, skill hooks |
+| Browser automation guidance | Jan 10, 2026 | Playwright over Claude in Chrome (Beta) |
+| Plugin marketplace update practice | Jan 10, 2026 | Added to plugins-and-extensions.md |
+| Documentation maintenance workflow | Jan 10, 2026 | New archive/end-session commands, stop hook |
+
+*Move to ARCHIVE.md at next milestone or monthly rollup.*
 
 ---
 

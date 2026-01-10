@@ -27,6 +27,10 @@ Hooks enforce quality at implementation time:
 | **SubagentStop** | Subagent finishes | No | - | v1.0.41+ |
 | **SessionEnd** | Session terminates | No | - | - |
 
+### Hook Execution Timeout
+
+As of v2.1.3, hook execution timeout increased from **60 seconds to 10 minutes**. This allows hooks to perform more complex operations (build verification, test runs, external API calls) without timing out.
+
 ---
 
 ## Hook Priority Matrix
@@ -451,6 +455,104 @@ Full `settings.json` with all hooks:
   }
 }
 ```
+
+---
+
+## Skill-Level Hooks (v2.1.0+)
+
+Skills can define their own hooks in frontmatter, enabling per-skill quality gates without affecting global settings.
+
+### Use Cases
+
+| Scenario | Skill Hook Application |
+|----------|----------------------|
+| **Code generation skill** | PostToolUse lint check on Write |
+| **Database query skill** | PreToolUse validation of SQL patterns |
+| **Deployment skill** | Stop hook to verify deployment success |
+| **Research skill** | PostToolUse to log sources accessed |
+
+### Skill Frontmatter Hooks
+
+```yaml
+---
+name: safe-database-query
+description: Execute database queries with safety checks.
+allowed-tools: Read, Bash
+
+hooks:
+  PreToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "python3 .claude/hooks/validate-sql.py"
+  PostToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "python3 .claude/hooks/log-query.py"
+  Stop:
+    - hooks:
+        - type: command
+          command: "bash .claude/hooks/db-session-cleanup.sh"
+---
+
+# Safe Database Query
+
+[Skill content...]
+```
+
+### Implementation Example: SQL Validation Hook
+
+`.claude/hooks/validate-sql.py`:
+```python
+#!/usr/bin/env python3
+"""PreToolUse hook to validate SQL queries before execution."""
+import json
+import sys
+import re
+
+DANGEROUS_PATTERNS = [
+    r'\bDROP\s+TABLE\b',
+    r'\bDROP\s+DATABASE\b',
+    r'\bTRUNCATE\b',
+    r'\bDELETE\s+FROM\s+\w+\s*$',  # DELETE without WHERE
+    r'\bUPDATE\s+\w+\s+SET\b(?!.*\bWHERE\b)',  # UPDATE without WHERE
+]
+
+try:
+    hook_input = json.load(sys.stdin)
+    tool = hook_input.get('tool', '')
+    params = hook_input.get('parameters', {})
+except:
+    sys.exit(0)
+
+if tool == 'Bash':
+    command = params.get('command', '')
+
+    for pattern in DANGEROUS_PATTERNS:
+        if re.search(pattern, command, re.IGNORECASE):
+            print(json.dumps({
+                "decision": "block",
+                "reason": f"Blocked potentially dangerous SQL pattern: {pattern}"
+            }))
+            sys.exit(0)
+
+# Allow if no dangerous patterns found
+print(json.dumps({"decision": "approve"}))
+sys.exit(0)
+```
+
+### Hook Scope Hierarchy
+
+When both global and skill-level hooks exist:
+
+```
+1. Global hooks (settings.json) run first
+2. Skill hooks run second
+3. Both can block/modify independently
+```
+
+**Note**: Skill hooks are additive to global hooks, not replacements. Use skill hooks for skill-specific validation while keeping global hooks for project-wide standards.
 
 ---
 
