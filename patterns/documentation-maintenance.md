@@ -159,24 +159,42 @@ Conduct weekly maintenance review:
 3. **Next Week**: What are the priorities?
 
 Update PLAN.md with:
-- Move completed items to accomplishments
+- Add completed items to "Completed This Cycle" section
 - Update current priorities
 - Note any blockers
+- Update "Last Updated" date
 
 Commit: "📋 Weekly review [date]"
 ```
 
-### /session:archive-and-update
+### /maintenance:archive-completed
 
-`.claude/commands/session/archive-and-update.md`:
+`.claude/commands/maintenance/archive-completed.md`:
 ```markdown
-Archive this session and prompt for documentation updates:
+Promote completed items from PLAN.md to ARCHIVE.md:
 
-1. Summarize what was accomplished this session
-2. Check if milestone was reached
-3. If milestone: Update ARCHITECTURE.md and PLAN.md
-4. If routine: Defer to weekly review
-5. Archive session summary to .archive/conversations/
+1. Review "Completed This Cycle" section in PLAN.md
+2. Determine archive scope (version bump, feature, monthly rollup)
+3. Add milestone section to ARCHIVE.md with dates and items
+4. Clear PLAN.md "Completed This Cycle" table
+5. Update metrics in both files
+6. Commit and push: "📚 Archive completed work: [milestone]"
+```
+
+### /maintenance:end-session
+
+`.claude/commands/maintenance/end-session.md`:
+```markdown
+End-of-session checklist:
+
+Required:
+- [ ] Completed items added to PLAN.md "Completed This Cycle"
+- [ ] PLAN.md "Last Updated" date current
+- [ ] Changes committed with emoji prefix
+
+Recommended:
+- [ ] Push to remote: git push origin master
+- [ ] If milestone reached, run /maintenance:archive-completed
 ```
 
 ---
@@ -207,6 +225,18 @@ ARCH_AGE=$(find ARCHITECTURE.md -mtime +7 2>/dev/null | wc -l)
 if [ "$RECENT_COMMITS" -gt 0 ] && [ "$ARCH_AGE" -gt 0 ]; then
     echo "⚠️ Documentation may be stale. Consider: /maintenance:update-status"
 fi
+
+# Check for uncommitted changes
+if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
+    UNCOMMITTED=$(git status --short 2>/dev/null | wc -l)
+    echo "⚠️ $UNCOMMITTED uncommitted change(s) - consider committing"
+fi
+
+# Check for unpushed commits
+UNPUSHED=$(git log origin/master..HEAD --oneline 2>/dev/null | wc -l)
+if [ "$UNPUSHED" -gt 0 ]; then
+    echo "⚠️ $UNPUSHED unpushed commit(s) - consider: git push origin master"
+fi
 ```
 
 ---
@@ -216,16 +246,20 @@ fi
 ```
 project/
 ├── ARCHITECTURE.md          # Strategic (manual)
-├── PLAN.md                  # Tactical (manual)
-├── INDEX.md                 # Structural (auto)
-├── MAINTENANCE-GUIDE.md     # How to maintain docs
+├── PLAN.md                  # Tactical (manual, with "Completed This Cycle" section)
+├── ARCHIVE.md               # Historical milestones (promoted from PLAN.md)
+├── INDEX.md                 # Structural (auto-generated)
 ├── automation/
 │   └── generate_index.py    # INDEX.md generator
 └── .claude/
+    ├── hooks/
+    │   └── stop-doc-check.sh    # Currency + uncommitted/unpushed reminders
     └── commands/
         └── maintenance/
-            ├── update-status.md
-            └── weekly-review.md
+            ├── update-status.md     # Ad-hoc documentation check
+            ├── weekly-review.md     # Weekly cadence review
+            ├── archive-completed.md # Promote to ARCHIVE.md
+            └── end-session.md       # Session end checklist
 ```
 
 ---

@@ -40,6 +40,7 @@ Items completed since last archive (ready for next ARCHIVE.md update):
 | Browser automation guidance | Jan 10, 2026 | Playwright over Claude in Chrome (Beta) |
 | Plugin marketplace update practice | Jan 10, 2026 | Added to plugins-and-extensions.md |
 | Documentation maintenance workflow | Jan 10, 2026 | New archive/end-session commands, stop hook |
+| Aligned documentation-maintenance.md | Jan 10, 2026 | Pattern now matches actual implementation |
 
 *Move to ARCHIVE.md at next milestone or monthly rollup.*
 
