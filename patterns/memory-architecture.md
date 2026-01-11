@@ -89,7 +89,7 @@ Week 3 - Expert validation
 **Update frequency**: Per conversation
 **Retrieval**: Native to Claude (no action needed)
 
-**Note**: Archive valuable session insights to EVERGREEN storage before session ends.
+**Note**: Archive valuable session insights to EVERGREEN storage before session ends. See [Session Learning](./session-learning.md) for systematic capture of corrections and preferences.
 
 ---
 
@@ -281,5 +281,6 @@ For full documentation, see [claude-mem GitHub](https://github.com/thedotmack/cl
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient skill loading
 - [Documentation Maintenance](./documentation-maintenance.md) - Keeping memory current
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
+- [Session Learning](./session-learning.md) - Cross-session preference capture from corrections
 
 *Last updated: January 2026*

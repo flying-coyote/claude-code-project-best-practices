@@ -86,6 +86,7 @@ All content must:
 - `mcp-patterns.md` - Failure modes + positive patterns + security
 - `plugins-and-extensions.md` - Plugin vs skill vs MCP decision framework
 - `recursive-evolution.md` - Self-Evolution Algorithm (multi-candidate, judge loop, crossover)
+- `session-learning.md` - Cross-session preference capture from corrections (Claude Diary, /reflect)
 
 ## Skills Directory
 
