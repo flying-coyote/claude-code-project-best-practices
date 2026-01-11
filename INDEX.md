@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-01-11 23:06*
+*Auto-generated: 2026-01-11 23:53*
 
 ## Summary
 
-**Total documents**: 61
+**Total documents**: 62
 
 | Directory | Count |
 |-----------|-------|
-| patterns | 24 |
+| patterns | 25 |
 | presets | 4 |
 | prompts | 3 |
 | research | 1 |
@@ -41,11 +41,77 @@
 - [PLAN.md](PLAN.md)
 - [README.md](README.md)
 - [SOURCES.md](SOURCES.md)
+## Templates
+
+- [ADR-TEMPLATE.md](templates/ADR-TEMPLATE.md)
+## Prompts
+
+- [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
+- [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
+- [SETUP-PROJECT.md](prompts/SETUP-PROJECT.md)
+## Skills
+
+- [QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)
+- [README.md](skills/README.md)
+- [SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)
+- [SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)
+## Skills / Examples / Hypothesis-Validator
+
+- [SKILL.md](skills/examples/hypothesis-validator/SKILL.md)
+## Skills / Examples / Git-Workflow-Helper
+
+- [SKILL.md](skills/examples/git-workflow-helper/SKILL.md)
+## Skills / Examples / Recursive-Analyst
+
+- [SKILL.md](skills/examples/recursive-analyst/SKILL.md)
+## Skills / Examples / Recursive-Analyst / Templates
+
+- [crossover-prompt.md](skills/examples/recursive-analyst/templates/crossover-prompt.md)
+- [judge-prompt.md](skills/examples/recursive-analyst/templates/judge-prompt.md)
+## Skills / Examples / Threat-Model-Reviewer
+
+- [SKILL.md](skills/examples/threat-model-reviewer/SKILL.md)
+## Skills / Examples / Ultrathink-Analyst
+
+- [SKILL.md](skills/examples/ultrathink-analyst/SKILL.md)
+## Skills / Examples / Ultrathink-Analyst / Workflows
+
+- [analyze-deep-investigation.md](skills/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
+- [frame-problem-definition.md](skills/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
+- [synthesize-integration.md](skills/examples/ultrathink-analyst/workflows/synthesize-integration.md)
+## Skills / Examples / Research-Extractor
+
+- [SKILL.md](skills/examples/research-extractor/SKILL.md)
+## Skills / Examples / Systematic-Debugger
+
+- [SKILL.md](skills/examples/systematic-debugger/SKILL.md)
+## Skills / Examples / Tdd-Enforcer
+
+- [SKILL.md](skills/examples/tdd-enforcer/SKILL.md)
+## Skills / Examples / Content-Reviewer
+
+- [SKILL.md](skills/examples/content-reviewer/SKILL.md)
+## Skills / Examples / Detection-Rule-Reviewer
+
+- [SKILL.md](skills/examples/detection-rule-reviewer/SKILL.md)
+## Research
+
+- [ai-creators-analysis.md](research/ai-creators-analysis.md)
+## Presets
+
+- [coding.md](presets/coding.md)
+- [hybrid.md](presets/hybrid.md)
+- [research.md](presets/research.md)
+- [writing.md](presets/writing.md)
+## Specs
+
+- [PATTERN-TEMPLATE.md](specs/PATTERN-TEMPLATE.md)
 ## Patterns
 
 - [advanced-hooks.md](patterns/advanced-hooks.md)
 - [advanced-tool-use.md](patterns/advanced-tool-use.md)
 - [agent-principles.md](patterns/agent-principles.md)
+- [agentic-retrieval.md](patterns/agentic-retrieval.md)
 - [ai-image-generation.md](patterns/ai-image-generation.md)
 - [architecture-decision-records.md](patterns/architecture-decision-records.md)
 - [confidence-scoring.md](patterns/confidence-scoring.md)
@@ -67,71 +133,6 @@
 - [spec-driven-development.md](patterns/spec-driven-development.md)
 - [subagent-orchestration.md](patterns/subagent-orchestration.md)
 - [tool-ecosystem.md](patterns/tool-ecosystem.md)
-## Presets
-
-- [coding.md](presets/coding.md)
-- [hybrid.md](presets/hybrid.md)
-- [research.md](presets/research.md)
-- [writing.md](presets/writing.md)
-## Prompts
-
-- [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
-- [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
-- [SETUP-PROJECT.md](prompts/SETUP-PROJECT.md)
-## Specs
-
-- [PATTERN-TEMPLATE.md](specs/PATTERN-TEMPLATE.md)
-## Templates
-
-- [ADR-TEMPLATE.md](templates/ADR-TEMPLATE.md)
-## Research
-
-- [ai-creators-analysis.md](research/ai-creators-analysis.md)
-## Skills
-
-- [QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)
-- [README.md](skills/README.md)
-- [SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)
-- [SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)
-## Skills / Examples / Systematic-Debugger
-
-- [SKILL.md](skills/examples/systematic-debugger/SKILL.md)
-## Skills / Examples / Ultrathink-Analyst
-
-- [SKILL.md](skills/examples/ultrathink-analyst/SKILL.md)
-## Skills / Examples / Ultrathink-Analyst / Workflows
-
-- [analyze-deep-investigation.md](skills/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
-- [frame-problem-definition.md](skills/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
-- [synthesize-integration.md](skills/examples/ultrathink-analyst/workflows/synthesize-integration.md)
-## Skills / Examples / Hypothesis-Validator
-
-- [SKILL.md](skills/examples/hypothesis-validator/SKILL.md)
-## Skills / Examples / Git-Workflow-Helper
-
-- [SKILL.md](skills/examples/git-workflow-helper/SKILL.md)
-## Skills / Examples / Tdd-Enforcer
-
-- [SKILL.md](skills/examples/tdd-enforcer/SKILL.md)
-## Skills / Examples / Research-Extractor
-
-- [SKILL.md](skills/examples/research-extractor/SKILL.md)
-## Skills / Examples / Recursive-Analyst
-
-- [SKILL.md](skills/examples/recursive-analyst/SKILL.md)
-## Skills / Examples / Recursive-Analyst / Templates
-
-- [crossover-prompt.md](skills/examples/recursive-analyst/templates/crossover-prompt.md)
-- [judge-prompt.md](skills/examples/recursive-analyst/templates/judge-prompt.md)
-## Skills / Examples / Detection-Rule-Reviewer
-
-- [SKILL.md](skills/examples/detection-rule-reviewer/SKILL.md)
-## Skills / Examples / Threat-Model-Reviewer
-
-- [SKILL.md](skills/examples/threat-model-reviewer/SKILL.md)
-## Skills / Examples / Content-Reviewer
-
-- [SKILL.md](skills/examples/content-reviewer/SKILL.md)
 
 ---
 
