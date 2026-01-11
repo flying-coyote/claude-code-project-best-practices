@@ -80,6 +80,7 @@ All content must:
 - `progressive-disclosure.md` - Token-efficient methodology loading
 - `advanced-hooks.md` - Quality gates, PostToolUse, Stop hooks
 - `advanced-tool-use.md` - Tool search and programmatic calling
+- `agentic-retrieval.md` - Three-phase exploration vs traditional RAG
 
 ### Cross-Phase
 - `agent-principles.md` - 6 production AI principles

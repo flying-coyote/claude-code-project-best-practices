@@ -146,6 +146,20 @@ All patterns in this repository are derived from authoritative sources and produ
 
 ## Secondary Sources (Tier B)
 
+### LlamaIndex - Agentic Document Workflows
+- **Source**: LlamaIndex Engineering Blog
+- **URLs**:
+  - [Introducing Agentic Document Workflows](https://www.llamaindex.ai/blog/introducing-agentic-document-workflows)
+  - [RAG is Dead, Long Live Agentic Retrieval](https://www.llamaindex.ai/blog/rag-is-dead-long-live-agentic-retrieval)
+- **Date**: 2025
+- **Key Insights**:
+  - Agentic retrieval uses tools to dynamically navigate documents vs pre-computed embeddings
+  - Three-phase exploration: Parallel Scan → Deep Dive → Backtrack
+  - Cross-references remain opaque to vector-based matching
+  - Typed messages (Pydantic) enable formal contracts between workflow stages
+- **Pattern**: [Agentic Retrieval](patterns/agentic-retrieval.md)
+- **Evidence Tier**: B (Major framework vendor with production implementations)
+
 ### Claude Code Best Practices
 - **Title**: "Claude Code: Best practices for agentic coding"
 - **Source**: Anthropic Engineering
@@ -198,6 +212,15 @@ These tools complement Claude Code or provide alternative approaches to AI-assis
 | **code2prompt** | [mufeedvh/code2prompt](https://github.com/mufeedvh/code2prompt) | Token-optimized codebase context extraction |
 
 - **Pattern**: [Context Engineering](patterns/context-engineering.md)
+
+### Agentic Retrieval Tools
+
+| Tool | Repository | Purpose |
+|------|------------|---------|
+| **agentic-file-search** | [PromtEngineer/agentic-file-search](https://github.com/PromtEngineer/agentic-file-search) | Dynamic document exploration with LlamaIndex Workflows + Gemini |
+
+- **Key Features**: Three-phase exploration (scan/dive/backtrack), 6 filesystem tools, multi-format support (PDF, DOCX, PPTX), ~$0.001/query
+- **Pattern**: [Agentic Retrieval](patterns/agentic-retrieval.md)
 
 ### AI Asset Generation Tools
 
