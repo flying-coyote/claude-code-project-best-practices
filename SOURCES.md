@@ -454,6 +454,44 @@ These community repositories provide additional examples and inspiration for Cla
 - **Relevance**: Production implementation of concepts in [Memory Architecture](patterns/memory-architecture.md) and [Long-Running Agent](patterns/long-running-agent.md)
 - **Evidence Tier**: C (Community tool with production validation)
 
+### Claude Diary (Session Learning)
+- **Author**: Lance Martin (LangChain founder)
+- **URL**: https://github.com/rlancemartin/claude-diary
+- **Description**: Memory plugin implementing three-tier architecture (observation → reflection → retrieval) based on Generative Agents paper
+- **Key Features**:
+  - `/diary` command for session summary capture
+  - `/reflect` command for cross-entry pattern analysis
+  - PreCompact hook for automatic diary generation
+  - Human review required before CLAUDE.md updates
+  - Pattern detection (2+ occurrences = pattern, 3+ = strong pattern)
+- **Categories Analyzed**: PR feedback, persistent preferences, design decisions, anti-patterns, efficiency improvements
+- **Relevance**: Reference implementation for [Session Learning](patterns/session-learning.md) pattern
+- **Evidence Tier**: B (Expert practitioner with academic research basis)
+
+### Claude Reflect (Hook-Based Learning)
+- **Author**: Bayram Annakov
+- **URL**: https://github.com/BayramAnnakov/claude-reflect
+- **Description**: Hook-based automatic correction detection for Claude Code
+- **Key Features**:
+  - Automatic detection of correction patterns ("no, use X", tool rejections)
+  - Queued learnings reviewed via `/reflect` command
+  - Plugin ecosystem integration
+- **Relevance**: Alternative implementation for [Session Learning](patterns/session-learning.md) pattern
+- **Evidence Tier**: C (Community implementation)
+
+### Autoskill (Meta-Skill Learning)
+- **Author**: AI-Unleashed
+- **URL**: https://github.com/AI-Unleashed/Claude-Skills/tree/main/autoskill
+- **Description**: Meta-skill that updates other skill files based on session corrections
+- **Key Features**:
+  - Signal detection: corrections, repeated patterns, approvals
+  - 4-question quality filter before proposing changes
+  - Confidence levels (HIGH/MEDIUM) for proposals
+  - Routes learnings to appropriate skill files
+- **Caution**: Updates skill files directly — higher risk than CLAUDE.md-only approaches
+- **Relevance**: Alternative approach for [Session Learning](patterns/session-learning.md) pattern
+- **Evidence Tier**: C (Community, minimal documentation, no production validation)
+
 ### Fabric Framework (Implementation Reference)
 - **URL**: https://github.com/danielmiessler/fabric
 - **Description**: 200+ battle-tested patterns from 300+ contributors
@@ -552,6 +590,65 @@ These community repositories provide additional examples and inspiration for Cla
   - Reference for detection rule patterns
 - **OWASP Threat Modeling**: https://owasp.org/www-community/Threat_Modeling
   - Methodology basis for threat modeling skills
+
+---
+
+## Session Learning and Self-Improvement Sources (Tier B)
+
+These sources document session learning, self-improvement, and the risks of autonomous agent evolution:
+
+### Generative Agents Paper (Stanford)
+- **Title**: "Generative Agents: Interactive Simulacra of Human Behavior"
+- **Authors**: Park et al., Stanford University
+- **URL**: https://arxiv.org/abs/2304.03442
+- **Date**: April 2023
+- **Key Concepts**:
+  - Three-tier memory: Observation → Reflection → Retrieval
+  - Agents that form memories and plan behavior based on experience
+  - 54% improvement from reflection-based memory in studies
+- **Relevance**: Foundational research for [Session Learning](patterns/session-learning.md) pattern
+- **Evidence Tier**: A (Peer-reviewed academic research)
+
+### Yohei Nakajima: Self-Improving Agents
+- **Author**: Yohei Nakajima (BabyAGI creator)
+- **URL**: https://yoheinakajima.com/better-ways-to-build-self-improving-ai-agents/
+- **Description**: Research summary on self-improving agent architectures
+- **Key Insights**:
+  - "Reflection notes" stored alongside objectives improve performance over time
+  - Vector search for similar past objectives enables learning transfer
+  - Categories: Self-reflection, self-generated data, self-adapting models
+- **Relevance**: Expert perspective on session learning mechanisms
+- **Evidence Tier**: B (Expert practitioner with research synthesis)
+
+### Misevolution Research
+- **Title**: "Your Agent May Misevolve: Emergent Risks in Self-Evolving LLM Agents"
+- **URL**: https://medium.com/@huguosuo/your-agent-may-misevolve-emergent-risks-in-self-evolving-llm-agents-2f364a6de72e
+- **Key Findings**:
+  - Four risk pathways: model, memory, tool, workflow misevolution
+  - Self-training reduced safety refusal rates by up to 70%
+  - Quick fixes failed to restore original alignment
+- **Relevance**: Critical risk documentation for [Session Learning](patterns/session-learning.md) pattern
+- **Evidence Tier**: B (Research summary with citations)
+
+### Reflexion Paper
+- **Title**: "Reflexion: Language Agents with Verbal Reinforcement Learning"
+- **Authors**: Shinn et al.
+- **URL**: https://arxiv.org/abs/2303.11366
+- **Key Findings**:
+  - Self-critique stored as "reflections" improves task performance
+  - 91% pass@1 on HumanEval (up from GPT-4 baseline)
+  - Natural language feedback more effective than scalar rewards
+- **Relevance**: Academic validation of reflection-based learning
+- **Evidence Tier**: B (Peer-reviewed research)
+
+### OpenAI Cookbook: Self-Evolving Agents
+- **URL**: https://cookbook.openai.com/examples/partners/self_evolving_agents/autonomous_agent_retraining
+- **Key Insights**:
+  - Repeatable retraining loop for production agents
+  - Human-in-the-loop failsafe for critical updates
+  - Log every retraining event with parameters and metrics
+- **Relevance**: Production implementation guidance for session learning
+- **Evidence Tier**: A (Vendor documentation)
 
 ---
 
