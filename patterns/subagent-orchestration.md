@@ -500,6 +500,96 @@ claude --model claude-opus-4-5-20251101
 
 **Key insight**: The time spent on extended thinking often saves more time by reducing back-and-forth steering corrections. Quality improves 2-3x with verification steps.
 
+---
+
+## Pattern 9: Three-Phase Exploration
+
+**Use Case**: Comprehensive document/codebase exploration with cross-reference handling
+
+This pattern structures exploration to maximize coverage while minimizing wasted effort. Based on agentic retrieval research, it outperforms single-pass exploration for complex codebases.
+
+### The Three Phases
+
+```
+Phase 1: PARALLEL SCAN
+    │
+    ├── Quick overview of all candidates
+    ├── Categorize: RELEVANT / MAYBE / SKIP
+    └── Output: Triage list
+
+Phase 2: DEEP DIVE
+    │
+    ├── Full extraction on RELEVANT items
+    ├── Identify cross-references
+    └── Output: Detailed findings + reference list
+
+Phase 3: BACKTRACK
+    │
+    ├── Follow cross-references to SKIP/MAYBE items
+    ├── Re-evaluate based on new context
+    └── Output: Complete picture with dependencies
+```
+
+### Implementation with Explore Subagent
+
+```markdown
+## Three-Phase Exploration Prompt Template
+
+Task tool with:
+- subagent_type: "Explore"
+- prompt: |
+    Explore [TOPIC] in this codebase using three phases:
+
+    **Phase 1 - Scan**: List all potentially relevant files/directories.
+    Categorize each as RELEVANT, MAYBE, or SKIP with brief reasoning.
+
+    **Phase 2 - Deep Dive**: For RELEVANT items, extract key information.
+    Note any imports, references, or dependencies to other files.
+
+    **Phase 3 - Backtrack**: For any references pointing to SKIP/MAYBE items,
+    go back and extract the relevant context.
+
+    Return:
+    - Summary of findings
+    - Key file locations with line numbers
+    - Architecture/flow diagram if applicable
+```
+
+### When Three-Phase Excels
+
+| Scenario | Benefit |
+|----------|---------|
+| **Understanding new codebase** | Systematic coverage, nothing missed |
+| **Finding all usages** | Backtracking catches indirect references |
+| **Architecture analysis** | Cross-references reveal structure |
+| **Security audit** | Dependencies and data flow traced |
+| **Refactoring planning** | Impact analysis with full reference chain |
+
+### Parallel Three-Phase Exploration
+
+For large codebases, run multiple three-phase explorations in parallel:
+
+```markdown
+## Parallel Three-Phase Setup
+
+Launch IN PARALLEL (single message, multiple Task calls):
+
+[Task 1: Explore] "Three-phase exploration of authentication"
+[Task 2: Explore] "Three-phase exploration of authorization"
+[Task 3: Explore] "Three-phase exploration of session management"
+
+Each agent independently: scan → dive → backtrack
+Parent synthesizes: merge findings, resolve overlaps
+```
+
+### Anti-Pattern: Single-Pass Exploration
+
+**Problem**: Reading files once without revisiting based on discoveries
+**Symptom**: "I found a reference to AuthHelper but didn't explore it"
+**Solution**: Phase 3 backtracking ensures all references are followed
+
+**Related**: See [Agentic Retrieval](./agentic-retrieval.md) for the theoretical foundation.
+
 ### Cost/Latency Trade-offs
 
 ```
@@ -551,6 +641,7 @@ Then implement sequentially in parent with full context.
 
 ## Related Patterns
 
+- [Agentic Retrieval](./agentic-retrieval.md) - Three-phase exploration theory and RAG comparison
 - [Recursive Evolution](./recursive-evolution.md) - Full Self-Evolution Algorithm with iterative refinement
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient methodology loading
