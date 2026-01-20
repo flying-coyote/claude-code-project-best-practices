@@ -1,14 +1,15 @@
 # Index
 
-*Auto-generated: 2026-01-20 08:51*
+*Auto-generated: 2026-01-20 09:19*
 
 ## Summary
 
-**Total documents**: 60
+**Total documents**: 63
 
 | Directory | Count |
 |-----------|-------|
-| patterns | 23 |
+| mcp-server | 1 |
+| patterns | 25 |
 | presets | 4 |
 | prompts | 3 |
 | research | 1 |
@@ -91,6 +92,9 @@
 ## Skills / Examples / Systematic-Debugger
 
 - [SKILL.md](skills/examples/systematic-debugger/SKILL.md)
+## Mcp-Server
+
+- [README.md](mcp-server/README.md)
 ## Research
 
 - [ai-creators-analysis.md](research/ai-creators-analysis.md)
@@ -99,6 +103,7 @@
 - [advanced-hooks.md](patterns/advanced-hooks.md)
 - [advanced-tool-use.md](patterns/advanced-tool-use.md)
 - [agent-principles.md](patterns/agent-principles.md)
+- [agentic-retrieval.md](patterns/agentic-retrieval.md)
 - [ai-image-generation.md](patterns/ai-image-generation.md)
 - [architecture-decision-records.md](patterns/architecture-decision-records.md)
 - [confidence-scoring.md](patterns/confidence-scoring.md)
@@ -115,6 +120,7 @@
 - [progressive-disclosure.md](patterns/progressive-disclosure.md)
 - [project-infrastructure.md](patterns/project-infrastructure.md)
 - [recursive-evolution.md](patterns/recursive-evolution.md)
+- [session-learning.md](patterns/session-learning.md)
 - [skills-domain-knowledge.md](patterns/skills-domain-knowledge.md)
 - [spec-driven-development.md](patterns/spec-driven-development.md)
 - [subagent-orchestration.md](patterns/subagent-orchestration.md)

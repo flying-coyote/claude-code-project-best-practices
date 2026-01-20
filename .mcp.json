@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "best-practices": {
+      "command": "./mcp-server/.venv/bin/python",
+      "args": ["-m", "best_practices_mcp.server"],
+      "cwd": "./mcp-server/src",
+      "env": {
+        "REPO_ROOT": "../..",
+        "PATTERNS_DIR": "patterns",
+        "SOURCES_FILE": "SOURCES.md",
+        "INDEX_FILE": "INDEX.md"
+      }
+    }
+  }
+}

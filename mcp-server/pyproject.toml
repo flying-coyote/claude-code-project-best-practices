@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "best-practices-mcp"
+version = "0.1.0"
+description = "MCP server for validating and syncing Claude Code best practices documentation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = [
+    "mcp>=1.0.0",
+    "pydantic>=2.0.0",
+    "httpx>=0.25.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+[project.scripts]
+best-practices-mcp = "best_practices_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/best_practices_mcp"]
