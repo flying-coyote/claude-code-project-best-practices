@@ -395,5 +395,7 @@ Always end SKILL.md with:
 
 - [Long-Running Agent](./long-running-agent.md) - External artifacts as memory
 - [Context Engineering](./context-engineering.md) - Semantic highways for discovery
+- [Skills for Domain Knowledge](./skills-domain-knowledge.md) - What content goes into skills
+- [Advanced Tool Use](./advanced-tool-use.md) - Complementary token reduction via tool search
 
 *Last updated: January 2026*

@@ -123,5 +123,7 @@ The session-start hook implements:
 - [Memory Architecture](./memory-architecture.md) - Lifecycle-based information management
 - [Documentation Maintenance](./documentation-maintenance.md) - ARCH/PLAN/INDEX trio
 - [Advanced Hooks](./advanced-hooks.md) - SessionStart implementation patterns
+- [Subagent Orchestration](./subagent-orchestration.md) - Context window recovery via subagents
+- [Agent Principles](./agent-principles.md) - Foundational principles for agent design
 
 *Last updated: January 2026*

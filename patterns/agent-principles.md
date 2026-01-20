@@ -203,5 +203,7 @@ These principles manifest in Claude Code patterns:
 ## Related Patterns
 - [Long-Running Agent](./long-running-agent.md) - External artifacts as memory
 - [Context Engineering](./context-engineering.md) - Deterministic vs probabilistic context
+- [Session Learning](./session-learning.md) - Implements Principle 1 (Persistent Memory)
+- [Subagent Orchestration](./subagent-orchestration.md) - Applies principles in subagent design
 
 *Last updated: January 2026*

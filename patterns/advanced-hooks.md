@@ -710,6 +710,7 @@ When both global and skill-level hooks exist:
 - [Long-Running Agent](./long-running-agent.md) - Verify before work startup protocol
 - [Documentation Maintenance](./documentation-maintenance.md) - Three-document system
 - [Subagent Orchestration](./subagent-orchestration.md) - SubagentStop hook usage
+- [Advanced Tool Use](./advanced-tool-use.md) - Tool search complements hook-based validation
 
 ---
 

@@ -646,6 +646,8 @@ Then implement sequentially in parent with full context.
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient methodology loading
 - [Context Engineering](./context-engineering.md) - Managing context effectively
+- [Agent Principles](./agent-principles.md) - Six foundational principles for agent design
+- [Advanced Hooks](./advanced-hooks.md) - SubagentStart/Stop hooks for orchestration
 
 ---
 

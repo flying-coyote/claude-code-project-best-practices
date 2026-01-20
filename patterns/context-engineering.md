@@ -238,6 +238,7 @@ For full codebase context, see `.context/repo-overview.txt`
 - [Advanced Tool Use](./advanced-tool-use.md) - Token-efficient tool integration
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient methodology loading
 - [Memory Architecture](./memory-architecture.md) - Lifecycle-based information management
+- [Agentic Retrieval](./agentic-retrieval.md) - Semantic highways for document exploration
 
 ---
 

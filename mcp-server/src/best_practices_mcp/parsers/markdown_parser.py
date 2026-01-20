@@ -56,8 +56,8 @@ class MarkdownParser:
     # Section header pattern: ## Header
     SECTION_PATTERN = re.compile(r'^##\s+(.+)$', re.MULTILINE)
 
-    # Related patterns pattern: patterns/xxx.md or [Pattern Name](patterns/xxx.md)
-    RELATED_PATTERN = re.compile(r'patterns/([a-z0-9-]+)\.md')
+    # Related patterns pattern: patterns/xxx.md or ./xxx.md or [Pattern Name](./xxx.md)
+    RELATED_PATTERN = re.compile(r'(?:patterns/|\./|/)([a-z0-9-]+)\.md')
 
     def __init__(self, patterns_dir: Path):
         self.patterns_dir = patterns_dir
