@@ -382,6 +382,174 @@ Before deploying any MCP server:
 
 ---
 
+## Building MCP Servers for Claude Code
+
+When building custom MCP servers for your project, follow these implementation lessons learned from production deployments.
+
+### Start with a Specification
+
+**Write a spec before coding**. Define:
+1. **Tools** (2-4 max) - What actions can be performed
+2. **Resources** (1-3) - What data can be read
+3. **Input/Output schemas** - Exact JSON structure
+
+```markdown
+## Tool: validate_patterns
+Purpose: Check pattern files for issues
+Input: { action: "validate_all" | "validate_single", pattern_id?: string }
+Output: { summary: { valid: int, broken: int }, results: [...] }
+```
+
+**Lesson learned**: The original spec had 4 workflows; we simplified to 2. Spec first lets you evaluate scope before investing in code.
+
+### Simplify Ruthlessly
+
+**Start with 2 workflows, not 4**. You can always add more.
+
+| Original Spec | Simplified | Rationale |
+|---------------|------------|-----------|
+| extraction_workflow | Removed | Manual updates sufficient for docs repo |
+| changelog_workflow | Folded into sync | Same data sources |
+| validation_workflow | validate_patterns | Core value |
+| synthesis_workflow | sync_documentation | Core value |
+
+**Lesson learned**: A documentation repo doesn't need automated thought-leader monitoring. Match complexity to actual project needs.
+
+### Directory Structure
+
+Organize for maintainability:
+
+```
+mcp-server/
+├── pyproject.toml              # Dependencies (mcp>=1.0, pydantic, httpx)
+├── .gitignore                  # Exclude .venv/, __pycache__/
+├── README.md                   # Usage examples
+├── src/your_mcp_server/
+│   ├── __init__.py
+│   ├── server.py               # Entry point with @server decorators
+│   ├── tools/                  # One file per tool
+│   │   ├── __init__.py
+│   │   └── your_tool.py
+│   ├── resources/              # Resource registries
+│   │   └── your_registry.py
+│   └── parsers/                # File parsing logic
+│       └── your_parser.py
+└── tests/
+    └── test_your_tool.py
+```
+
+### Configuration via .mcp.json
+
+Use `.mcp.json` in project root:
+
+```json
+{
+  "mcpServers": {
+    "your-server": {
+      "command": "./mcp-server/.venv/bin/python",
+      "args": ["-m", "your_mcp_server.server"],
+      "cwd": "./mcp-server/src",
+      "env": {
+        "REPO_ROOT": "../.."
+      }
+    }
+  }
+}
+```
+
+**Key points**:
+- Use virtual environment path for `command` (not system Python)
+- Set `cwd` to source directory
+- Pass project paths via `env` variables
+
+### Parser Pitfalls
+
+**Strip code blocks before link extraction**. Markdown examples contain fake links that cause false validation errors.
+
+```python
+def _strip_code_blocks(self, content: str) -> str:
+    """Remove code blocks to avoid false link detection."""
+    content = re.sub(r'```[\s\S]*?```', '', content)
+    content = re.sub(r'`[^`]+`', '', content)
+    return content
+```
+
+**Lesson learned**: Pattern files contained example links inside code blocks. The naive parser flagged these as broken.
+
+### Handle Multiple Link Formats
+
+Different files use different link formats:
+
+```python
+# Must handle: patterns/xxx.md, ./xxx.md, /xxx.md
+RELATED_PATTERN = re.compile(r'(?:patterns/|\./|/)([a-z0-9-]+)\.md')
+```
+
+**Lesson learned**: Initial regex only matched `patterns/xxx.md` but actual files used `./xxx.md`.
+
+### Async Tool Functions
+
+MCP tools should be async for network operations:
+
+```python
+async def validate_patterns(
+    action: str,
+    pattern_registry: PatternRegistry,
+) -> dict[str, Any]:
+    # External link validation needs async HTTP
+    async with httpx.AsyncClient() as client:
+        response = await client.head(url, timeout=5.0)
+```
+
+### Test Before Integration
+
+Run the server directly before Claude Code integration:
+
+```bash
+# Install in venv
+cd mcp-server && pip install -e .
+
+# Test module loads
+PYTHONPATH=src python -c "from your_server.server import server; print('OK')"
+
+# Verify with claude mcp list
+claude mcp list  # Should show: your-server: ... - ✓ Connected
+```
+
+### Virtual Environment Management
+
+**Always use a project-local venv**:
+
+```bash
+cd mcp-server
+python3 -m venv .venv
+.venv/bin/pip install -e .
+```
+
+**Add to .gitignore immediately**:
+```
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+```
+
+**Lesson learned**: Accidentally committed `.venv/` (600K+ files) on first attempt. Create `.gitignore` before any `git add`.
+
+### Incremental Validation
+
+Build validation in layers:
+
+1. **Structure** - Required sections present
+2. **Internal links** - Referenced files exist
+3. **External links** - URLs reachable (with timeout, sampling)
+4. **Evidence** - Tier claims match sources
+5. **Cross-refs** - Bidirectional references complete
+
+**Lesson learned**: Running all validations at once makes debugging hard. Build and test incrementally.
+
+---
+
 ## Application to Claude Code
 
 Claude Code's MCP integration should follow these patterns:
@@ -443,6 +611,23 @@ The 7 Failure Modes documented above represent the primary anti-patterns. Additi
 - [Advanced Tool Use](./advanced-tool-use.md) - Tool Search for token efficiency
 - [Context Engineering](./context-engineering.md) - Security in context design
 - [Plugins and Extensions](./plugins-and-extensions.md) - When to use MCP vs alternatives
+- [Spec-Driven Development](./spec-driven-development.md) - Write spec before MCP implementation
+
+## Reference Implementation
+
+This repository includes a working MCP server example:
+
+```
+mcp-server/                      # Best Practices MCP Server
+├── src/best_practices_mcp/
+│   ├── server.py               # 2 tools: validate_patterns, sync_documentation
+│   ├── tools/                  # Tool implementations
+│   ├── resources/              # Pattern and source registries
+│   └── parsers/                # Markdown parsing with code block handling
+└── tests/                      # 9 passing tests
+```
+
+**Usage**: `claude mcp list` should show `best-practices: ... - ✓ Connected`
 
 ---
 
