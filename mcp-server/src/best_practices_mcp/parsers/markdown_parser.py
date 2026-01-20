@@ -62,6 +62,14 @@ class MarkdownParser:
     def __init__(self, patterns_dir: Path):
         self.patterns_dir = patterns_dir
 
+    def _strip_code_blocks(self, content: str) -> str:
+        """Remove code blocks from content to avoid false link detection."""
+        # Remove fenced code blocks (```...```)
+        content = re.sub(r'```[\s\S]*?```', '', content)
+        # Remove inline code (`...`)
+        content = re.sub(r'`[^`]+`', '', content)
+        return content
+
     def parse_file(self, file_path: Path) -> PatternMetadata:
         """Parse a single pattern file."""
         content = file_path.read_text(encoding='utf-8')
@@ -89,8 +97,11 @@ class MarkdownParser:
         # Extract sections
         sections = self.SECTION_PATTERN.findall(content)
 
-        # Extract all links
-        all_links = self.LINK_PATTERN.findall(content)
+        # Strip code blocks before extracting links to avoid false positives
+        content_without_code = self._strip_code_blocks(content)
+
+        # Extract all links (from content without code blocks)
+        all_links = self.LINK_PATTERN.findall(content_without_code)
         internal_links = []
         external_links = []
         for title, url in all_links:
@@ -99,8 +110,8 @@ class MarkdownParser:
             else:
                 internal_links.append(url)
 
-        # Extract related patterns
-        related_patterns = list(set(self.RELATED_PATTERN.findall(content)))
+        # Extract related patterns (from content without code blocks)
+        related_patterns = list(set(self.RELATED_PATTERN.findall(content_without_code)))
         # Remove self-reference
         related_patterns = [p for p in related_patterns if p != pattern_id]
 

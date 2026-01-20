@@ -268,7 +268,7 @@ Key architectural decisions documented in:
 - `decisions/` - Research methodology ADRs
 - `.claude/decisions/` - Claude infrastructure ADRs
 
-See [ADR-001](architecture/decisions/ADR-001-database-selection.md) for database choice rationale.
+See ADR-001 (in your project's `architecture/decisions/` folder) for database choice rationale.
 ```
 
 ### Contradiction Resolution
@@ -357,8 +357,8 @@ One decision per ADR. If you have multiple related decisions, create multiple li
 
 ```markdown
 ## Related Decisions
-- Supersedes: [ADR-003](ADR-003-old-database-choice.md)
-- Builds on: [ADR-001](ADR-001-data-architecture.md)
+- Supersedes: ADR-003 (old database choice)
+- Builds on: ADR-001 (data architecture)
 - Conflicts with: None
 ```
 
@@ -475,9 +475,9 @@ Maintain an index in ARCHITECTURE.md:
 ```markdown
 ## Key Decisions
 
-- [ADR-001: Database Selection](decisions/ADR-001-database-selection.md) - Apache Iceberg (2024-Q3)
-- [ADR-002: Authentication](decisions/ADR-002-api-authentication.md) - OAuth 2.0 (2024-Q4)
-- [ADR-003: Deployment](decisions/ADR-003-deployment-strategy.md) - Kubernetes (2024-Q4)
+- ADR-001: Database Selection - Apache Iceberg (2024-Q3)
+- ADR-002: Authentication - OAuth 2.0 (2024-Q4)
+- ADR-003: Deployment - Kubernetes (2024-Q4)
 ```
 
 ---
