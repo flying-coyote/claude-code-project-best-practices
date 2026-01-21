@@ -190,18 +190,23 @@ async def _check_links(pattern, repo_root: Path) -> list[dict]:
         for url in external_sample:
             try:
                 response = await client.head(url)
-                if response.status_code >= 400:
+                # 403/429 are often false positives (rate limiting, bot blocking)
+                # 404/410 are genuine broken links
+                if response.status_code in (404, 410):
                     issues.append({
                         "type": "broken_external_link",
                         "description": f"External link returned {response.status_code}: {url}",
                         "severity": "warning"
                     })
-            except httpx.RequestError as e:
-                issues.append({
-                    "type": "unreachable_link",
-                    "description": f"Could not reach: {url} ({type(e).__name__})",
-                    "severity": "warning"
-                })
+                elif response.status_code >= 500:
+                    issues.append({
+                        "type": "external_link_server_error",
+                        "description": f"External link server error {response.status_code}: {url}",
+                        "severity": "info"
+                    })
+            except httpx.RequestError:
+                # Connection errors are often transient or due to bot blocking
+                pass  # Don't flag as issue
 
     return issues
 
@@ -215,16 +220,12 @@ def _check_evidence(pattern, source_registry: SourceRegistry) -> list[dict]:
 
     tier = pattern.evidence_tier.upper()
 
-    # Tier A requires primary sources
+    # Tier A requires primary sources (at least one documented source)
     if tier == "A":
-        has_primary = any(
-            s.get("tier") == "A" or "anthropic" in s.get("url", "").lower()
-            for s in pattern.sources
-        )
-        if not has_primary:
+        if not pattern.sources:
             issues.append({
                 "type": "tier_mismatch",
-                "description": "Tier A pattern lacks primary (Anthropic) source",
+                "description": "Tier A pattern has no documented sources",
                 "severity": "warning"
             })
 

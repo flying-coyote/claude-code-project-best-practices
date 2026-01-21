@@ -131,26 +131,132 @@ class MarkdownParser:
     def _extract_sources(self, content: str) -> list[dict]:
         """Extract source references from content."""
         sources = []
+        seen_urls = set()
 
-        # Look for Sources section
-        sources_match = re.search(
-            r'\*\*Sources?\*\*:\s*\n((?:[-*]\s+.+\n?)+)',
-            content
+        # Method 1: Look for ## Sources section (most common format)
+        sources_section_match = re.search(
+            r'^##\s+Sources?\s*\n((?:[-*]\s+.+\n?)+)',
+            content,
+            re.MULTILINE
         )
-        if sources_match:
-            sources_text = sources_match.group(1)
+        if sources_section_match:
+            sources_text = sources_section_match.group(1)
             for line in sources_text.strip().split('\n'):
+                line_text = line.lstrip('-* ').strip()
+                if not line_text:
+                    continue
                 link_match = self.LINK_PATTERN.search(line)
                 if link_match:
                     title, url = link_match.groups()
-                    tier_match = self.EVIDENCE_TIER_PATTERN.search(line)
-                    tier = None
-                    if tier_match:
-                        tier = tier_match.group(1) or tier_match.group(2)
+                    if url not in seen_urls:
+                        seen_urls.add(url)
+                        tier_match = self.EVIDENCE_TIER_PATTERN.search(line)
+                        tier = None
+                        if tier_match:
+                            tier = tier_match.group(1) or tier_match.group(2)
+                        sources.append({
+                            "title": title,
+                            "url": url,
+                            "tier": tier
+                        })
+                else:
+                    # Plain text source (no URL)
+                    sources.append({
+                        "title": line_text,
+                        "url": None,
+                        "tier": None
+                    })
+
+        # Method 2: Look for **Sources**: or **Source**: inline format
+        inline_sources_match = re.search(
+            r'\*\*Sources?\*\*:\s*(.+?)(?:\n\n|\n##|\Z)',
+            content,
+            re.DOTALL
+        )
+        if inline_sources_match:
+            sources_text = inline_sources_match.group(1)
+            for link_match in self.LINK_PATTERN.finditer(sources_text):
+                title, url = link_match.groups()
+                if url.startswith('http') and url not in seen_urls:
+                    seen_urls.add(url)
                     sources.append({
                         "title": title,
                         "url": url,
+                        "tier": None
+                    })
+
+        # Method 3: Look for **Tier X Sources**: format (used in some patterns)
+        tier_sources_matches = re.finditer(
+            r'\*\*Tier ([A-D]) Sources?\*\*:\s*\n((?:[-*]\s+.+\n?)+)',
+            content
+        )
+        for match in tier_sources_matches:
+            tier = match.group(1)
+            sources_text = match.group(2)
+            for line in sources_text.strip().split('\n'):
+                # Extract title from line (may not have URL)
+                line = line.lstrip('-* ').strip()
+                link_match = self.LINK_PATTERN.search(line)
+                if link_match:
+                    title, url = link_match.groups()
+                    if url not in seen_urls:
+                        seen_urls.add(url)
+                        sources.append({
+                            "title": title,
+                            "url": url,
+                            "tier": tier
+                        })
+                elif line and ':' in line:
+                    # Non-link source like "Author: Title"
+                    sources.append({
+                        "title": line,
+                        "url": None,
                         "tier": tier
+                    })
+
+        # Method 4: Look for ## Further Reading section
+        further_reading_match = re.search(
+            r'^##\s+Further Reading\s*\n((?:.*\n)*?)(?=^##|\Z)',
+            content,
+            re.MULTILINE
+        )
+        if further_reading_match:
+            section_text = further_reading_match.group(1)
+            for link_match in self.LINK_PATTERN.finditer(section_text):
+                title, url = link_match.groups()
+                if url.startswith('http') and url not in seen_urls:
+                    seen_urls.add(url)
+                    sources.append({
+                        "title": title,
+                        "url": url,
+                        "tier": None
+                    })
+
+        # Method 5: Extract header **Source**: description (no URL, common at file top)
+        # Only use if no other sources found (fallback)
+        if not sources:
+            header_source_match = re.search(
+                r'^\*\*Source\*\*:\s*(.+?)$',
+                content,
+                re.MULTILINE
+            )
+            if header_source_match:
+                description = header_source_match.group(1).strip()
+                # Check if it contains a link
+                link_match = self.LINK_PATTERN.search(description)
+                if link_match:
+                    title, url = link_match.groups()
+                    sources.append({
+                        "title": title,
+                        "url": url,
+                        "tier": None
+                    })
+                else:
+                    # Plain text source description
+                    sources.append({
+                        "title": description,
+                        "url": None,
+                        "tier": None
                     })
 
         return sources
