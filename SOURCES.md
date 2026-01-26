@@ -190,6 +190,63 @@ All patterns in this repository are derived from authoritative sources and produ
 - **Pattern**: [Claude-Flow Enterprise](patterns/claude-flow-enterprise.md) (reference architecture)
 - **Evidence Tier**: B (Enterprise-focused documentation)
 
+### Recursive Language Models (RLM)
+- **Authors**: Alex Zhang, Tim Kraska, Omar Khattab (MIT CSAIL)
+- **arXiv**: https://arxiv.org/abs/2512.24601
+- **GitHub**: https://github.com/alexzhang13/rlm
+- **Blog**: https://alexzhang13.github.io/blog/2025/rlm/
+- **Industry Analysis**: [Prime Intellect - "The Paradigm of 2026"](https://www.primeintellect.ai/blog/rlm)
+- **Description**: Inference paradigm enabling LLMs to programmatically examine, decompose, and recursively call themselves over context stored as a variable
+- **Key Concepts**:
+  - **Context Rot**: Performance degradation as context window fills (beyond benchmark capture)
+  - **Model-Managed Context**: Context as REPL variable, model decides what to examine
+  - **Recursive Decomposition**: Spawns sub-LLM calls on chunks, combines results iteratively
+  - **Emergent Behaviors**: Peeking, grepping, partition + map, summarization
+- **Benchmark Results**:
+  | Benchmark | Standard Approach | RLM Approach | Improvement |
+  |-----------|-------------------|--------------|-------------|
+  | OOLONG (132K tokens) | GPT-5 baseline | RLM(GPT-5-mini) 2x | >33% |
+  | CodeQA | GPT-5: 24% | RLM: 62% | 158% |
+  | BrowseComp-Plus | Degradation at scale | Perfect | Maintained at 10M+ |
+- **Key Quote**: "If I split the context into two model calls, then combine them in a third model call, I'd avoid this degradation issue." — Alex Zhang
+- **Pattern**: [Recursive Context Management](patterns/recursive-context-management.md)
+- **Evidence Tier**: B (Academic research + industry recognition, no Claude-specific validation)
+- **Status**: EMERGING PATTERN - Monitor for Claude-specific validation
+
+### RLM Claude Code Integrations (Tier C)
+Community implementations integrating RLM patterns with Claude Code:
+
+| Repository | Author | Maturity | Key Features |
+|------------|--------|----------|--------------|
+| [rand/rlm-claude-code](https://github.com/rand/rlm-claude-code) | rand | Most mature (144 commits, 41 stars) | Persistent memory, complexity classifiers, budget tracking |
+| [brainqub3/claude_code_RLM](https://github.com/brainqub3/claude_code_RLM) | Brainqub3 | Minimal (4 commits) | Basic scaffold, `/rlm` skill, Opus+Haiku hierarchy |
+| [zircote/rlm-rs](https://github.com/zircote/rlm-rs) | zircote | Rust CLI | SQLite persistence, chunk orchestration |
+| [ysz/recursive-llm](https://github.com/ysz/recursive-llm) | ysz | Multi-model | Supports `claude-sonnet-4`, provider-agnostic |
+| [RLM-MCP](https://news.ycombinator.com/item?id=46708942) | HN poster | Initial beta | MCP server approach for large file analysis |
+
+**All created January 2026** - early-stage ecosystem, no production validation yet.
+
+### RLM Monitoring Signals
+Track these for production readiness:
+
+| Signal | Where to Watch | Implication |
+|--------|----------------|-------------|
+| Anthropic "context-trained" models | Blog, changelog | Native RLM compatibility |
+| rand/rlm-claude-code releases | GitHub | Community validation progress |
+| Claude Agent SDK RLM patterns | Anthropic docs | Official support |
+| Chroma context rot follow-up | Research blog | Updated benchmarks |
+
+### Context Rot Research
+- **Source**: [Chroma Research](https://research.trychroma.com/context-rot)
+- **Date**: July 2025 (initial), ongoing updates
+- **Description**: Empirical study of LLM performance degradation with increasing context
+- **Key Findings**:
+  - Claude models decay slowest overall among tested LLMs
+  - Claude shows most pronounced gap between focused/full prompt performance on LongMemEval
+  - Claude models tend to abstain when uncertain rather than hallucinate
+  - Counterintuitively, shuffled (incoherent) contexts outperform logically structured ones
+- **Evidence Tier**: B (Independent research lab with reproducible methodology)
+
 ### Tenzir Blog: MCP vs Skills Economics
 - **Author**: Matthias Vallentin
 - **URL**: https://blog.tenzir.com (January 2026)

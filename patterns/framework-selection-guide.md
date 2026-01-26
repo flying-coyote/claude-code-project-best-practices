@@ -82,6 +82,7 @@ Use NATIVE SUBAGENT ORCHESTRATION (Default)
 | **GSD** | ~5 workflow agents | Fresh per subagent | STATE.md + .planning/ | Tier B |
 | **CAII** | 7 cognitive agents | On-the-fly injection | Task-specific memories | Tier B |
 | **Claude-Flow** | 60+ specialized | Vector retrieval | ReasoningBank | Tier B (docs only) |
+| **RLM** | Model-managed | REPL variable + recursive | Sub-call outputs | Tier B (emerging) |
 
 ---
 
@@ -184,6 +185,38 @@ CAII: 7 agents (constant) → Sustainable architecture
 
 ---
 
+### RLM - Recursive Language Models (EMERGING)
+
+**When to use**: Monitor for future adoption; apply principles now through prompting
+
+**Status**: Emerging paradigm with strong academic results but no Claude-specific validation
+
+**Key Innovation**: Model manages its own context through REPL variable access
+
+```
+Traditional: [Full Context] → [Single Pass] → [Answer] (context rot)
+RLM: [Context as Variable] → [Model decides: peek, grep, partition] → [Recursive sub-calls] → [Answer]
+```
+
+**Why it matters**:
+- Explains theoretically WHY GSD's fresh context works
+- Addresses "context rot" (performance degradation as window fills)
+- CodeQA accuracy: 24% → 62% improvement
+
+**Current limitations**:
+- Requires RL training (not available for Claude)
+- All published results use GPT-5/GPT-5-mini
+- Implementation complexity (REPL environment)
+
+**What you can do NOW** (without full RLM):
+- Encourage recursive exploration prompts
+- Explicit context partitioning ("process in batches of 3")
+- Programmatic filtering ("search for X first, then examine only those")
+
+**Documentation**: [Recursive Context Management](./recursive-context-management.md)
+
+---
+
 ## How Frameworks Map to SDD Phases
 
 All orchestration frameworks implement the SDD 4-phase model differently:
@@ -260,6 +293,7 @@ Some patterns extracted from these frameworks work with ANY orchestration:
 - [Cognitive Agent Infrastructure](./cognitive-agent-infrastructure.md) - Scalable agent architecture
 - [Context Engineering](./context-engineering.md) - Context strategies for all frameworks
 - [MCP vs Skills Economics](./mcp-vs-skills-economics.md) - Execution layer decisions
+- [Recursive Context Management](./recursive-context-management.md) - Emerging RLM paradigm (monitor)
 
 ---
 

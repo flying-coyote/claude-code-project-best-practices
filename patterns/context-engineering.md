@@ -236,6 +236,29 @@ When Marimo interacts with AI:
 
 **Significance**: The CLAUDE.md pattern is becoming tool-agnostic. Data science tools are adopting developer tooling patterns.
 
+### RLM: Model-Managed Context (Emerging)
+
+**Source**: [Recursive Language Models](./recursive-context-management.md)
+
+RLM represents an **emerging paradigm** where the model manages its own context through a Python REPL environment:
+
+```
+RLM Context Management:
+[Query + REPL Access to Context Variable]
+              ↓
+[Model decides: peek, grep, partition, summarize]
+              ↓
+[Spawns sub-LLM calls on chunks as needed]
+              ↓
+[Combines results iteratively]
+```
+
+**Key distinction from other frameworks**: RLM inverts control. Instead of external systems (orchestrators, vector DBs) managing what context the model sees, the model learns to manage its own context through reinforcement learning.
+
+**Relationship to GSD**: RLM provides the theoretical foundation for why GSD's fresh context approach works—both avoid context rot through decomposition, but RLM automates the decomposition decision.
+
+> **Status**: Emerging pattern. Monitor for Claude-specific validation before production adoption.
+
 ### Framework Comparison
 
 | Framework | Context Strategy | Agent Model | State Management |
@@ -243,6 +266,7 @@ When Marimo interacts with AI:
 | **GSD** | Fresh per subagent | ~5 workflow agents | STATE.md + .planning/ |
 | **CAII** | On-the-fly injection | 7 cognitive agents | Task-specific memories |
 | **Claude-Flow** | Vector retrieval | 60+ specialized | ReasoningBank |
+| **RLM** | REPL variable + recursive | Model-managed | Sub-call outputs |
 | **Marimo** | CLAUDE.md injection | Tool-integrated | Project files |
 | **Standard Claude Code** | Accumulating | Single agent | Conversation history |
 
