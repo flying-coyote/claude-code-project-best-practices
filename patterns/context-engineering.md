@@ -162,6 +162,102 @@ The goal isn't to tell Claude everything—it's to help Claude find the right th
 
 ---
 
+## Context Strategy Frameworks
+
+Different orchestration patterns take different approaches to context management:
+
+### GSD: Fresh Context Per Subagent
+
+**Source**: [GSD Orchestration](./gsd-orchestration.md)
+
+The GSD pattern gives each executor a **fresh 200K token context window** with zero accumulated garbage from previous tasks. This prevents "context rot"—quality degradation from filled context windows.
+
+```
+Orchestrator
+├── [Executor 1: Fresh 200K] → Task 1
+├── [Executor 2: Fresh 200K] → Task 2
+└── [Executor 3: Fresh 200K] → Task 3
+
+Each executor receives ONLY:
+- Task specification (XML)
+- Minimal necessary context from STATE.md
+- No conversation history
+```
+
+**Key Principle**: The orchestrator never implements directly. It spawns agents, waits, and integrates results—preserving its own context for coordination.
+
+**State Externalization**: All project state persists in files (STATE.md, .planning/), not in context. Any new agent can read STATE.md and understand the project without explanation.
+
+### CAII: On-the-Fly Context Injection
+
+**Source**: [Cognitive Agent Infrastructure](./cognitive-agent-infrastructure.md)
+
+CAII uses **7 fixed cognitive agents** that receive context on-the-fly, adapting to any domain without modification.
+
+```
+Domain Context Injection:
+┌─────────────────────────────────────────┐
+│        Cognitive Agent (fixed)          │
+│   + Domain Context (injected at runtime)│
+│   = Domain-Adapted Behavior             │
+└─────────────────────────────────────────┘
+```
+
+**Philosophy**: Instead of creating domain-specific agents, inject domain knowledge into general-purpose cognitive agents. This maintains constant complexity regardless of project scope.
+
+### Claude-Flow: Vector Memory + Swarm
+
+**Source**: [Claude-Flow Enterprise](./claude-flow-enterprise.md)
+
+Enterprise-scale approach using vector memory for pattern retrieval:
+
+- **HNSW Vector Memory**: 150x-12,500x faster pattern retrieval
+- **ReasoningBank**: Trajectory storage with semantic matching
+- **6 Swarm Topologies**: Hierarchical, Mesh, Ring, Star, Hybrid, Adaptive
+
+**Scale**: 60+ specialized agents, 42 pre-built skills, 170+ MCP tools
+
+### Marimo: Tool-Agnostic CLAUDE.md
+
+**Source**: YouTube Short (January 2026)
+
+Marimo notebooks demonstrate CLAUDE.md adoption spreading beyond Claude Code:
+
+```
+Project Root
+├── CLAUDE.md ← Detected by Marimo
+└── notebook.py
+
+When Marimo interacts with AI:
+1. Detects CLAUDE.md in project root
+2. Automatically injects contents into AI context
+3. Enables project-aware AI assistance within notebooks
+```
+
+**Significance**: The CLAUDE.md pattern is becoming tool-agnostic. Data science tools are adopting developer tooling patterns.
+
+### Framework Comparison
+
+| Framework | Context Strategy | Agent Model | State Management |
+|-----------|-----------------|-------------|------------------|
+| **GSD** | Fresh per subagent | ~5 workflow agents | STATE.md + .planning/ |
+| **CAII** | On-the-fly injection | 7 cognitive agents | Task-specific memories |
+| **Claude-Flow** | Vector retrieval | 60+ specialized | ReasoningBank |
+| **Marimo** | CLAUDE.md injection | Tool-integrated | Project files |
+| **Standard Claude Code** | Accumulating | Single agent | Conversation history |
+
+### When to Use Each
+
+| Scenario | Recommended Framework |
+|----------|----------------------|
+| **Multi-phase projects with sessions** | GSD |
+| **Scalable, maintainable architecture** | CAII |
+| **Enterprise scale (60+ agents)** | Claude-Flow |
+| **Data science workflows** | Marimo pattern |
+| **Simple tasks** | Standard Claude Code |
+
+---
+
 ## Context Extraction Tools
 
 While context engineering focuses on architecture and principles, these tools help automate context preparation:
@@ -234,11 +330,14 @@ For full codebase context, see `.context/repo-overview.txt`
 
 ## Related Patterns
 
+- [GSD Orchestration](./gsd-orchestration.md) - Fresh context per subagent pattern
+- [Cognitive Agent Infrastructure](./cognitive-agent-infrastructure.md) - On-the-fly context injection
 - [Long-Running Agent Patterns](./long-running-agent.md) - External artifacts as memory
 - [Advanced Tool Use](./advanced-tool-use.md) - Token-efficient tool integration
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient methodology loading
 - [Memory Architecture](./memory-architecture.md) - Lifecycle-based information management
 - [Agentic Retrieval](./agentic-retrieval.md) - Semantic highways for document exploration
+- [MCP vs Skills Economics](./mcp-vs-skills-economics.md) - Cost-aware context architecture
 
 ---
 

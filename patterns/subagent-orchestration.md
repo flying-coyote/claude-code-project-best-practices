@@ -641,6 +641,9 @@ Then implement sequentially in parent with full context.
 
 ## Related Patterns
 
+- [GSD Orchestration](./gsd-orchestration.md) - Fresh context per subagent, STATE.md pattern
+- [Cognitive Agent Infrastructure](./cognitive-agent-infrastructure.md) - 7 fixed cognitive agents vs domain proliferation
+- [Johari Window](./johari-window-ambiguity.md) - SAAE protocol for surfacing unknowns
 - [Agentic Retrieval](./agentic-retrieval.md) - Three-phase exploration theory and RAG comparison
 - [Recursive Evolution](./recursive-evolution.md) - Full Self-Evolution Algorithm with iterative refinement
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
@@ -648,6 +651,72 @@ Then implement sequentially in parent with full context.
 - [Context Engineering](./context-engineering.md) - Managing context effectively
 - [Agent Principles](./agent-principles.md) - Six foundational principles for agent design
 - [Advanced Hooks](./advanced-hooks.md) - SubagentStart/Stop hooks for orchestration
+
+---
+
+## Orchestration Framework Comparison
+
+Different frameworks take different approaches to agent orchestration:
+
+| Framework | Agent Count | Context Strategy | State Management | Best For |
+|-----------|-------------|------------------|------------------|----------|
+| **GSD** | ~5 workflow | Fresh per subagent | STATE.md + .planning/ | Multi-phase projects |
+| **CAII** | 7 cognitive | On-the-fly injection | Task-specific memories | Scalable architecture |
+| **Domain-Specific** | N (grows) | Specialized | Varies | Deep domain expertise |
+| **Standard Claude Code** | 1 + subagents | Accumulating | Conversation | Simple tasks |
+
+### GSD Fresh Context Model
+
+The GSD pattern addresses context rot by giving each executor a fresh context window:
+
+```
+Orchestrator (thin, coordination only)
+    │
+    ├── [Executor 1: Fresh 200K tokens] → Task 1 → Atomic Commit
+    ├── [Executor 2: Fresh 200K tokens] → Task 2 → Atomic Commit
+    └── [Executor 3: Fresh 200K tokens] → Task 3 → Atomic Commit
+```
+
+**Key Principles**:
+- Orchestrator never implements directly
+- Each executor receives only task spec + minimal context
+- State externalized to STATE.md (survives context resets)
+- One task = one atomic git commit
+
+**See**: [GSD Orchestration](./gsd-orchestration.md) for full pattern documentation.
+
+### CAII Cognitive Model
+
+CAII organizes by cognitive function, not domain:
+
+```
+7 Fixed Cognitive Agents:
+├── Clarification  → Transforms ambiguity into specs
+├── Research       → Gathers domain knowledge
+├── Analysis       → Decomposes problems
+├── Synthesis      → Integrates findings
+├── Generation     → Creates artifacts (TDD)
+├── Validation     → Verifies quality
+└── Memory         → Monitors progress, captures learnings
+```
+
+**Key Principles**:
+- Fixed agent count (doesn't grow with scope)
+- Domain context injected at runtime
+- Deterministic Python orchestration (not LLM prompting)
+- System improves over time via memory capture
+
+**See**: [Cognitive Agent Infrastructure](./cognitive-agent-infrastructure.md) for full pattern documentation.
+
+### Choosing an Orchestration Approach
+
+| If You Need | Consider |
+|-------------|----------|
+| Multi-session continuity | GSD (STATE.md pattern) |
+| Scalable, maintainable agents | CAII (fixed cognitive agents) |
+| Deep domain specialization | Domain-specific agents |
+| Simple coordination | Standard subagent patterns |
+| Enterprise scale (60+ agents) | Claude-Flow |
 
 ---
 
