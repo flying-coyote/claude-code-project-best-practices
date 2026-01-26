@@ -134,6 +134,84 @@ Full RLM benefits require:
 
 ---
 
+## Two Implementation Approaches
+
+### Approach A: Skill-Based RLM (Prompting + Native Subagents)
+
+**What it is**: A Claude Code skill that implements RLM operations (peek, grep, partition, synthesize) through prompting and native subagent orchestration.
+
+**Example implementation**: See `project1/.claude/skills/recursive-context-query/`
+
+**Advantages**:
+- Zero external dependencies
+- Works with stock Claude Code
+- No API key configuration needed
+- Transparent, auditable routing
+
+**Limitations**:
+- No learned optimization (fixed routing rules)
+- Single-pass synthesis (no iteration)
+- Manual partition strategy selection
+
+**Best for**: 15-50 file queries, knowledge base synthesis, hypothesis cross-referencing
+
+**Evaluation**: 7.5/10 for RLM implementation completeness; prevents context rot but doesn't optimize routing.
+
+**Validated Test (January 26, 2026)**: Literature query on "security analytics architecture"
+- Search space: 92 potentially relevant files
+- Partition strategy: 3 parallel subagents (hypotheses, concepts, contradictions)
+- Results: 15 hypotheses + 4 concept docs + 5 contradictions synthesized
+- Quality: Fresh context per subagent maintained coherence; no observable degradation
+- Synthesis: Cost (130-227x SIEM premium), Architecture (hybrid optimal), Market (pipeline lock-in)
+
+---
+
+### Approach B: External Integration (rand/rlm-claude-code)
+
+**What it is**: Full RLM implementation with REPL environment, learned routing, and recursive sub-calls.
+
+**Repository**: [rand/rlm-claude-code](https://github.com/rand/rlm-claude-code)
+
+**Advantages**:
+- True REPL with context as Python variables
+- RL-trained routing decisions
+- 71% token reduction demonstrated
+- Depth-limited recursion (max depth=2)
+- Optional Rust acceleration (10-50x with rlm-core)
+
+**Limitations**:
+- Complex setup (Python 3.12+, 127 packages)
+- Requires API key configuration
+- Higher latency for small queries
+- Crossover point ~50KB (below that, overhead exceeds benefit)
+
+**Best for**: >50KB contexts, long-running sessions, cost-sensitive production workloads
+
+**Verified components** (January 2026):
+- Context manager: 25 tests passing
+- REPL environment: 168 tests passing
+- Security sandboxing: Validated
+
+---
+
+### Choosing Between Approaches
+
+| Factor | Skill-Based | External Integration |
+|--------|-------------|---------------------|
+| **Setup time** | 0 (native) | 30-60 min |
+| **Query size** | 15-50 files | 50KB+ |
+| **Token efficiency** | Moderate | 71% reduction |
+| **Latency** | Lower | Higher |
+| **Learning** | None | RL-trained |
+| **Maintenance** | Low | Medium |
+
+**Recommendation**: Start with skill-based for immediate value. Graduate to external integration when:
+1. Sessions regularly exceed 50KB
+2. Token costs become significant concern
+3. Quality degradation observable in long sessions
+
+---
+
 ## Implementation Guidance
 
 ### For Claude Code Users Today
@@ -202,6 +280,32 @@ Full RLM requires:
 | Install dependencies (Python 3.12+, uv) | Shell | `uv sync --all-extras` succeeds |
 | Configure Claude API access | Environment | API calls complete |
 | Set up isolated test directory | Filesystem | No production data exposure |
+
+**Verified Installation (January 26, 2026)**:
+```bash
+# Clone and install
+mkdir -p ~/rlm-testing && cd ~/rlm-testing
+git clone https://github.com/rand/rlm-claude-code.git
+cd rlm-claude-code
+uv sync --all-extras  # Installs 127 packages including torch, transformers
+
+# Verify with tests (193 tests for core REPL + context manager)
+uv run pytest tests/unit/test_context_manager.py tests/unit/test_repl_environment.py -v
+# Expected: 193 passed
+
+# Configure API key
+cp .env.example .env
+# Edit .env with ANTHROPIC_API_KEY
+
+# Optional: Install as Claude plugin
+claude plugins install . --scope user
+```
+
+**Key Dependencies Installed**:
+- pydantic, hypothesis, cpmpy (constraint programming)
+- anthropic, openai, tiktoken (LLM APIs + token counting)
+- torch, transformers, sentence-transformers (local models for SetFit classification)
+- numpy, pandas, polars, seaborn (data analysis)
 
 **Safety considerations**:
 - Use sandbox/isolated environment only
