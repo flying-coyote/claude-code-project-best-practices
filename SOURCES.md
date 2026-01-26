@@ -146,6 +146,66 @@ All patterns in this repository are derived from authoritative sources and produ
 
 ## Secondary Sources (Tier B)
 
+### GSD (Get Shit Done) Orchestration Framework
+- **Author**: glittercowboy
+- **URL**: https://github.com/glittercowboy/get-shit-done
+- **License**: Open source
+- **Description**: Orchestration framework maximizing Claude effectiveness through fresh context per subagent and state externalization
+- **Key Concepts**:
+  - **Thin Orchestrator**: Coordinates but never implements directly
+  - **Fresh Context Per Subagent**: 200K tokens per executor, zero accumulated garbage
+  - **STATE.md Pattern**: Persistent memory file for cross-session continuity
+  - **XML Task Formatting**: Structured task specs with embedded verification
+  - **Six Workflow Phases**: Initialize → Discuss → Plan → Execute → Verify → Complete
+  - **.planning/ Directory Structure**: Isolates planning artifacts from source code
+  - **Atomic Commits**: One git commit per task
+- **Key Quote**: "The orchestrator never does heavy lifting. It spawns agents, waits, integrates results."
+- **Pattern**: [GSD Orchestration](patterns/gsd-orchestration.md)
+- **Evidence Tier**: B (Open source, production-validated)
+
+### CAII (Cognitive Agent Infrastructure Implementation)
+- **Author**: Kristoffer Sketch (skribblez2718)
+- **URL**: https://github.com/skribblez2718/caii
+- **Description**: Cognitive agent framework with Johari Window methodology for ambiguity surfacing
+- **Key Concepts**:
+  - **Johari Window Framework**: Four quadrants (Arena/Open, Hidden, Blind Spot, Unknown)
+  - **SAAE Protocol**: SHARE → ASK → ACKNOWLEDGE → EXPLORE
+  - **7 Cognitive Agents**: Clarification, Research, Analysis, Synthesis, Generation, Validation, Memory/Metacognition
+  - **Learning & Memory System**: Task-specific memories with indexed learnings
+- **Key Quote**: "Even well-written and well-structured prompts have ambiguity, which stems from the fact 'we don't know what we don't know.'"
+- **Patterns**: [Johari Window](patterns/johari-window-ambiguity.md), [Cognitive Agent Infrastructure](patterns/cognitive-agent-infrastructure.md)
+- **Evidence Tier**: B (Production implementation, documented methodology)
+
+### Claude-Flow Enterprise Orchestration
+- **Author**: ruvnet
+- **URL**: https://github.com/ruvnet/claude-flow
+- **Description**: Enterprise-scale multi-agent orchestration with 60+ specialized agents
+- **Key Concepts**:
+  - **Scale**: 60+ specialized agents, 42 pre-built skills, 170+ MCP native tools
+  - **SONA Self-Learning**: <0.05ms adaptation, EWC++ prevents knowledge loss
+  - **Vector Memory (HNSW)**: 150x-12,500x faster pattern retrieval
+  - **6 Swarm Topologies**: Hierarchical, Mesh, Ring, Star, Hybrid, Adaptive
+  - **ReasoningBank**: Trajectory storage with semantic pattern matching
+- **Performance Claims**: 250% Claude Code usage extension
+- **Pattern**: [Claude-Flow Enterprise](patterns/claude-flow-enterprise.md) (reference architecture)
+- **Evidence Tier**: B (Enterprise-focused documentation)
+
+### Tenzir Blog: MCP vs Skills Economics
+- **Author**: Matthias Vallentin
+- **URL**: https://blog.tenzir.com (January 2026)
+- **Title**: "We Did MCP Wrong"
+- **Description**: Production data comparing MCP vs Skills architectures
+- **Key Data**:
+  | Metric | MCP | Skills | Winner |
+  |--------|-----|--------|--------|
+  | Duration | 6.2 min | 8.6 min | MCP (38% faster) |
+  | Tool calls | 61 | 52 | Skills (15% fewer) |
+  | **Cost** | $20.78 | $10.27 | **Skills (50% cheaper)** |
+  | Cached tokens | 8.8M | 4.0M | Skills (55% less) |
+- **Philosophy Shift**: "Force-feed structured context" → "Provide capabilities and documentation"
+- **Pattern**: [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md)
+- **Evidence Tier**: B (Production data from active project)
+
 ### LlamaIndex - Agentic Document Workflows
 - **Source**: LlamaIndex Engineering Blog
 - **URLs**:
