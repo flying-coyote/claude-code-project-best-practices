@@ -108,6 +108,7 @@ Core implementation patterns organized by the spec-driven development phase they
 | Pattern | Key Insight | Source |
 |---------|-------------|--------|
 | [Spec-Driven Development](patterns/spec-driven-development.md) | 4-phase model: Specify→Plan→Tasks→Implement | GitHub Spec Kit |
+| [Framework Selection Guide](patterns/framework-selection-guide.md) | Choose orchestration: Native (default) vs GSD vs CAII | Synthesis |
 
 #### Specify Phase
 | Pattern | Key Insight | Source |

@@ -3,11 +3,18 @@
 **Source**: [Claude Code Documentation - Sub-agents](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
 **Evidence Tier**: A (Primary vendor documentation)
 
+> **This is the DEFAULT orchestration approach for Claude Code.** Native subagent patterns handle ~80% of work with zero additional setup. For specialized needs, see [Framework Selection Guide](./framework-selection-guide.md).
+
 ## Overview
 
 Subagents are specialized Claude instances spawned by a parent agent to handle specific tasks with isolated context. They enable parallel execution, context isolation, and specialized behavior without consuming the parent's context window.
 
 **SDD Phase**: Tasks + Implement (execution layer optimization)
+
+**When to consider alternatives**:
+- Multi-session continuity needed → [GSD Orchestration](./gsd-orchestration.md)
+- Building reusable agent systems → [Cognitive Agent Infrastructure](./cognitive-agent-infrastructure.md)
+- Enterprise scale (60+ agents) → Reference Claude-Flow in SOURCES.md
 
 ---
 
