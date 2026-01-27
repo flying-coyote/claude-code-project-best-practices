@@ -1,19 +1,19 @@
 # Index
 
-*Auto-generated: 2026-01-20 19:14*
+*Auto-generated: 2026-01-27 10:02*
 
 ## Summary
 
-**Total documents**: 63
+**Total documents**: 70
 
 | Directory | Count |
 |-----------|-------|
 | mcp-server | 1 |
-| patterns | 25 |
+| patterns | 31 |
 | presets | 4 |
 | prompts | 3 |
 | research | 1 |
-| root | 8 |
+| root | 9 |
 | skills | 4 |
 | skills/examples/content-reviewer | 1 |
 | skills/examples/detection-rule-reviewer | 1 |
@@ -41,6 +41,7 @@
 - [INDEX.md](INDEX.md)
 - [PLAN.md](PLAN.md)
 - [README.md](README.md)
+- [REFACTORING-PLAN-2026-01.md](REFACTORING-PLAN-2026-01.md)
 - [SOURCES.md](SOURCES.md)
 ## Prompts
 
@@ -106,19 +107,25 @@
 - [agentic-retrieval.md](patterns/agentic-retrieval.md)
 - [ai-image-generation.md](patterns/ai-image-generation.md)
 - [architecture-decision-records.md](patterns/architecture-decision-records.md)
+- [cognitive-agent-infrastructure.md](patterns/cognitive-agent-infrastructure.md)
 - [confidence-scoring.md](patterns/confidence-scoring.md)
 - [context-engineering.md](patterns/context-engineering.md)
 - [documentation-maintenance.md](patterns/documentation-maintenance.md)
 - [evidence-tiers.md](patterns/evidence-tiers.md)
+- [framework-selection-guide.md](patterns/framework-selection-guide.md)
 - [github-actions-integration.md](patterns/github-actions-integration.md)
+- [gsd-orchestration.md](patterns/gsd-orchestration.md)
+- [johari-window-ambiguity.md](patterns/johari-window-ambiguity.md)
 - [long-running-agent.md](patterns/long-running-agent.md)
 - [mcp-patterns.md](patterns/mcp-patterns.md)
+- [mcp-vs-skills-economics.md](patterns/mcp-vs-skills-economics.md)
 - [memory-architecture.md](patterns/memory-architecture.md)
 - [parallel-sessions.md](patterns/parallel-sessions.md)
 - [planning-first-development.md](patterns/planning-first-development.md)
 - [plugins-and-extensions.md](patterns/plugins-and-extensions.md)
 - [progressive-disclosure.md](patterns/progressive-disclosure.md)
 - [project-infrastructure.md](patterns/project-infrastructure.md)
+- [recursive-context-management.md](patterns/recursive-context-management.md)
 - [recursive-evolution.md](patterns/recursive-evolution.md)
 - [session-learning.md](patterns/session-learning.md)
 - [skills-domain-knowledge.md](patterns/skills-domain-knowledge.md)
