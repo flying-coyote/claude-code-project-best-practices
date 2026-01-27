@@ -68,13 +68,15 @@ These behaviors emerge through reinforcement learning, not explicit prompting.
 
 ## Benchmark Results
 
+> **Note on model references**: The RLM paper and related sources reference "GPT-4o" and "GPT-4o-mini" as baseline models. Results below use the paper's terminology.
+
 | Benchmark | Standard Approach | RLM Approach | Improvement |
 |-----------|-------------------|--------------|-------------|
-| **OOLONG** (132K tokens) | GPT-5: baseline | RLM(GPT-5-mini): 2x correct answers | >33% |
-| **CodeQA** | GPT-5: 24% accuracy | RLM: 62% accuracy | **158%** |
+| **OOLONG** (132K tokens) | GPT-4o: baseline | RLM(GPT-4o-mini): 2x correct answers | >33% |
+| **CodeQA** | GPT-4o: 24% accuracy | RLM: 62% accuracy | **158%** |
 | **BrowseComp-Plus** (1000 docs) | Degradation at scale | Perfect performance | Maintained at 10M+ tokens |
 
-**Cost efficiency**: RLM(GPT-5-mini) outperformed GPT-5 while maintaining comparable per-query costs.
+**Cost efficiency**: RLM(GPT-4o-mini) outperformed GPT-4o while maintaining comparable per-query costs.
 
 ---
 
@@ -251,7 +253,7 @@ The scaffolding introduces overhead that only reinforcement learning overcomes. 
 
 ### 2. No Claude-Specific Validation
 
-All published results use GPT-5/GPT-5-mini. Claude's behavior with RLM patterns is untested.
+All published results use GPT-4o/GPT-4o-mini. Claude's behavior with RLM patterns is untested.
 
 ### 3. Cost Considerations
 
