@@ -207,7 +207,7 @@ Domain Context Injection:
 
 ### Claude-Flow: Vector Memory + Swarm
 
-**Source**: [Claude-Flow Enterprise](./claude-flow-enterprise.md)
+**Source**: [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow) (reference architecture - see [Framework Selection Guide](./framework-selection-guide.md#claude-flow-reference-only))
 
 Enterprise-scale approach using vector memory for pattern retrieval:
 

@@ -187,7 +187,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - **6 Swarm Topologies**: Hierarchical, Mesh, Ring, Star, Hybrid, Adaptive
   - **ReasoningBank**: Trajectory storage with semantic pattern matching
 - **Performance Claims**: 250% Claude Code usage extension
-- **Pattern**: [Claude-Flow Enterprise](patterns/claude-flow-enterprise.md) (reference architecture)
+- **Pattern**: Reference architecture only (see [Framework Selection Guide](patterns/framework-selection-guide.md#claude-flow-reference-only))
 - **Evidence Tier**: B (Enterprise-focused documentation)
 
 ### Recursive Language Models (RLM)
