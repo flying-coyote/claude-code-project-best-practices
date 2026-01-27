@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-01-27 10:33*
+*Auto-generated: 2026-01-27 10:35*
 
 ## Summary
 
-**Total documents**: 70
+**Total documents**: 71
 
 | Directory | Count |
 |-----------|-------|
@@ -13,7 +13,7 @@
 | presets | 4 |
 | prompts | 3 |
 | research | 1 |
-| root | 9 |
+| root | 10 |
 | skills | 4 |
 | skills/examples/content-reviewer | 1 |
 | skills/examples/detection-rule-reviewer | 1 |
@@ -38,6 +38,7 @@
 - [ARCHIVE.md](ARCHIVE.md)
 - [CONTRIBUTING.md](CONTRIBUTING.md)
 - [DECISIONS.md](DECISIONS.md)
+- [DOGFOODING-GAPS.md](DOGFOODING-GAPS.md)
 - [INDEX.md](INDEX.md)
 - [PLAN.md](PLAN.md)
 - [README.md](README.md)
