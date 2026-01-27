@@ -2,9 +2,18 @@
 
 **Version**: 1.0.0
 **Date**: January 20, 2026
-**Status**: Specification Complete
+**Status**: DEFERRED - Specification only, implementation not prioritized
 **Related**: H-MCP-CONTEXT-01 (validated >80% context reduction)
 **Location**: Second Brain Project (project1)
+
+> **Decision (2026-01-27)**: This specification is deferred indefinitely. Rationale:
+> 1. 593-line spec without implementation = documentation clutter
+> 2. Skills approach (per mcp-vs-skills-economics.md) is 50% cheaper for this use case
+> 3. Manual pattern extraction + existing skills workflow is sufficient
+> 4. Implementation effort (4-6 weeks) exceeds benefit for a documentation project
+>
+> This spec is retained for reference if MCP implementation becomes valuable later.
+> See DOGFOODING-GAPS.md for full rationale.
 
 ---
 

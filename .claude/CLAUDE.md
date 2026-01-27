@@ -28,6 +28,13 @@ We follow the **4-phase SDD model** (aligned with GitHub Spec Kit):
 
 Capture mistakes and insights as they happen. Update 2-3x per week.
 
+### 2026-01-27 - Dogfooding audit revealed gaps
+**What happened**: Comprehensive audit found we document patterns we don't fully implement:
+- Skills framework: 1/5 implemented (now 4/5 after adding johari-clarifier, sources-updater, index-regenerator)
+- MCP server: 593-line spec with zero implementation (deferred - skills approach is cheaper)
+- PostToolUse hook: Already had formatting, but formatters not installed on dev machine
+**Prevention**: Run dogfooding audit quarterly; check `DOGFOODING-GAPS.md` before adding new patterns
+
 ### 2026-01-10 - Self-compliance audit
 **What happened**: Documented Boris Cherny's best practices but didn't apply them to this project
 **Prevention**: Always run self-compliance audit after documenting new patterns
