@@ -159,6 +159,7 @@ While the failure modes above highlight what to avoid, MCP excels in specific de
 | **External APIs** | Development assistance, not production paths | GitHub, Linear, Jira |
 | **File System Access** | Controlled scope, sandboxed operations | filesystem (with constraints) |
 | **Development Tools** | Analysis during development, not runtime | Security scanners, linters |
+| **Knowledge Extraction** | Transcript/content retrieval, learning workflows | YouTube transcript, podcast servers |
 
 ### Database Inspection Pattern
 
@@ -214,6 +215,97 @@ Claude Code → MCP (GitHub/Linear) → Fetch Issues/PRs
 - Read-only operations preferred
 - Write operations require explicit user confirmation
 - Never automate without human-in-the-loop
+
+### Knowledge Extraction Pattern (YouTube, Podcasts)
+
+**Best Use Case**: Extracting transcripts and content from video/audio platforms for knowledge management.
+
+```
+Claude Code → MCP (YouTube Transcript) → Fetch Transcript
+                ↓
+        Structured Knowledge for Research/Learning
+```
+
+**Recommended Server**: `@kimtaeyoon83/mcp-server-youtube-transcript` (449+ stars, actively maintained)
+
+**Configuration**:
+```json
+{
+  "mcpServers": {
+    "youtube-transcript": {
+      "command": "npx",
+      "args": ["-y", "@kimtaeyoon83/mcp-server-youtube-transcript"]
+    }
+  }
+}
+```
+
+**Why It Works**:
+- Zero-setup (remote hosted or npx)
+- Read-only (fetches public transcripts only)
+- User controls when to invoke
+- Ideal for learning workflows and content synthesis
+
+**Two-Part Pattern for Personal Playlists**:
+
+MCP servers only access public YouTube content. For personal playlists (Liked, Watch Later, Favorites), combine with a local extraction tool:
+
+```
+Part 1: Personal Playlist Export (local tool)
+┌─────────────────────────────────────────────────┐
+│ yt-playlist-export (browser cookies)            │
+│ - Likes (LL), Watch Later (WL), Favorites       │
+│ - Outputs: video_id, title, channel, url        │
+└─────────────────────────────────────────────────┘
+                    ↓
+Part 2: Transcript Extraction (MCP server)
+┌─────────────────────────────────────────────────┐
+│ youtube-transcript MCP server                   │
+│ - Accepts video_id from Part 1                  │
+│ - Returns full transcript with timestamps       │
+└─────────────────────────────────────────────────┘
+                    ↓
+           Knowledge Base Integration
+```
+
+**Implementation**:
+```bash
+# Part 1: Install playlist export tool
+pip install yt-playlist-export
+
+# Export liked videos (requires browser cookies)
+yt-playlist-export --playlist LL --output liked-videos.json
+
+# Part 2: MCP server provides get_transcript tool
+# Claude Code can then fetch transcripts for each video_id
+```
+
+**Security Notes**:
+- yt-playlist-export reads browser cookies (run locally only)
+- MCP transcript servers are read-only and safe
+- No OAuth tokens stored—uses existing browser session
+
+**Alternative: Direct Python API**:
+
+For batch processing or when MCP setup is impractical, use `youtube-transcript-api` directly:
+
+```bash
+pip install youtube-transcript-api
+```
+
+```python
+from youtube_transcript_api import YouTubeTranscriptApi
+
+api = YouTubeTranscriptApi()
+entries = api.fetch("VIDEO_ID", languages=['en'])
+
+for entry in entries:
+    print(f"[{int(entry.start)//60}:{int(entry.start)%60:02d}] {entry.text}")
+```
+
+**Note**: YouTube may rate-limit or block cloud IPs. Use browser cookies or proxy for production workflows.
+
+**Best For**: Content creators tracking inspiration, researchers aggregating expert content, learning from curated video lists.
 
 ### Quick-Start MCP Configuration
 
