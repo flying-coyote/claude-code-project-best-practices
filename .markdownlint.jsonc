@@ -1,0 +1,44 @@
+{
+  // Markdown linting rules for documentation project
+  // See: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+
+  "default": true,
+
+  // Allow long lines - documentation often has long URLs and tables
+  "MD013": false,
+
+  // Allow inline HTML - needed for some formatting
+  "MD033": false,
+
+  // Allow duplicate headings in different sections
+  "MD024": { "siblings_only": true },
+
+  // Allow trailing punctuation in headings (questions, etc.)
+  "MD026": false,
+
+  // Allow multiple blank lines (readability in long docs)
+  "MD012": false,
+
+  // Allow bare URLs - common in documentation
+  "MD034": false,
+
+  // Relaxed spacing - auto-fix handles these
+  "MD022": false, // blanks-around-headings
+  "MD031": false, // blanks-around-fences
+  "MD032": false, // blanks-around-lists
+
+  // Allow code blocks without language (common in examples)
+  "MD040": false,
+
+  // Allow compact tables
+  "MD060": false,
+
+  // Allow emphasis as headings (common in skills/templates)
+  "MD036": false,
+
+  // Relaxed table spacing
+  "MD058": false,
+
+  // Allow ordered list prefix variations
+  "MD029": false
+}

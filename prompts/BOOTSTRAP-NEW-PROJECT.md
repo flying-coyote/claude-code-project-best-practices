@@ -56,17 +56,19 @@ Ask the user:
 2. "In 1-2 sentences, what is this project's purpose?"
 
 **Complexity Assessment (determines SDD rigor):**
+
 3. "How complex is this project?
-   - **Simple**: Bug fixes, small features (<1 day) → Minimal setup
-   - **Medium**: Features 1-3 days, few files → Lightweight SDD
-   - **Complex**: Multi-day, multi-file, team project → Full SDD with specs/"
+- **Simple**: Bug fixes, small features (<1 day) → Minimal setup
+- **Medium**: Features 1-3 days, few files → Lightweight SDD
+- **Complex**: Multi-day, multi-file, team project → Full SDD with specs/"
 
 **SDD Artifacts (for medium/complex):**
+
 4. "Do you want SDD artifacts?
-   - `specs/` directory for feature requirements
-   - `ARCHITECTURE.md` for system design
-   - `DECISIONS.md` for rationale
-   [Recommended for complex projects: Yes]"
+- `specs/` directory for feature requirements
+- `ARCHITECTURE.md` for system design
+- `DECISIONS.md` for rationale
+- [Recommended for complex projects: Yes]"
 
 **Claude Code Infrastructure:**
 5. "Do you want a session-start hook? Shows git status and recent commits. [Recommended: Yes]"

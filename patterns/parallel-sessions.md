@@ -124,9 +124,9 @@ Use `--teleport` to share context between local and web sessions:
 
 | From | To | Use Case |
 |------|-----|----------|
-| Terminal → Web | Share code context for discussion |
-| Web → Terminal | Import planned approach for execution |
-| Terminal → Terminal | Hand off between session specializations |
+| Terminal | Web | Share code context for discussion |
+| Web | Terminal | Import planned approach for execution |
+| Terminal | Terminal | Hand off between session specializations |
 
 ---
 

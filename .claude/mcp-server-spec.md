@@ -599,4 +599,4 @@ All 9 projects benefit from updated best practices:
 
 ## Tags
 
-#mcp #best-practices #thought-leaders #documentation #automation #context-efficiency
+`#mcp` `#best-practices` `#thought-leaders` `#documentation` `#automation` `#context-efficiency`

@@ -34,12 +34,12 @@ Check what infrastructure exists:
 
 | Component | Check | Tier |
 |-----------|-------|------|
-| `.claude/settings.json` with permissions | Required for Tier 1 |
-| Stop hook in settings.json | Required for Tier 1 |
-| `.claude/CLAUDE.md` | Required for Tier 2 |
-| SessionStart hook | Recommended for Tier 2 |
-| `.github/workflows/claude-code.yml` | Required for Tier 3 |
-| `.claude/commands/commit-push-pr.md` | Recommended for Tier 3 |
+| `.claude/settings.json` with permissions | Required | Tier 1 |
+| Stop hook in settings.json | Required | Tier 1 |
+| `.claude/CLAUDE.md` | Required | Tier 2 |
+| SessionStart hook | Recommended | Tier 2 |
+| `.github/workflows/claude-code.yml` | Required | Tier 3 |
+| `.claude/commands/commit-push-pr.md` | Recommended | Tier 3 |
 
 Report: "This project is currently at Tier [0/1/2/3]"
 

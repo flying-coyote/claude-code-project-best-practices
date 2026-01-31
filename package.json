@@ -1,0 +1,28 @@
+{
+  "name": "claude-code-project-best-practices",
+  "version": "1.0.0",
+  "description": "A curated collection of patterns and prompts for AI-driven software development, using Claude Code as the primary implementation context.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "lint": "markdownlint-cli2 '**/*.md' '!node_modules' '!mcp-server/.venv'",
+    "lint:fix": "markdownlint-cli2 --fix '**/*.md' '!node_modules' '!mcp-server/.venv'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flying-coyote/claude-code-project-best-practices.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/flying-coyote/claude-code-project-best-practices/issues"
+  },
+  "homepage": "https://github.com/flying-coyote/claude-code-project-best-practices#readme",
+  "devDependencies": {
+    "markdownlint-cli2": "^0.20.0"
+  }
+}

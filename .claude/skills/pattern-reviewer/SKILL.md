@@ -1,178 +1,55 @@
 ---
 name: pattern-reviewer
-description: Validates new patterns against project quality standards before merge. Trigger when user adds a new pattern, says "review pattern", or submits pattern for inclusion.
+description: Validates new patterns against project quality standards. Trigger when user adds a pattern or says "review pattern".
 allowed-tools: Read, Glob, Grep
-
-# Advanced features (v2.1.0+)
-agent: Explore
-context: fork
-
-# Skill-level hooks for validation workflow
-hooks:
-  PostToolUse:
-    - matcher: "Read"
-      hooks:
-        - type: command
-          command: "echo '📋 Pattern file loaded for review'"
-  Stop:
-    - hooks:
-        - type: command
-          command: "echo '✅ Pattern review complete'"
 ---
 
 # Pattern Reviewer
 
-Validates patterns against claude-code-project-best-practices quality standards.
-
-## IDENTITY
-
-You are a meticulous documentation reviewer ensuring all patterns in this repository meet quality standards for evidence, structure, and actionability.
-
-## GOAL
-
-Validate pattern submissions against project standards, ensuring every pattern is properly sourced, well-structured, and immediately useful.
+Validate patterns against this repository's quality standards.
 
 ## When to Activate
 
-**ACTIVATE when user:**
-- Adds a new pattern to patterns/
-- Says "review pattern", "validate pattern", or "check pattern quality"
-- Submits a pattern for inclusion in the repository
-- Asks if a pattern meets quality standards
+- User adds a new pattern to patterns/
+- User says "review pattern", "validate pattern", "check pattern"
 
-**DO NOT activate when:**
-- User is just reading or exploring patterns
-- User is making minor edits (typos, formatting)
-- Pattern is already approved and being referenced
+**Skip when**: Just reading patterns, making typo fixes
 
 ## Validation Checklist
 
-### 1. Source Quality (Required)
+### Required
 
-- [ ] Has **Evidence Tier** label (A, B, or C minimum)
-- [ ] Cites authoritative source with URL
-- [ ] Source is accessible and verifiable
-- [ ] Claims match cited sources
+- [ ] **Evidence Tier** label (A, B, or C)
+- [ ] Source citation with URL
+- [ ] Overview/problem statement
+- [ ] Implementation guidance with examples
+- [ ] **Anti-Patterns** section (Problem/Symptom/Solution format)
+- [ ] **Related Patterns** section with valid links
+- [ ] "Last updated: [Month Year]" footer
 
-**Tier Requirements:**
-- Tier A: Primary vendor documentation (preferred)
-- Tier B: Peer-reviewed or expert validated (acceptable)
-- Tier C: Community/production validated (acceptable with corroboration)
-- Tier D: Not acceptable for patterns
+### Recommended
 
-### 2. Structure Compliance (Required)
-
-- [ ] Has header with Source, Evidence Tier, SDD Phase
-- [ ] Has clear "Overview" or problem statement
-- [ ] Has practical implementation guidance
-- [ ] Has **Anti-Patterns** section with Problem/Symptom/Solution format
-- [ ] Has **Related Patterns** section with valid links
-- [ ] Has "Last updated: [Month Year]" footer
-
-### 3. Content Quality (Required)
-
-- [ ] Actionable guidance (not just principles)
-- [ ] Examples where applicable
-- [ ] Tables for comparisons/matrices
-- [ ] Code blocks properly formatted
-- [ ] No broken internal links
-
-### 4. SDD Alignment (Recommended)
-
-- [ ] States which SDD phase it supports
-- [ ] Explains how it fits the 4-phase model
-- [ ] References related SDD patterns
-
-### 5. Cross-Reference Integrity
-
-- [ ] All "Related Patterns" links are valid
-- [ ] Pattern is referenced in SOURCES.md (if new source)
-- [ ] Pattern is listed in INDEX.md (auto-generated)
-- [ ] Pattern is mentioned in README.md if high-traffic
+- [ ] SDD phase stated
+- [ ] Listed in SOURCES.md if new source
+- [ ] Cross-references verified
 
 ## Output Format
 
 ```markdown
 ## Pattern Review: [pattern-name.md]
 
-### Summary
-[PASS/NEEDS WORK] - [Brief assessment]
+**Verdict**: [PASS/NEEDS WORK]
 
-### Checklist Results
-
-**Source Quality**: [PASS/FAIL]
-- Evidence Tier: [tier]
-- Source: [source name]
-- Issues: [any issues]
-
-**Structure Compliance**: [PASS/FAIL]
-- Missing sections: [list]
-- Issues: [any issues]
-
-**Content Quality**: [PASS/FAIL]
-- Issues: [any issues]
-
-**SDD Alignment**: [PASS/N/A]
-- Phase: [phase]
-- Issues: [any issues]
+**Source Quality**: [PASS/FAIL] - Tier [A/B/C], [source name]
+**Structure**: [PASS/FAIL] - Missing: [sections]
+**Content**: [PASS/FAIL] - [issues]
 
 ### Required Changes
-1. [Change 1]
-2. [Change 2]
-
-### Recommendations (Optional)
-1. [Suggestion 1]
+1. [change]
 ```
 
-## Quick Reference
+## Don't
 
-**Minimum viable pattern:**
-1. Source + Evidence Tier header
-2. Problem statement
-3. Solution with examples
-4. Anti-Patterns section
-5. Related Patterns section
-6. Last updated footer
-
-**Common issues:**
-- Missing Evidence Tier label
-- Anti-Patterns section missing or incomplete
-- No "Last updated" date
-- Broken Related Patterns links
-- Claims without source attribution
-
-## Anti-Patterns
-
-### ❌ Rubber-Stamp Reviews
-**Problem**: Approving patterns without thorough checklist verification
-**Symptom**: Patterns merged with missing sections, broken links, or unverified claims
-**Solution**: Work through every checklist item, verify links actually work
-
-### ❌ Style Over Substance
-**Problem**: Focusing on formatting while missing content issues
-**Symptom**: Well-formatted patterns with unsourced claims or missing Anti-Patterns
-**Solution**: Prioritize Source Quality and Structure Compliance over cosmetic issues
-
-### ❌ Scope Creep in Reviews
-**Problem**: Rewriting the pattern instead of reviewing it
-**Symptom**: Review becomes editing session, author's voice lost
-**Solution**: Flag issues for author to fix; only suggest specific changes
-
-## Integration
-
-**Works WITH:**
-- **evidence-tiers.md** - Source classification
-- **CONTRIBUTING.md** - Contribution guidelines
-- **SOURCES.md** - Source tracking
-
-**Sequence:**
-1. Author writes pattern draft
-2. Pattern Reviewer validates (this skill)
-3. Author fixes issues
-4. Merge to patterns/
-5. Update SOURCES.md if new source
-
----
-
-*Skill version: 2.0 (January 2026)*
-*Demonstrates: agent field, context: fork, skill-level hooks*
+- Rubber-stamp without checking every item
+- Focus on formatting over missing sections
+- Rewrite the pattern (flag issues for author)

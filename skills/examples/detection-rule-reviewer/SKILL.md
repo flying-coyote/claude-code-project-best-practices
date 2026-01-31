@@ -292,7 +292,7 @@ tags:
   - attack.t1059.001
 ```
 
-## Testing Plan
+## Example Testing Plan
 
 ### True Positive Test
 **Command**: `powershell -EncodedCommand ZQBjAGgAbwAgACIAdABlAHMAdAAiAA==`
