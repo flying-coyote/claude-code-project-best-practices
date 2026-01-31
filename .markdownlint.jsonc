@@ -40,5 +40,8 @@
   "MD058": false,
 
   // Allow ordered list prefix variations
-  "MD029": false
+  "MD029": false,
+
+  // Allow multiple h1 headings (needed for template files)
+  "MD025": false
 }

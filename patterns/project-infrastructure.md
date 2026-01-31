@@ -131,9 +131,9 @@ Every project benefits from Claude Code infrastructure. The same patterns apply 
 |-----------|---------|----------|
 | Everything from Tier 2 | Active development | ✅ Yes |
 | GitHub Actions workflow | Automated @.claude reviews | Recommended |
-| /commit-push-pr command | Streamlined git workflow | Recommended |
-| PostToolUse formatting | Auto-format on Write/Edit | Optional |
 | ARCHITECTURE.md | System design documentation | Recommended |
+
+> **Note**: Per [Anthropic guidance](https://code.claude.com/docs/en/best-practices), avoid complex slash command lists. Natural language ("commit and push my changes") works well. Use hooks sparingly—prefer pre-approved permissions via `/permissions`.
 
 **GitHub Actions workflow**:
 

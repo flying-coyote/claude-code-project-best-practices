@@ -17,7 +17,7 @@ All patterns in this repository are derived from authoritative sources and produ
 2. **Opus 4.5 with Thinking**: Use for all tasks—slower but requires less steering
 3. **CLAUDE.md as Team Memory**: Update multi-weekly, capture mistakes as they happen
 4. **Plan Mode First**: Always for non-trivial work
-5. **Custom Slash Commands**: `/commit-push-pr` used dozens of times daily
+5. **Natural Language Git**: "commit and push" works without custom commands (per official guidance, avoid complex slash command lists)
 6. **PostToolUse Auto-Formatting**: Run formatters (prettier, black) after Write
 7. **Pre-Allow Permissions**: `/permissions` to allow `bun run build:*`, `bun run test:*`
 8. **MCP for External Tools**: When native tools insufficient
@@ -54,9 +54,17 @@ All patterns in this repository are derived from authoritative sources and produ
   - Programmatic Tool Calling: 37% token reduction
   - Input examples: 72% → 90% accuracy improvement
 
-### Claude Code Documentation
+### Claude Code Documentation (Canonical)
 - **Source**: Anthropic Official Documentation
-- **URL**: https://docs.anthropic.com/en/docs/claude-code
+- **URL**: https://code.claude.com/docs/en/best-practices (Canonical - January 2026)
+- **Legacy URL**: https://docs.anthropic.com/en/docs/claude-code (redirects to above)
+- **Evidence Tier**: A (Primary vendor documentation)
+- **Key Guidance**:
+  - CLAUDE.md should be concise (~60 lines recommended)
+  - Skills should be minimal ("Would removing this cause mistakes? If not, cut it.")
+  - Avoid long lists of custom slash commands (anti-pattern)
+  - Include verification (tests, linting) as highest-leverage practice
+  - Use hooks sparingly; prefer pre-approved permissions
 - **Topics Used**:
   - CLAUDE.md file format
   - Settings and hooks configuration

@@ -1,3 +1,52 @@
+# Skill Templates
+
+## Minimal Template (Anthropic Recommended)
+
+Per [Anthropic guidance](https://code.claude.com/docs/en/best-practices), skills should be ~60 lines and concise. Use this template for most skills.
+
+```markdown
+---
+name: your-skill-name
+description: Brief description with trigger keywords. Max 1024 chars.
+allowed-tools: Read, Grep, Glob
+---
+
+# Skill Name
+
+Brief description of what this skill does.
+
+## When to Activate
+
+- Trigger condition 1
+- Trigger condition 2
+
+**Skip when**: [conditions to not activate]
+
+## Steps
+
+1. First step
+2. Second step
+3. Third step
+
+## Output Format
+
+\`\`\`markdown
+## Result
+[template]
+\`\`\`
+
+## Don't
+
+- Anti-pattern 1
+- Anti-pattern 2
+```
+
+---
+
+## Extended Template (For Complex Skills Only)
+
+Use this template only when a skill genuinely requires 200+ lines. See [Progressive Disclosure](../patterns/progressive-disclosure.md) for when this is appropriate.
+
 ---
 # Agent Skills Standard (agentskills.io) - REQUIRED FIELDS
 name: your-skill-name   # Required: lowercase, hyphens for spaces

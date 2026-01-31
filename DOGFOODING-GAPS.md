@@ -58,6 +58,30 @@ This document tracks gaps between what this project documents and what it implem
 
 ## Open Gaps
 
+### ✅ Anthropic Guidance Alignment (Resolved 2026-01-31)
+
+**Problem**: Some patterns recommended complexity exceeding official Anthropic guidance.
+
+**Evidence Found**:
+- Skill examples averaged 320 lines vs Anthropic's ~60 line recommendation
+- SKILL-TEMPLATE.md was 250+ lines (template larger than recommended skill)
+- Progressive disclosure pattern encouraged elaborate 3-tier structures
+- Project infrastructure recommended obsolete `/commit-push-pr` pattern
+
+**Actions Completed**:
+1. ✅ Trimmed project CLAUDE.md from 121 to 28 lines (77% reduction)
+2. ✅ Trimmed project skills from 904 to 232 lines (74% reduction)
+3. ✅ Deleted redundant slash commands (commit-push-pr, update-status, end-session)
+4. ✅ Set up markdown linting verification loop (`npm run lint`)
+5. ✅ Added canonical URL `code.claude.com/docs` to SOURCES.md as Tier A
+6. ✅ Added warning to progressive-disclosure.md about Anthropic guidance
+7. ✅ Updated project-infrastructure.md to remove obsolete Tier 3 advice
+8. ✅ Added minimal ~60 line template option to SKILL-TEMPLATE.md
+
+**Source**: [code.claude.com/docs/en/best-practices](https://code.claude.com/docs/en/best-practices)
+
+---
+
 ### ⚠️ SDD Tasks Phase Underused
 
 **Problem**: `claude-tasks.json` exists but barely used. TodoWrite not actively employed during development.

@@ -3,6 +3,22 @@
 **Source**: Production-validated pattern from 12+ projects
 **Evidence Tier**: B (Production validated with measured outcomes)
 
+## ⚠️ Important: Anthropic Guidance First
+
+**Anthropic's official recommendation**: Skills should be ~60 lines and concise.
+
+> "Keep it concise. For each line, ask: 'Would removing this cause Claude to make mistakes?' If not, cut it. Bloated CLAUDE.md files cause Claude to ignore your actual instructions!"
+> — [code.claude.com/docs/en/best-practices](https://code.claude.com/docs/en/best-practices)
+
+**This pattern is for exceptional cases only.** Apply progressive disclosure ONLY when:
+1. A skill genuinely exceeds 200 lines of essential content
+2. The skill serves multiple distinct operations rarely used together
+3. Token savings from conditional loading outweigh maintenance complexity
+
+**Default approach**: Start with a single concise SKILL.md (~60 lines). Only refactor to multi-workflow when demonstrably necessary.
+
+---
+
 ## The Core Problem
 
 Large skill files (300-700+ lines) waste tokens on every activation. Most of that content isn't needed for every interaction.
@@ -341,20 +357,24 @@ Always end SKILL.md with:
 
 | Skill Characteristics | Pattern | Example |
 |----------------------|---------|---------|
-| **100-200 lines, single purpose** | Single-file SKILL.md | systematic-debugger (simple) |
-| **200-500 lines, has references** | 3-tier (SKILL + workflows + references) | hypothesis-validator |
-| **500-1000 lines, multiple operations** | Multi-workflow (SKILL + 3-5 workflows) | ultrathink-analyst (3 phases) |
-| **1000+ lines, complex operations** | Multi-workflow (SKILL + 5+ workflows) | git-workflow-helper (5 operations) |
+| **Under 60 lines** | Single SKILL.md **(Anthropic recommended)** | Most skills |
+| **60-200 lines, cohesive** | Single-file SKILL.md | systematic-debugger |
+| **200-500 lines, distinct operations** | Consider 3-tier (exceptional) | hypothesis-validator |
+| **500+ lines, many operations** | Multi-workflow (rare cases only) | git-workflow-helper |
 
 ### Good Candidates (High Value)
 
-**Simple 3-tier**:
-- Skills with >200 lines
-- Single workflow with reference data
-- Research/analysis skills with frameworks
+**Single-file SKILL.md (default)**:
+- Skills under 200 lines (most skills)
+- Cohesive workflows without distinct phases
+- Skills where all content is typically needed together
 
-**Multi-workflow**:
-- Skills with 5+ distinct operations
+**Simple 3-tier (exceptional)**:
+- Skills with >200 lines AND separable reference data
+- Research/analysis skills with lookup databases
+
+**Multi-workflow (rare)**:
+- Skills with 5+ truly distinct operations
 - Complex skills where users need one operation at a time
 - Skills that would be >1000 lines as single file
 

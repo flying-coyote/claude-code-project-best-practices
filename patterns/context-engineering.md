@@ -391,6 +391,7 @@ For full codebase context, see `.context/repo-overview.txt`
 
 ## Sources
 
+- [Anthropic - Claude Code Best Practices](https://code.claude.com/docs/en/best-practices) (Canonical - 2025)
 - [Anthropic - Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (September 2025)
 - [Nate B. Jones - Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive)
 
