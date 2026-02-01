@@ -200,8 +200,6 @@ Is this a git repository?
 - [ ] Complete Tier 2
 - [ ] Create `.github/workflows/claude-code.yml`
 - [ ] Add ANTHROPIC_API_KEY to repository secrets
-- [ ] Create `.claude/commands/commit-push-pr.md`
-- [ ] (Optional) Add PostToolUse formatting hook
 - [ ] Verify: Open a PR and see @.claude review option
 
 ---
@@ -213,9 +211,8 @@ Projects naturally evolve. Common upgrade paths:
 | Trigger | Action |
 |---------|--------|
 | "I keep forgetting context" | Tier 1 → Tier 2 (add CLAUDE.md) |
-| "I want faster git workflow" | Add /commit-push-pr |
+| "I want faster git workflow" | Use natural language: "commit and push" |
 | "Team needs AI review" | Tier 2 → Tier 3 (add GitHub Actions) |
-| "Code style inconsistent" | Add PostToolUse formatting |
 
 ---
 
@@ -283,7 +280,7 @@ EOF
 ## Sources
 
 - [Boris Cherny Interview - Paddo.dev](https://paddo.dev/blog/how-boris-uses-claude-code/)
-- [Anthropic Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
+- [Anthropic Best Practices](https://code.claude.com/docs/en/best-practices) (Canonical)
 - Production validation across 12+ projects
 
 *Last updated: January 2026*
