@@ -195,6 +195,89 @@ Hook (deterministic) ──triggers──▶ Subagent (intelligent)
 
 ---
 
+## Skill Hot-Reload (v2.1.0+)
+
+**Source**: [Claude Code Release Notes - January 2026](https://releasebot.io/updates/anthropic/claude-code)
+
+### The Feature
+
+Skills now reload automatically without session restart:
+
+```
+Before v2.1.0:
+Edit SKILL.md → Restart Claude Code → Changes take effect
+
+After v2.1.0:
+Edit SKILL.md → Changes take effect immediately
+```
+
+### How It Works
+
+```
+┌─────────────────────────────────────────────────┐
+│  Claude Code Session (running)                  │
+│                                                 │
+│  ~/.claude/skills/                              │
+│  └── my-skill/                                  │
+│      └── SKILL.md  ←── File watcher detects    │
+│                        edit, reloads skill     │
+│                                                 │
+│  Result: Updated methodology available         │
+│          within seconds, no restart            │
+└─────────────────────────────────────────────────┘
+```
+
+### Development Workflow
+
+**Iterative skill development** is now practical:
+
+1. Start Claude Code session
+2. Test skill behavior
+3. Edit SKILL.md to fix issues
+4. Test again immediately
+5. Repeat until correct
+
+**No more "restart-test-restart" cycles.**
+
+### Hooks in Skill Frontmatter
+
+v2.1.0 also supports defining hooks directly in skill YAML frontmatter:
+
+```yaml
+---
+name: my-skill
+description: Skill with embedded hooks
+hooks:
+  PostToolUse:
+    - matcher: "Edit"
+      script: "./validate-edit.sh"
+---
+```
+
+**Benefit**: Skill + hooks packaged together, hot-reloaded together.
+
+### Skill Context Forking
+
+Related feature: Skills can now fork isolated sub-agent contexts:
+
+```yaml
+---
+name: research-skill
+context-fork: true  # Each invocation gets fresh context
+---
+```
+
+**Use case**: Research skills that shouldn't pollute main conversation context.
+
+### Best Practices
+
+1. **Develop skills iteratively** - Edit and test in same session
+2. **Use frontmatter hooks** - Keep related configuration together
+3. **Test before committing** - Hot-reload makes this fast
+4. **Consider context forking** - For skills that accumulate context
+
+---
+
 ## Finding High-Quality Plugins
 
 ### Official Sources
@@ -500,4 +583,4 @@ Share pre-approved commands via `.claude/settings.json`:
 - [Composio: Improving your coding workflow with Claude Code Plugins](https://composio.dev/blog/claude-code-plugin)
 - [awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins)
 
-*Last updated: January 2026*
+*Last updated: February 2026*

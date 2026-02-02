@@ -92,7 +92,46 @@ All patterns in this repository are derived from authoritative sources and produ
   - Context rot: accuracy decreases as token count increases
   - Iterative context curation during inference cycles
   - 54% benchmark gains from scratchpad techniques
+  - Three mitigation strategies: compaction, structured notes, sub-agent architectures
+  - Memory Tool + Context Editing: 39% improvement in agent search performance
+  - Token consumption reduction: 84% in 100-round web search
 - **Pattern**: [Context Engineering](patterns/context-engineering.md)
+
+#### Agent Skills for Real-World Applications
+- **Title**: "Equipping agents for the real world with Agent Skills"
+- **Source**: Anthropic Engineering Blog
+- **Date**: January 2026
+- **URL**: https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills
+- **Key Insights**:
+  - Skills are organized folders of instructions, scripts, and resources
+  - Progressive disclosure is the core design principle
+  - Published as open standard for cross-platform portability
+  - Skills extend Claude's capabilities into domain-specific expertise
+- **Pattern**: [Plugins and Extensions](patterns/plugins-and-extensions.md), [Progressive Disclosure](patterns/progressive-disclosure.md)
+
+#### Claude Agent SDK
+- **Title**: "Building agents with the Claude Agent SDK"
+- **Source**: Anthropic Engineering Blog
+- **Date**: January 2026
+- **URL**: https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk
+- **Key Insights**:
+  - Claude Code SDK renamed to Claude Agent SDK (broader vision)
+  - Subagents are first-class: Explore, Plan, general-purpose built-in
+  - Plugins bundle skills + hooks + MCP servers
+  - Supports context forking for isolated subagent execution
+- **Pattern**: [Subagent Orchestration](patterns/subagent-orchestration.md)
+
+#### Code Execution with MCP
+- **Title**: "Code execution with MCP: building more efficient AI agents"
+- **Source**: Anthropic Engineering Blog
+- **Date**: 2026
+- **URL**: https://www.anthropic.com/engineering/code-execution-with-mcp
+- **Key Insights**:
+  - Load tools on demand for context efficiency
+  - Filter data before it reaches the model
+  - Execute complex logic in a single step
+  - Security and state management benefits
+- **Pattern**: [MCP Patterns](patterns/mcp-patterns.md)
 
 #### Claude Code Sub-agents
 - **Source**: Anthropic Official Documentation
@@ -197,6 +236,34 @@ All patterns in this repository are derived from authoritative sources and produ
 - **Performance Claims**: 250% Claude Code usage extension
 - **Pattern**: Reference architecture only (see [Framework Selection Guide](patterns/framework-selection-guide.md#claude-flow-reference-only))
 - **Evidence Tier**: B (Enterprise-focused documentation)
+
+### MCP Context Budget Analysis
+- **Author**: valgard
+- **URL**: https://dev.to/valgard/claude-code-must-haves-january-2026-kem
+- **Date**: January 2026
+- **Description**: Production analysis of MCP tool token consumption in Claude Code
+- **Key Insights**:
+  - MCP tools can consume 40%+ of context (measured: 81,986 tokens at startup)
+  - Sweet spot: 4 plugins + 2 MCPs
+  - Recommended core MCPs: Context7 + Sequential Thinking
+  - Use `disabledMcpServers` to limit per-project
+  - Activate specialized MCPs on-demand, not by default
+- **Pattern**: [MCP Patterns](patterns/mcp-patterns.md#mcp-context-budget-management)
+- **Evidence Tier**: B (Production measurement, documented methodology)
+
+### Context Rot Deep Dive
+- **Author**: Inkeep
+- **URL**: https://inkeep.com/blog/fighting-context-rot
+- **Date**: January 2026
+- **Description**: Analysis of Anthropic's context rot findings with practical mitigations
+- **Key Insights**:
+  - "Context rot is the degradation of model accuracy as context windows fill up"
+  - Transformer architecture struggles with n² relationship growth
+  - Three mitigations: compaction, structured notes, sub-agent architectures
+  - Memory Tool + Context Editing: 39% improvement
+  - 84% token reduction in 100-round web search
+- **Pattern**: [Context Engineering](patterns/context-engineering.md#context-rot)
+- **Evidence Tier**: B (Analysis of primary source + practitioner validation)
 
 ### Recursive Language Models (RLM)
 - **Authors**: Alex Zhang, Tim Kraska, Omar Khattab (MIT CSAIL)

@@ -474,6 +474,94 @@ Before deploying any MCP server:
 
 ---
 
+## MCP Context Budget Management
+
+**Source**: [January 2026 Production Experience](https://dev.to/valgard/claude-code-must-haves-january-2026-kem)
+
+> "MCP tools can consume 40%+ context. Example: 81,986 tokens just for MCP tools at startup (41% of the 200k context window!)—almost half the available context before even a single line of code was loaded."
+
+### The Hidden Cost of MCP
+
+Each MCP server adds tool definitions to your context. With multiple servers enabled, you can lose significant context capacity before doing any actual work.
+
+**Measured impact from production**:
+
+| Configuration | MCP Tool Tokens | Remaining Context |
+|--------------|-----------------|-------------------|
+| 0 MCP servers | 0 | 200K (100%) |
+| 2-3 servers | ~20K | 180K (90%) |
+| 5-6 servers | ~50K | 150K (75%) |
+| 10+ servers | ~82K+ | 118K (59%) |
+
+### The Sweet Spot
+
+Based on production experience, the recommended configuration:
+
+```
+4 plugins + 2 MCPs = optimal balance
+```
+
+**Recommended core MCPs**:
+- Context7 (documentation search)
+- Sequential Thinking (complex reasoning)
+
+**Activate on-demand**:
+- Database servers (when debugging data)
+- Git servers (when complex git operations needed)
+- Specialized domain servers (project-specific)
+
+### Configuration Strategy
+
+Use `disabledMcpServers` in project config to disable unused servers per project:
+
+```json
+// .mcp.json
+{
+  "mcpServers": {
+    "postgres": { "command": "..." },
+    "memory": { "command": "..." },
+    "youtube": { "command": "..." }
+  }
+}
+
+// .claude/settings.json (project-level)
+{
+  "disabledMcpServers": ["youtube", "memory"]
+}
+```
+
+**Result**: Only `postgres` loads for this project, saving ~30K tokens.
+
+### Monitoring Context Usage
+
+Check your MCP context consumption:
+
+```bash
+# Launch with debug flag
+claude --mcp-debug
+
+# Look for tool registration messages
+# Count tools registered per server
+```
+
+**Rule of thumb**: If you have >15 MCP tools registered, you're likely over-budget.
+
+### Dynamic Loading Pattern (v2.1.0+)
+
+With `list_changed` notifications, servers can register tools dynamically:
+
+```
+Session start:
+├── Core tools only (~5 tools)
+├── User requests specific capability
+├── Server registers additional tools
+└── Context grows incrementally
+```
+
+**Benefit**: Start lean, expand as needed—not all tools at once.
+
+---
+
 ## Building MCP Servers for Claude Code
 
 When building custom MCP servers for your project, follow these implementation lessons learned from production deployments.
@@ -729,4 +817,4 @@ mcp-server/                      # Best Practices MCP Server
 - [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)
 - [OWASP Guide for Securely Using Third-Party MCP Servers v1.0](https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/)
 
-*Last updated: January 2026*
+*Last updated: February 2026*

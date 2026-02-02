@@ -107,20 +107,81 @@ Context engineering creates new attack surfaces:
 
 ## Context Rot
 
-From Anthropic's research:
+**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) + [Inkeep Analysis](https://inkeep.com/blog/fighting-context-rot)
 
-> "As the number of tokens in the context window increases, the model's ability to accurately recall information from that context decreases."
+> "Context rot is the degradation of model accuracy as context windows fill up."
+
+As more tokens are added, the transformer architecture struggles to track relationships between all tokens. The number of relationships grows as n² for n tokens—with a limited "attention budget," LLMs quickly get overwhelmed.
 
 **Implications**:
 - Longer context ≠ better context
 - Recency bias affects recall
 - Position in context matters (needle-in-haystack problem)
+- Performance degrades before you hit the technical limit
 
-**Mitigations**:
-1. **Progressive disclosure**: Load information on-demand, not up-front
-2. **Document sharding**: Break large specs into focused chunks
-3. **Context summarization**: Compress historical context before it rots
-4. **Strategic placement**: Put critical info at context boundaries
+### Three Mitigation Strategies (Anthropic Official)
+
+#### 1. Compaction (Auto-Summarization)
+The Claude Agent SDK's compact feature automatically summarizes previous messages when the context limit approaches.
+
+```
+[Full conversation history: 180K tokens]
+        ↓ Compaction trigger
+[Compressed summary: 20K tokens] + [Recent context: 30K tokens]
+        ↓
+[Fresh working context: 50K tokens]
+```
+
+**When to use**: Long-running tasks, multi-hour sessions, research workflows
+
+#### 2. Structured Notes (External Memory)
+Save persistent information outside the context window. Files like `claude-progress.md` and `STATE.md` serve as external memory that can be reloaded fresh.
+
+```markdown
+# claude-progress.md
+## Completed
+- [x] Implemented auth module (commit: abc123)
+- [x] Fixed race condition in queue
+
+## In Progress
+- [ ] Migration script for v2 schema
+
+## Blocked
+- Waiting on API spec from team
+```
+
+**When to use**: Multi-session projects, handoffs between sessions
+
+#### 3. Sub-Agent Architectures (Fresh Contexts)
+Assign specialized agents to focused tasks. The main agent only receives condensed summaries, not full context.
+
+```
+Orchestrator (light context)
+├── [Subagent 1: Fresh 200K] → Research task → Summary
+├── [Subagent 2: Fresh 200K] → Code task → Diff
+└── [Subagent 3: Fresh 200K] → Review task → Report
+        ↓
+Orchestrator receives only summaries (~2K total)
+```
+
+**When to use**: Complex multi-step tasks, parallel workstreams
+
+### Measured Improvements
+
+From Anthropic's internal testing:
+- **Memory Tool + Context Editing**: 39% improvement in agent search performance
+- **Context editing alone**: 29% improvement
+- **Token consumption in 100-round search**: 84% reduction
+
+### Progressive Disclosure Integration
+
+Context rot makes progressive disclosure essential, not optional:
+
+| Approach | Context Cost | Rot Risk |
+|----------|--------------|----------|
+| Load everything upfront | High | High—degrades quickly |
+| Load on-demand | Low | Low—fresh context per operation |
+| Subagent delegation | Minimal | Minimal—isolated contexts |
 
 ## Iterative Context Curation
 
@@ -395,4 +456,4 @@ For full codebase context, see `.context/repo-overview.txt`
 - [Anthropic - Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (September 2025)
 - [Nate B. Jones - Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive)
 
-*Last updated: January 2026*
+*Last updated: February 2026*
