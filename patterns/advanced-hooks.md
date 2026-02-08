@@ -671,6 +671,46 @@ When both global and skill-level hooks exist:
 
 ---
 
+## Sandboxing: OS-Level Security (Complementary to Hooks)
+
+**Source**: [Beyond Permission Prompts: Making Claude Code More Secure](https://www.anthropic.com/engineering/beyond-permission-prompts) (October 2025)
+**Evidence Tier**: A
+
+While hooks provide programmatic quality gates, sandboxing provides OS-level filesystem and network isolation. These are complementary, not competing approaches.
+
+### How Sandboxing Works
+
+| Platform | Technology | Isolation |
+|----------|-----------|-----------|
+| **Linux** | bubblewrap (bwrap) | Filesystem namespaces, network restrictions |
+| **macOS** | seatbelt (sandbox-exec) | System call filtering, path restrictions |
+
+### Impact
+
+Anthropic's internal testing showed **84% reduction in permission prompts** when sandboxing was enabled. By restricting what Claude Code *can* do at the OS level, most permission dialogs become unnecessary.
+
+### Hooks vs Sandboxing
+
+| Aspect | Hooks | Sandboxing |
+|--------|-------|------------|
+| **Layer** | Application-level | OS-level |
+| **Enforcement** | Can be bypassed by bugs | Kernel-enforced, no bypass |
+| **Flexibility** | Per-tool, per-pattern matching | Broad filesystem/network rules |
+| **Customization** | Highly customizable logic | Allow/deny paths and network |
+| **Use case** | Quality gates, formatting, logging | Security boundary enforcement |
+
+### Recommendation
+
+Use **both** for defense-in-depth:
+1. **Sandboxing** for hard security boundaries (prevent access outside project)
+2. **Hooks** for soft quality gates (format code, validate patterns, remind about docs)
+
+Sandboxing is open-sourced by Anthropic and enabled by default in newer Claude Code versions.
+
+**See**: [Safety and Sandboxing](./safety-and-sandboxing.md) for comprehensive sandboxing architecture and configuration.
+
+---
+
 ## Anti-Patterns
 
 ### ❌ Over-Engineering Hooks Early
@@ -711,6 +751,7 @@ When both global and skill-level hooks exist:
 - [Documentation Maintenance](./documentation-maintenance.md) - Three-document system
 - [Subagent Orchestration](./subagent-orchestration.md) - SubagentStop hook usage
 - [Advanced Tool Use](./advanced-tool-use.md) - Tool search complements hook-based validation
+- [Safety and Sandboxing](./safety-and-sandboxing.md) - OS-level security complements hooks
 
 ---
 
@@ -718,6 +759,7 @@ When both global and skill-level hooks exist:
 
 - [Claude Code Hooks Reference](https://docs.anthropic.com/en/docs/claude-code/hooks)
 - [Claude Blog: How to Configure Hooks](https://claude.com/blog/how-to-configure-hooks)
+- [Beyond Permission Prompts](https://www.anthropic.com/engineering/beyond-permission-prompts) (October 2025)
 - Production validation from 12+ projects
 
-*Last updated: January 2026*
+*Last updated: February 2026*

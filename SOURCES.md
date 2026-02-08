@@ -14,7 +14,7 @@ All patterns in this repository are derived from authoritative sources and produ
 
 **Key Workflow Insights**:
 1. **Parallel Sessions**: Run 5 terminal instances + 5-10 web sessions simultaneously
-2. **Opus 4.5 with Thinking**: Use for all tasks—slower but requires less steering
+2. **Opus 4.6 (latest)**: Use for all tasks—agent teams, 1M context, adaptive thinking
 3. **CLAUDE.md as Team Memory**: Update multi-weekly, capture mistakes as they happen
 4. **Plan Mode First**: Always for non-trivial work
 5. **Natural Language Git**: "commit and push" works without custom commands (per official guidance, avoid complex slash command lists)
@@ -75,11 +75,17 @@ All patterns in this repository are derived from authoritative sources and produ
 - **Source**: Anthropic GitHub Repository
 - **URL**: https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
 - **Releases**: https://github.com/anthropics/claude-code/releases
-- **Key Updates Referenced** (as of January 2026):
+- **Key Updates Referenced** (as of February 2026):
+  - v2.1.37 (current): Agent teams (experimental), automatic session memory, PDF page ranges in Read tool, "Summarize from here" via /rewind, skills from --add-dir, remote sessions in VS Code, OAuth for MCP servers
   - v2.1.3: Unified slash commands and skills, permission rule detection in /doctor, 10-minute hook timeout
   - v2.1.0: Skill hot-reload, context forking, skill-level hooks, wildcard permissions, subagent resumption, real-time steering, MCP list_changed notifications
   - v2.0.76: LSP tool (go-to-definition, find references, hover)
   - v2.0.60: Background agent support
+- **Model Updates**:
+  - Opus 4.6 (February 5, 2026): 1M token context, agent teams, adaptive reasoning, data residency controls
+  - Opus 4.5 (November 24, 2025): 67% price reduction to $5/$25 per million tokens
+  - Sonnet 4.5 (September 29, 2025): Agent-first design, Agent SDK support
+  - Haiku 4.5 (October 2025): Extended thinking support, 1/3 cost of Sonnet
 - **Pattern References**: [Advanced Hooks](patterns/advanced-hooks.md), [Skills README](skills/README.md), [Subagent Orchestration](patterns/subagent-orchestration.md), [Plugins and Extensions](patterns/plugins-and-extensions.md)
 
 #### Context Engineering for AI Agents
@@ -132,6 +138,100 @@ All patterns in this repository are derived from authoritative sources and produ
   - Execute complex logic in a single step
   - Security and state management benefits
 - **Pattern**: [MCP Patterns](patterns/mcp-patterns.md)
+
+#### The Think Tool
+- **Title**: "The think tool: Enabling Claude to stop and think"
+- **Source**: Anthropic Engineering Blog
+- **Date**: March 20, 2025
+- **URL**: https://www.anthropic.com/engineering/claude-think-tool
+- **Key Insights**:
+  - Tool that lets Claude pause mid-response to verify information before proceeding
+  - 54% relative improvement on complex policy-following tasks
+  - Different from extended thinking (which happens before response generation)
+  - Valuable in complex multi-step tool chains
+- **Pattern**: [Tool Ecosystem](patterns/tool-ecosystem.md)
+
+#### Building a C Compiler with Parallel Claudes
+- **Title**: "Building a C compiler with a team of parallel Claudes"
+- **Source**: Anthropic Engineering Blog
+- **Date**: February 5, 2026
+- **URL**: https://www.anthropic.com/engineering/building-a-c-compiler-with-parallel-claudes
+- **Key Insights**:
+  - 16 agents wrote a Rust-based C compiler (100,000 lines)
+  - Nearly 2,000 sessions, ~$20,000 API cost
+  - Capable of compiling the Linux kernel on x86, ARM, and RISC-V
+  - Agent teams stress test demonstrating multi-agent coordination at scale
+- **Pattern**: [Subagent Orchestration](patterns/subagent-orchestration.md)
+
+#### Quantifying Infrastructure Noise in Agentic Coding Evals
+- **Title**: "Quantifying infrastructure noise in agentic coding evals"
+- **Source**: Anthropic Engineering Blog
+- **Date**: February 2026
+- **URL**: https://www.anthropic.com/engineering/quantifying-infrastructure-noise-in-agentic-coding-evals
+- **Key Insights**:
+  - Infrastructure noise is a significant confounder in agentic coding evaluations
+  - Non-deterministic environments affect eval reliability
+  - Methodology for isolating infrastructure effects from model capability
+- **Pattern**: [Agent Evaluation](patterns/agent-evaluation.md)
+
+#### Designing AI-Resistant Technical Evaluations
+- **Title**: "Designing AI-resistant technical evaluations"
+- **Source**: Anthropic Engineering Blog
+- **Date**: January 21, 2026
+- **URL**: https://www.anthropic.com/engineering/designing-ai-resistant-technical-evaluations
+- **Key Insights**:
+  - Principles for evaluations that remain valid as AI capabilities improve
+  - Avoiding benchmark saturation and gaming
+  - Designing for measurement of genuine capability
+- **Pattern**: [Agent Evaluation](patterns/agent-evaluation.md)
+
+#### Demystifying Evals for AI Agents
+- **Title**: "Demystifying evals for AI agents"
+- **Source**: Anthropic Engineering Blog
+- **Date**: January 9, 2026
+- **URL**: https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents
+- **Key Insights**:
+  - 8 evaluation patterns for agents
+  - Start with 20-50 tasks derived from real failures
+  - Practical checklist for building agent evals
+  - Evaluation design principles
+- **Pattern**: [Agent Evaluation](patterns/agent-evaluation.md)
+
+#### Beyond Permission Prompts: Making Claude Code More Secure
+- **Title**: "Beyond permission prompts: making Claude Code more secure"
+- **Source**: Anthropic Engineering Blog
+- **Date**: October 20, 2025
+- **URL**: https://www.anthropic.com/engineering/beyond-permission-prompts
+- **Key Insights**:
+  - OS-level sandboxing (bubblewrap on Linux, seatbelt on macOS)
+  - 84% reduction in permission prompts through sandboxing
+  - Complementary to hooks-based security, not a replacement
+  - Open-sourced sandboxing implementation
+- **Pattern**: [Safety and Sandboxing](patterns/safety-and-sandboxing.md)
+
+#### Writing Effective Tools for Agents
+- **Title**: "Writing effective tools for agents -- with agents"
+- **Source**: Anthropic Engineering Blog
+- **Date**: September 11, 2025
+- **URL**: https://www.anthropic.com/engineering/writing-effective-tools-for-agents
+- **Key Insights**:
+  - Tool design for non-deterministic users (AI agents)
+  - Clear, unambiguous tool descriptions
+  - Input validation and error messaging designed for AI consumption
+  - Agent-tested tool refinement methodology
+- **Pattern**: [Tool Ecosystem](patterns/tool-ecosystem.md)
+
+#### How We Built Our Multi-Agent Research System
+- **Title**: "How we built our multi-agent research system"
+- **Source**: Anthropic Engineering Blog
+- **Date**: June 13, 2025
+- **URL**: https://www.anthropic.com/engineering/how-we-built-our-multi-agent-research-system
+- **Key Insights**:
+  - Multi-agent architecture for research tasks
+  - Lead/worker agent coordination patterns
+  - Parallel research with result synthesis
+  - Foundation for Agent Teams feature
+- **Pattern**: [Subagent Orchestration](patterns/subagent-orchestration.md)
 
 #### Claude Code Sub-agents
 - **Source**: Anthropic Official Documentation
@@ -1122,4 +1222,4 @@ This sources document is updated when:
 - Additional production validation is completed
 - Community contributions add new references
 
-*Last updated: January 2026*
+*Last updated: February 2026*

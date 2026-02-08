@@ -271,6 +271,73 @@ Example: "WebApp Planning", "Auth Research"
 
 ---
 
+## Worktree Isolation for Parallel Sessions
+
+**Source**: Community best practice (widely adopted, multiple Tier B/C sources)
+
+Git worktrees provide fully isolated filesystems for parallel Claude Code sessions, eliminating file conflicts entirely.
+
+### Setup
+
+```bash
+# Create isolated worktrees for parallel work
+git worktree add ../project-feature-auth feature/auth
+git worktree add ../project-feature-api feature/api
+git worktree add ../project-bugfix-queue bugfix/queue
+
+# Each gets its own Claude Code session
+cd ../project-feature-auth && claude
+cd ../project-feature-api && claude
+cd ../project-bugfix-queue && claude
+```
+
+### Benefits Over Branch-Based Parallelism
+
+| Approach | File Conflicts | Context Isolation | Cleanup |
+|----------|---------------|-------------------|---------|
+| Same repo, different branches | Requires stashing/switching | Shared working directory | Branch cleanup |
+| **Git worktrees** | **Impossible (separate dirs)** | **Full filesystem isolation** | `git worktree remove` |
+| Separate clones | Impossible but disk-heavy | Full isolation | Delete directory |
+
+### When to Use Worktrees
+
+- Multiple Claude Code instances working on the same repo simultaneously
+- Parallel feature development with potential file overlap
+- Safe experimentation (worst case = delete worktree)
+- CI/CD pipelines running parallel Claude agents
+
+---
+
+## Agent Teams vs Manual Parallel Sessions
+
+With the introduction of agent teams (Opus 4.6, experimental), there's now a choice between manual parallel sessions and automated agent coordination.
+
+### Decision Framework
+
+| Factor | Manual Parallel Sessions | Agent Teams |
+|--------|------------------------|-------------|
+| **Control** | Full human oversight per session | Autonomous coordination |
+| **Cost** | Pay per session (predictable) | Higher token usage (coordination overhead) |
+| **Coordination** | Human synthesizes across sessions | Agents coordinate directly |
+| **Stability** | Production-ready | Experimental |
+| **Best for** | Known, well-scoped parallel tasks | Exploratory, complex multi-faceted work |
+| **Learning curve** | Low (just more terminals) | Medium (new mental model) |
+
+### Recommendation
+
+```
+Is the work well-defined and decomposable?
+├── YES → Manual parallel sessions (worktrees)
+│   └── Faster, cheaper, predictable
+└── NO → Consider agent teams
+    └── Better for exploration, research, complex coordination
+        └── BUT: experimental, higher cost, less predictable
+```
+
+For most development work, **manual parallel sessions remain the recommended approach**. Agent teams are best reserved for research-heavy, exploratory work where agent-to-agent communication adds genuine value.
+
+---
+
 ## Anti-Patterns
 
 ### Session Sprawl
@@ -338,9 +405,10 @@ Example: "WebApp Planning", "Auth Research"
 
 ## Related Patterns
 
-- [Subagent Orchestration](./subagent-orchestration.md) - In-session parallelism
+- [Subagent Orchestration](./subagent-orchestration.md) - In-session parallelism and agent teams
 - [Documentation Maintenance](./documentation-maintenance.md) - Team CLAUDE.md updates
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
+- [Safety and Sandboxing](./safety-and-sandboxing.md) - Security for parallel execution
 
 ---
 
@@ -348,5 +416,6 @@ Example: "WebApp Planning", "Auth Research"
 
 - [Boris Cherny Interview - Paddo.dev](https://paddo.dev/blog/how-boris-uses-claude-code/)
 - [VentureBeat - Creator of Claude Code Workflow](https://venturebeat.com/technology/the-creator-of-claude-code-just-revealed-his-workflow-and-developers-are)
+- [Agent Teams Documentation](https://code.claude.com/docs/en/agent-teams) (February 2026)
 
-*Last updated: January 2026*
+*Last updated: February 2026*

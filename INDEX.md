@@ -1,15 +1,15 @@
 # Index
 
-*Auto-generated: 2026-02-02 08:59*
+*Auto-generated: 2026-02-08 16:55*
 
 ## Summary
 
-**Total documents**: 71
+**Total documents**: 73
 
 | Directory | Count |
 |-----------|-------|
 | mcp-server | 1 |
-| patterns | 31 |
+| patterns | 33 |
 | presets | 4 |
 | prompts | 3 |
 | research | 1 |
@@ -104,6 +104,7 @@
 
 - [advanced-hooks.md](patterns/advanced-hooks.md)
 - [advanced-tool-use.md](patterns/advanced-tool-use.md)
+- [agent-evaluation.md](patterns/agent-evaluation.md)
 - [agent-principles.md](patterns/agent-principles.md)
 - [agentic-retrieval.md](patterns/agentic-retrieval.md)
 - [ai-image-generation.md](patterns/ai-image-generation.md)
@@ -128,6 +129,7 @@
 - [project-infrastructure.md](patterns/project-infrastructure.md)
 - [recursive-context-management.md](patterns/recursive-context-management.md)
 - [recursive-evolution.md](patterns/recursive-evolution.md)
+- [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md)
 - [session-learning.md](patterns/session-learning.md)
 - [skills-domain-knowledge.md](patterns/skills-domain-knowledge.md)
 - [spec-driven-development.md](patterns/spec-driven-development.md)

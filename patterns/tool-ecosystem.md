@@ -20,12 +20,13 @@ This pattern helps developers choose the right AI coding tool for their context.
 
 | Scenario | Why Claude Code |
 |----------|-----------------|
-| **Anthropic ecosystem** | Native Claude integration, latest model access |
+| **Anthropic ecosystem** | Native Claude integration, Opus 4.6 with 1M context |
 | **Terminal-first workflow** | CLI-native, git-centric by design |
-| **Complex reasoning tasks** | Claude's strength in multi-step reasoning |
+| **Complex reasoning tasks** | Claude's strength in multi-step reasoning + think tool |
 | **Skill-based methodology** | Official skills support (agentskills.io) |
 | **Hooks and automation** | PreToolUse, PostToolUse, Stop hooks for quality gates |
-| **Subagent orchestration** | Built-in parallel task delegation |
+| **Subagent orchestration** | Built-in parallel task delegation + agent teams |
+| **Web-based workflow** | Claude Code on Web (VS Code in browser) |
 
 ### When to Consider Alternatives
 
@@ -45,7 +46,7 @@ This pattern helps developers choose the right AI coding tool for their context.
 
 | Capability | Claude Code | Aider | Cursor | OpenHands |
 |------------|-------------|-------|--------|-----------|
-| **Model** | Claude (cloud) | Any (local/cloud) | Various | Any |
+| **Model** | Claude Opus 4.6 (cloud) | Any (local/cloud) | Various | Any |
 | **Interface** | CLI | CLI | IDE | Web/Docker |
 | **Local models** | No | Yes (Ollama) | Limited | Yes |
 | **Git integration** | Manual | Automatic commits | Manual | Automatic |
@@ -187,6 +188,35 @@ Some developers use multiple tools strategically:
 
 ---
 
+## Claude Code Deployment Options
+
+Claude Code is available in multiple form factors:
+
+| Deployment | Interface | Best For |
+|-----------|-----------|----------|
+| **Terminal CLI** | `claude` command | Primary development, full control |
+| **VS Code Extension** | IDE panel | Inline diffs, visual workflows |
+| **JetBrains Plugin** | IDE panel | IDE diff viewer, JetBrains AI subscription |
+| **Claude Code on Web** | Browser-based VS Code | No local install, remote development |
+| **GitHub Actions** | CI/CD | Automated PR reviews, issue handling |
+
+### The Think Tool
+
+**Source**: [The Think Tool: Enabling Claude to Stop and Think](https://www.anthropic.com/engineering/claude-think-tool) (March 2025)
+
+The think tool enables Claude to pause mid-response to verify information before proceeding. Unlike extended thinking (which happens before response generation), the think tool acts as a deliberate checkpoint during complex multi-step tool chains.
+
+**Impact**: 54% relative improvement on complex policy-following tasks.
+
+**When it helps most**:
+- Multi-step tool chains where each step depends on verifying previous results
+- Complex policy compliance (checking multiple conditions before acting)
+- Tasks requiring cross-referencing information from multiple sources
+
+**For tool designers**: When building MCP servers or skills, design tool descriptions that encourage Claude to use the think tool between critical steps. See [Writing Effective Tools for Agents](https://www.anthropic.com/engineering/writing-effective-tools-for-agents).
+
+---
+
 ## Complementary Tools
 
 Beyond AI coding agents, these tools integrate with development workflows for specific tasks:
@@ -299,6 +329,8 @@ uv run python main.py output.png "A 3D diagram of microservices architecture"
 - [Plugins and Extensions](./plugins-and-extensions.md) - Claude Code extension mechanisms
 - [Context Engineering](./context-engineering.md) - Applies to all tools
 - [Spec-Driven Development](./spec-driven-development.md) - Tool-agnostic methodology
+- [Safety and Sandboxing](./safety-and-sandboxing.md) - Security across tools
+- [Agent Evaluation](./agent-evaluation.md) - Evaluating AI coding tool effectiveness
 
 ---
 
@@ -310,5 +342,7 @@ uv run python main.py output.png "A 3D diagram of microservices architecture"
 - [Cursor](https://cursor.sh) - AI-native IDE
 - [Playwright](https://playwright.dev) - Browser automation (recommended over Claude in Chrome Beta)
 - [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
+- [The Think Tool](https://www.anthropic.com/engineering/claude-think-tool) (March 2025)
+- [Writing Effective Tools for Agents](https://www.anthropic.com/engineering/writing-effective-tools-for-agents) (September 2025)
 
-*Last updated: January 2026*
+*Last updated: February 2026*

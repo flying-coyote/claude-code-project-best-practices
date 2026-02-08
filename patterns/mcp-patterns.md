@@ -792,6 +792,7 @@ The 7 Failure Modes documented above represent the primary anti-patterns. Additi
 - [Context Engineering](./context-engineering.md) - Security in context design
 - [Plugins and Extensions](./plugins-and-extensions.md) - When to use MCP vs alternatives
 - [Spec-Driven Development](./spec-driven-development.md) - Write spec before MCP implementation
+- [Safety and Sandboxing](./safety-and-sandboxing.md) - OS-level security for MCP servers
 
 ## Reference Implementation
 

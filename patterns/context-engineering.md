@@ -105,9 +105,86 @@ Context engineering creates new attack surfaces:
 - Measure context quality, not token quantity
 - Iterate based on failure modes
 
-## Context Rot
+## Server-Side Compaction API
 
-**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) + [Inkeep Analysis](https://inkeep.com/blog/fighting-context-rot)
+**Source**: [Anthropic Platform Documentation](https://platform.claude.com/docs/en/build-with-claude/compaction)
+
+When context approaches limits, the Compaction API provides server-side automatic summarization. This is the production-grade version of the manual compaction described below.
+
+### How It Works
+
+```
+[Full conversation: 180K tokens]
+        ↓ Threshold trigger
+[API call: POST /v1/messages with compaction strategy]
+        ↓
+[Compressed summary: ~20K tokens] + [Recent messages preserved]
+        ↓
+[Fresh working context continues]
+```
+
+### Strategies
+
+| Strategy | Behavior | Best For |
+|----------|----------|----------|
+| `clear_tool_uses_20250919` | Clears oldest tool results chronologically | Tool-heavy agentic workflows |
+| Default | Summarizes full conversation | General long-running sessions |
+
+**Key Insight**: The `clear_tool_uses_20250919` strategy is specifically designed for agentic coding workflows where tool call/result pairs consume the bulk of context. It preserves the conversation flow while dropping verbose tool outputs.
+
+### Claude Code Integration
+
+Claude Code uses compaction automatically when context approaches limits. You can also trigger it:
+- `/clear` — Starts fresh (no summary)
+- `/rewind` > "Summarize from here" — Partial conversation summarization (v2.1.30+)
+
+---
+
+## Adaptive Thinking (Opus 4.6+)
+
+**Source**: [Opus 4.6 Release](https://www.anthropic.com/claude/opus)
+
+Opus 4.6 introduces an adaptive reasoning `effort` parameter that replaces the older `budget_tokens` approach for controlling thinking depth.
+
+### Effort Levels
+
+| Level | Behavior | Use Case |
+|-------|----------|----------|
+| `low` | Quick responses, minimal deliberation | Simple file lookups, straightforward edits |
+| `medium` | Balanced reasoning | Standard development tasks |
+| `high` | Deep reasoning and verification | Architecture decisions, security reviews |
+| `max` | Maximum deliberation | Complex multi-file refactoring, critical debugging |
+
+### Context Engineering Implication
+
+Adaptive thinking interacts with context management: lower effort levels consume fewer thinking tokens, preserving more context for tool results and conversation history. For long-running sessions, using `low` effort for routine operations extends the useful life of the context window.
+
+**Tip**: Claude Code's `/fast` toggle is the user-facing control for this — it uses the same Opus 4.6 model but with faster output optimized for simpler tasks.
+
+---
+
+## 1M Token Context Window (Beta)
+
+Opus 4.6 extends the context window to 1M tokens (beta), previously only available on Sonnet models.
+
+### Implications for Context Engineering
+
+| Factor | 200K Context | 1M Context |
+|--------|-------------|------------|
+| Context rot risk | Moderate | Higher — more tokens = more n² attention degradation |
+| Compaction urgency | High | Lower — more room before hitting limits |
+| MCP budget headroom | Tight (~15 tools max) | More flexible (~50+ tools feasible) |
+| Sub-agent necessity | Often required | May be avoidable for medium-complexity tasks |
+
+**Warning**: Larger context does not eliminate context rot. The n² relationship between tokens and attention still applies. Use the additional capacity for breadth (more tools, more files), not as a substitute for good context hygiene.
+
+### Long-Context Pricing
+
+1M context is available in beta via `context-1m-2025-08-07` header. Long-context pricing applies for inputs exceeding standard limits.
+
+---
+
+## Context Rot
 
 > "Context rot is the degradation of model accuracy as context windows fill up."
 
@@ -423,6 +500,7 @@ For full codebase context, see `.context/repo-overview.txt`
 - [Memory Architecture](./memory-architecture.md) - Lifecycle-based information management
 - [Agentic Retrieval](./agentic-retrieval.md) - Semantic highways for document exploration
 - [MCP vs Skills Economics](./mcp-vs-skills-economics.md) - Cost-aware context architecture
+- [Agent Evaluation](./agent-evaluation.md) - Evaluating context strategy effectiveness
 
 ---
 
@@ -454,6 +532,8 @@ For full codebase context, see `.context/repo-overview.txt`
 
 - [Anthropic - Claude Code Best Practices](https://code.claude.com/docs/en/best-practices) (Canonical - 2025)
 - [Anthropic - Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (September 2025)
+- [Anthropic - Compaction API](https://platform.claude.com/docs/en/build-with-claude/compaction) (2026)
+- [Anthropic - Opus 4.6 Announcement](https://www.anthropic.com/claude/opus) (February 2026)
 - [Nate B. Jones - Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive)
 
 *Last updated: February 2026*

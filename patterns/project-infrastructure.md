@@ -204,6 +204,55 @@ Is this a git repository?
 
 ---
 
+## Built-In Features (No Setup Required)
+
+These Claude Code features enhance project infrastructure without any configuration:
+
+### Checkpoints and /rewind (v2.0.0+)
+
+Claude Code automatically creates session-level snapshots before each file edit, allowing code and conversation restoration.
+
+```
+/rewind
+├── View list of checkpoints
+├── Restore code to any previous state
+├── "Summarize from here" — partial conversation summarization
+└── Conversation context restored alongside code
+```
+
+**Limitations**:
+- Bash commands are not tracked (rm, mv, cp are permanent)
+- Checkpoints are session-scoped, not persistent across sessions
+- Git remains essential for durable version control
+
+### Session Memory (v2.1.30+)
+
+Claude Code automatically records and recalls learnings across sessions. Stored in `~/.claude/projects/<project>/memory/`.
+
+- No manual setup required
+- Claude records project-specific preferences and patterns
+- Recalled automatically at session start
+- Complements (does not replace) CLAUDE.md
+
+### Data Residency (Opus 4.6+, Enterprise)
+
+For organizations with compliance requirements, the `inference_geo` parameter controls where model inference runs.
+
+```json
+{
+  "inference_geo": "us"
+}
+```
+
+| Setting | Behavior | Pricing |
+|---------|----------|---------|
+| Default | Standard routing | Standard |
+| `"us"` | US-only inference | 1.1x standard pricing |
+
+**Availability**: Models released after February 1, 2026. Workspace-level configuration via `allowed_inference_geos` and `default_inference_geo`.
+
+---
+
 ## Upgrading Between Tiers
 
 Projects naturally evolve. Common upgrade paths:
@@ -274,6 +323,7 @@ EOF
 - [Documentation Maintenance](./documentation-maintenance.md) - CLAUDE.md best practices
 - [GitHub Actions Integration](./github-actions-integration.md) - CI/CD setup
 - [Parallel Sessions](./parallel-sessions.md) - Multi-session workflows
+- [Safety and Sandboxing](./safety-and-sandboxing.md) - Security infrastructure
 
 ---
 
@@ -281,6 +331,7 @@ EOF
 
 - [Boris Cherny Interview - Paddo.dev](https://paddo.dev/blog/how-boris-uses-claude-code/)
 - [Anthropic Best Practices](https://code.claude.com/docs/en/best-practices) (Canonical)
+- [Data Residency Documentation](https://platform.claude.com/docs/en/build-with-claude/data-residency) (February 2026)
 - Production validation across 12+ projects
 
-*Last updated: January 2026*
+*Last updated: February 2026*

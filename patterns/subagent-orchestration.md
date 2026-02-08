@@ -462,11 +462,11 @@ Task tool with:
 
 **Use Case**: Maximizing code quality with minimal steering corrections
 
-Claude Opus 4.5 with extended thinking mode produces significantly higher-quality output, especially for complex tasks.
+Claude Opus 4.6 with extended thinking mode produces significantly higher-quality output, especially for complex tasks. Opus 4.6 also introduces adaptive reasoning controls (`effort` parameter) for fine-grained thinking depth.
 
 ### Boris Cherny's Recommendation
 
-> "I use [Opus 4.5 with extended thinking] for everything. It's the best coding model I've ever used... It's slower than 4.0 was, but because it's more reliable there's less course correcting and steering it towards what I wanted."
+> "I use [Opus with extended thinking] for everything. It's the best coding model I've ever used... It's slower but because it's more reliable there's less course correcting and steering it towards what I wanted."
 > — Boris Cherny, Claude Code Creator
 
 ### When to Use Thinking Mode
@@ -493,19 +493,21 @@ Claude Opus 4.5 with extended thinking mode produces significantly higher-qualit
 
 ### Implementation
 
-Claude Code uses thinking mode based on the model setting. Opus 4.5 is the recommended default:
+Claude Code uses thinking mode based on the model setting. Opus 4.6 is the recommended default:
 
 ```bash
 # Set default model (in claude.json or via CLI)
-claude --model claude-opus-4-5-20251101
+claude --model claude-opus-4-6
 
 # Or configure in settings.json
 {
-  "model": "claude-opus-4-5-20251101"
+  "model": "claude-opus-4-6"
 }
 ```
 
 **Key insight**: The time spent on extended thinking often saves more time by reducing back-and-forth steering corrections. Quality improves 2-3x with verification steps.
+
+**Note on Opus 4.5/4.6 behavior**: These models are more responsive to system prompts and may overtrigger on aggressive tool/skill invocation language. If prompts were tuned for older models, dial back assertive language to avoid overengineering.
 
 ---
 
@@ -616,6 +618,92 @@ Parent synthesizes: merge findings, resolve overlaps
 
 ---
 
+## Pattern 10: Agent Teams (Experimental)
+
+**Source**: [Agent Teams Documentation](https://code.claude.com/docs/en/agent-teams) + [C Compiler Case Study](https://www.anthropic.com/engineering/building-a-c-compiler-with-parallel-claudes)
+**Evidence Tier**: A (Primary vendor documentation)
+**Status**: Research preview — experimental, disabled by default
+
+> **This is NOT a replacement for subagents.** Agent teams are a fundamentally different coordination model for complex, multi-faceted problems.
+
+### How Agent Teams Differ from Subagents
+
+| Aspect | Subagents | Agent Teams |
+|--------|-----------|-------------|
+| **Communication** | Report back to parent only | Communicate with each other directly |
+| **Context** | Fresh, isolated per subagent | Independent windows, shared task lists |
+| **Coordination** | Parent orchestrates | Self-coordinating (lead + teammates) |
+| **Lifetime** | Short-lived, task-specific | Long-lived, session-spanning |
+| **Best for** | Quick focused tasks | Complex multi-faceted projects |
+
+### Architecture
+
+```
+Lead Agent (orchestrator)
+├── Teammate 1: [Own context window, own tools]
+│   ├── Can communicate findings to other teammates
+│   └── Can assign tasks to other teammates
+├── Teammate 2: [Own context window, own tools]
+│   └── Shares task list with all teammates
+└── Teammate 3: [Own context window, own tools]
+    └── Can challenge other teammates' findings
+```
+
+### Use Cases
+
+| Scenario | Why Teams Help |
+|----------|---------------|
+| **Research + review** | Separate agents research and review simultaneously |
+| **New module development** | Parallel implementation of interconnected components |
+| **Debugging complex issues** | Multiple agents investigate different hypotheses |
+| **Cross-layer coordination** | Frontend, backend, and database agents working together |
+
+### Enabling Agent Teams
+
+```bash
+# Via environment variable
+CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude
+
+# Via settings.json
+{
+  "experimental": {
+    "agentTeams": true
+  }
+}
+```
+
+### Case Study: C Compiler (Stress Test)
+
+The most ambitious agent teams deployment to date:
+
+| Metric | Value |
+|--------|-------|
+| **Agents** | 16 parallel |
+| **Sessions** | ~2,000 |
+| **Lines of code** | 100,000 (Rust) |
+| **Cost** | ~$20,000 API |
+| **Result** | C compiler capable of compiling Linux kernel (x86, ARM, RISC-V) |
+
+### Current Limitations
+
+- One team per lead agent (no nested teams)
+- Session resumption can be unreliable
+- Experimental — API and behavior may change
+- Higher cost than subagent approaches for simpler tasks
+- No deterministic control over teammate coordination
+
+### When to Use Teams vs Subagents
+
+| Factor | Use Subagents | Use Agent Teams |
+|--------|--------------|-----------------|
+| Task duration | Minutes | Hours to days |
+| Coordination need | Report-back sufficient | Agents need to collaborate |
+| Complexity | Single focused task | Multi-faceted problem |
+| Cost sensitivity | Budget-conscious | Quality over cost |
+| Stability requirement | Production | Research/experimentation |
+
+---
+
 ## Application Examples
 
 ### Research Project
@@ -658,6 +746,8 @@ Then implement sequentially in parent with full context.
 - [Context Engineering](./context-engineering.md) - Managing context effectively
 - [Agent Principles](./agent-principles.md) - Six foundational principles for agent design
 - [Advanced Hooks](./advanced-hooks.md) - SubagentStart/Stop hooks for orchestration
+- [Safety and Sandboxing](./safety-and-sandboxing.md) - Security for multi-agent execution
+- [Agent Evaluation](./agent-evaluation.md) - Evaluating agent team performance
 
 ---
 
@@ -756,10 +846,13 @@ CAII organizes by cognitive function, not domain:
 **Primary (Tier A)**:
 - [Claude Code Sub-agents Documentation](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
 - [Anthropic Engineering Blog: Effective Harnesses](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
+- [Agent Teams Documentation](https://code.claude.com/docs/en/agent-teams)
+- [Building a C Compiler with Parallel Claudes](https://www.anthropic.com/engineering/building-a-c-compiler-with-parallel-claudes) (February 2026)
+- [How We Built Our Multi-Agent Research System](https://www.anthropic.com/engineering/how-we-built-our-multi-agent-research-system) (June 2025)
 
 **Community Tools (Tier C)**:
 - [Auto-Claude](https://github.com/AndyMik90/Auto-Claude) - Worktree isolation, parallel agents (5.1k stars)
 - [wshobson/agents](https://github.com/wshobson/agents) - Tiered model strategy (24.2k stars)
 - [ccswarm](https://github.com/nwiizo/ccswarm) - Git worktree + channel-based communication
 
-*Last updated: January 2026*
+*Last updated: February 2026*

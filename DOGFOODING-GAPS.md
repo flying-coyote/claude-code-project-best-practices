@@ -1,7 +1,7 @@
 # Dogfooding Gaps & Action Plan
 
-**Last Audit**: 2026-01-27
-**Next Audit**: 2026-04-27 (quarterly)
+**Last Audit**: 2026-02-08
+**Next Audit**: 2026-05-08 (quarterly)
 
 This document tracks gaps between what this project documents and what it implements. Dogfooding builds credibility.
 
@@ -96,7 +96,7 @@ This document tracks gaps between what this project documents and what it implem
 3. Reference task tracking in session workflows
 
 **Owner**: Ongoing practice
-**Target**: Next audit (2026-04-27)
+**Target**: Next audit (2026-05-08)
 
 ### ⚠️ Missing Patterns in CLAUDE.md Index
 
@@ -111,7 +111,7 @@ This document tracks gaps between what this project documents and what it implem
 2. Or simplify to "See INDEX.md for complete list"
 
 **Owner**: Next CLAUDE.md update
-**Target**: 2026-02-01
+**Target**: 2026-02-08 (addressed by INDEX.md auto-generation)
 
 ---
 
@@ -166,13 +166,15 @@ Run this checklist every quarter:
 
 ## Metrics
 
-| Metric | 2026-01-27 | Target |
-|--------|------------|--------|
-| Skills implemented | 4 | 5+ |
-| Hooks functional | 3/3 | 3/3 |
-| Patterns with Evidence Tier | 100% | 100% |
-| Recent Learnings freshness | 17 days | <14 days |
-| INDEX.md accuracy | 100% | 100% |
+| Metric | 2026-01-27 | 2026-02-08 | Target |
+|--------|------------|------------|--------|
+| Skills implemented | 4 | 4 | 5+ |
+| Hooks functional | 3/3 | 3/3 | 3/3 |
+| Patterns with Evidence Tier | 100% | 100% | 100% |
+| Pattern count | 31 | 33 | — |
+| SOURCES.md entries (Tier A blog posts) | 8 | 16 | — |
+| Recent Learnings freshness | 17 days | 0 days | <14 days |
+| INDEX.md accuracy | 100% | Pending regen | 100% |
 
 ---
 
