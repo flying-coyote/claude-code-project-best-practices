@@ -1,5 +1,5 @@
 ---
-name: TDD Enforcer
+name: tdd-enforcer
 description: Enforce Test-Driven Development (TDD) RED-GREEN-REFACTOR cycle when user writes code, implements features, or fixes bugs. Trigger when user mentions "implement", "add feature", "create function", "build", or starts coding without tests. Apply to Python, TypeScript, JavaScript, and all languages with testing frameworks.
 allowed-tools: Read, Grep, Glob, Bash, Write
 ---

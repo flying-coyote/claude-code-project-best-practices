@@ -1,5 +1,5 @@
 ---
-name: Systematic Debugger
+name: systematic-debugger
 description: Apply 4-phase root cause debugging methodology when user encounters errors, bugs, test failures, or unexpected behavior in code. Trigger when user mentions "bug", "error", "failing", "not working", "debug", or shares error messages. Use systematic approach rather than guess-and-check.
 allowed-tools: Read, Grep, Glob, Bash
 ---

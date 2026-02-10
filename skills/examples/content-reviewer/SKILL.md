@@ -1,5 +1,5 @@
 ---
-name: Content Reviewer
+name: content-reviewer
 description: Apply comprehensive quality review when user prepares content for publication (blog posts, articles, documentation, presentations). Trigger when user mentions "publish", "post", "article", "review this", "draft complete", "ready to share". Enforce evidence-based claims, intellectual honesty, professional voice, and balanced perspective.
 allowed-tools: Read, Grep, Glob
 ---

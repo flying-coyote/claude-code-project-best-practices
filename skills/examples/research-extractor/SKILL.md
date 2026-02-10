@@ -1,5 +1,5 @@
 ---
-name: Research Extractor
+name: research-extractor
 description: Systematically extract and document insights from research sources (papers, articles, documentation, talks). Trigger when user analyzes academic papers, reviews technical content, reads industry articles, or mentions "this paper", "according to research", "the article discusses". Capture concepts, evidence, hypotheses, and bibliography entries with proper attribution.
 allowed-tools: Read, Grep, Glob, Write
 ---

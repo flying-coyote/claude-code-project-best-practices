@@ -1,5 +1,5 @@
 ---
-name: UltraThink Analyst
+name: ultrathink-analyst
 description: Apply comprehensive FRAME-ANALYZE-SYNTHESIZE methodology for deep analysis of complex problems, strategic decisions, architectural choices, or research questions. Trigger when user says "ultrathink", "deep analysis", "systematic analysis", "comprehensive evaluation", or asks to analyze complex multi-dimensional problems.
 allowed-tools: Read, Grep, Glob, WebFetch, WebSearch
 ---

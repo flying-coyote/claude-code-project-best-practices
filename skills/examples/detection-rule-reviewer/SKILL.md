@@ -1,5 +1,5 @@
 ---
-name: Detection Rule Reviewer
+name: detection-rule-reviewer
 description: Apply detection engineering quality standards when user writes SIEM rules, detection logic, or security monitoring queries. Trigger when user mentions "detection rule", "SIEM", "Sigma", "alert", "Splunk query", "KQL", or shares security detection code. Evaluate for accuracy, performance, evasion resistance, and operational quality.
 allowed-tools: Read, Grep, Glob, WebSearch
 ---

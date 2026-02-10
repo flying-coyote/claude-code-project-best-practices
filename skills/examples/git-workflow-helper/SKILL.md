@@ -1,5 +1,5 @@
 ---
-name: Git Workflow Helper
+name: git-workflow-helper
 description: Apply git best practices for commits, branches, worktrees, and collaboration when user performs version control operations. Trigger when user mentions "git", "commit", "branch", "merge", "push", "pull request", or prepares to commit code. Ensure clear commit messages, proper branching, and safe git operations.
 allowed-tools: Bash, Read, Grep
 ---

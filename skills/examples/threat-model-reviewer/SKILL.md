@@ -1,5 +1,5 @@
 ---
-name: Threat Model Reviewer
+name: threat-model-reviewer
 description: Apply systematic threat modeling review when user designs systems, evaluates security architectures, or analyzes attack surfaces. Trigger when user mentions "threat model", "security review", "attack surface", "STRIDE", "trust boundary", or asks about potential threats. Use structured methodology to identify threats, assess risks, and recommend mitigations.
 allowed-tools: Read, Grep, Glob, WebSearch
 ---

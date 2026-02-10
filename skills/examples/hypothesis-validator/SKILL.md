@@ -1,5 +1,5 @@
 ---
-name: Hypothesis Validator
+name: hypothesis-validator
 description: Apply systematic hypothesis validation when user formulates research claims or proposes testable hypotheses. Trigger on "I hypothesize that...", "Can you validate this claim?", or research findings requiring evidence assessment. Use confidence scoring and evidence tier classification.
 allowed-tools: Read, Grep, Glob, Edit, Write
 ---
