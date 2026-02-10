@@ -115,6 +115,27 @@ All patterns in this repository are derived from authoritative sources and produ
   - Skills extend Claude's capabilities into domain-specific expertise
 - **Pattern**: [Plugins and Extensions](patterns/plugins-and-extensions.md), [Progressive Disclosure](patterns/progressive-disclosure.md)
 
+#### The Complete Guide to Building Skills for Claude
+- **Title**: "The Complete Guide to Building Skills for Claude"
+- **Source**: Anthropic (PDF guide)
+- **Date**: January 2026
+- **URL**: https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf
+- **Key Insights**:
+  - YAML frontmatter field reference: name, description (required), allowed-tools, license, compatibility, metadata (optional)
+  - Description formula: [What it does] + [When to use it] + [Key capabilities], include trigger phrases
+  - Security restrictions: No XML angle brackets in frontmatter, no "claude"/"anthropic" in skill names
+  - Three skill categories: Document & Asset Creation, Workflow Automation, MCP Enhancement
+  - Success metrics: 90% trigger accuracy, 0 failed API calls, workflow completion without user correction
+  - Five workflow patterns: Sequential orchestration, Multi-MCP coordination, Iterative refinement, Context-aware tool selection, Domain-specific intelligence
+  - Problem-first vs. tool-first design heuristic for skill framing
+  - SKILL.md hard ceiling: 5,000 words; move detailed docs to references/
+  - Negative triggers in descriptions to prevent over-triggering
+  - Debugging approach: Ask Claude "When would you use the [skill name] skill?"
+  - Model laziness mitigation more effective in user prompts than SKILL.md
+  - Skill packs for 20-50+ simultaneous skills
+  - Skills API: `/v1/skills` endpoint, `container.skills` Messages API parameter
+- **Patterns**: [Skills Domain Knowledge](patterns/skills-domain-knowledge.md), [Progressive Disclosure](patterns/progressive-disclosure.md), [Agent Evaluation](patterns/agent-evaluation.md), [Plugins and Extensions](patterns/plugins-and-extensions.md)
+
 #### Claude Agent SDK
 - **Title**: "Building agents with the Claude Agent SDK"
 - **Source**: Anthropic Engineering Blog

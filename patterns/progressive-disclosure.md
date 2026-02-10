@@ -37,7 +37,7 @@ Large skill files (300-700+ lines) waste tokens on every activation. Most of tha
 ### Tier 1: System Prompt (SKILL.md) - Always Loaded
 
 **Purpose**: Minimal context for skill activation and routing
-**Target size**: ~500 words max
+**Target size**: ~500 words max (hard ceiling: 5,000 words per Anthropic guidance)
 
 Contains:
 - Trigger conditions (when to activate)
@@ -387,6 +387,26 @@ Always end SKILL.md with:
 
 ---
 
+## Large Context and Skill Packs
+
+**Source**: [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (January 2026)
+
+When skills seem slow or responses degrade, check two things:
+
+### SKILL.md Size Limit
+
+**Keep SKILL.md under 5,000 words.** Move detailed documentation to `references/` and link to it instead of inlining. If your SKILL.md exceeds this threshold, progressive disclosure is not optional—it's required.
+
+### Skill Packs (20+ Simultaneous Skills)
+
+If you have 20-50 skills enabled simultaneously, consider grouping related capabilities into "skill packs" for selective enablement:
+
+- Evaluate whether all enabled skills are needed for the current project
+- Recommend selective enablement rather than always-on
+- Group related skills (e.g., "security-pack": threat-model + vulnerability-assessment + detection-rule-review)
+
+---
+
 ## Anti-Patterns
 
 ### ❌ Monolithic Skill Files
@@ -418,4 +438,8 @@ Always end SKILL.md with:
 - [Skills for Domain Knowledge](./skills-domain-knowledge.md) - What content goes into skills
 - [Advanced Tool Use](./advanced-tool-use.md) - Complementary token reduction via tool search
 
-*Last updated: January 2026*
+## Sources
+
+- [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (January 2026) - 5,000-word SKILL.md ceiling, skill packs concept
+
+*Last updated: February 2026*

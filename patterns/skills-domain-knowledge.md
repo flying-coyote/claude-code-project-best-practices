@@ -31,6 +31,7 @@ Domain knowledge skills embed specialized expertise into Claude Code workflows, 
 ```
 .claude/skills/<domain>/
 ├── SKILL.md              # Core domain knowledge + routing
+├── scripts/              # Optional: executable code (Python, Bash, etc.)
 ├── workflows/
 │   ├── research.md       # Phase 1: Discovery/gathering
 │   ├── analysis.md       # Phase 2: Processing/reasoning
@@ -41,6 +42,114 @@ Domain knowledge skills embed specialized expertise into Claude Code workflows, 
     ├── examples/         # Reference outputs
     └── constraints.md    # Rules and limitations
 ```
+
+---
+
+## YAML Frontmatter Reference
+
+The YAML frontmatter is the most important part of any skill—it determines whether and when Claude loads the skill. Get this right.
+
+### Required Fields
+
+| Field | Rules | Example |
+|-------|-------|---------|
+| `name` | Kebab-case only, no spaces/capitals, match folder name | `causal-analysis` |
+| `description` | What + When + Capabilities, under 1024 chars, no XML tags | See formula below |
+
+### Description Formula
+
+Structure descriptions as: **[What it does] + [When to use it] + [Key capabilities]**
+
+Include trigger phrases users would actually say:
+
+```yaml
+# Good - specific, includes trigger phrases
+description: Conduct causal inference analysis following econometric
+  best practices. Use when user asks for "regression analysis",
+  "causal estimation", "diff-in-diff", or "treatment effects".
+
+# Bad - too vague, no triggers
+description: Helps with economics research.
+
+# Bad - too technical, no user language
+description: Implements the Project entity model with hierarchical relationships.
+```
+
+### Optional Fields
+
+| Field | Purpose | Example |
+|-------|---------|---------|
+| `allowed-tools` | Restrict tool access per skill | `"Bash(python:*) Bash(npm:*) WebFetch"` |
+| `license` | For open-source distribution | `MIT`, `Apache-2.0` |
+| `compatibility` | Environment requirements (1-500 chars) | `"Requires Python 3.10+, pandas"` |
+| `metadata` | Custom key-value pairs | See below |
+
+```yaml
+---
+name: causal-analysis
+description: Conduct causal inference analysis following econometric
+  best practices. Use when user asks for "regression analysis",
+  "causal estimation", "diff-in-diff", or "treatment effects".
+allowed-tools: "Bash(python:*) Bash(Rscript:*)"
+license: MIT
+compatibility: "Requires R or Python with statsmodels"
+metadata:
+  author: Research Team
+  version: 1.0.0
+  category: research
+  tags: [economics, statistics, causal-inference]
+---
+```
+
+### Security Restrictions
+
+**Forbidden in frontmatter** (because frontmatter appears in Claude's system prompt):
+- XML angle brackets (`<` `>`) — malicious content could inject instructions
+- Skills named with "claude" or "anthropic" prefix (reserved)
+- Code execution in YAML (safe YAML parsing enforced)
+
+---
+
+## Design Heuristic: Problem-First vs. Tool-First
+
+Before building a skill, decide which framing fits your use case:
+
+| Approach | User Says | Skill Does |
+|----------|-----------|------------|
+| **Problem-first** | "I need to set up a project workspace" | Orchestrates the right tools in the right sequence |
+| **Tool-first** | "I have Notion MCP connected" | Teaches Claude optimal Notion workflows and best practices |
+
+**Problem-first**: Users describe outcomes; the skill handles tools. Best for workflow automation.
+**Tool-first**: Users have tool access; the skill provides expertise. Best for MCP enhancement.
+
+Most skills lean one direction. Knowing which framing fits helps you choose the right structure.
+
+---
+
+## Skill Categories
+
+Anthropic identifies three common skill categories:
+
+### Category 1: Document & Asset Creation
+Creating consistent, high-quality output (documents, presentations, apps, code).
+- Embedded style guides and brand standards
+- Template structures for consistent output
+- Quality checklists before finalizing
+- No external tools required—uses Claude's built-in capabilities
+
+### Category 2: Workflow Automation
+Multi-step processes that benefit from consistent methodology.
+- Step-by-step workflow with validation gates
+- Templates for common structures
+- Built-in review and improvement suggestions
+- Iterative refinement loops
+
+### Category 3: MCP Enhancement
+Workflow guidance on top of MCP server tool access.
+- Coordinates multiple MCP calls in sequence
+- Embeds domain expertise for tool usage
+- Provides context users would otherwise need to specify
+- Error handling for common MCP issues
 
 ---
 
@@ -336,6 +445,50 @@ potential anticipation effects worth investigating."
 effects of the policy on outcomes."
 ```
 
+### Do: Use Negative Triggers
+
+Prevent over-triggering by specifying what the skill should NOT handle:
+
+```yaml
+description: Advanced data analysis for CSV files. Use for statistical
+  modeling, regression, clustering. Do NOT use for simple data
+  exploration (use data-viz skill instead).
+```
+
+### Do: Debug Descriptions by Asking Claude
+
+Test description quality by asking Claude directly: "When would you use the [skill name] skill?" Claude will quote the description back. Adjust based on what's missing or misleading.
+
+### Do: Be Specific and Actionable in Instructions
+
+```markdown
+# Good - specific, actionable
+Run `python scripts/validate.py --input {filename}` to check data format.
+If validation fails, common issues include:
+- Missing required fields (add them to the CSV)
+- Invalid date formats (use YYYY-MM-DD)
+
+# Bad - vague
+Validate the data before proceeding.
+```
+
+### Do: Put Critical Instructions at the Top
+
+Instructions buried deep in SKILL.md may be ignored. Use `## Important` or `## Critical` headers and put non-negotiable rules at the top, not the bottom.
+
+### Do: Address Model Laziness Explicitly
+
+For skills requiring thoroughness, add a performance section:
+
+```markdown
+## Performance Notes
+- Take your time to do this thoroughly
+- Quality is more important than speed
+- Do not skip validation steps
+```
+
+> **Note**: Anthropic's guide observes this is more effective in **user prompts** than in SKILL.md. Consider adding to both.
+
 ### Don't: Overload Context
 
 Each skill should be focused. Split if too large:
@@ -437,5 +590,6 @@ This skill adds economics-specific methodology.
 - [Aniket Panjwani - Claude Code Tips](https://x.com/aniketapanjwani/status/1999487999604605345) - Plan-then-act with domain skills
 - [Agent Skills Specification](https://agentskills.io) - Official skill format
 - [Claude Code Skills Documentation](https://docs.anthropic.com/en/docs/claude-code/skills) - Implementation reference
+- [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (Jan 2026) - YAML reference, description formula, skill categories, troubleshooting
 
-*Last updated: January 2026*
+*Last updated: February 2026*

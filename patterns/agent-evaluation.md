@@ -189,6 +189,46 @@ For teams building agent evaluations:
 
 ---
 
+## Skill-Specific Success Metrics
+
+**Source**: [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (Jan 2026)
+
+These are aspirational targets — rough benchmarks rather than precise thresholds. Anthropic notes there will be an element of vibes-based assessment while more robust tooling is developed.
+
+### Quantitative Metrics
+
+| Metric | Target | How to Measure |
+|--------|--------|----------------|
+| **Trigger accuracy** | 90% of relevant queries | Run 10-20 test queries. Track automatic vs explicit invocation. |
+| **Workflow completion** | X tool calls (skill-specific) | Compare same task with and without skill. Count tool calls and total tokens. |
+| **API failure rate** | 0 failed API calls per workflow | Monitor MCP server logs during test runs. Track retry rates and error codes. |
+
+### Qualitative Metrics
+
+| Metric | Target | How to Assess |
+|--------|--------|---------------|
+| **No prompting needed** | Users don't redirect or clarify | During testing, note how often you need to redirect or clarify. Ask beta users. |
+| **Workflow completeness** | Complete without user correction | Run the same request 3-5 times. Compare structural consistency and quality. |
+| **Cross-session consistency** | Consistent results across sessions | Can a new user accomplish the task on first try with minimal guidance? |
+
+### Baseline Comparison Template
+
+```
+Without skill:
+- User provides instructions each time
+- 15 back-and-forth messages
+- 3 failed API calls requiring retry
+- 12,000 tokens consumed
+
+With skill:
+- Automatic workflow execution
+- 2 clarifying questions only
+- 0 failed API calls
+- 6,000 tokens consumed
+```
+
+---
+
 ## Application to Claude Code
 
 For teams using Claude Code with custom CLAUDE.md, skills, and hooks:
@@ -241,5 +281,6 @@ For teams using Claude Code with custom CLAUDE.md, skills, and hooks:
 - [Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) (January 2026)
 - [Designing AI-Resistant Technical Evaluations](https://www.anthropic.com/engineering/designing-ai-resistant-technical-evaluations) (January 2026)
 - [Quantifying Infrastructure Noise in Agentic Coding Evals](https://www.anthropic.com/engineering/quantifying-infrastructure-noise-in-agentic-coding-evals) (February 2026)
+- [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (January 2026) - Skill success metrics framework
 
 *Last updated: February 2026*

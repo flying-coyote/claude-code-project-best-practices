@@ -135,6 +135,35 @@ Skills and MCP are partners, not competitors:
 
 ---
 
+## Skills via API
+
+**Source**: [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (January 2026)
+
+For programmatic use cases — building applications, agents, or automated workflows — the API provides direct control over skill management and execution.
+
+### Key Capabilities
+
+| Capability | Detail |
+|------------|--------|
+| `/v1/skills` endpoint | List and manage skills programmatically |
+| `container.skills` parameter | Add skills to Messages API requests |
+| Version control | Manage through Claude Console |
+| Agent SDK integration | Works with Claude Agent SDK for custom agents |
+| Code Execution Tool | Required for API-based skills (beta) |
+
+### When to Use API vs. Claude.ai/Claude Code
+
+| Use Case | Best Surface |
+|----------|-------------|
+| End users interacting with skills directly | Claude.ai / Claude Code |
+| Manual testing and iteration | Claude.ai / Claude Code |
+| Individual, ad-hoc workflows | Claude.ai / Claude Code |
+| Applications using skills programmatically | API |
+| Production deployments at scale | API |
+| Automated pipelines and agent systems | API |
+
+---
+
 ## Slash Commands vs Skills
 
 | Aspect | Slash Commands | Skills |
@@ -582,5 +611,6 @@ Share pre-approved commands via `.claude/settings.json`:
 - [alexop.dev: Understanding Claude Code's Full Stack](https://alexop.dev/posts/understanding-claude-code-full-stack/)
 - [Composio: Improving your coding workflow with Claude Code Plugins](https://composio.dev/blog/claude-code-plugin)
 - [awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins)
+- [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (January 2026) - Skills API, distribution model, skill positioning
 
 *Last updated: February 2026*
