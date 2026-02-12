@@ -273,6 +273,24 @@ All patterns in this repository are derived from authoritative sources and produ
   - SubagentStop and SessionEnd hooks
 - **Pattern**: [Advanced Hooks](patterns/advanced-hooks.md)
 
+### Coalition for Secure AI (CoSAI) - Project CodeGuard
+- **Source**: https://github.com/cosai-oasis/project-codeguard
+- **Blog**: https://blogs.cisco.com/ai/cisco-donates-project-codeguard-to-the-coalition-for-secure-ai
+- **Date**: February 2026 (donated to CoSAI); originally open-sourced October 2025 by Cisco
+- **Type**: Open-source security framework for AI coding agents
+- **Evidence Tier**: A (Industry consortium — Anthropic, Google, OpenAI, Microsoft, NVIDIA are CoSAI founding members)
+- **Description**: Model-agnostic framework embedding secure-by-default practices into AI coding agent workflows. 23 security rules across 8 domains (cryptography, input validation, authentication, authorization, supply chain, cloud security, platform security, data protection). Includes MCP-specific security rules.
+- **Key Contributions**:
+  - 3 mandatory rules: hardcoded credentials, cryptographic algorithms, digital certificates
+  - Pre-generation / during-generation / post-generation lifecycle model
+  - Credential detection patterns (AWS `AKIA*`, Stripe `sk_live_*`, GitHub `ghp_*`, JWT `eyJ*`)
+  - Supply chain security (lockfiles, digest pinning, SBOM, deterministic installs)
+  - MCP security (SPIFFE/SPIRE workload identity, transport security, tool sandboxing)
+  - Integration tools for Cursor, Windsurf, Copilot, Agent Skills, and Claude Code
+- **License**: CC BY 4.0 (rules), Apache 2.0 (tools)
+- **Governance**: CoSAI Special Interest Group within AI Security Risk Governance Workstream
+- **Pattern**: [Secure Code Generation](patterns/secure-code-generation.md)
+
 ### OWASP Security Standards
 
 #### OWASP MCP Top 10

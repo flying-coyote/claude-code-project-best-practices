@@ -595,11 +595,27 @@ Share pre-approved commands via `.claude/settings.json`:
 
 ---
 
+## Recommended Security Plugin: Project CodeGuard
+
+[CoSAI Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) is an open-source security framework that embeds secure coding rules into AI agent workflows. It includes a `.claude-plugin/` directory for direct Claude Code integration.
+
+**What it provides**: 23 security rules covering cryptography, input validation, authentication, authorization, supply chain, cloud security, platform security, and data protection.
+
+**Integration options**:
+1. **CLAUDE.md rules** — Add 3 mandatory rules directly (5 min)
+2. **Skills directory** — Create a security skill with progressive disclosure (15 min)
+3. **Full plugin** — Install the complete CodeGuard plugin (30 min)
+
+**See**: [Secure Code Generation](./secure-code-generation.md) for detailed integration instructions.
+
+---
+
 ## Related Patterns
 
 - [MCP Patterns](./mcp-patterns.md) - Failure modes + positive patterns + security
 - [Skills README](../skills/README.md) - Comprehensive skills guide
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient skill architecture
+- [Secure Code Generation](./secure-code-generation.md) - CodeGuard integration for secure AI-generated code
 
 ---
 
