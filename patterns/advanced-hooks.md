@@ -671,6 +671,89 @@ When both global and skill-level hooks exist:
 
 ---
 
+## Hook 6: PreToolUse - Credential Scanning (CodeGuard Pattern)
+
+**Purpose**: Detect hardcoded credentials in AI-generated code before they're written to files
+
+**Source**: [CoSAI Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) credential detection patterns
+
+**When it fires**: Before Write or Edit operations
+
+**Use cases**:
+- Block AWS access keys (`AKIA*`), Stripe keys (`sk_live_*`), GitHub tokens (`ghp_*`)
+- Prevent private keys from being written to source files
+- Catch JWT tokens and OpenAI keys in generated code
+
+### Implementation
+
+`.claude/hooks/pre-tool-use-credential-scan.sh`:
+```bash
+#!/bin/bash
+# Scan for hardcoded credentials in generated code
+# Based on CoSAI Project CodeGuard detection patterns
+
+read -r input
+TOOL=$(echo "$input" | jq -r '.tool // "unknown"')
+
+# Only check Write and Edit operations
+if [ "$TOOL" != "Write" ] && [ "$TOOL" != "Edit" ]; then
+    exit 0
+fi
+
+CONTENT=$(echo "$input" | jq -r '.parameters.content // .parameters.new_string // ""')
+
+# Check for common credential patterns
+PATTERNS=(
+    'AKIA[0-9A-Z]{16}'                    # AWS access key
+    'sk_live_[0-9a-zA-Z]{24,}'            # Stripe secret key
+    'ghp_[0-9a-zA-Z]{36}'                 # GitHub personal access token
+    '-----BEGIN.*PRIVATE KEY-----'         # Private keys
+    'sk-[0-9a-zA-Z]{48}'                  # OpenAI API key
+    'xox[bpors]-[0-9a-zA-Z-]{10,}'       # Slack tokens
+)
+
+for PATTERN in "${PATTERNS[@]}"; do
+    if echo "$CONTENT" | grep -qP "$PATTERN"; then
+        echo "🛑 Potential hardcoded credential detected (pattern: $PATTERN)"
+        echo "Use environment variables or a secrets manager instead."
+        exit 2  # Block the operation
+    fi
+done
+
+exit 0  # Allow
+```
+
+### Configuration
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre-tool-use-credential-scan.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Benefits
+
+- **Catch secrets before commit** — Prevents credentials from entering git history
+- **Pattern-based detection** — Covers AWS, Stripe, GitHub, OpenAI, Slack, and private keys
+- **Non-disruptive** — Only blocks when a real credential pattern matches
+- **Complements .gitignore** — Catches secrets in source files, not just config files
+
+**See**: [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard integration pattern.
+
+---
+
 ## Sandboxing: OS-Level Security (Complementary to Hooks)
 
 **Source**: [Beyond Permission Prompts: Making Claude Code More Secure](https://www.anthropic.com/engineering/beyond-permission-prompts) (October 2025)
@@ -747,6 +830,7 @@ Sandboxing is open-sourced by Anthropic and enabled by default in newer Claude C
 
 ## Related Patterns
 
+- [Secure Code Generation](./secure-code-generation.md) - CodeGuard credential scanning and security rules
 - [Long-Running Agent](./long-running-agent.md) - Verify before work startup protocol
 - [Documentation Maintenance](./documentation-maintenance.md) - Three-document system
 - [Subagent Orchestration](./subagent-orchestration.md) - SubagentStop hook usage

@@ -786,6 +786,22 @@ The 7 Failure Modes documented above represent the primary anti-patterns. Additi
 
 ---
 
+## CodeGuard MCP Security Extensions
+
+[CoSAI Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) provides an MCP-specific security rule that extends the OWASP guidance above with additional controls:
+
+| Control | Description |
+|---------|-------------|
+| **SPIFFE/SPIRE** | Cryptographic workload identities for MCP server authentication |
+| **Transport Security** | Stdio recommended for local; HTTP SSE requires mutual TLS, CORS/CSRF, payload limits |
+| **Cryptographic Attestation** | Signatures + SBOM for all server code; client-side verification |
+| **OpenTelemetry** | Immutable audit logging of tool usage, parameters, and originating prompts |
+| **Two-Stage Commits** | High-impact tools require draft/preview then explicit confirmation with rollback |
+
+These complement our existing OWASP MCP Top 10 checklist and defense-in-depth strategy. See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard integration guide.
+
+---
+
 ## Related Patterns
 
 - [Advanced Tool Use](./advanced-tool-use.md) - Tool Search for token efficiency
@@ -793,6 +809,7 @@ The 7 Failure Modes documented above represent the primary anti-patterns. Additi
 - [Plugins and Extensions](./plugins-and-extensions.md) - When to use MCP vs alternatives
 - [Spec-Driven Development](./spec-driven-development.md) - Write spec before MCP implementation
 - [Safety and Sandboxing](./safety-and-sandboxing.md) - OS-level security for MCP servers
+- [Secure Code Generation](./secure-code-generation.md) - CodeGuard framework for secure AI-generated code
 
 ## Reference Implementation
 
