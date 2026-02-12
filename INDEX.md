@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-02-10 06:55*
+*Auto-generated: 2026-02-12 17:09*
 
 ## Summary
 
-**Total documents**: 73
+**Total documents**: 74
 
 | Directory | Count |
 |-----------|-------|
@@ -12,7 +12,7 @@
 | patterns | 33 |
 | presets | 4 |
 | prompts | 3 |
-| research | 1 |
+| research | 2 |
 | root | 10 |
 | skills | 4 |
 | skills/examples/content-reviewer | 1 |
@@ -44,62 +44,12 @@
 - [README.md](README.md)
 - [REFACTORING-PLAN-2026-01.md](REFACTORING-PLAN-2026-01.md)
 - [SOURCES.md](SOURCES.md)
-## Prompts
+## Presets
 
-- [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
-- [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
-- [SETUP-PROJECT.md](prompts/SETUP-PROJECT.md)
-## Skills
-
-- [QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)
-- [README.md](skills/README.md)
-- [SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)
-- [SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)
-## Skills / Examples / Ultrathink-Analyst
-
-- [SKILL.md](skills/examples/ultrathink-analyst/SKILL.md)
-## Skills / Examples / Ultrathink-Analyst / Workflows
-
-- [analyze-deep-investigation.md](skills/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
-- [frame-problem-definition.md](skills/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
-- [synthesize-integration.md](skills/examples/ultrathink-analyst/workflows/synthesize-integration.md)
-## Skills / Examples / Tdd-Enforcer
-
-- [SKILL.md](skills/examples/tdd-enforcer/SKILL.md)
-## Skills / Examples / Research-Extractor
-
-- [SKILL.md](skills/examples/research-extractor/SKILL.md)
-## Skills / Examples / Hypothesis-Validator
-
-- [SKILL.md](skills/examples/hypothesis-validator/SKILL.md)
-## Skills / Examples / Recursive-Analyst
-
-- [SKILL.md](skills/examples/recursive-analyst/SKILL.md)
-## Skills / Examples / Recursive-Analyst / Templates
-
-- [crossover-prompt.md](skills/examples/recursive-analyst/templates/crossover-prompt.md)
-- [judge-prompt.md](skills/examples/recursive-analyst/templates/judge-prompt.md)
-## Skills / Examples / Detection-Rule-Reviewer
-
-- [SKILL.md](skills/examples/detection-rule-reviewer/SKILL.md)
-## Skills / Examples / Threat-Model-Reviewer
-
-- [SKILL.md](skills/examples/threat-model-reviewer/SKILL.md)
-## Skills / Examples / Content-Reviewer
-
-- [SKILL.md](skills/examples/content-reviewer/SKILL.md)
-## Skills / Examples / Git-Workflow-Helper
-
-- [SKILL.md](skills/examples/git-workflow-helper/SKILL.md)
-## Skills / Examples / Systematic-Debugger
-
-- [SKILL.md](skills/examples/systematic-debugger/SKILL.md)
-## Mcp-Server
-
-- [README.md](mcp-server/README.md)
-## Research
-
-- [ai-creators-analysis.md](research/ai-creators-analysis.md)
+- [coding.md](presets/coding.md)
+- [hybrid.md](presets/hybrid.md)
+- [research.md](presets/research.md)
+- [writing.md](presets/writing.md)
 ## Patterns
 
 - [advanced-hooks.md](patterns/advanced-hooks.md)
@@ -138,15 +88,66 @@
 ## Templates
 
 - [ADR-TEMPLATE.md](templates/ADR-TEMPLATE.md)
+## Research
+
+- [ai-creators-analysis.md](research/ai-creators-analysis.md)
+- [codeguard-review-2026-02.md](research/codeguard-review-2026-02.md)
+## Skills
+
+- [QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)
+- [README.md](skills/README.md)
+- [SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)
+- [SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)
+## Skills / Examples / Tdd-Enforcer
+
+- [SKILL.md](skills/examples/tdd-enforcer/SKILL.md)
+## Skills / Examples / Systematic-Debugger
+
+- [SKILL.md](skills/examples/systematic-debugger/SKILL.md)
+## Skills / Examples / Hypothesis-Validator
+
+- [SKILL.md](skills/examples/hypothesis-validator/SKILL.md)
+## Skills / Examples / Ultrathink-Analyst
+
+- [SKILL.md](skills/examples/ultrathink-analyst/SKILL.md)
+## Skills / Examples / Ultrathink-Analyst / Workflows
+
+- [analyze-deep-investigation.md](skills/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
+- [frame-problem-definition.md](skills/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
+- [synthesize-integration.md](skills/examples/ultrathink-analyst/workflows/synthesize-integration.md)
+## Skills / Examples / Recursive-Analyst
+
+- [SKILL.md](skills/examples/recursive-analyst/SKILL.md)
+## Skills / Examples / Recursive-Analyst / Templates
+
+- [crossover-prompt.md](skills/examples/recursive-analyst/templates/crossover-prompt.md)
+- [judge-prompt.md](skills/examples/recursive-analyst/templates/judge-prompt.md)
+## Skills / Examples / Detection-Rule-Reviewer
+
+- [SKILL.md](skills/examples/detection-rule-reviewer/SKILL.md)
+## Skills / Examples / Research-Extractor
+
+- [SKILL.md](skills/examples/research-extractor/SKILL.md)
+## Skills / Examples / Git-Workflow-Helper
+
+- [SKILL.md](skills/examples/git-workflow-helper/SKILL.md)
+## Skills / Examples / Content-Reviewer
+
+- [SKILL.md](skills/examples/content-reviewer/SKILL.md)
+## Skills / Examples / Threat-Model-Reviewer
+
+- [SKILL.md](skills/examples/threat-model-reviewer/SKILL.md)
+## Mcp-Server
+
+- [README.md](mcp-server/README.md)
+## Prompts
+
+- [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
+- [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
+- [SETUP-PROJECT.md](prompts/SETUP-PROJECT.md)
 ## Specs
 
 - [PATTERN-TEMPLATE.md](specs/PATTERN-TEMPLATE.md)
-## Presets
-
-- [coding.md](presets/coding.md)
-- [hybrid.md](presets/hybrid.md)
-- [research.md](presets/research.md)
-- [writing.md](presets/writing.md)
 
 ---
 
