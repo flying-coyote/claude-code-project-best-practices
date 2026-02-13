@@ -1,0 +1,753 @@
+name: Source Monitoring
+
+on:
+  schedule:
+    # Run every Monday at 9am UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  check-anthropic-releases:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get latest Claude Code release
+        id: latest-release
+        run: |
+          LATEST_VERSION=$(curl -s https://api.github.com/repos/anthropics/claude-code/releases/latest | jq -r '.tag_name')
+          LATEST_URL=$(curl -s https://api.github.com/repos/anthropics/claude-code/releases/latest | jq -r '.html_url')
+          LATEST_BODY=$(curl -s https://api.github.com/repos/anthropics/claude-code/releases/latest | jq -r '.body' | head -n 20)
+
+          echo "version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+          echo "url=$LATEST_URL" >> $GITHUB_OUTPUT
+
+          # Save body to file for issue creation
+          echo "$LATEST_BODY" > release_notes.txt
+
+      - name: Check if release is documented
+        id: check-documented
+        run: |
+          # Check if version is mentioned in SOURCES.md
+          if grep -q "${{ steps.latest-release.outputs.version }}" SOURCES.md; then
+            echo "documented=true" >> $GITHUB_OUTPUT
+            echo "✅ Release ${{ steps.latest-release.outputs.version }} is already documented"
+          else
+            echo "documented=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Release ${{ steps.latest-release.outputs.version }} is NOT documented"
+          fi
+
+      - name: Create issue for new release
+        if: steps.check-documented.outputs.documented == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const version = '${{ steps.latest-release.outputs.version }}';
+            const url = '${{ steps.latest-release.outputs.url }}';
+            const fs = require('fs');
+            const releaseNotes = fs.readFileSync('release_notes.txt', 'utf8');
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📚 Review Claude Code ${version} release`,
+              labels: ['documentation', 'source-update'],
+              body: `A new Claude Code release was detected: **${version}**
+
+**Release URL**: ${url}
+
+## Release Highlights
+\`\`\`
+${releaseNotes}
+\`\`\`
+
+## Action Items
+- [ ] Review release notes for new features/patterns
+- [ ] Update SOURCES.md with new version reference
+- [ ] Update relevant pattern files with new capabilities
+- [ ] Check if any patterns need updates for breaking changes
+- [ ] Update CHANGELOG references in SOURCES.md:74-89
+
+**Automatically created by source-monitoring workflow**`
+            });
+
+            console.log(`Created issue #${issue.data.number}`);
+
+  check-awesome-lists:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check awesome-claude-code stars
+        id: check-stars
+        run: |
+          # Check star count for hesreallyhim/awesome-claude-code
+          CURRENT_STARS=$(curl -s https://api.github.com/repos/hesreallyhim/awesome-claude-code | jq -r '.stargazers_count')
+          LAST_COMMIT=$(curl -s https://api.github.com/repos/hesreallyhim/awesome-claude-code/commits/main | jq -r '.commit.committer.date')
+
+          echo "stars=$CURRENT_STARS" >> $GITHUB_OUTPUT
+          echo "last_commit=$LAST_COMMIT" >> $GITHUB_OUTPUT
+
+          # Check if there were recent commits (last 7 days)
+          WEEK_AGO=$(date -u -d '7 days ago' +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -v-7d +%Y-%m-%dT%H:%M:%SZ)
+
+          if [[ "$LAST_COMMIT" > "$WEEK_AGO" ]]; then
+            echo "recent_update=true" >> $GITHUB_OUTPUT
+            echo "⚠️ Recent updates detected in awesome-claude-code"
+          else
+            echo "recent_update=false" >> $GITHUB_OUTPUT
+            echo "✅ No recent updates in awesome-claude-code"
+          fi
+
+      - name: Create issue for awesome list updates
+        if: steps.check-stars.outputs.recent_update == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const stars = '${{ steps.check-stars.outputs.stars }}';
+            const lastCommit = '${{ steps.check-stars.outputs.last_commit }}';
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🔍 Review awesome-claude-code updates',
+              labels: ['documentation', 'source-update', 'community'],
+              body: `Recent activity detected in [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code)
+
+**Current stars**: ${stars}
+**Last commit**: ${lastCommit}
+
+## Action Items
+- [ ] Review recent commits for new patterns/skills
+- [ ] Check for new community best practices
+- [ ] Validate new additions (✅ Verified or 🔍 Discovered)
+- [ ] Update SOURCES.md:1070-1089 verification status
+- [ ] Consider incorporating high-value patterns
+
+**Review Process**:
+1. Visit the [repository](https://github.com/hesreallyhim/awesome-claude-code)
+2. Check commits since last review
+3. Evaluate relevance to this project
+4. Document findings
+
+**Automatically created by source-monitoring workflow**`
+            });
+
+            console.log(`Created issue #${issue.data.number}`);
+
+  check-anthropic-blog:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Anthropic engineering blog RSS
+        id: fetch-rss
+        run: |
+          # Fetch RSS feed (assuming it exists - adjust URL if needed)
+          # For now, we'll check the engineering blog page
+          LATEST_POST=$(curl -s https://www.anthropic.com/engineering | grep -o 'href="/engineering/[^"]*"' | head -1 | cut -d'"' -f2)
+
+          if [ -n "$LATEST_POST" ]; then
+            FULL_URL="https://www.anthropic.com${LATEST_POST}"
+            echo "latest_url=$FULL_URL" >> $GITHUB_OUTPUT
+            echo "found=true" >> $GITHUB_OUTPUT
+          else
+            echo "found=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if blog post is documented
+        if: steps.fetch-rss.outputs.found == 'true'
+        id: check-blog
+        run: |
+          URL="${{ steps.fetch-rss.outputs.latest_url }}"
+
+          if grep -q "$URL" SOURCES.md; then
+            echo "documented=true" >> $GITHUB_OUTPUT
+            echo "✅ Latest blog post is documented"
+          else
+            echo "documented=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Potential new blog post: $URL"
+          fi
+
+      - name: Create issue for new blog post
+        if: steps.fetch-rss.outputs.found == 'true' && steps.check-blog.outputs.documented == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = '${{ steps.fetch-rss.outputs.latest_url }}';
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '📚 Review potential new Anthropic blog post',
+              labels: ['documentation', 'source-update', 'tier-a'],
+              body: `A potential new Anthropic Engineering blog post was detected.
+
+**URL**: ${url}
+
+## Action Items
+- [ ] Read the blog post
+- [ ] Determine if it contains new patterns
+- [ ] Extract key insights and implementations
+- [ ] Update relevant pattern files
+- [ ] Add to SOURCES.md with proper attribution
+- [ ] Update cross-references in related patterns
+
+**Evidence Tier**: A (Primary source - Anthropic Engineering)
+
+**Note**: This is a heuristic check. Verify the post is actually new and relevant.
+
+**Automatically created by source-monitoring workflow**`
+            });
+
+            console.log(`Created issue #${issue.data.number}`);
+
+  check-practitioner-sources:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check IndyDevDan activity
+        id: check-indydevdan
+        run: |
+          # Check recent commits in disler's repositories
+          REPOS=("single-file-agents" "indydevtools" "claude-code-hooks-multi-agent-observability")
+          RECENT_ACTIVITY=false
+
+          for repo in "${REPOS[@]}"; do
+            LAST_COMMIT=$(curl -s "https://api.github.com/repos/disler/${repo}/commits?per_page=1" | jq -r '.[0].commit.committer.date')
+            WEEK_AGO=$(date -u -d '7 days ago' +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -v-7d +%Y-%m-%dT%H:%M:%SZ)
+
+            if [[ "$LAST_COMMIT" > "$WEEK_AGO" ]]; then
+              echo "⚠️ Recent activity in disler/${repo}"
+              RECENT_ACTIVITY=true
+              break
+            fi
+          done
+
+          if [ "$RECENT_ACTIVITY" = true ]; then
+            echo "has_activity=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_activity=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check framework updates
+        id: check-frameworks
+        run: |
+          # Check GitHub Spec Kit and agentskills.io for updates
+          FRAMEWORKS=(
+            "github/spec-kit"
+            "anthropics/skills"
+          )
+
+          UPDATES_FOUND=false
+
+          for framework in "${FRAMEWORKS[@]}"; do
+            LAST_COMMIT=$(curl -s "https://api.github.com/repos/${framework}/commits?per_page=1" | jq -r '.[0].commit.committer.date')
+            WEEK_AGO=$(date -u -d '7 days ago' +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -v-7d +%Y-%m-%dT%H:%M:%SZ)
+
+            if [[ "$LAST_COMMIT" > "$WEEK_AGO" ]]; then
+              echo "⚠️ Recent activity in ${framework}"
+              UPDATES_FOUND=true
+            fi
+          done
+
+          if [ "$UPDATES_FOUND" = true ]; then
+            echo "has_updates=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_updates=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create weekly review checklist
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric'
+            });
+
+            const hasPractitionerActivity = '${{ steps.check-indydevdan.outputs.has_activity }}' === 'true';
+            const hasFrameworkUpdates = '${{ steps.check-frameworks.outputs.has_updates }}' === 'true';
+
+            // Always create the weekly checklist
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📋 Weekly source review - ${date}`,
+              labels: ['documentation', 'weekly-review'],
+              body: `Weekly review checklist for ${date}
+
+${hasPractitionerActivity ? '🔔 **Practitioner activity detected this week**\n' : ''}${hasFrameworkUpdates ? '🔔 **Framework updates detected this week**\n' : ''}
+
+## Primary Sources (Tier A) - Checked Automatically
+✅ Anthropic releases monitored (see separate issues if new releases)
+✅ Awesome lists monitored (see separate issues if updates)
+✅ Blog monitoring active (see separate issues if new posts)
+
+## Community Curated Lists (Weekly Review)
+- [ ] [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) - Check commits/stars
+- [ ] [jqueryscript/awesome-claude-code](https://github.com/jqueryscript/awesome-claude-code)
+- [ ] [josix/awesome-claude-md](https://github.com/josix/awesome-claude-md)
+- [ ] [ccplugins/awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins)
+- [ ] [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills)
+
+## Practitioner Content (Weekly Review)
+- [ ] [IndyDevDan YouTube](https://youtube.com/@IndyDevDan) - New videos/courses?
+- [ ] [Aniket Panjwani X/Twitter](https://x.com/aniketapanjwani) - New tips/patterns?
+- [ ] [Nate B. Jones Substack](https://natesnewsletter.substack.com) - New articles?
+- [ ] [Daniel Miessler Fabric](https://github.com/danielmiessler/fabric) - New patterns?
+
+## Standard Frameworks (Weekly Check)
+- [ ] [GitHub Spec Kit](https://github.com/github/spec-kit) - Check releases/commits
+- [ ] [agentskills.io](https://agentskills.io/specification) - Spec updates?
+- [ ] [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD) - New patterns?
+- [ ] [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) - Security updates?
+
+## AI Coding Ecosystem (Weekly Scan)
+- [ ] Check [Aider releases](https://github.com/paul-gauthier/aider/releases)
+- [ ] Check [Cursor updates](https://cursor.sh) (if major announcements)
+- [ ] Scan Reddit: [r/ClaudeAI](https://reddit.com/r/ClaudeAI), [r/LocalLLaMA](https://reddit.com/r/LocalLLaMA)
+- [ ] Check Hacker News: "Claude Code" OR "AI coding" mentions
+
+## Documentation Maintenance (Weekly)
+- [ ] Review new issues created by automation
+- [ ] Triage and prioritize pattern additions
+- [ ] Update PLAN.md with completed items
+- [ ] Check if any patterns need updates based on discoveries
+
+## Verification Status (Update if Changed)
+- [ ] Update SOURCES.md verification status (✅/🔍/⚠️)
+- [ ] Note any repositories that are now stale (>6 months)
+- [ ] Add newly discovered resources
+
+---
+
+**Fast-Moving Sector Alert**: This space is evolving rapidly. Weekly reviews ensure we don't miss important developments.
+
+**Automatically created by source-monitoring workflow**`
+            });
+
+            console.log(`Created issue #${issue.data.number}`);
+
+  self-compliance-audit:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for dogfooding gaps
+        id: check-gaps
+        run: |
+          # Count entries in DOGFOODING-GAPS.md that aren't marked as resolved
+          if [ -f "DOGFOODING-GAPS.md" ]; then
+            GAPS=$(grep -c "^- \[ \]" DOGFOODING-GAPS.md || echo "0")
+            echo "gap_count=$GAPS" >> $GITHUB_OUTPUT
+
+            if [ "$GAPS" -gt 0 ]; then
+              echo "has_gaps=true" >> $GITHUB_OUTPUT
+              echo "⚠️ Found $GAPS unresolved dogfooding gaps"
+            else
+              echo "has_gaps=false" >> $GITHUB_OUTPUT
+              echo "✅ No unresolved dogfooding gaps"
+            fi
+          else
+            echo "has_gaps=false" >> $GITHUB_OUTPUT
+            echo "gap_count=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check recent pattern additions
+        id: check-patterns
+        run: |
+          # Check if any pattern files were modified in the last 7 days
+          WEEK_AGO=$(date -d '7 days ago' +%Y-%m-%d 2>/dev/null || date -v-7d +%Y-%m-%d)
+
+          RECENT_PATTERNS=$(find patterns/ -name "*.md" -type f -newermt "$WEEK_AGO" 2>/dev/null | wc -l || echo "0")
+
+          echo "recent_count=$RECENT_PATTERNS" >> $GITHUB_OUTPUT
+
+          if [ "$RECENT_PATTERNS" -gt 0 ]; then
+            echo "has_recent=true" >> $GITHUB_OUTPUT
+            echo "⚠️ $RECENT_PATTERNS pattern(s) added/modified in last 7 days"
+          else
+            echo "has_recent=false" >> $GITHUB_OUTPUT
+            echo "✅ No pattern changes in last 7 days"
+          fi
+
+      - name: Create self-compliance audit issue
+        if: steps.check-gaps.outputs.has_gaps == 'true' || steps.check-patterns.outputs.has_recent == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric'
+            });
+
+            const gapCount = '${{ steps.check-gaps.outputs.gap_count }}';
+            const recentPatterns = '${{ steps.check-patterns.outputs.recent_count }}';
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `✅ Self-compliance audit - ${date}`,
+              labels: ['documentation', 'self-compliance'],
+              body: `Self-compliance audit for ${date}
+
+${gapCount > 0 ? `⚠️ **${gapCount} unresolved dogfooding gap(s) in DOGFOODING-GAPS.md**\n` : ''}${recentPatterns > 0 ? `📚 **${recentPatterns} pattern(s) added/modified this week**\n` : ''}
+
+## Self-Compliance Checklist
+
+### Review Recent Pattern Additions
+${recentPatterns > 0 ? `- [ ] Review ${recentPatterns} pattern file(s) modified this week
+- [ ] Check if patterns apply to this repository
+- [ ] Implement patterns we should follow (dogfooding)
+- [ ] Update DOGFOODING-GAPS.md if not implementing` : '- [x] No recent pattern additions this week'}
+
+### DOGFOODING-GAPS.md Review
+${gapCount > 0 ? `- [ ] Review ${gapCount} open gap(s)
+- [ ] Decide: implement or document why not?
+- [ ] Update gap status (resolved/deferred/justified)` : '- [x] No open dogfooding gaps'}
+
+### Project Infrastructure Compliance
+- [ ] Check .claude/ structure matches patterns/project-infrastructure.md
+- [ ] Verify settings.json follows patterns/advanced-hooks.md
+- [ ] Confirm skills follow skills/SKILL-TEMPLATE.md
+- [ ] Validate CLAUDE.md matches templates/CLAUDE.md.template
+
+### Documentation Consistency
+- [ ] ARCHITECTURE.md reflects current directory structure
+- [ ] SOURCES.md has all references properly tiered (A/B/C/D)
+- [ ] Cross-references between patterns are bidirectional
+- [ ] INDEX.md is up-to-date (run \`python3 automation/generate_index.py\`)
+
+### Quality Standards
+- [ ] All patterns have authoritative sources (Tier A or B)
+- [ ] Pattern files include "Related Patterns" sections
+- [ ] No broken internal links (checked by link-checker.yml)
+- [ ] Markdown lint passes (\`npm run lint\`)
+
+### Meta-Compliance
+- [ ] This repository follows spec-driven development (SDD)
+- [ ] Evidence tiers properly applied per SOURCES.md:1207-1232
+- [ ] Contribution guidelines match actual practice (CONTRIBUTING.md)
+
+---
+
+**Self-Compliance Philosophy**: "Practice what we preach. If we document it, we should do it."
+
+**Reference**: DOGFOODING-GAPS.md, PLAN.md:38
+
+**Automatically created by source-monitoring workflow**`
+            });
+
+            console.log(`Created issue #${issue.data.number}`);
+
+  documentation-maintenance:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if INDEX.md is stale
+        id: check-index
+        run: |
+          # Check if any .md files are newer than INDEX.md
+          if [ -f "INDEX.md" ]; then
+            INDEX_TIME=$(stat -f %m INDEX.md 2>/dev/null || stat -c %Y INDEX.md)
+            NEWEST_MD=$(find . -name "*.md" -not -path "./.git/*" -type f -exec stat -f %m {} \; 2>/dev/null | sort -n | tail -1 || echo "0")
+
+            if [ "$NEWEST_MD" -gt "$INDEX_TIME" ]; then
+              echo "stale=true" >> $GITHUB_OUTPUT
+              echo "⚠️ INDEX.md is stale"
+            else
+              echo "stale=false" >> $GITHUB_OUTPUT
+              echo "✅ INDEX.md is current"
+            fi
+          else
+            echo "stale=true" >> $GITHUB_OUTPUT
+            echo "⚠️ INDEX.md missing"
+          fi
+
+      - name: Check PLAN.md for completed items
+        id: check-plan
+        run: |
+          # Check if PLAN.md has completed items in "Completed This Cycle" section
+          if grep -q "| Item | Completed | Notes |" PLAN.md; then
+            COMPLETED_ITEMS=$(grep -A 100 "| Item | Completed | Notes |" PLAN.md | grep -c "| .* | .* 202[0-9] | .* |" || echo "0")
+
+            if [ "$COMPLETED_ITEMS" -gt 3 ]; then
+              echo "needs_archive=true" >> $GITHUB_OUTPUT
+              echo "⚠️ $COMPLETED_ITEMS items ready for archiving"
+            else
+              echo "needs_archive=false" >> $GITHUB_OUTPUT
+              echo "✅ Few items to archive"
+            fi
+          else
+            echo "needs_archive=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create documentation maintenance issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric'
+            });
+
+            const indexStale = '${{ steps.check-index.outputs.stale }}' === 'true';
+            const needsArchive = '${{ steps.check-plan.outputs.needs_archive }}' === 'true';
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📊 Documentation maintenance - ${date}`,
+              labels: ['documentation', 'maintenance'],
+              body: `Weekly documentation maintenance for ${date}
+
+${indexStale ? '⚠️ **INDEX.md needs regeneration**\n' : ''}${needsArchive ? '⚠️ **PLAN.md has multiple completed items to archive**\n' : ''}
+
+## Weekly Maintenance Checklist
+
+### Generated Files
+${indexStale ? `- [ ] Run \`python3 automation/generate_index.py\`
+- [ ] Commit updated INDEX.md` : '- [x] INDEX.md is current'}
+
+### PLAN.md Management
+${needsArchive ? `- [ ] Move completed items from PLAN.md to ARCHIVE.md
+- [ ] Update "Last Updated" date in PLAN.md
+- [ ] Clear "Completed This Cycle" section` : '- [ ] Review PLAN.md for any completed items'}
+- [ ] Update review cadence "Next Review" dates
+- [ ] Check if priorities need reordering
+
+### ARCHIVE.md Updates
+- [ ] Add week's completed items with dates
+- [ ] Maintain chronological order (newest first)
+- [ ] Preserve milestone markers
+
+### Source Health Metrics
+- [ ] Update PLAN.md with source check dates
+- [ ] Note any sources that became stale (last checked >1 week ago)
+- [ ] Document any new sources discovered
+
+### Cross-Reference Integrity
+- [ ] Check that new patterns reference related patterns
+- [ ] Verify bidirectional links (if A links to B, B should link to A)
+- [ ] Update README.md pattern list if new patterns added
+
+### Date Freshness
+- [ ] Update "Last Updated" in key files:
+  - [ ] PLAN.md
+  - [ ] SOURCES.md (if sources changed)
+  - [ ] .github/workflows/README.md (if workflows changed)
+
+### Issue Hygiene (check manually via GitHub)
+- [ ] Review open issues - any stale (>30 days)?
+- [ ] Check if automated issues were addressed and can be closed
+- [ ] Apply labels to unlabeled issues
+- [ ] Convert discussions to issues if actionable
+
+### Quality Checks
+- [ ] Run \`npm run lint\` - any new errors?
+- [ ] Check workflow runs - any failing?
+- [ ] Review recent commits - anything need follow-up?
+
+---
+
+**Documentation Maintenance Philosophy**: Keep the documentation alive. Stale docs are worse than no docs.
+
+**Reference**: PLAN.md, ARCHITECTURE.md, documentation-maintenance.md pattern
+
+**Automatically created by source-monitoring workflow**`
+            });
+
+            console.log(`Created issue #${issue.data.number}`);
+
+  community-engagement:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for open PRs
+        id: check-prs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prs = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+
+            core.setOutput('pr_count', prs.data.length);
+            core.setOutput('has_prs', prs.data.length > 0 ? 'true' : 'false');
+
+            if (prs.data.length > 0) {
+              console.log(`Found ${prs.data.length} open PR(s)`);
+            }
+
+            return prs.data.length;
+
+      - name: Check for untriaged issues
+        id: check-issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: ''  // No labels = untriaged
+            });
+
+            // Filter out PRs (GitHub API includes them in issues)
+            const actualIssues = issues.data.filter(issue => !issue.pull_request);
+            const untriagedCount = actualIssues.filter(issue => issue.labels.length === 0).length;
+
+            core.setOutput('untriaged_count', untriagedCount);
+            core.setOutput('has_untriaged', untriagedCount > 0 ? 'true' : 'false');
+
+            if (untriagedCount > 0) {
+              console.log(`Found ${untriagedCount} untriaged issue(s)`);
+            }
+
+            return untriagedCount;
+
+      - name: Create community engagement issue
+        if: steps.check-prs.outputs.has_prs == 'true' || steps.check-issues.outputs.has_untriaged == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric'
+            });
+
+            const prCount = '${{ steps.check-prs.outputs.pr_count }}';
+            const untriagedCount = '${{ steps.check-issues.outputs.untriaged_count }}';
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🤝 Community engagement triage - ${date}`,
+              labels: ['maintenance', 'community'],
+              body: `Weekly community engagement triage for ${date}
+
+${prCount > 0 ? `📬 **${prCount} open PR(s) need review**\n` : ''}${untriagedCount > 0 ? `🏷️ **${untriagedCount} issue(s) need triage**\n` : ''}
+
+## Pull Request Review (${prCount} open)
+
+${prCount > 0 ? `### Review Process (CONTRIBUTING.md:201-222)
+
+1. **Initial Triage** (24-48h target)
+   - [ ] Check if PR aligns with contribution guidelines
+   - [ ] Verify evidence tier is A or B (for new patterns)
+   - [ ] Request clarifications if needed
+
+2. **Technical Review** (3-7 days target)
+   - [ ] Validate pattern against existing practices
+   - [ ] Check for conflicts or redundancies
+   - [ ] Verify production validation claims
+
+3. **Integration Review**
+   - [ ] Ensure cross-references are complete
+   - [ ] Check SOURCES.md is updated
+   - [ ] Verify self-compliance
+
+4. **Decision**
+   - [ ] Merge if approved
+   - [ ] Request changes with specific guidance
+   - [ ] Close if doesn't meet criteria (with explanation)` : '_No open PRs this week_'}
+
+## Issue Triage (${untriagedCount} untriaged)
+
+${untriagedCount > 0 ? `### Triage Process
+
+For each untriaged issue:
+
+1. **Categorize**
+   - [ ] Pattern proposal → Label: \`pattern-proposal\`
+   - [ ] Skill request → Label: \`skill-request\`
+   - [ ] Documentation issue → Label: \`documentation\`
+   - [ ] Bug → Label: \`bug\`
+   - [ ] Question → Label: \`question\`
+
+2. **Assess Priority**
+   - [ ] Tier A source update → Label: \`tier-a\`, \`priority-high\`
+   - [ ] Community contribution → Label: \`community\`
+   - [ ] Enhancement → Label: \`enhancement\`
+
+3. **Next Action**
+   - [ ] If pattern proposal: Request evidence tier and validation
+   - [ ] If skill: Check universal applicability
+   - [ ] If bug: Verify and reproduce
+   - [ ] If question: Answer or convert to discussion
+
+4. **Engage**
+   - [ ] Thank contributor
+   - [ ] Provide feedback within 48h
+   - [ ] Set expectations for timeline` : '_All issues are properly labeled_'}
+
+## General Community Health
+
+### Active Discussions
+- [ ] Check for unanswered questions in issue comments
+- [ ] Follow up on stale threads
+- [ ] Close issues resolved but not closed
+
+### Contributor Recognition
+- [ ] Thank contributors in PRs/issues
+- [ ] Highlight good contributions in comments
+- [ ] Update SOURCES.md with community contributions
+
+### Documentation for Contributors
+- [ ] Review CONTRIBUTING.md - still accurate?
+- [ ] Check if common questions should be added to FAQ
+- [ ] Update examples if contribution patterns change
+
+---
+
+**Community Engagement Philosophy**: Fast response time builds trust. Even "Thanks, reviewing" is valuable.
+
+**Target Response Times**:
+- Initial triage: 24-48h
+- Technical review: 3-7 days
+- Simple questions: Same day
+
+**Automatically created by source-monitoring workflow**`
+            });
+
+            console.log(`Created issue #${issue.data.number}`);
