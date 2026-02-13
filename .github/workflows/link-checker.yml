@@ -41,39 +41,36 @@ jobs:
           script: |
             const fs = require('fs');
 
+            const body = 'The weekly link checker has detected broken links in the documentation.\n\n' +
+              '## Action Items\n' +
+              '- [ ] Review the [workflow run logs](' + context.payload.repository.html_url + '/actions/runs/' + context.runId + ') for details\n' +
+              '- [ ] Fix broken links in affected files\n' +
+              '- [ ] Update SOURCES.md if source URLs have changed\n' +
+              '- [ ] Consider updating evidence tiers if sources are no longer accessible\n' +
+              '- [ ] Check if archived/moved content needs alternative references\n\n' +
+              '## Common Causes\n' +
+              '- External websites moved or deleted content\n' +
+              '- GitHub repositories renamed or archived\n' +
+              '- Blog posts removed or URL structure changed\n' +
+              '- Documentation sites restructured\n\n' +
+              '## Fix Patterns\n' +
+              '- Update URL to new location\n' +
+              '- Use Internet Archive (web.archive.org) for historical references\n' +
+              '- Mark source as ⚠️ Stale in SOURCES.md if no longer maintained\n' +
+              '- Consider downgrading evidence tier if source quality declined\n\n' +
+              '**Automatically created by link-checker workflow**\n\n' +
+              '**Workflow run**: ' + context.payload.repository.html_url + '/actions/runs/' + context.runId;
+
             // Read the link check output (it's in the logs, but we'll create a generic issue)
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: '🔗 Broken links detected in documentation',
               labels: ['documentation', 'bug'],
-              body: `The weekly link checker has detected broken links in the documentation.
-
-## Action Items
-- [ ] Review the [workflow run logs](${context.payload.repository.html_url}/actions/runs/${context.runId}) for details
-- [ ] Fix broken links in affected files
-- [ ] Update SOURCES.md if source URLs have changed
-- [ ] Consider updating evidence tiers if sources are no longer accessible
-- [ ] Check if archived/moved content needs alternative references
-
-## Common Causes
-- External websites moved or deleted content
-- GitHub repositories renamed or archived
-- Blog posts removed or URL structure changed
-- Documentation sites restructured
-
-## Fix Patterns
-- Update URL to new location
-- Use Internet Archive (web.archive.org) for historical references
-- Mark source as ⚠️ Stale in SOURCES.md if no longer maintained
-- Consider downgrading evidence tier if source quality declined
-
-**Automatically created by link-checker workflow**
-
-**Workflow run**: ${context.payload.repository.html_url}/actions/runs/${context.runId}`
+              body: body
             });
 
-            console.log(`Created issue #${issue.data.number}`);
+            console.log('Created issue #' + issue.data.number);
 
   markdown-lint:
     runs-on: ubuntu-latest
@@ -98,21 +95,19 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const body = '## ⚠️ Markdown Lint Failed\n\n' +
+              'Please fix markdown formatting issues:\n\n' +
+              '```bash\n' +
+              'npm run lint:fix\n' +
+              '```\n\n' +
+              'Then commit the fixes.\n\n' +
+              'See the [workflow logs](' + context.payload.repository.html_url + '/actions/runs/' + context.runId + ') for details.';
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `## ⚠️ Markdown Lint Failed
-
-Please fix markdown formatting issues:
-
-\`\`\`bash
-npm run lint:fix
-\`\`\`
-
-Then commit the fixes.
-
-See the [workflow logs](${context.payload.repository.html_url}/actions/runs/${context.runId}) for details.`
+              body: body
             });
 
   check-source-accessibility:
@@ -172,41 +167,35 @@ See the [workflow logs](${context.payload.repository.html_url}/actions/runs/${co
             const fs = require('fs');
             const brokenSources = fs.readFileSync('broken_tier_a.txt', 'utf8');
 
+            const body = '## ⚠️ Critical Tier A Sources Are Inaccessible\n\n' +
+              'The following primary sources (Evidence Tier A) are currently inaccessible:\n\n' +
+              brokenSources + '\n\n' +
+              '## Impact\n' +
+              'Tier A sources are **primary authoritative sources** including:\n' +
+              '- Anthropic official documentation\n' +
+              '- Industry standards (GitHub Spec Kit, agentskills.io)\n' +
+              '- First-party production data\n\n' +
+              '## Immediate Actions Required\n' +
+              '- [ ] Verify if sources are temporarily down or permanently moved\n' +
+              '- [ ] Check for official announcements about URL changes\n' +
+              '- [ ] Update URLs if content moved to new location\n' +
+              '- [ ] Use Internet Archive for historical content if removed\n' +
+              '- [ ] Consider evidence tier implications if source unavailable\n\n' +
+              '## Evidence Tier Implications\n' +
+              'If a Tier A source is permanently unavailable:\n' +
+              '1. Patterns based solely on that source may need tier downgrade\n' +
+              '2. Alternative primary sources should be identified\n' +
+              '3. SOURCES.md:1207-1232 should be updated\n\n' +
+              '**This is a high-priority issue** - Tier A sources form the foundation of this repository.\n\n' +
+              '**Automatically created by link-checker workflow**\n\n' +
+              '**Workflow run**: ' + context.payload.repository.html_url + '/actions/runs/' + context.runId;
+
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: '🚨 CRITICAL: Tier A sources inaccessible',
               labels: ['documentation', 'bug', 'critical', 'tier-a'],
-              body: `## ⚠️ Critical Tier A Sources Are Inaccessible
-
-The following primary sources (Evidence Tier A) are currently inaccessible:
-
-${brokenSources}
-
-## Impact
-Tier A sources are **primary authoritative sources** including:
-- Anthropic official documentation
-- Industry standards (GitHub Spec Kit, agentskills.io)
-- First-party production data
-
-## Immediate Actions Required
-- [ ] Verify if sources are temporarily down or permanently moved
-- [ ] Check for official announcements about URL changes
-- [ ] Update URLs if content moved to new location
-- [ ] Use Internet Archive for historical content if removed
-- [ ] Consider evidence tier implications if source unavailable
-
-## Evidence Tier Implications
-If a Tier A source is permanently unavailable:
-1. Patterns based solely on that source may need tier downgrade
-2. Alternative primary sources should be identified
-3. SOURCES.md:1207-1232 should be updated
-
-**This is a high-priority issue** - Tier A sources form the foundation of this repository.
-
-**Automatically created by link-checker workflow**
-
-**Workflow run**: ${context.payload.repository.html_url}/actions/runs/${context.runId}`
+              body: body
             });
 
-            console.log(`Created critical issue #${issue.data.number}`);
+            console.log('Created critical issue #' + issue.data.number);

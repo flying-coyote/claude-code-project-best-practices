@@ -51,31 +51,27 @@ jobs:
             const fs = require('fs');
             const releaseNotes = fs.readFileSync('release_notes.txt', 'utf8');
 
+            const body = 'A new Claude Code release was detected: **' + version + '**\n\n' +
+              '**Release URL**: ' + url + '\n\n' +
+              '## Release Highlights\n' +
+              releaseNotes + '\n\n' +
+              '## Action Items\n' +
+              '- [ ] Review release notes for new features/patterns\n' +
+              '- [ ] Update SOURCES.md with new version reference\n' +
+              '- [ ] Update relevant pattern files with new capabilities\n' +
+              '- [ ] Check if any patterns need updates for breaking changes\n' +
+              '- [ ] Update CHANGELOG references in SOURCES.md:74-89\n\n' +
+              '**Automatically created by source-monitoring workflow**';
+
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `📚 Review Claude Code ${version} release`,
+              title: '📚 Review Claude Code ' + version + ' release',
               labels: ['documentation', 'source-update'],
-              body: `A new Claude Code release was detected: **${version}**
-
-**Release URL**: ${url}
-
-## Release Highlights
-\`\`\`
-${releaseNotes}
-\`\`\`
-
-## Action Items
-- [ ] Review release notes for new features/patterns
-- [ ] Update SOURCES.md with new version reference
-- [ ] Update relevant pattern files with new capabilities
-- [ ] Check if any patterns need updates for breaking changes
-- [ ] Update CHANGELOG references in SOURCES.md:74-89
-
-**Automatically created by source-monitoring workflow**`
+              body: body
             });
 
-            console.log(`Created issue #${issue.data.number}`);
+            console.log('Created issue #' + issue.data.number);
 
   check-awesome-lists:
     runs-on: ubuntu-latest
@@ -115,33 +111,31 @@ ${releaseNotes}
             const stars = '${{ steps.check-stars.outputs.stars }}';
             const lastCommit = '${{ steps.check-stars.outputs.last_commit }}';
 
+            const body = 'Recent activity detected in [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code)\n\n' +
+              '**Current stars**: ' + stars + '\n' +
+              '**Last commit**: ' + lastCommit + '\n\n' +
+              '## Action Items\n' +
+              '- [ ] Review recent commits for new patterns/skills\n' +
+              '- [ ] Check for new community best practices\n' +
+              '- [ ] Validate new additions (✅ Verified or 🔍 Discovered)\n' +
+              '- [ ] Update SOURCES.md:1070-1089 verification status\n' +
+              '- [ ] Consider incorporating high-value patterns\n\n' +
+              '**Review Process**:\n' +
+              '1. Visit the [repository](https://github.com/hesreallyhim/awesome-claude-code)\n' +
+              '2. Check commits since last review\n' +
+              '3. Evaluate relevance to this project\n' +
+              '4. Document findings\n\n' +
+              '**Automatically created by source-monitoring workflow**';
+
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: '🔍 Review awesome-claude-code updates',
               labels: ['documentation', 'source-update', 'community'],
-              body: `Recent activity detected in [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code)
-
-**Current stars**: ${stars}
-**Last commit**: ${lastCommit}
-
-## Action Items
-- [ ] Review recent commits for new patterns/skills
-- [ ] Check for new community best practices
-- [ ] Validate new additions (✅ Verified or 🔍 Discovered)
-- [ ] Update SOURCES.md:1070-1089 verification status
-- [ ] Consider incorporating high-value patterns
-
-**Review Process**:
-1. Visit the [repository](https://github.com/hesreallyhim/awesome-claude-code)
-2. Check commits since last review
-3. Evaluate relevance to this project
-4. Document findings
-
-**Automatically created by source-monitoring workflow**`
+              body: body
             });
 
-            console.log(`Created issue #${issue.data.number}`);
+            console.log('Created issue #' + issue.data.number);
 
   check-anthropic-blog:
     runs-on: ubuntu-latest
@@ -188,31 +182,28 @@ ${releaseNotes}
           script: |
             const url = '${{ steps.fetch-rss.outputs.latest_url }}';
 
+            const body = 'A potential new Anthropic Engineering blog post was detected.\n\n' +
+              '**URL**: ' + url + '\n\n' +
+              '## Action Items\n' +
+              '- [ ] Read the blog post\n' +
+              '- [ ] Determine if it contains new patterns\n' +
+              '- [ ] Extract key insights and implementations\n' +
+              '- [ ] Update relevant pattern files\n' +
+              '- [ ] Add to SOURCES.md with proper attribution\n' +
+              '- [ ] Update cross-references in related patterns\n\n' +
+              '**Evidence Tier**: A (Primary source - Anthropic Engineering)\n\n' +
+              '**Note**: This is a heuristic check. Verify the post is actually new and relevant.\n\n' +
+              '**Automatically created by source-monitoring workflow**';
+
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: '📚 Review potential new Anthropic blog post',
               labels: ['documentation', 'source-update', 'tier-a'],
-              body: `A potential new Anthropic Engineering blog post was detected.
-
-**URL**: ${url}
-
-## Action Items
-- [ ] Read the blog post
-- [ ] Determine if it contains new patterns
-- [ ] Extract key insights and implementations
-- [ ] Update relevant pattern files
-- [ ] Add to SOURCES.md with proper attribution
-- [ ] Update cross-references in related patterns
-
-**Evidence Tier**: A (Primary source - Anthropic Engineering)
-
-**Note**: This is a heuristic check. Verify the post is actually new and relevant.
-
-**Automatically created by source-monitoring workflow**`
+              body: body
             });
 
-            console.log(`Created issue #${issue.data.number}`);
+            console.log('Created issue #' + issue.data.number);
 
   check-practitioner-sources:
     runs-on: ubuntu-latest
@@ -287,65 +278,57 @@ ${releaseNotes}
             const hasPractitionerActivity = '${{ steps.check-indydevdan.outputs.has_activity }}' === 'true';
             const hasFrameworkUpdates = '${{ steps.check-frameworks.outputs.has_updates }}' === 'true';
 
+            let body = 'Weekly review checklist for ' + date + '\n\n';
+            if (hasPractitionerActivity) body += '🔔 **Practitioner activity detected this week**\n';
+            if (hasFrameworkUpdates) body += '🔔 **Framework updates detected this week**\n';
+            body += '\n## Primary Sources (Tier A) - Checked Automatically\n' +
+              '✅ Anthropic releases monitored (see separate issues if new releases)\n' +
+              '✅ Awesome lists monitored (see separate issues if updates)\n' +
+              '✅ Blog monitoring active (see separate issues if new posts)\n\n' +
+              '## Community Curated Lists (Weekly Review)\n' +
+              '- [ ] [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) - Check commits/stars\n' +
+              '- [ ] [jqueryscript/awesome-claude-code](https://github.com/jqueryscript/awesome-claude-code)\n' +
+              '- [ ] [josix/awesome-claude-md](https://github.com/josix/awesome-claude-md)\n' +
+              '- [ ] [ccplugins/awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins)\n' +
+              '- [ ] [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills)\n\n' +
+              '## Practitioner Content (Weekly Review)\n' +
+              '- [ ] [IndyDevDan YouTube](https://youtube.com/@IndyDevDan) - New videos/courses?\n' +
+              '- [ ] [Aniket Panjwani X/Twitter](https://x.com/aniketapanjwani) - New tips/patterns?\n' +
+              '- [ ] [Nate B. Jones Substack](https://natesnewsletter.substack.com) - New articles?\n' +
+              '- [ ] [Daniel Miessler Fabric](https://github.com/danielmiessler/fabric) - New patterns?\n\n' +
+              '## Standard Frameworks (Weekly Check)\n' +
+              '- [ ] [GitHub Spec Kit](https://github.com/github/spec-kit) - Check releases/commits\n' +
+              '- [ ] [agentskills.io](https://agentskills.io/specification) - Spec updates?\n' +
+              '- [ ] [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD) - New patterns?\n' +
+              '- [ ] [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) - Security updates?\n\n' +
+              '## AI Coding Ecosystem (Weekly Scan)\n' +
+              '- [ ] Check [Aider releases](https://github.com/paul-gauthier/aider/releases)\n' +
+              '- [ ] Check [Cursor updates](https://cursor.sh) (if major announcements)\n' +
+              '- [ ] Scan Reddit: [r/ClaudeAI](https://reddit.com/r/ClaudeAI), [r/LocalLLaMA](https://reddit.com/r/LocalLLaMA)\n' +
+              '- [ ] Check Hacker News: "Claude Code" OR "AI coding" mentions\n\n' +
+              '## Documentation Maintenance (Weekly)\n' +
+              '- [ ] Review new issues created by automation\n' +
+              '- [ ] Triage and prioritize pattern additions\n' +
+              '- [ ] Update PLAN.md with completed items\n' +
+              '- [ ] Check if any patterns need updates based on discoveries\n\n' +
+              '## Verification Status (Update if Changed)\n' +
+              '- [ ] Update SOURCES.md verification status (✅/🔍/⚠️)\n' +
+              '- [ ] Note any repositories that are now stale (>6 months)\n' +
+              '- [ ] Add newly discovered resources\n\n' +
+              '---\n\n' +
+              '**Fast-Moving Sector Alert**: This space is evolving rapidly. Weekly reviews ensure we don\'t miss important developments.\n\n' +
+              '**Automatically created by source-monitoring workflow**';
+
             // Always create the weekly checklist
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `📋 Weekly source review - ${date}`,
+              title: '📋 Weekly source review - ' + date,
               labels: ['documentation', 'weekly-review'],
-              body: `Weekly review checklist for ${date}
-
-${hasPractitionerActivity ? '🔔 **Practitioner activity detected this week**\n' : ''}${hasFrameworkUpdates ? '🔔 **Framework updates detected this week**\n' : ''}
-
-## Primary Sources (Tier A) - Checked Automatically
-✅ Anthropic releases monitored (see separate issues if new releases)
-✅ Awesome lists monitored (see separate issues if updates)
-✅ Blog monitoring active (see separate issues if new posts)
-
-## Community Curated Lists (Weekly Review)
-- [ ] [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) - Check commits/stars
-- [ ] [jqueryscript/awesome-claude-code](https://github.com/jqueryscript/awesome-claude-code)
-- [ ] [josix/awesome-claude-md](https://github.com/josix/awesome-claude-md)
-- [ ] [ccplugins/awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins)
-- [ ] [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills)
-
-## Practitioner Content (Weekly Review)
-- [ ] [IndyDevDan YouTube](https://youtube.com/@IndyDevDan) - New videos/courses?
-- [ ] [Aniket Panjwani X/Twitter](https://x.com/aniketapanjwani) - New tips/patterns?
-- [ ] [Nate B. Jones Substack](https://natesnewsletter.substack.com) - New articles?
-- [ ] [Daniel Miessler Fabric](https://github.com/danielmiessler/fabric) - New patterns?
-
-## Standard Frameworks (Weekly Check)
-- [ ] [GitHub Spec Kit](https://github.com/github/spec-kit) - Check releases/commits
-- [ ] [agentskills.io](https://agentskills.io/specification) - Spec updates?
-- [ ] [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD) - New patterns?
-- [ ] [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) - Security updates?
-
-## AI Coding Ecosystem (Weekly Scan)
-- [ ] Check [Aider releases](https://github.com/paul-gauthier/aider/releases)
-- [ ] Check [Cursor updates](https://cursor.sh) (if major announcements)
-- [ ] Scan Reddit: [r/ClaudeAI](https://reddit.com/r/ClaudeAI), [r/LocalLLaMA](https://reddit.com/r/LocalLLaMA)
-- [ ] Check Hacker News: "Claude Code" OR "AI coding" mentions
-
-## Documentation Maintenance (Weekly)
-- [ ] Review new issues created by automation
-- [ ] Triage and prioritize pattern additions
-- [ ] Update PLAN.md with completed items
-- [ ] Check if any patterns need updates based on discoveries
-
-## Verification Status (Update if Changed)
-- [ ] Update SOURCES.md verification status (✅/🔍/⚠️)
-- [ ] Note any repositories that are now stale (>6 months)
-- [ ] Add newly discovered resources
-
----
-
-**Fast-Moving Sector Alert**: This space is evolving rapidly. Weekly reviews ensure we don't miss important developments.
-
-**Automatically created by source-monitoring workflow**`
+              body: body
             });
 
-            console.log(`Created issue #${issue.data.number}`);
+            console.log('Created issue #' + issue.data.number);
 
   self-compliance-audit:
     runs-on: ubuntu-latest
@@ -408,61 +391,60 @@ ${hasPractitionerActivity ? '🔔 **Practitioner activity detected this week**\n
             const gapCount = '${{ steps.check-gaps.outputs.gap_count }}';
             const recentPatterns = '${{ steps.check-patterns.outputs.recent_count }}';
 
+            let body = 'Self-compliance audit for ' + date + '\n\n';
+            if (gapCount > 0) body += '⚠️ **' + gapCount + ' unresolved dogfooding gap(s) in DOGFOODING-GAPS.md**\n';
+            if (recentPatterns > 0) body += '📚 **' + recentPatterns + ' pattern(s) added/modified this week**\n';
+            body += '\n## Self-Compliance Checklist\n\n';
+            body += '### Review Recent Pattern Additions\n';
+            if (recentPatterns > 0) {
+              body += '- [ ] Review ' + recentPatterns + ' pattern file(s) modified this week\n';
+              body += '- [ ] Check if patterns apply to this repository\n';
+              body += '- [ ] Implement patterns we should follow (dogfooding)\n';
+              body += '- [ ] Update DOGFOODING-GAPS.md if not implementing\n';
+            } else {
+              body += '- [x] No recent pattern additions this week\n';
+            }
+            body += '\n### DOGFOODING-GAPS.md Review\n';
+            if (gapCount > 0) {
+              body += '- [ ] Review ' + gapCount + ' open gap(s)\n';
+              body += '- [ ] Decide: implement or document why not?\n';
+              body += '- [ ] Update gap status (resolved/deferred/justified)\n';
+            } else {
+              body += '- [x] No open dogfooding gaps\n';
+            }
+            body += '\n### Project Infrastructure Compliance\n' +
+              '- [ ] Check .claude/ structure matches patterns/project-infrastructure.md\n' +
+              '- [ ] Verify settings.json follows patterns/advanced-hooks.md\n' +
+              '- [ ] Confirm skills follow skills/SKILL-TEMPLATE.md\n' +
+              '- [ ] Validate CLAUDE.md matches templates/CLAUDE.md.template\n\n' +
+              '### Documentation Consistency\n' +
+              '- [ ] ARCHITECTURE.md reflects current directory structure\n' +
+              '- [ ] SOURCES.md has all references properly tiered (A/B/C/D)\n' +
+              '- [ ] Cross-references between patterns are bidirectional\n' +
+              '- [ ] INDEX.md is up-to-date (run `python3 automation/generate_index.py`)\n\n' +
+              '### Quality Standards\n' +
+              '- [ ] All patterns have authoritative sources (Tier A or B)\n' +
+              '- [ ] Pattern files include "Related Patterns" sections\n' +
+              '- [ ] No broken internal links (checked by link-checker.yml)\n' +
+              '- [ ] Markdown lint passes (`npm run lint`)\n\n' +
+              '### Meta-Compliance\n' +
+              '- [ ] This repository follows spec-driven development (SDD)\n' +
+              '- [ ] Evidence tiers properly applied per SOURCES.md:1207-1232\n' +
+              '- [ ] Contribution guidelines match actual practice (CONTRIBUTING.md)\n\n' +
+              '---\n\n' +
+              '**Self-Compliance Philosophy**: "Practice what we preach. If we document it, we should do it."\n\n' +
+              '**Reference**: DOGFOODING-GAPS.md, PLAN.md:38\n\n' +
+              '**Automatically created by source-monitoring workflow**';
+
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `✅ Self-compliance audit - ${date}`,
+              title: '✅ Self-compliance audit - ' + date,
               labels: ['documentation', 'self-compliance'],
-              body: `Self-compliance audit for ${date}
-
-${gapCount > 0 ? `⚠️ **${gapCount} unresolved dogfooding gap(s) in DOGFOODING-GAPS.md**\n` : ''}${recentPatterns > 0 ? `📚 **${recentPatterns} pattern(s) added/modified this week**\n` : ''}
-
-## Self-Compliance Checklist
-
-### Review Recent Pattern Additions
-${recentPatterns > 0 ? `- [ ] Review ${recentPatterns} pattern file(s) modified this week
-- [ ] Check if patterns apply to this repository
-- [ ] Implement patterns we should follow (dogfooding)
-- [ ] Update DOGFOODING-GAPS.md if not implementing` : '- [x] No recent pattern additions this week'}
-
-### DOGFOODING-GAPS.md Review
-${gapCount > 0 ? `- [ ] Review ${gapCount} open gap(s)
-- [ ] Decide: implement or document why not?
-- [ ] Update gap status (resolved/deferred/justified)` : '- [x] No open dogfooding gaps'}
-
-### Project Infrastructure Compliance
-- [ ] Check .claude/ structure matches patterns/project-infrastructure.md
-- [ ] Verify settings.json follows patterns/advanced-hooks.md
-- [ ] Confirm skills follow skills/SKILL-TEMPLATE.md
-- [ ] Validate CLAUDE.md matches templates/CLAUDE.md.template
-
-### Documentation Consistency
-- [ ] ARCHITECTURE.md reflects current directory structure
-- [ ] SOURCES.md has all references properly tiered (A/B/C/D)
-- [ ] Cross-references between patterns are bidirectional
-- [ ] INDEX.md is up-to-date (run \`python3 automation/generate_index.py\`)
-
-### Quality Standards
-- [ ] All patterns have authoritative sources (Tier A or B)
-- [ ] Pattern files include "Related Patterns" sections
-- [ ] No broken internal links (checked by link-checker.yml)
-- [ ] Markdown lint passes (\`npm run lint\`)
-
-### Meta-Compliance
-- [ ] This repository follows spec-driven development (SDD)
-- [ ] Evidence tiers properly applied per SOURCES.md:1207-1232
-- [ ] Contribution guidelines match actual practice (CONTRIBUTING.md)
-
----
-
-**Self-Compliance Philosophy**: "Practice what we preach. If we document it, we should do it."
-
-**Reference**: DOGFOODING-GAPS.md, PLAN.md:38
-
-**Automatically created by source-monitoring workflow**`
+              body: body
             });
 
-            console.log(`Created issue #${issue.data.number}`);
+            console.log('Created issue #' + issue.data.number);
 
   documentation-maintenance:
     runs-on: ubuntu-latest
@@ -525,70 +507,67 @@ ${gapCount > 0 ? `- [ ] Review ${gapCount} open gap(s)
             const indexStale = '${{ steps.check-index.outputs.stale }}' === 'true';
             const needsArchive = '${{ steps.check-plan.outputs.needs_archive }}' === 'true';
 
+            let body = 'Weekly documentation maintenance for ' + date + '\n\n';
+            if (indexStale) body += '⚠️ **INDEX.md needs regeneration**\n';
+            if (needsArchive) body += '⚠️ **PLAN.md has multiple completed items to archive**\n';
+            body += '\n## Weekly Maintenance Checklist\n\n';
+            body += '### Generated Files\n';
+            if (indexStale) {
+              body += '- [ ] Run `python3 automation/generate_index.py`\n';
+              body += '- [ ] Commit updated INDEX.md\n';
+            } else {
+              body += '- [x] INDEX.md is current\n';
+            }
+            body += '\n### PLAN.md Management\n';
+            if (needsArchive) {
+              body += '- [ ] Move completed items from PLAN.md to ARCHIVE.md\n';
+              body += '- [ ] Update "Last Updated" date in PLAN.md\n';
+              body += '- [ ] Clear "Completed This Cycle" section\n';
+            } else {
+              body += '- [ ] Review PLAN.md for any completed items\n';
+            }
+            body += '- [ ] Update review cadence "Next Review" dates\n' +
+              '- [ ] Check if priorities need reordering\n\n' +
+              '### ARCHIVE.md Updates\n' +
+              '- [ ] Add week\'s completed items with dates\n' +
+              '- [ ] Maintain chronological order (newest first)\n' +
+              '- [ ] Preserve milestone markers\n\n' +
+              '### Source Health Metrics\n' +
+              '- [ ] Update PLAN.md with source check dates\n' +
+              '- [ ] Note any sources that became stale (last checked >1 week ago)\n' +
+              '- [ ] Document any new sources discovered\n\n' +
+              '### Cross-Reference Integrity\n' +
+              '- [ ] Check that new patterns reference related patterns\n' +
+              '- [ ] Verify bidirectional links (if A links to B, B should link to A)\n' +
+              '- [ ] Update README.md pattern list if new patterns added\n\n' +
+              '### Date Freshness\n' +
+              '- [ ] Update "Last Updated" in key files:\n' +
+              '  - [ ] PLAN.md\n' +
+              '  - [ ] SOURCES.md (if sources changed)\n' +
+              '  - [ ] .github/workflows/README.md (if workflows changed)\n\n' +
+              '### Issue Hygiene (check manually via GitHub)\n' +
+              '- [ ] Review open issues - any stale (>30 days)?\n' +
+              '- [ ] Check if automated issues were addressed and can be closed\n' +
+              '- [ ] Apply labels to unlabeled issues\n' +
+              '- [ ] Convert discussions to issues if actionable\n\n' +
+              '### Quality Checks\n' +
+              '- [ ] Run `npm run lint` - any new errors?\n' +
+              '- [ ] Check workflow runs - any failing?\n' +
+              '- [ ] Review recent commits - anything need follow-up?\n\n' +
+              '---\n\n' +
+              '**Documentation Maintenance Philosophy**: Keep the documentation alive. Stale docs are worse than no docs.\n\n' +
+              '**Reference**: PLAN.md, ARCHITECTURE.md, documentation-maintenance.md pattern\n\n' +
+              '**Automatically created by source-monitoring workflow**';
+
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `📊 Documentation maintenance - ${date}`,
+              title: '📊 Documentation maintenance - ' + date,
               labels: ['documentation', 'maintenance'],
-              body: `Weekly documentation maintenance for ${date}
-
-${indexStale ? '⚠️ **INDEX.md needs regeneration**\n' : ''}${needsArchive ? '⚠️ **PLAN.md has multiple completed items to archive**\n' : ''}
-
-## Weekly Maintenance Checklist
-
-### Generated Files
-${indexStale ? `- [ ] Run \`python3 automation/generate_index.py\`
-- [ ] Commit updated INDEX.md` : '- [x] INDEX.md is current'}
-
-### PLAN.md Management
-${needsArchive ? `- [ ] Move completed items from PLAN.md to ARCHIVE.md
-- [ ] Update "Last Updated" date in PLAN.md
-- [ ] Clear "Completed This Cycle" section` : '- [ ] Review PLAN.md for any completed items'}
-- [ ] Update review cadence "Next Review" dates
-- [ ] Check if priorities need reordering
-
-### ARCHIVE.md Updates
-- [ ] Add week's completed items with dates
-- [ ] Maintain chronological order (newest first)
-- [ ] Preserve milestone markers
-
-### Source Health Metrics
-- [ ] Update PLAN.md with source check dates
-- [ ] Note any sources that became stale (last checked >1 week ago)
-- [ ] Document any new sources discovered
-
-### Cross-Reference Integrity
-- [ ] Check that new patterns reference related patterns
-- [ ] Verify bidirectional links (if A links to B, B should link to A)
-- [ ] Update README.md pattern list if new patterns added
-
-### Date Freshness
-- [ ] Update "Last Updated" in key files:
-  - [ ] PLAN.md
-  - [ ] SOURCES.md (if sources changed)
-  - [ ] .github/workflows/README.md (if workflows changed)
-
-### Issue Hygiene (check manually via GitHub)
-- [ ] Review open issues - any stale (>30 days)?
-- [ ] Check if automated issues were addressed and can be closed
-- [ ] Apply labels to unlabeled issues
-- [ ] Convert discussions to issues if actionable
-
-### Quality Checks
-- [ ] Run \`npm run lint\` - any new errors?
-- [ ] Check workflow runs - any failing?
-- [ ] Review recent commits - anything need follow-up?
-
----
-
-**Documentation Maintenance Philosophy**: Keep the documentation alive. Stale docs are worse than no docs.
-
-**Reference**: PLAN.md, ARCHITECTURE.md, documentation-maintenance.md pattern
-
-**Automatically created by source-monitoring workflow**`
+              body: body
             });
 
-            console.log(`Created issue #${issue.data.number}`);
+            console.log('Created issue #' + issue.data.number);
 
   community-engagement:
     runs-on: ubuntu-latest
@@ -659,95 +638,84 @@ ${needsArchive ? `- [ ] Move completed items from PLAN.md to ARCHIVE.md
             const prCount = '${{ steps.check-prs.outputs.pr_count }}';
             const untriagedCount = '${{ steps.check-issues.outputs.untriaged_count }}';
 
+            let body = 'Weekly community engagement triage for ' + date + '\n\n';
+            if (prCount > 0) body += '📬 **' + prCount + ' open PR(s) need review**\n';
+            if (untriagedCount > 0) body += '🏷️ **' + untriagedCount + ' issue(s) need triage**\n';
+            body += '\n## Pull Request Review (' + prCount + ' open)\n\n';
+            if (prCount > 0) {
+              body += '### Review Process (CONTRIBUTING.md:201-222)\n\n' +
+                '1. **Initial Triage** (24-48h target)\n' +
+                '   - [ ] Check if PR aligns with contribution guidelines\n' +
+                '   - [ ] Verify evidence tier is A or B (for new patterns)\n' +
+                '   - [ ] Request clarifications if needed\n\n' +
+                '2. **Technical Review** (3-7 days target)\n' +
+                '   - [ ] Validate pattern against existing practices\n' +
+                '   - [ ] Check for conflicts or redundancies\n' +
+                '   - [ ] Verify production validation claims\n\n' +
+                '3. **Integration Review**\n' +
+                '   - [ ] Ensure cross-references are complete\n' +
+                '   - [ ] Check SOURCES.md is updated\n' +
+                '   - [ ] Verify self-compliance\n\n' +
+                '4. **Decision**\n' +
+                '   - [ ] Merge if approved\n' +
+                '   - [ ] Request changes with specific guidance\n' +
+                '   - [ ] Close if doesn\'t meet criteria (with explanation)\n';
+            } else {
+              body += '_No open PRs this week_\n';
+            }
+            body += '\n## Issue Triage (' + untriagedCount + ' untriaged)\n\n';
+            if (untriagedCount > 0) {
+              body += '### Triage Process\n\n' +
+                'For each untriaged issue:\n\n' +
+                '1. **Categorize**\n' +
+                '   - [ ] Pattern proposal → Label: `pattern-proposal`\n' +
+                '   - [ ] Skill request → Label: `skill-request`\n' +
+                '   - [ ] Documentation issue → Label: `documentation`\n' +
+                '   - [ ] Bug → Label: `bug`\n' +
+                '   - [ ] Question → Label: `question`\n\n' +
+                '2. **Assess Priority**\n' +
+                '   - [ ] Tier A source update → Label: `tier-a`, `priority-high`\n' +
+                '   - [ ] Community contribution → Label: `community`\n' +
+                '   - [ ] Enhancement → Label: `enhancement`\n\n' +
+                '3. **Next Action**\n' +
+                '   - [ ] If pattern proposal: Request evidence tier and validation\n' +
+                '   - [ ] If skill: Check universal applicability\n' +
+                '   - [ ] If bug: Verify and reproduce\n' +
+                '   - [ ] If question: Answer or convert to discussion\n\n' +
+                '4. **Engage**\n' +
+                '   - [ ] Thank contributor\n' +
+                '   - [ ] Provide feedback within 48h\n' +
+                '   - [ ] Set expectations for timeline\n';
+            } else {
+              body += '_All issues are properly labeled_\n';
+            }
+            body += '\n## General Community Health\n\n' +
+              '### Active Discussions\n' +
+              '- [ ] Check for unanswered questions in issue comments\n' +
+              '- [ ] Follow up on stale threads\n' +
+              '- [ ] Close issues resolved but not closed\n\n' +
+              '### Contributor Recognition\n' +
+              '- [ ] Thank contributors in PRs/issues\n' +
+              '- [ ] Highlight good contributions in comments\n' +
+              '- [ ] Update SOURCES.md with community contributions\n\n' +
+              '### Documentation for Contributors\n' +
+              '- [ ] Review CONTRIBUTING.md - still accurate?\n' +
+              '- [ ] Check if common questions should be added to FAQ\n' +
+              '- [ ] Update examples if contribution patterns change\n\n' +
+              '---\n\n' +
+              '**Community Engagement Philosophy**: Fast response time builds trust. Even "Thanks, reviewing" is valuable.\n\n' +
+              '**Target Response Times**:\n' +
+              '- Initial triage: 24-48h\n' +
+              '- Technical review: 3-7 days\n' +
+              '- Simple questions: Same day\n\n' +
+              '**Automatically created by source-monitoring workflow**';
+
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `🤝 Community engagement triage - ${date}`,
+              title: '🤝 Community engagement triage - ' + date,
               labels: ['maintenance', 'community'],
-              body: `Weekly community engagement triage for ${date}
-
-${prCount > 0 ? `📬 **${prCount} open PR(s) need review**\n` : ''}${untriagedCount > 0 ? `🏷️ **${untriagedCount} issue(s) need triage**\n` : ''}
-
-## Pull Request Review (${prCount} open)
-
-${prCount > 0 ? `### Review Process (CONTRIBUTING.md:201-222)
-
-1. **Initial Triage** (24-48h target)
-   - [ ] Check if PR aligns with contribution guidelines
-   - [ ] Verify evidence tier is A or B (for new patterns)
-   - [ ] Request clarifications if needed
-
-2. **Technical Review** (3-7 days target)
-   - [ ] Validate pattern against existing practices
-   - [ ] Check for conflicts or redundancies
-   - [ ] Verify production validation claims
-
-3. **Integration Review**
-   - [ ] Ensure cross-references are complete
-   - [ ] Check SOURCES.md is updated
-   - [ ] Verify self-compliance
-
-4. **Decision**
-   - [ ] Merge if approved
-   - [ ] Request changes with specific guidance
-   - [ ] Close if doesn't meet criteria (with explanation)` : '_No open PRs this week_'}
-
-## Issue Triage (${untriagedCount} untriaged)
-
-${untriagedCount > 0 ? `### Triage Process
-
-For each untriaged issue:
-
-1. **Categorize**
-   - [ ] Pattern proposal → Label: \`pattern-proposal\`
-   - [ ] Skill request → Label: \`skill-request\`
-   - [ ] Documentation issue → Label: \`documentation\`
-   - [ ] Bug → Label: \`bug\`
-   - [ ] Question → Label: \`question\`
-
-2. **Assess Priority**
-   - [ ] Tier A source update → Label: \`tier-a\`, \`priority-high\`
-   - [ ] Community contribution → Label: \`community\`
-   - [ ] Enhancement → Label: \`enhancement\`
-
-3. **Next Action**
-   - [ ] If pattern proposal: Request evidence tier and validation
-   - [ ] If skill: Check universal applicability
-   - [ ] If bug: Verify and reproduce
-   - [ ] If question: Answer or convert to discussion
-
-4. **Engage**
-   - [ ] Thank contributor
-   - [ ] Provide feedback within 48h
-   - [ ] Set expectations for timeline` : '_All issues are properly labeled_'}
-
-## General Community Health
-
-### Active Discussions
-- [ ] Check for unanswered questions in issue comments
-- [ ] Follow up on stale threads
-- [ ] Close issues resolved but not closed
-
-### Contributor Recognition
-- [ ] Thank contributors in PRs/issues
-- [ ] Highlight good contributions in comments
-- [ ] Update SOURCES.md with community contributions
-
-### Documentation for Contributors
-- [ ] Review CONTRIBUTING.md - still accurate?
-- [ ] Check if common questions should be added to FAQ
-- [ ] Update examples if contribution patterns change
-
----
-
-**Community Engagement Philosophy**: Fast response time builds trust. Even "Thanks, reviewing" is valuable.
-
-**Target Response Times**:
-- Initial triage: 24-48h
-- Technical review: 3-7 days
-- Simple questions: Same day
-
-**Automatically created by source-monitoring workflow**`
+              body: body
             });
 
-            console.log(`Created issue #${issue.data.number}`);
+            console.log('Created issue #' + issue.data.number);
