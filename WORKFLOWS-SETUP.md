@@ -77,9 +77,9 @@ gh run list --limit 5
 
 ## What Each Workflow Does
 
-### Source Monitoring (Runs Every Monday 9am UTC)
+### Source Monitoring (Runs Every Day 9am UTC)
 
-**Jobs** (all run weekly):
+**Jobs** (all run daily):
 
 1. **check-anthropic-releases** - Monitors Claude Code releases
 2. **check-awesome-lists** - Monitors community curated lists
@@ -99,7 +99,7 @@ gh run list --limit 5
 - Keep documentation fresh and accurate
 - Responsive community engagement
 
-### Link Checker (Runs Every Sunday Midnight UTC)
+### Link Checker (Runs Every Day Midnight UTC)
 
 **Checks**:
 1. **All Markdown Links** - Validates every link in .md files
@@ -128,8 +128,8 @@ After the first runs, expect issues like:
    - Created when: Recent commits in awesome lists
    - Action: Check for new community patterns
 
-3. **📋 Weekly source review - Date**
-   - Created when: Every Monday (always)
+3. **📋 Daily source review - Date**
+   - Created when: Every day (always)
    - Highlights: Activity in practitioner sources, framework updates
    - Action: Follow comprehensive checklist for all sources
 
@@ -157,7 +157,7 @@ After the first runs, expect issues like:
 
 | When | What Happens | Jobs |
 |------|--------------|------|
-| **Every Monday 9am UTC** | Complete source monitoring | 7 jobs run in parallel |
+| **Every day 9am UTC** | Complete source monitoring | 7 jobs run in parallel |
 | | - check-anthropic-releases | New Claude Code releases |
 | | - check-awesome-lists | Community curated lists |
 | | - check-anthropic-blog | Engineering blog posts |
@@ -165,11 +165,11 @@ After the first runs, expect issues like:
 | | - self-compliance-audit | Dogfooding check |
 | | - documentation-maintenance | INDEX.md, PLAN.md |
 | | - community-engagement | PR/issue triage |
-| **Every Sunday 12am UTC** | Link validation | 3 jobs: links, lint, Tier A sources |
+| **Every day 12am UTC** | Link validation | 3 jobs: links, lint, Tier A sources |
 | **On PR with .md changes** | Link checker validates new links | Prevents broken links |
 | **When @.claude mentioned** | Claude Code review runs | AI-powered PR review |
 
-**Philosophy**: All maintenance is now **weekly** due to the fast-moving nature of AI coding tools. This project needs to stay current.
+**Philosophy**: All maintenance is now **daily** due to the fast-moving nature of AI coding tools. This project needs to stay current with rapid developments.
 
 ## Configuration
 
@@ -260,14 +260,14 @@ These workflows enhance your existing practices:
 
 | Existing Practice | Old Cadence | New Automation | Frequency |
 |-------------------|-------------|----------------|-----------|
-| Anthropic blog check | Weekly | `check-anthropic-blog` job | Weekly (Mon) |
-| Awesome list review | Monthly | `check-awesome-lists` job | Weekly (Mon) |
-| Practitioner content | Bi-weekly | `check-practitioner-sources` job | Weekly (Mon) |
-| Framework updates | Quarterly | `check-practitioner-sources` job | Weekly (Mon) |
+| Anthropic blog check | Weekly | `check-anthropic-blog` job | Daily (9am UTC) |
+| Awesome list review | Monthly | `check-awesome-lists` job | Daily (9am UTC) |
+| Practitioner content | Bi-weekly | `check-practitioner-sources` job | Daily (9am UTC) |
+| Framework updates | Quarterly | `check-practitioner-sources` job | Daily (9am UTC) |
 | Self-compliance audit | After updates | Manual (triggered by issues) | As needed |
-| Link maintenance | Manual | `link-checker` workflow | Weekly (Sun) |
+| Link maintenance | Manual | `link-checker` workflow | Daily (12am UTC) |
 
-**Philosophy Change**: Given the fast pace of AI coding tools development, all external sources are now monitored **weekly** instead of monthly/quarterly.
+**Philosophy Change**: Given the fast pace of AI coding tools development, all external sources are now monitored **daily** instead of weekly/monthly/quarterly.
 
 The workflows **create issues with pre-detected activity**, you still **do the review work**.
 

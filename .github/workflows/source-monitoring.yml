@@ -2,8 +2,8 @@ name: Source Monitoring
 
 on:
   schedule:
-    # Run every Monday at 9am UTC
-    - cron: '0 9 * * 1'
+    # Run every day at 9am UTC
+    - cron: '0 9 * * *'
   workflow_dispatch:  # Allow manual triggering
 
 jobs:
@@ -265,7 +265,7 @@ jobs:
             echo "has_updates=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Create weekly review checklist
+      - name: Create daily review checklist
         uses: actions/github-script@v7
         with:
           script: |
@@ -278,35 +278,35 @@ jobs:
             const hasPractitionerActivity = '${{ steps.check-indydevdan.outputs.has_activity }}' === 'true';
             const hasFrameworkUpdates = '${{ steps.check-frameworks.outputs.has_updates }}' === 'true';
 
-            let body = 'Weekly review checklist for ' + date + '\n\n';
-            if (hasPractitionerActivity) body += '🔔 **Practitioner activity detected this week**\n';
-            if (hasFrameworkUpdates) body += '🔔 **Framework updates detected this week**\n';
+            let body = 'Daily review checklist for ' + date + '\n\n';
+            if (hasPractitionerActivity) body += '🔔 **Practitioner activity detected in last 7 days**\n';
+            if (hasFrameworkUpdates) body += '🔔 **Framework updates detected in last 7 days**\n';
             body += '\n## Primary Sources (Tier A) - Checked Automatically\n' +
               '✅ Anthropic releases monitored (see separate issues if new releases)\n' +
               '✅ Awesome lists monitored (see separate issues if updates)\n' +
               '✅ Blog monitoring active (see separate issues if new posts)\n\n' +
-              '## Community Curated Lists (Weekly Review)\n' +
+              '## Community Curated Lists (Daily Check)\n' +
               '- [ ] [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) - Check commits/stars\n' +
               '- [ ] [jqueryscript/awesome-claude-code](https://github.com/jqueryscript/awesome-claude-code)\n' +
               '- [ ] [josix/awesome-claude-md](https://github.com/josix/awesome-claude-md)\n' +
               '- [ ] [ccplugins/awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins)\n' +
               '- [ ] [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills)\n\n' +
-              '## Practitioner Content (Weekly Review)\n' +
+              '## Practitioner Content (Daily Check)\n' +
               '- [ ] [IndyDevDan YouTube](https://youtube.com/@IndyDevDan) - New videos/courses?\n' +
               '- [ ] [Aniket Panjwani X/Twitter](https://x.com/aniketapanjwani) - New tips/patterns?\n' +
               '- [ ] [Nate B. Jones Substack](https://natesnewsletter.substack.com) - New articles?\n' +
               '- [ ] [Daniel Miessler Fabric](https://github.com/danielmiessler/fabric) - New patterns?\n\n' +
-              '## Standard Frameworks (Weekly Check)\n' +
+              '## Standard Frameworks (Daily Check)\n' +
               '- [ ] [GitHub Spec Kit](https://github.com/github/spec-kit) - Check releases/commits\n' +
               '- [ ] [agentskills.io](https://agentskills.io/specification) - Spec updates?\n' +
               '- [ ] [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD) - New patterns?\n' +
               '- [ ] [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) - Security updates?\n\n' +
-              '## AI Coding Ecosystem (Weekly Scan)\n' +
+              '## AI Coding Ecosystem (Daily Scan)\n' +
               '- [ ] Check [Aider releases](https://github.com/paul-gauthier/aider/releases)\n' +
               '- [ ] Check [Cursor updates](https://cursor.sh) (if major announcements)\n' +
               '- [ ] Scan Reddit: [r/ClaudeAI](https://reddit.com/r/ClaudeAI), [r/LocalLLaMA](https://reddit.com/r/LocalLLaMA)\n' +
               '- [ ] Check Hacker News: "Claude Code" OR "AI coding" mentions\n\n' +
-              '## Documentation Maintenance (Weekly)\n' +
+              '## Documentation Maintenance (Daily)\n' +
               '- [ ] Review new issues created by automation\n' +
               '- [ ] Triage and prioritize pattern additions\n' +
               '- [ ] Update PLAN.md with completed items\n' +
@@ -316,15 +316,15 @@ jobs:
               '- [ ] Note any repositories that are now stale (>6 months)\n' +
               '- [ ] Add newly discovered resources\n\n' +
               '---\n\n' +
-              '**Fast-Moving Sector Alert**: This space is evolving rapidly. Weekly reviews ensure we don\'t miss important developments.\n\n' +
+              '**Fast-Moving Sector Alert**: This space is evolving rapidly. Daily reviews ensure we don\'t miss important developments.\n\n' +
               '**Automatically created by source-monitoring workflow**';
 
-            // Always create the weekly checklist
+            // Always create the daily checklist
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: '📋 Weekly source review - ' + date,
-              labels: ['documentation', 'weekly-review'],
+              title: '📋 Daily source review - ' + date,
+              labels: ['documentation', 'daily-review'],
               body: body
             });
 
@@ -507,10 +507,10 @@ jobs:
             const indexStale = '${{ steps.check-index.outputs.stale }}' === 'true';
             const needsArchive = '${{ steps.check-plan.outputs.needs_archive }}' === 'true';
 
-            let body = 'Weekly documentation maintenance for ' + date + '\n\n';
+            let body = 'Daily documentation maintenance for ' + date + '\n\n';
             if (indexStale) body += '⚠️ **INDEX.md needs regeneration**\n';
             if (needsArchive) body += '⚠️ **PLAN.md has multiple completed items to archive**\n';
-            body += '\n## Weekly Maintenance Checklist\n\n';
+            body += '\n## Daily Maintenance Checklist\n\n';
             body += '### Generated Files\n';
             if (indexStale) {
               body += '- [ ] Run `python3 automation/generate_index.py`\n';
@@ -638,7 +638,7 @@ jobs:
             const prCount = '${{ steps.check-prs.outputs.pr_count }}';
             const untriagedCount = '${{ steps.check-issues.outputs.untriaged_count }}';
 
-            let body = 'Weekly community engagement triage for ' + date + '\n\n';
+            let body = 'Daily community engagement triage for ' + date + '\n\n';
             if (prCount > 0) body += '📬 **' + prCount + ' open PR(s) need review**\n';
             if (untriagedCount > 0) body += '🏷️ **' + untriagedCount + ' issue(s) need triage**\n';
             body += '\n## Pull Request Review (' + prCount + ' open)\n\n';

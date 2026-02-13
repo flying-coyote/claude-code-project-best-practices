@@ -24,7 +24,7 @@ This directory contains automated workflows for maintaining the repository and m
 **Purpose**: Monitor external sources for updates
 
 **Triggers**:
-- Scheduled: Every Monday at 9am UTC
+- Scheduled: Every day at 9am UTC
 - Manual: Via workflow_dispatch
 
 **Jobs**:
@@ -47,9 +47,9 @@ Monitors Anthropic Engineering Blog:
 - Checks if documented in SOURCES.md
 - Creates issue for potential new posts
 
-#### monthly-review-reminder
-Creates monthly checklist:
-- Runs first Monday of each month (day ≤ 7)
+#### check-practitioner-sources
+Creates daily checklist:
+- Runs every day at 9am UTC
 - Creates comprehensive review checklist
 - Covers all source tiers and maintenance tasks
 
@@ -71,7 +71,7 @@ gh workflow run source-monitoring.yml
 **Purpose**: Validate all markdown links
 
 **Triggers**:
-- Scheduled: Every Sunday at midnight UTC
+- Scheduled: Every day at midnight UTC
 - Manual: Via workflow_dispatch
 - Pull requests that modify .md files
 
@@ -137,9 +137,8 @@ Configuration for markdown-link-check:
 | Workflow | Frequency | Day/Time | Purpose |
 |----------|-----------|----------|---------|
 | claude-code | On-demand | PR/comment | Code review |
-| source-monitoring | Weekly | Mon 9am UTC | Check updates |
-| source-monitoring (monthly) | Monthly | 1st Mon | Full checklist |
-| link-checker | Weekly | Sun 12am UTC | Validate links |
+| source-monitoring | Daily | Every day 9am UTC | Check updates |
+| link-checker | Daily | Every day 12am UTC | Validate links |
 | link-checker (PR) | On-demand | PR with .md | Prevent broken links |
 
 ---
@@ -236,9 +235,9 @@ Workflows align with review cadence in PLAN.md:110-115:
 
 | Source Type | PLAN.md Frequency | Workflow |
 |-------------|-------------------|----------|
-| Anthropic Blog | Weekly | `check-anthropic-blog` (Mon) |
-| awesome-claude-code | Monthly | `monthly-review-reminder` (1st Mon) |
-| SDD frameworks | Quarterly | Manual review (reminder in monthly) |
+| Anthropic Blog | Daily | `check-anthropic-blog` (daily 9am UTC) |
+| awesome-claude-code | Daily | `check-practitioner-sources` (daily 9am UTC) |
+| SDD frameworks | Daily | `check-practitioner-sources` (daily 9am UTC) |
 
 ---
 
