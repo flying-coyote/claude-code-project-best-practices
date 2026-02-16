@@ -16,6 +16,33 @@ You are setting up AI-driven development infrastructure using the **tiered appro
 
 **There's no difference between "new" and "existing" projects** - both use the same tiers.
 
+## Core Principles (Read These First)
+
+Before setting up infrastructure, understand the foundational principles that make these mechanics effective:
+
+### The Big 3: Non-Negotiable Principles
+
+1. **Keep CLAUDE.md Ruthlessly Minimal (~60 Lines)**
+   - Target: ~60 lines (80 max tolerable)
+   - Rule: "Would removing this cause mistakes? If not, cut it."
+   - Include ONLY: Project purpose (1-2 sentences), key commands, known gotchas, current focus
+   - See: [FOUNDATIONAL-PRINCIPLES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/FOUNDATIONAL-PRINCIPLES.md)
+
+2. **Plan First, Always (For Non-Trivial Work)**
+   - Use `/plan` before implementing features, architectural changes, or multi-file work
+   - Planning effort directly improves output quality (2-3x improvement)
+   - When to plan: Any feature >2-3 files, multiple valid approaches, architectural decisions
+   - When to skip: Bug fixes, typos, copy-paste implementations
+
+3. **Context Engineering > Prompt Engineering**
+   - External artifacts (specs, docs, git history) = agent memory
+   - Deterministic context (user-controlled) beats probabilistic context (AI-discovered)
+   - One feature at a time to prevent context exhaustion
+
+**Quick Reference**: Print and keep visible: [QUICK-REFERENCE-PRINCIPLES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/QUICK-REFERENCE-PRINCIPLES.md)
+
+---
+
 ## Your Task
 
 ### Step 1: Assess Current State
@@ -36,10 +63,9 @@ Check what infrastructure exists:
 |-----------|-------|------|
 | `.claude/settings.json` with permissions | Required | Tier 1 |
 | Stop hook in settings.json | Required | Tier 1 |
-| `.claude/CLAUDE.md` | Required | Tier 2 |
+| `.claude/CLAUDE.md` (under 80 lines) | Required | Tier 2 |
 | SessionStart hook | Recommended | Tier 2 |
 | `.github/workflows/claude-code.yml` | Required | Tier 3 |
-| `.claude/commands/commit-push-pr.md` | Recommended | Tier 3 |
 
 Report: "This project is currently at Tier [0/1/2/3]"
 
@@ -60,8 +86,8 @@ Ask the user:
 
 3. **Tier 3: Team/Production** (30 min) - Everything in Tier 2 plus:
    - GitHub Actions for @.claude PR reviews
-   - /commit-push-pr slash command
    - (Optional) PostToolUse auto-formatting
+   - Note: Natural language "commit and push" works - custom commands rarely needed
 
 **Recommendation**: [Based on project characteristics - suggest Tier 2 for active solo projects, Tier 3 for team projects]"
 
@@ -175,34 +201,41 @@ Make executable: `chmod +x .claude/hooks/session-start.sh`
 
 **Create `.claude/CLAUDE.md`**:
 
+⚠️ **CRITICAL**: Target ~60 lines. This template shows structure but YOUR file should be much shorter. Only include what prevents repeated mistakes.
+
 ```markdown
 # [PROJECT_NAME]
 
 ## Purpose
-[USER'S DESCRIPTION]
+[USER'S DESCRIPTION - 1-2 sentences ONLY]
 
-## Current Phase
-Active development
+## Commands
+[ONLY commands that vary from standard - 3-5 max]
 
-## Recent Learnings (Team Memory)
-Capture mistakes and insights as they happen. Update 2-3x per week.
+## Current Focus
+[What are you working on NOW - 1-2 sentences]
 
-### [DATE] - [Brief description]
-**What happened**: [Description]
-**Prevention**: [Rule to follow]
+## Known Gotchas
+[ONLY issues that caused 2+ mistakes]
+
+### [Issue name]
+**Problem**: [Brief description]
+**Fix**: [How to avoid]
 
 ## Quality Standards
-[PRESET-SPECIFIC - see below]
+[PRESET-SPECIFIC - see below, keep to 3-5 bullets]
 
 ## Git Workflow
 Commit prefixes: feat:, fix:, docs:, refactor:, test:, chore:
 ```
 
-Quality standards by preset:
+Quality standards by preset (pick 3-5 most critical):
 - **coding**: Clean code, TDD, conventional commits, avoid over-engineering
 - **writing**: Evidence-based claims, consistent voice, source attribution
 - **research**: Evidence tiers (A-D), hypothesis tracking, document limitations
 - **hybrid**: Combine as appropriate
+
+**After creating**: Review ruthlessly. If Claude didn't ask about it, and it hasn't caused 2+ mistakes, delete it.
 
 #### Tier 3: Team/Production (If Requested)
 
@@ -237,23 +270,11 @@ jobs:
             .claude/CLAUDE.md
 ```
 
-**Create `.claude/commands/commit-push-pr.md`**:
+**Optional - Custom commands** (usually not needed):
 
-```markdown
----
-description: Commit, push, and create PR. Use when ready to submit work.
-allowed-tools: Bash
----
+Note: Claude Code understands natural language like "commit and push these changes". Custom slash commands are rarely necessary and add maintenance burden.
 
-# Commit, Push, and Create PR
-
-1. Run `git status` and `git diff --stat`
-2. Stage changes (skip .env, credentials)
-3. Commit with conventional prefix (feat:, fix:, docs:, etc.)
-4. Push to current branch
-5. Create PR with Summary and Test Plan sections
-6. Return PR URL
-```
+If the project has complex, repetitive workflows, consider `.claude/commands/` files. See [plugins-and-extensions.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/plugins-and-extensions.md) for guidance.
 
 ### Step 6: Summary
 
@@ -263,28 +284,40 @@ After creating files, summarize:
 |-----------|--------|---------|
 | permissions.allow | ✅ Created | Pre-approved commands |
 | Stop hook | ✅ Created | Uncommitted/unpushed reminders |
-| CLAUDE.md | [✅/⏭️] | Project context |
+| CLAUDE.md | [✅/⏭️] | Project context (~60 lines target) |
 | SessionStart | [✅/⏭️] | Context at session start |
 | GitHub Actions | [✅/⏭️] | @.claude PR reviews |
-| /commit-push-pr | [✅/⏭️] | Streamlined git workflow |
 
 "Your project is now at **Tier [X]**."
 
 ### Step 7: Explain Next Steps
 
 For Tier 2+:
-1. Review `.claude/CLAUDE.md` and customize
-2. Add specific conventions or rules
-3. Start new session to see hook in action
+1. **Review `.claude/CLAUDE.md` and ruthlessly trim** - Target ~60 lines, remove anything not preventing mistakes
+2. **Remember to plan first** - Use `/plan` before starting any non-trivial feature work
+3. Start new session to see SessionStart hook in action
+4. After 1-2 weeks, audit CLAUDE.md again - delete sections that weren't needed
 
 For Tier 3:
 1. Add `ANTHROPIC_API_KEY` to GitHub repository secrets
 2. Test by opening a PR and commenting `@.claude review this`
 
+**Key Principle Reminder**: "Would removing this cause mistakes? If not, cut it." - Anthropic Official Docs
+
 ---
 
 ## Reference
 
-- Full documentation: https://github.com/flying-coyote/claude-code-project-best-practices
-- Project Infrastructure Pattern: patterns/project-infrastructure.md
-- Boris Cherny's workflow: SOURCES.md (Tier A source)
+**Core Principles**:
+- [FOUNDATIONAL-PRINCIPLES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/FOUNDATIONAL-PRINCIPLES.md) - The Big 3 (read first)
+- [QUICK-REFERENCE-PRINCIPLES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/QUICK-REFERENCE-PRINCIPLES.md) - 1-page printable reference
+
+**Key Patterns**:
+- [spec-driven-development.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/spec-driven-development.md) - Specify → Plan → Tasks → Implement
+- [context-engineering.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/context-engineering.md) - Deterministic vs probabilistic context
+- [project-infrastructure.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/project-infrastructure.md) - Tiered setup details
+- [evidence-tiers.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/evidence-tiers.md) - Source evaluation framework
+
+**Full Repository**:
+- https://github.com/flying-coyote/claude-code-project-best-practices
+- [SOURCES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/SOURCES.md) - All source attributions (Tier A-D)
