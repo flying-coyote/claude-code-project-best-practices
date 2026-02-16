@@ -1,3 +1,11 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+notes: "Multi-session orchestration framework - fresh context per subagent"
+---
+
 # GSD (Get Shit Done) Orchestration Pattern
 
 **Source**: [glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done)

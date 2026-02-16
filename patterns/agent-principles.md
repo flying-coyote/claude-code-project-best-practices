@@ -1,3 +1,16 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"
+measurement-claims:
+  - claim: "AI will never be 100% predictable"
+    source: "Nate B. Jones - Agent Build Bible"
+    date: "2025-09-01"
+    revalidate: "2026-09-01"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+notes: "Foundational principles - validated across 100+ production AI builds"
+---
+
 # AI Agent Principles for Production
 
 **Source**: [Nate B. Jones - 2025 Agent Build Bible](https://natesnewsletter.substack.com/p/why-your-ai-breaks-in-production)

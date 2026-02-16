@@ -1,3 +1,16 @@
+---
+version-requirements:
+  claude-code: "v2.0.10+"  # PreToolUse hook introduced
+  latest-features: "v2.0.45+"  # PermissionRequest hook
+measurement-claims:
+  - claim: "Sandboxing reduces unauthorized operations by 84%"
+    source: "Production security testing"
+    date: "2025-11-01"
+    revalidate: "2026-11-01"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # Advanced Hook Patterns
 
 **Source**: Production-validated patterns + [Claude Code Hooks Reference](https://docs.anthropic.com/en/docs/claude-code/hooks)
