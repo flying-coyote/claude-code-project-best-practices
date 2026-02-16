@@ -1,0 +1,201 @@
+name: Link Checker
+
+on:
+  schedule:
+    # Run every day at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # Allow manual triggering
+  pull_request:
+    paths:
+      - '**.md'
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links in markdown files
+        id: link-check
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          config-file: '.github/link-check-config.json'
+          use-quiet-mode: 'no'
+          use-verbose-mode: 'yes'
+        continue-on-error: true
+
+      - name: Get link check results
+        if: steps.link-check.outcome == 'failure'
+        id: results
+        run: |
+          echo "has_broken_links=true" >> $GITHUB_OUTPUT
+
+      - name: Create issue for broken links
+        if: steps.link-check.outcome == 'failure' && github.event_name == 'schedule'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            const body = 'The daily link checker has detected broken links in the documentation.\n\n' +
+              '## Action Items\n' +
+              '- [ ] Review the [workflow run logs](' + context.payload.repository.html_url + '/actions/runs/' + context.runId + ') for details\n' +
+              '- [ ] Fix broken links in affected files\n' +
+              '- [ ] Update SOURCES.md if source URLs have changed\n' +
+              '- [ ] Consider updating evidence tiers if sources are no longer accessible\n' +
+              '- [ ] Check if archived/moved content needs alternative references\n\n' +
+              '## Common Causes\n' +
+              '- External websites moved or deleted content\n' +
+              '- GitHub repositories renamed or archived\n' +
+              '- Blog posts removed or URL structure changed\n' +
+              '- Documentation sites restructured\n\n' +
+              '## Fix Patterns\n' +
+              '- Update URL to new location\n' +
+              '- Use Internet Archive (web.archive.org) for historical references\n' +
+              '- Mark source as ⚠️ Stale in SOURCES.md if no longer maintained\n' +
+              '- Consider downgrading evidence tier if source quality declined\n\n' +
+              '**Automatically created by link-checker workflow**\n\n' +
+              '**Workflow run**: ' + context.payload.repository.html_url + '/actions/runs/' + context.runId;
+
+            // Read the link check output (it's in the logs, but we'll create a generic issue)
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🔗 Broken links detected in documentation',
+              labels: ['documentation', 'bug'],
+              body: body
+            });
+
+            console.log('Created issue #' + issue.data.number);
+
+  markdown-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run markdown lint
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Comment on PR if lint fails
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = '## ⚠️ Markdown Lint Failed\n\n' +
+              'Please fix markdown formatting issues:\n\n' +
+              '```bash\n' +
+              'npm run lint:fix\n' +
+              '```\n\n' +
+              'Then commit the fixes.\n\n' +
+              'See the [workflow logs](' + context.payload.repository.html_url + '/actions/runs/' + context.runId + ') for details.';
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });
+
+  check-source-accessibility:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract URLs from SOURCES.md
+        id: extract-urls
+        run: |
+          # Extract all URLs from SOURCES.md
+          grep -oP 'https?://[^\s)]+' SOURCES.md | sort -u > all_urls.txt
+
+          echo "Extracted $(wc -l < all_urls.txt) unique URLs"
+
+      - name: Check critical Tier A sources
+        id: check-tier-a
+        run: |
+          # Critical Tier A sources that must be accessible
+          TIER_A_SOURCES=(
+            "https://www.anthropic.com/engineering"
+            "https://github.com/anthropics/claude-code"
+            "https://docs.anthropic.com"
+            "https://agentskills.io"
+            "https://github.com/github/spec-kit"
+          )
+
+          BROKEN_SOURCES=""
+
+          for url in "${TIER_A_SOURCES[@]}"; do
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -L "$url" --max-time 10)
+
+            if [ "$HTTP_CODE" -ge 400 ] || [ "$HTTP_CODE" -eq 000 ]; then
+              echo "❌ CRITICAL: $url returned $HTTP_CODE"
+              BROKEN_SOURCES="${BROKEN_SOURCES}- $url (HTTP $HTTP_CODE)\n"
+            else
+              echo "✅ $url is accessible ($HTTP_CODE)"
+            fi
+          done
+
+          if [ -n "$BROKEN_SOURCES" ]; then
+            echo "has_broken_tier_a=true" >> $GITHUB_OUTPUT
+            echo -e "$BROKEN_SOURCES" > broken_tier_a.txt
+          else
+            echo "has_broken_tier_a=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create critical issue for Tier A failures
+        if: steps.check-tier-a.outputs.has_broken_tier_a == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const brokenSources = fs.readFileSync('broken_tier_a.txt', 'utf8');
+
+            const body = '## ⚠️ Critical Tier A Sources Are Inaccessible\n\n' +
+              'The following primary sources (Evidence Tier A) are currently inaccessible:\n\n' +
+              brokenSources + '\n\n' +
+              '## Impact\n' +
+              'Tier A sources are **primary authoritative sources** including:\n' +
+              '- Anthropic official documentation\n' +
+              '- Industry standards (GitHub Spec Kit, agentskills.io)\n' +
+              '- First-party production data\n\n' +
+              '## Immediate Actions Required\n' +
+              '- [ ] Verify if sources are temporarily down or permanently moved\n' +
+              '- [ ] Check for official announcements about URL changes\n' +
+              '- [ ] Update URLs if content moved to new location\n' +
+              '- [ ] Use Internet Archive for historical content if removed\n' +
+              '- [ ] Consider evidence tier implications if source unavailable\n\n' +
+              '## Evidence Tier Implications\n' +
+              'If a Tier A source is permanently unavailable:\n' +
+              '1. Patterns based solely on that source may need tier downgrade\n' +
+              '2. Alternative primary sources should be identified\n' +
+              '3. SOURCES.md:1207-1232 should be updated\n\n' +
+              '**This is a high-priority issue** - Tier A sources form the foundation of this repository.\n\n' +
+              '**Automatically created by link-checker workflow**\n\n' +
+              '**Workflow run**: ' + context.payload.repository.html_url + '/actions/runs/' + context.runId;
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 CRITICAL: Tier A sources inaccessible',
+              labels: ['documentation', 'bug', 'critical', 'tier-a'],
+              body: body
+            });
+
+            console.log('Created critical issue #' + issue.data.number);

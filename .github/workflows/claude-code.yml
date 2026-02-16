@@ -9,6 +9,7 @@ permissions:
   contents: read
   pull-requests: write
   issues: write
+  id-token: write
 
 jobs:
   claude-review:
@@ -23,9 +24,5 @@ jobs:
       - name: Claude Code Review
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          context-files: |
-            .claude/CLAUDE.md
-            ARCHITECTURE.md
-            SOURCES.md
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
