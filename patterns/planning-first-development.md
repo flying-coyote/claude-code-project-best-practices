@@ -1,3 +1,15 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"
+measurement-claims:
+  - claim: "Planning effort increases from ~20% to ~60%+ in AI-assisted development"
+    source: "IndyDevDan - Principled AI Coding"
+    date: "2025-10-01"
+    revalidate: "2026-10-01"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # Planning-First Development: Great Planning is Great Prompting
 
 **Source**: [IndyDevDan - Principled AI Coding](https://agenticengineer.com/principled-ai-coding), aligned with [GitHub Spec Kit](https://github.com/github/spec-kit)

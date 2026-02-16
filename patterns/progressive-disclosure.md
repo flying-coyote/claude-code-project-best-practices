@@ -1,3 +1,16 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"
+measurement-claims:
+  - claim: "Token savings: 50-77% reduction from progressive disclosure"
+    source: "Production testing on 4 skills"
+    date: "2025-11-01"
+    revalidate: "2026-11-01"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+notes: "Apply only for skills >200 lines; default to single ~60 line file per Anthropic guidance"
+---
+
 # Progressive Disclosure for Skills
 
 **Source**: Production-validated pattern from 12+ projects

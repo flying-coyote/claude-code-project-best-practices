@@ -1,3 +1,19 @@
+---
+version-requirements:
+  claude-code: "v2.1.30+"  # Session memory feature
+measurement-claims:
+  - claim: "Self-training reduced safety refusal rates by 70% (safety drift risk)"
+    source: "Academic research on misevolution"
+    date: "2025-09-01"
+    revalidate: "2026-09-01"
+  - claim: "Reflection-based learning bumped pass@1 from GPT-4 baseline 91% up"
+    source: "Coding benchmarks research"
+    date: "2025-09-01"
+    revalidate: "2026-09-01"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # Session Learning Pattern
 
 **Source**: Claude Diary (Lance Martin), Generative Agents paper, Yohei Nakajima research

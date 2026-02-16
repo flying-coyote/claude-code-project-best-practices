@@ -1,3 +1,23 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"
+measurement-claims:
+  - claim: "Skills are 50% cheaper than MCP ($10.27 vs $20.78 per task)"
+    source: "Tenzir production data"
+    date: "2026-01-15"
+    revalidate: "2027-01-15"
+  - claim: "MCP is 38% faster than Skills (6.2 min vs 8.6 min)"
+    source: "Tenzir production data"
+    date: "2026-01-15"
+    revalidate: "2027-01-15"
+  - claim: "Skills use 55% less cached tokens (4.0M vs 8.8M)"
+    source: "Tenzir production data"
+    date: "2026-01-15"
+    revalidate: "2027-01-15"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # MCP vs Skills Economics
 
 **Source**: [Tenzir Blog - "We Did MCP Wrong"](https://tenzir.com/blog/we-did-mcp-wrong) (Matthias Vallentin, January 2026)

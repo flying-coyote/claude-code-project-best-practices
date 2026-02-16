@@ -1,3 +1,11 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+notes: "Methodology pattern - no version-specific features required"
+---
+
 # Spec-Driven Development: The Foundational Methodology
 
 **Source**: [GitHub Spec Kit](https://github.com/github/spec-kit) (59K+ stars), [agentskills.io](https://agentskills.io) (open standard)

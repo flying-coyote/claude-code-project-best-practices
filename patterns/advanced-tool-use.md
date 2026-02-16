@@ -1,3 +1,24 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"
+  beta-header: "advanced-tool-use-2025-11-20"
+measurement-claims:
+  - claim: "Tool Search: 85% token reduction (77K → 8.7K tokens)"
+    source: "Anthropic Engineering Blog"
+    date: "2025-11-24"
+    revalidate: "2026-11-24"
+  - claim: "Programmatic Tool Calling: 37% token reduction"
+    source: "Anthropic Engineering Blog"
+    date: "2025-11-24"
+    revalidate: "2026-11-24"
+  - claim: "Tool Examples: 72% → 90% accuracy improvement"
+    source: "Anthropic internal testing"
+    date: "2025-11-24"
+    revalidate: "2026-11-24"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # Advanced Tool Use Patterns
 
 **Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/advanced-tool-use) (November 24, 2025)
