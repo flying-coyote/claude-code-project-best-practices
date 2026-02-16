@@ -1,3 +1,15 @@
+---
+version-requirements:
+  claude-code: "v2.1.0+"  # Skills auto-reload feature
+measurement-claims:
+  - claim: "Skills are 4x more token-efficient than MCP for methodology"
+    source: "Simon Willison analysis"
+    date: "2025-10-16"
+    revalidate: "2026-10-16"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # Claude Code Plugins and Extension Mechanisms
 
 **Source**: [Anthropic Claude Code Documentation](https://code.claude.com/docs/en/plugins), [Simon Willison Analysis](https://simonwillison.net/2025/Oct/16/claude-skills/)

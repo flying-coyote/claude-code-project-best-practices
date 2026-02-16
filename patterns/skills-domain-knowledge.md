@@ -1,3 +1,15 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"  # Official skills support
+measurement-claims:
+  - claim: "Skills are 50% cheaper than MCP for methodology guidance"
+    source: "mcp-vs-skills-economics.md"
+    date: "2025-12-01"
+    revalidate: "2026-12-01"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # Skills for Domain Knowledge: Embedding Expertise into AI Workflows
 
 **Source**: [Aniket Panjwani](https://x.com/aniketapanjwani), validated by [Anthropic Skills Specification](https://agentskills.io)
