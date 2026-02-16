@@ -304,6 +304,35 @@ For Tier 3:
 
 **Key Principle Reminder**: "Would removing this cause mistakes? If not, cut it." - Anthropic Official Docs
 
+### Step 8: Point to Additional Resources (Based on User Needs)
+
+If the user needs specific guidance, recommend:
+
+**Common Issues?** → See [TROUBLESHOOTING.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/TROUBLESHOOTING.md)
+- CLAUDE.md keeps growing
+- Overwhelmed by patterns
+- Team resistance to adoption
+- Hook configuration problems
+
+**Want to learn patterns progressively?** → See [PATTERN-LEARNING-PATH.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/PATTERN-LEARNING-PATH.md)
+- Start Here path (3 core patterns)
+- Role-specific paths (Solo Dev, Team Lead, Production/Security, Researcher)
+- Use-case paths (new project, improve existing, multi-session work)
+
+**Migrating from existing setup?** → See [MIGRATION-GUIDE.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/MIGRATION-GUIDE.md)
+- From Cursor/.cursorrules
+- From existing .claude/ setup
+- Team standardization strategies
+
+**Need a specific pattern?** → See [Pattern Decision Matrix](https://github.com/flying-coyote/claude-code-project-best-practices#pattern-decision-matrix)
+- "I Need To..." → pattern mapping
+- All 34 patterns categorized
+
+**Want to see complete examples?** → Browse [example projects](https://github.com/flying-coyote/claude-code-project-best-practices/tree/master/examples)
+- coding-project: TypeScript library with full hooks
+- writing-project: Technical blog with evidence tiers
+- research-project: Literature review with hypothesis tracking
+
 ---
 
 ## Reference
@@ -312,12 +341,26 @@ For Tier 3:
 - [FOUNDATIONAL-PRINCIPLES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/FOUNDATIONAL-PRINCIPLES.md) - The Big 3 (read first)
 - [QUICK-REFERENCE-PRINCIPLES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/QUICK-REFERENCE-PRINCIPLES.md) - 1-page printable reference
 
-**Key Patterns**:
+**Onboarding & Help**:
+- [TROUBLESHOOTING.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/TROUBLESHOOTING.md) - Common issues (CLAUDE.md bloat, setup problems, team adoption)
+- [PATTERN-LEARNING-PATH.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/PATTERN-LEARNING-PATH.md) - Guided learning paths by role/use-case (34 patterns)
+- [MIGRATION-GUIDE.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/MIGRATION-GUIDE.md) - Migrate from Cursor/.cursorrules or existing setups
+
+**Key Patterns** (4 of 34):
 - [spec-driven-development.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/spec-driven-development.md) - Specify → Plan → Tasks → Implement
 - [context-engineering.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/context-engineering.md) - Deterministic vs probabilistic context
 - [project-infrastructure.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/project-infrastructure.md) - Tiered setup details
 - [evidence-tiers.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/evidence-tiers.md) - Source evaluation framework
 
-**Full Repository**:
-- https://github.com/flying-coyote/claude-code-project-best-practices
-- [SOURCES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/SOURCES.md) - All source attributions (Tier A-D)
+**Finding Patterns**: See [README Pattern Decision Matrix](https://github.com/flying-coyote/claude-code-project-best-practices#pattern-decision-matrix) - "I Need To..." → pattern lookup for all 34 patterns
+
+**Complete Examples** (full .claude/ implementations):
+- [coding-project](https://github.com/flying-coyote/claude-code-project-best-practices/tree/master/examples/coding-project) - TypeScript library (19-line CLAUDE.md, complete hooks)
+- [writing-project](https://github.com/flying-coyote/claude-code-project-best-practices/tree/master/examples/writing-project) - Technical blog (markdown linting, evidence tiers)
+- [research-project](https://github.com/flying-coyote/claude-code-project-best-practices/tree/master/examples/research-project) - Literature review (hypothesis tracking)
+
+**Sources**:
+- [SOURCES-QUICK-REFERENCE.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/SOURCES-QUICK-REFERENCE.md) - Top 20 Tier A/B sources (fast lookup)
+- [SOURCES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/SOURCES.md) - Complete database (1,278 lines, all attributions)
+
+**Full Repository**: https://github.com/flying-coyote/claude-code-project-best-practices (34 patterns, 91 documents)
