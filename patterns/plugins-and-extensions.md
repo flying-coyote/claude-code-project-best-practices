@@ -115,6 +115,8 @@ my-plugin/
 > "Almost everything achievable with an MCP can be handled by a CLI tool instead. LLMs know how to call `cli-tool --help`... Skills have exactly the same advantage, only now you don't even need to implement a new CLI tool—you can just drop a Markdown file describing how to do a task instead."
 > — [Simon Willison](https://simonwillison.net/2025/Oct/16/claude-skills/)
 
+This principle is validated by measured data: Microsoft's Playwright CLI achieves 4x token reduction (114K → 27K) over the equivalent MCP server by saving data to disk instead of streaming it into context. See [MCP Patterns - CLI vs MCP](./mcp-patterns.md#cli-vs-mcp-the-token-efficiency-case).
+
 ### Complementary Use
 
 Skills and MCP are partners, not competitors:

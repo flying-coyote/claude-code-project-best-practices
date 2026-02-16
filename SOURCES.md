@@ -518,6 +518,20 @@ Track these for production readiness:
   - Adopted by OpenAI for Codex CLI and ChatGPT
   - Cross-platform portability for skills
 
+### Playwright CLI (Browser Automation for AI Agents)
+- **Author**: Microsoft / Playwright Team
+- **URL**: https://github.com/microsoft/playwright-cli
+- **Date**: February 2026
+- **Description**: CLI tool for browser automation, purpose-built for AI coding agents as a token-efficient alternative to Playwright MCP
+- **Key Insights**:
+  - 4x token reduction vs Playwright MCP (~27K vs ~114K tokens per task)
+  - Saves snapshots/screenshots to disk instead of streaming into context
+  - Compact element references (e.g., `e21`) instead of full DOM trees
+  - 50+ commands: navigation, interaction, screenshots, session management
+  - `--skills` flag installs documentation for agent discovery
+- **Pattern**: [MCP Patterns - CLI vs MCP](patterns/mcp-patterns.md#cli-vs-mcp-the-token-efficiency-case)
+- **Evidence Tier**: B (Microsoft, measured benchmarks, 3.6k stars) ✅ Verified
+
 ---
 
 ## AI Coding Ecosystem Tools (Tier C)

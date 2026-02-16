@@ -371,6 +371,32 @@ Before adding MCP, consider if alternatives suffice:
 
 **Rule of Thumb**: Use MCP when you need persistent, stateful connections or rich protocol interactions that native tools can't provide.
 
+### CLI vs MCP: The Token Efficiency Case
+
+The Playwright team's `@playwright/cli` (February 2026) provides measured evidence for preferring CLI over MCP in coding agent workflows:
+
+| Approach | Tokens per Task | Data Flow |
+|----------|----------------|-----------|
+| Playwright MCP | ~114,000 | Streams accessibility trees + screenshots into context |
+| Playwright CLI | ~27,000 | Saves to disk, returns file paths |
+
+**4x token reduction** by keeping data on disk instead of in context.
+
+The architectural difference: MCP streams full page data into the LLM context window. CLI saves snapshots and screenshots to disk, returning only file paths. The agent reads what it needs.
+
+```bash
+# CLI workflow: compact element references, not full DOM trees
+playwright-cli snapshot          # → compact YAML with refs (e21, e35)
+playwright-cli click e21         # → minimal response
+playwright-cli screenshot        # → file path, not image bytes
+```
+
+**When to prefer CLI over MCP**: When your agent has filesystem access (Claude Code, Copilot, Cursor) and the tool's output is large (DOM trees, screenshots, log files, query results).
+
+**When MCP is still better**: When agents are sandboxed without filesystem access, or when you need persistent stateful connections (database sessions, streaming APIs).
+
+**Source**: [microsoft/playwright-cli](https://github.com/microsoft/playwright-cli) (Evidence Tier B)
+
 ---
 
 ## Decision Framework
