@@ -356,9 +356,9 @@ For more information, see:
 
 **This Repository:**
 - Full documentation: https://github.com/flying-coyote/claude-code-project-best-practices
-- SDD methodology: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/patterns/spec-driven-development.md
-- Extension mechanisms: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/patterns/plugins-and-extensions.md
-- Design decisions: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/DECISIONS.md
+- SDD methodology: ../patterns/spec-driven-development.md
+- Extension mechanisms: ../patterns/plugins-and-extensions.md
+- Design decisions: ../DECISIONS.md
 
 **Industry Standards:**
 - GitHub Spec Kit (SDD reference): https://github.com/github/spec-kit
