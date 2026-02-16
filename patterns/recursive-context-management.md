@@ -441,6 +441,156 @@ python -m rlm_claude test \
 
 ---
 
+## Anti-Patterns
+
+### ❌ Adopting RLM Without Validation
+**Anti-pattern**: "RLM is the paradigm of 2026, let's base our architecture on it"
+
+**Why it fails**:
+- RLM requires RL training not available for Claude (GPT-5/GPT-5-mini only as of Jan 2026)
+- No published Claude-specific benchmarks or validations
+- Implementation complexity (127 Python packages, REPL environment)
+- **Status**: EMERGING PATTERN (monitor, don't adopt for production yet)
+
+**Instead**:
+- Use RLM-inspired techniques NOW: explicit recursive prompts, context partitioning, programmatic filtering
+- Base production architecture on validated patterns (GSD, Native subagents)
+- Monitor RLM developments for Claude-specific implementations
+- Wait for Anthropic official support or community validation
+
+**Timeline**: Claude RLM validation likely 6-12+ months (speculation based on current state)
+
+**Evidence tier**: B (academic research + community experiments, no Claude production data)
+
+---
+
+### ❌ External Integration for Small Contexts
+**Anti-pattern**: Setting up alexzhang13/rlm integration for <50KB codebases
+
+**Why it fails**:
+- Setup overhead: 30-60 minutes initial configuration
+- Crossover point: ~50KB (below that, overhead exceeds token savings)
+- Higher latency on small queries due to partition/search cycles
+- Maintenance burden: 127 package dependencies to keep updated
+
+**Instead**:
+- Use skill-based RLM patterns for contexts under 50KB
+- Explicit multi-step prompts: "First X, then Y, finally Z"
+- Reserve external integration for:
+  - Sessions regularly exceeding 50KB
+  - Token costs becoming significant concern (71% reduction at scale)
+  - Observable quality degradation in long sessions
+
+**Reality check**: Most codebases <50KB can use native tools effectively
+
+---
+
+### ❌ Treating RLM as Silver Bullet
+**Anti-pattern**: "RLM will solve all my context rot problems"
+
+**Why it fails**:
+- RLM addresses context window efficiency, NOT poor context design
+- Bloated CLAUDE.md still wastes tokens even with recursion
+- Lack of planning (SDD phases) can't be fixed by better search
+- Context rot has multiple causes: token count, irrelevant info, poor structure
+
+**Instead** - Fix fundamentals first:
+1. **Minimal CLAUDE.md** (~60 lines) - Remove irrelevant context
+2. **Spec-Driven Development** - Plan before implementing (reduces exploration needs)
+3. **Progressive disclosure** (skills) - Show less, reference more
+4. **THEN** consider RLM if context rot persists after optimizations
+
+**Rule**: RLM is an optimization, not a replacement for good context engineering
+
+---
+
+### ❌ Recursive Without Depth Limits
+**Anti-pattern**: Implementing unlimited recursion depth for context exploration
+
+**Why it fails**:
+- Exponential token consumption (each level spawns new searches)
+- Risk of infinite loops (circular references in code)
+- Latency compounds (depth=3 can take 10-30 seconds)
+- Cost explosion: $5-$50+ for single deep query
+
+**Instead**:
+- Use depth limits (RLM paper recommends max depth=2)
+- Implement termination conditions: target found, max iterations, time limit
+- Monitor recursion levels in logs
+- Start shallow (depth=1), increase only if needed
+
+**Example**:
+```
+Depth 1: List top-level directories (fast, cheap)
+Depth 2: Examine relevant directories only (targeted)
+Depth 3: Rare - only for deeply nested structures
+```
+
+**Safety**: All RLM implementations have depth limits by default (verify if customizing)
+
+---
+
+### ❌ Ignoring Crossover Economics
+**Anti-pattern**: Using RLM external integration for all contexts regardless of size
+
+**Why it fails**:
+- Small contexts (<50KB): Setup overhead > token savings
+- alexzhang13/rlm measurements:
+  - Crossover point: ~50KB
+  - Below 50KB: Native tools faster AND cheaper
+  - Token savings meaningful only at scale (71% on large contexts)
+
+**Instead** - Choose by context size:
+- **<15 files**: Native tools (Read, Grep, Glob)
+- **15-50 files**: Skill-based RLM patterns (explicit multi-step)
+- **50KB+**: External integration (alexzhang13/rlm, validated benefits)
+- **100KB+**: Mandatory (token savings become critical)
+
+**Cost example**:
+- Small codebase (10KB): Native $0.05, RLM $0.04 → 20% savings but 3x slower
+- Large codebase (200KB): Native $2.00, RLM $0.58 → 71% savings, worth latency
+
+---
+
+### ❌ Mixing RLM with Incompatible Patterns
+**Anti-pattern**: Using RLM with GSD's stateless fresh executors
+
+**Why it fails**:
+- RLM requires learned behavior (session continuity)
+- GSD spawns fresh agents (no learning carryover)
+- Frameworks have conflicting assumptions about state
+
+**Instead** - Compatible combinations:
+- ✅ RLM + Native subagents (session continuity)
+- ✅ RLM + CAII (learning agents can leverage recursion)
+- ✅ RLM-inspired prompts + any framework (manual recursion)
+- ❌ RLM learning + GSD fresh executors (contradictory)
+
+**Rule**: Check framework assumptions before adding RLM
+
+---
+
+### ❌ Deploying Unvalidated Community Integrations
+**Anti-pattern**: Using brainqub3/claude_code_RLM (minimal scaffold) in production
+
+**Why it fails**:
+- Community integrations vary in maturity:
+  - rand/rlm-claude-code: 144 commits, most mature (Jan 2026)
+  - brainqub3/claude_code_RLM: Experimental scaffold, minimal tests
+  - zircote/rlm-rs: Rust CLI, SQLite persistence (different use case)
+- No official Anthropic support for RLM
+- Breaking changes likely as patterns evolve
+
+**Instead**:
+- Test in sandbox environment first (6+ weeks validation)
+- Start with most mature integration (rand/rlm-claude-code as of Jan 2026)
+- Monitor GitHub activity, test coverage, community feedback
+- Wait for Tier A validation (Anthropic official support) for production
+
+**Safest path**: Use RLM-inspired prompts (no integration) until Anthropic validates
+
+---
+
 ## Related Patterns
 
 - [GSD Orchestration](./gsd-orchestration.md) - Manual implementation of fresh-context principles

@@ -98,6 +98,59 @@ This repository provides multiple entry points for different scenarios:
 
 **Not sure?** Start with the Tier 1 Quick Start above, then explore SETUP-PROJECT.md when you want more.
 
+## Pattern Decision Matrix
+
+Quick reference: Which pattern solves which problem?
+
+| I Need To... | Use This Pattern | Alternative/Related |
+|--------------|------------------|---------------------|
+| **Getting Started** |
+| Set up project infrastructure | [project-infrastructure.md](patterns/project-infrastructure.md) | [SETUP-PROJECT.md](prompts/SETUP-PROJECT.md) |
+| Understand core principles | [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) | [spec-driven-development.md](patterns/spec-driven-development.md) |
+| Learn patterns progressively | [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md) | Pattern tables below |
+| Migrate from Cursor or other tools | [MIGRATION-GUIDE.md](MIGRATION-GUIDE.md) | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) |
+| **Context & Planning** |
+| Keep CLAUDE.md minimal | [context-engineering.md](patterns/context-engineering.md) | [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) |
+| Plan before implementing | [spec-driven-development.md](patterns/spec-driven-development.md) | [planning-first-development.md](patterns/planning-first-development.md) |
+| Manage information lifecycle | [memory-architecture.md](patterns/memory-architecture.md) | [context-engineering.md](patterns/context-engineering.md) |
+| Surface hidden assumptions | [johari-window-ambiguity.md](patterns/johari-window-ambiguity.md) | - |
+| Document architecture decisions | [architecture-decision-records.md](patterns/architecture-decision-records.md) | [documentation-maintenance.md](patterns/documentation-maintenance.md) |
+| **Implementation** |
+| Work across multiple sessions | [long-running-agent.md](patterns/long-running-agent.md) | [session-learning.md](patterns/session-learning.md) |
+| Add quality gates (hooks) | [advanced-hooks.md](patterns/advanced-hooks.md) | [project-infrastructure.md](patterns/project-infrastructure.md) |
+| Use advanced tool features | [advanced-tool-use.md](patterns/advanced-tool-use.md) | - |
+| Run parallel work streams | [parallel-sessions.md](patterns/parallel-sessions.md) | - |
+| Navigate code dynamically | [agentic-retrieval.md](patterns/agentic-retrieval.md) | - |
+| Generate images in pipeline | [ai-image-generation.md](patterns/ai-image-generation.md) | - |
+| **Extensions** |
+| Choose MCP vs Skills vs Hooks | [plugins-and-extensions.md](patterns/plugins-and-extensions.md) | [mcp-vs-skills-economics.md](patterns/mcp-vs-skills-economics.md) |
+| Design large skills efficiently | [progressive-disclosure.md](patterns/progressive-disclosure.md) | [skills-domain-knowledge.md](patterns/skills-domain-knowledge.md) |
+| Understand MCP failure modes | [mcp-patterns.md](patterns/mcp-patterns.md) | [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md) |
+| Evaluate cost vs performance | [mcp-vs-skills-economics.md](patterns/mcp-vs-skills-economics.md) | [plugins-and-extensions.md](patterns/plugins-and-extensions.md) |
+| Add domain knowledge to skills | [skills-domain-knowledge.md](patterns/skills-domain-knowledge.md) | [progressive-disclosure.md](patterns/progressive-disclosure.md) |
+| **Orchestration** |
+| Choose orchestration framework | [framework-selection-guide.md](patterns/framework-selection-guide.md) | - |
+| Use GSD pattern | [gsd-orchestration.md](patterns/gsd-orchestration.md) | [subagent-orchestration.md](patterns/subagent-orchestration.md) |
+| Implement cognitive agents | [cognitive-agent-infrastructure.md](patterns/cognitive-agent-infrastructure.md) | [framework-selection-guide.md](patterns/framework-selection-guide.md) |
+| Orchestrate subagents | [subagent-orchestration.md](patterns/subagent-orchestration.md) | [gsd-orchestration.md](patterns/gsd-orchestration.md) |
+| Manage recursive context | [recursive-context-management.md](patterns/recursive-context-management.md) | [memory-architecture.md](patterns/memory-architecture.md) |
+| **Quality & Security** |
+| Ensure security and isolation | [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md) | [mcp-patterns.md](patterns/mcp-patterns.md) |
+| Generate secure code | [secure-code-generation.md](patterns/secure-code-generation.md) | [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md) |
+| Assess output confidence | [confidence-scoring.md](patterns/confidence-scoring.md) | - |
+| Apply production AI principles | [agent-principles.md](patterns/agent-principles.md) | [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md) |
+| Evaluate agent performance | [agent-evaluation.md](patterns/agent-evaluation.md) | [confidence-scoring.md](patterns/confidence-scoring.md) |
+| Implement self-improvement | [recursive-evolution.md](patterns/recursive-evolution.md) | [session-learning.md](patterns/session-learning.md) |
+| **Research & Documentation** |
+| Classify evidence quality | [evidence-tiers.md](patterns/evidence-tiers.md) | [confidence-scoring.md](patterns/confidence-scoring.md) |
+| Maintain documentation | [documentation-maintenance.md](patterns/documentation-maintenance.md) | [architecture-decision-records.md](patterns/architecture-decision-records.md) |
+| Learn from session corrections | [session-learning.md](patterns/session-learning.md) | [long-running-agent.md](patterns/long-running-agent.md) |
+| Integrate with CI/CD | [github-actions-integration.md](patterns/github-actions-integration.md) | [advanced-hooks.md](patterns/advanced-hooks.md) |
+| **Tool Selection** |
+| Choose Claude Code vs alternatives | [tool-ecosystem.md](patterns/tool-ecosystem.md) | [framework-selection-guide.md](patterns/framework-selection-guide.md) |
+
+**Can't find what you need?** See [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md) for guided learning by role or [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for common issues.
+
 ## What's Included
 
 ### Prompts
@@ -228,7 +281,7 @@ See **[DECISIONS.md](DECISIONS.md)** for detailed reasoning on:
 
 ## Sources & Acknowledgments
 
-See **[SOURCES.md](SOURCES.md)** for all references, including:
+See **[SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md)** for top 20 Tier A/B sources or **[SOURCES.md](SOURCES.md)** for comprehensive database, including:
 - Anthropic Engineering Blog posts
 - Industry standards (GitHub Spec Kit, agentskills.io, OWASP MCP Guide)
 - Production validation from real projects

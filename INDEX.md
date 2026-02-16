@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-02-16 11:41*
+*Auto-generated: 2026-02-16 12:15*
 
 ## Summary
 
-**Total documents**: 90
+**Total documents**: 91
 
 | Directory | Count |
 |-----------|-------|
@@ -15,7 +15,7 @@
 | presets | 4 |
 | prompts | 3 |
 | research | 2 |
-| root | 16 |
+| root | 17 |
 | skills | 4 |
 | skills/examples/content-reviewer | 1 |
 | skills/examples/detection-rule-reviewer | 1 |
@@ -49,6 +49,7 @@
 - [QUICK-REFERENCE-PRINCIPLES.md](QUICK-REFERENCE-PRINCIPLES.md)
 - [README.md](README.md)
 - [SOURCES.md](SOURCES.md)
+- [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md)
 - [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 - [WORKFLOW-STATUS.md](WORKFLOW-STATUS.md)
 - [WORKFLOW-TEST-RESULTS.md](WORKFLOW-TEST-RESULTS.md)

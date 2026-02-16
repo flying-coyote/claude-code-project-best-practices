@@ -2,6 +2,8 @@
 
 All patterns in this repository are derived from authoritative sources and production-validated implementations.
 
+**Quick Lookup**: For the top 20 most-referenced sources, see [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (100 lines vs 1,278 here)
+
 ## Primary Sources (Tier A)
 
 ### Boris Cherny (Claude Code Creator)

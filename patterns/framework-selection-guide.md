@@ -285,6 +285,113 @@ Some patterns extracted from these frameworks work with ANY orchestration:
 
 ---
 
+## Anti-Patterns
+
+### ❌ Framework Before Problem
+**Anti-pattern**: "I'll use GSD because it sounds advanced/powerful"
+
+**Why it fails**:
+- Adds setup overhead (STATE.md, .planning/ directory)
+- Fresh executor spawning has latency cost
+- Native subagents handle 80% of work effectively
+
+**Instead**: Start with native subagents. Upgrade to GSD when you observe:
+- Quality degradation across sessions
+- Lost context between work days
+- Team handoffs failing due to missing state
+
+**Evidence**: GSD's own README advises "overkill for simple tasks"
+
+---
+
+### ❌ Mixing Frameworks Without Architecture
+**Anti-pattern**: Arbitrarily combining CAII's 7 agents inside GSD's workflow phases
+
+**Why it fails**:
+- Frameworks have incompatible assumptions (CAII = deterministic, GSD = stateless executors)
+- Debugging complexity exponentially increases
+- No validated patterns for hybrid approaches
+
+**Instead**: Pick ONE orchestration framework. Borrow specific patterns:
+- ✅ Use Johari Window (from CAII) with native subagents
+- ✅ Use STATE.md (from GSD) without full GSD workflow
+- ❌ Don't try to run CAII agents as GSD executors
+
+**Evidence**: All production implementations use single framework, borrow patterns
+
+---
+
+### ❌ Implementing Claude-Flow Directly
+**Anti-pattern**: "Let me build 60 specialized agents like Claude-Flow"
+
+**Why it fails**:
+- Enterprise-scale architecture designed for 100+ simultaneous users
+- Vector memory, swarm topologies require infrastructure
+- Cost: $500K+/year compute (per Claude-Flow estimates)
+- Maintenance burden: 60 agents = 60 failure modes
+
+**Instead**: Reference Claude-Flow for ideas:
+- Learn the principles (specialized agents, vector memory concepts)
+- Implement simpler: CAII gives you 7 cognitive agents (vs 60 domain agents)
+- Start native, grow to CAII if needed, consider Claude-Flow patterns at enterprise scale
+
+**Reality check**: If you're reading this repository, you're not at Claude-Flow scale yet
+
+---
+
+### ❌ Choosing Based on Novelty
+**Anti-pattern**: "RLM sounds cutting-edge, I'll base my architecture on it"
+
+**Why it fails**:
+- RLM (Recursive Language Models) requires RL training not available for Claude
+- All published results use GPT-5/GPT-5-mini only
+- Implementation requires REPL environment setup
+- **Status**: Emerging pattern (monitor, don't adopt yet)
+
+**Instead**:
+- Use RLM-inspired techniques NOW: recursive exploration prompts, context partitioning
+- Base architecture on validated patterns (Native, GSD, CAII)
+- Monitor RLM developments, adopt when Claude-validated
+
+**Timeline**: RLM may be production-ready 2027+ (speculation)
+
+---
+
+### ❌ Premature Optimization
+**Anti-pattern**: Starting new project with GSD + CAII + custom hooks + MCP servers
+
+**Why it fails**:
+- Setup time > actual work time for first 2 weeks
+- Complexity without validated need
+- Makes debugging initial issues harder
+
+**Instead** - Progressive adoption:
+1. **Week 1**: Native subagents + minimal CLAUDE.md
+2. **Week 2**: Add hooks if needed (formatting, linting)
+3. **Week 3**: Add GSD if session continuity problems observed
+4. **Week 4+**: Add CAII if building reusable agent architecture
+
+**Evidence**: This repository itself started native, added complexity as friction emerged
+
+---
+
+### ❌ Ignoring SDD Foundation
+**Anti-pattern**: "GSD looks good, I'll skip the planning methodology and just use executors"
+
+**Why it fails**:
+- GSD assumes you're following Specify → Plan → Tasks → Implement
+- Without specs, STATE.md becomes ad-hoc notes (context rot returns)
+- Executors need well-defined tasks (from planning phase)
+
+**Instead**: SDD is non-negotiable:
+- All frameworks (Native, GSD, CAII) implement SDD's 4 phases
+- Framework = HOW to orchestrate, SDD = WHAT phases to follow
+- No framework solves poor planning
+
+**Rule**: If you're not using /plan for non-trivial work, framework choice won't help
+
+---
+
 ## Related Patterns
 
 - [Spec-Driven Development](./spec-driven-development.md) - The foundational methodology (always use)
