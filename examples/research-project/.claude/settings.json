@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(python -m*)",
+      "Bash(jupyter*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'if ! git diff --quiet 2>/dev/null; then echo \"⚠️ Uncommitted research - save your findings\"; fi; if git status 2>/dev/null | grep -q \"ahead\"; then echo \"⚠️ Unpushed commits\"; fi'"
+          }
+        ]
+      }
+    ]
+  }
+}

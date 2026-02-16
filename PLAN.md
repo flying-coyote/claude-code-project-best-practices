@@ -1,7 +1,7 @@
 # Plan
 
 **Purpose**: Current priorities, immediate next actions, success metrics
-**Last Updated**: January 10, 2026
+**Last Updated**: February 16, 2026
 
 ---
 
@@ -18,11 +18,11 @@ The repository is stable and production-ready. Key metrics achieved:
 
 | Metric | Status |
 |--------|--------|
-| Patterns | 20 documented |
+| Patterns | 34 documented |
 | Skills | 10 examples |
-| Self-compliance | 100% |
+| Self-compliance | 88/100 (tracked in DOGFOODING-GAPS.md) |
 | Source attribution | 100% |
-| Total documents | 56 |
+| Total documents | 95 |
 
 See [ARCHIVE.md](ARCHIVE.md) for completed milestones.
 
@@ -41,6 +41,9 @@ Items completed since last archive (ready for next ARCHIVE.md update):
 | Plugin marketplace update practice | Jan 10, 2026 | Added to plugins-and-extensions.md |
 | Documentation maintenance workflow | Jan 10, 2026 | New archive/end-session commands, stop hook |
 | Aligned documentation-maintenance.md | Jan 10, 2026 | Pattern now matches actual implementation |
+| QUICK-REFERENCE-PRINCIPLES.md | Feb 2026 | Created 1-page printable reference for The Big 3 |
+| Pattern expansion | Feb 2026 | Grew from 20 to 34 documented patterns |
+| Comprehensive quality review | Feb 16, 2026 | 8/10 → 9/10 quality improvements planned |
 
 *Move to ARCHIVE.md at next milestone or monthly rollup.*
 
@@ -60,8 +63,12 @@ Items completed since last archive (ready for next ARCHIVE.md update):
 
 | Item | Effort | Notes |
 |------|--------|-------|
-| Add troubleshooting/FAQ section | Medium | Common issues from production use |
-| Refresh example projects | Medium | Ensure alignment with 17 patterns |
+| Add troubleshooting/FAQ section | Medium | 🔄 In Progress - Common issues from production use |
+| Add "Which Entry Point?" decision table | Low | 🔄 In Progress - Clarifies SETUP vs BOOTSTRAP vs AUDIT |
+| Add 11 missing patterns to README | Low | 🔄 In Progress - Improve pattern discoverability (68% → 100%) |
+| Create migration guide | Medium | 🔄 Planned - For existing .claude/ setups, Cursor migration |
+| Create pattern learning path | Medium | 🔄 Planned - Reduces overwhelm from 34 patterns |
+| Refresh example projects | Medium | 🔄 Planned - 3 complete implementations with full .claude/ |
 | Add pattern quality checklist | Low | Practical validation tool |
 
 ### Low Priority
@@ -110,12 +117,12 @@ These were evaluated and consciously deferred (see [ARCHIVE.md](ARCHIVE.md)):
 | Source Type | Frequency | Next Review |
 |-------------|-----------|-------------|
 | Anthropic Engineering Blog | Weekly | Ongoing |
-| awesome-claude-code lists | Monthly | Feb 2026 |
+| awesome-claude-code lists | Monthly | Mar 2026 |
 | SDD frameworks (Spec Kit, BMAD) | Quarterly | Apr 2026 |
 
 ---
 
 ## Next Review
 
-**When**: After next pattern addition or monthly (Feb 2026)
-**Focus**: Check for new Anthropic patterns, community feedback
+**When**: After Phase 1 implementation complete or monthly (Mar 2026)
+**Focus**: Verify quality improvements, check for new Anthropic patterns, community feedback

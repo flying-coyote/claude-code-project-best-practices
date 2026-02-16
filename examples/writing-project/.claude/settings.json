@@ -1,12 +1,32 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint*)",
+      "Bash(npx markdownlint*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)"
+    ]
+  },
   "hooks": {
-    "SessionStart": [
+    "Stop": [
       {
         "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/session-start.sh"
+            "command": "bash -c 'if ! git diff --quiet 2>/dev/null; then echo \"⚠️ Uncommitted changes - save your draft\"; fi; if git status 2>/dev/null | grep -q \"ahead\"; then echo \"⚠️ Unpushed commits\"; fi'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write(**/*.md)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx markdownlint --fix \"$FILE\" 2>/dev/null || true"
           }
         ]
       }

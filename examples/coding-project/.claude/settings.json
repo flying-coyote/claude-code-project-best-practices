@@ -1,5 +1,39 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(npm test*)",
+      "Bash(npm run test*)",
+      "Bash(npm run build*)",
+      "Bash(npm run lint*)",
+      "Bash(npm run format*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)"
+    ]
+  },
   "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'if ! git diff --quiet 2>/dev/null; then echo \"⚠️ Uncommitted changes\"; fi; if git status 2>/dev/null | grep -q \"ahead\"; then echo \"⚠️ Unpushed commits\"; fi'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write(**/*.{ts,js,tsx,jsx})",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write \"$FILE\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "matcher": "",

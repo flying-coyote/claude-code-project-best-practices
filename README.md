@@ -83,6 +83,21 @@ Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-p
 
 See **[Project Infrastructure Pattern](patterns/project-infrastructure.md)** for the complete tiered approach.
 
+## Which Entry Point Should I Use?
+
+This repository provides multiple entry points for different scenarios:
+
+| Your Situation | Use This | Why |
+|----------------|----------|-----|
+| I have 5 minutes, want quick value | README Tier 1 Quick Start (above) | Immediate uncommitted/unpushed warnings with 4 lines in settings.json |
+| Setting up new project from scratch | [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md) | Full interactive setup with preset selection and best practices |
+| Setting up infrastructure for any project | [SETUP-PROJECT.md](prompts/SETUP-PROJECT.md) | Unified tiered approach (5/15/30 min) for new or existing projects |
+| Auditing existing Claude Code setup | [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md) | Comprehensive compliance check against best practices |
+| Learning the methodology | [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) | Read The Big 3 principles first |
+| Finding a specific pattern | Pattern tables below | Jump directly to implementation guidance |
+
+**Not sure?** Start with the Tier 1 Quick Start above, then explore SETUP-PROJECT.md when you want more.
+
 ## What's Included
 
 ### Prompts
@@ -115,6 +130,7 @@ Core implementation patterns organized by the spec-driven development phase they
 |---------|-------------|--------|
 | [Context Engineering](patterns/context-engineering.md) | Specs as deterministic context; correctness > compression | Nate B. Jones |
 | [Memory Architecture](patterns/memory-architecture.md) | 4-tier lifecycle model for information management | Nate B. Jones |
+| [Johari Window Ambiguity](patterns/johari-window-ambiguity.md) | Surface hidden assumptions before task execution | CAII |
 
 #### Plan Phase
 | Pattern | Key Insight | Source |
@@ -130,13 +146,23 @@ Core implementation patterns organized by the spec-driven development phase they
 | [Progressive Disclosure](patterns/progressive-disclosure.md) | 3-tier architecture; 73% token savings | Production |
 | [Advanced Hooks](patterns/advanced-hooks.md) | PreToolUse, PostToolUse, Stop hooks for quality gates | Production |
 | [Advanced Tool Use](patterns/advanced-tool-use.md) | Tool search, programmatic calling | Anthropic |
+| [Agentic Retrieval](patterns/agentic-retrieval.md) | Dynamic navigation vs pre-computed embeddings | LlamaIndex |
+| [Parallel Sessions](patterns/parallel-sessions.md) | 5+ terminal + 5-10 web sessions for parallel work streams | Boris Cherny |
+| [AI Image Generation](patterns/ai-image-generation.md) | Automated visual assets in development pipelines | Community |
 
 #### Cross-Phase
 | Pattern | Key Insight | Source |
 |---------|-------------|--------|
 | [Agent Principles](patterns/agent-principles.md) | 6 principles for production AI reliability | Nate B. Jones |
+| [Agent Evaluation](patterns/agent-evaluation.md) | Evals as tests; task-based, LLM-as-judge, infrastructure noise | Anthropic |
 | [MCP Patterns](patterns/mcp-patterns.md) | 7 failure modes + positive patterns + OWASP security | Nate B. Jones + OWASP |
+| [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md) | Skills 50% cheaper than MCP; tradeoffs on speed vs cost | Tenzir |
 | [Plugins and Extensions](patterns/plugins-and-extensions.md) | When to use Skills vs MCP vs Hooks vs Commands | Production |
+| [Safety and Sandboxing](patterns/safety-and-sandboxing.md) | OS-level isolation over permission prompts | Anthropic + OWASP |
+| [GSD Orchestration](patterns/gsd-orchestration.md) | Fresh context per subagent; state externalization | glittercowboy |
+| [Cognitive Agent Infrastructure](patterns/cognitive-agent-infrastructure.md) | 7 fixed cognitive agents vs domain-specific proliferation | CAII |
+| [Recursive Context Management](patterns/recursive-context-management.md) | Programmatic self-examination vs single forward pass | MIT CSAIL |
+| [Session Learning](patterns/session-learning.md) | Capture corrections to update persistent config | Lance Martin |
 | [Confidence Scoring](patterns/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework | Production |
 | [Recursive Evolution](patterns/recursive-evolution.md) | Self-Evolution Algorithm: multi-candidate, judge loop, crossover | Google TTD-DR |
 | [Tool Ecosystem](patterns/tool-ecosystem.md) | When Claude Code vs alternatives (Aider, Cursor, OpenHands) | Community |

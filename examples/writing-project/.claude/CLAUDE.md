@@ -1,66 +1,28 @@
-# Technical Blog Project Context
+# Technical Blog (Example)
 
-## Project Purpose
+## Purpose
+Blog on software architecture and system design. Target: senior developers/tech leads.
 
-A technical blog covering software architecture, system design, and engineering best practices. Target audience is senior developers and technical leads.
+## Commands
+- `npm run lint` - Check markdown formatting
+- `git log --oneline` - Review recent posts
+- See publication checklist in docs/PUBLISHING.md before finalizing
 
-## Current Phase
+## Voice Rules (Repeatedly Violated)
+- Use first person "I" for personal experience, "you" for guidance
+- Specific tools with versions ("PostgreSQL 15") not generic ("database")
+- Acknowledge tradeoffs - no silver bullets
 
-Active content creation - publishing 2 posts per month
+## Evidence Tiers (Required)
+- **Strong claims** require Tier A/B (official docs, production data, benchmarks)
+- **Tier C** (industry blogs) must be labeled as such
+- **Opinions** clearly marked as Tier D
 
-## Content Quality Standards
+## Known Gotchas
+- Images must be in images/ subdirectory, not root (broke 4 posts)
+- Markdown links are case-sensitive (GitHub != local filesystem)
+- Draft files in drafts/ won't be linted (caused 2 publishing errors)
+- Internal links use relative paths from published/ directory
 
-- Evidence-based claims with documented sources
-- Balanced perspective acknowledging trade-offs
-- Consistent voice: technical but accessible, conversational but authoritative
-- Intellectual honesty over marketing claims
-- All technical claims should be verifiable
-
-## Voice and Tone
-
-- First person ("I") for personal experiences
-- Direct and practical ("Here's how to..." not "One might consider...")
-- Acknowledge uncertainty ("This may not work for..." not definitive claims)
-- Name specific tools and versions, not abstract concepts
-
-## Evidence Tiers
-
-- **Tier A**: Official documentation, production experience, benchmarks
-- **Tier B**: Peer-reviewed papers, expert interviews
-- **Tier C**: Industry blogs, vendor docs (treat with skepticism)
-- **Tier D**: Opinions, speculation (label clearly)
-
-Strong claims require Tier A or B evidence.
-
-## Thinking Methodology
-
-For deep analysis, use the FRAME-ANALYZE-SYNTHESIZE approach:
-- **FRAME**: Define problem, identify assumptions, clarify success criteria
-- **ANALYZE**: Evaluate alternatives, identify failure modes, assess trade-offs
-- **SYNTHESIZE**: Recommend approach, document rationale, plan implementation
-
-## Git Workflow
-
-Commit messages:
-- `📚` or `docs:` New post or major content
-- `🔧` or `fix:` Corrections and fixes
-- `✅` or `feat:` Published content
-- `chore:` Maintenance tasks
-
-## Project Structure
-
-```
-drafts/        # Work in progress posts
-published/     # Completed, published posts
-images/        # Post images and diagrams
-research/      # Source materials and notes
-```
-
-## Publication Checklist
-
-Before publishing:
-- [ ] All claims have appropriate evidence tier
-- [ ] Code examples are tested and working
-- [ ] Links are valid
-- [ ] Voice is consistent throughout
-- [ ] Reviewed for technical accuracy
+## Current Focus
+Drafting "Context Engineering in Practice" post (target: March 15)

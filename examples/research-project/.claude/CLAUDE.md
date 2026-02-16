@@ -1,72 +1,36 @@
-# AI Impact on Software Development - Research Project Context
+# AI Impact Research (Example)
 
-## Project Purpose
+## Purpose
+Systematic literature review: AI coding tools' impact on productivity/quality.
 
-A systematic literature review examining the impact of AI-assisted coding tools on developer productivity and code quality. The study includes hypothesis tracking, evidence synthesis, and expert validation.
+## Commands
+- See hypotheses/README.md for tracking format
+- `git log --oneline` to review research timeline
+- BIBLIOGRAPHY.md tracks all sources with evidence tiers
 
-## Current Phase
+## Evidence Tiers (Required for All Claims)
+- **Tier A**: Peer-reviewed studies, official reports (strong claims only)
+- **Tier B**: Expert analysis, production data (supporting evidence)
+- **Tier C**: Vendor docs, surveys (note limitations)
+- **Tier D**: Anecdotal, personal (mark as speculation)
 
-Active research - Literature review phase
+## Hypothesis Tracking Format
+Each hypothesis file must include:
+- Statement, rationale, confidence level (HIGH/MEDIUM/LOW)
+- Supporting evidence (with tiers), contradicting evidence
+- This format was violated 5 times → standardize
 
-## Quality Standards
+## Known Gotchas
+- Sources in sources/ must match BIBLIOGRAPHY.md entries (broke 3 citations)
+- Hypothesis files named HYP-NNN-description.md (not arbitrary names)
+- Contradictions directory tracks unresolved conflicts (don't hide them)
+- All Tier A sources require DOI or permanent URL (2 papers became inaccessible)
+- Expert quotes require date, context, and consent flag
 
-- Evidence tier classification for all claims (Tier A-D)
-- Hypothesis tracking with confidence levels
-- Source attribution and citation for all references
-- Reproducible methodology and transparent data collection
-- Document contradictions and limitations openly
-- Balanced perspective acknowledging competing interpretations
+## Research Integrity Violations to Avoid
+- Repeatedly mixed correlation/causation (6 instances in draft)
+- Used "definitely" instead of "may indicate" (4 corrections needed)
+- Omitted contradicting evidence (caught in peer review twice)
 
-## Research Methodology
-
-### Evidence Tiers
-- **Tier A**: Peer-reviewed studies, official industry reports
-- **Tier B**: Expert analysis, production-validated data
-- **Tier C**: Vendor documentation, industry surveys
-- **Tier D**: Anecdotal evidence, personal experience
-
-### Hypothesis Management
-Track all hypotheses with:
-- Clear statement and rationale
-- Supporting evidence (with tier classification)
-- Contradicting evidence
-- Confidence level (HIGH/MEDIUM/LOW)
-- Validation status
-
-## Thinking Methodology
-
-For deep analysis, use the FRAME-ANALYZE-SYNTHESIZE approach:
-- **FRAME**: Define research question, identify assumptions, clarify success criteria
-- **ANALYZE**: Evaluate sources, assess evidence quality, identify contradictions
-- **SYNTHESIZE**: Draw conclusions, document limitations, plan validation
-
-## Git Workflow
-
-Commit messages follow conventional format:
-- `research:` New sources or findings
-- `hypothesis:` Hypothesis updates
-- `analysis:` Data analysis work
-- `docs:` Documentation updates
-- `validation:` Expert feedback or validation
-
-## Project Structure
-
-```
-concepts/              # Key concepts and definitions
-hypotheses/            # Hypothesis tracking files
-sources/               # Source materials and citations
-analysis/              # Data analysis and synthesis
-contradictions/        # Documented contradictions
-experts/               # Expert interview notes
-FINDINGS.md            # Summary of findings
-BIBLIOGRAPHY.md        # Complete source list
-```
-
-## Research Integrity
-
-- Never present speculation as fact
-- Surface contradictions, don't hide them
-- Distinguish correlation from causation
-- Acknowledge limitations and biases
-- Use precise language ("may" not "definitely")
-- Cite sources for all non-trivial claims
+## Current Focus
+Synthesizing 23 sources on productivity metrics (target: hypothesis validation by March 1)
