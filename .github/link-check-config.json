@@ -1,0 +1,39 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^http://localhost"
+    },
+    {
+      "pattern": "^https://localhost"
+    },
+    {
+      "pattern": "^http://127.0.0.1"
+    }
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "^/",
+      "replacement": "{{BASEURL}}/"
+    }
+  ],
+  "httpHeaders": [
+    {
+      "urls": ["https://www.anthropic.com"],
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (compatible; Link-Checker/1.0)"
+      }
+    },
+    {
+      "urls": ["https://github.com"],
+      "headers": {
+        "Accept": "text/html"
+      }
+    }
+  ],
+  "timeout": "10s",
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackHttpStatus": [404, 410, 500, 502, 503, 504],
+  "aliveStatusCodes": [200, 203, 206, 301, 302, 307, 308, 401, 403, 405, 999],
+  "ignoreHttpsErrors": false
+}

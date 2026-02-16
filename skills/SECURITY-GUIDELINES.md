@@ -292,7 +292,23 @@ If injection suspected:
 
 ---
 
+## Complementary: Output-Level Security (CodeGuard)
+
+This document covers **skill-level security** (protecting against prompt injection, data exfiltration, and knowledge base poisoning). For **output-level security** (ensuring Claude generates secure application code), see:
+
+- [Secure Code Generation](../patterns/secure-code-generation.md) — CoSAI Project CodeGuard integration
+  - 23 security rules for generated code (credentials, crypto, input validation)
+  - Hook-based credential scanning
+  - Supply chain security for AI-generated dependencies
+
+The two frameworks are complementary:
+- **This document**: Secures skill execution (agent-level)
+- **CodeGuard**: Secures code output (application-level)
+
+---
+
 ## Related Patterns
 
+- [Secure Code Generation](../patterns/secure-code-generation.md) - CodeGuard for secure AI-generated code
 - [Progressive Disclosure](../patterns/progressive-disclosure.md) - Workflow routing includes security context
 - [Memory Architecture](../patterns/memory-architecture.md) - Storage security considerations
