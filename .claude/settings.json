@@ -6,9 +6,16 @@
       "Bash(git log*)",
       "Bash(git branch*)",
       "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git checkout*)",
       "Bash(gh pr view*)",
       "Bash(gh pr list*)",
-      "Bash(python3 automation/*)"
+      "Bash(gh pr create*)",
+      "Bash(gh issue comment*)",
+      "Bash(python3 automation/*)",
+      "Bash(npm run lint*)",
+      "Bash(curl*)"
     ]
   },
   "hooks": {

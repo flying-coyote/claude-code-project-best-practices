@@ -67,7 +67,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: '📚 Review Claude Code ' + version + ' release',
-              labels: ['documentation', 'source-update'],
+              labels: ['documentation', 'source-update', 'tier-a'],
               body: body
             });
 

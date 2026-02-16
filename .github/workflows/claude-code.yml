@@ -1,20 +1,22 @@
-name: Claude Code Review
+name: Claude Code
 on:
   pull_request:
     types: [opened, synchronize, reopened]
   issue_comment:
     types: [created]
+  issues:
+    types: [opened]
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
   issues: write
   id-token: write
 
 jobs:
+  # ─── Job 1: PR Review (existing behavior) ─────────────────────────
   claude-review:
     runs-on: ubuntu-latest
-    # Run on PRs or when @.claude is mentioned in comments
     if: |
       github.event_name == 'pull_request' ||
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@.claude'))
@@ -26,3 +28,123 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  # ─── Job 2: Source Update Processor ────────────────────────────────
+  process-source-update:
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'issues' &&
+      github.event.action == 'opened' &&
+      contains(join(github.event.issue.labels.*.name, ','), 'source-update')
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Process Source Update
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            CONTEXT: You are processing an automated source-update issue for the claude-code-project-best-practices repository.
+
+            ISSUE NUMBER: ${{ github.event.issue.number }}
+            ISSUE TITLE: ${{ github.event.issue.title }}
+            ISSUE LABELS: ${{ join(github.event.issue.labels.*.name, ', ') }}
+
+            YOUR TASK: Analyze the source material described in this issue and draft updates to existing pattern files and SOURCES.md. Then create a PR for human review.
+
+            RULES — YOU MUST FOLLOW ALL OF THESE:
+            1. NEVER create new pattern files. Only update existing patterns in the patterns/ directory.
+            2. NEVER commit directly to master. Create a branch and PR.
+            3. Only reference evidence Tier A or Tier B sources (see SOURCES.md for tier definitions in the "Evidence Tier Classification" section).
+            4. Maintain the exact formatting conventions of each file you update (header structure, source attribution format, "Last updated" footer).
+            5. When updating SOURCES.md, add entries under the correct tier section and maintain chronological ordering.
+            6. When updating pattern files, preserve all existing sections including Related Patterns, Anti-Patterns, and "Last updated" footer.
+            7. Update the "Last updated" date to the current month/year on any pattern file you modify.
+            8. Keep changes minimal and targeted. Do NOT rewrite entire files or add commentary beyond what the source material supports.
+            9. Do NOT use marketing language, superlatives, or unsubstantiated claims.
+
+            PROCESS:
+            Step 1 — Read the issue body carefully. Identify what new source material exists (release notes, blog post URL, repository activity).
+            Step 2 — If a URL is provided in the issue body, fetch it and analyze the content for relevant patterns or updates.
+            Step 3 — Read SOURCES.md to understand current state and find where the new source fits.
+            Step 4 — Search the patterns/ directory to identify which existing patterns are affected by this new source material.
+            Step 5 — For each affected pattern, read the full file, then draft minimal, targeted updates. Add new information in the appropriate sections.
+            Step 6 — Update SOURCES.md with the new reference, following the exact formatting of adjacent entries.
+            Step 7 — Run `python3 automation/generate_index.py` and commit if INDEX.md changed.
+            Step 8 — Run `npm run lint` and fix any issues.
+            Step 9 — Create a PR that closes this issue, with this body format:
+
+            ## Source Update
+
+            Closes #${{ github.event.issue.number }}
+
+            ### Source Material
+            - Type: [Anthropic release / Blog post / Community update]
+            - Evidence Tier: [A / B]
+            - URL: [source URL]
+
+            ### Changes Made
+            - [List each file changed and what was updated]
+
+            ### Review Checklist
+            - [ ] Evidence tier correctly assigned
+            - [ ] Source attribution is accurate
+            - [ ] Pattern updates are factually correct
+            - [ ] No new patterns were created (only existing updated)
+            - [ ] Cross-references are valid
+            - [ ] SOURCES.md entry follows existing formatting
+            - [ ] No marketing language or unsubstantiated claims
+            - [ ] Changes are minimal and targeted
+
+            IF YOU CANNOT DETERMINE what updates to make (source URL is inaccessible, content is unclear, or no existing patterns are affected), post a comment on issue #${{ github.event.issue.number }} explaining what you found and why no PR was created. Do NOT create empty PRs.
+
+          claude_args: "--max-turns 30"
+
+  # ─── Job 3: Daily Review URL Checker ───────────────────────────────
+  daily-review-check:
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'issues' &&
+      github.event.action == 'opened' &&
+      contains(join(github.event.issue.labels.*.name, ','), 'daily-review') &&
+      !contains(join(github.event.issue.labels.*.name, ','), 'source-update')
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Source URLs
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            CONTEXT: You are performing a daily URL health check for the claude-code-project-best-practices repository. Do NOT create PRs or modify any files.
+
+            ISSUE NUMBER: ${{ github.event.issue.number }}
+
+            PROCESS:
+            Step 1 — Read SOURCES.md and extract all Tier A source URLs (the "Primary Sources" section).
+            Step 2 — For each URL, check HTTP status using: curl -s -o /dev/null -w "%{http_code}" -L "URL" --max-time 10
+            Step 3 — Post a comment on issue #${{ github.event.issue.number }} with this format:
+
+            ## Automated URL Health Check
+
+            | Source | URL | Status |
+            |--------|-----|--------|
+            | [Name] | [URL] | [200 OK / 301 Redirect / 404 Broken / Timeout] |
+
+            ### Summary
+            - Checked: [N] Tier A sources
+            - Healthy: [N]
+            - Needs attention: [N]
+
+            [List any broken sources, or "All sources accessible."]
+
+            ---
+            *Automated check by Claude Code Action*
+
+            Do NOT modify any files. Only post the comment.
+
+          claude_args: "--max-turns 15"
