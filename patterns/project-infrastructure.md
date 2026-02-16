@@ -1,3 +1,15 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"  # Checkpoints and rewind feature
+measurement-claims:
+  - claim: "CLAUDE.md target: ~60 lines (80 max tolerable)"
+    source: "Anthropic official guidance"
+    date: "2025-11-15"
+    revalidate: "2026-11-15"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # Project Infrastructure Pattern
 
 **Source**: [Boris Cherny Interview](https://paddo.dev/blog/how-boris-uses-claude-code/), Production validation across 12+ projects

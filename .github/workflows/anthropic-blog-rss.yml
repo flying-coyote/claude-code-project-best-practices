@@ -1,0 +1,97 @@
+name: Anthropic Blog RSS Monitor
+
+# Monitor Anthropic blog for new posts with AI-powered analysis
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:  # Manual trigger for testing
+
+permissions:
+  issues: write  # For creating issues when new posts detected
+
+jobs:
+  check-rss:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests pyyaml anthropic
+
+      - name: Restore RSS cache
+        uses: actions/cache@v4
+        with:
+          path: .cache/anthropic-rss.json
+          key: rss-cache-${{ github.run_number }}
+          restore-keys: |
+            rss-cache-
+
+      - name: Check RSS feed for new posts
+        id: check_rss
+        run: |
+          python scripts/check-anthropic-rss.py --create-issue
+        continue-on-error: true
+
+      - name: Save RSS cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .cache/anthropic-rss.json
+          key: rss-cache-${{ github.run_number }}
+
+      - name: Analyze new posts with Claude API
+        if: steps.check_rss.outcome == 'success'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          # If anthropic-rss-issue.md exists, extract URLs and analyze
+          if [ -f "anthropic-rss-issue.md" ]; then
+            echo "New posts detected, analyzing with Claude..."
+
+            # Extract URLs from issue file
+            grep -oP 'https://www\.anthropic\.com/[^\s]+' anthropic-rss-issue.md | while read url; do
+              echo "Analyzing: $url"
+              python scripts/analyze-blog-post.py --url "$url" --create-issue || true
+            done
+          fi
+
+      - name: Create issue for new posts
+        if: hashFiles('anthropic-rss-issue.md') != ''
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "🆕 New Anthropic Blog Posts Detected"
+          content-filepath: anthropic-rss-issue.md
+          labels: |
+            automation
+            new-content
+            needs-review
+            anthropic-blog
+
+      - name: Create issues for blog analysis
+        if: hashFiles('blog-analysis-issue.md') != ''
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "🤖 Blog Post Analysis: Claude Code Updates"
+          content-filepath: blog-analysis-issue.md
+          labels: |
+            automation
+            ai-analysis
+            needs-review
+            pattern-update
+
+      - name: Summary
+        run: |
+          echo "## Anthropic Blog RSS Monitor Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **RSS check**: ${{ steps.check_rss.outcome }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **New posts issue created**: ${{ hashFiles('anthropic-rss-issue.md') != '' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Analysis issue created**: ${{ hashFiles('blog-analysis-issue.md') != '' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Date**: $(date -u)" >> $GITHUB_STEP_SUMMARY

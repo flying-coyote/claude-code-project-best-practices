@@ -1,3 +1,32 @@
+---
+version-requirements:
+  claude-code: "v2.1.30+"  # Session memory feature
+  model: "Opus 4.6+"       # Think tool and fast mode
+measurement-claims:
+  - claim: "Prompt represents only 0.1% of total context processed"
+    source: "Anthropic Engineering Blog"
+    date: "2025-11-24"
+    revalidate: "2026-11-24"
+  - claim: "Memory Tool + Context Editing: 39% improvement in agent search performance"
+    source: "Anthropic internal testing"
+    date: "2025-11-24"
+    revalidate: "2026-11-24"
+  - claim: "Context editing alone: 29% improvement"
+    source: "Anthropic internal testing"
+    date: "2025-11-24"
+    revalidate: "2026-11-24"
+  - claim: "Token consumption in 100-round search: 84% reduction"
+    source: "Anthropic internal testing"
+    date: "2025-11-24"
+    revalidate: "2026-11-24"
+  - claim: "HNSW Vector Memory: 150x-12,500x faster pattern retrieval"
+    source: "Claude-Flow framework"
+    date: "2025-10-15"
+    revalidate: "2026-10-15"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # Context Engineering
 
 **Sources**:

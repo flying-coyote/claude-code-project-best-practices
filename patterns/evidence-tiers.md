@@ -239,10 +239,252 @@ Date: November 24, 2024
 
 ---
 
+## Evidence Tiers for Rapidly Evolving Topics
+
+AI tooling, model capabilities, and ecosystem tools evolve rapidly. This section extends the evidence tier system with temporal considerations for fast-moving technology domains.
+
+### The Challenge: Time-Bound Truth
+
+In rapidly evolving fields, yesterday's Tier A truth becomes today's outdated claim:
+- Model improvements change performance benchmarks every 6 months
+- Tool recommendations become obsolete with new releases
+- Security vulnerabilities emerge in previously-trusted dependencies
+- Feature availability depends on specific version requirements
+
+**Core Principle**: Evidence tiers remain, but claims acquire expiry dates based on category.
+
+---
+
+### Tier A with Expiry Dates
+
+Even primary sources require re-validation for time-sensitive claims.
+
+#### Measurement Expiry Guidelines
+
+| Claim Type | Expiry Period | Re-validation Method | Example |
+|------------|---------------|----------------------|---------|
+| **Performance benchmarks** | 1 year | Re-run with current version | "85% token reduction" |
+| **Feature availability** | Until next major version | Verify in latest release notes | "Requires v2.1.30+" |
+| **Security audit results** | 6 months | Check for new CVEs/advisories | "43% of MCP servers vulnerable" |
+| **Cost comparisons** | 6 months | Verify current pricing | "4x more cost-effective" |
+| **Model capabilities** | 6 months (after new model release) | Test with new model | "Opus 4.6 handles X well" |
+
+#### Expiry Date Citation Format
+
+```markdown
+**Claim with Expiry**
+- Measurement: "Memory Tool + Context Editing: 39% improvement in agent search"
+- Source: Anthropic internal testing (Tier A)
+- Date: November 24, 2025
+- Revalidate: November 24, 2026
+- Context: Tested with Opus 4.6, may change with Opus 5.0
+```
+
+#### When Measurements Expire
+
+**Expired but not invalid**: Claims past expiry date should be:
+1. **Flagged**: Mark with ⚠️ NEEDS REVALIDATION
+2. **Preserved**: Keep historical measurement with date
+3. **Updated**: Add new measurement when available
+4. **Contextualized**: Explain if/how result changed
+
+Example:
+```markdown
+**Historical Measurement** (⚠️ NEEDS REVALIDATION - Expired 2026-01-15):
+- Original claim: "Playwright 4x more token-efficient than Chrome extension"
+- Tested: December 2025 with Opus 4.5
+- Status: Chrome extension deprecated 2026-01-10 (see DEPRECATIONS.md)
+- Current: Playwright now sole recommendation (no comparison needed)
+```
+
+---
+
+### EMERGING PATTERN Status
+
+For patterns without Tier A/B validation, use EMERGING status with explicit promotion criteria.
+
+#### When to Mark as EMERGING
+
+Use 🔬 EMERGING status when:
+- No Tier A source validates approach (yet)
+- No production case studies exist (yet)
+- Community/framework still in development (<1.0 version)
+- Pattern shows promise but requires validation
+
+**Critical**: EMERGING ≠ RECOMMENDED. Don't adopt EMERGING patterns in production without explicit risk acceptance.
+
+#### Promotion Criteria
+
+To promote from 🔬 EMERGING to ✅ RECOMMENDED, pattern must achieve:
+
+1. **Tier A Source Validation**
+   - Anthropic blog post validates approach, OR
+   - Official documentation endorses pattern, OR
+   - Peer-reviewed research confirms effectiveness
+
+2. **Production Validation**
+   - 2+ independent case studies, OR
+   - 1 Tier A case study (Anthropic, major enterprise), OR
+   - 6+ months production use with documented outcomes
+
+3. **Community Maturity** (for frameworks/tools)
+   - Version 1.0+ released
+   - Active maintenance (commits within 3 months)
+   - 100+ GitHub stars (or equivalent community signal)
+
+#### EMERGING Pattern Tracking
+
+**Document in pattern file**:
+```yaml
+---
+status: EMERGING
+promotion-criteria:
+  tier-a-source: false  # Waiting for Anthropic blog post
+  production-validation: 1-of-2  # Have 1 case study, need 1 more
+  community-maturity: true  # Framework v1.2.0, active maintenance
+next-review: 2026-03-01
+---
+```
+
+**Track in TOOLS-TRACKER.md**:
+- EMERGING patterns appear in Re-evaluation Schedule section
+- Quarterly review against promotion criteria
+- Automated monitoring via `emerging-pattern-monitor` skill
+
+#### Example: Reinforcement Learning from Memory (RLM)
+
+**Current Status** (2026-02-16): 🔬 EMERGING
+
+**Promotion Tracking**:
+- ✅ Tier A Source: Anthropic blog validated concept (2025-11-01)
+- ⏸️ Production Validation: 1 of 2 required case studies
+- ⏸️ Community Maturity: Framework in development, no 1.0 release
+- **Next Review**: 2026-03-01
+- **Promotion Likely?**: Medium (needs 1 more case study OR 1.0 release)
+
+---
+
+### Version-Aware Citations
+
+Technical claims often depend on specific versions. Include version context in citations.
+
+#### Version Citation Format
+
+```markdown
+**Feature: Session Memory across projects**
+- Availability: Claude Code v2.1.30+
+- Model: Any (not model-specific)
+- Source: Anthropic release notes (Tier A)
+- Date: January 15, 2026
+- Breaking changes: None
+```
+
+#### Version Dependency Types
+
+| Dependency Type | Example | Tracking Method |
+|-----------------|---------|-----------------|
+| **Minimum version** | "Requires v2.1.30+" | List in pattern frontmatter |
+| **Model-specific** | "Opus 4.6+ only" | Document model requirement |
+| **Breaking change** | "Deprecated in v3.0.0" | See DEPRECATIONS.md |
+| **Feature flag** | "Enable with --flag" | Document in usage section |
+
+#### Pattern Frontmatter for Version Tracking
+
+**Every pattern should include**:
+```yaml
+---
+version-requirements:
+  claude-code: "v2.1.30+"  # Optional: only if version-specific
+  model: "Opus 4.6+"       # Optional: only if model-specific
+measurement-claims:
+  - claim: "39% improvement in agent search"
+    source: "Anthropic internal testing"
+    date: "2025-11-24"
+    revalidate: "2026-11-24"
+status: "PRODUCTION"  # or EMERGING, DEPRECATED
+last-verified: "2026-02-16"
+---
+```
+
+This enables automated tracking via `scripts/generate-tools-tracker.py`.
+
+---
+
+### Handling Rapid Deprecation
+
+Fast-moving ecosystems require explicit deprecation processes.
+
+#### Deprecation Triggers
+
+**Immediate deprecation** (0-day grace period):
+- Critical security vulnerability discovered
+- Official vendor deprecation notice
+- Data integrity or safety issue
+
+**Standard deprecation** (90-day grace period):
+- Better alternative available (>2x performance improvement)
+- Official guidance contradicts current pattern
+- Tool/framework abandoned (no updates >1 year)
+
+#### Deprecation Documentation
+
+**Required in DEPRECATIONS.md**:
+1. What was deprecated and when
+2. Why it was deprecated (with evidence tier)
+3. Migration path to recommended alternative
+4. Affected pattern files
+5. Grace period and removal date
+
+Example:
+```markdown
+### `/commit-push-pr` Slash Command
+
+**Status**: ❌ DEPRECATED
+**Deprecated Date**: 2026-01-31
+**Reason**: Natural language git operations in Opus 4.6 handle complex git workflows
+**Evidence**: Anthropic guidance (Tier A) - "Avoid complex slash command lists"
+**Migration**: Use natural language: "commit and push my changes, then create a PR"
+**Grace Period**: 90 days (removal: 2026-05-01)
+```
+
+---
+
+### Integration with Automation
+
+**Automated Tracking** (via `.github/workflows/tools-evolution-tracker.yml`):
+- Daily parsing of patterns for version requirements
+- Extraction of measurement claims with expiry dates
+- Flagging expired claims for re-validation
+- Monitoring EMERGING patterns for promotion
+
+**Manual Editorial Control**:
+- Promotion decisions (EMERGING → RECOMMENDED)
+- Evidence tier assignment for new sources
+- Deprecation decisions and grace periods
+- Measurement re-validation interpretation
+
+**Key Principle**: Automation structures information; humans make decisions.
+
+---
+
+### Quarterly Audit Checklist
+
+**Review Rapid Evolution Tracking** (see DOGFOODING-GAPS.md):
+- [ ] Review all EMERGING patterns for promotion eligibility
+- [ ] Verify no measurement claims past expiry without re-validation
+- [ ] Check DEPRECATIONS.md for patterns to archive
+- [ ] Audit version-requirements in patterns vs current Claude Code version
+- [ ] Review automation-generated issues from last quarter
+- [ ] Update SOURCES.md with any missed Anthropic blog posts
+- [ ] Verify TOOLS-TRACKER.md accuracy against manual review
+
+---
+
 ## Related Patterns
 
 - [Agent Principles](./agent-principles.md) - Production AI reliability principles
 - [Context Engineering](./context-engineering.md) - Correctness over compression
+- [Documentation Maintenance](./documentation-maintenance.md) - Keeping docs current in fast-moving projects
 
 ---
 

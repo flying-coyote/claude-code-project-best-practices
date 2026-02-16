@@ -1,3 +1,23 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"  # MCP support
+measurement-claims:
+  - claim: "MCP baseline latency: 300-800ms"
+    source: "Nate B. Jones"
+    date: "2025-10-15"
+    revalidate: "2026-10-15"
+  - claim: "~43% of MCP servers have command injection vulnerabilities"
+    source: "OWASP security audit"
+    date: "2025-09-20"
+    revalidate: "2026-03-20"
+  - claim: "Only ~10 of 5,960+ MCP servers are genuinely trustworthy"
+    source: "OWASP security analysis"
+    date: "2025-09-20"
+    revalidate: "2026-03-20"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # MCP Patterns and Security
 
 **Sources**:

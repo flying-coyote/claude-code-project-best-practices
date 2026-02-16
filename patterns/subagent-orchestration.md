@@ -1,3 +1,15 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"  # Native subagent support
+measurement-claims:
+  - claim: "Native subagents handle ~80% of work with zero setup"
+    source: "Claude Code Documentation"
+    date: "2025-11-01"
+    revalidate: "2026-11-01"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # Subagent Orchestration Patterns
 
 **Source**: [Claude Code Documentation - Sub-agents](https://docs.anthropic.com/en/docs/claude-code/sub-agents)

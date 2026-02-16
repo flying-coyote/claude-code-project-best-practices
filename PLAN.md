@@ -114,11 +114,18 @@ These were evaluated and consciously deferred (see [ARCHIVE.md](ARCHIVE.md)):
 
 ## Review Cadence
 
-| Source Type | Frequency | Next Review |
-|-------------|-----------|-------------|
-| Anthropic Engineering Blog | Weekly | Ongoing |
-| awesome-claude-code lists | Monthly | Mar 2026 |
-| SDD frameworks (Spec Kit, BMAD) | Quarterly | Apr 2026 |
+| Source Type | Frequency | Next Review | Automation |
+|-------------|-----------|-------------|------------|
+| Anthropic Engineering Blog | Weekly | Ongoing | ✅ anthropic-blog-rss.yml (6-hourly) |
+| awesome-claude-code lists | Monthly | Mar 2026 | ⏸️ Manual |
+| SDD frameworks (Spec Kit, BMAD) | Quarterly | Apr 2026 | ⏸️ Manual |
+| Tools/Plugins/MCP landscape | Daily | Ongoing | ✅ tools-evolution-tracker.yml |
+
+**Automation Status** (as of Feb 2026):
+- **Anthropic blog monitoring**: Automated via `.github/workflows/anthropic-blog-rss.yml` (runs every 6 hours)
+- **Tools tracking**: Automated via `.github/workflows/tools-evolution-tracker.yml` (runs daily at 6am UTC)
+- **Manual reviews**: Focus shifted from information gathering to editorial decisions
+- **Issue creation**: Automation creates GitHub issues for human approval; no auto-commits to patterns
 
 ---
 

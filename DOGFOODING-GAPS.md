@@ -162,6 +162,18 @@ Run this checklist every quarter:
 - [ ] All patterns have Evidence Tier labels
 - [ ] Anti-Patterns sections present and complete
 
+### Rapid Evolution Tracking (Quarterly)
+- [ ] Review all EMERGING patterns for promotion eligibility (use `emerging-pattern-monitor` skill)
+- [ ] Verify no measurement claims past expiry date without re-validation
+- [ ] Check DEPRECATIONS.md for patterns ready to archive (90 days past grace period)
+- [ ] Audit version-requirements in patterns vs current Claude Code version
+- [ ] Review automation-generated issues from last quarter (GitHub Issues with `automation` label)
+- [ ] Update SOURCES.md with any missed Anthropic blog posts (check anthropic.com/engineering)
+- [ ] Verify TOOLS-TRACKER.md accuracy against manual spot-check (5 random patterns)
+- [ ] Check automation workflows running successfully (last 5 runs in GitHub Actions)
+- [ ] Validate RSS cache is current (.cache/anthropic-rss.json exists and updated)
+- [ ] Review promotion proposals created by automation (accept/reject with rationale)
+
 ---
 
 ## Metrics
