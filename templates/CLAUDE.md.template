@@ -1,3 +1,16 @@
+<!--
+⚠️ TARGET: UNDER 60 LINES (Anthropic Official Guidance)
+
+This template is 117 lines to show all possibilities. Your CLAUDE.md should be MUCH shorter.
+
+RULE: "Would removing this cause mistakes? If not, cut it."
+
+KEEP: ✅ Project purpose (1-2 sentences) ✅ Key commands ✅ Known gotchas ✅ Current focus
+CUT: ❌ Examples ❌ Essays ❌ Edge case docs ❌ Long command lists
+
+See FOUNDATIONAL-PRINCIPLES.md for rationale.
+-->
+
 # {{PROJECT_NAME}} Project Context
 
 ## Project Purpose

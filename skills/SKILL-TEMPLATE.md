@@ -43,11 +43,22 @@ Brief description of what this skill does.
 
 ---
 
-## Extended Template (For Complex Skills Only)
+## ⚠️ STOP: Use Minimal Template Above (Lines 4-42)
 
-Use this template only when a skill genuinely requires 200+ lines. See [Progressive Disclosure](../patterns/progressive-disclosure.md) for when this is appropriate.
+**The Extended Template below is for complex skills ONLY (200+ lines).**
+
+Per Anthropic guidance: Target ~60 lines per skill. "Would removing this cause mistakes? If not, cut it."
+
+**Use Extended Template (below) only when**:
+✅ Skill genuinely requires 200+ lines
+✅ Multiple distinct workflows needed
+✅ Progressive disclosure appropriate
+
+**For most skills**: Use Minimal Template (lines 4-42) and you're done.
 
 ---
+
+## Extended Template (For Complex Skills Only)
 # Agent Skills Standard (agentskills.io) - REQUIRED FIELDS
 name: your-skill-name   # Required: lowercase, hyphens for spaces
 description: |          # Required: Complete description of what skill does and when to use it

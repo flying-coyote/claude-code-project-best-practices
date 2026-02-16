@@ -343,6 +343,6 @@ Briefly explain the extension mechanisms available for future customization:
 
 For more information, see:
 - Full documentation: https://github.com/flying-coyote/claude-code-project-best-practices
-- Extension mechanisms guide: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/patterns/plugins-and-extensions.md
-- Design decisions: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/DECISIONS.md
-- Pattern sources: https://github.com/flying-coyote/claude-code-project-best-practices/blob/main/SOURCES.md
+- Extension mechanisms guide: ../patterns/plugins-and-extensions.md
+- Design decisions: ../DECISIONS.md
+- Pattern sources: ../SOURCES.md
