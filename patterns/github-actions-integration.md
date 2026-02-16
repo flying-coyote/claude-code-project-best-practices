@@ -1,3 +1,11 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"
+  github-action: "/install-github-action command"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+---
+
 # GitHub Actions Integration
 
 **Source**: [Boris Cherny Interview](https://paddo.dev/blog/how-boris-uses-claude-code/), [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)

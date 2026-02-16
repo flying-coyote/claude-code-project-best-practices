@@ -1,3 +1,11 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+notes: "Methodology pattern - implements Johari Window framework for ambiguity detection"
+---
+
 # Johari Window Pattern for Ambiguity Surfacing
 
 **Source**: [skribblez2718/caii](https://github.com/skribblez2718/caii) (CAII - Cognitive Agent Infrastructure Implementation)

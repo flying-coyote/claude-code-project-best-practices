@@ -1,3 +1,11 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+notes: "Multi-session workflow pattern - Boris Cherny runs 5 terminal + 5-10 web sessions"
+---
+
 # Parallel Sessions Pattern
 
 **Source**: [Boris Cherny Interview](https://paddo.dev/blog/how-boris-uses-claude-code/)
