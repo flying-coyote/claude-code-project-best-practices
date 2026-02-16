@@ -47,7 +47,7 @@
       },
       {
         "file": "patterns/plugins-and-extensions.md",
-        "context": "# Claude Code Plugins and Extension Mechanisms  **Source**: [An"
+        "context": ": \"PRODUCTION\" last-verified: \"2026-02-16\" ---  # Claude Code Plugins and Extension Mechanisms  **Source**: [An"
       },
       {
         "file": "patterns/plugins-and-extensions.md",
@@ -1257,6 +1257,10 @@
       },
       {
         "file": "patterns/framework-selection-guide.md",
+        "context": ": \"2026-02-16\" notes: \"Comparative guide - native subagents handle ~80% of use cases\" ---  # Framework Selec"
+      },
+      {
+        "file": "patterns/framework-selection-guide.md",
         "context": "hestration** | HOW to coordinate agents? | Native Subagent, GSD, CAII | | **Execution** | WITH WHAT tools? |"
       },
       {
@@ -1414,6 +1418,10 @@
       {
         "file": "patterns/cognitive-agent-infrastructure.md",
         "context": "chestration approach - [Subagent Orchestration](./subagent-orchestration.md) - Foundation for agent mapping "
+      },
+      {
+        "file": "patterns/gsd-orchestration.md",
+        "context": "ssion orchestration framework - fresh context per subagent\" ---  # GSD (Get Shit Done) Orchestration Pattern"
       },
       {
         "file": "patterns/gsd-orchestration.md",
@@ -2049,6 +2057,10 @@
       }
     ],
     "MCP": [
+      {
+        "file": "patterns/plugins-and-extensions.md",
+        "context": "- claim: \"Skills are 4x more token-efficient than MCP for methodology\"     source: \"Simon Willison anal"
+      },
       {
         "file": "patterns/plugins-and-extensions.md",
         "context": "aware | Repeatable methodologies, workflows | | **MCP Servers** | Configured | External access | Databa"
@@ -2775,6 +2787,14 @@
       },
       {
         "file": "patterns/skills-domain-knowledge.md",
+        "context": "t-claims:   - claim: \"Skills are 50% cheaper than MCP for methodology guidance\"     source: \"mcp-vs-ski"
+      },
+      {
+        "file": "patterns/skills-domain-knowledge.md",
+        "context": "r than MCP for methodology guidance\"     source: \"mcp-vs-skills-economics.md\"     date: \"2025-12-01\"   "
+      },
+      {
+        "file": "patterns/skills-domain-knowledge.md",
         "context": "ight sequence | | **Tool-first** | \"I have Notion MCP connected\" | Teaches Claude optimal Notion workfl"
       },
       {
@@ -2947,7 +2967,15 @@
       },
       {
         "file": "patterns/mcp-vs-skills-economics.md",
-        "context": "# MCP vs Skills Economics  **Source**: [Tenzir Blog - \""
+        "context": "t-claims:   - claim: \"Skills are 50% cheaper than MCP ($10.27 vs $20.78 per task)\"     source: \"Tenzir "
+      },
+      {
+        "file": "patterns/mcp-vs-skills-economics.md",
+        "context": "6-01-15\"     revalidate: \"2027-01-15\"   - claim: \"MCP is 38% faster than Skills (6.2 min vs 8.6 min)\"  "
+      },
+      {
+        "file": "patterns/mcp-vs-skills-economics.md",
+        "context": ": \"PRODUCTION\" last-verified: \"2026-02-16\" ---  # MCP vs Skills Economics  **Source**: [Tenzir Blog - \""
       },
       {
         "file": "patterns/mcp-vs-skills-economics.md",
@@ -3249,6 +3277,10 @@
       },
       {
         "file": "patterns/tool-ecosystem.md",
+        "context": "e-code: \"v2.0.0+\" measurement-claims:   - claim: \"Playwright CLI: 4x more token-efficient than Claude in Chrom"
+      },
+      {
+        "file": "patterns/tool-ecosystem.md",
         "context": "autonomous workflows | | **Browser automation** | Playwright | Mature, battle-tested, production-ready |  --- "
       },
       {
@@ -3321,6 +3353,14 @@
       }
     ],
     "Skills": [
+      {
+        "file": "patterns/plugins-and-extensions.md",
+        "context": "version-requirements:   claude-code: \"v2.1.0+\"  # Skills auto-reload feature measurement-claims:   - claim"
+      },
+      {
+        "file": "patterns/plugins-and-extensions.md",
+        "context": "to-reload feature measurement-claims:   - claim: \"Skills are 4x more token-efficient than MCP for methodol"
+      },
       {
         "file": "patterns/plugins-and-extensions.md",
         "context": "sis](https://simonwillison.net/2025/Oct/16/claude-skills/) **Evidence Tier**: B (Validated secondary - com"
@@ -3579,7 +3619,15 @@
       },
       {
         "file": "patterns/progressive-disclosure.md",
-        "context": "# Progressive Disclosure for Skills  **Source**: Production-validated pattern from 12"
+        "context": " disclosure\"     source: \"Production testing on 4 skills\"     date: \"2025-11-01\"     revalidate: \"2026-11-"
+      },
+      {
+        "file": "patterns/progressive-disclosure.md",
+        "context": "ast-verified: \"2026-02-16\" notes: \"Apply only for skills >200 lines; default to single ~60 line file per A"
+      },
+      {
+        "file": "patterns/progressive-disclosure.md",
+        "context": "ropic guidance\" ---  # Progressive Disclosure for Skills  **Source**: Production-validated pattern from 12"
       },
       {
         "file": "patterns/progressive-disclosure.md",
@@ -3759,7 +3807,19 @@
       },
       {
         "file": "patterns/skills-domain-knowledge.md",
-        "context": "# Skills for Domain Knowledge: Embedding Expertise into AI"
+        "context": "equirements:   claude-code: \"v2.0.0+\"  # Official skills support measurement-claims:   - claim: \"Skills ar"
+      },
+      {
+        "file": "patterns/skills-domain-knowledge.md",
+        "context": "al skills support measurement-claims:   - claim: \"Skills are 50% cheaper than MCP for methodology guidance"
+      },
+      {
+        "file": "patterns/skills-domain-knowledge.md",
+        "context": "MCP for methodology guidance\"     source: \"mcp-vs-skills-economics.md\"     date: \"2025-12-01\"     revalida"
+      },
+      {
+        "file": "patterns/skills-domain-knowledge.md",
+        "context": ": \"PRODUCTION\" last-verified: \"2026-02-16\" ---  # Skills for Domain Knowledge: Embedding Expertise into AI"
       },
       {
         "file": "patterns/skills-domain-knowledge.md",
@@ -3987,7 +4047,19 @@
       },
       {
         "file": "patterns/mcp-vs-skills-economics.md",
-        "context": "# MCP vs Skills Economics  **Source**: [Tenzir Blog - \"We Did MCP"
+        "context": "e-code: \"v2.0.0+\" measurement-claims:   - claim: \"Skills are 50% cheaper than MCP ($10.27 vs $20.78 per ta"
+      },
+      {
+        "file": "patterns/mcp-vs-skills-economics.md",
+        "context": ": \"2027-01-15\"   - claim: \"MCP is 38% faster than Skills (6.2 min vs 8.6 min)\"     source: \"Tenzir product"
+      },
+      {
+        "file": "patterns/mcp-vs-skills-economics.md",
+        "context": "6-01-15\"     revalidate: \"2027-01-15\"   - claim: \"Skills use 55% less cached tokens (4.0M vs 8.8M)\"     so"
+      },
+      {
+        "file": "patterns/mcp-vs-skills-economics.md",
+        "context": "UCTION\" last-verified: \"2026-02-16\" ---  # MCP vs Skills Economics  **Source**: [Tenzir Blog - \"We Did MCP"
       },
       {
         "file": "patterns/mcp-vs-skills-economics.md",
@@ -4466,35 +4538,47 @@
     ]
   },
   "versions": {
+    "patterns/parallel-sessions.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" status: \"PRODUCTION\" last-verified: \"2026-02-16\" notes: \"Multi-session workflow pattern - Boris Ch"
+      }
+    ],
     "patterns/plugins-and-extensions.md": [
       {
         "version": "v2.1.0+",
-        "line": 229,
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.1.0+\"  # Skills auto-reload feature measurement-claims:   - claim: \"Skills are 4x more token-efficient t"
+      },
+      {
+        "version": "v2.1.0+",
+        "line": 241,
         "context": "            \u25bc [Intercept operation]            [AI-powered response] ```  ---  ## Skill Hot-Reload (v2.1.0+)  **Source**: [Claude Code Release Notes - January 2026](https://releasebot.io/updates/anthropic/cl"
       },
       {
         "version": "v2.1.0",
-        "line": 238,
+        "line": 250,
         "context": "claude-code)  ### The Feature  Skills now reload automatically without session restart:  ``` Before v2.1.0: Edit SKILL.md \u2192 Restart Claude Code \u2192 Changes take effect  After v2.1.0: Edit SKILL.md \u2192 Changes t"
       },
       {
         "version": "v2.1.0",
-        "line": 241,
+        "line": 253,
         "context": "ssion restart:  ``` Before v2.1.0: Edit SKILL.md \u2192 Restart Claude Code \u2192 Changes take effect  After v2.1.0: Edit SKILL.md \u2192 Changes take effect immediately ```  ### How It Works  ``` \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500"
       },
       {
         "version": "v2.1.0",
-        "line": 275,
+        "line": 287,
         "context": ". Repeat until correct  **No more \"restart-test-restart\" cycles.**  ### Hooks in Skill Frontmatter  v2.1.0 also supports defining hooks directly in skill YAML frontmatter:  ```yaml --- name: my-skill descri"
       },
       {
         "version": "v2.1.0+",
-        "line": 408,
+        "line": 420,
         "context": "  **Implication**: Project settings override global, CLI overrides both.  ### Wildcard Permissions (v2.1.0+)  Permission rules now support wildcard patterns for flexible tool access control.  #### Bash Wildc"
       },
       {
         "version": "v2.1.3",
-        "line": 461,
+        "line": 473,
         "context": "Explore)\"          // Disable Explore subagent   ] } ```  ### Permission Detection (/doctor)  As of v2.1.3, the `/doctor` command detects and warns about: - Unreachable permission rules (e.g., rules shadowe"
       }
     ],
@@ -4523,53 +4607,84 @@
     "patterns/advanced-hooks.md": [
       {
         "version": "v2.0.10+",
-        "line": 22,
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.10+\"  # PreToolUse hook introduced   latest-features: \"v2.0.45+\"  # PermissionRequest hook measurement-"
+      },
+      {
+        "version": "v2.0.45+",
+        "line": 4,
+        "context": "- version-requirements:   claude-code: \"v2.0.10+\"  # PreToolUse hook introduced   latest-features: \"v2.0.45+\"  # PermissionRequest hook measurement-claims:   - claim: \"Sandboxing reduces unauthorized operatio"
+      },
+      {
+        "version": "v2.0.10+",
+        "line": 35,
         "context": " | Session begins | No | Context | - | | **PreToolUse** | Before tool execution | \u2705 Yes | \u2705 Inputs (v2.0.10+) | - | | **PostToolUse** | After tool completion | No | Output display | - | | **UserPromptSubmit**"
       },
       {
         "version": "v2.0.45+",
-        "line": 25,
+        "line": 38,
         "context": "ts prompt | No | Prompt text | - | | **PermissionRequest** | Permission needed | \u2705 Yes | Response | v2.0.45+ | | **Stop** | Agent finishes turn | \u2705 Continue | - | - | | **SubagentStop** | Subagent finishes | "
       },
       {
         "version": "v1.0.41+",
-        "line": 27,
+        "line": 40,
         "context": "op** | Agent finishes turn | \u2705 Continue | - | - | | **SubagentStop** | Subagent finishes | No | - | v1.0.41+ | | **SessionEnd** | Session terminates | No | - | - |  ### Hook Execution Timeout  As of v2.1.3, h"
       },
       {
         "version": "v2.1.3",
-        "line": 32,
+        "line": 45,
         "context": " v1.0.41+ | | **SessionEnd** | Session terminates | No | - | - |  ### Hook Execution Timeout  As of v2.1.3, hook execution timeout increased from **60 seconds to 10 minutes**. This allows hooks to perform m"
       },
       {
         "version": "v2.0.10+",
-        "line": 42,
+        "line": 55,
         "context": "o-regeneration, validation | | **PreToolUse** | HIGH | MEDIUM | Input modification, security gates (v2.0.10+) | | **Stop** | MEDIUM | LOW | Documentation reminders | | **UserPromptSubmit** | MEDIUM | HIGH | S"
       },
       {
         "version": "v2.0.10+",
-        "line": 285,
+        "line": 298,
         "context": "R modify inputs before execution  **When it fires**: Before any tool is executed  **Capabilities** (v2.0.10+): - **Block**: Return exit code 2 to prevent execution - **Modify**: Return JSON with `updatedInput"
       },
       {
         "version": "v2.0.10+",
-        "line": 322,
+        "line": 335,
         "context": "t 2  # Block tool execution     fi fi  exit 0  # Allow ```  ### Implementation: Input Modification (v2.0.10+)  `.claude/hooks/pre-tool-use-modify.py`: ```python #!/usr/bin/env python3 \"\"\" PreToolUse hook that"
       },
       {
         "version": "v2.0.10+",
-        "line": 329,
+        "line": 342,
         "context": "in/env python3 \"\"\" PreToolUse hook that modifies tool inputs before execution. Requires Claude Code v2.0.10+ \"\"\" import json import sys  try:     hook_input = json.load(sys.stdin)     tool = hook_input.get('t"
       },
       {
         "version": "v2.0.10+",
-        "line": 391,
+        "line": 404,
         "context": " | | `reason` | Message shown to Claude when blocked | | `updatedInput` | Modified tool parameters (v2.0.10+) |  ### Configuration  ```json {   \"hooks\": {     \"PreToolUse\": [       {         \"matcher\": \"Bash\""
       },
       {
         "version": "v2.1.0+",
-        "line": 576,
+        "line": 589,
         "context": "/hooks/stop-doc-check.sh\"           }         ]       }     ]   } } ```  ---  ## Skill-Level Hooks (v2.1.0+)  Skills can define their own hooks in frontmatter, enabling per-skill quality gates without affect"
+      }
+    ],
+    "patterns/agent-principles.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" measurement-claims:   - claim: \"AI will never be 100% predictable\"     source: \"Nate B. Jones - Ag"
+      }
+    ],
+    "patterns/session-learning.md": [
+      {
+        "version": "v2.1.30+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.1.30+\"  # Session memory feature measurement-claims:   - claim: \"Self-training reduced safety refusal rat"
+      }
+    ],
+    "patterns/tool-ecosystem.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" measurement-claims:   - claim: \"Playwright CLI: 4x more token-efficient than Claude in Chrome exte"
       }
     ],
     "patterns/subagent-orchestration.md": [
@@ -4594,11 +4709,86 @@
         "context": "nt - When new information requires revisiting previous analysis  ### 7. Real-Time Steering Pattern (v2.1.0+)  **Use Case**: Redirecting Claude mid-task without starting over  You can send messages while Clau"
       }
     ],
+    "patterns/progressive-disclosure.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" measurement-claims:   - claim: \"Token savings: 50-77% reduction from progressive disclosure\"     s"
+      }
+    ],
+    "patterns/github-actions-integration.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\"   github-action: \"/install-github-action command\" status: \"PRODUCTION\" last-verified: \"2026-02-16\""
+      }
+    ],
+    "patterns/framework-selection-guide.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" status: \"PRODUCTION\" last-verified: \"2026-02-16\" notes: \"Comparative guide - native subagents hand"
+      }
+    ],
+    "patterns/johari-window-ambiguity.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" status: \"PRODUCTION\" last-verified: \"2026-02-16\" notes: \"Methodology pattern - implements Johari W"
+      }
+    ],
+    "patterns/skills-domain-knowledge.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\"  # Official skills support measurement-claims:   - claim: \"Skills are 50% cheaper than MCP for met"
+      }
+    ],
     "patterns/gsd-orchestration.md": [
       {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" status: \"PRODUCTION\" last-verified: \"2026-02-16\" notes: \"Multi-session orchestration framework - f"
+      },
+      {
         "version": "v1.1.0",
-        "line": 422,
+        "line": 430,
         "context": "trator: 1. Archive phase artifacts 2. Update STATE.md: \"Authentication complete\" 3. Create git tag: v1.1.0-auth 4. Clean up temporary files ```  ---  ## Related Patterns  - [Subagent Orchestration](./subage"
+      }
+    ],
+    "patterns/memory-architecture.md": [
+      {
+        "version": "v2.1.30+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.1.30+\"  # Session memory feature measurement-claims:   - claim: \"AI compression with ~10x token savings f"
+      }
+    ],
+    "patterns/spec-driven-development.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" status: \"PRODUCTION\" last-verified: \"2026-02-16\" notes: \"Methodology pattern - no version-specific"
+      }
+    ],
+    "patterns/planning-first-development.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" measurement-claims:   - claim: \"Planning effort increases from ~20% to ~60%+ in AI-assisted develo"
+      }
+    ],
+    "patterns/mcp-vs-skills-economics.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" measurement-claims:   - claim: \"Skills are 50% cheaper than MCP ($10.27 vs $20.78 per task)\"     s"
+      }
+    ],
+    "patterns/advanced-tool-use.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\"   beta-header: \"advanced-tool-use-2025-11-20\" measurement-claims:   - claim: \"Tool Search: 85% tok"
       }
     ],
     "patterns/evidence-tiers.md": [
@@ -4631,6 +4821,13 @@
         "version": "v2.1.30+",
         "line": 397,
         "context": "rsion Tracking  **Every pattern should include**: ```yaml --- version-requirements:   claude-code: \"v2.1.30+\"  # Optional: only if version-specific   model: \"Opus 4.6+\"       # Optional: only if model-specifi"
+      }
+    ],
+    "patterns/documentation-maintenance.md": [
+      {
+        "version": "v2.0.0+",
+        "line": 3,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\"  # PostToolUse hook support status: \"PRODUCTION\" last-verified: \"2026-02-16\" notes: \"Implements Po"
       }
     ],
     "patterns/project-infrastructure.md": [
@@ -4667,14 +4864,20 @@
     "patterns/plugins-and-extensions.md": [
       {
         "value": "4x",
+        "claim": "0+\"  # Skills auto-reload feature measurement-claims:   - claim: \"Skills are 4x more token-efficient than MCP for methodology\"     source: \"Simon Willison analysis\"     date: \"2025-10-16\"     revalidate: \"2026-10-16\" status: \"PRO",
+        "line": 5,
+        "context": "--- version-requirements:   claude-code: \"v2.1.0+\"  # Skills auto-reload feature measurement-claims:   - claim: \"Skills are 4x more token-efficient than MCP for methodology\"     source: \"Simon Willison analysis\"     date: \"2025-10-16\"     revalidate: \"2026-10-16\" status: \"PRO"
+      },
+      {
+        "value": "4x",
         "claim": "net/2025/Oct/16/claude-skills/)  This principle is validated by measured data: Microsoft's Playwright CLI achieves 4x token reduction (114K \u2192 27K) over the equivalent MCP server by saving data to disk instead of streaming it into context",
-        "line": 118,
+        "line": 130,
         "context": "on Willison](https://simonwillison.net/2025/Oct/16/claude-skills/)  This principle is validated by measured data: Microsoft's Playwright CLI achieves 4x token reduction (114K \u2192 27K) over the equivalent MCP server by saving data to disk instead of streaming it into context. See [MCP Patterns - CLI vs M"
       },
       {
         "value": "43%",
         "claim": "### Security Warning  > \"~43% of MCP servers have command injection vulnerabilities",
-        "line": 361,
+        "line": 373,
         "context": " capabilities? - [ ] **Minimal scope** - Does one thing well? - [ ] **Version pinned** - Can you lock to specific version?  ### Security Warning  > \"~43% of MCP servers have command injection vulnerabilities. Only ~10 of 5,960+ available servers are genuinely trustworthy.\" > \u2014 [Nate B. Jones MCP Implem"
       }
     ],
@@ -4859,38 +5062,68 @@
     "patterns/advanced-hooks.md": [
       {
         "value": "84%",
+        "claim": "45+\"  # PermissionRequest hook measurement-claims:   - claim: \"Sandboxing reduces unauthorized operations by 84%\"     source: \"Production security testing\"     date: \"2025-11-01\"     revalidate: \"2026-11-01\" status: \"PRODUCTION\" last-verified: \"2026-02-16\" ---",
+        "line": 6,
+        "context": "hook introduced   latest-features: \"v2.0.45+\"  # PermissionRequest hook measurement-claims:   - claim: \"Sandboxing reduces unauthorized operations by 84%\"     source: \"Production security testing\"     date: \"2025-11-01\"     revalidate: \"2026-11-01\" status: \"PRODUCTION\" last-verified: \"2026-02-16\" ---  "
+      },
+      {
+        "value": "84%",
         "claim": "restrictions | | **macOS** | seatbelt (sandbox-exec) | System call filtering, path restrictions |  ### Impact  Anthropic's internal testing showed **84% reduction in permission prompts** when sandboxing was enabled",
-        "line": 773,
+        "line": 786,
         "context": " restrictions | | **macOS** | seatbelt (sandbox-exec) | System call filtering, path restrictions |  ### Impact  Anthropic's internal testing showed **84% reduction in permission prompts** when sandboxing was enabled. By restricting what Claude Code *can* do at the OS level, most permission dialogs beco"
       }
     ],
     "patterns/agent-principles.md": [
       {
         "value": "100%",
+        "claim": "0+\" measurement-claims:   - claim: \"AI will never be 100% predictable\"     source: \"Nate B",
+        "line": 5,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" measurement-claims:   - claim: \"AI will never be 100% predictable\"     source: \"Nate B. Jones - Agent Build Bible\"     date: \"2025-09-01\"     revalidate: \"2026-09-01\" status: \"PRODUCTION\" last-verified: "
+      },
+      {
+        "value": "100%",
         "claim": "nowledge bases  ---  ## Principle 2: Inherent Unpredictability  **Traditional Assumption**: Same input \u2192 same output **AI Reality**: AI will never be 100% predictable  ### Why It Matters - Temperature introduces randomness by design - Model updates change behavior silently - Context variations produce d",
-        "line": 34,
+        "line": 47,
         "context": "nowledge bases  ---  ## Principle 2: Inherent Unpredictability  **Traditional Assumption**: Same input \u2192 same output **AI Reality**: AI will never be 100% predictable  ### Why It Matters - Temperature introduces randomness by design - Model updates change behavior silently - Context variations produce d"
       }
     ],
     "patterns/session-learning.md": [
       {
         "value": "70%",
+        "claim": "30+\"  # Session memory feature measurement-claims:   - claim: \"Self-training reduced safety refusal rates by 70% (safety drift risk)\"     source: \"Academic research on misevolution\"     date: \"2025-09-01\"     revalidate: \"2026-09-01\"   - claim: \"Reflection-based",
+        "line": 5,
+        "context": "rsion-requirements:   claude-code: \"v2.1.30+\"  # Session memory feature measurement-claims:   - claim: \"Self-training reduced safety refusal rates by 70% (safety drift risk)\"     source: \"Academic research on misevolution\"     date: \"2025-09-01\"     revalidate: \"2026-09-01\"   - claim: \"Reflection-based"
+      },
+      {
+        "value": "91%",
+        "claim": "research on misevolution\"     date: \"2025-09-01\"     revalidate: \"2026-09-01\"   - claim: \"Reflection-based learning bumped pass@1 from GPT-4 baseline 91% up\"     source: \"Coding benchmarks research\"     date: \"2025-09-01\"     revalidate: \"2026-09-01\" status: \"PRODUCTION\" last-verified: \"2026-02-16\" ---",
+        "line": 9,
+        "context": "research on misevolution\"     date: \"2025-09-01\"     revalidate: \"2026-09-01\"   - claim: \"Reflection-based learning bumped pass@1 from GPT-4 baseline 91% up\"     source: \"Coding benchmarks research\"     date: \"2025-09-01\"     revalidate: \"2026-09-01\" status: \"PRODUCTION\" last-verified: \"2026-02-16\" ---"
+      },
+      {
+        "value": "70%",
         "claim": "ored preferences distort all future plans | Version control, rollback capability | | **Safety drift** | Self-training reduced safety refusal rates by 70% in studies | Never auto-apply without review | | **Overfitting** | Agent becomes too specialized to user's quirks | Cross-project pattern detection |",
-        "line": 168,
+        "line": 184,
         "context": "ored preferences distort all future plans | Version control, rollback capability | | **Safety drift** | Self-training reduced safety refusal rates by 70% in studies | Never auto-apply without review | | **Overfitting** | Agent becomes too specialized to user's quirks | Cross-project pattern detection |"
       },
       {
         "value": "91%",
         "claim": "On coding benchmarks, this bumped pass@1 from GPT-4 baseline to ~91%",
-        "line": 329,
+        "line": 345,
         "context": "atural-language critique of its own attempt, store that 'reflection,' and try again. On coding benchmarks, this bumped pass@1 from GPT-4 baseline to ~91%.\"  **Key insight**: Self-critique improves performance when structured properly.  ---  ## Related Patterns  - [Memory Architecture](./memory-architec"
       }
     ],
     "patterns/tool-ecosystem.md": [
       {
+        "value": "4x",
+        "claim": "0+\" measurement-claims:   - claim: \"Playwright CLI: 4x more token-efficient than Claude in Chrome extension\"     source: \"Community benchmarking\"     date: \"2025-12-15\"     revalidate: \"2026-12-15\" status",
+        "line": 5,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" measurement-claims:   - claim: \"Playwright CLI: 4x more token-efficient than Claude in Chrome extension\"     source: \"Community benchmarking\"     date: \"2025-12-15\"     revalidate: \"2026-12-15\" status"
+      },
+      {
         "value": "54%",
         "claim": "**Impact**: 54% relative improvement on complex policy-following tasks",
-        "line": 209,
+        "line": 221,
         "context": "inking (which happens before response generation), the think tool acts as a deliberate checkpoint during complex multi-step tool chains.  **Impact**: 54% relative improvement on complex policy-following tasks.  **When it helps most**: - Multi-step tool chains where each step depends on verifying previo"
       }
     ],
@@ -4941,44 +5174,50 @@
     "patterns/progressive-disclosure.md": [
       {
         "value": "77%",
+        "claim": "0+\" measurement-claims:   - claim: \"Token savings: 50-77% reduction from progressive disclosure\"     source: \"Production testing on 4 skills\"     date: \"2025-11-01\"     revalidate: \"2026-11-01\" status: \"PROD",
+        "line": 5,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" measurement-claims:   - claim: \"Token savings: 50-77% reduction from progressive disclosure\"     source: \"Production testing on 4 skills\"     date: \"2025-11-01\"     revalidate: \"2026-11-01\" status: \"PROD"
+      },
+      {
+        "value": "77%",
         "claim": "ant token savings:  | Skill | Before | After | Reduction | |-------|--------|-------|-----------| | contradiction-detector | 327 lines | 75 lines | **77%** | | hypothesis-validator | 218 lines | 109 lines | **50%** | | publication-quality-checker | 739 lines | 104 lines | **86%** | | research-extractor",
-        "line": 118,
+        "line": 131,
         "context": "ant token savings:  | Skill | Before | After | Reduction | |-------|--------|-------|-----------| | contradiction-detector | 327 lines | 75 lines | **77%** | | hypothesis-validator | 218 lines | 109 lines | **50%** | | publication-quality-checker | 739 lines | 104 lines | **86%** | | research-extractor"
       },
       {
         "value": "50%",
         "claim": "|-------|--------|-------|-----------| | contradiction-detector | 327 lines | 75 lines | **77%** | | hypothesis-validator | 218 lines | 109 lines | **50%** | | publication-quality-checker | 739 lines | 104 lines | **86%** | | research-extractor | 542 lines | 121 lines | **78%** |  **Average reduction**",
-        "line": 119,
+        "line": 132,
         "context": "|-------|--------|-------|-----------| | contradiction-detector | 327 lines | 75 lines | **77%** | | hypothesis-validator | 218 lines | 109 lines | **50%** | | publication-quality-checker | 739 lines | 104 lines | **86%** | | research-extractor | 542 lines | 121 lines | **78%** |  **Average reduction**"
       },
       {
         "value": "86%",
         "claim": "327 lines | 75 lines | **77%** | | hypothesis-validator | 218 lines | 109 lines | **50%** | | publication-quality-checker | 739 lines | 104 lines | **86%** | | research-extractor | 542 lines | 121 lines | **78%** |  **Average reduction**: ~73% token savings per skill activation  ### Multi-Workflow Stru",
-        "line": 120,
+        "line": 133,
         "context": "327 lines | 75 lines | **77%** | | hypothesis-validator | 218 lines | 109 lines | **50%** | | publication-quality-checker | 739 lines | 104 lines | **86%** | | research-extractor | 542 lines | 121 lines | **78%** |  **Average reduction**: ~73% token savings per skill activation  ### Multi-Workflow Stru"
       },
       {
         "value": "78%",
         "claim": "218 lines | 109 lines | **50%** | | publication-quality-checker | 739 lines | 104 lines | **86%** | | research-extractor | 542 lines | 121 lines | **78%** |  **Average reduction**: ~73% token savings per skill activation  ### Multi-Workflow Structure (Advanced Pattern)  Production refactoring of 3 lar",
-        "line": 121,
+        "line": 134,
         "context": " 218 lines | 109 lines | **50%** | | publication-quality-checker | 739 lines | 104 lines | **86%** | | research-extractor | 542 lines | 121 lines | **78%** |  **Average reduction**: ~73% token savings per skill activation  ### Multi-Workflow Structure (Advanced Pattern)  Production refactoring of 3 lar"
       },
       {
         "value": "73%",
         "claim": "| | publication-quality-checker | 739 lines | 104 lines | **86%** | | research-extractor | 542 lines | 121 lines | **78%** |  **Average reduction**: ~73% token savings per skill activation  ### Multi-Workflow Structure (Advanced Pattern)  Production refactoring of 3 large personal skills (Dec 2025):  |",
-        "line": 123,
+        "line": 136,
         "context": "| | publication-quality-checker | 739 lines | 104 lines | **86%** | | research-extractor | 542 lines | 121 lines | **78%** |  **Average reduction**: ~73% token savings per skill activation  ### Multi-Workflow Structure (Advanced Pattern)  Production refactoring of 3 large personal skills (Dec 2025):  |"
       },
       {
         "value": "70%",
         "claim": "- [ ] Add footer links - [ ] Target ~500 words  ### Validation (15 min) - [ ] All workflows referenced in routing - [ ] All footer links work - [ ] ~70% token reduction achieved - [ ] SKILL",
-        "line": 229,
+        "line": 242,
         "context": " - [ ] Add footer links - [ ] Target ~500 words  ### Validation (15 min) - [ ] All workflows referenced in routing - [ ] All footer links work - [ ] ~70% token reduction achieved - [ ] SKILL.md alone is clear  ---  ## Multi-Workflow Pattern (Advanced)  For complex skills with multiple distinct operatio"
       },
       {
         "value": "100%",
         "claim": "md **Symptom**: 100% of tokens loaded for every activation, even simple queries **Solution**: Extract workflows to `workflows/`, references to `references/`  ### \u274c Missin",
-        "line": 414,
+        "line": 427,
         "context": "-rule-review)  ---  ## Anti-Patterns  ### \u274c Monolithic Skill Files **Problem**: Keeping all skill content in a single 500+ line SKILL.md **Symptom**: 100% of tokens loaded for every activation, even simple queries **Solution**: Extract workflows to `workflows/`, references to `references/`  ### \u274c Missin"
       }
     ],
@@ -5022,40 +5261,54 @@
     ],
     "patterns/framework-selection-guide.md": [
       {
+        "value": "80%",
+        "claim": "0+\" status: \"PRODUCTION\" last-verified: \"2026-02-16\" notes: \"Comparative guide - native subagents handle ~80% of use cases\" ---  # Framework Selection Guide  **Purpose**: Help users choose the right orchestration approach for their Claude Code projects **Evid",
+        "line": 6,
+        "context": " version-requirements:   claude-code: \"v2.0.0+\" status: \"PRODUCTION\" last-verified: \"2026-02-16\" notes: \"Comparative guide - native subagents handle ~80% of use cases\" ---  # Framework Selection Guide  **Purpose**: Help users choose the right orchestration approach for their Claude Code projects **Evid"
+      },
+      {
         "value": "250%",
         "claim": "Almost never directly\u2014reference for enterprise patterns  **Why reference only**: - 60+ agents is extreme complexity - Performance claims unverified (250% extension) - Vector memory and swarm topologies are advanced - No production validation data  **When to reference**: - Designing enterprise-scale age",
-        "line": 175,
+        "line": 183,
         "context": " Almost never directly\u2014reference for enterprise patterns  **Why reference only**: - 60+ agents is extreme complexity - Performance claims unverified (250% extension) - Vector memory and swarm topologies are advanced - No production validation data  **When to reference**: - Designing enterprise-scale age"
       },
       {
         "value": "24%",
         "claim": "ters**: - Explains theoretically WHY GSD's fresh context works - Addresses \"context rot\" (performance degradation as window fills) - CodeQA accuracy: 24% \u2192 62% improvement  **Current limitations**: - Requires RL training (not available for Claude) - All published results use GPT-5/GPT-5-mini - Implemen",
-        "line": 204,
+        "line": 212,
         "context": "ters**: - Explains theoretically WHY GSD's fresh context works - Addresses \"context rot\" (performance degradation as window fills) - CodeQA accuracy: 24% \u2192 62% improvement  **Current limitations**: - Requires RL training (not available for Claude) - All published results use GPT-5/GPT-5-mini - Implemen"
       },
       {
         "value": "62%",
         "claim": ": - Explains theoretically WHY GSD's fresh context works - Addresses \"context rot\" (performance degradation as window fills) - CodeQA accuracy: 24% \u2192 62% improvement  **Current limitations**: - Requires RL training (not available for Claude) - All published results use GPT-5/GPT-5-mini - Implementation",
-        "line": 204,
+        "line": 212,
         "context": ": - Explains theoretically WHY GSD's fresh context works - Addresses \"context rot\" (performance degradation as window fills) - CodeQA accuracy: 24% \u2192 62% improvement  **Current limitations**: - Requires RL training (not available for Claude) - All published results use GPT-5/GPT-5-mini - Implementation"
       },
       {
         "value": "80%",
         "claim": "s  ### \u274c Choosing Framework Before Understanding Problem  **Mistake**: \"I'll use GSD because it sounds powerful\" **Reality**: Native subagents handle 80% of work; GSD adds overhead **Fix**: Start with native; upgrade when you hit specific friction  ### \u274c Implementing Claude-Flow Patterns Directly  **Mi",
-        "line": 238,
+        "line": 246,
         "context": "s  ### \u274c Choosing Framework Before Understanding Problem  **Mistake**: \"I'll use GSD because it sounds powerful\" **Reality**: Native subagents handle 80% of work; GSD adds overhead **Fix**: Start with native; upgrade when you hit specific friction  ### \u274c Implementing Claude-Flow Patterns Directly  **Mi"
       },
       {
         "value": "80%",
         "claim": "planning/ directory) - Fresh executor spawning has latency cost - Native subagents handle 80% of work effectively  **Instead**: Start with native subagents",
-        "line": 296,
+        "line": 304,
         "context": "erful\"  **Why it fails**: - Adds setup overhead (STATE.md, .planning/ directory) - Fresh executor spawning has latency cost - Native subagents handle 80% of work effectively  **Instead**: Start with native subagents. Upgrade to GSD when you observe: - Quality degradation across sessions - Lost context "
       },
       {
         "value": "80%",
         "claim": "**Native Subagent is the default** - Zero setup, handles 80% of work 3",
-        "line": 410,
+        "line": 418,
         "context": "--  ## Summary  1. **SDD is always foundational** - All frameworks implement its 4 phases 2. **Native Subagent is the default** - Zero setup, handles 80% of work 3. **GSD for session continuity** - STATE.md when projects span sessions 4. **CAII for agent architecture** - When building reusable agent sy"
+      }
+    ],
+    "patterns/skills-domain-knowledge.md": [
+      {
+        "value": "50%",
+        "claim": "0+\"  # Official skills support measurement-claims:   - claim: \"Skills are 50% cheaper than MCP for methodology guidance\"     source: \"mcp-vs-skills-economics",
+        "line": 5,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\"  # Official skills support measurement-claims:   - claim: \"Skills are 50% cheaper than MCP for methodology guidance\"     source: \"mcp-vs-skills-economics.md\"     date: \"2025-12-01\"     revalidate: \"2026-12-01\" status: \"PROD"
       }
     ],
     "patterns/architecture-decision-records.md": [
@@ -5069,8 +5322,14 @@
     "patterns/memory-architecture.md": [
       {
         "value": "10x",
+        "claim": "30+\"  # Session memory feature measurement-claims:   - claim: \"AI compression with ~10x token savings for long-term storage\"     source: \"Nate B",
+        "line": 5,
+        "context": "--- version-requirements:   claude-code: \"v2.1.30+\"  # Session memory feature measurement-claims:   - claim: \"AI compression with ~10x token savings for long-term storage\"     source: \"Nate B. Jones Memory Prompts methodology\"     date: \"2025-10-01\"     revalidate: \"2026-10-01\" statu"
+      },
+      {
+        "value": "10x",
         "claim": "nStart \u2192 UserPromptSubmit \u2192 PostToolUse \u2192 Summary \u2192 SessionEnd | Complete conversation capture | | **AI Compression** | Automatic summarization with ~10x token savings | Efficient long-term storage | | **Vector Search** | Chroma-based semantic retrieval | Find relevant past context | | **Privacy Contro",
-        "line": 234,
+        "line": 246,
         "context": "nStart \u2192 UserPromptSubmit \u2192 PostToolUse \u2192 Summary \u2192 SessionEnd | Complete conversation capture | | **AI Compression** | Automatic summarization with ~10x token savings | Efficient long-term storage | | **Vector Search** | Chroma-based semantic retrieval | Find relevant past context | | **Privacy Contro"
       }
     ],
@@ -5263,168 +5522,222 @@
     "patterns/planning-first-development.md": [
       {
         "value": "20%",
+        "claim": "0+\" measurement-claims:   - claim: \"Planning effort increases from ~20% to ~60%+ in AI-assisted development\"     source: \"IndyDevDan - Principled AI Coding\"     date: \"2025-10-01\"     revalidate: \"2026-10-01\" status: \"PRO",
+        "line": 5,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" measurement-claims:   - claim: \"Planning effort increases from ~20% to ~60%+ in AI-assisted development\"     source: \"IndyDevDan - Principled AI Coding\"     date: \"2025-10-01\"     revalidate: \"2026-10-01\" status: \"PRO"
+      },
+      {
+        "value": "60%",
+        "claim": "0+\" measurement-claims:   - claim: \"Planning effort increases from ~20% to ~60%+ in AI-assisted development\"     source: \"IndyDevDan - Principled AI Coding\"     date: \"2025-10-01\"     revalidate: \"2026-10-01\" status: \"PRODUCTION\"",
+        "line": 5,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" measurement-claims:   - claim: \"Planning effort increases from ~20% to ~60%+ in AI-assisted development\"     source: \"IndyDevDan - Principled AI Coding\"     date: \"2025-10-01\"     revalidate: \"2026-10-01\" status: \"PRODUCTION\""
+      },
+      {
+        "value": "20%",
         "claim": "Specs communicate to humans | Specs **are** the prompt | | Ambiguity resolved through conversation | Ambiguity causes hallucination | | Planning is ~20% of effort | Planning becomes ~60%+ of effort |  **The Shift**: In AI-assisted development, most engineering effort moves from implementation to speci",
-        "line": 26,
+        "line": 38,
         "context": " Specs communicate to humans | Specs **are** the prompt | | Ambiguity resolved through conversation | Ambiguity causes hallucination | | Planning is ~20% of effort | Planning becomes ~60%+ of effort |  **The Shift**: In AI-assisted development, most engineering effort moves from implementation to speci"
       },
       {
         "value": "60%",
         "claim": "cs **are** the prompt | | Ambiguity resolved through conversation | Ambiguity causes hallucination | | Planning is ~20% of effort | Planning becomes ~60%+ of effort |  **The Shift**: In AI-assisted development, most engineering effort moves from implementation to specification",
-        "line": 26,
+        "line": 38,
         "context": "cs **are** the prompt | | Ambiguity resolved through conversation | Ambiguity causes hallucination | | Planning is ~20% of effort | Planning becomes ~60%+ of effort |  **The Shift**: In AI-assisted development, most engineering effort moves from implementation to specification. The AI handles implement"
       },
       {
         "value": "10%",
         "claim": "the form: - Position: right-aligned below the form fields - Style: matches our Button component's \"primary\" variant - Text: \"Submit\" - Hover: darken 10%, slight scale up - Loading state: show spinner, disable button ```  ---  ## Measuring Planning Effectiveness  ### Metrics to Track  | Metric | Target",
-        "line": 402,
+        "line": 414,
         "context": " the form: - Position: right-aligned below the form fields - Style: matches our Button component's \"primary\" variant - Text: \"Submit\" - Hover: darken 10%, slight scale up - Loading state: show spinner, disable button ```  ---  ## Measuring Planning Effectiveness  ### Metrics to Track  | Metric | Target"
       },
       {
         "value": "80%",
         "claim": "rack  | Metric | Target | Why | |--------|--------|-----| | Prompts per feature | <5 | Good specs reduce back-and-forth | | First-attempt accuracy | >80% | AI output matches intent | | Scope creep incidents | 0 | Explicit boundaries prevent drift | | Context resets | <1/session | Good context managemen",
-        "line": 415,
+        "line": 427,
         "context": "rack  | Metric | Target | Why | |--------|--------|-----| | Prompts per feature | <5 | Good specs reduce back-and-forth | | First-attempt accuracy | >80% | AI output matches intent | | Scope creep incidents | 0 | Explicit boundaries prevent drift | | Context resets | <1/session | Good context managemen"
       }
     ],
     "patterns/mcp-vs-skills-economics.md": [
       {
         "value": "50%",
+        "claim": "0+\" measurement-claims:   - claim: \"Skills are 50% cheaper than MCP ($10",
+        "line": 5,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\" measurement-claims:   - claim: \"Skills are 50% cheaper than MCP ($10.27 vs $20.78 per task)\"     source: \"Tenzir production data\"     date: \"2026-01-15\"     revalidate: \"2027-01-15\"   - claim: \"MC"
+      },
+      {
+        "value": "38%",
+        "claim": "78 per task)\"     source: \"Tenzir production data\"     date: \"2026-01-15\"     revalidate: \"2027-01-15\"   - claim: \"MCP is 38% faster than Skills (6",
+        "line": 9,
+        "context": "per than MCP ($10.27 vs $20.78 per task)\"     source: \"Tenzir production data\"     date: \"2026-01-15\"     revalidate: \"2027-01-15\"   - claim: \"MCP is 38% faster than Skills (6.2 min vs 8.6 min)\"     source: \"Tenzir production data\"     date: \"2026-01-15\"     revalidate: \"2027-01-15\"   - claim: \"Skills "
+      },
+      {
+        "value": "55%",
+        "claim": "6 min)\"     source: \"Tenzir production data\"     date: \"2026-01-15\"     revalidate: \"2027-01-15\"   - claim: \"Skills use 55% less cached tokens (4",
+        "line": 13,
+        "context": "ter than Skills (6.2 min vs 8.6 min)\"     source: \"Tenzir production data\"     date: \"2026-01-15\"     revalidate: \"2027-01-15\"   - claim: \"Skills use 55% less cached tokens (4.0M vs 8.8M)\"     source: \"Tenzir production data\"     date: \"2026-01-15\"     revalidate: \"2027-01-15\" status: \"PRODUCTION\" last"
+      },
+      {
+        "value": "50%",
         "claim": "Production data shows **Skills can be 50% cheaper** than equivalent MCP implementations, though MCP may be faster",
-        "line": 8,
+        "line": 28,
         "context": "(Model Context Protocol) and Skills represent two different approaches to extending Claude Code's capabilities. Production data shows **Skills can be 50% cheaper** than equivalent MCP implementations, though MCP may be faster. The choice depends on environment constraints and cost sensitivity.  **SDD P"
       },
       {
         "value": "38%",
         "claim": "6 min | MCP (38% faster) | | **Tool calls** | 61 | 52 | Skills (15% fewer) | | **Cost** | $20",
-        "line": 23,
+        "line": 43,
         "context": "ia MCP server vs Claude Code Skills:  | Metric | MCP | Skills | Winner | |--------|-----|--------|--------| | **Duration** | 6.2 min | 8.6 min | MCP (38% faster) | | **Tool calls** | 61 | 52 | Skills (15% fewer) | | **Cost** | $20.78 | $10.27 | **Skills (50% cheaper)** | | **Cached tokens** | 8.8M | 4."
       },
       {
         "value": "15%",
         "claim": "6 min | MCP (38% faster) | | **Tool calls** | 61 | 52 | Skills (15% fewer) | | **Cost** | $20",
-        "line": 24,
+        "line": 44,
         "context": "P | Skills | Winner | |--------|-----|--------|--------| | **Duration** | 6.2 min | 8.6 min | MCP (38% faster) | | **Tool calls** | 61 | 52 | Skills (15% fewer) | | **Cost** | $20.78 | $10.27 | **Skills (50% cheaper)** | | **Cached tokens** | 8.8M | 4.0M | Skills (55% less) |  **Key Finding**: The Skil"
       },
       {
         "value": "50%",
         "claim": "6 min | MCP (38% faster) | | **Tool calls** | 61 | 52 | Skills (15% fewer) | | **Cost** | $20",
-        "line": 25,
+        "line": 45,
         "context": "-| | **Duration** | 6.2 min | 8.6 min | MCP (38% faster) | | **Tool calls** | 61 | 52 | Skills (15% fewer) | | **Cost** | $20.78 | $10.27 | **Skills (50% cheaper)** | | **Cached tokens** | 8.8M | 4.0M | Skills (55% less) |  **Key Finding**: The Skills approach produced working output at half the cost o"
       },
       {
         "value": "55%",
         "claim": "**Tool calls** | 61 | 52 | Skills (15% fewer) | | **Cost** | $20",
-        "line": 26,
+        "line": 46,
         "context": "**Tool calls** | 61 | 52 | Skills (15% fewer) | | **Cost** | $20.78 | $10.27 | **Skills (50% cheaper)** | | **Cached tokens** | 8.8M | 4.0M | Skills (55% less) |  **Key Finding**: The Skills approach produced working output at half the cost of MCP.  ---  ## Why the Cost Difference?  ### MCP Approach  `"
       },
       {
         "value": "38%",
         "claim": "tration** | MCP excels at stateful multi-step workflows | | **Persistent connections** | WebSocket-based MCP maintains state | | **Speed critical** | 38% faster execution in benchmarks |  ### Use Skills When  | Scenario | Why Skills | |----------|------------| | **Cost-sensitive workflows** | 50% cheap",
-        "line": 131,
+        "line": 151,
         "context": "tration** | MCP excels at stateful multi-step workflows | | **Persistent connections** | WebSocket-based MCP maintains state | | **Speed critical** | 38% faster execution in benchmarks |  ### Use Skills When  | Scenario | Why Skills | |----------|------------| | **Cost-sensitive workflows** | 50% cheap"
       },
       {
         "value": "50%",
         "claim": "l** | 38% faster execution in benchmarks |  ### Use Skills When  | Scenario | Why Skills | |----------|------------| | **Cost-sensitive workflows** | 50% cheaper per task | | **Cloud/frontier models** | Models capable enough to use generic tools | | **Portable instructions** | Skills work across projec",
-        "line": 137,
+        "line": 157,
         "context": "l** | 38% faster execution in benchmarks |  ### Use Skills When  | Scenario | Why Skills | |----------|------------| | **Cost-sensitive workflows** | 50% cheaper per task | | **Cloud/frontier models** | Models capable enough to use generic tools | | **Portable instructions** | Skills work across projec"
       },
       {
         "value": "2x",
         "claim": "(required)| ```  ---  ## Anti-Patterns  ### \u274c MCP for Everything  **Problem**: Routing all operations through MCP \"because we built it\" **Symptom**: 2x cost, maintenance burden, slower iteration **Solution**: Evaluate each workflow\u2014many don't need custom tools  ### \u274c Skills Without Structure  **Probl",
-        "line": 246,
+        "line": 266,
         "context": " (required)| ```  ---  ## Anti-Patterns  ### \u274c MCP for Everything  **Problem**: Routing all operations through MCP \"because we built it\" **Symptom**: 2x cost, maintenance burden, slower iteration **Solution**: Evaluate each workflow\u2014many don't need custom tools  ### \u274c Skills Without Structure  **Probl"
       },
       {
         "value": "38%",
         "claim": "attern complements MCP security/architecture guidance |  ---  ## Summary  | Factor | MCP | Skills | |--------|-----|--------| | **Speed** | \u2705 Faster (38%) | Slower | | **Cost** | Expensive (2x) | \u2705 Cheaper (50%) | | **Infrastructure** | Requires servers | \u2705 Just markdown | | **Portability** | Project-s",
-        "line": 319,
+        "line": 339,
         "context": "attern complements MCP security/architecture guidance |  ---  ## Summary  | Factor | MCP | Skills | |--------|-----|--------| | **Speed** | \u2705 Faster (38%) | Slower | | **Cost** | Expensive (2x) | \u2705 Cheaper (50%) | | **Infrastructure** | Requires servers | \u2705 Just markdown | | **Portability** | Project-s"
       },
       {
         "value": "2x",
         "claim": "ture guidance |  ---  ## Summary  | Factor | MCP | Skills | |--------|-----|--------| | **Speed** | \u2705 Faster (38%) | Slower | | **Cost** | Expensive (2x) | \u2705 Cheaper (50%) | | **Infrastructure** | Requires servers | \u2705 Just markdown | | **Portability** | Project-specific | \u2705 Cross-project | | **Mainten",
-        "line": 320,
+        "line": 340,
         "context": "ture guidance |  ---  ## Summary  | Factor | MCP | Skills | |--------|-----|--------| | **Speed** | \u2705 Faster (38%) | Slower | | **Cost** | Expensive (2x) | \u2705 Cheaper (50%) | | **Infrastructure** | Requires servers | \u2705 Just markdown | | **Portability** | Project-specific | \u2705 Cross-project | | **Mainten"
       },
       {
         "value": "50%",
         "claim": "---  ## Summary  | Factor | MCP | Skills | |--------|-----|--------| | **Speed** | \u2705 Faster (38%) | Slower | | **Cost** | Expensive (2x) | \u2705 Cheaper (50%) | | **Infrastructure** | Requires servers | \u2705 Just markdown | | **Portability** | Project-specific | \u2705 Cross-project | | **Maintenance** | High | \u2705",
-        "line": 320,
+        "line": 340,
         "context": "---  ## Summary  | Factor | MCP | Skills | |--------|-----|--------| | **Speed** | \u2705 Faster (38%) | Slower | | **Cost** | Expensive (2x) | \u2705 Cheaper (50%) | | **Infrastructure** | Requires servers | \u2705 Just markdown | | **Portability** | Project-specific | \u2705 Cross-project | | **Maintenance** | High | \u2705 "
       }
     ],
     "patterns/advanced-tool-use.md": [
       {
         "value": "85%",
+        "claim": "0+\"   beta-header: \"advanced-tool-use-2025-11-20\" measurement-claims:   - claim: \"Tool Search: 85% token reduction (77K \u2192 8",
+        "line": 6,
+        "context": "--- version-requirements:   claude-code: \"v2.0.0+\"   beta-header: \"advanced-tool-use-2025-11-20\" measurement-claims:   - claim: \"Tool Search: 85% token reduction (77K \u2192 8.7K tokens)\"     source: \"Anthropic Engineering Blog\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\"   - claim: \"Program"
+      },
+      {
+        "value": "37%",
+        "claim": "7K tokens)\"     source: \"Anthropic Engineering Blog\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\"   - claim: \"Programmatic Tool Calling: 37% token reduction\"     source: \"Anthropic Engineering Blog\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\"   - claim: \"Tool Examples: 72% \u2192 90% ac",
+        "line": 10,
+        "context": "K \u2192 8.7K tokens)\"     source: \"Anthropic Engineering Blog\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\"   - claim: \"Programmatic Tool Calling: 37% token reduction\"     source: \"Anthropic Engineering Blog\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\"   - claim: \"Tool Examples: 72% \u2192 90% ac"
+      },
+      {
+        "value": "72%",
+        "claim": "Calling: 37% token reduction\"     source: \"Anthropic Engineering Blog\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\"   - claim: \"Tool Examples: 72% \u2192 90% accuracy improvement\"     source: \"Anthropic internal testing\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\" status: \"PRODUCTION\" last-ve",
+        "line": 14,
+        "context": "Calling: 37% token reduction\"     source: \"Anthropic Engineering Blog\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\"   - claim: \"Tool Examples: 72% \u2192 90% accuracy improvement\"     source: \"Anthropic internal testing\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\" status: \"PRODUCTION\" last-ve"
+      },
+      {
+        "value": "90%",
+        "claim": "g: 37% token reduction\"     source: \"Anthropic Engineering Blog\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\"   - claim: \"Tool Examples: 72% \u2192 90% accuracy improvement\"     source: \"Anthropic internal testing\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\" status: \"PRODUCTION\" last-verified",
+        "line": 14,
+        "context": "g: 37% token reduction\"     source: \"Anthropic Engineering Blog\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\"   - claim: \"Tool Examples: 72% \u2192 90% accuracy improvement\"     source: \"Anthropic internal testing\"     date: \"2025-11-24\"     revalidate: \"2026-11-24\" status: \"PRODUCTION\" last-verified"
+      },
+      {
+        "value": "85%",
         "claim": "7K tokens **(85% reduction)** - Accuracy: 79",
-        "line": 43,
+        "line": 64,
         "context": "oading: true` - Claude discovers on-demand via search  **Results**: - Traditional: ~77K tokens before work begins - With Tool Search: ~8.7K tokens **(85% reduction)** - Accuracy: 79.5% \u2192 88.1% (Opus 4.5)  **When to use**: - Tool definitions >10K tokens - 10+ tools available - MCP systems with multiple "
       },
       {
         "value": "5%",
         "claim": "7K tokens **(85% reduction)** - Accuracy: 79",
-        "line": 44,
+        "line": 65,
         "context": " on-demand via search  **Results**: - Traditional: ~77K tokens before work begins - With Tool Search: ~8.7K tokens **(85% reduction)** - Accuracy: 79.5% \u2192 88.1% (Opus 4.5)  **When to use**: - Tool definitions >10K tokens - 10+ tools available - MCP systems with multiple servers  ### 2. Programmatic To"
       },
       {
         "value": "1%",
         "claim": "7K tokens **(85% reduction)** - Accuracy: 79",
-        "line": 44,
+        "line": 65,
         "context": "nd via search  **Results**: - Traditional: ~77K tokens before work begins - With Tool Search: ~8.7K tokens **(85% reduction)** - Accuracy: 79.5% \u2192 88.1% (Opus 4.5)  **When to use**: - Tool definitions >10K tokens - 10+ tools available - MCP systems with multiple servers  ### 2. Programmatic Tool Calli"
       },
       {
         "value": "37%",
         "claim": "dumps(exceeded))  # Only this enters Claude's context ```  **Results**: Token usage reduced by **37%**  **When to use**: - Processing large datasets needing aggregates - Multi-step workflows (3+ dependent calls) - Filtering/transforming results befor",
-        "line": 76,
+        "line": 97,
         "context": "\"name\": member[\"name\"], \"spent\": total})  print(json.dumps(exceeded))  # Only this enters Claude's context ```  **Results**: Token usage reduced by **37%**  **When to use**: - Processing large datasets needing aggregates - Multi-step workflows (3+ dependent calls) - Filtering/transforming results befor"
       },
       {
         "value": "72%",
         "claim": "om examples**: - Format conventions (dates, IDs) - Nested structure patterns - Optional parameter correlations  **Results**: Accuracy improved from **72% \u2192 90%**  ## Application to Skills  Skills that would benefit from input examples:  ### High Priority (complex invocation patterns)  1",
-        "line": 112,
+        "line": 133,
         "context": "om examples**: - Format conventions (dates, IDs) - Nested structure patterns - Optional parameter correlations  **Results**: Accuracy improved from **72% \u2192 90%**  ## Application to Skills  Skills that would benefit from input examples:  ### High Priority (complex invocation patterns)  1. **contradictio"
       },
       {
         "value": "90%",
         "claim": "mples**: - Format conventions (dates, IDs) - Nested structure patterns - Optional parameter correlations  **Results**: Accuracy improved from **72% \u2192 90%**  ## Application to Skills  Skills that would benefit from input examples:  ### High Priority (complex invocation patterns)  1",
-        "line": 112,
+        "line": 133,
         "context": "mples**: - Format conventions (dates, IDs) - Nested structure patterns - Optional parameter correlations  **Results**: Accuracy improved from **72% \u2192 90%**  ## Application to Skills  Skills that would benefit from input examples:  ### High Priority (complex invocation patterns)  1. **contradiction-dete"
       },
       {
         "value": "85%",
         "claim": "Read: Examine full context when needed ```  ## Evidence Quality  | Claim | Source | Tier | |-------|--------|------| | 85% token reduction (Tool Search) | Anthropic measurements | A | | 37% token reduction (PTC) | Anthropic measurements | A | | 72% \u2192 90% accuracy (Example",
-        "line": 193,
+        "line": 214,
         "context": "recisely within those files 3. Read: Examine full context when needed ```  ## Evidence Quality  | Claim | Source | Tier | |-------|--------|------| | 85% token reduction (Tool Search) | Anthropic measurements | A | | 37% token reduction (PTC) | Anthropic measurements | A | | 72% \u2192 90% accuracy (Example"
       },
       {
         "value": "37%",
         "claim": "ed ```  ## Evidence Quality  | Claim | Source | Tier | |-------|--------|------| | 85% token reduction (Tool Search) | Anthropic measurements | A | | 37% token reduction (PTC) | Anthropic measurements | A | | 72% \u2192 90% accuracy (Examples) | Anthropic internal testing | A |  ---  ## Anti-Patterns  ### \u274c",
-        "line": 194,
+        "line": 215,
         "context": "ed ```  ## Evidence Quality  | Claim | Source | Tier | |-------|--------|------| | 85% token reduction (Tool Search) | Anthropic measurements | A | | 37% token reduction (PTC) | Anthropic measurements | A | | 72% \u2192 90% accuracy (Examples) | Anthropic internal testing | A |  ---  ## Anti-Patterns  ### \u274c"
       },
       {
         "value": "72%",
         "claim": "----|--------|------| | 85% token reduction (Tool Search) | Anthropic measurements | A | | 37% token reduction (PTC) | Anthropic measurements | A | | 72% \u2192 90% accuracy (Examples) | Anthropic internal testing | A |  ---  ## Anti-Patterns  ### \u274c Always Loading All Tools **Problem**: Including all tool d",
-        "line": 195,
+        "line": 216,
         "context": "----|--------|------| | 85% token reduction (Tool Search) | Anthropic measurements | A | | 37% token reduction (PTC) | Anthropic measurements | A | | 72% \u2192 90% accuracy (Examples) | Anthropic internal testing | A |  ---  ## Anti-Patterns  ### \u274c Always Loading All Tools **Problem**: Including all tool d"
       },
       {
         "value": "90%",
         "claim": "-------|------| | 85% token reduction (Tool Search) | Anthropic measurements | A | | 37% token reduction (PTC) | Anthropic measurements | A | | 72% \u2192 90% accuracy (Examples) | Anthropic internal testing | A |  ---  ## Anti-Patterns  ### \u274c Always Loading All Tools **Problem**: Including all tool definit",
-        "line": 195,
+        "line": 216,
         "context": "-------|------| | 85% token reduction (Tool Search) | Anthropic measurements | A | | 37% token reduction (PTC) | Anthropic measurements | A | | 72% \u2192 90% accuracy (Examples) | Anthropic internal testing | A |  ---  ## Anti-Patterns  ### \u274c Always Loading All Tools **Problem**: Including all tool definit"
       },
       {
         "value": "72%",
         "claim": "egate before results enter context  ### \u274c Schema-Only Tool Definitions **Problem**: Relying solely on JSON Schema without usage examples **Symptom**: 72% accuracy when examples would yield 90% **Solution**: Add `input_examples` showing correct parameter patterns  ### \u274c Excessive Sequential Calls **Prob",
-        "line": 213,
+        "line": 234,
         "context": "egate before results enter context  ### \u274c Schema-Only Tool Definitions **Problem**: Relying solely on JSON Schema without usage examples **Symptom**: 72% accuracy when examples would yield 90% **Solution**: Add `input_examples` showing correct parameter patterns  ### \u274c Excessive Sequential Calls **Prob"
       },
       {
         "value": "90%",
         "claim": "\u274c Schema-Only Tool Definitions **Problem**: Relying solely on JSON Schema without usage examples **Symptom**: 72% accuracy when examples would yield 90% **Solution**: Add `input_examples` showing correct parameter patterns  ### \u274c Excessive Sequential Calls **Problem**: Making tool calls one at a time",
-        "line": 213,
+        "line": 234,
         "context": " \u274c Schema-Only Tool Definitions **Problem**: Relying solely on JSON Schema without usage examples **Symptom**: 72% accuracy when examples would yield 90% **Solution**: Add `input_examples` showing correct parameter patterns  ### \u274c Excessive Sequential Calls **Problem**: Making tool calls one at a time "
       }
     ],
@@ -5556,13 +5869,13 @@
       {
         "value": "3 times",
         "claim": "\" > \u2014 Boris Cherny, Claude Code Creator  ### Multi-Weekly Update Cadence  **Recommended frequency**: 2-3 times per week (not just weekly)  **When to update CLAUDE",
-        "line": 223,
+        "line": 231,
         "context": "add it [to CLAUDE.md]... It's like team memory.\" > \u2014 Boris Cherny, Claude Code Creator  ### Multi-Weekly Update Cadence  **Recommended frequency**: 2-3 times per week (not just weekly)  **When to update CLAUDE.md**: - After Claude makes a mistake \u2192 Document the correction immediately - After a PR review ca"
       },
       {
         "value": "3x",
         "claim": "md  ## Project Context [Standard project-specific context]  ## Team Conventions [Coding standards, agreed patterns]  ## Recent Learnings (Updated 2-3x/week) [Mistakes captured as they happen]  ## From PR Reviews [Patterns discovered during code review]  ## Integration Notes [How this project connect",
-        "line": 273,
+        "line": 281,
         "context": "E.md  ## Project Context [Standard project-specific context]  ## Team Conventions [Coding standards, agreed patterns]  ## Recent Learnings (Updated 2-3x/week) [Mistakes captured as they happen]  ## From PR Reviews [Patterns discovered during code review]  ## Integration Notes [How this project connect"
       }
     ],
@@ -5707,8 +6020,6 @@
     ],
     "skills": [
       "patterns/plugins-and-extensions.md",
-      "patterns/session-learning.md",
-      "patterns/tool-ecosystem.md",
       "patterns/progressive-disclosure.md",
       "patterns/skills-domain-knowledge.md",
       "patterns/spec-driven-development.md",
@@ -5747,7 +6058,7 @@
       "patterns/mcp-vs-skills-economics.md"
     ]
   },
-  "last_updated": "2026-02-16T12:53:05.434324",
+  "last_updated": "2026-02-16T13:02:35.571014",
   "evidence_tier_stats": {
     "tier_a_count": 6,
     "tier_b_count": 6,

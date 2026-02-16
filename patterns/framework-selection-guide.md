@@ -1,3 +1,11 @@
+---
+version-requirements:
+  claude-code: "v2.0.0+"
+status: "PRODUCTION"
+last-verified: "2026-02-16"
+notes: "Comparative guide - native subagents handle ~80% of use cases"
+---
+
 # Framework Selection Guide
 
 **Purpose**: Help users choose the right orchestration approach for their Claude Code projects
