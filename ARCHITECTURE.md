@@ -117,6 +117,52 @@ claude-code-project-best-practices/
 
 ---
 
+## Project Philosophy (Updated February 2026)
+
+### Meta-Guide Approach
+
+This project is a **meta-guide** that curates and enhances community Claude Code resources rather than duplicating them. We follow a three-layer strategy:
+
+#### Layer 1: Pointer Patterns (~12 patterns, 33%)
+- Point to best community resource with evidence tier assessment
+- Add integration guidance and decision matrices
+- Track deprecations and provide migration paths
+- **Examples**: [mcp-daily-essentials.md](patterns/mcp-daily-essentials.md) → shanraisshan, [advanced-tool-use.md](patterns/advanced-tool-use.md) → Anthropic blog
+
+#### Layer 2: Deep Methodology (~18 patterns, 50%)
+- Unique architectural analysis not found in community
+- SDD methodology, context engineering, evidence tiers
+- Security frameworks, orchestration patterns
+- Measurement discipline with revalidation
+- **Examples**: [spec-driven-development.md](patterns/spec-driven-development.md), [context-engineering.md](patterns/context-engineering.md), [evidence-tiers.md](patterns/evidence-tiers.md)
+
+#### Layer 3: Synthesis & Integration (~6 patterns, 17%)
+- Comparative frameworks (tool ecosystem, framework selection)
+- Integration patterns between resources
+- Decision trees and trade-off analysis
+- **Examples**: [framework-selection-guide.md](patterns/framework-selection-guide.md), [mcp-vs-skills-economics.md](patterns/mcp-vs-skills-economics.md)
+
+### Why This Approach?
+
+**Problem identified (February 2026)**:
+- 15 of 36 patterns (42%) had 50%+ overlap with community projects
+- Maintaining tool lists that community projects maintain better
+- Duplication created maintenance burden and slower-than-community updates
+- Our unique value (SDD, evidence tiers, measurements) was getting diluted
+
+**Solution**:
+- **Curate** community resources with evidence tier assessment
+- **Integrate** resources through decision matrices
+- **Fill gaps** not covered by community
+- **Track** deprecations and coordination issues
+- **Defer to community consensus** where it exists
+
+**Result**: Focus on 18 unique patterns (evidence tiers, SDD, context engineering, security frameworks, measurement discipline) while pointing to community leaders for tool discovery and implementation details.
+
+See: [COMMUNITY-RESOURCES.md](COMMUNITY-RESOURCES.md) for complete directory of community projects we curate and enhance.
+
+---
+
 ## Key Design Decisions
 
 ### 1. Self-Compliance

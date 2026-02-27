@@ -13,8 +13,14 @@ last-verified: "2026-02-16"
 
 # Claude Code Plugins and Extension Mechanisms
 
-**Source**: [Anthropic Claude Code Documentation](https://code.claude.com/docs/en/plugins), [Simon Willison Analysis](https://simonwillison.net/2025/Oct/16/claude-skills/)
+📚 **Primary Sources**:
+- [Claude.com Official Plugin Directory](https://claude.com/plugins) (Official registry)
+- [Anthropic Claude Code Documentation](https://code.claude.com/docs/en/plugins) (Vendor docs)
+- [Simon Willison Analysis](https://simonwillison.net/2025/Oct/16/claude-skills/) (Expert practitioner)
+
 **Evidence Tier**: B (Validated secondary - community + expert practitioner)
+
+> **Meta-Guide Note**: This pattern provides **decision matrices and economics analysis** (Skills 50% cheaper than MCP) to help you choose between extension mechanisms. For plugin discovery and installation, see [claude.com/plugins](https://claude.com/plugins) (official directory). For vendor documentation, see [Claude Code docs](https://code.claude.com/docs/en/plugins). For decision frameworks and trade-off analysis, continue here.
 
 ## Overview
 

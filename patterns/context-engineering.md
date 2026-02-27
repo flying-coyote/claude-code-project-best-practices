@@ -30,11 +30,13 @@ last-verified: "2026-02-16"
 
 # Context Engineering
 
-**Sources**:
-- [Anthropic - Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Evidence Tier A)
-- [Nate B. Jones - Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive) (Evidence Tier B)
+📚 **Primary Sources**:
+- [Anthropic Engineering Blog - Effective Context Engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Tier A)
+- [Nate B. Jones - Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive) (Tier B)
 
 **Evidence Tier**: A (Primary vendor documentation)
+
+> **Meta-Guide Note**: This pattern synthesizes Anthropic's research with Nate B. Jones's production patterns and adds our unique contribution: **"Correctness Over Compression" principle**, mathematical analysis for 200K token budgets, and production patterns from 12+ projects. For foundational research, see [Anthropic Engineering Blog](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents). For practical implementation and Claude Code-specific guidance, continue here.
 
 **SDD Phase**: Specify (context as specification artifacts)
 

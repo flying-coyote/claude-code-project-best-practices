@@ -1,8 +1,12 @@
 # AI-Driven Development Best Practices
 
-A curated collection of patterns and prompts for AI-driven software development, using Claude Code as the primary implementation context.
+A **meta-guide** curating community Claude Code resources with unique contributions: evidence assessment, SDD methodology, context engineering, security frameworks, and measurement discipline.
+
+**Philosophy**: We defer to community consensus where it exists (tool discovery, implementation guides) and focus on what we uniquely provide (architectural analysis, integration guidance, evidence validation).
 
 **Methodology**: We adopt [spec-driven development (SDD)](patterns/spec-driven-development.md) as our foundational approach, aligned with industry standards like [GitHub Spec Kit](https://github.com/github/spec-kit) and [agentskills.io](https://agentskills.io).
+
+> 🔗 **Looking for tool recommendations?** See [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) (5.6k+ stars) for community-curated MCPs, plugins, and productivity tips. See [COMMUNITY-RESOURCES.md](COMMUNITY-RESOURCES.md) for our complete community directory.
 
 ## The Problem
 

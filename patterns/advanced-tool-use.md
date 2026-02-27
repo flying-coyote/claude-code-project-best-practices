@@ -22,9 +22,12 @@ last-verified: "2026-02-16"
 
 # Advanced Tool Use Patterns
 
-**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/advanced-tool-use) (November 24, 2025)
+🔗 **Vendor Documentation**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/advanced-tool-use) (November 24, 2025)
+
 **Evidence Tier**: A (Primary vendor documentation)
 **Beta Header**: `advanced-tool-use-2025-11-20`
+
+> **Meta-Guide Note**: This pattern synthesizes vendor documentation from Anthropic's Engineering Blog and provides local Claude Code examples with SDD integration. For authoritative feature documentation and official updates, refer to the [Anthropic Engineering Blog](https://www.anthropic.com/engineering). For practical implementation guidance and SDD methodology integration, continue here.
 
 > ⚠️ **Status Inconsistency**: Pattern marked as "PRODUCTION" but references beta header from Nov 2025 (3+ months old). Verify: Has this feature graduated from beta? Is beta header still required? Check [Anthropic Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) for graduation date or updated header.
 

@@ -8,6 +8,8 @@ allowed-tools: Read, Grep, Glob, Bash, Write
 
 Enforce tests BEFORE implementation using RED-GREEN-REFACTOR cycle.
 
+> 🔗 **Production Framework**: For strict TDD enforcement in production projects, see [obra/superpowers](https://github.com/obra/superpowers) which provides battle-tested, production-grade TDD enforcement with deeper integration. This skill is a **lightweight learning alternative** for understanding TDD principles and integrating with Claude Code's native skill system.
+
 ## Trigger Conditions
 
 **Activate**: "implement", "add feature", "create function", "build", "let's code this", writes production code without tests

@@ -5,8 +5,11 @@ last-verified: "2026-02-27"
 
 # Productivity Tooling for Claude Code
 
-**Source**: [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice)
+🔗 **Community Source**: [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice)
+
 **Evidence Tier**: B (Community-validated, 5.6k+ stars)
+
+> **Meta-Guide Note**: This pattern is based on community-curated productivity tips from shanraisshan's repository. We add evidence tier validation and maturity tracking. For the latest community tips and tool updates, visit [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) (5.6k+ stars, updated frequently). For evidence assessment and measurement validation, continue here.
 
 ## Overview
 

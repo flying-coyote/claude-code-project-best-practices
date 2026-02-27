@@ -14,8 +14,11 @@ measurement-claims:
 
 # MCP Daily Essentials: Core Servers for Daily Development
 
-**Source**: [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice), [valgard MCP analysis](https://dev.to/valgard/claude-code-must-haves-january-2026-kem)
+🔗 **Community Source**: [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) + [valgard MCP analysis](https://dev.to/valgard/claude-code-must-haves-january-2026-kem)
+
 **Evidence Tier**: B (Community validation + production measurement)
+
+> **Meta-Guide Note**: This pattern curates community MCP recommendations and adds our unique contribution: context budget analysis, deprecation tracking (Claude in Chrome → Playwright), and maturity assessment. For current tool lists and installation guides, see [shanraisshan's repository](https://github.com/shanraisshan/claude-code-best-practice) (updated weekly). For decision frameworks and evidence validation, continue reading here.
 
 ## Overview
 

@@ -9,8 +9,14 @@ last-verified: "2026-02-16"
 
 # GitHub Actions Integration
 
-**Source**: [Boris Cherny Interview](https://paddo.dev/blog/how-boris-uses-claude-code/), [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
+📚 **Official Sources**:
+- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code) (Vendor docs)
+- [GitHub Actions Documentation](https://docs.github.com/en/actions) (Official GitHub)
+- [Boris Cherny Interview](https://paddo.dev/blog/how-boris-uses-claude-code/) (Creator insights)
+
 **Evidence Tier**: A (Primary vendor/creator)
+
+> **Meta-Guide Note**: This pattern provides practical implementation examples for vendor features. For comprehensive GitHub Actions reference, see [official GitHub Actions docs](https://docs.github.com/en/actions). For Claude Code-specific GitHub integration, see [Claude Code docs](https://docs.anthropic.com/en/docs/claude-code). For production patterns and SDD integration examples, continue here.
 
 ## Overview
 

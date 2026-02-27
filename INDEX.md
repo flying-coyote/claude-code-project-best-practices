@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-02-27 15:47*
+*Auto-generated: 2026-02-27 17:19*
 
 ## Summary
 
-**Total documents**: 99
+**Total documents**: 100
 
 | Directory | Count |
 |-----------|-------|
@@ -17,7 +17,7 @@
 | presets | 4 |
 | prompts | 3 |
 | research | 2 |
-| root | 23 |
+| root | 24 |
 | skills | 4 |
 | skills/examples/content-reviewer | 1 |
 | skills/examples/detection-rule-reviewer | 1 |
@@ -41,6 +41,7 @@
 - [ARCHITECTURE.md](ARCHITECTURE.md)
 - [ARCHIVE.md](ARCHIVE.md)
 - [AUDIT-2026-02-27.md](AUDIT-2026-02-27.md)
+- [COMMUNITY-RESOURCES.md](COMMUNITY-RESOURCES.md)
 - [CONTRIBUTING.md](CONTRIBUTING.md)
 - [DECISIONS.md](DECISIONS.md)
 - [DEPRECATIONS.md](DEPRECATIONS.md)

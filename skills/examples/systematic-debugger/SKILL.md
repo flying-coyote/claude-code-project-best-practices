@@ -8,6 +8,8 @@ allowed-tools: Read, Grep, Glob, Bash
 
 Replace ad-hoc debugging with systematic REPRODUCE-ISOLATE-UNDERSTAND-FIX protocol.
 
+> 🔗 **Production Framework**: For advanced debugging with strict enforcement, see [obra/superpowers](https://github.com/obra/superpowers) which provides production-grade debugging frameworks and multi-agent orchestration patterns. This skill demonstrates **Claude Code skill integration** of systematic debugging principles.
+
 ## Trigger Conditions
 
 **Activate**: Bug reports, error messages, stack traces, test failures, "not working", "broken", "debug", "why is this happening?"
