@@ -50,9 +50,11 @@ Model Context Protocol (MCP) servers extend Claude's capabilities by connecting 
 
 ---
 
-## Top 4 Daily MCP Servers
+## Essential MCP Servers
 
-Community consensus from [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) and Reddit discussions:
+### Core Universal MCPs (Recommended for All Projects)
+
+Based on [valgard's production analysis](https://dev.to/valgard/claude-code-must-haves-january-2026-kem): **Context7 + Sequential Thinking** provide universal benefit at minimal context cost (25K tokens = 12.5% of context).
 
 ### 1. Context7
 
@@ -79,6 +81,8 @@ claude-code mcp install context7
 - Documentation-heavy projects
 
 ---
+
+### Specialized MCPs (Enable Based on Project Needs)
 
 ### 2. Playwright
 
@@ -110,32 +114,31 @@ claude-code mcp install playwright
 
 ---
 
-### 3. Claude in Chrome
+### 3. Sequential Thinking
 
-**What it does**: Browser console access and DOM inspection via MCP.
+**What it does**: Enhances Claude's reasoning for complex logic and algorithmic tasks.
 
 **Why it's essential**:
-- Live debugging of frontend issues
-- Direct console log inspection
-- DOM tree analysis
-- Network request monitoring
+- Improves multi-step reasoning accuracy
+- Critical for algorithm design and debugging
+- Reduces logical errors in complex code
+- Universal benefit across all project types
 
-**Context cost**: ~12K tokens
-**Value**: Critical for frontend debugging - Low for backend
+**Context cost**: ~10K tokens (low cost, high value)
+**Value**: High - Universal benefit
 
 **Installation**:
 ```bash
-# Chrome extension + MCP server
-# https://chrome.google.com/webstore (search "Claude in Chrome")
+claude-code mcp install sequential-thinking
 ```
 
 **Use cases**:
-- Debugging JavaScript errors
-- Inspecting React component state
-- Analyzing network requests
-- CSS debugging
+- Algorithm implementation
+- Complex business logic
+- Multi-step transformations
+- Debugging logical errors
 
-**When to skip**: Projects without browser UI.
+**When to skip**: Simple CRUD operations only.
 
 ---
 
@@ -167,6 +170,26 @@ claude-code mcp install deepwiki
 
 ---
 
+### ⚠️ Deprecated: Claude in Chrome
+
+**Status**: ❌ **DEPRECATED** (as of 2026-01-10)
+**Grace period ends**: 2026-04-10 (90 days)
+
+**Why deprecated**:
+- Playwright CLI is **4x more token-efficient** for browser automation
+- Playwright is production-ready vs experimental Chrome extension
+- Better security model (sandboxed execution)
+- Per [DEPRECATIONS.md](../DEPRECATIONS.md#claude-in-chrome-browser-extension)
+
+**Migration path**:
+- **For browser automation**: Use Playwright (MCP or CLI)
+- **For console debugging**: Use Playwright's console capture features
+- **For DOM inspection**: Use Playwright's DOM snapshots
+
+**Historical note**: Originally recommended in shanraisshan's community list as "top 4 daily MCP" but superseded by Playwright's superior token efficiency and production readiness.
+
+---
+
 ## Recommended Core MCP: Context7 + Sequential Thinking
 
 **From valgard's production analysis**:
@@ -194,15 +217,14 @@ Use `disabledMcpServers` in `.claude/settings.json`:
 {
   "disabledMcpServers": [
     "playwright",
-    "claude-in-chrome",
     "deepwiki"
   ]
 }
 ```
 
 **Strategy**:
-1. **Global config**: Enable Context7 + Sequential Thinking only
-2. **Project config**: Activate specialized MCPs on-demand
+1. **Global config**: Enable Context7 + Sequential Thinking only (universal benefit)
+2. **Project config**: Activate specialized MCPs on-demand (Playwright for frontend, DeepWiki for exploration)
 
 ### On-Demand Activation
 
@@ -218,7 +240,7 @@ Use `disabledMcpServers` in `.claude/settings.json`:
 {
   "disabledMcpServers": [
     "playwright",
-    "claude-in-chrome"
+    "deepwiki"
   ]
 }
 ```
@@ -227,11 +249,11 @@ Use `disabledMcpServers` in `.claude/settings.json`:
 ```json
 {
   "disabledMcpServers": [
-    "playwright",
-    "claude-in-chrome"
+    "playwright"
   ],
   "enabledMcpServers": [
     "context7",
+    "sequential-thinking",
     "deepwiki"
   ]
 }
@@ -263,19 +285,19 @@ Many MCP capabilities can be achieved with CLI tools at 4x+ token efficiency:
 Project Type?
 │
 ├─► Frontend/Fullstack
-│   └─► Enable: Context7, Playwright, Claude in Chrome
+│   └─► Enable: Context7, Sequential Thinking, Playwright
 │
 ├─► Backend API
 │   └─► Enable: Context7, Sequential Thinking
 │
 ├─► Open Source Exploration
-│   └─► Enable: Context7, DeepWiki
+│   └─► Enable: Context7, Sequential Thinking, DeepWiki
 │
 ├─► Algorithmic/Logic-Heavy
 │   └─► Enable: Context7, Sequential Thinking
 │
 └─► Monorepo with Familiar Codebase
-    └─► Enable: Context7 only
+    └─► Enable: Context7, Sequential Thinking (minimal set)
 ```
 
 ---
@@ -327,7 +349,9 @@ CLAUDE_CODE_LOG_LEVEL=debug claude-code
 
 From [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice):
 
-> "The top 4 daily MCP servers (based on Reddit community feedback): Context7, Playwright, Claude in Chrome, DeepWiki."
+> "The top 4 daily MCP servers (based on Reddit community feedback): Context7, Playwright, ~~Claude in Chrome~~ [deprecated], DeepWiki."
+>
+> **Note**: Claude in Chrome was deprecated 2026-01-10 in favor of Playwright CLI (4x token efficiency). Historical recommendation preserved for context.
 
 From valgard's analysis:
 

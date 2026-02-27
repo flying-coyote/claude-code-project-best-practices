@@ -192,9 +192,11 @@ Adaptive thinking interacts with context management: lower effort levels consume
 
 ---
 
-## 1M Token Context Window (Beta)
+## 1M Token Context Window
 
-Opus 4.6 extends the context window to 1M tokens (beta), previously only available on Sonnet models.
+Opus 4.6 extends the context window to 1M tokens, previously only available on Sonnet models.
+
+> ⚠️ **Status Update Needed**: Beta header `context-1m-2025-08-07` is 6+ months old (as of Feb 2026). Verify current status: Is 1M context now stable, or is there a newer beta header? Check [Anthropic Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) for updates.
 
 ### Implications for Context Engineering
 
@@ -209,7 +211,7 @@ Opus 4.6 extends the context window to 1M tokens (beta), previously only availab
 
 ### Long-Context Pricing
 
-1M context is available in beta via `context-1m-2025-08-07` header. Long-context pricing applies for inputs exceeding standard limits.
+1M context is available via `context-1m-2025-08-07` header (verify current header version). Long-context pricing applies for inputs exceeding standard limits.
 
 ---
 

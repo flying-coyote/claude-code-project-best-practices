@@ -27,6 +27,8 @@ last-verified: "2026-02-16"
 
 **Evidence Tier**: A (Industry standard - OWASP security framework)
 
+> ⚠️ **Revalidation Required**: Security claims (43% vulnerability rate, ~10 trustworthy servers) expire **2026-03-20** (21 days). These statistics underpin defense-in-depth recommendations. Schedule OWASP source review before expiration to confirm current landscape.
+
 ## The Core Problem
 
 Teams are connecting MCP wrong. The Model Context Protocol is powerful, but its **300-800ms baseline latency** destroys user experience when placed in the wrong locations.
