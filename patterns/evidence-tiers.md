@@ -396,6 +396,7 @@ Technical claims often depend on specific versions. Include version context in c
 version-requirements:
   claude-code: "v2.1.30+"  # Optional: only if version-specific
   model: "Opus 4.6+"       # Optional: only if model-specific
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "39% improvement in agent search"
     source: "Anthropic internal testing"

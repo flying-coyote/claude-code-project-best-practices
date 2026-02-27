@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.1.30+"  # Session memory feature
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Self-training reduced safety refusal rates by 70% (safety drift risk)"
     source: "Academic research on misevolution"

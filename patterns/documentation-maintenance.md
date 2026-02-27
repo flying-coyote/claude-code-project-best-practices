@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"  # PostToolUse hook support
+version-last-verified: "2026-02-27"
 status: "PRODUCTION"
 last-verified: "2026-02-16"
 notes: "Implements PostToolUse hook for automatic INDEX.md regeneration"

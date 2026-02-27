@@ -2,6 +2,7 @@
 version-requirements:
   claude-code: "v2.0.0+"
   beta-header: "advanced-tool-use-2025-11-20"
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Tool Search: 85% token reduction (77K → 8.7K tokens)"
     source: "Anthropic Engineering Blog"
@@ -24,6 +25,8 @@ last-verified: "2026-02-16"
 **Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/advanced-tool-use) (November 24, 2025)
 **Evidence Tier**: A (Primary vendor documentation)
 **Beta Header**: `advanced-tool-use-2025-11-20`
+
+> ⚠️ **Status Inconsistency**: Pattern marked as "PRODUCTION" but references beta header from Nov 2025 (3+ months old). Verify: Has this feature graduated from beta? Is beta header still required? Check [Anthropic Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) for graduation date or updated header.
 
 ## The Problem Space
 

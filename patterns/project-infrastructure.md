@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"  # Checkpoints and rewind feature
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "CLAUDE.md target: ~60 lines (80 max tolerable)"
     source: "Anthropic official guidance"

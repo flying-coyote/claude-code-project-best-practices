@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Planning effort increases from ~20% to ~60%+ in AI-assisted development"
     source: "IndyDevDan - Principled AI Coding"

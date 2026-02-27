@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Playwright CLI: 4x more token-efficient than Claude in Chrome extension"
     source: "Community benchmarking"

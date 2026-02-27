@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.1.0+"  # Skills auto-reload feature
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Skills are 4x more token-efficient than MCP for methodology"
     source: "Simon Willison analysis"

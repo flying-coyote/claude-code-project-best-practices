@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Skills are 50% cheaper than MCP ($10.27 vs $20.78 per task)"
     source: "Tenzir production data"

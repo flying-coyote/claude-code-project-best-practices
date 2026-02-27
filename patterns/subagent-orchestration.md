@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"  # Native subagent support
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Native subagents handle ~80% of work with zero setup"
     source: "Claude Code Documentation"

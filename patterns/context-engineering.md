@@ -2,6 +2,7 @@
 version-requirements:
   claude-code: "v2.1.30+"  # Session memory feature
   model: "Opus 4.6+"       # Think tool and fast mode
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Prompt represents only 0.1% of total context processed"
     source: "Anthropic Engineering Blog"

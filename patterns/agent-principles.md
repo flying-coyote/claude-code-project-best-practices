@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "AI will never be 100% predictable"
     source: "Nate B. Jones - Agent Build Bible"

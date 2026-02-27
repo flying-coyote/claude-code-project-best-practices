@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Token savings: 50-77% reduction from progressive disclosure"
     source: "Production testing on 4 skills"

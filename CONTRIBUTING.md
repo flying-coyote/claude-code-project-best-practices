@@ -220,6 +220,87 @@ Before submitting, verify:
    - Changes requested with specific guidance
    - Closed if doesn't meet criteria (with explanation)
 
+## Deprecation Process
+
+When deprecating a pattern, tool, or recommendation, follow this checklist to prevent coordination gaps across the repository.
+
+### Deprecation Checklist
+
+**Before deprecating**, ensure you have:
+- [ ] **Authoritative source** for deprecation (Anthropic announcement, security advisory, superseding feature)
+- [ ] **Migration path** documented (what to use instead)
+- [ ] **Grace period** defined (recommended: 90 days for tool deprecations)
+
+**Steps to deprecate**:
+
+1. **Update DEPRECATIONS.md**:
+   ```markdown
+   ### [Tool/Pattern Name]
+
+   **Status**: ❌ DEPRECATED
+   **Deprecated Date**: YYYY-MM-DD
+   **Reason**: [Brief explanation]
+   **Grace Period Ends**: YYYY-MM-DD (if applicable)
+
+   **Migration Path**:
+   [Clear instructions on what to use instead]
+   ```
+
+2. **Search all patterns for references**:
+   ```bash
+   # Find all mentions of deprecated item
+   grep -r "deprecated-tool-name" patterns/
+   grep -r "deprecated-pattern" patterns/
+   ```
+
+3. **Update or remove recommendations**:
+   - Add deprecation notice where still referenced (if in grace period)
+   - Remove from "recommended" or "top N" lists
+   - Update decision matrices and configuration examples
+   - Replace with migration path where appropriate
+
+4. **Add migration notes**:
+   - In patterns that reference deprecated item, add:
+     ```markdown
+     > ⚠️ **Deprecated**: [Tool] was deprecated YYYY-MM-DD.
+     > Use [replacement] instead. See [DEPRECATIONS.md](../DEPRECATIONS.md#tool-name).
+     ```
+
+5. **Run comprehensive grep**:
+   ```bash
+   # Catch any missed references
+   grep -ri "deprecated-item" . --exclude-dir=.git --exclude-dir=node_modules
+   ```
+
+6. **Update related files**:
+   - [ ] SOURCES.md (mark source as deprecated if tool-specific)
+   - [ ] README.md (remove from features/tools list)
+   - [ ] INDEX.md (regenerate if pattern removed)
+   - [ ] QUICKSTART.md (update if quick start references deprecated item)
+
+7. **Grace period tracking** (if applicable):
+   - Add to QUARTERLY-REVIEW.md checklist to remove after grace period
+   - Set calendar reminder for grace period end date
+
+### Example: Claude in Chrome Deprecation
+
+See [AUDIT-2026-02-27.md](AUDIT-2026-02-27.md) for case study of deprecation coordination issues.
+
+**What went wrong**:
+- DEPRECATIONS.md updated ✅
+- mcp-daily-essentials.md still recommended it ❌
+- tool-ecosystem.md recommended alternative ✅
+
+**Lesson**: Must update ALL patterns that reference deprecated item, not just DEPRECATIONS.md.
+
+### After Grace Period
+
+When grace period expires:
+1. Remove all mentions from patterns (no more "deprecated" notices)
+2. Update DEPRECATIONS.md to mark grace period as ended
+3. Grep to verify complete removal
+4. Consider moving to ARCHIVE.md if historical value
+
 ## Evidence Tier Definitions
 
 ### Tier A: Primary Sources

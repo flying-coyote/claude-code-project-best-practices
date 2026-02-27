@@ -2,6 +2,7 @@
 version-requirements:
   claude-code: "v2.0.10+"  # PreToolUse hook introduced
   latest-features: "v2.0.45+"  # PermissionRequest hook
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Sandboxing reduces unauthorized operations by 84%"
     source: "Production security testing"

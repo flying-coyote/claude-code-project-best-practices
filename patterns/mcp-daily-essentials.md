@@ -384,11 +384,25 @@ From valgard's analysis:
 
 This pattern is based on community validation and production measurements, but MCP ecosystem is rapidly evolving. Track for 90 days before considering for PRODUCTION promotion.
 
+**90-Day Review Milestone**: **May 27, 2026** (evaluate promotion criteria)
+
 **Promotion criteria**:
 - 5+ independent validations of context budget claims
 - Stability of "top 4" recommendations over time
 - Updated measurements with newer Claude Code versions
 - No significant ecosystem shifts (e.g., major new MCP paradigms)
+
+**Current validation count**: 3
+1. valgard production analysis (Jan 2026)
+2. shanraisshan community compilation (5.6k+ stars)
+3. Reddit r/ClaudeCode discussions (Jan-Feb 2026)
+
+**Review checklist at May 27, 2026**:
+- [ ] Have 5+ independent validations been documented?
+- [ ] Are Core Universal MCPs (Context7 + Sequential Thinking) still recommended?
+- [ ] Have context budget claims been revalidated with newer Claude Code versions?
+- [ ] Have any major MCP paradigm shifts occurred?
+- [ ] Have there been significant negative reports?
 
 **Revalidation date**: 2027-01-01
 

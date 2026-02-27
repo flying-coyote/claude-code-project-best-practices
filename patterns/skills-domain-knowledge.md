@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"  # Official skills support
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Skills are 50% cheaper than MCP for methodology guidance"
     source: "mcp-vs-skills-economics.md"

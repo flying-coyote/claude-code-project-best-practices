@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"  # MCP support
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "MCP baseline latency: 300-800ms"
     source: "Nate B. Jones"

@@ -1,6 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.1.30+"  # Session memory feature
+version-last-verified: "2026-02-27"
 measurement-claims:
   - claim: "AI compression with ~10x token savings for long-term storage"
     source: "Nate B. Jones Memory Prompts methodology"
