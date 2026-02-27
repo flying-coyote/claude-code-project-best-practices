@@ -325,12 +325,19 @@ context-fork: true  # Each invocation gets fresh context
 
 ### Official Sources
 
-1. **Anthropic Official Marketplace** (`claude-plugins-official`)
+1. **Claude Plugins Directory** ([claude.com/plugins](https://claude.com/plugins))
+   - Official Anthropic plugin marketplace
+   - Anthropic-verified and community-contributed plugins
+   - Verified plugins: Frontend Design, Code Review, GitHub (official MCP)
+   - High-installation plugins: Context7, Superpowers, Playwright
+   - Installation statistics and compatibility information
+
+2. **Anthropic Official Marketplace** (`claude-plugins-official`)
    - Automatically available in Claude Code
    - Run `/plugin` → Discover tab
    - **Keep updated**: Run `/plugin marketplace update claude-plugins-official` periodically
 
-2. **Anthropic Demo Plugins** (`claude-code-plugins`)
+3. **Anthropic Demo Plugins** (`claude-code-plugins`)
    - Example plugins showing capabilities
    - Must add manually
 
@@ -356,6 +363,7 @@ Keep your plugin sources current:
 | **Claude Code Plugins Hub** | 243 plugins, Skills-compliant | [GitHub](https://github.com/jeremylongshore/claude-code-plugins-plus-skills) |
 | **claude-plugins.dev** | CLI manager | [Website](https://claude-plugins.dev/) |
 | **claudecodemarketplace.com** | AI-curated marketplace | [Website](https://claudecodemarketplace.com/) |
+| **shanraisshan/claude-code-best-practice** | Community workflow tips, top 4 MCP servers | [GitHub](https://github.com/shanraisshan/claude-code-best-practice) |
 
 ### Quality Checklist
 
@@ -635,12 +643,15 @@ Share pre-approved commands via `.claude/settings.json`:
 
 ## Sources
 
+- [Claude Plugins Directory](https://claude.com/plugins) - Official Anthropic plugin marketplace
 - [Anthropic Claude Code Plugins Documentation](https://code.claude.com/docs/en/plugins)
 - [Simon Willison: Claude Skills are awesome, maybe a bigger deal than MCP](https://simonwillison.net/2025/Oct/16/claude-skills/)
 - [IntuitionLabs: Claude Skills vs MCP Technical Comparison](https://intuitionlabs.ai/articles/claude-skills-vs-mcp)
 - [alexop.dev: Understanding Claude Code's Full Stack](https://alexop.dev/posts/understanding-claude-code-full-stack/)
 - [Composio: Improving your coding workflow with Claude Code Plugins](https://composio.dev/blog/claude-code-plugin)
 - [awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins)
+- [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) - Community-driven best practices (5.6k+ stars)
+- [obra/superpowers](https://github.com/obra/superpowers) - Framework plugin with structured workflows (TDD, debugging, subagent coordination)
 - [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (January 2026) - Skills API, distribution model, skill positioning
 
 *Last updated: February 2026*

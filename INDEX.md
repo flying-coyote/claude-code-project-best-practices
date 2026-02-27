@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-02-16 13:02*
+*Auto-generated: 2026-02-27 15:07*
 
 ## Summary
 
-**Total documents**: 94
+**Total documents**: 96
 
 | Directory | Count |
 |-----------|-------|
@@ -13,7 +13,7 @@
 | examples/research-project | 1 |
 | examples/writing-project | 1 |
 | mcp-server | 1 |
-| patterns | 34 |
+| patterns | 36 |
 | presets | 4 |
 | prompts | 3 |
 | research | 2 |
@@ -81,12 +81,14 @@
 - [gsd-orchestration.md](patterns/gsd-orchestration.md)
 - [johari-window-ambiguity.md](patterns/johari-window-ambiguity.md)
 - [long-running-agent.md](patterns/long-running-agent.md)
+- [mcp-daily-essentials.md](patterns/mcp-daily-essentials.md)
 - [mcp-patterns.md](patterns/mcp-patterns.md)
 - [mcp-vs-skills-economics.md](patterns/mcp-vs-skills-economics.md)
 - [memory-architecture.md](patterns/memory-architecture.md)
 - [parallel-sessions.md](patterns/parallel-sessions.md)
 - [planning-first-development.md](patterns/planning-first-development.md)
 - [plugins-and-extensions.md](patterns/plugins-and-extensions.md)
+- [productivity-tooling.md](patterns/productivity-tooling.md)
 - [progressive-disclosure.md](patterns/progressive-disclosure.md)
 - [project-infrastructure.md](patterns/project-infrastructure.md)
 - [recursive-context-management.md](patterns/recursive-context-management.md)

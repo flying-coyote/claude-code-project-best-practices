@@ -330,6 +330,20 @@ All patterns in this repository are derived from authoritative sources and produ
   - Progressive disclosure via directory structure
 - **Pattern**: [SKILL-TEMPLATE](skills/SKILL-TEMPLATE.md)
 
+### Claude Code Plugins Directory
+- **Source**: Anthropic Official Plugin Marketplace
+- **URL**: https://claude.com/plugins
+- **Description**: Official directory of Claude Code and Cowork plugins, featuring Anthropic-verified and community-contributed extensions
+- **Verified Plugins**:
+  - Frontend Design, Code Review, GitHub (official MCP server)
+  - Feature Dev, Code Simplifier, Ralph Loop
+  - TypeScript LSP, Commit Commands
+- **High-Installation Plugins**: Context7, Superpowers, Playwright
+- **Key Features**: Plugin submission process, installation statistics, compatibility information
+- **Relevance**: Canonical reference for plugin ecosystem and official extension recommendations
+- **Evidence Tier**: A (Primary vendor marketplace)
+- **Pattern**: [Plugins and Extensions](patterns/plugins-and-extensions.md)
+
 ---
 
 ## Secondary Sources (Tier B)
@@ -350,6 +364,21 @@ All patterns in this repository are derived from authoritative sources and produ
 - **Key Quote**: "The orchestrator never does heavy lifting. It spawns agents, waits, integrates results."
 - **Pattern**: [GSD Orchestration](patterns/gsd-orchestration.md)
 - **Evidence Tier**: B (Open source, production-validated)
+
+### shanraisshan/claude-code-best-practice
+- **URL**: https://github.com/shanraisshan/claude-code-best-practice
+- **Stars**: 5.6k+ (as of Feb 2026)
+- **Description**: Community-driven knowledge base documenting practical Claude Code workflows and tooling recommendations
+- **Key Contributions**:
+  - Top 4 daily MCP servers (Context7, Playwright, Claude in Chrome, DeepWiki)
+  - Productivity tips: voice prompting (Wispr Flow), terminal vs IDE usage
+  - Wildcard permissions syntax examples
+  - RPI workflow (Research-Plan-Implement)
+  - Community Reddit insights compilation
+  - Monorepo CLAUDE.md loading behavior documentation
+- **Relevance**: Practical workflow tips and community-validated tool recommendations complement this project's methodology focus
+- **Evidence Tier**: B (Community validation with 5.6k+ stars, production usage patterns)
+- **Patterns**: [Plugins and Extensions](patterns/plugins-and-extensions.md), [Productivity Tooling](patterns/productivity-tooling.md), [MCP Daily Essentials](patterns/mcp-daily-essentials.md)
 
 ### CAII (Cognitive Agent Infrastructure Implementation)
 - **Author**: Kristoffer Sketch (skribblez2718)
@@ -389,7 +418,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Recommended core MCPs: Context7 + Sequential Thinking
   - Use `disabledMcpServers` to limit per-project
   - Activate specialized MCPs on-demand, not by default
-- **Pattern**: [MCP Patterns](patterns/mcp-patterns.md#mcp-context-budget-management)
+- **Patterns**: [MCP Patterns](patterns/mcp-patterns.md#mcp-context-budget-management), [MCP Daily Essentials](patterns/mcp-daily-essentials.md)
 - **Evidence Tier**: B (Production measurement, documented methodology)
 
 ### Context Rot Deep Dive
@@ -533,6 +562,22 @@ Track these for production readiness:
   - `--skills` flag installs documentation for agent discovery
 - **Pattern**: [MCP Patterns - CLI vs MCP](patterns/mcp-patterns.md#cli-vs-mcp-the-token-efficiency-case)
 - **Evidence Tier**: B (Microsoft, measured benchmarks, 3.6k stars) ✅ Verified
+
+### obra/superpowers
+- **URL**: https://github.com/obra/superpowers
+- **Description**: Framework plugin equipping AI coding agents with structured workflows (brainstorming, TDD, systematic debugging, subagent coordination)
+- **Key Methodologies**:
+  - **RED-GREEN-REFACTOR TDD**: Strict test-first enforcement; deletes code written before tests
+  - **Systematic Debugging**: 4-phase root-cause process (vs ad-hoc troubleshooting)
+  - **Brainstorming → Design → Plan → Execute**: Collaborative design before implementation
+  - **Subagent-driven development**: Fresh agents per task with two-stage review
+  - **YAGNI + DRY enforcement**: Planning phase emphasis
+  - **Git worktrees**: Isolated development per feature
+- **Multi-platform Support**: Claude Code, Cursor, Codex, OpenCode
+- **Pattern Overlap**: This project independently implements equivalent patterns (tdd-enforcer skill, systematic-debugger skill, subagent-orchestration, planning-first-development)
+- **Relevance**: Reference implementation demonstrating skills-based workflow automation; validates this project's pattern documentation
+- **Evidence Tier**: B (Open source framework with cross-platform adoption)
+- **Pattern**: [Plugins and Extensions](patterns/plugins-and-extensions.md)
 
 ---
 
@@ -877,11 +922,6 @@ These community repositories provide additional examples and inspiration for Cla
   - Technology choices and codebase-specific standards
   - Works with Claude Code, Cursor, and other AI assistants
 - **Relevance**: Influenced project scaffolding approach and spec-driven philosophy
-
-### obra/superpowers
-- **URL**: https://github.com/obra/superpowers
-- **Description**: Curated collection of AI-assisted development patterns
-- **Relevance**: Examples of skill-like behaviors for coding workflows
 
 ### awesome-claude-skills
 - **Author**: BehiSecc
