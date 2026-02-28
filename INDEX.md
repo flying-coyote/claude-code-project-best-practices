@@ -1,14 +1,15 @@
 # Index
 
-*Auto-generated: 2026-02-27 17:19*
+*Auto-generated: 2026-02-27 21:43*
 
 ## Summary
 
-**Total documents**: 100
+**Total documents**: 104
 
 | Directory | Count |
 |-----------|-------|
 | archive | 6 |
+| community-contributions | 3 |
 | examples/coding-project | 1 |
 | examples/research-project | 1 |
 | examples/writing-project | 1 |
@@ -17,7 +18,7 @@
 | presets | 4 |
 | prompts | 3 |
 | research | 2 |
-| root | 24 |
+| root | 25 |
 | skills | 4 |
 | skills/examples/content-reviewer | 1 |
 | skills/examples/detection-rule-reviewer | 1 |
@@ -41,6 +42,7 @@
 - [ARCHITECTURE.md](ARCHITECTURE.md)
 - [ARCHIVE.md](ARCHIVE.md)
 - [AUDIT-2026-02-27.md](AUDIT-2026-02-27.md)
+- [COMMUNITY-CONTRIBUTIONS.md](COMMUNITY-CONTRIBUTIONS.md)
 - [COMMUNITY-RESOURCES.md](COMMUNITY-RESOURCES.md)
 - [CONTRIBUTING.md](CONTRIBUTING.md)
 - [DECISIONS.md](DECISIONS.md)
@@ -127,6 +129,11 @@
 ## Examples / Coding-Project
 
 - [README.md](examples/coding-project/README.md)
+## Community-Contributions
+
+- [obra-superpowers-integration-guide.md](community-contributions/obra-superpowers-integration-guide.md)
+- [reddit-evidence-tier-system-post.md](community-contributions/reddit-evidence-tier-system-post.md)
+- [shanraisshan-claude-in-chrome-deprecation-issue.md](community-contributions/shanraisshan-claude-in-chrome-deprecation-issue.md)
 ## Prompts
 
 - [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
