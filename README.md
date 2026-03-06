@@ -42,65 +42,56 @@ This approach implements the **4-phase SDD model**:
 
 ## Quick Start
 
-### The Three Tiers
+### Start Here: Interactive Setup Prompt
 
-Every project uses the same infrastructure pattern - just choose your tier:
+The fastest way to set up your project is with our AI-guided setup:
 
-| Tier | When | Time | What You Get |
-|------|------|------|--------------|
-| **Tier 1: Baseline** | All projects | 5 min | Stop hook + permissions |
-| **Tier 2: Active** | Weekly work | 15 min | + CLAUDE.md + SessionStart |
-| **Tier 3: Team** | Collaborators | 30 min | + GitHub Actions + /commit-push-pr |
+```
+Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/refs/heads/master/prompts/MAKE-PROJECT-RECOMMENDATIONS.md and follow its instructions.
+```
+
+**What this does**: Analyzes your project and recommends the right infrastructure tier (typically Tier 2 for active projects).
+
+**Time**: 5-30 minutes depending on recommendations.
+
+---
+
+### Or Apply Tier 2 Manually (Recommended Baseline)
+
+Most active projects should start with **Tier 2** (15-30 min):
+
+| What You Get | Why It Matters |
+|-------------|----------------|
+| Stop hook + permissions | Prevents lost work from uncommitted changes |
+| CLAUDE.md context (~60 lines) | Consistent behavior across sessions |
+| SessionStart hook | Shows git status at session start |
+
+**Quick bash setup**:
+```bash
+# See detailed commands in QUICKSTART.md or use the interactive prompt above
+mkdir -p .claude && curl -O https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/QUICKSTART.md
+```
+
+---
+
+### Understanding the Tier System
+
+Projects scale through tiers as needs grow:
+
+| Tier | When to Use | Time | What You Get |
+|------|-------------|------|--------------|
+| **Tier 1: Minimal** | Optional lightweight fallback | 5 min | Stop hook + permissions only |
+| **Tier 2: Active (Recommended)** | Most projects (recommended baseline) | 15-30 min | + CLAUDE.md + SessionStart |
+| **Tier 3: Team** | Multiple collaborators | 30-60 min | + GitHub Actions + @.claude PR reviews |
+| **Tier 4: Docs** | Documentation projects | 45 min | + Automated tool/version tracking |
+
+**Start with Tier 2** - the interactive prompt will recommend Tier 3 if your project has collaborators.
+
+**Need just the basics?** Tier 1 provides minimal protection (5 min). See [QUICKSTART.md](QUICKSTART.md) for Tier 1 bash code.
 
 **There's no difference between "new" and "existing" projects** - both follow the same tiered approach.
 
-### Apply Tier 1 Now (5 minutes)
-
-Run this in your project to get baseline protection:
-
-```bash
-mkdir -p .claude && cat > .claude/settings.json << 'EOF'
-{
-  "permissions": {
-    "allow": ["Bash(git status*)", "Bash(git diff*)", "Bash(git log*)"]
-  },
-  "hooks": {
-    "Stop": [{
-      "matcher": "",
-      "hooks": [{
-        "type": "command",
-        "command": "bash -c 'if ! git diff --quiet 2>/dev/null; then echo \"⚠️ Uncommitted changes\"; fi'"
-      }]
-    }]
-  }
-}
-EOF
-```
-
-### Full Setup (Interactive)
-
-For Tier 2/3 setup with CLAUDE.md, hooks, and GitHub Actions:
-
-```
-Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/refs/heads/master/prompts/SETUP-PROJECT.md and follow its instructions.
-```
-
-See **[Project Infrastructure Pattern](patterns/project-infrastructure.md)** for the complete tiered approach.
-
-## Which Entry Point Should I Use?
-
-This repository provides multiple entry points for different scenarios:
-
-| Your Situation | Use This | Why |
-|----------------|----------|-----|
-| I have 5 minutes, want quick value | README Tier 1 Quick Start (above) | Immediate uncommitted/unpushed warnings with 4 lines in settings.json |
-| Setting up new project from scratch | [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md) | Full interactive setup with preset selection and best practices |
-| Setting up infrastructure for any project | [SETUP-PROJECT.md](prompts/SETUP-PROJECT.md) | Unified tiered approach (5/15/30 min) for new or existing projects |
-| Auditing existing Claude Code setup | [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md) | Comprehensive compliance check against best practices |
-| Learning the methodology | [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) | Read The Big 3 principles first |
-| Finding a specific pattern | Pattern tables below | Jump directly to implementation guidance |
-
-**Not sure?** Start with the Tier 1 Quick Start above, then explore SETUP-PROJECT.md when you want more.
+See **[Project Infrastructure Pattern](patterns/project-infrastructure.md)** for complete guidance.
 
 ## Pattern Decision Matrix
 
