@@ -8,13 +8,12 @@
 
 ## What This Example Shows
 
-### Tier 1 Infrastructure (5 minutes)
+### Recommended Infrastructure (15-30 minutes)
 ✅ **Stop hook** - Warns about uncommitted/unpushed changes on session end
 - Most critical safety feature
 - Prevents losing work between sessions
 - See `.claude/settings.json` lines 13-22
 
-### Tier 2 Infrastructure (15 minutes)
 ✅ **Pre-approved permissions** - Common operations don't require prompts
 - `npm test`, `npm run build`, `npm run lint`
 - `git status`, `git diff`, `git log`
@@ -26,13 +25,6 @@
 - Known gotchas: 4 lines (things that caused actual bugs)
 - Current focus: 1 line
 - See `.claude/CLAUDE.md`
-
-### Tier 3 Infrastructure (30 minutes)
-✅ **PostToolUse hook** - Auto-formats TypeScript files on write
-- Runs `prettier --write` after every file modification
-- Only targets .ts/.tsx/.js/.jsx files (not all writes)
-- Fails gracefully if prettier not installed
-- See `.claude/settings.json` lines 23-32
 
 ✅ **SessionStart hook** - Shows git context on session start
 - Current branch, uncommitted files, recent commits
@@ -98,17 +90,17 @@ coding-project/
 
 ### 2. Hooks for Quality Gates
 
-**Stop hook** (Tier 1 - always include):
+**Stop hook** (recommended - always include):
 - Runs when session ends (Ctrl+C or /exit)
 - Warns if uncommitted changes or unpushed commits
 - Prevents losing work between sessions
 
-**PostToolUse hook** (Tier 2/3 - optional):
+**PostToolUse hook** (advanced - optional):
 - Runs after every file write
 - Auto-formats with prettier (or eslint --fix, etc.)
 - Should be fast (<200ms) or targeted to specific file types
 
-**SessionStart hook** (Tier 3 - optional):
+**SessionStart hook** (recommended - include):
 - Shows context at session start
 - Useful for git status, recent activity
 - Non-blocking (informational only)
@@ -248,6 +240,6 @@ After setting up:
 - This is a **reference example**, not a real project
 - No actual source code included (focus on .claude/ structure)
 - Customize for your project - don't copy blindly
-- Start with Tier 1 (Stop hook), add Tier 2/3 as needed
+- Start with recommended setup (Stop hook, CLAUDE.md, SessionStart, permissions), add advanced features as needed
 
-**Last Updated**: February 2026
+**Last Updated**: March 2026

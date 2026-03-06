@@ -42,54 +42,58 @@ This approach implements the **4-phase SDD model**:
 
 ## Quick Start
 
-### Start Here: Interactive Setup Prompt
+### Recommended Setup (15-30 minutes)
 
-The fastest way to set up your project is with our AI-guided setup:
+All projects should have these four components:
+
+```bash
+# Create .claude directory
+mkdir -p .claude .claude/hooks
+
+# Setup will create:
+# ✅ CLAUDE.md (~60 lines of project context)
+# ✅ Stop hook (warns about uncommitted changes)
+# ✅ SessionStart hook (shows git status)
+# ✅ Permission rules (pre-approves safe commands)
+```
+
+**What this gives you**:
+- **Context across sessions**: CLAUDE.md persists project knowledge
+- **Prevents lost work**: Stop hook warns before closing with uncommitted changes
+- **Session awareness**: SessionStart hook shows branch + uncommitted count
+- **Reduced friction**: Pre-approved git commands (status, diff, log)
+
+**Time**: 15-30 minutes • **Maintenance**: ~5 min/month (keep CLAUDE.md minimal)
+
+[See detailed setup commands in QUICKSTART.md](QUICKSTART.md)
+
+---
+
+### AI-Guided Setup (Alternative)
+
+Prefer interactive guidance?
 
 ```
 Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/refs/heads/master/prompts/MAKE-PROJECT-RECOMMENDATIONS.md and follow its instructions.
 ```
 
-**What this does**: Analyzes your project and recommends the right infrastructure tier (typically Tier 2 for active projects).
-
-**Time**: 5-30 minutes depending on recommendations.
+This analyzes your project and creates the recommended setup with customization.
 
 ---
 
-### Or Apply Tier 2 Manually (Recommended Baseline)
+### Advanced Options (Optional)
 
-Most active projects should start with **Tier 2** (15-30 min):
+**For teams with collaborators:**
+- Add GitHub Actions workflow for `@.claude` PR reviews
+- Add ARCHITECTURE.md for shared understanding
+- See: [Collaborative Patterns](patterns/project-infrastructure.md#collaborative-patterns)
 
-| What You Get | Why It Matters |
-|-------------|----------------|
-| Stop hook + permissions | Prevents lost work from uncommitted changes |
-| CLAUDE.md context (~60 lines) | Consistent behavior across sessions |
-| SessionStart hook | Shows git status at session start |
+**For documentation projects tracking fast-moving tech:**
+- Add TOOLS-TRACKER.md (auto-updated version monitoring)
+- Add blog RSS monitoring for ecosystem changes
+- See: [Evolution Tracking](patterns/project-infrastructure.md#evolution-tracking)
 
-**Quick bash setup**:
-```bash
-# See detailed commands in QUICKSTART.md or use the interactive prompt above
-mkdir -p .claude && curl -O https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/QUICKSTART.md
-```
-
----
-
-### Understanding the Tier System
-
-Projects scale through tiers as needs grow:
-
-| Tier | When to Use | Time | What You Get |
-|------|-------------|------|--------------|
-| **Tier 1: Minimal** | Optional lightweight fallback | 5 min | Stop hook + permissions only |
-| **Tier 2: Active (Recommended)** | Most projects (recommended baseline) | 15-30 min | + CLAUDE.md + SessionStart |
-| **Tier 3: Team** | Multiple collaborators | 30-60 min | + GitHub Actions + @.claude PR reviews |
-| **Tier 4: Docs** | Documentation projects | 45 min | + Automated tool/version tracking |
-
-**Start with Tier 2** - the interactive prompt will recommend Tier 3 if your project has collaborators.
-
-**Need just the basics?** Tier 1 provides minimal protection (5 min). See [QUICKSTART.md](QUICKSTART.md) for Tier 1 bash code.
-
-**There's no difference between "new" and "existing" projects** - both follow the same tiered approach.
+**There's no difference between "new" and "existing" projects** - both follow the same setup approach.
 
 See **[Project Infrastructure Pattern](patterns/project-infrastructure.md)** for complete guidance.
 

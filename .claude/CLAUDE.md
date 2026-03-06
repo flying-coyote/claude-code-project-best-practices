@@ -30,11 +30,10 @@ Post-v1.0 maintenance. Aligning with SDD methodology (see patterns/spec-driven-d
 
 ## Recent Learnings (2026-03-06)
 
-### Rename: SETUP-PROJECT.md → MAKE-PROJECT-RECOMMENDATIONS.md
-**Reason**: Better reflects the file's purpose (analyze + recommend, not just setup)
-**Update**: All references changed, old name deprecated
-
-### Tier Language Change
-**Old**: Tier 1 "Baseline" / Tier 2 "Active"
-**New**: Tier 1 "Minimal (optional)" / Tier 2 "Active (Recommended Baseline)"
-**Reason**: Users thought Tier 1 was the standard, missing CLAUDE.md benefits
+### Removed Tier Language from Infrastructure
+**Old**: Tier 1/2/3/4 system with numbered progression
+**New**: Single recommended setup (CLAUDE.md + hooks + permissions) + optional advanced features (GitHub Actions, Version Tracking)
+**Reason**: Tier numbers created false hierarchy and decision paralysis. 95% of projects need the same setup (what was Tier 2).
+**Impact**: Simpler mental model, reduced decision fatigue, clearer that one path works for most projects
+**Files changed**: README.md, patterns/project-infrastructure.md, QUICKSTART.md, prompts/MAKE-PROJECT-RECOMMENDATIONS.md, cross-references
+**Note**: Evidence tiers (A-D), confidence scoring (1-5), and skill tiers (1-3) still use tier language - only infrastructure tiers removed

@@ -24,68 +24,19 @@ Every project benefits from Claude Code infrastructure. The same patterns apply 
 
 ---
 
-## The Three Tiers
+## Recommended Setup for All Projects
 
-### Tier 1: Minimal (Optional Lightweight Fallback)
+**Time**: 15-30 minutes
+**When**: Every project (provides consistent baseline)
 
-**Time to implement**: 5 minutes
-**When**: Minimal overhead required (5 min setup)
+| Component | Purpose | Status |
+|-----------|---------|--------|
+| CLAUDE.md | Project context (~60 lines) | Required |
+| Stop hook | Uncommitted work reminder | Required |
+| SessionStart hook | Branch + uncommitted count | Required |
+| Permission rules | Pre-approve safe commands | Required |
 
-| Component | Purpose | Required |
-|-----------|---------|----------|
-| `permissions.allow` | Pre-approve read-only commands | ✅ Yes |
-| Stop hook | Uncommitted/unpushed reminders | ✅ Yes |
-
-**Minimum settings.json**:
-
-```json
-{
-  "permissions": {
-    "allow": [
-      "Bash(git status*)",
-      "Bash(git diff*)",
-      "Bash(git log*)",
-      "Bash(git branch*)"
-    ]
-  },
-  "hooks": {
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash -c 'if ! git diff --quiet 2>/dev/null; then echo \"⚠️ Uncommitted changes\"; fi; UNPUSHED=$(git log origin/main..HEAD --oneline 2>/dev/null | wc -l); if [ \"$UNPUSHED\" -gt 0 ]; then echo \"⚠️ $UNPUSHED unpushed commit(s)\"; fi'"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-**Why this tier exists**:
-- Stop hooks prevent lost work (Boris Cherny: "avoid forgotten sessions")
-- Pre-approved commands reduce friction for common operations
-- Takes 5 minutes, zero ongoing maintenance
-
-**Note**: While Tier 1 provides baseline protection, most active projects should start with Tier 2 for better context management.
-
----
-
-### Tier 2: Active Development (Recommended Baseline)
-
-**Time to implement**: 15-30 minutes
-**When**: Most projects (recommended starting point)
-
-| Component | Purpose | Required |
-|-----------|---------|----------|
-| Everything from Tier 1 | Foundation | ✅ Yes |
-| CLAUDE.md | Project context and conventions | ✅ Yes |
-| SessionStart hook | Load context at session start | Recommended |
-| Project-specific permissions | Tools you use frequently | Recommended |
-
-**Additional settings.json**:
+**Complete settings.json**:
 
 ```json
 {
@@ -112,12 +63,22 @@ Every project benefits from Claude Code infrastructure. The same patterns apply 
         ]
       }
     ],
-    "Stop": [...]
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'if ! git diff --quiet 2>/dev/null; then echo \"⚠️ Uncommitted changes\"; fi; UNPUSHED=$(git log origin/main..HEAD --oneline 2>/dev/null | wc -l); if [ \"$UNPUSHED\" -gt 0 ]; then echo \"⚠️ $UNPUSHED unpushed commit(s)\"; fi'"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
 
-**CLAUDE.md structure**:
+**CLAUDE.md structure** (~60 lines):
 
 ```markdown
 # Project Name
@@ -135,18 +96,42 @@ Every project benefits from Claude Code infrastructure. The same patterns apply 
 [Project-specific patterns]
 ```
 
+**SessionStart hook** (`.claude/hooks/session-start.sh`):
+
+```bash
+#!/bin/bash
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "$(basename $(pwd)) - Session Context"
+echo ""
+echo "Branch: $(git branch --show-current 2>/dev/null || echo 'not a git repo')"
+UNCOMMITTED=$(git status --short 2>/dev/null | wc -l | xargs)
+echo "Uncommitted: $UNCOMMITTED files"
+echo ""
+echo "Recent commits:"
+git log --oneline -3 2>/dev/null || echo "No git history"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+```
+
+**Why these four components**:
+- **CLAUDE.md**: Boris Cherny (Claude Code creator) uses in all projects
+- **Stop hook**: Prevents forgotten uncommitted work (Boris: "avoid forgotten sessions")
+- **SessionStart**: Context awareness across sessions
+- **Permissions**: Friction reduction for common operations
+
 ---
 
-### Tier 3: Team/Production (Collaborative Projects)
+## Advanced Patterns (Optional)
 
-**Time to implement**: 30-60 minutes
-**When**: Multiple contributors, PRs, CI/CD
+### Collaborative Projects
 
-| Component | Purpose | Required |
-|-----------|---------|----------|
-| Everything from Tier 2 | Active development | ✅ Yes |
-| GitHub Actions workflow | Automated @.claude reviews | Recommended |
-| ARCHITECTURE.md | System design documentation | Recommended |
+**When**: Multiple contributors, pull request workflow
+
+Add:
+- `.github/workflows/claude-code.yml` (enables `@.claude` PR reviews)
+- `ARCHITECTURE.md` (shared understanding of system design)
+
+**Time**: Additional 15-30 minutes
+**See**: [GitHub Actions Pattern](github-actions-integration.md)
 
 > **Note**: Per [Anthropic guidance](https://code.claude.com/docs/en/best-practices), avoid complex slash command lists. Natural language ("commit and push my changes") works well. Use hooks sparingly—prefer pre-approved permissions via `/permissions`.
 
@@ -174,48 +159,60 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+### Fast-Moving Ecosystems
+
+**When**: Documentation projects tracking tools/versions
+
+Add:
+- `TOOLS-TRACKER.md` (auto-generated, tracks versions)
+- `scripts/check-anthropic-rss.py` (monitors blog posts)
+- Measurement expiry system (flags outdated benchmarks)
+
+**Time**: Additional 30 minutes
+**See**: [Evolution Tracking Pattern](documentation-maintenance.md#rapid-evolution)
+
 ---
 
 ## Decision Framework
 
 ```
-Is this a git repository?
+Is this a project you work on?
 │
-├─► Yes → Apply Tier 1 (baseline)
+├─► Yes → Apply Recommended Setup (15-30 min)
 │         │
-│         ├─► Work on it weekly? → Apply Tier 2 (active)
-│         │         │
-│         │         └─► Has collaborators/PRs? → Apply Tier 3 (team)
+│         ├─► Has collaborators/PRs? → Add GitHub Actions
 │         │
-│         └─► Rarely touch it? → Tier 1 is sufficient
+│         └─► Tracks fast-moving tech? → Add version tracking
 │
-└─► No → Consider if it should be
+└─► No → Skip infrastructure setup
 ```
 
 ---
 
 ## Implementation Checklist
 
-### Tier 1 (5 minutes)
+### Recommended Setup (15-30 minutes)
 
-- [ ] Create `.claude/settings.json` with permissions + Stop hook
-- [ ] Verify: End a session and see the reminder
-
-### Tier 2 (15-30 minutes)
-
-- [ ] Complete Tier 1
-- [ ] Create `.claude/CLAUDE.md` with project context
+- [ ] Create `.claude/settings.json` with permissions, Stop hook, and SessionStart hook
+- [ ] Create `.claude/CLAUDE.md` with project context (~60 lines)
 - [ ] Create `.claude/hooks/session-start.sh`
-- [ ] Add SessionStart hook to settings.json
-- [ ] Add project-specific permissions (npm, python3, docker, etc.)
-- [ ] Verify: Start a session and see context loaded
+- [ ] Verify: End a session and see uncommitted changes warning
+- [ ] Verify: Start a new session and see git status displayed
 
-### Tier 3 (30-60 minutes)
+### Advanced: GitHub Actions (Additional 15-30 minutes)
 
-- [ ] Complete Tier 2
+- [ ] Complete Recommended Setup
 - [ ] Create `.github/workflows/claude-code.yml`
 - [ ] Add ANTHROPIC_API_KEY to repository secrets
 - [ ] Verify: Open a PR and see @.claude review option
+
+### Advanced: Version Tracking (Additional 30 minutes)
+
+- [ ] Complete Recommended Setup
+- [ ] Create `TOOLS-TRACKER.md` with version mentions
+- [ ] Create `scripts/check-anthropic-rss.py`
+- [ ] Set up measurement expiry system
+- [ ] Verify: See outdated versions flagged
 
 ---
 
@@ -268,67 +265,45 @@ For organizations with compliance requirements, the `inference_geo` parameter co
 
 ---
 
-## Upgrading Between Tiers
+## Adding Advanced Features
 
-Projects naturally evolve. Common upgrade paths:
+Projects may need additional features. Common additions:
 
 | Trigger | Action |
 |---------|--------|
-| "I keep forgetting context" | Tier 1 → Tier 2 (add CLAUDE.md) |
-| "I want faster git workflow" | Use natural language: "commit and push" |
-| "Team needs AI review" | Tier 2 → Tier 3 (add GitHub Actions) |
+| "Team needs AI PR reviews" | Add GitHub Actions workflow |
+| "Tracking outdated docs" | Add version tracking system |
+| "Want faster git workflow" | Use natural language: "commit and push" |
 
 ---
 
 ## Anti-Patterns
 
-### Starting at Tier 3
+### Over-Engineering Upfront
 
-**Problem**: Over-engineering infrastructure before understanding needs
-**Solution**: Start at Tier 1, upgrade as pain points emerge
+**Problem**: Adding GitHub Actions and version tracking before understanding needs
+**Solution**: Start with recommended setup, add advanced features as pain points emerge
 
-### Skipping Tier 1
+### Skipping Recommended Setup
 
-**Problem**: No baseline protection, lost work from forgotten commits
-**Solution**: Always apply Tier 1, even for "quick" projects
+**Problem**: No baseline protection, lost work from forgotten commits, no context across sessions
+**Solution**: Always apply recommended setup (15-30 min), even for "quick" projects
 
 ### Different Patterns for New vs Existing
 
 **Problem**: Maintaining two mental models, inconsistent infrastructure
-**Solution**: Use this unified tiered approach for all projects
+**Solution**: Use this unified approach for all projects
 
 ---
 
 ## Quick Commands
 
-**Apply Tier 1 to current project**:
-```bash
-mkdir -p .claude && cat > .claude/settings.json << 'EOF'
-{
-  "permissions": {
-    "allow": [
-      "Bash(git status*)",
-      "Bash(git diff*)",
-      "Bash(git log*)",
-      "Bash(git branch*)"
-    ]
-  },
-  "hooks": {
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash -c 'if ! git diff --quiet 2>/dev/null; then echo \"⚠️ Uncommitted changes\"; fi; UNPUSHED=$(git log origin/main..HEAD --oneline 2>/dev/null | wc -l); if [ \"$UNPUSHED\" -gt 0 ]; then echo \"⚠️ $UNPUSHED unpushed commit(s)\"; fi'"
-          }
-        ]
-      }
-    ]
-  }
-}
-EOF
-```
+**Apply recommended setup to current project**:
+
+See [QUICKSTART.md](../QUICKSTART.md) for complete bash commands to set up:
+- `.claude/settings.json` (permissions, hooks)
+- `.claude/CLAUDE.md` (project context)
+- `.claude/hooks/session-start.sh` (git status display)
 
 ---
 

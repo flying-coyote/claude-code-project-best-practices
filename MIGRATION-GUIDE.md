@@ -33,7 +33,7 @@ This generates a compliance report against The Big 3 principles.
 
 **Critical gaps** (fix first):
 - [ ] CLAUDE.md >100 lines → Ruthlessly trim to ~60 lines
-- [ ] No Stop hook → Add uncommitted/unpushed warning (Tier 1)
+- [ ] No Stop hook → Add uncommitted/unpushed warning
 - [ ] No /plan usage for non-trivial features → Start using EnterPlanMode
 
 **Medium gaps** (next sprint):
@@ -53,7 +53,7 @@ This generates a compliance report against The Big 3 principles.
 **Week 1 - Foundation**:
 1. Read [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) (The Big 3)
 2. Audit CLAUDE.md against "Would removing this cause mistakes?"
-3. Add Tier 1 infrastructure (Stop hook) if missing
+3. Add recommended infrastructure (Stop hook, SessionStart, permissions) if missing
 
 **Week 2 - Context Engineering**:
 1. Move examples from CLAUDE.md to separate docs/ files
@@ -429,7 +429,7 @@ Each project customizes:
 
 ### Pitfall 1: Trying to Migrate Everything at Once
 **Problem**: Overwhelm, breaks existing workflow
-**Solution**: Incremental adoption - Tier 1 this week, Tier 2 next week, Tier 3 when needed
+**Solution**: Incremental adoption - Start with Stop hook, add full recommended setup within 1-2 weeks, add advanced features when needed
 
 ### Pitfall 2: Copying Templates Without Customization
 **Problem**: CLAUDE.md has generic content that doesn't help your project

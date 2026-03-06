@@ -87,7 +87,7 @@
 
 1. **[context-engineering.md](patterns/context-engineering.md)** - Foundation for everything
 2. **[spec-driven-development.md](patterns/spec-driven-development.md)** - The methodology (Specify→Plan→Tasks→Implement)
-3. **[project-infrastructure.md](patterns/project-infrastructure.md)** - Setup patterns (Tier 1/2/3)
+3. **[project-infrastructure.md](patterns/project-infrastructure.md)** - Setup patterns (recommended + advanced)
 
 **Then choose by need**:
 - Solo developer working on features → [long-running-agent.md](patterns/long-running-agent.md)
@@ -101,17 +101,17 @@
 
 ### Which patterns are actually critical?
 
-**Tier 1 (Essential - read first)**:
+**Essential (read first)**:
 - [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) - The Big 3
 - [spec-driven-development.md](patterns/spec-driven-development.md) - Core methodology
 - [context-engineering.md](patterns/context-engineering.md) - Context over prompts
 
-**Tier 2 (High-value for most projects)**:
+**High-value for most projects**:
 - [project-infrastructure.md](patterns/project-infrastructure.md) - Setup approach
 - [long-running-agent.md](patterns/long-running-agent.md) - Multi-session work
 - [progressive-disclosure.md](patterns/progressive-disclosure.md) - Skill architecture
 
-**Tier 3 (Specialized - use when needed)**:
+**Specialized (use when needed)**:
 - Everything else in patterns/ directory
 
 **Rule of thumb**: If you haven't hit the problem a pattern solves, you don't need that pattern yet.
@@ -125,12 +125,17 @@
 **Common objections + responses**:
 
 #### "This is too much process"
-**Response**: Start with Tier 1 only (5 minutes):
-- 4 lines in settings.json for uncommitted/unpushed warnings
-- That's it - no CLAUDE.md, no hooks, no complex setup
+**Response**: The recommended setup takes 15-30 minutes and includes:
+- Stop hook (prevents lost work from uncommitted changes)
+- CLAUDE.md (~60 lines of project context)
+- SessionStart hook (shows git status)
+- Permission rules (pre-approved commands)
+
+If even this feels like too much, start with just the Stop hook (5 minutes):
+- Add Stop hook to settings.json for uncommitted/unpushed warnings
 - Add more when value is proven
 
-**Adoption path**: Tier 1 → Tier 2 after 1 week → Tier 3 as needed
+**Adoption path**: Stop hook only → Full recommended setup after 1 week → Advanced features as needed
 
 ---
 
@@ -195,7 +200,7 @@
 # Our Team's Claude Code Standards
 
 ## Required (All Projects)
-- Tier 1 infrastructure (Stop hook for uncommitted changes)
+- Recommended infrastructure (Stop hook, CLAUDE.md, SessionStart, permissions)
 - Pre-approved permissions for `npm test`, `npm run build`
 
 ## Recommended

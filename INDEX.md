@@ -1,6 +1,6 @@
 # Index
 
-*Auto-generated: 2026-03-06 08:49*
+*Auto-generated: 2026-03-06 12:37*
 
 ## Summary
 
@@ -8,7 +8,7 @@
 
 | Directory | Count |
 |-----------|-------|
-| archive | 6 |
+| archive | 7 |
 | community-contributions | 3 |
 | examples/coding-project | 1 |
 | examples/research-project | 1 |
@@ -18,7 +18,7 @@
 | presets | 4 |
 | prompts | 3 |
 | research | 2 |
-| root | 25 |
+| root | 24 |
 | skills | 4 |
 | skills/examples/content-reviewer | 1 |
 | skills/examples/detection-rule-reviewer | 1 |
@@ -41,7 +41,6 @@
 
 - [ARCHITECTURE.md](ARCHITECTURE.md)
 - [ARCHIVE.md](ARCHIVE.md)
-- [AUDIT-2026-02-27.md](AUDIT-2026-02-27.md)
 - [COMMUNITY-CONTRIBUTIONS.md](COMMUNITY-CONTRIBUTIONS.md)
 - [COMMUNITY-RESOURCES.md](COMMUNITY-RESOURCES.md)
 - [CONTRIBUTING.md](CONTRIBUTING.md)
@@ -108,6 +107,7 @@
 - [tool-ecosystem.md](patterns/tool-ecosystem.md)
 ## Archive
 
+- [AUDIT-2026-02-27.md](archive/AUDIT-2026-02-27.md)
 - [README.md](archive/README.md)
 - [REFACTORING-PLAN-2026-01.md](archive/REFACTORING-PLAN-2026-01.md)
 - [SCHEDULE-CHANGE.md](archive/SCHEDULE-CHANGE.md)

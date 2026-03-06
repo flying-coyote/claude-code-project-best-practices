@@ -4,17 +4,26 @@ Copy everything below the line and paste it into Claude Code. This prompt analyz
 
 ---
 
-You are setting up AI-driven development infrastructure using the **tiered approach** from https://github.com/flying-coyote/claude-code-project-best-practices
+You are setting up AI-driven development infrastructure from https://github.com/flying-coyote/claude-code-project-best-practices
 
-## The Three Tiers
+## The Setup
 
-| Tier | When | Time | What You Get |
-|------|------|------|--------------|
-| **Tier 1: Minimal** | Optional lightweight fallback | 5 min | Stop hook + permissions |
-| **Tier 2: Active (Recommended)** | Most projects (recommended baseline) | 15 min | + CLAUDE.md + SessionStart |
-| **Tier 3: Team** | Multiple collaborators | 30 min | + GitHub Actions + @.claude PR reviews |
+**Recommended for all projects** (15-30 minutes):
+- CLAUDE.md (~60 lines project context)
+- Stop hook (uncommitted work reminder)
+- SessionStart hook (git status display)
+- Permission rules (pre-approve safe commands)
 
-**There's no difference between "new" and "existing" projects** - both use the same tiers.
+**Advanced (optional)**:
+- **GitHub Actions** (for teams with collaborators)
+  - Enables `@.claude` PR review comments
+  - Requires: ANTHROPIC_API_KEY in GitHub secrets
+
+- **Version Tracking** (for docs projects tracking fast-moving tech)
+  - Auto-tracks tool/version mentions
+  - Monitors blog posts for ecosystem changes
+
+**There's no difference between "new" and "existing" projects** - both use the same setup approach.
 
 ## Core Principles (Read These First)
 
@@ -55,69 +64,29 @@ Examine this project:
 
 Report findings briefly.
 
-### Step 2: Determine Current Tier
+### Step 2: Check Existing Infrastructure
 
 Check what infrastructure exists:
 
-| Component | Check | Tier |
-|-----------|-------|------|
-| `.claude/settings.json` with permissions | Required | Tier 1 |
-| Stop hook in settings.json | Required | Tier 1 |
-| `.claude/CLAUDE.md` (under 80 lines) | Required | Tier 2 |
-| SessionStart hook | Recommended | Tier 2 |
-| `.github/workflows/claude-code.yml` | Required | Tier 3 |
+| Component | Purpose | Status |
+|-----------|---------|--------|
+| `.claude/settings.json` with permissions | Pre-approve commands | Check if exists |
+| Stop hook in settings.json | Uncommitted reminders | Check if configured |
+| `.claude/CLAUDE.md` (under 80 lines) | Project context | Check if exists |
+| SessionStart hook | Git status display | Check if configured |
+| `.github/workflows/claude-code.yml` | GitHub Actions | Check if exists |
 
-Report: "This project is currently at Tier [0/1/2/3]"
+Report: "This project currently has: [list what's found, or 'no infrastructure']"
 
-**Then, before asking user, analyze project characteristics and prepare a recommendation:**
+**Then, analyze project characteristics for advanced features:**
 
-- Does it have package.json, Cargo.toml, pyproject.toml? → Suggest Tier 2 minimum
-- Is it a git repository with >10 commits? → Suggest Tier 2 minimum
-- Does .github/workflows/ exist? → Suggest Tier 3
-- Are there multiple contributors (check git log)? → Suggest Tier 3
-- Is this a documentation-only project tracking tools/versions? → Mention Tier 4
+- Does .github/workflows/ exist OR multiple contributors (check git log)? → Will recommend GitHub Actions
+- Is this a documentation-only project tracking tools/versions? → Will recommend Version Tracking
+- Otherwise → Standard setup is sufficient
 
-**Default recommendation if no special circumstances**: Tier 2 (recommended baseline)
-
-### Step 3: Ask About Target Tier
+### Step 3: Gather Project Info
 
 Ask the user:
-
-"Your project is currently at **Tier [X]**.
-
-**Recommendation: Start with Tier 2** (recommended baseline for most projects)
-
-Which tier would you like to reach?
-
-1. **Tier 1: Minimal** (5 min) - Only if you need absolute minimal overhead
-   - Prevents lost work from forgotten commits
-   - Pre-approves common read-only commands
-   - ⚠️ No CLAUDE.md means Claude won't remember project context across sessions
-
-2. **Tier 2: Active Development (Recommended)** (15-30 min) - Best starting point
-   - Everything in Tier 1 plus:
-   - CLAUDE.md with project context (~60 lines)
-   - SessionStart hook shows git status
-   - Project-specific permissions
-   - ✅ Recommended for most projects
-
-3. **Tier 3: Team/Production** (30-60 min) - For collaborative projects
-   - Everything in Tier 2 plus:
-   - GitHub Actions for @.claude PR reviews
-   - Team coordination features
-   - ✅ Recommended if you have collaborators or use PRs
-
-**My recommendation for this project: Tier [2/3]**
-
-Reasoning:
-- [Detected characteristics from analysis above]
-- [Why this tier is appropriate]
-
-**Note**: You can always upgrade later. Most projects start with Tier 2 and add Tier 3 when collaborators join."
-
-### Step 4: Gather Additional Info (for Tier 2+)
-
-If targeting Tier 2 or higher:
 
 1. "What is the project name?" (suggest directory name as default)
 2. "In 1-2 sentences, what is this project's purpose?"
@@ -126,6 +95,8 @@ If targeting Tier 2 or higher:
    - **writing** - Content creation
    - **research** - Analysis projects
    - **hybrid** - Mixed purpose"
+
+Tell the user: "I'll now set up the recommended infrastructure (CLAUDE.md + hooks + permissions). This takes 15-30 minutes and provides consistent project context across sessions."
 
 ### Step 4: Component Best Practices Overview
 
@@ -218,13 +189,13 @@ Need to...
 
 ---
 
-### Step 5: Create Infrastructure
+### Step 5: Create Standard Infrastructure
 
-#### Tier 1: Minimal (Always Create)
-
-**Create or update `.claude/settings.json`**:
+#### Create `.claude/settings.json`
 
 Detect the main branch name first (`git branch` or check remote). Use that in the Stop hook.
+
+Create complete settings.json with all four components (permissions, Stop hook, SessionStart hook, project-specific tools):
 
 ```json
 {
@@ -237,6 +208,17 @@ Detect the main branch name first (`git branch` or check remote). Use that in th
     ]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "matcher": "",
@@ -258,30 +240,7 @@ Add project-specific permissions based on what's detected:
 - `docker-compose.yml` → Add `"Bash(docker *)"`
 - `Cargo.toml` → Add `"Bash(cargo *)"`
 
-#### Tier 2: Active Development (If Requested)
-
-**Add to settings.json** - SessionStart hook:
-
-```json
-{
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .claude/hooks/session-start.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [...]
-  }
-}
-```
-
-**Create `.claude/hooks/session-start.sh`**:
+#### Create `.claude/hooks/session-start.sh`
 
 ```bash
 #!/bin/bash
@@ -352,7 +311,38 @@ Quality standards by preset (pick 3-5 most critical):
 
 **After creating**: Review ruthlessly. If Claude didn't ask about it, and it hasn't caused 2+ mistakes, delete it.
 
-#### Tier 3: Team/Production (If Requested)
+---
+
+### Step 6: Assess Advanced Needs
+
+**Tell the user**: "Your project now has the recommended setup (CLAUDE.md + hooks + permissions)."
+
+**Ask the user**: "Do you need advanced features?"
+
+Present options based on your analysis from Step 2:
+
+**Option 1: GitHub Actions** (if multiple collaborators OR .github/workflows/ exists)
+- Enables `@.claude` PR review comments
+- Requires: ANTHROPIC_API_KEY in GitHub secrets
+- Time: Additional 15-30 minutes
+
+**Option 2: Version Tracking** (if documentation project with version/tool mentions)
+- Auto-tracks tool/version mentions
+- Monitors blog posts for ecosystem changes
+- Time: Additional 30 minutes
+
+**My recommendation**:
+- [If .github/workflows/ exists or git log shows multiple authors]: "I recommend adding GitHub Actions - your project appears to be collaborative."
+- [If project has patterns/ or docs/ with version mentions]: "I recommend considering Version Tracking - you're documenting technology."
+- [Otherwise]: "Standard setup is sufficient for your project. You can always add these later."
+
+Let the user choose: "Which would you like to add? (1, 2, both, or neither)"
+
+---
+
+### Step 7: Install Advanced Features (If Requested)
+
+#### If GitHub Actions Selected
 
 **Create `.github/workflows/claude-code.yml`**:
 
@@ -391,7 +381,17 @@ Note: Claude Code understands natural language like "commit and push these chang
 
 If the project has complex, repetitive workflows, consider `.claude/commands/` files. See [plugins-and-extensions.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/plugins-and-extensions.md) for guidance.
 
-### Step 6: Summary
+#### If Version Tracking Selected
+
+Follow the complete setup from [QUICKSTART.md Advanced: Version Tracking](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/QUICKSTART.md#for-docs-projects-version-tracking-add-30-min) section. This includes:
+- TOOLS-TRACKER.md
+- Scripts (generate-tools-tracker.py, check-measurement-expiry.py, check-anthropic-rss.py, analyze-blog-post.py)
+- GitHub Actions workflows
+- Skills for pattern version updating
+
+---
+
+### Step 8: Summary
 
 After creating files, summarize:
 
@@ -399,21 +399,22 @@ After creating files, summarize:
 |-----------|--------|---------|
 | permissions.allow | ✅ Created | Pre-approved commands |
 | Stop hook | ✅ Created | Uncommitted/unpushed reminders |
-| CLAUDE.md | [✅/⏭️] | Project context (~60 lines target) |
-| SessionStart | [✅/⏭️] | Context at session start |
-| GitHub Actions | [✅/⏭️] | @.claude PR reviews |
+| CLAUDE.md | ✅ Created | Project context (~60 lines target) |
+| SessionStart | ✅ Created | Context at session start |
+| GitHub Actions | [✅ if added / ⏭️ skipped] | @.claude PR reviews |
+| Version Tracking | [✅ if added / ⏭️ skipped] | Tool/version monitoring |
 
-"Your project is now at **Tier [X]**."
+"Your project now has recommended infrastructure in place."
 
-### Step 7: Explain Next Steps
+### Step 9: Explain Next Steps
 
-For Tier 2+:
+For all projects:
 1. **Review `.claude/CLAUDE.md` and ruthlessly trim** - Target ~60 lines, remove anything not preventing mistakes
 2. **Remember to plan first** - Use `/plan` before starting any non-trivial feature work
 3. Start new session to see SessionStart hook in action
 4. After 1-2 weeks, audit CLAUDE.md again - delete sections that weren't needed
 
-For Tier 3:
+If GitHub Actions was added:
 1. Add `ANTHROPIC_API_KEY` to GitHub repository secrets
 2. Test by opening a PR and commenting `@.claude review this`
 
@@ -450,13 +451,15 @@ If the user needs specific guidance, recommend:
 
 ---
 
-## Tier 4: Rapid Evolution Tracking (Optional - For Documentation Projects)
+## Advanced: Version Tracking Setup Details (Optional - For Documentation Projects)
 
 **When to Use**: Projects documenting rapidly evolving technologies (AI tools, frameworks, ecosystems)
-**Time**: 45 minutes setup
+**Time**: 30-45 minutes setup
 **Benefit**: Always-current recommendations with automated monitoring and version tracking
 
-### What This Tier Adds
+**Note**: This section provides detailed setup instructions. For quick setup, see [QUICKSTART.md Advanced: Version Tracking](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/QUICKSTART.md#for-docs-projects-version-tracking-add-30-min).
+
+### What Version Tracking Adds
 
 **The Problem**: Technology evolves faster than manual documentation can track. By the time you notice an Anthropic blog post or tool update, weeks have passed. External projects fetching your docs get patterns without knowing if they're current.
 
@@ -739,15 +742,15 @@ scripts/analyze-blog-post.py
 
 ---
 
-### When NOT to Use This Tier
+### When NOT to Use Version Tracking
 
-**Skip Tier 4 if**:
+**Skip version tracking if**:
 - Technology is stable (not rapid evolution)
 - Project is code-only (not documentation)
 - Manual quarterly reviews are sufficient
 - Team prefers manual control over automation
 
-**Tier 4 is designed for**:
+**Version tracking is designed for**:
 - Documentation projects tracking fast-moving ecosystems
 - Best practices repositories (like this one)
 - Technology comparison sites
@@ -755,13 +758,12 @@ scripts/analyze-blog-post.py
 
 ---
 
-### Integration with Existing Tiers
+### Integration with Standard Setup
 
-**Tier 4 builds on Tier 1-3**:
-- ✅ Tier 1 (Minimal): Stop hook + permissions still apply
-- ✅ Tier 2 (Active): CLAUDE.md remains minimal (~60 lines)
-- ✅ Tier 3 (Team): GitHub Actions coordination with new workflows
-- ➕ Tier 4 (Evolution): Adds automation for living documentation
+**Version tracking builds on the recommended setup**:
+- ✅ Standard setup: CLAUDE.md (~60 lines), hooks, permissions still apply
+- ✅ GitHub Actions: Can coordinate with new workflows if added
+- ➕ Version tracking: Adds automation for living documentation
 
 **Key Principle Preserved**: "Automation structures information; humans make decisions."
 
@@ -781,7 +783,7 @@ scripts/analyze-blog-post.py
 **Key Patterns** (4 of 34):
 - [spec-driven-development.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/spec-driven-development.md) - Specify → Plan → Tasks → Implement
 - [context-engineering.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/context-engineering.md) - Deterministic vs probabilistic context
-- [project-infrastructure.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/project-infrastructure.md) - Tiered setup details
+- [project-infrastructure.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/project-infrastructure.md) - Infrastructure setup details
 - [evidence-tiers.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/evidence-tiers.md) - Source evaluation framework
 
 **Finding Patterns**: See [README Pattern Decision Matrix](https://github.com/flying-coyote/claude-code-project-best-practices#pattern-decision-matrix) - "I Need To..." → pattern lookup for all 34 patterns

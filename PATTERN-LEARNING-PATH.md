@@ -165,7 +165,7 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 
 **Quick path** (45 minutes):
 1. [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) - Audit against The Big 3
-2. [Project Infrastructure](patterns/project-infrastructure.md) - Compare to Tier 1/2/3
+2. [Project Infrastructure](patterns/project-infrastructure.md) - Compare to recommended setup
 3. Use [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
 4. [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - Address specific issues
 

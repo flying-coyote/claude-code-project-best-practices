@@ -1,27 +1,22 @@
-# Quick Start: Claude Code Best Practices
+# Quick Setup: Claude Code Best Practices
 
-**Goal**: Get project-specific Claude Code infrastructure running in 5-45 minutes.
-
-**Choose your starting point**:
-- 🚀 **5 minutes**: [Tier 1 - Minimal (optional)](#tier-1-minimal-optional-lightweight-fallback-5-minutes) (Lightweight fallback)
-- ⚡ **15 minutes**: [Tier 2 - Active Development (recommended)](#tier-2-active-development-recommended-baseline-15-minutes) (Most projects)
-- 👥 **30 minutes**: [Tier 3 - Team/Production](#tier-3-teamproduction-30-minutes) (Collaborators)
-- 📊 **45 minutes**: [Tier 4 - Rapid Evolution Tracking](#tier-4-rapid-evolution-tracking-45-minutes) (Documentation projects)
+**Goal**: Get recommended project infrastructure running in 15-30 minutes.
 
 ---
 
-## Tier 1: Minimal (Optional Lightweight Fallback) (5 minutes)
+## Recommended Setup (15-30 minutes)
 
-**What you get**: Stop hook warnings for uncommitted changes, pre-approved git commands.
+All projects should have these four components:
 
-**Note**: Most active projects should start with Tier 2 for better context management.
-
-### Quick Setup
-
-1. **Create `.claude/settings.json`**:
+### 1. Create Directory Structure
 
 ```bash
-mkdir -p .claude
+mkdir -p .claude .claude/hooks
+```
+
+### 2. Create `.claude/settings.json`
+
+```bash
 cat > .claude/settings.json <<'EOF'
 {
   "permissions": {
@@ -29,10 +24,24 @@ cat > .claude/settings.json <<'EOF'
       "Bash(git status*)",
       "Bash(git diff*)",
       "Bash(git log*)",
-      "Bash(git branch*)"
+      "Bash(git branch*)",
+      "Bash(npm run *)",
+      "Bash(python3 *)",
+      "Bash(docker *)"
     ]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "matcher": "",
@@ -49,7 +58,7 @@ cat > .claude/settings.json <<'EOF'
 EOF
 ```
 
-2. **Add project-specific permissions** (auto-detect):
+**Customize permissions** (auto-detect your stack):
 
 ```bash
 # If you have package.json
@@ -59,24 +68,9 @@ jq '.permissions.allow += ["Bash(npm run *)"]' .claude/settings.json > tmp.json 
 jq '.permissions.allow += ["Bash(python3 *)", "Bash(pip *)"]' .claude/settings.json > tmp.json && mv tmp.json .claude/settings.json
 ```
 
-**Done!** Exit Claude Code session and restart to see Stop hook in action.
-
----
-
-## Tier 2: Active Development (Recommended Baseline) (15 minutes)
-
-**What you get**: Tier 1 + CLAUDE.md project context + SessionStart hook.
-
-**Recommended for**: Most projects (this is the recommended starting point).
-
-### Quick Setup
-
-1. **Complete Tier 1** (5 min)
-
-2. **Create `.claude/hooks/session-start.sh`**:
+### 3. Create `.claude/hooks/session-start.sh`
 
 ```bash
-mkdir -p .claude/hooks
 cat > .claude/hooks/session-start.sh <<'EOF'
 #!/bin/bash
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -106,13 +100,9 @@ EOF
 chmod +x .claude/hooks/session-start.sh
 ```
 
-3. **Add SessionStart hook to settings.json**:
+### 4. Create `.claude/CLAUDE.md`
 
-```bash
-jq '.hooks.SessionStart = [{"matcher": "", "hooks": [{"type": "command", "command": "bash .claude/hooks/session-start.sh"}]}]' .claude/settings.json > tmp.json && mv tmp.json .claude/settings.json
-```
-
-4. **Create `.claude/CLAUDE.md`** (CRITICAL: Keep ~60 lines):
+**CRITICAL: Keep ~60 lines (80 max tolerable)**
 
 ```bash
 cat > .claude/CLAUDE.md <<'EOF'
@@ -138,23 +128,26 @@ Commit prefixes: feat:, fix:, docs:, refactor:, test:, chore:
 EOF
 ```
 
-5. **Review and trim CLAUDE.md**:
-   - Delete anything not preventing repeated mistakes
-   - Target: ~60 lines (80 max tolerable)
+**Review and trim CLAUDE.md**:
+- Delete anything not preventing repeated mistakes
+- Target: ~60 lines (80 max tolerable)
+- Rule: "Would removing this cause mistakes? If not, cut it."
 
-**Done!** Restart Claude Code to see SessionStart hook.
+**Done!** Restart Claude Code to see hooks in action.
 
 ---
 
-## Tier 3: Team/Production (30 minutes)
+## Advanced Setup (Optional)
 
-**What you get**: Tier 1 + Tier 2 + GitHub Actions for PR reviews with @.claude.
+### For Teams: GitHub Actions (Add 15-30 min)
 
-### Quick Setup
+**When**: Multiple collaborators, pull request workflow
 
-1. **Complete Tier 2** (20 min)
+**What you get**: `@.claude` PR review comments
 
-2. **Create `.github/workflows/claude-code.yml`**:
+#### Setup
+
+1. **Create `.github/workflows/claude-code.yml`**:
 
 ```bash
 mkdir -p .github/workflows
@@ -188,11 +181,11 @@ jobs:
 EOF
 ```
 
-3. **Add `ANTHROPIC_API_KEY` to GitHub Secrets**:
+2. **Add `ANTHROPIC_API_KEY` to GitHub Secrets**:
    - Go to repo Settings → Secrets → Actions
    - Add new secret: `ANTHROPIC_API_KEY` with your API key
 
-4. **Test**:
+3. **Test**:
    - Open a PR
    - Comment: `@.claude review this`
 
@@ -200,17 +193,15 @@ EOF
 
 ---
 
-## Tier 4: Rapid Evolution Tracking (45 minutes)
+### For Docs Projects: Version Tracking (Add 30 min)
 
-**What you get**: Tier 1-3 + automated tool/version tracking + AI-powered blog monitoring.
+**When**: Documentation projects tracking fast-moving tech (AI tools, frameworks)
 
-**When to use**: Documentation projects tracking rapidly evolving ecosystems (AI tools, frameworks).
+**What you get**: Automated tool/version tracking + AI-powered blog monitoring
 
-### Quick Setup
+#### Setup
 
-1. **Complete Tier 2** (20 min) - Tier 3 optional
-
-2. **Install automation files** (5 min):
+1. **Install automation files**:
 
 ```bash
 # Core tracking documents
@@ -244,7 +235,7 @@ curl -o .claude/skills/emerging-pattern-monitor/SKILL.md \
 pip install pyyaml requests anthropic
 ```
 
-3. **Customize for your domain** (15 min):
+2. **Customize for your domain**:
 
 **Edit `TOOLS-TRACKER.md`** - Replace components:
 ```markdown
@@ -266,10 +257,10 @@ self.tool_names = [
 DEFAULT_RSS_URL = "https://your-vendor.com/rss.xml"
 ```
 
-4. **Configure GitHub Secrets**:
+3. **Configure GitHub Secrets**:
    - Add `ANTHROPIC_API_KEY` for blog analysis (or use your LLM API)
 
-5. **Test locally** (5 min):
+4. **Test locally**:
 
 ```bash
 python scripts/generate-tools-tracker.py
@@ -280,19 +271,23 @@ python scripts/check-measurement-expiry.py
 
 ---
 
-## What You Get at Each Tier
+## What You Get
 
-| Feature | Tier 1 | Tier 2 | Tier 3 | Tier 4 |
-|---------|--------|--------|--------|--------|
-| Stop hook (uncommitted warnings) | ✅ | ✅ | ✅ | ✅ |
-| Pre-approved git commands | ✅ | ✅ | ✅ | ✅ |
-| CLAUDE.md project context | - | ✅ | ✅ | ✅ |
-| SessionStart hook | - | ✅ | ✅ | ✅ |
-| GitHub Actions PR reviews | - | - | ✅ | ✅ |
-| Automated tool tracking | - | - | - | ✅ |
-| AI-powered blog monitoring | - | - | - | ✅ |
-| Version dependency tracking | - | - | - | ✅ |
-| Measurement expiry system | - | - | - | ✅ |
+### Recommended Setup
+- ✅ Stop hook (uncommitted warnings)
+- ✅ Pre-approved git commands
+- ✅ CLAUDE.md project context (~60 lines)
+- ✅ SessionStart hook (git status display)
+
+### Advanced: GitHub Actions
+- ✅ `@.claude` PR review comments
+- ✅ Automated code analysis on pull requests
+
+### Advanced: Version Tracking
+- ✅ Automated tool/version tracking
+- ✅ AI-powered blog monitoring
+- ✅ Version dependency tracking
+- ✅ Measurement expiry system
 
 ---
 
@@ -314,25 +309,32 @@ python scripts/check-measurement-expiry.py
 
 ## FAQ
 
-**Q: Which tier should I use?**
-- **Tier 2 (Recommended)**: Most projects should start here (15-30 min, CLAUDE.md helps consistency)
-- **Tier 1**: Only if you need absolute minimal overhead (5 min, but no context across sessions)
-- **Tier 3**: Team projects with collaborators (enables @.claude PR reviews)
-- **Tier 4**: Documentation projects tracking rapidly evolving tech
+**Q: Do I need all four components?**
+Yes - they work together and take 15-30 minutes total. The Stop hook prevents lost work, SessionStart provides context awareness, CLAUDE.md maintains consistency, and permissions reduce friction.
 
-**Q: Can I skip tiers?**
-- Yes! Tiers are additive, not required. Jump to Tier 3 if you want team features.
+**Q: Can I add components gradually?**
+Yes, but the core four are so quick (~15 min) that it's better to install all at once. You get immediate benefits from the complete system.
+
+**Q: What if I only want minimal overhead?**
+The recommended setup IS minimal (~60 lines in CLAUDE.md). If you absolutely need less, you can skip SessionStart hook, but you'll lose session context awareness. Boris Cherny (Claude Code creator) uses this setup in all projects.
 
 **Q: What if CLAUDE.md keeps growing past 60 lines?**
 - See [TROUBLESHOOTING.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/TROUBLESHOOTING.md#claudemd-bloat)
 - Rule: "Would removing this cause mistakes? If not, cut it."
+- Delete anything not preventing repeated mistakes
 
 **Q: Do I need all 8 components (skills, MCP, etc)?**
-- No! Start with CLAUDE.md + natural language. Add components only when needed.
+No! Start with CLAUDE.md + natural language. Add components only when needed.
 - See [MAKE-PROJECT-RECOMMENDATIONS.md Step 4](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/prompts/MAKE-PROJECT-RECOMMENDATIONS.md) for component guidance.
 
 **Q: Can I use this with other AI coding tools (Cursor, Aider)?**
-- Principles apply across tools. See [tool-ecosystem.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/tool-ecosystem.md) for guidance.
+Principles apply across tools. See [tool-ecosystem.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/tool-ecosystem.md) for guidance.
+
+**Q: When should I add GitHub Actions?**
+Add when you have multiple collaborators and use pull requests. It enables `@.claude` review comments that help with code quality and consistency.
+
+**Q: When should I add Version Tracking?**
+Add for documentation projects tracking rapidly evolving tech. If you're documenting AI tools, frameworks, or APIs that change frequently, version tracking helps keep docs current.
 
 ---
 

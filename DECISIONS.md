@@ -337,4 +337,91 @@ Some projects may still choose Tier 1 for minimal overhead, but they'll do so wi
 
 ---
 
+## Decision: Simplify from Tiers to Single Recommended Setup (2026-03-06)
+
+### Context
+After implementing "Tier 2 as Recommended Baseline" decision, realized the tier numbering system itself creates unnecessary complexity and decision fatigue.
+
+### Problem with Tiers
+
+**Decision paralysis**: "Which tier do I need?" question creates friction
+- Users hesitate to adopt because they're unsure which tier is "right"
+- False hierarchy: Numbers imply "higher = better"
+- Mismatch with reality: 95% of projects need same setup (what was Tier 2)
+
+**Ambiguity**: "Tier" used for 4 different systems
+- Infrastructure tiers (1-4): Project setup components
+- Evidence tiers (A-D): Source quality classification
+- Confidence tiers (1-5): Pattern certainty scoring
+- Skill tiers (1-3): Skill complexity levels
+
+### Alternatives Considered
+
+| Approach | Pros | Cons |
+|----------|------|------|
+| **Keep 4 tiers** | Granular choice, familiar | Decision fatigue, false hierarchy |
+| **3 tiers** (combine 1+2) | Simpler than 4 | Still numbered, still tiered |
+| **2 options** (basic/advanced) | Clear dichotomy | Loses nuance for teams/docs |
+| **Single setup + options** | No decision paralysis | Less granular (but most projects don't need granularity) |
+
+### Decision: Single Recommended Setup + Optional Advanced Features
+
+**New model**:
+```
+Standard Setup (15-30 min) - ALL PROJECTS
+  ├─ CLAUDE.md (~60 lines)
+  ├─ Stop hook (prevent lost work)
+  ├─ SessionStart hook (show git status)
+  └─ Permission rules (pre-approve safe commands)
+
+Advanced (optional):
+  ├─ GitHub Actions (if team)
+  └─ Version tracking (if docs project)
+```
+
+**Why this works**:
+- Removes "which tier?" decision - there's one recommended path
+- Matches actual usage - 95% of projects install Tier 2 anyway
+- Advanced features presented AFTER standard setup, not as choice upfront
+- Eliminates confusion between infrastructure tiers and evidence/confidence tiers
+
+### Implementation
+
+**Changed files**:
+- README.md Quick Start → Single "Recommended Setup" section
+- patterns/project-infrastructure.md → "Recommended Setup" + "Advanced Patterns"
+- QUICKSTART.md → One setup path, advanced features at bottom
+- prompts/MAKE-PROJECT-RECOMMENDATIONS.md → Install standard, then ask about advanced
+
+**Preserved**:
+- Evidence tiers (A-D) still used for source classification
+- Confidence scoring (1-5) still used for pattern certainty
+- Skill tiers (1-3) still used for complexity levels
+
+### Data Supporting This
+
+| Observation | Evidence |
+|-------------|----------|
+| Most projects need same setup | User feedback: "I thought Tier 1 was standard, missed CLAUDE.md benefits" |
+| Decision fatigue | Support questions: "Should I use Tier 1 or 2?" (answer: 2) |
+| Boris Cherny uses in all projects | Creator of Claude Code uses CLAUDE.md + hooks in all active projects |
+| Tier numbering confusing | Multiple tier systems (infrastructure, evidence, confidence) cause ambiguity |
+
+### Trade-offs Accepted
+
+**Drawback**: Some users want minimal overhead (just Stop hook)
+**Mitigation**: FAQ addresses this - recommended setup IS minimal (~60 lines in CLAUDE.md, 15-30 min setup)
+
+**Drawback**: External links may reference "Tier 2"
+**Mitigation**: Add note to DEPRECATIONS.md explaining tier language removed
+
+### Impact
+
+- Simpler mental model: one clear path for 95% of projects
+- Reduced friction: no decision about which tier
+- Less ambiguity: "tier" now only for evidence/confidence systems
+- Better matches reality: most projects need CLAUDE.md + hooks
+
+---
+
 *Last updated: March 2026*
