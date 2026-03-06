@@ -3,16 +3,18 @@
 **Goal**: Get project-specific Claude Code infrastructure running in 5-45 minutes.
 
 **Choose your starting point**:
-- 🚀 **5 minutes**: [Tier 1 - Baseline](#tier-1-baseline-5-minutes) (All projects)
-- ⚡ **15 minutes**: [Tier 2 - Active Development](#tier-2-active-development-15-minutes) (Weekly work)
+- 🚀 **5 minutes**: [Tier 1 - Minimal (optional)](#tier-1-minimal-optional-lightweight-fallback-5-minutes) (Lightweight fallback)
+- ⚡ **15 minutes**: [Tier 2 - Active Development (recommended)](#tier-2-active-development-recommended-baseline-15-minutes) (Most projects)
 - 👥 **30 minutes**: [Tier 3 - Team/Production](#tier-3-teamproduction-30-minutes) (Collaborators)
 - 📊 **45 minutes**: [Tier 4 - Rapid Evolution Tracking](#tier-4-rapid-evolution-tracking-45-minutes) (Documentation projects)
 
 ---
 
-## Tier 1: Baseline (5 minutes)
+## Tier 1: Minimal (Optional Lightweight Fallback) (5 minutes)
 
 **What you get**: Stop hook warnings for uncommitted changes, pre-approved git commands.
+
+**Note**: Most active projects should start with Tier 2 for better context management.
 
 ### Quick Setup
 
@@ -61,9 +63,11 @@ jq '.permissions.allow += ["Bash(python3 *)", "Bash(pip *)"]' .claude/settings.j
 
 ---
 
-## Tier 2: Active Development (15 minutes)
+## Tier 2: Active Development (Recommended Baseline) (15 minutes)
 
 **What you get**: Tier 1 + CLAUDE.md project context + SessionStart hook.
+
+**Recommended for**: Most projects (this is the recommended starting point).
 
 ### Quick Setup
 
@@ -311,9 +315,9 @@ python scripts/check-measurement-expiry.py
 ## FAQ
 
 **Q: Which tier should I use?**
-- **Tier 1**: All projects (5 min, no downside)
-- **Tier 2**: Weekly active development (minimal CLAUDE.md helps consistency)
-- **Tier 3**: Team projects with PRs (enables @.claude reviews)
+- **Tier 2 (Recommended)**: Most projects should start here (15-30 min, CLAUDE.md helps consistency)
+- **Tier 1**: Only if you need absolute minimal overhead (5 min, but no context across sessions)
+- **Tier 3**: Team projects with collaborators (enables @.claude PR reviews)
 - **Tier 4**: Documentation projects tracking rapidly evolving tech
 
 **Q: Can I skip tiers?**

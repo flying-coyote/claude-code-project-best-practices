@@ -10,9 +10,9 @@ You are setting up AI-driven development infrastructure using the **tiered appro
 
 | Tier | When | Time | What You Get |
 |------|------|------|--------------|
-| **Tier 1: Baseline** | All projects | 5 min | Stop hook + permissions |
-| **Tier 2: Active** | Weekly work | 15 min | + CLAUDE.md + SessionStart |
-| **Tier 3: Team** | Collaborators | 30 min | + GitHub Actions + /commit-push-pr |
+| **Tier 1: Minimal** | Optional lightweight fallback | 5 min | Stop hook + permissions |
+| **Tier 2: Active (Recommended)** | Most projects (recommended baseline) | 15 min | + CLAUDE.md + SessionStart |
+| **Tier 3: Team** | Multiple collaborators | 30 min | + GitHub Actions + @.claude PR reviews |
 
 **There's no difference between "new" and "existing" projects** - both use the same tiers.
 
@@ -69,27 +69,51 @@ Check what infrastructure exists:
 
 Report: "This project is currently at Tier [0/1/2/3]"
 
+**Then, before asking user, analyze project characteristics and prepare a recommendation:**
+
+- Does it have package.json, Cargo.toml, pyproject.toml? → Suggest Tier 2 minimum
+- Is it a git repository with >10 commits? → Suggest Tier 2 minimum
+- Does .github/workflows/ exist? → Suggest Tier 3
+- Are there multiple contributors (check git log)? → Suggest Tier 3
+- Is this a documentation-only project tracking tools/versions? → Mention Tier 4
+
+**Default recommendation if no special circumstances**: Tier 2 (recommended baseline)
+
 ### Step 3: Ask About Target Tier
 
 Ask the user:
 
-"Your project is currently at **Tier [X]**. Which tier would you like to reach?
+"Your project is currently at **Tier [X]**.
 
-1. **Tier 1: Baseline** (5 min) - Stop hook + permissions
+**Recommendation: Start with Tier 2** (recommended baseline for most projects)
+
+Which tier would you like to reach?
+
+1. **Tier 1: Minimal** (5 min) - Only if you need absolute minimal overhead
    - Prevents lost work from forgotten commits
    - Pre-approves common read-only commands
+   - ⚠️ No CLAUDE.md means Claude won't remember project context across sessions
 
-2. **Tier 2: Active Development** (15 min) - Everything in Tier 1 plus:
-   - CLAUDE.md with project context
+2. **Tier 2: Active Development (Recommended)** (15-30 min) - Best starting point
+   - Everything in Tier 1 plus:
+   - CLAUDE.md with project context (~60 lines)
    - SessionStart hook shows git status
    - Project-specific permissions
+   - ✅ Recommended for most projects
 
-3. **Tier 3: Team/Production** (30 min) - Everything in Tier 2 plus:
+3. **Tier 3: Team/Production** (30-60 min) - For collaborative projects
+   - Everything in Tier 2 plus:
    - GitHub Actions for @.claude PR reviews
-   - (Optional) PostToolUse auto-formatting
-   - Note: Natural language "commit and push" works - custom commands rarely needed
+   - Team coordination features
+   - ✅ Recommended if you have collaborators or use PRs
 
-**Recommendation**: [Based on project characteristics - suggest Tier 2 for active solo projects, Tier 3 for team projects]"
+**My recommendation for this project: Tier [2/3]**
+
+Reasoning:
+- [Detected characteristics from analysis above]
+- [Why this tier is appropriate]
+
+**Note**: You can always upgrade later. Most projects start with Tier 2 and add Tier 3 when collaborators join."
 
 ### Step 4: Gather Additional Info (for Tier 2+)
 

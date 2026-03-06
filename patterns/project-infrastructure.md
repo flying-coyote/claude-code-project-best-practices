@@ -26,10 +26,10 @@ Every project benefits from Claude Code infrastructure. The same patterns apply 
 
 ## The Three Tiers
 
-### Tier 1: Baseline (All Projects)
+### Tier 1: Minimal (Optional Lightweight Fallback)
 
 **Time to implement**: 5 minutes
-**When**: Every project, no exceptions
+**When**: Minimal overhead required (5 min setup)
 
 | Component | Purpose | Required |
 |-----------|---------|----------|
@@ -64,17 +64,19 @@ Every project benefits from Claude Code infrastructure. The same patterns apply 
 }
 ```
 
-**Why this is baseline**:
+**Why this tier exists**:
 - Stop hooks prevent lost work (Boris Cherny: "avoid forgotten sessions")
 - Pre-approved commands reduce friction for common operations
 - Takes 5 minutes, zero ongoing maintenance
 
+**Note**: While Tier 1 provides baseline protection, most active projects should start with Tier 2 for better context management.
+
 ---
 
-### Tier 2: Active Development (Projects You Work On Regularly)
+### Tier 2: Active Development (Recommended Baseline)
 
 **Time to implement**: 15-30 minutes
-**When**: Projects with >1 session/week, complex enough to need context
+**When**: Most projects (recommended starting point)
 
 | Component | Purpose | Required |
 |-----------|---------|----------|
