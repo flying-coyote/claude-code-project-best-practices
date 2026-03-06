@@ -211,7 +211,7 @@
 
 ## Setup Issues
 
-### SETUP-PROJECT.md fetch fails with 404
+### MAKE-PROJECT-RECOMMENDATIONS.md fetch fails with 404
 
 **Symptom**: External fetch of setup prompt returns 404 error
 
@@ -226,7 +226,7 @@
    - Prompts are in `prompts/` directory
 
 3. **Network/GitHub issues**:
-   - Try raw URL: `https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/prompts/SETUP-PROJECT.md`
+   - Try raw URL: `https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/prompts/MAKE-PROJECT-RECOMMENDATIONS.md`
    - If GitHub is down, clone repo locally and use file:// path
 
 **Workaround**: Clone repository locally:

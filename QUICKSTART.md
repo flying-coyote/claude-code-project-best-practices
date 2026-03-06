@@ -301,7 +301,7 @@ python scripts/check-measurement-expiry.py
 **After setup, learn the patterns**:
 - 📚 **All 34 patterns**: https://github.com/flying-coyote/claude-code-project-best-practices
 - 🎯 **Pattern Decision Matrix**: "I Need To..." → pattern lookup
-- 📖 **Detailed setup guide**: [SETUP-PROJECT.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/prompts/SETUP-PROJECT.md)
+- 📖 **Detailed setup guide**: [MAKE-PROJECT-RECOMMENDATIONS.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/prompts/MAKE-PROJECT-RECOMMENDATIONS.md)
 
 **Key principles** (read these first):
 - [FOUNDATIONAL-PRINCIPLES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/FOUNDATIONAL-PRINCIPLES.md) - The Big 3
@@ -329,7 +329,7 @@ python scripts/check-measurement-expiry.py
 
 **Q: Do I need all 8 components (skills, MCP, etc)?**
 - No! Start with CLAUDE.md + natural language. Add components only when needed.
-- See [SETUP-PROJECT.md Step 4](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/prompts/SETUP-PROJECT.md) for component guidance.
+- See [MAKE-PROJECT-RECOMMENDATIONS.md Step 4](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/prompts/MAKE-PROJECT-RECOMMENDATIONS.md) for component guidance.
 
 **Q: Can I use this with other AI coding tools (Cursor, Aider)?**
 - Principles apply across tools. See [tool-ecosystem.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/tool-ecosystem.md) for guidance.

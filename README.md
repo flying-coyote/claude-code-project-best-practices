@@ -100,7 +100,7 @@ Quick reference: Which pattern solves which problem?
 | I Need To... | Use This Pattern | Alternative/Related |
 |--------------|------------------|---------------------|
 | **Getting Started** |
-| Set up project infrastructure | [project-infrastructure.md](patterns/project-infrastructure.md) | [SETUP-PROJECT.md](prompts/SETUP-PROJECT.md) |
+| Set up project infrastructure | [project-infrastructure.md](patterns/project-infrastructure.md) | [MAKE-PROJECT-RECOMMENDATIONS.md](prompts/MAKE-PROJECT-RECOMMENDATIONS.md) |
 | Understand core principles | [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) | [spec-driven-development.md](patterns/spec-driven-development.md) |
 | Learn patterns progressively | [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md) | Pattern tables below |
 | Migrate from Cursor or other tools | [MIGRATION-GUIDE.md](MIGRATION-GUIDE.md) | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) |
@@ -149,7 +149,7 @@ Quick reference: Which pattern solves which problem?
 ## What's Included
 
 ### Prompts
-- **[SETUP-PROJECT.md](prompts/SETUP-PROJECT.md)** - Unified tiered setup for any project (replaces separate new/existing prompts)
+- **[MAKE-PROJECT-RECOMMENDATIONS.md](prompts/MAKE-PROJECT-RECOMMENDATIONS.md)** - Analyzes your project and recommends appropriate infrastructure (replaces separate new/existing prompts)
 
 ### Templates
 - **[CLAUDE.md.template](templates/CLAUDE.md.template)** - Project context template
