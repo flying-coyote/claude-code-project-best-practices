@@ -266,6 +266,34 @@ These patterns work across AI coding tools:
 - SDD methodology applies to any AI coding agent
 - Claude Code is our implementation context, not the only option
 
+## Thought Leaders & Authoritative Sources
+
+This repository synthesizes guidance from top practitioners and authoritative sources:
+
+### Primary Sources (Tier A)
+
+| Expert/Source | Role | Key Contribution |
+|---------------|------|------------------|
+| **[Boris Cherny](https://paddo.dev/blog/how-boris-uses-claude-code/)** | Claude Code Creator (Anthropic) | Parallel sessions, plan-first methodology, 2-3x quality improvement through verification |
+| **[Anthropic Official Docs](https://code.claude.com/docs/en/best-practices)** | Canonical Documentation | CLAUDE.md ~60 lines, "Would removing this cause mistakes? If not, cut it." |
+| **[Nate B. Jones](https://www.linkedin.com/in/nathaniel-b-jones-phd/)** | Production AI Engineering | 6 principles for reliability, lifecycle-aware context model, MCP failure modes |
+| **[GitHub Spec Kit](https://github.com/github/spec-kit)** | Industry Standard (59K+ stars) | Spec-driven development 4-phase model |
+| **[OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)** | Security Standard | MCP security risks & mitigation strategies |
+
+### Community Leaders (Tier B)
+
+| Expert/Project | Contribution |
+|----------------|--------------|
+| **[glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done)** | Fresh context per subagent orchestration |
+| **[skribblez2718/CAII](https://github.com/skribblez2718/caii)** | 7 fixed cognitive agents, Johari Window for ambiguity |
+| **[Tenzir](https://tenzir.com/blog/we-did-mcp-wrong)** | MCP vs Skills economics (50% cost savings) |
+| **[LlamaIndex](https://www.llamaindex.ai/blog/rag-is-dead-long-live-agentic-retrieval)** | Agentic retrieval vs RAG patterns |
+| **[shanraisshan](https://github.com/shanraisshan/claude-code-best-practice)** | Community tool curation (5.6K+ stars) |
+
+**Complete source database**: See [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (top 20) or [SOURCES.md](SOURCES.md) (comprehensive, 1,278 lines)
+
+**Evidence methodology**: We use a dual-tier system (A-D for source quality + 1-5 for claim strength). See [evidence-tiers.md](patterns/evidence-tiers.md).
+
 ## Why This Approach?
 
 See **[DECISIONS.md](DECISIONS.md)** for detailed reasoning on:
