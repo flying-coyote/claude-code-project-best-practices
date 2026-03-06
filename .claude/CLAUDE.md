@@ -27,3 +27,14 @@ Commit prefixes:
 
 ## Current Focus
 Post-v1.0 maintenance. Aligning with SDD methodology (see patterns/spec-driven-development.md)
+
+## Recent Learnings (2026-03-06)
+
+### Rename: SETUP-PROJECT.md → MAKE-PROJECT-RECOMMENDATIONS.md
+**Reason**: Better reflects the file's purpose (analyze + recommend, not just setup)
+**Update**: All references changed, old name deprecated
+
+### Tier Language Change
+**Old**: Tier 1 "Baseline" / Tier 2 "Active"
+**New**: Tier 1 "Minimal (optional)" / Tier 2 "Active (Recommended Baseline)"
+**Reason**: Users thought Tier 1 was the standard, missing CLAUDE.md benefits

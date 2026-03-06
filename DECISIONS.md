@@ -274,4 +274,67 @@ Existing patterns remain valid—they implement SDD principles. New content shou
 
 ---
 
-*Last updated: January 2026*
+## Decision: Rename SETUP-PROJECT.md → MAKE-PROJECT-RECOMMENDATIONS.md (2026-03)
+
+### Context
+
+The file's purpose is to analyze a project and recommend appropriate infrastructure tier, not just "set up" a project.
+
+### Decision
+
+Rename to MAKE-PROJECT-RECOMMENDATIONS.md to better reflect its role:
+- Analyzes project characteristics
+- Recommends tier based on needs
+- Guides through setup (but recommendation is the value)
+
+### Alternatives Considered
+
+| Name | Pros | Cons |
+|------|------|------|
+| RECOMMEND-INFRASTRUCTURE.md | Accurate | Too narrow, doesn't convey setup guidance |
+| GUIDED-SETUP.md | Conveys interactivity | Doesn't convey the recommendation aspect |
+| SETUP-WIZARD.md | Playful, clear | Too informal for professional context |
+| **MAKE-PROJECT-RECOMMENDATIONS.md** | Accurately describes AI's role | Slightly longer name |
+
+### Why This Name
+
+"Make recommendations" accurately describes what the AI does: it analyzes, recommends, and then guides implementation. The emphasis is on intelligent recommendation, not just mechanical setup.
+
+---
+
+## Decision: Reframe Tier 2 as Recommended Baseline (2026-03)
+
+### Context
+
+Users were confused by Tier 1 being called "Baseline", thinking it was the standard starting point. This led to projects missing CLAUDE.md context management, causing:
+- Context loss across sessions
+- Repeated explanations of project structure
+- Inconsistent behavior
+
+### Decision
+
+Reframe tier language to set correct expectations:
+- **Tier 1: Minimal** (not "Baseline") - Optional lightweight fallback
+- **Tier 2: Active (Recommended Baseline)** - Starting point for most projects
+- **Tier 3: Team** - Collaborative projects
+
+### Data Supporting This
+
+| Source | Evidence |
+|--------|----------|
+| Boris Cherny (Claude Code creator) | Uses CLAUDE.md in all active projects |
+| Anthropic official docs | Recommends CLAUDE.md ~60 lines as standard |
+| User feedback | Projects without CLAUDE.md lose context across sessions |
+| Pattern analysis | 28 of 34 patterns reference CLAUDE.md as foundation |
+
+### Why This Framing
+
+Sets correct expectations: Tier 2 should be default, Tier 1 is the exception. The language now matches the actual recommended practice rather than implying all projects should start minimal.
+
+### Trade-offs Accepted
+
+Some projects may still choose Tier 1 for minimal overhead, but they'll do so with clear understanding of what they're giving up (context management).
+
+---
+
+*Last updated: March 2026*
