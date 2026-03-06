@@ -1,6 +1,6 @@
 # Index
 
-*Auto-generated: 2026-03-06 08:24*
+*Auto-generated: 2026-03-06 08:43*
 
 ## Summary
 
@@ -138,7 +138,7 @@
 
 - [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
 - [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
-- [SETUP-PROJECT.md](prompts/SETUP-PROJECT.md)
+- [MAKE-PROJECT-RECOMMENDATIONS.md](prompts/MAKE-PROJECT-RECOMMENDATIONS.md)
 ## Templates
 
 - [ADR-TEMPLATE.md](templates/ADR-TEMPLATE.md)

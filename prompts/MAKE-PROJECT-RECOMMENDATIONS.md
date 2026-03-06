@@ -1,6 +1,6 @@
-# Setup Project Prompt
+# Make Project Recommendations Prompt
 
-Copy everything below the line and paste it into Claude Code to set up infrastructure.
+Copy everything below the line and paste it into Claude Code. This prompt analyzes your project and recommends appropriate infrastructure.
 
 ---
 
@@ -151,8 +151,8 @@ If targeting Tier 2 or higher:
 - ❌ **Don't create**: Custom commands for one-off tasks
 - 📚 **Full guidance**: [project-infrastructure.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/project-infrastructure.md) line 136
 
-#### 6. Prompts (SETUP-PROJECT.md, etc.)
-**This file is a prompt** - reusable project setup instructions
+#### 6. Prompts (MAKE-PROJECT-RECOMMENDATIONS.md, etc.)
+**This file is a prompt** - analyzes projects and recommends infrastructure
 - Store in `prompts/` directory for discoverability
 - Keep atomic: one clear purpose per prompt
 - Version control: track changes to prompts like code
@@ -657,7 +657,7 @@ Add section on measurement expiry:
 
 ### External Projects: Adaptation Guide
 
-**For projects fetching SETUP-PROJECT.md**:
+**For projects fetching MAKE-PROJECT-RECOMMENDATIONS.md**:
 
 **What to Copy** (12 files total):
 ```bash
