@@ -28,27 +28,6 @@ See [ARCHIVE.md](ARCHIVE.md) for completed milestones.
 
 ---
 
-## Completed This Cycle
-
-Items completed since last archive (ready for next ARCHIVE.md update):
-
-| Item | Completed | Notes |
-|------|-----------|-------|
-| Research Claude Code v2.1 updates | Jan 10, 2026 | Added 14 new features to 6 pattern files |
-| Self-compliance audit | Jan 10, 2026 | 97% → 100%, fixed 3 minor issues |
-| Enhanced pattern-reviewer skill | Jan 10, 2026 | Added agent, context:fork, skill hooks |
-| Browser automation guidance | Jan 10, 2026 | Playwright over Claude in Chrome (Beta) |
-| Plugin marketplace update practice | Jan 10, 2026 | Added to plugins-and-extensions.md |
-| Documentation maintenance workflow | Jan 10, 2026 | New archive/end-session commands, stop hook |
-| Aligned documentation-maintenance.md | Jan 10, 2026 | Pattern now matches actual implementation |
-| QUICK-REFERENCE-PRINCIPLES.md | Feb 2026 | Created 1-page printable reference for The Big 3 |
-| Pattern expansion | Feb 2026 | Grew from 20 to 34 documented patterns |
-| Comprehensive quality review | Feb 16, 2026 | 8/10 → 9/10 quality improvements planned |
-
-*Move to ARCHIVE.md at next milestone or monthly rollup.*
-
----
-
 ## Current Priorities
 
 ### High Priority

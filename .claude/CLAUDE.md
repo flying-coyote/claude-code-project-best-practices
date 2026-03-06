@@ -24,6 +24,9 @@ Commit prefixes:
 - Settings schema uses `permissions.allow`, not `allowedTools`
 - Always update cross-references when adding new patterns
 - Run self-compliance audit after documenting new patterns
+- Completed work records: Use git history (commits), not active files
+- Archive only reference docs (decision records, summaries) not completed work
+- PLAN.md stays in git as canonical plan; move completed items to ARCHIVE.md monthly
 
 ## Current Focus
 Post-v1.0 maintenance. Aligning with SDD methodology (see patterns/spec-driven-development.md)

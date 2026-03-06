@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-03-06 12:38*
+*Auto-generated: 2026-03-06 12:51*
 
 ## Summary
 
-**Total documents**: 104
+**Total documents**: 100
 
 | Directory | Count |
 |-----------|-------|
-| archive | 7 |
+| archive | 6 |
 | community-contributions | 3 |
 | examples/coding-project | 1 |
 | examples/research-project | 1 |
@@ -18,7 +18,7 @@
 | presets | 4 |
 | prompts | 3 |
 | research | 2 |
-| root | 24 |
+| root | 21 |
 | skills | 4 |
 | skills/examples/content-reviewer | 1 |
 | skills/examples/detection-rule-reviewer | 1 |
@@ -53,7 +53,6 @@
 - [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md)
 - [PLAN.md](PLAN.md)
 - [QUARTERLY-REVIEW.md](QUARTERLY-REVIEW.md)
-- [QUICK-REFERENCE-PRINCIPLES.md](QUICK-REFERENCE-PRINCIPLES.md)
 - [QUICKSTART.md](QUICKSTART.md)
 - [README.md](README.md)
 - [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md)
@@ -61,8 +60,6 @@
 - [TOOLS-TRACKER.md](TOOLS-TRACKER.md)
 - [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 - [VERSION-TRACKING.md](VERSION-TRACKING.md)
-- [WORKFLOW-STATUS.md](WORKFLOW-STATUS.md)
-- [WORKFLOW-TEST-RESULTS.md](WORKFLOW-TEST-RESULTS.md)
 ## Research
 
 - [ai-creators-analysis.md](research/ai-creators-analysis.md)
@@ -108,11 +105,10 @@
 ## Archive
 
 - [AUDIT-2026-02-27.md](archive/AUDIT-2026-02-27.md)
-- [README.md](archive/README.md)
-- [REFACTORING-PLAN-2026-01.md](archive/REFACTORING-PLAN-2026-01.md)
+- [REFACTORING-PLAN-2026-01-COMPLETED.md](archive/REFACTORING-PLAN-2026-01-COMPLETED.md)
 - [SCHEDULE-CHANGE.md](archive/SCHEDULE-CHANGE.md)
-- [WORKFLOWS-ISSUES.md](archive/WORKFLOWS-ISSUES.md)
-- [WORKFLOWS-SETUP.md](archive/WORKFLOWS-SETUP.md)
+- [WORKFLOWS-ISSUES-2026-02-13-FIXED.md](archive/WORKFLOWS-ISSUES-2026-02-13-FIXED.md)
+- [WORKFLOWS-SETUP-2026-02-13-REFERENCE.md](archive/WORKFLOWS-SETUP-2026-02-13-REFERENCE.md)
 - [WORKFLOWS-SUMMARY.md](archive/WORKFLOWS-SUMMARY.md)
 ## Specs
 

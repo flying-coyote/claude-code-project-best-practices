@@ -48,8 +48,6 @@ Before setting up infrastructure, understand the foundational principles that ma
    - Deterministic context (user-controlled) beats probabilistic context (AI-discovered)
    - One feature at a time to prevent context exhaustion
 
-**Quick Reference**: Print and keep visible: [QUICK-REFERENCE-PRINCIPLES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/QUICK-REFERENCE-PRINCIPLES.md)
-
 ---
 
 ## Your Task
@@ -773,7 +771,6 @@ scripts/analyze-blog-post.py
 
 **Core Principles**:
 - [FOUNDATIONAL-PRINCIPLES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/FOUNDATIONAL-PRINCIPLES.md) - The Big 3 (read first)
-- [QUICK-REFERENCE-PRINCIPLES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/QUICK-REFERENCE-PRINCIPLES.md) - 1-page printable reference
 
 **Onboarding & Help**:
 - [TROUBLESHOOTING.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/TROUBLESHOOTING.md) - Common issues (CLAUDE.md bloat, setup problems, team adoption)

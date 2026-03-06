@@ -398,15 +398,13 @@ Each project customizes:
 **Breaking changes**: None (backward compatible)
 
 **New features** (adopt incrementally):
-1. **QUICK-REFERENCE-PRINCIPLES.md** - Printable 1-page reference for The Big 3
-2. **14 new patterns** - Pattern count grew from 20 to 34
-3. **Stop hook enhancement** - Now checks for unpushed commits too
-4. **Pattern organization** - Organized by SDD phase (Specify/Plan/Tasks/Implement)
+1. **14 new patterns** - Pattern count grew from 20 to 34
+2. **Stop hook enhancement** - Now checks for unpushed commits too
+3. **Pattern organization** - Organized by SDD phase (Specify/Plan/Tasks/Implement)
 
 **Migration checklist**:
 - [ ] Update Stop hook to check unpushed commits (optional, recommended)
 - [ ] Review new patterns: PATTERN-LEARNING-PATH.md
-- [ ] Print QUICK-REFERENCE-PRINCIPLES.md as desk reference
 - [ ] Update INDEX.md if you maintain one (or regenerate)
 
 **Timeline**: 30 minutes
