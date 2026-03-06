@@ -220,7 +220,7 @@ Need to...
 
 ### Step 5: Create Infrastructure
 
-#### Tier 1: Baseline (Always Create)
+#### Tier 1: Minimal (Always Create)
 
 **Create or update `.claude/settings.json`**:
 
@@ -758,7 +758,7 @@ scripts/analyze-blog-post.py
 ### Integration with Existing Tiers
 
 **Tier 4 builds on Tier 1-3**:
-- ✅ Tier 1 (Baseline): Stop hook + permissions still apply
+- ✅ Tier 1 (Minimal): Stop hook + permissions still apply
 - ✅ Tier 2 (Active): CLAUDE.md remains minimal (~60 lines)
 - ✅ Tier 3 (Team): GitHub Actions coordination with new workflows
 - ➕ Tier 4 (Evolution): Adds automation for living documentation

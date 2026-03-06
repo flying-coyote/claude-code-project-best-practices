@@ -80,7 +80,7 @@ Every project benefits from Claude Code infrastructure. The same patterns apply 
 
 | Component | Purpose | Required |
 |-----------|---------|----------|
-| Everything from Tier 1 | Baseline | ✅ Yes |
+| Everything from Tier 1 | Foundation | ✅ Yes |
 | CLAUDE.md | Project context and conventions | ✅ Yes |
 | SessionStart hook | Load context at session start | Recommended |
 | Project-specific permissions | Tools you use frequently | Recommended |
