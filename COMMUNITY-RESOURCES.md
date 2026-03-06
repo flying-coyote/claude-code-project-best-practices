@@ -1,6 +1,6 @@
 # Community Resources Directory
 
-**Last Updated**: February 27, 2026
+**Last Updated**: March 6, 2026
 
 ---
 
@@ -306,4 +306,4 @@ We stand on the shoulders of giants. Our role: curate, validate, integrate.
 
 ---
 
-*This directory maintained through quarterly review process. Last review: February 27, 2026*
+*This directory maintained through quarterly review process. Last review: March 6, 2026*
