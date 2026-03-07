@@ -155,6 +155,10 @@
       },
       {
         "file": "patterns/project-infrastructure.md",
+        "context": "four components**: - **CLAUDE.md**: Boris Cherny (Claude Code creator) uses in all projects - **Stop hook**: Pr"
+      },
+      {
+        "file": "patterns/project-infrastructure.md",
         "context": "ns`.  **GitHub Actions workflow**:  ```yaml name: Claude Code Review on:   pull_request:     types: [opened, sy"
       },
       {
@@ -1763,15 +1767,19 @@
       },
       {
         "file": "patterns/project-infrastructure.md",
-        "context": "| | Everything from Tier 1 | Baseline | \u2705 Yes | | CLAUDE.md | Project context and conventions | \u2705 Yes | | Ses"
+        "context": "ose | Status | |-----------|---------|--------| | CLAUDE.md | Project context (~60 lines) | Required | | Stop"
       },
       {
         "file": "patterns/project-infrastructure.md",
-        "context": "  ]       }     ],     \"Stop\": [...]   } } ```  **CLAUDE.md structure**:  ```markdown # Project Name  ## Purp"
+        "context": "           }         ]       }     ]   } } ```  **CLAUDE.md structure** (~60 lines):  ```markdown # Project N"
       },
       {
         "file": "patterns/project-infrastructure.md",
-        "context": "tes)  - [ ] Complete Tier 1 - [ ] Create `.claude/CLAUDE.md` with project context - [ ] Create `.claude/hooks"
+        "context": "\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\" ```  **Why these four components**: - **CLAUDE.md**: Boris Cherny (Claude Code creator) uses in all"
+      },
+      {
+        "file": "patterns/project-infrastructure.md",
+        "context": "hook, and SessionStart hook - [ ] Create `.claude/CLAUDE.md` with project context (~60 lines) - [ ] Create `."
       },
       {
         "file": "patterns/project-infrastructure.md",
@@ -1779,7 +1787,7 @@
       },
       {
         "file": "patterns/project-infrastructure.md",
-        "context": "I keep forgetting context\" | Tier 1 \u2192 Tier 2 (add CLAUDE.md) | | \"I want faster git workflow\" | Use natural l"
+        "context": "de/settings.json` (permissions, hooks) - `.claude/CLAUDE.md` (project context) - `.claude/hooks/session-start"
       },
       {
         "file": "patterns/project-infrastructure.md",
@@ -5175,12 +5183,12 @@
       },
       {
         "version": "v2.0.0+",
-        "line": 224,
+        "line": 223,
         "context": "de features enhance project infrastructure without any configuration:  ### Checkpoints and /rewind (v2.0.0+)  Claude Code automatically creates session-level snapshots before each file edit, allowing code an"
       },
       {
         "version": "v2.1.30+",
-        "line": 241,
+        "line": 240,
         "context": "persistent across sessions - Git remains essential for durable version control  ### Session Memory (v2.1.30+)  Claude Code automatically records and recalls learnings across sessions. Stored in `~/.claude/pro"
       }
     ],
@@ -5536,14 +5544,14 @@
     "patterns/project-infrastructure.md": [
       {
         "value": "3x",
-        "claim": "oject Name  ## Purpose [What this project does]  ## Current Phase [What you're working on now]  ## Recent Learnings [Mistakes and insights - update 2-3x/week]  ## Conventions [Project-specific patterns] ```  ---  ### Tier 3: Team/Production (Collaborative Projects)  **Time to implement**: 30-60 minute",
-        "line": 130,
-        "context": "oject Name  ## Purpose [What this project does]  ## Current Phase [What you're working on now]  ## Recent Learnings [Mistakes and insights - update 2-3x/week]  ## Conventions [Project-specific patterns] ```  ---  ### Tier 3: Team/Production (Collaborative Projects)  **Time to implement**: 30-60 minute"
+        "claim": "oject Name  ## Purpose [What this project does]  ## Current Phase [What you're working on now]  ## Recent Learnings [Mistakes and insights - update 2-3x/week]  ## Conventions [Project-specific patterns] ```  **SessionStart hook** (`",
+        "line": 93,
+        "context": "oject Name  ## Purpose [What this project does]  ## Current Phase [What you're working on now]  ## Recent Learnings [Mistakes and insights - update 2-3x/week]  ## Conventions [Project-specific patterns] ```  **SessionStart hook** (`.claude/hooks/session-start.sh`):  ```bash #!/bin/bash echo \"\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501"
       },
       {
         "value": "1x",
         "claim": "1x standard pricing |  **Availability**: Models released after February 1, 2026",
-        "line": 263,
+        "line": 262,
         "context": "\" } ```  | Setting | Behavior | Pricing | |---------|----------|---------| | Default | Standard routing | Standard | | `\"us\"` | US-only inference | 1.1x standard pricing |  **Availability**: Models released after February 1, 2026. Workspace-level configuration via `allowed_inference_geos` and `default"
       }
     ],
@@ -6768,7 +6776,7 @@
       "patterns/mcp-vs-skills-economics.md"
     ]
   },
-  "last_updated": "2026-03-06T06:37:33.826443",
+  "last_updated": "2026-03-07T06:29:28.823197",
   "evidence_tier_stats": {
     "tier_a_count": 6,
     "tier_b_count": 6,
