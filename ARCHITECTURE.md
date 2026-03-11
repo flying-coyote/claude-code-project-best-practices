@@ -1,7 +1,7 @@
 # Architecture
 
 **Purpose**: System design, directory structure, and current phase status
-**Last Updated**: January 2, 2026
+**Last Updated**: March 11, 2026
 
 ---
 
@@ -24,6 +24,7 @@ This repository documents and validates patterns for Claude Code projects. It se
 - v1.1: Nate B. Jones patterns added (Dec 8, 2025)
 - v1.2: Self-compliance - repo follows its own patterns (Dec 8, 2025)
 - v1.3: Production patterns from second-brain integration (Dec 13, 2025)
+- v1.4: Tier language removal, SDD adoption, 36 patterns (Mar 2026)
 
 ---
 
@@ -40,25 +41,41 @@ claude-code-project-best-practices/
 │   │   └── stop-doc-check.sh  # Documentation currency
 │   └── claude-tasks.json      # Task tracking
 │
-├── patterns/                   # Core implementation patterns (20 total)
+├── patterns/                   # Core implementation patterns (36 total)
 │   ├── advanced-hooks.md      # PostToolUse, Stop hooks
 │   ├── advanced-tool-use.md   # Tool search, programmatic calling
+│   ├── agent-evaluation.md    # Agent performance assessment
 │   ├── agent-principles.md    # 6 production principles
+│   ├── agentic-retrieval.md   # AI-driven information retrieval
 │   ├── ai-image-generation.md # AI asset generation for development
 │   ├── architecture-decision-records.md  # ADR framework
+│   ├── cognitive-agent-infrastructure.md # Cognitive architecture
 │   ├── confidence-scoring.md  # HIGH/MEDIUM/LOW hypothesis confidence
 │   ├── context-engineering.md # Deterministic vs probabilistic
 │   ├── documentation-maintenance.md  # ARCH/PLAN/INDEX trio
 │   ├── evidence-tiers.md      # Dual tier system (A-D + 1-5)
+│   ├── framework-selection-guide.md  # Framework comparison
+│   ├── github-actions-integration.md # CI/CD with Claude
+│   ├── gsd-orchestration.md   # Goal-structured decomposition
+│   ├── johari-window-ambiguity.md    # Ambiguity resolution
 │   ├── long-running-agent.md  # Anthropic harness patterns
+│   ├── mcp-daily-essentials.md      # Daily MCP tools
 │   ├── mcp-patterns.md        # Failure modes + positive patterns
+│   ├── mcp-vs-skills-economics.md   # MCP vs Skills trade-offs
 │   ├── memory-architecture.md # Lifecycle-based memory
+│   ├── parallel-sessions.md   # Concurrent session patterns
 │   ├── planning-first-development.md  # "Great Planning is Great Prompting"
 │   ├── plugins-and-extensions.md  # Skills vs MCP vs Hooks decision
-│   ├── progressive-disclosure.md  # 3-tier skill architecture (73% reduction)
+│   ├── productivity-tooling.md    # Developer productivity
+│   ├── progressive-disclosure.md  # 3-tier skill architecture
+│   ├── project-infrastructure.md  # Recommended setup
+│   ├── recursive-context-management.md # Context lifecycle
 │   ├── recursive-evolution.md # Self-Evolution Algorithm
-│   ├── skills-domain-knowledge.md  # Domain expertise as persistent context
-│   ├── spec-driven-development.md  # 4-phase SDD model (foundational)
+│   ├── safety-and-sandboxing.md   # Security sandboxing
+│   ├── secure-code-generation.md  # Secure coding patterns
+│   ├── session-learning.md    # Cross-session learning
+│   ├── skills-domain-knowledge.md  # Domain expertise
+│   ├── spec-driven-development.md  # 4-phase SDD model
 │   ├── subagent-orchestration.md  # Multi-agent patterns
 │   └── tool-ecosystem.md          # Claude Code vs alternatives
 │
@@ -97,7 +114,8 @@ claude-code-project-best-practices/
 │
 ├── prompts/                    # Interactive setup guides
 │   ├── BOOTSTRAP-NEW-PROJECT.md
-│   └── AUDIT-EXISTING-PROJECT.md
+│   ├── AUDIT-EXISTING-PROJECT.md
+│   └── MAKE-PROJECT-RECOMMENDATIONS.md
 │
 ├── automation/                 # Scripts
 │   └── generate_index.py      # INDEX.md generator
@@ -109,10 +127,20 @@ claude-code-project-best-practices/
 ├── ARCHIVE.md                 # Completed work and milestones
 ├── CONTRIBUTING.md            # Contribution guidelines
 ├── DECISIONS.md               # Design rationale
+├── DEPRECATIONS.md            # Removed features and migration
+├── DOGFOODING-GAPS.md         # Self-compliance tracking
+├── FOUNDATIONAL-PRINCIPLES.md # Core project principles
 ├── INDEX.md                   # Auto-generated inventory
+├── MIGRATION-GUIDE.md         # Cursor/.cursorrules migration
+├── PATTERN-LEARNING-PATH.md   # Guided learning by role
 ├── PLAN.md                    # Current priorities (tactical)
+├── QUARTERLY-REVIEW.md        # Quarterly review tracker
 ├── README.md                  # Project overview
-└── SOURCES.md                 # All sources with evidence tiers
+├── SOURCES.md                 # All sources with evidence tiers
+├── SOURCES-QUICK-REFERENCE.md # Top 20 sources (fast lookup)
+├── TOOLS-TRACKER.md           # Tool evolution tracking
+├── TROUBLESHOOTING.md         # Common issues and fixes
+└── VERSION-TRACKING.md        # Pattern version tracking
 ```
 
 ---

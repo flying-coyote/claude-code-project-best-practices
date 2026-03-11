@@ -424,4 +424,22 @@ Advanced (optional):
 
 ---
 
+## Decision: Remove Infrastructure Tier Language (2026-03-06)
+
+### Context
+The Tier 1/2/3/4 infrastructure system created false hierarchy and decision paralysis. 95% of projects need the same setup (what was Tier 2).
+
+### Decision
+Replace numbered tiers with single recommended setup (CLAUDE.md + hooks + permissions) + optional advanced features (GitHub Actions, Version Tracking).
+
+### Impact
+- Simpler mental model, reduced decision fatigue
+- Clearer that one path works for most projects
+- Files changed: README.md, patterns/project-infrastructure.md, QUICKSTART.md, prompts/MAKE-PROJECT-RECOMMENDATIONS.md, cross-references
+
+### Note
+Evidence tiers (A-D), confidence scoring (1-5), and skill tiers (1-3) still use tier language — only infrastructure tiers were removed.
+
+---
+
 *Last updated: March 2026*

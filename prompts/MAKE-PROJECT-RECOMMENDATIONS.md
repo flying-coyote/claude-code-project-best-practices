@@ -440,7 +440,7 @@ If the user needs specific guidance, recommend:
 
 **Need a specific pattern?** → See [Pattern Decision Matrix](https://github.com/flying-coyote/claude-code-project-best-practices#pattern-decision-matrix)
 - "I Need To..." → pattern mapping
-- All 34 patterns categorized
+- All 36 patterns categorized
 
 **Want to see complete examples?** → Browse [example projects](https://github.com/flying-coyote/claude-code-project-best-practices/tree/master/examples)
 - coding-project: TypeScript library with full hooks
@@ -774,7 +774,7 @@ scripts/analyze-blog-post.py
 
 **Onboarding & Help**:
 - [TROUBLESHOOTING.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/TROUBLESHOOTING.md) - Common issues (CLAUDE.md bloat, setup problems, team adoption)
-- [PATTERN-LEARNING-PATH.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/PATTERN-LEARNING-PATH.md) - Guided learning paths by role/use-case (34 patterns)
+- [PATTERN-LEARNING-PATH.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/PATTERN-LEARNING-PATH.md) - Guided learning paths by role/use-case (36 patterns)
 - [MIGRATION-GUIDE.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/MIGRATION-GUIDE.md) - Migrate from Cursor/.cursorrules or existing setups
 
 **Key Patterns** (4 of 34):
@@ -783,7 +783,7 @@ scripts/analyze-blog-post.py
 - [project-infrastructure.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/project-infrastructure.md) - Infrastructure setup details
 - [evidence-tiers.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/evidence-tiers.md) - Source evaluation framework
 
-**Finding Patterns**: See [README Pattern Decision Matrix](https://github.com/flying-coyote/claude-code-project-best-practices#pattern-decision-matrix) - "I Need To..." → pattern lookup for all 34 patterns
+**Finding Patterns**: See [README Pattern Decision Matrix](https://github.com/flying-coyote/claude-code-project-best-practices#pattern-decision-matrix) - "I Need To..." → pattern lookup for all 36 patterns
 
 **Complete Examples** (full .claude/ implementations):
 - [coding-project](https://github.com/flying-coyote/claude-code-project-best-practices/tree/master/examples/coding-project) - TypeScript library (19-line CLAUDE.md, complete hooks)
@@ -794,4 +794,4 @@ scripts/analyze-blog-post.py
 - [SOURCES-QUICK-REFERENCE.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/SOURCES-QUICK-REFERENCE.md) - Top 20 Tier A/B sources (fast lookup)
 - [SOURCES.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/SOURCES.md) - Complete database (1,278 lines, all attributions)
 
-**Full Repository**: https://github.com/flying-coyote/claude-code-project-best-practices (34 patterns, 91 documents)
+**Full Repository**: https://github.com/flying-coyote/claude-code-project-best-practices (36 patterns, 114 documents)

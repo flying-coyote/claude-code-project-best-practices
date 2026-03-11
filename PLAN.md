@@ -1,13 +1,13 @@
 # Plan
 
 **Purpose**: Current priorities, immediate next actions, success metrics
-**Last Updated**: February 16, 2026
+**Last Updated**: March 11, 2026
 
 ---
 
 ## Current Focus
 
-**Phase**: v1.3 Maintenance + Pattern Expansion
+**Phase**: Post-v1.0 Maintenance + Pattern Expansion
 **Goal**: Maintain documentation currency, address practical gaps
 
 ---
@@ -18,11 +18,11 @@ The repository is stable and production-ready. Key metrics achieved:
 
 | Metric | Status |
 |--------|--------|
-| Patterns | 34 documented |
+| Patterns | 36 documented |
 | Skills | 10 examples |
 | Self-compliance | 88/100 (tracked in DOGFOODING-GAPS.md) |
 | Source attribution | 100% |
-| Total documents | 95 |
+| Total documents | 114 |
 
 See [ARCHIVE.md](ARCHIVE.md) for completed milestones.
 
@@ -42,11 +42,11 @@ See [ARCHIVE.md](ARCHIVE.md) for completed milestones.
 
 | Item | Effort | Notes |
 |------|--------|-------|
-| Add troubleshooting/FAQ section | Medium | 🔄 In Progress - Common issues from production use |
+| Add troubleshooting/FAQ section | Medium | ✅ Done - TROUBLESHOOTING.md |
 | Add "Which Entry Point?" decision table | Low | 🔄 In Progress - Clarifies SETUP vs BOOTSTRAP vs AUDIT |
 | Add 11 missing patterns to README | Low | 🔄 In Progress - Improve pattern discoverability (68% → 100%) |
-| Create migration guide | Medium | 🔄 Planned - For existing .claude/ setups, Cursor migration |
-| Create pattern learning path | Medium | 🔄 Planned - Reduces overwhelm from 34 patterns |
+| Create migration guide | Medium | ✅ Done - MIGRATION-GUIDE.md |
+| Create pattern learning path | Medium | ✅ Done - PATTERN-LEARNING-PATH.md |
 | Refresh example projects | Medium | 🔄 Planned - 3 complete implementations with full .claude/ |
 | Add pattern quality checklist | Low | Practical validation tool |
 
@@ -63,9 +63,9 @@ See [ARCHIVE.md](ARCHIVE.md) for completed milestones.
 
 Items to consider when capacity allows:
 
-- [ ] Troubleshooting guide for common setup issues
+- [x] Troubleshooting guide for common setup issues (TROUBLESHOOTING.md)
 - [ ] Pattern quality checklist (replaces vague "testing" goal)
-- [ ] Refresh example projects to match current 17 patterns
+- [ ] Refresh example projects to match current 36 patterns
 - [ ] Document cross-project skill deployment (when use cases emerge)
 
 ---
@@ -110,5 +110,5 @@ These were evaluated and consciously deferred (see [ARCHIVE.md](ARCHIVE.md)):
 
 ## Next Review
 
-**When**: After Phase 1 implementation complete or monthly (Mar 2026)
+**When**: April 2026
 **Focus**: Verify quality improvements, check for new Anthropic patterns, community feedback
