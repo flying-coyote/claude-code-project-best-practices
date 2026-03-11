@@ -81,7 +81,7 @@
 
 ## Pattern Overwhelm
 
-### I'm overwhelmed by 34 patterns - where do I start?
+### I'm overwhelmed by 36 patterns - where do I start?
 
 **Quick Start Path** (3 patterns, 30 minutes reading):
 
@@ -95,7 +95,7 @@
 - Production/security focus → [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md)
 - Need more guidance → See [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md)
 
-**Principle**: You don't need all 34 patterns. Start with 3, add as needed.
+**Principle**: You don't need all 36 patterns. Start with 3, add as needed.
 
 ---
 

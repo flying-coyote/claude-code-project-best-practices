@@ -1,6 +1,6 @@
 # Pattern Learning Path
 
-**Purpose**: Guided reading sequence for 34 patterns to reduce overwhelm and provide clear learning progression
+**Purpose**: Guided reading sequence for 36 patterns to reduce overwhelm and provide clear learning progression
 
 ---
 

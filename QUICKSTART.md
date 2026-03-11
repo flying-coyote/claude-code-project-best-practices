@@ -294,7 +294,7 @@ python scripts/check-measurement-expiry.py
 ## Next Steps
 
 **After setup, learn the patterns**:
-- 📚 **All 34 patterns**: https://github.com/flying-coyote/claude-code-project-best-practices
+- 📚 **All 36 patterns**: https://github.com/flying-coyote/claude-code-project-best-practices
 - 🎯 **Pattern Decision Matrix**: "I Need To..." → pattern lookup
 - 📖 **Detailed setup guide**: [MAKE-PROJECT-RECOMMENDATIONS.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/prompts/MAKE-PROJECT-RECOMMENDATIONS.md)
 

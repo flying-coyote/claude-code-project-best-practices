@@ -777,7 +777,7 @@ scripts/analyze-blog-post.py
 - [PATTERN-LEARNING-PATH.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/PATTERN-LEARNING-PATH.md) - Guided learning paths by role/use-case (36 patterns)
 - [MIGRATION-GUIDE.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/MIGRATION-GUIDE.md) - Migrate from Cursor/.cursorrules or existing setups
 
-**Key Patterns** (4 of 34):
+**Key Patterns** (4 of 36):
 - [spec-driven-development.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/spec-driven-development.md) - Specify → Plan → Tasks → Implement
 - [context-engineering.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/context-engineering.md) - Deterministic vs probabilistic context
 - [project-infrastructure.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/project-infrastructure.md) - Infrastructure setup details
