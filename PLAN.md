@@ -1,7 +1,7 @@
 # Plan
 
 **Purpose**: Current priorities, immediate next actions, success metrics
-**Last Updated**: March 11, 2026
+**Last Updated**: March 23, 2026
 
 ---
 
@@ -43,12 +43,12 @@ See [ARCHIVE.md](ARCHIVE.md) for completed milestones.
 | Item | Effort | Notes |
 |------|--------|-------|
 | Add troubleshooting/FAQ section | Medium | ✅ Done - TROUBLESHOOTING.md |
-| Add "Which Entry Point?" decision table | Low | 🔄 In Progress - Clarifies SETUP vs BOOTSTRAP vs AUDIT |
-| Add 11 missing patterns to README | Low | 🔄 In Progress - Improve pattern discoverability (68% → 100%) |
+| Add "Which Entry Point?" decision table | Low | ✅ Done - Added to README.md |
+| Add missing patterns to README | Low | ✅ Done - All 36 patterns in decision matrix + SDD tables |
 | Create migration guide | Medium | ✅ Done - MIGRATION-GUIDE.md |
 | Create pattern learning path | Medium | ✅ Done - PATTERN-LEARNING-PATH.md |
-| Refresh example projects | Medium | 🔄 Planned - 3 complete implementations with full .claude/ |
-| Add pattern quality checklist | Low | Practical validation tool |
+| Refresh example projects | Medium | ✅ Done - All 3 examples have 4-component setup |
+| Add pattern quality checklist | Low | ✅ Done - PATTERN-QUALITY-CHECKLIST.md |
 
 ### Low Priority
 
@@ -64,8 +64,8 @@ See [ARCHIVE.md](ARCHIVE.md) for completed milestones.
 Items to consider when capacity allows:
 
 - [x] Troubleshooting guide for common setup issues (TROUBLESHOOTING.md)
-- [ ] Pattern quality checklist (replaces vague "testing" goal)
-- [ ] Refresh example projects to match current 36 patterns
+- [x] Pattern quality checklist (PATTERN-QUALITY-CHECKLIST.md)
+- [x] Refresh example projects to match current 36 patterns
 - [ ] Document cross-project skill deployment (when use cases emerge)
 
 ---

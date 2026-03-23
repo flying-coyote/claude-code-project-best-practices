@@ -8,7 +8,7 @@
 
 ## What This Example Shows
 
-### Recommended Infrastructure (15-30 minutes)
+### Recommended Setup (15-30 minutes)
 ✅ **Stop hook** - Warns about uncommitted/unpushed changes on session end
 - Most critical safety feature
 - Prevents losing work between sessions

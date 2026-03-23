@@ -8,30 +8,29 @@
 
 ## What This Example Shows
 
-### Tier 1 Infrastructure (5 minutes)
-✅ **Stop hook** - Warns about uncommitted/unpushed changes
-- Critical for writing: prevents losing draft changes
-- Custom message: "save your draft" instead of generic warning
-- See `.claude/settings.json` lines 13-22
-
-### Tier 2 Infrastructure (15 minutes)
-✅ **Pre-approved permissions** - Markdown linting, git operations
-- `npm run lint`, `npx markdownlint`
-- `git status`, `git diff`, `git log`
-- See `.claude/settings.json` lines 2-9
-
-✅ **Minimal CLAUDE.md** - 29 lines (target ~60)
+### Recommended Setup (15-30 minutes)
+✅ **CLAUDE.md** - 29 lines (target ~60)
 - Voice rules that get repeatedly violated (learn from mistakes)
 - Evidence tiers for research claims
 - Known gotchas specific to this blog (image paths, link formatting)
 - See `.claude/CLAUDE.md`
 
-### Tier 3 Infrastructure (30 minutes)
+✅ **Stop hook** - Warns about uncommitted/unpushed changes
+- Custom message: "save your draft" instead of generic warning
+
+✅ **SessionStart hook** - Shows git context + draft count
+- Branch, uncommitted files, drafts in progress
+- See `.claude/hooks/session-start.sh`
+
+✅ **Pre-approved permissions** - Markdown linting, git operations
+- `npm run lint`, `npx markdownlint`
+- `git status`, `git diff`, `git log`
+
+### Advanced: PostToolUse Hook
 ✅ **PostToolUse hook** - Auto-lints markdown files on write
 - Runs `markdownlint --fix` after every .md file write
 - Enforces consistent formatting automatically
 - Fails gracefully if markdownlint not installed
-- See `.claude/settings.json` lines 23-32
 
 ---
 
@@ -42,6 +41,8 @@ writing-project/
   .claude/
     CLAUDE.md              # Minimal context (29 lines)
     settings.json          # Hooks + permissions
+    hooks/
+      session-start.sh     # SessionStart hook implementation
   README.md               # This file (explains the example)
   docs/                   # Separate documentation
     PUBLISHING.md         # Publication checklist (not in CLAUDE.md)
@@ -223,6 +224,7 @@ After setting up:
 - [ ] Evidence tiers match your research standards (if applicable)
 - [ ] Gotchas are project-specific (caused actual errors)
 - [ ] Stop hook warns about uncommitted drafts
+- [ ] SessionStart hook shows git context and draft count
 - [ ] PostToolUse hook lints markdown files
 - [ ] Pre-approved linting commands work
 
@@ -244,4 +246,4 @@ After setting up:
 - Customize for your writing style and standards
 - Evidence tiers are optional (remove if not doing research)
 
-**Last Updated**: February 2026
+**Last Updated**: March 2026

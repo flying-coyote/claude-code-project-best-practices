@@ -71,13 +71,21 @@ mkdir -p .claude .claude/hooks
 
 ### AI-Guided Setup (Alternative)
 
-Prefer interactive guidance?
+Prefer interactive guidance? Paste this into Claude Code:
 
 ```
 Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/refs/heads/master/prompts/MAKE-PROJECT-RECOMMENDATIONS.md and follow its instructions.
 ```
 
-This analyzes your project and creates the recommended setup with customization.
+#### Which Entry Point Should I Use?
+
+| I Want To... | Use This | Time |
+|--------------|----------|------|
+| Set up any project (new or existing) | [MAKE-PROJECT-RECOMMENDATIONS.md](prompts/MAKE-PROJECT-RECOMMENDATIONS.md) | 15-30 min |
+| Bootstrap a brand-new project with preset selection | [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md) | 20-40 min |
+| Audit an existing project for gaps | [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md) | 15-30 min |
+
+**Recommendation**: Use **MAKE-PROJECT-RECOMMENDATIONS** for most cases. It handles both new and existing projects with the same unified approach. The other two prompts offer more specialized workflows (preset-guided bootstrapping or detailed gap analysis) if you prefer structured guidance.
 
 ---
 
@@ -108,9 +116,11 @@ Quick reference: Which pattern solves which problem?
 | Understand core principles | [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) | [spec-driven-development.md](patterns/spec-driven-development.md) |
 | Learn patterns progressively | [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md) | Pattern tables below |
 | Migrate from Cursor or other tools | [MIGRATION-GUIDE.md](MIGRATION-GUIDE.md) | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) |
+| Choose daily MCP servers | [mcp-daily-essentials.md](patterns/mcp-daily-essentials.md) | [mcp-patterns.md](patterns/mcp-patterns.md) |
+| Optimize developer workflow | [productivity-tooling.md](patterns/productivity-tooling.md) | [tool-ecosystem.md](patterns/tool-ecosystem.md) |
 | **Context & Planning** |
 | Keep CLAUDE.md minimal | [context-engineering.md](patterns/context-engineering.md) | [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) |
-| Plan before implementing | [spec-driven-development.md](patterns/spec-driven-development.md) | [planning-first-development.md](patterns/planning-first-development.md) |
+| Plan before implementing | [planning-first-development.md](patterns/planning-first-development.md) | [spec-driven-development.md](patterns/spec-driven-development.md) |
 | Manage information lifecycle | [memory-architecture.md](patterns/memory-architecture.md) | [context-engineering.md](patterns/context-engineering.md) |
 | Surface hidden assumptions | [johari-window-ambiguity.md](patterns/johari-window-ambiguity.md) | - |
 | Document architecture decisions | [architecture-decision-records.md](patterns/architecture-decision-records.md) | [documentation-maintenance.md](patterns/documentation-maintenance.md) |
@@ -176,6 +186,7 @@ Core implementation patterns organized by the spec-driven development phase they
 |---------|-------------|--------|
 | [Spec-Driven Development](patterns/spec-driven-development.md) | 4-phase model: Specify→Plan→Tasks→Implement | GitHub Spec Kit |
 | [Framework Selection Guide](patterns/framework-selection-guide.md) | Choose orchestration: Native (default) vs GSD vs CAII | Synthesis |
+| [Project Infrastructure](patterns/project-infrastructure.md) | CLAUDE.md + hooks + permissions as baseline for all projects | Boris Cherny |
 
 #### Specify Phase
 | Pattern | Key Insight | Source |
@@ -187,6 +198,7 @@ Core implementation patterns organized by the spec-driven development phase they
 #### Plan Phase
 | Pattern | Key Insight | Source |
 |---------|-------------|--------|
+| [Planning-First Development](patterns/planning-first-development.md) | Planning effort directly improves AI output quality | IndyDevDan |
 | [Documentation Maintenance](patterns/documentation-maintenance.md) | ARCH/PLAN/INDEX trio as spec artifacts | Production |
 | [Architecture Decision Records](patterns/architecture-decision-records.md) | Document why, not just what | Software Eng |
 | [Evidence Tiers](patterns/evidence-tiers.md) | Dual tier system (A-D + 1-5) for claims | Production |
@@ -201,6 +213,7 @@ Core implementation patterns organized by the spec-driven development phase they
 | [Agentic Retrieval](patterns/agentic-retrieval.md) | Dynamic navigation vs pre-computed embeddings | LlamaIndex |
 | [Parallel Sessions](patterns/parallel-sessions.md) | 5+ terminal + 5-10 web sessions for parallel work streams | Boris Cherny |
 | [AI Image Generation](patterns/ai-image-generation.md) | Automated visual assets in development pipelines | Community |
+| [GitHub Actions Integration](patterns/github-actions-integration.md) | @.claude PR reviews and CI/CD automation | Anthropic |
 
 #### Cross-Phase
 | Pattern | Key Insight | Source |
@@ -210,10 +223,15 @@ Core implementation patterns organized by the spec-driven development phase they
 | [MCP Patterns](patterns/mcp-patterns.md) | 7 failure modes + positive patterns + OWASP security | Nate B. Jones + OWASP |
 | [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md) | Skills 50% cheaper than MCP; tradeoffs on speed vs cost | Tenzir |
 | [Plugins and Extensions](patterns/plugins-and-extensions.md) | When to use Skills vs MCP vs Hooks vs Commands | Production |
+| [MCP Daily Essentials](patterns/mcp-daily-essentials.md) | Sweet spot: 4 plugins + 2 MCPs for optimal context | Community |
+| [Productivity Tooling](patterns/productivity-tooling.md) | Voice prompting, workflow automation, dev velocity | Community |
 | [Safety and Sandboxing](patterns/safety-and-sandboxing.md) | OS-level isolation over permission prompts | Anthropic + OWASP |
+| [Secure Code Generation](patterns/secure-code-generation.md) | OWASP-aware code generation with security gates | Production |
+| [Subagent Orchestration](patterns/subagent-orchestration.md) | Native subagents, agent teams, custom agents | Anthropic |
 | [GSD Orchestration](patterns/gsd-orchestration.md) | Fresh context per subagent; state externalization | glittercowboy |
 | [Cognitive Agent Infrastructure](patterns/cognitive-agent-infrastructure.md) | 7 fixed cognitive agents vs domain-specific proliferation | CAII |
 | [Recursive Context Management](patterns/recursive-context-management.md) | Programmatic self-examination vs single forward pass | MIT CSAIL |
+| [Skills Domain Knowledge](patterns/skills-domain-knowledge.md) | Embed domain expertise in reusable skill files | Production |
 | [Session Learning](patterns/session-learning.md) | Capture corrections to update persistent config | Lance Martin |
 | [Confidence Scoring](patterns/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework | Production |
 | [Recursive Evolution](patterns/recursive-evolution.md) | Self-Evolution Algorithm: multi-candidate, judge loop, crossover | Google TTD-DR |

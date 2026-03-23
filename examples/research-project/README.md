@@ -8,23 +8,24 @@
 
 ## What This Example Shows
 
-### Tier 1 Infrastructure (5 minutes)
-✅ **Stop hook** - Warns about uncommitted research findings
-- Critical for research: prevents losing analysis progress
-- Custom message: "save your findings" emphasizes data preservation
-- See `.claude/settings.json` lines 8-17
-
-### Tier 2 Infrastructure (15 minutes)
-✅ **Pre-approved permissions** - Research commands, git operations
-- `python -m`, `jupyter` (for data analysis)
-- `git status`, `git diff`, `git log`
-- See `.claude/settings.json` lines 2-7
-
-✅ **Minimal CLAUDE.md** - 37 lines (target ~60)
+### Recommended Setup (15-30 minutes)
+✅ **CLAUDE.md** - 37 lines (target ~60)
 - Evidence tiers (critical for research validity)
 - Hypothesis tracking format (standardization after 5 violations)
 - Research integrity violations to avoid (learned from mistakes)
 - See `.claude/CLAUDE.md`
+
+✅ **Stop hook** - Warns about uncommitted research findings
+- Custom message: "save your findings" emphasizes data preservation
+
+✅ **SessionStart hook** - Shows git context + hypothesis count
+- Branch, uncommitted files, recent commits
+- Hypothesis count for research progress tracking
+- See `.claude/hooks/session-start.sh`
+
+✅ **Pre-approved permissions** - Research commands, git operations
+- `python -m`, `jupyter` (for data analysis)
+- `git status`, `git diff`, `git log`
 
 ### Key Research-Specific Features
 
@@ -52,6 +53,8 @@ research-project/
   .claude/
     CLAUDE.md              # Minimal context (37 lines)
     settings.json          # Hooks + permissions
+    hooks/
+      session-start.sh     # SessionStart hook implementation
   README.md               # This file (explains the example)
   hypotheses/             # Hypothesis tracking
     HYP-001-productivity.md
@@ -122,9 +125,11 @@ These are **learned from errors**, not preemptive documentation.
 ### Quick Start (Copy this setup)
 ```bash
 # In your research project
-mkdir -p .claude
+mkdir -p .claude .claude/hooks
 cp examples/research-project/.claude/CLAUDE.md .claude/
 cp examples/research-project/.claude/settings.json .claude/
+cp examples/research-project/.claude/hooks/session-start.sh .claude/hooks/
+chmod +x .claude/hooks/session-start.sh
 
 # Customize CLAUDE.md:
 # 1. Replace evidence tiers if you use different system
@@ -260,6 +265,7 @@ After setting up:
 - [ ] Hypothesis format reflects your methodology
 - [ ] Integrity violations are YOUR actual mistakes, not generic advice
 - [ ] Stop hook warns about uncommitted research
+- [ ] SessionStart hook shows git context and hypothesis count
 - [ ] Pre-approved commands match your analysis tools
 - [ ] Citation/source requirements are project-specific
 
@@ -306,4 +312,4 @@ After setting up:
 - Research integrity violations should reflect YOUR mistakes
 - Adapt hypothesis format to your methodology
 
-**Last Updated**: February 2026
+**Last Updated**: March 2026

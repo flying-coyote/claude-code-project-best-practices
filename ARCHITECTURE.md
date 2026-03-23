@@ -133,6 +133,7 @@ claude-code-project-best-practices/
 ├── INDEX.md                   # Auto-generated inventory
 ├── MIGRATION-GUIDE.md         # Cursor/.cursorrules migration
 ├── PATTERN-LEARNING-PATH.md   # Guided learning by role
+├── PATTERN-QUALITY-CHECKLIST.md # Validation tool for new patterns
 ├── PLAN.md                    # Current priorities (tactical)
 ├── QUARTERLY-REVIEW.md        # Quarterly review tracker
 ├── README.md                  # Project overview
