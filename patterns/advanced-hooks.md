@@ -1,20 +1,20 @@
 ---
 version-requirements:
   claude-code: "v2.0.10+"  # PreToolUse hook introduced
-  latest-features: "v2.0.45+"  # PermissionRequest hook
-version-last-verified: "2026-02-27"
+  latest-features: "v2.1.76+"  # 24 hook event types, prompt/agent hook types
+version-last-verified: "2026-03-23"
 measurement-claims:
   - claim: "Sandboxing reduces unauthorized operations by 84%"
     source: "Production security testing"
     date: "2025-11-01"
     revalidate: "2026-11-01"
 status: "PRODUCTION"
-last-verified: "2026-02-16"
+last-verified: "2026-03-23"
 ---
 
 # Advanced Hook Patterns
 
-**Source**: Production-validated patterns + [Claude Code Hooks Reference](https://docs.anthropic.com/en/docs/claude-code/hooks)
+**Source**: Production-validated patterns + [Claude Code Hooks Reference](https://code.claude.com/docs/en/hooks)
 **Evidence Tier**: A (Primary vendor documentation) + B (Production validated)
 
 ## SDD Phase Alignment
@@ -28,18 +28,80 @@ Hooks enforce quality at implementation time:
 
 ---
 
-## Hook Events Overview
+## Hook Events Overview (24 Total)
+
+As of v2.1.76+, Claude Code supports **24 hook event types** across 8 categories:
+
+### Session Lifecycle
 
 | Hook | When Fires | Can Block | Can Modify | Min Version |
 |------|-----------|-----------|------------|-------------|
-| **SessionStart** | Session begins | No | Context | - |
+| **SessionStart** | Session begins, resume, or after `/clear` | No | Context | - |
+| **SessionEnd** | Session terminates | No | - | - |
+| **InstructionsLoaded** | CLAUDE.md or `.claude/rules/*.md` loaded | No | Context | v2.1.76+ |
+
+### User Input & Tool Execution
+
+| Hook | When Fires | Can Block | Can Modify | Min Version |
+|------|-----------|-----------|------------|-------------|
+| **UserPromptSubmit** | User submits prompt | No | Prompt text | - |
 | **PreToolUse** | Before tool execution | ✅ Yes | ✅ Inputs (v2.0.10+) | - |
 | **PostToolUse** | After tool completion | No | Output display | - |
-| **UserPromptSubmit** | User submits prompt | No | Prompt text | - |
+| **PostToolUseFailure** | After tool execution fails | No | - | v2.1.76+ |
 | **PermissionRequest** | Permission needed | ✅ Yes | Response | v2.0.45+ |
+
+### Agent Operations
+
+| Hook | When Fires | Can Block | Can Modify | Min Version |
+|------|-----------|-----------|------------|-------------|
 | **Stop** | Agent finishes turn | ✅ Continue | - | - |
+| **StopFailure** | API error prevents completion | No | - | v2.1.78+ |
+| **SubagentStart** | Subagent spawned | No | - | v2.1.76+ |
 | **SubagentStop** | Subagent finishes | No | - | v1.0.41+ |
-| **SessionEnd** | Session terminates | No | - | - |
+
+### Team Coordination
+
+| Hook | When Fires | Can Block | Can Modify | Min Version |
+|------|-----------|-----------|------------|-------------|
+| **TeammateIdle** | Agent team teammate about to go idle | ✅ Yes (exit 2) | Feedback | v2.1.76+ |
+| **TaskCompleted** | Task marked complete | ✅ Yes (exit 2) | Feedback | v2.1.76+ |
+
+### Context Management
+
+| Hook | When Fires | Can Block | Can Modify | Min Version |
+|------|-----------|-----------|------------|-------------|
+| **PreCompact** | Before context compaction | No | - | v2.1.76+ |
+| **PostCompact** | After context compaction | No | - | v2.1.76+ |
+
+### MCP Integration
+
+| Hook | When Fires | Can Block | Can Modify | Min Version |
+|------|-----------|-----------|------------|-------------|
+| **Elicitation** | MCP server requests user input | ✅ Yes | Response | v2.1.76+ |
+| **ElicitationResult** | After user responds to MCP elicitation | No | - | v2.1.76+ |
+
+### Configuration & State
+
+| Hook | When Fires | Can Block | Can Modify | Min Version |
+|------|-----------|-----------|------------|-------------|
+| **ConfigChange** | Settings file changes | No | - | v2.1.76+ |
+| **Notification** | Notifications sent | No | - | v2.1.76+ |
+
+### Version Control (Isolation)
+
+| Hook | When Fires | Can Block | Can Modify | Min Version |
+|------|-----------|-----------|------------|-------------|
+| **WorktreeCreate** | Replace default git worktree creation | ✅ Yes | Worktree path | v2.1.76+ |
+| **WorktreeRemove** | Clean up worktree | No | - | v2.1.76+ |
+
+### Hook Types (4 Available)
+
+| Type | Description | Use Case |
+|------|------------|----------|
+| **command** | Execute shell script | File validation, linting, external tools |
+| **http** | POST to endpoint | Webhook integration, remote verification |
+| **prompt** | Single-turn LLM evaluation | Safety checks, policy validation |
+| **agent** | Spawn subagent for verification | Complex verification, multi-step checks |
 
 ### Hook Execution Timeout
 

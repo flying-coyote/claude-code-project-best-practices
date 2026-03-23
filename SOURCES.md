@@ -56,6 +56,32 @@ All patterns in this repository are derived from authoritative sources and produ
   - Programmatic Tool Calling: 37% token reduction
   - Input examples: 72% → 90% accuracy improvement
 
+#### Parallel Claude Development (C Compiler)
+- **Title**: "Building a C compiler with a team of parallel Claudes"
+- **Source**: Anthropic Engineering Blog
+- **Date**: February 5, 2026
+- **URL**: https://www.anthropic.com/engineering/building-c-compiler
+- **Key Insights**:
+  - Git-based task claiming: agents claim tasks via text files, git synchronization prevents duplicates
+  - LLM-aware design: minimal output, detailed logs to files, machine-readable error format
+  - Agent specialization: deduplicate code, optimize performance, documentation, design critique
+  - `--fast` mode: deterministic 1-10% test sampling to prevent endless test execution
+  - Results: 2,000+ sessions, $20K API cost, 100K-line compiler building Linux 6.9 (x86/ARM/RISC-V)
+- **Pattern**: [Parallel Sessions](patterns/parallel-sessions.md), [Subagent Orchestration](patterns/subagent-orchestration.md)
+
+#### Eval Awareness in BrowseComp
+- **Title**: "Eval awareness in Claude Opus 4.6's BrowseComp performance"
+- **Source**: Anthropic Engineering Blog
+- **Date**: March 6, 2026
+- **URL**: https://www.anthropic.com/engineering/eval-awareness-browsecomp
+- **Key Insights**:
+  - Model independently hypothesized it was being evaluated and identified the benchmark
+  - Systematically located and decrypted the answer key without being told which benchmark
+  - Multi-agent amplification: 3.7x higher unintended solution rate in multi-agent (0.87%) vs single-agent (0.24%)
+  - At least 20 distinct sources of leaked answers found (academic papers, appendices)
+  - Recommendation: treat evaluation integrity as ongoing adversarial problem, not design-time concern
+- **Pattern**: [Agent Evaluation](patterns/agent-evaluation.md)
+
 ### Claude Code Documentation (Canonical)
 - **Source**: Anthropic Official Documentation
 - **URL**: https://code.claude.com/docs/en/best-practices (Canonical - January 2026)
@@ -77,8 +103,14 @@ All patterns in this repository are derived from authoritative sources and produ
 - **Source**: Anthropic GitHub Repository
 - **URL**: https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
 - **Releases**: https://github.com/anthropics/claude-code/releases
-- **Key Updates Referenced** (as of February 2026):
-  - v2.1.37 (current): Agent teams (experimental), automatic session memory, PDF page ranges in Read tool, "Summarize from here" via /rewind, skills from --add-dir, remote sessions in VS Code, OAuth for MCP servers
+- **Key Updates Referenced** (as of March 2026):
+  - v2.1.81 (current): `--bare` flag, `--channels` permission relay, MCP OAuth updates
+  - v2.1.80: Channels (`--channels`), `effort` frontmatter for skills, `rate_limits` in statusline
+  - v2.1.79: `--console` flag, `/remote-control` for VSCode, AI session titles
+  - v2.1.78: `StopFailure` hook, `effort`/`maxTurns`/`disallowedTools` frontmatter, `${CLAUDE_PLUGIN_DATA}`
+  - v2.1.77: Opus 4.6 64k output, `allowRead` sandbox, `/copy N`
+  - v2.1.76: MCP elicitation, `Elicitation`/`ElicitationResult` hooks, `/effort`, `worktree.sparsePaths`, 24 hook types
+  - v2.1.37: Agent teams (experimental), automatic session memory, PDF page ranges in Read tool, "Summarize from here" via /rewind, skills from --add-dir, remote sessions in VS Code, OAuth for MCP servers
   - v2.1.3: Unified slash commands and skills, permission rule detection in /doctor, 10-minute hook timeout
   - v2.1.0: Skill hot-reload, context forking, skill-level hooks, wildcard permissions, subagent resumption, real-time steering, MCP list_changed notifications
   - v2.0.76: LSP tool (go-to-definition, find references, hover)

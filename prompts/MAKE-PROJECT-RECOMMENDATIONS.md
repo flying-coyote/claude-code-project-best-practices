@@ -103,6 +103,9 @@ Tell the user: "I'll now set up the recommended infrastructure (CLAUDE.md + hook
 #### 1. CLAUDE.md - Project Instructions
 **Principle**: Keep ruthlessly minimal (~60 lines, 80 max)
 - Include ONLY: Purpose (1-2 sentences), key commands, known gotchas, current focus
+- **Quick start**: Run `/init` to auto-generate a starter CLAUDE.md from your project
+- **Import files**: Use `@path/to/file` syntax to reference external docs
+- **File-scoped rules**: Use `.claude/rules/` with `paths` frontmatter for language-specific guidelines
 - ❌ **Don't**: Add tutorials, explain patterns, list all possible commands
 - 📚 **Full guidance**: The Big 3 principle above
 
@@ -140,9 +143,11 @@ Tell the user: "I'll now set up the recommended infrastructure (CLAUDE.md + hook
 #### 5. Slash Commands vs Natural Language
 **Anthropic guidance**: "Avoid complex slash command lists; natural language works well"
 - ✅ **Use natural language**: "commit and push my changes"
+- ✅ **Use `/btw`**: Side questions that don't pollute your context window
+- ✅ **Use `/effort`**: Control reasoning effort level for current task
 - ⚠️ **Use slash commands only for**: Explicit, repeatable actions with specific names
 - ❌ **Don't create**: Custom commands for one-off tasks
-- 📚 **Full guidance**: [project-infrastructure.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/project-infrastructure.md) line 136
+- 📚 **Full guidance**: [project-infrastructure.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/project-infrastructure.md)
 
 #### 6. Prompts (MAKE-PROJECT-RECOMMENDATIONS.md, etc.)
 **This file is a prompt** - analyzes projects and recommends infrastructure
@@ -159,13 +164,19 @@ Tell the user: "I'll now set up the recommended infrastructure (CLAUDE.md + hook
 - Reserve bash for: git operations, npm/python commands, docker
 - 📚 **Full guidance**: [tool-ecosystem.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/tool-ecosystem.md)
 
-#### 8. Browser Automation - Playwright-CLI vs Playwright-MCP
-**Updated recommendation (as of 2026-01)**:
-- ✅ **Use**: Playwright CLI (4x more token-efficient, production-ready)
-- ❌ **Deprecated**: Claude in Chrome extension (as of 2026-01-10)
-- **Playwright-MCP**: Available but CLI is preferred for most use cases
-- **When to use MCP**: Persistent browser sessions, complex authentication flows
-- 📚 **Full guidance**: [tool-ecosystem.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/tool-ecosystem.md) line 41, [DEPRECATIONS.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/DEPRECATIONS.md)
+#### 8. Browser Automation - Claude in Chrome
+**Updated recommendation (as of 2026-03)**:
+- ✅ **Use**: [Claude in Chrome](https://code.claude.com/docs/en/chrome) extension for live web debugging
+- ✅ **Use**: Playwright CLI (4x more token-efficient for scripted testing)
+- **When to use Chrome**: Interactive UI verification, visual testing
+- **When to use Playwright**: Automated test suites, CI pipelines
+- 📚 **Full guidance**: [tool-ecosystem.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/tool-ecosystem.md)
+
+#### 9. Custom Subagents (`.claude/agents/`)
+Define specialized agents with their own tools, model, and skills:
+- ✅ **Use for**: Security review, code audit, documentation generation
+- Define in `.claude/agents/agent-name.md` with frontmatter (name, description, tools, model)
+- 📚 **Full guidance**: [subagent-orchestration.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/subagent-orchestration.md)
 
 ---
 
@@ -173,12 +184,14 @@ Tell the user: "I'll now set up the recommended infrastructure (CLAUDE.md + hook
 
 ```
 Need to...
-├─ Document project context → CLAUDE.md (~60 lines)
+├─ Document project context → CLAUDE.md (~60 lines) + .claude/rules/ for file-scoped
 ├─ Embed domain expertise → Skills
 ├─ Connect to external systems → MCP servers (decision support only)
 ├─ Share configurations with team → Plugins from marketplace
 ├─ Run specific workflows → Natural language first, slash commands if complex
-├─ Automate browser tasks → Playwright CLI (not Chrome extension)
+├─ Automate browser tasks → Claude in Chrome (interactive) or Playwright CLI (scripted)
+├─ Coordinate parallel work → Agent teams (experimental) or subagents
+├─ Push external events in → Channels (Telegram, Discord, webhooks)
 ├─ Reuse setup instructions → Prompts (like this file)
 └─ Work with files/system → Built-in tools (Read, Edit, Bash)
 ```

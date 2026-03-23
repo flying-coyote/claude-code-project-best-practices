@@ -1,7 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.1.0+"  # Skills auto-reload feature
-version-last-verified: "2026-02-27"
+version-last-verified: "2026-03-23"
 measurement-claims:
   - claim: "Skills are 4x more token-efficient than MCP for methodology"
     source: "Simon Willison analysis"
@@ -35,11 +35,13 @@ Claude Code provides multiple extension mechanisms, each designed for different 
 | Mechanism | Invocation | Scope | Best For |
 |-----------|-----------|-------|----------|
 | **Plugins** | `/plugin` command | Distribution | Team standardization, bundled configurations |
-| **Skills** | Auto-detected | Context-aware | Repeatable methodologies, workflows |
+| **Skills** | Auto-detected or `/name` | Context-aware | Repeatable methodologies, workflows |
 | **MCP Servers** | Configured | External access | Database, API, third-party integrations |
-| **Slash Commands** | Manual (`/cmd`) | Explicit | User-initiated repeatable actions |
 | **Subagents** | Delegated | Parallel | Context isolation, deep dives |
-| **Hooks** | Automatic | Events | Quality gates, enforcement |
+| **Agent Teams** | Multi-session | Coordination | Complex parallel work requiring discussion |
+| **Hooks** | Automatic | Events | Quality gates, enforcement (24 event types) |
+| **Rules** (`.claude/rules/`) | Path-scoped | File-specific | Language or directory-specific guidelines |
+| **Channels** | Push events | Real-time | Telegram, Discord, webhook integration |
 
 ---
 
@@ -661,4 +663,47 @@ Share pre-approved commands via `.claude/settings.json`:
 - [obra/superpowers](https://github.com/obra/superpowers) - Framework plugin with structured workflows (TDD, debugging, subagent coordination)
 - [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (January 2026) - Skills API, distribution model, skill positioning
 
-*Last updated: February 2026*
+## Rules Directory (`.claude/rules/`) — New in 2026
+
+An alternative to CLAUDE.md for file-scoped guidelines. Rules with `paths` frontmatter only load when Claude works with matching files, saving context:
+
+```markdown
+<!-- .claude/rules/python-style.md -->
+---
+paths:
+  - "**/*.py"
+---
+Use type hints for all function signatures.
+Prefer dataclasses over plain dicts for structured data.
+```
+
+**When to use rules vs CLAUDE.md**:
+- **CLAUDE.md**: Core conventions and build commands (every session)
+- **Rules**: Language-specific or directory-specific guidelines (only when relevant)
+- **Skills**: Reference material and repeatable workflows (on demand)
+
+## Channels (Research Preview, v2.1.80+)
+
+Push events from external systems into a running Claude Code session:
+
+| Channel | Status | Use Case |
+|---------|--------|----------|
+| **Telegram** | Research preview | Chat with Claude from your phone |
+| **Discord** | Research preview | Chat bridge for team interactions |
+| **Webhooks** | Build your own | CI results, monitoring alerts, deploy notifications |
+
+Channels require `--channels` flag at session start and sender allowlists for security. Events only arrive while the session is open.
+
+## `/init` Command
+
+Auto-generates a starter CLAUDE.md by analyzing your project structure:
+```bash
+claude
+/init
+```
+
+Detects build systems, test frameworks, and code patterns. Provides a solid foundation to refine.
+
+---
+
+*Last updated: March 2026*

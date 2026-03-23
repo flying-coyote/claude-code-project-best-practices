@@ -2,7 +2,7 @@
 version-requirements:
   claude-code: "v2.1.30+"  # Session memory feature
   model: "Opus 4.6+"       # Think tool and fast mode
-version-last-verified: "2026-02-27"
+version-last-verified: "2026-03-23"
 measurement-claims:
   - claim: "Prompt represents only 0.1% of total context processed"
     source: "Anthropic Engineering Blog"
@@ -560,14 +560,38 @@ For full codebase context, see `.context/repo-overview.txt`
 **Symptom**: Stale context files, wasted setup time, context drift
 **Solution**: Generate context files for bootstrapping only; use native file reading during sessions
 
+## Context Cost by Feature (March 2026)
+
+From the official [Extend Claude Code](https://code.claude.com/docs/en/features-overview) documentation:
+
+| Feature | When it Loads | What Loads | Context Cost |
+|---------|--------------|------------|-------------|
+| **CLAUDE.md** | Session start | Full content | Every request |
+| **Skills** | Session start + when used | Descriptions at start, full content when used | Low until used |
+| **MCP servers** | Session start | All tool definitions and schemas | Every request |
+| **Subagents** | When spawned | Fresh context with specified skills | Isolated from main session |
+| **Hooks** | On trigger | Nothing (runs externally) | Zero (unless returning context) |
+
+### Context-Saving Techniques (New)
+
+| Technique | How | Impact |
+|-----------|-----|--------|
+| **`/btw` side questions** | Quick questions in dismissible overlay | Zero context cost — answer never enters history |
+| **`.claude/rules/`** | Path-scoped rules with `paths` frontmatter | Only loads when working with matching files |
+| **`disable-model-invocation: true`** | Skill frontmatter setting | Skill invisible until manually invoked |
+| **`context: fork`** | Skill runs in isolated context | Prevents skill work from bloating main session |
+| **`PreCompact`/`PostCompact` hooks** | Run scripts around compaction | Customize what survives context compaction |
+| **Subagents for research** | Delegate exploration to subagent | Only summary returns to main context |
+
 ---
 
 ## Sources
 
 - [Anthropic - Claude Code Best Practices](https://code.claude.com/docs/en/best-practices) (Canonical - 2025)
 - [Anthropic - Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (September 2025)
+- [Anthropic - Extend Claude Code (Features Overview)](https://code.claude.com/docs/en/features-overview) (March 2026) - Context cost analysis
 - [Anthropic - Compaction API](https://platform.claude.com/docs/en/build-with-claude/compaction) (2026)
 - [Anthropic - Opus 4.6 Announcement](https://www.anthropic.com/claude/opus) (February 2026)
 - [Nate B. Jones - Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive)
 
-*Last updated: February 2026*
+*Last updated: March 2026*

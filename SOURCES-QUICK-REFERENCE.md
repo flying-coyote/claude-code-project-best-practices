@@ -6,7 +6,7 @@
 
 ---
 
-## Top 20 Tier A/B Sources
+## Top 21 Tier A/B Sources
 
 ### 1. Boris Cherny (Claude Code Creator) - Tier A
 **Role**: Engineering Manager at Anthropic, Claude Code creator
@@ -35,8 +35,8 @@
 **Referenced in**: [advanced-tool-use.md](patterns/advanced-tool-use.md)
 
 ### 6. Agent Evaluation Patterns - Tier A
-**Source**: [Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
-**Key Insights**: Task-based evals, LLM-as-judge, infrastructure noise quantification
+**Source**: [Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents), [Eval Awareness in BrowseComp](https://www.anthropic.com/engineering/eval-awareness-browsecomp) (Mar 2026)
+**Key Insights**: Task-based evals, LLM-as-judge, infrastructure noise quantification, eval awareness phenomenon (model identifies benchmark), multi-agent amplification risk (3.7x higher unintended solution rate)
 **Referenced in**: [agent-evaluation.md](patterns/agent-evaluation.md)
 
 ### 7. Beyond Permission Prompts (Security) - Tier A
@@ -64,47 +64,53 @@
 **Key Methodology**: Spec-driven development workflow (Specify → Plan → Tasks → Implement)
 **Referenced in**: [spec-driven-development.md](patterns/spec-driven-development.md)
 
-### 12. Recursive Evolution (Google TTD-DR) - Tier A
+### 12. Parallel Claude Development (C Compiler) - Tier A
+**Source**: [Building a C compiler with a team of parallel Claudes](https://www.anthropic.com/engineering/building-c-compiler) (Feb 2026)
+**Key Patterns**: Git-based task claiming, LLM-aware design (minimal output, machine-readable errors), agent specialization, `--fast` mode for deterministic test sampling
+**Results**: 2,000+ sessions, $20K cost, 100K-line compiler builds Linux 6.9 on x86/ARM/RISC-V
+**Referenced in**: [parallel-sessions.md](patterns/parallel-sessions.md), [subagent-orchestration.md](patterns/subagent-orchestration.md)
+
+### 13. Recursive Evolution (Google TTD-DR) - Tier A
 **Source**: [Test Time Diversity for Reliability](https://arxiv.org/abs/2412.09614) (Google DeepMind)
 **Key Algorithm**: Multi-candidate generation, judge loop, crossover for self-improvement
 **Referenced in**: [recursive-evolution.md](patterns/recursive-evolution.md)
 
-### 13. Get Shit Done (GSD) Orchestration - Tier B
+### 14. Get Shit Done (GSD) Orchestration - Tier B
 **Source**: https://github.com/glittercowboy/get-shit-done
 **Key Pattern**: Fresh context per subagent, state externalization, orchestrator never does heavy lifting
 **Referenced in**: [gsd-orchestration.md](patterns/gsd-orchestration.md), [framework-selection-guide.md](patterns/framework-selection-guide.md)
 
-### 14. CAII (Cognitive Agent Infrastructure) - Tier B
+### 15. CAII (Cognitive Agent Infrastructure) - Tier B
 **Source**: https://github.com/skribblez2718/caii (Kristoffer Sketch)
 **Key Pattern**: 7 fixed cognitive agents vs domain-specific proliferation, Johari Window for ambiguity
 **Referenced in**: [cognitive-agent-infrastructure.md](patterns/cognitive-agent-infrastructure.md), [johari-window-ambiguity.md](patterns/johari-window-ambiguity.md)
 
-### 15. MCP vs Skills Economics - Tier B
+### 16. MCP vs Skills Economics - Tier B
 **Source**: [Tenzir: "We Did MCP Wrong"](https://tenzir.com/blog/we-did-mcp-wrong) (Jan 2026)
 **Key Data**: Skills 50% cheaper than MCP, production cost comparison
 **Referenced in**: [mcp-vs-skills-economics.md](patterns/mcp-vs-skills-economics.md)
 
-### 16. Agentic Retrieval vs RAG - Tier B
+### 17. Agentic Retrieval vs RAG - Tier B
 **Source**: [LlamaIndex Blog](https://www.llamaindex.ai/blog/rag-is-dead-long-live-agentic-retrieval)
 **Key Insight**: Dynamic navigation vs pre-computed embeddings, context fragmentation solutions
 **Referenced in**: [agentic-retrieval.md](patterns/agentic-retrieval.md)
 
-### 17. Recursive Context Management (RLM) - Tier B
+### 18. Recursive Context Management (RLM) - Tier B
 **Source**: [arXiv:2512.24601](https://arxiv.org/abs/2512.24601) (MIT CSAIL - Zhang, Kraska, Khattab)
 **Key Concept**: Programmatic self-examination vs single forward pass, "paradigm of 2026"
 **Referenced in**: [recursive-context-management.md](patterns/recursive-context-management.md)
 
-### 18. Session Learning Patterns - Tier B
+### 19. Session Learning Patterns - Tier B
 **Sources**: Claude Diary (Lance Martin), Generative Agents paper, Yohei Nakajima (BabyAGI)
 **Key Pattern**: Capture corrections from sessions, propose updates to persistent config
 **Referenced in**: [session-learning.md](patterns/session-learning.md)
 
-### 19. Progressive Disclosure Architecture - Tier B
+### 20. Progressive Disclosure Architecture - Tier B
 **Source**: Production validation (this repository, 73% token savings measured)
 **Key Pattern**: 3-tier architecture (main skill + workflow modules + templates), show less reference more
 **Referenced in**: [progressive-disclosure.md](patterns/progressive-disclosure.md), 10 example skills
 
-### 20. Evidence Tier System - Tier B
+### 21. Evidence Tier System - Tier B
 **Source**: Production validation (this repository, adapted from research methodology)
 **Dual System**: A-D for source quality (primary/secondary/tertiary/opinion) + 1-5 for claim strength
 **Referenced in**: [evidence-tiers.md](patterns/evidence-tiers.md), writing/research presets
@@ -160,4 +166,4 @@
 
 **For detailed citations, methodology, and complete source database**: See [SOURCES.md](SOURCES.md)
 
-**Last Updated**: February 2026
+**Last Updated**: March 2026

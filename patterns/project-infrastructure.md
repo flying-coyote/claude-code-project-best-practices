@@ -1,7 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"  # Checkpoints and rewind feature
-version-last-verified: "2026-02-27"
+version-last-verified: "2026-03-23"
 measurement-claims:
   - claim: "CLAUDE.md target: ~60 lines (80 max tolerable)"
     source: "Anthropic official guidance"
@@ -78,6 +78,8 @@ Every project benefits from Claude Code infrastructure. The same patterns apply 
 }
 ```
 
+**Quick start**: Run `/init` to auto-generate a starter CLAUDE.md from your project structure, then refine.
+
 **CLAUDE.md structure** (~60 lines):
 
 ```markdown
@@ -89,11 +91,27 @@ Every project benefits from Claude Code infrastructure. The same patterns apply 
 ## Current Phase
 [What you're working on now]
 
-## Recent Learnings
-[Mistakes and insights - update 2-3x/week]
+## Known Gotchas
+[Issues that caused 2+ mistakes]
 
 ## Conventions
 [Project-specific patterns]
+```
+
+**CLAUDE.md can import external files** using `@path` syntax:
+```markdown
+See @README.md for project overview and @package.json for available commands.
+- Git workflow: @docs/git-instructions.md
+```
+
+**For file-scoped rules**, use `.claude/rules/` with `paths` frontmatter instead of bloating CLAUDE.md:
+```markdown
+<!-- .claude/rules/python-style.md -->
+---
+paths:
+  - "**/*.py"
+---
+Use type hints. Prefer dataclasses over dicts.
 ```
 
 **SessionStart hook** (`.claude/hooks/session-start.sh`):

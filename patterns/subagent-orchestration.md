@@ -1,7 +1,7 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"  # Native subagent support
-version-last-verified: "2026-02-27"
+version-last-verified: "2026-03-23"
 measurement-claims:
   - claim: "Native subagents handle ~80% of work with zero setup"
     source: "Claude Code Documentation"
@@ -17,8 +17,8 @@ last-verified: "2026-02-16"
 
 **Evidence Tier**: A (Primary vendor documentation)
 
-> **Meta-Guide Note**: This pattern synthesizes vendor documentation and adds 10 advanced orchestration patterns beyond official docs (fresh context per subagent, state externalization, multi-agent coordination). For authoritative subagent API and feature documentation, see [Claude Code official docs](https://docs.anthropic.com/en/docs/claude-code/sub-agents). For advanced patterns and architectural guidance, continue here.
-
+> **Meta-Guide Note**: This pattern synthesizes vendor documentation and adds 10 advanced orchestration patterns beyond official docs (fresh context per subagent, state externalization, multi-agent coordination). For authoritative subagent API and feature documentation, see [Claude Code official docs](https://code.claude.com/docs/en/sub-agents). For advanced patterns and architectural guidance, continue here.
+>
 > **This is the DEFAULT orchestration approach for Claude Code.** Native subagent patterns handle ~80% of work with zero additional setup. For specialized needs, see [Framework Selection Guide](./framework-selection-guide.md).
 
 ## Overview
@@ -48,12 +48,61 @@ Subagents are specialized Claude instances spawned by a parent agent to handle s
 
 ### Poor Fits
 
-| Scenario | Why Not |
-|----------|---------|
-| **Sequential dependencies** | Can't parallelize if B depends on A |
-| **Destructive operations** | Write conflicts, race conditions |
-| **Simple tasks** | Subagent overhead exceeds benefit |
-| **Tight coordination** | Parent can't see subagent intermediate work |
+| Scenario | Why Not | Consider Instead |
+|----------|---------|-----------------|
+| **Sequential dependencies** | Can't parallelize if B depends on A | Single session |
+| **Destructive operations** | Write conflicts, race conditions | Single session |
+| **Simple tasks** | Subagent overhead exceeds benefit | Direct execution |
+| **Tight coordination needed** | Parent can't see subagent intermediate work | Agent teams |
+| **Teammates need to communicate** | Subagents only report back to parent | Agent teams |
+
+---
+
+## Subagents vs Agent Teams (v2.1.32+)
+
+Agent teams are a distinct coordination model. Choose based on whether workers need to communicate:
+
+| Aspect | Subagents | Agent Teams |
+|--------|-----------|-------------|
+| **Context** | Own context; results return to caller | Own context; fully independent |
+| **Communication** | Report results to main agent only | Teammates message each other directly |
+| **Coordination** | Main agent manages all work | Shared task list with self-coordination |
+| **Best for** | Focused tasks where only the result matters | Complex work requiring discussion |
+| **Token cost** | Lower (results summarized) | Higher (each teammate is a separate instance) |
+| **Setup** | Built-in, zero config | Experimental, requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` |
+
+**Transition point**: If you're running parallel subagents but hitting context limits, or if subagents need to communicate with each other, agent teams are the natural next step.
+
+**Agent team use cases**:
+- Research with competing hypotheses (teammates challenge each other)
+- Parallel code review (security, performance, tests — each a separate reviewer)
+- New feature development (each teammate owns a separate piece)
+- Cross-layer coordination (frontend, backend, tests)
+
+For full agent team documentation, see [Agent Teams](https://code.claude.com/docs/en/agent-teams).
+
+---
+
+## Custom Subagent Definitions (`.claude/agents/`)
+
+Define specialized subagents in `.claude/agents/` with their own tools, model, and skills:
+
+```markdown
+<!-- .claude/agents/security-reviewer.md -->
+---
+name: security-reviewer
+description: Reviews code for security vulnerabilities
+tools: Read, Grep, Glob, Bash
+model: opus
+---
+You are a senior security engineer. Review code for:
+- Injection vulnerabilities (SQL, XSS, command injection)
+- Authentication and authorization flaws
+- Secrets or credentials in code
+- Insecure data handling
+```
+
+Custom subagents are referenced by name: *"Use a subagent to review this code for security issues."*
 
 ---
 

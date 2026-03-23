@@ -1,30 +1,32 @@
 # Version Tracking
 
-**Last Updated**: 2026-02-27
+**Last Updated**: 2026-03-23
 
 This document tracks current versions of Claude Code and models to support version requirement validation across patterns.
 
 ---
 
-## Current Versions (as of February 2026)
+## Current Versions (as of March 2026)
 
 ### Claude Code
 
-**Current Version**: **v2.1.37**
+**Current Version**: **v2.1.81**
 
 **Source**: [Anthropic Claude Code Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 
-**Key Features in v2.1.37**:
-- Agent teams (experimental)
-- Automatic session memory
-- PDF page ranges in Read tool
-- "Summarize from here" via /rewind
-- Skills from --add-dir
-- Remote sessions in VS Code
-- OAuth for MCP servers
+**Key Features in v2.1.81**:
+- `--bare` flag for scripted `-p` calls (skips hooks, LSP, plugin sync)
+- `--channels` permission relay for tool approval forwarding
+- MCP OAuth Client ID Metadata Document support
 
 **Recent Version History**:
-- v2.1.37 (current) - February 2026
+- v2.1.81 (current) - March 20, 2026
+- v2.1.80 - March 19, 2026: Channels (`--channels`), `effort` frontmatter for skills, `rate_limits` in statusline
+- v2.1.79 - March 18, 2026: `--console` flag, `/remote-control` for VSCode, AI-generated session titles
+- v2.1.78 - March 17, 2026: `StopFailure` hook, `effort`/`maxTurns`/`disallowedTools` frontmatter, `${CLAUDE_PLUGIN_DATA}`
+- v2.1.77 - March 17, 2026: Opus 4.6 output limits to 64k tokens, `allowRead` sandbox, `/copy N`, `--worktree` perf
+- v2.1.76 - March 14, 2026: MCP elicitation, `Elicitation`/`ElicitationResult` hooks, `/effort`, `-n`/`--name` flag, `worktree.sparsePaths`
+- v2.1.37 - February 2026: Agent teams (experimental), session memory, PDF page ranges
 - v2.1.3 - January 2026
 - v2.1.0 - January 2026
 - v2.0.76 - December 2025
@@ -32,15 +34,15 @@ This document tracks current versions of Claude Code and models to support versi
 
 ### Models
 
-**Current Models** (as of February 2026):
+**Current Models** (as of March 2026):
 
 | Model | Version | Context | Release Date | Key Features |
 |-------|---------|---------|--------------|--------------|
-| **Opus 4.6** | `claude-opus-4-6` | 1M tokens | February 5, 2026 | Agent teams, adaptive reasoning, data residency controls |
+| **Opus 4.6** | `claude-opus-4-6` | 1M tokens | February 5, 2026 | Agent teams, adaptive reasoning, 64k output (v2.1.77+) |
 | **Sonnet 4.6** | `claude-sonnet-4-6` | 200K tokens | January 2026 | Production workhorse |
 | **Haiku 4.5** | `claude-haiku-4-5-20251001` | 200K tokens | October 2025 | Extended thinking, 1/3 cost of Sonnet |
 
-**Pricing** (as of Feb 2026):
+**Pricing** (as of Mar 2026):
 - Opus 4.6: $5 input / $25 output per million tokens (67% reduction from Opus 4.5)
 - Sonnet 4.6: Standard pricing
 - Haiku 4.5: ~1/3 cost of Sonnet 4.6
@@ -53,10 +55,28 @@ Tracking beta headers referenced in patterns to identify graduation or updates.
 
 | Feature | Beta Header | Announced | Status | Last Checked |
 |---------|-------------|-----------|--------|--------------|
-| **Advanced Tool Use** | `advanced-tool-use-2025-11-20` | Nov 24, 2025 | ⚠️ Unknown (3+ months old) | 2026-02-27 |
-| **1M Context** | `context-1m-2025-08-07` | Aug 2025 | ⚠️ Unknown (6+ months old) | 2026-02-27 |
+| **Advanced Tool Use** | `advanced-tool-use-2025-11-20` | Nov 24, 2025 | ⚠️ Unknown (4+ months old) | 2026-03-23 |
+| **1M Context** | `context-1m-2025-08-07` | Aug 2025 | ⚠️ Unknown (7+ months old) | 2026-03-23 |
 
 **Action Required**: Verify current status with [Anthropic Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
+
+## New Features Since v2.1.37 (Highlights)
+
+| Feature | Version | Category |
+|---------|---------|----------|
+| **Channels** (`--channels`) | v2.1.80 | Push events into sessions (Telegram, Discord, webhooks) |
+| **MCP Elicitation** | v2.1.76 | MCP servers request structured user input |
+| **`/effort` command** | v2.1.76 | Control reasoning effort level |
+| **`/remote-control`** | v2.1.79 | Drive local sessions from claude.ai or mobile |
+| **`StopFailure` hook** | v2.1.78 | Handle API errors in hooks |
+| **`prompt` hook type** | v2.1.76+ | Single-turn LLM evaluation hooks |
+| **`agent` hook type** | v2.1.76+ | Subagent-powered verification hooks |
+| **Opus 4.6 64k output** | v2.1.77 | Increased output limit |
+| **Plugin persistent state** | v2.1.78 | `${CLAUDE_PLUGIN_DATA}` for plugin data |
+| **`--bare` flag** | v2.1.81 | Scripted `-p` calls skip hooks/LSP |
+| **`worktree.sparsePaths`** | v2.1.76 | Git sparse checkout for worktrees |
+| **Skill `effort` frontmatter** | v2.1.80 | Control effort per skill |
+| **24 hook event types** | v2.1.76-80 | Up from ~8 documented types |
 
 ---
 
@@ -79,12 +99,16 @@ Patterns with `version-requirements:` frontmatter:
 grep -l "version-requirements:" patterns/*.md
 ```
 
-**Common version references** (as of Feb 2026):
+**Common version references** (as of Mar 2026):
 - `v2.0.0+` - MCP support (baseline)
 - `v2.0.45+` - PermissionRequest hooks
 - `v2.0.60+` - Background agent support
 - `v2.1.0+` - Skill hot-reload, wildcard permissions
 - `v2.1.30+` - Session memory feature
+- `v2.1.32+` - Agent teams (experimental)
+- `v2.1.76+` - MCP elicitation, `/effort`, 24 hook events
+- `v2.1.77+` - Opus 4.6 64k output
+- `v2.1.80+` - Channels (research preview)
 - `Opus 4.6+` - 1M context, agent teams
 
 ### Validation Process
@@ -139,6 +163,11 @@ version-last-verified: "2026-02-27"  # Date version requirements checked
 
 Track breaking changes that require pattern updates.
 
+### Claude Code v2.1.76-81 (March 2026)
+
+**Breaking changes**: None
+**New features**: MCP elicitation, channels (research preview), 24 hook event types, `/effort` command, `/remote-control`, `StopFailure` hook, `prompt` and `agent` hook types, Opus 4.6 64k output, `--bare` flag, `worktree.sparsePaths`, plugin persistent state
+
 ### Claude Code v2.1.0 (January 2026)
 
 **Breaking changes**: None
@@ -168,10 +197,10 @@ Track breaking changes that require pattern updates.
 
 **Update frequency**: Quarterly + ad-hoc for major releases
 
-**Next scheduled update**: **March 31, 2026** (Q1 2026 review)
+**Next scheduled update**: **June 30, 2026** (Q2 2026 review)
 
 **Owner**: Maintenance team (see CONTRIBUTING.md)
 
 ---
 
-*Last verified: February 27, 2026*
+*Last verified: March 23, 2026*
