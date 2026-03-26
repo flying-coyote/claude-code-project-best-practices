@@ -315,11 +315,34 @@ Related feature: Skills can now fork isolated sub-agent contexts:
 ```yaml
 ---
 name: research-skill
-context-fork: true  # Each invocation gets fresh context
+context: fork  # Each invocation gets fresh context
+agent: general-purpose  # Specify subagent type
 ---
 ```
 
 **Use case**: Research skills that shouldn't pollute main conversation context.
+
+### Extended Frontmatter Fields (v2.1.69-84)
+
+**Source**: [Agent Skills Engineering Blog](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) (March 19, 2026)
+
+| Field | Purpose | Version |
+|-------|---------|---------|
+| `effort` | Override model effort level (low/medium/high/max) | v2.1.78+ |
+| `paths` | YAML list of globs for conditional activation | v2.1.69+ |
+| `shell` | Specify `bash` or `powershell` for `` !`command` `` syntax | v2.1.69+ |
+| `hooks` | Skill-scoped hooks (additive to global) | v2.1.0+ |
+| `agent` | Specify subagent type when using `context: fork` | v2.1.78+ |
+| `user-invocable` | Set to `false` to hide from `/` menu | v2.1.78+ |
+| `disable-model-invocation` | Set to `true` to prevent auto-triggering | v2.1.69+ |
+| `maxTurns` | Limit agent turns for forked context | v2.1.78+ |
+| `disallowedTools` | Restrict tool access for skill | v2.1.78+ |
+
+**Key guidance**:
+- `${CLAUDE_SKILL_DIR}` variable lets skills reference their own directory
+- Skill description budget scales dynamically at **2% of context window** (fallback 16KB)
+- Keep SKILL.md under **500 lines**; move reference material to supporting files
+- Dynamic context injection: `` !`command` `` syntax runs shell commands and injects output before skill content is sent to Claude
 
 ### Best Practices
 
@@ -327,6 +350,8 @@ context-fork: true  # Each invocation gets fresh context
 2. **Use frontmatter hooks** - Keep related configuration together
 3. **Test before committing** - Hot-reload makes this fast
 4. **Consider context forking** - For skills that accumulate context
+5. **Use `paths` for conditional activation** - Only load skill when working with matching files
+6. **Keep SKILL.md under 500 lines** - Move detailed docs to `references/` subdirectory
 
 ---
 

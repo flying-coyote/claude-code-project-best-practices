@@ -1,8 +1,8 @@
 ---
 version-requirements:
   claude-code: "v2.0.10+"  # PreToolUse hook introduced
-  latest-features: "v2.1.76+"  # 24 hook event types, prompt/agent hook types
-version-last-verified: "2026-03-23"
+  latest-features: "v2.1.84+"  # 28+ hook event types, agent hook type, TaskCreated, CwdChanged, FileChanged
+version-last-verified: "2026-03-26"
 measurement-claims:
   - claim: "Sandboxing reduces unauthorized operations by 84%"
     source: "Production security testing"
@@ -28,9 +28,9 @@ Hooks enforce quality at implementation time:
 
 ---
 
-## Hook Events Overview (24 Total)
+## Hook Events Overview (28+ Total)
 
-As of v2.1.76+, Claude Code supports **24 hook event types** across 8 categories:
+As of v2.1.84+, Claude Code supports **28+ hook event types** across 9 categories:
 
 ### Session Lifecycle
 
@@ -64,6 +64,7 @@ As of v2.1.76+, Claude Code supports **24 hook event types** across 8 categories
 | Hook | When Fires | Can Block | Can Modify | Min Version |
 |------|-----------|-----------|------------|-------------|
 | **TeammateIdle** | Agent team teammate about to go idle | ✅ Yes (exit 2) | Feedback | v2.1.76+ |
+| **TaskCreated** | Task created in agent teams | ✅ Yes (exit 2) | Feedback | v2.1.84+ |
 | **TaskCompleted** | Task marked complete | ✅ Yes (exit 2) | Feedback | v2.1.76+ |
 
 ### Context Management
@@ -80,6 +81,13 @@ As of v2.1.76+, Claude Code supports **24 hook event types** across 8 categories
 | **Elicitation** | MCP server requests user input | ✅ Yes | Response | v2.1.76+ |
 | **ElicitationResult** | After user responds to MCP elicitation | No | - | v2.1.76+ |
 
+### File & Directory Monitoring
+
+| Hook | When Fires | Can Block | Can Modify | Min Version |
+|------|-----------|-----------|------------|-------------|
+| **CwdChanged** | Working directory changes | No | Context (via `CLAUDE_ENV_FILE`) | v2.1.83+ |
+| **FileChanged** | Monitored file modified (e.g., `.envrc`, `.env`) | No | Context | v2.1.83+ |
+
 ### Configuration & State
 
 | Hook | When Fires | Can Block | Can Modify | Min Version |
@@ -91,7 +99,7 @@ As of v2.1.76+, Claude Code supports **24 hook event types** across 8 categories
 
 | Hook | When Fires | Can Block | Can Modify | Min Version |
 |------|-----------|-----------|------------|-------------|
-| **WorktreeCreate** | Replace default git worktree creation | ✅ Yes | Worktree path | v2.1.76+ |
+| **WorktreeCreate** | Replace default git worktree creation | ✅ Yes (supports `type: "http"`) | Worktree path | v2.1.76+ |
 | **WorktreeRemove** | Clean up worktree | No | - | v2.1.76+ |
 
 ### Hook Types (4 Available)
@@ -103,9 +111,20 @@ As of v2.1.76+, Claude Code supports **24 hook event types** across 8 categories
 | **prompt** | Single-turn LLM evaluation | Safety checks, policy validation |
 | **agent** | Spawn subagent for verification | Complex verification, multi-step checks |
 
+### Hook Handler Types (4 Available)
+
+| Type | Description | Use Case | Timeout |
+|------|------------|----------|---------|
+| **command** | Execute shell script | File validation, linting, external tools | 10 min |
+| **http** | POST to endpoint | Webhook integration, remote verification | 10 min |
+| **prompt** | Single-turn LLM evaluation | Safety checks, policy validation | 60s |
+| **agent** | Spawn subagent for verification | Complex verification, multi-step checks | 60s, 50 tool turns |
+
+**Agent hooks** (March 2026) are the most powerful type — they spawn a subagent with full tool access to evaluate whether a hook condition is met. Use for complex validation that requires reading files, checking state, or multi-step reasoning.
+
 ### Hook Execution Timeout
 
-As of v2.1.3, hook execution timeout increased from **60 seconds to 10 minutes**. This allows hooks to perform more complex operations (build verification, test runs, external API calls) without timing out.
+As of v2.1.3, hook execution timeout increased from **60 seconds to 10 minutes** for command/http hooks. Prompt and agent hooks have a 60-second timeout. This allows hooks to perform more complex operations (build verification, test runs, external API calls) without timing out.
 
 ---
 
@@ -870,6 +889,89 @@ Sandboxing is open-sourced by Anthropic and enabled by default in newer Claude C
 
 ---
 
+## Hook 7: PostCompact - Context Recovery (Boris Cherny Pattern)
+
+**Purpose**: Re-inject critical instructions after context compaction
+
+**Source**: Boris Cherny, March 2026 — "Use a PostCompact hook to re-inject critical instructions that might get lost during compaction."
+
+**When it fires**: After Claude compresses its context window (manual `/compact` or auto-compaction at ~83.5% capacity)
+
+**Problem**: Context compaction can erase session knowledge — project-specific rules, current task state, and critical constraints may be lost when the conversation is summarized.
+
+### Implementation
+
+`.claude/hooks/post-compact-reinject.sh`:
+```bash
+#!/bin/bash
+# Re-inject critical context after compaction
+# Source: Boris Cherny PostCompact pattern (March 2026)
+
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+
+# Re-inject current task context
+if [ -f "$PROJECT_ROOT/PLAN.md" ]; then
+    CURRENT_TASK=$(head -20 "$PROJECT_ROOT/PLAN.md")
+    echo "📋 Current plan context (post-compaction):"
+    echo "$CURRENT_TASK"
+fi
+
+# Re-inject critical rules that may have been lost
+if [ -f "$PROJECT_ROOT/.claude/critical-rules.md" ]; then
+    echo ""
+    echo "⚠️ Critical rules (re-injected post-compaction):"
+    cat "$PROJECT_ROOT/.claude/critical-rules.md"
+fi
+
+# Show git status for orientation
+echo ""
+echo "📍 Current state:"
+git -C "$PROJECT_ROOT" branch --show-current 2>/dev/null
+git -C "$PROJECT_ROOT" diff --stat 2>/dev/null | tail -1
+
+exit 0
+```
+
+### Configuration
+
+```json
+{
+  "hooks": {
+    "PostCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post-compact-reinject.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Benefits
+
+- **Prevents context loss** — Critical rules survive compaction
+- **Maintains orientation** — Claude knows what it was working on after compression
+- **Complements CLAUDE.md** — CLAUDE.md reloads automatically, but session-specific state doesn't
+
+### CLAUDE.md Compaction Instructions
+
+You can also add compaction guidance directly in CLAUDE.md:
+
+```markdown
+## Compaction Rules
+When compacting, always preserve:
+- The full list of modified files
+- Current task from PLAN.md
+- Any unresolved errors or blockers
+```
+
+---
+
 ## Anti-Patterns
 
 ### ❌ Over-Engineering Hooks Early
@@ -922,4 +1024,4 @@ Sandboxing is open-sourced by Anthropic and enabled by default in newer Claude C
 - [Beyond Permission Prompts](https://www.anthropic.com/engineering/beyond-permission-prompts) (October 2025)
 - Production validation from 12+ projects
 
-*Last updated: February 2026*
+*Last updated: March 2026*

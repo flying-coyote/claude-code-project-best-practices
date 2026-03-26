@@ -27,6 +27,27 @@ This pattern helps developers choose the right AI coding tool for their context.
 
 ---
 
+## The Specification Gap (Nate B. Jones, January 2026)
+
+**Source**: [Tool-Shaped vs Colleague-Shaped AI](https://natesnewsletter.substack.com/p/tool-shaped-vs-colleague-shaped-ai)
+
+Before choosing a tool, understand the fundamental distinction:
+
+| Dimension | Colleague-Shaped (Claude Code) | Tool-Shaped (Codex) |
+|-----------|-------------------------------|---------------------|
+| **Interaction** | Conversational, iterative | Autonomous, fire-and-forget |
+| **Best when** | Requirements are ambiguous | Requirements are precise |
+| **Friction as feature** | Dialogue catches errors early | Silence enables speed |
+| **User profile** | Values steering and review | Values delegation and output |
+
+> "Codex is better when you can define correctness. Claude Code is better when you can't." — Nate B. Jones
+
+**The Specification Gap**: Teams overestimate their ability to specify precise intent. The consequences stay invisible until they are expensive. If you're unsure which side you're on, you're on the Claude Code side.
+
+**Compounding choice**: This is not a one-time decision. Each week deepens investment in one workflow pattern. Choose deliberately.
+
+---
+
 ## Tool Selection Framework
 
 ### When to Use Claude Code
