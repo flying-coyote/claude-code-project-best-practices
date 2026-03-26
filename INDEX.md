@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-03-23 14:45*
+*Auto-generated: 2026-03-26 21:50*
 
 ## Summary
 
-**Total documents**: 100
+**Total documents**: 101
 
 | Directory | Count |
 |-----------|-------|
@@ -18,7 +18,7 @@
 | presets | 4 |
 | prompts | 3 |
 | research | 2 |
-| root | 21 |
+| root | 22 |
 | skills | 4 |
 | skills/examples/content-reviewer | 1 |
 | skills/examples/detection-rule-reviewer | 1 |
@@ -51,6 +51,7 @@
 - [INDEX.md](INDEX.md)
 - [MIGRATION-GUIDE.md](MIGRATION-GUIDE.md)
 - [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md)
+- [PATTERN-QUALITY-CHECKLIST.md](PATTERN-QUALITY-CHECKLIST.md)
 - [PLAN.md](PLAN.md)
 - [QUARTERLY-REVIEW.md](QUARTERLY-REVIEW.md)
 - [QUICKSTART.md](QUICKSTART.md)
@@ -60,10 +61,11 @@
 - [TOOLS-TRACKER.md](TOOLS-TRACKER.md)
 - [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 - [VERSION-TRACKING.md](VERSION-TRACKING.md)
-## Research
+## Community-Contributions
 
-- [ai-creators-analysis.md](research/ai-creators-analysis.md)
-- [codeguard-review-2026-02.md](research/codeguard-review-2026-02.md)
+- [obra-superpowers-integration-guide.md](community-contributions/obra-superpowers-integration-guide.md)
+- [reddit-evidence-tier-system-post.md](community-contributions/reddit-evidence-tier-system-post.md)
+- [shanraisshan-claude-in-chrome-deprecation-issue.md](community-contributions/shanraisshan-claude-in-chrome-deprecation-issue.md)
 ## Patterns
 
 - [advanced-hooks.md](patterns/advanced-hooks.md)
@@ -102,48 +104,27 @@
 - [spec-driven-development.md](patterns/spec-driven-development.md)
 - [subagent-orchestration.md](patterns/subagent-orchestration.md)
 - [tool-ecosystem.md](patterns/tool-ecosystem.md)
-## Archive
-
-- [AUDIT-2026-02-27.md](archive/AUDIT-2026-02-27.md)
-- [REFACTORING-PLAN-2026-01-COMPLETED.md](archive/REFACTORING-PLAN-2026-01-COMPLETED.md)
-- [SCHEDULE-CHANGE.md](archive/SCHEDULE-CHANGE.md)
-- [WORKFLOWS-ISSUES-2026-02-13-FIXED.md](archive/WORKFLOWS-ISSUES-2026-02-13-FIXED.md)
-- [WORKFLOWS-SETUP-2026-02-13-REFERENCE.md](archive/WORKFLOWS-SETUP-2026-02-13-REFERENCE.md)
-- [WORKFLOWS-SUMMARY.md](archive/WORKFLOWS-SUMMARY.md)
-## Specs
-
-- [PATTERN-TEMPLATE.md](specs/PATTERN-TEMPLATE.md)
-## Mcp-Server
-
-- [README.md](mcp-server/README.md)
-## Examples / Writing-Project
-
-- [README.md](examples/writing-project/README.md)
-## Examples / Research-Project
-
-- [README.md](examples/research-project/README.md)
-## Examples / Coding-Project
-
-- [README.md](examples/coding-project/README.md)
-## Community-Contributions
-
-- [obra-superpowers-integration-guide.md](community-contributions/obra-superpowers-integration-guide.md)
-- [reddit-evidence-tier-system-post.md](community-contributions/reddit-evidence-tier-system-post.md)
-- [shanraisshan-claude-in-chrome-deprecation-issue.md](community-contributions/shanraisshan-claude-in-chrome-deprecation-issue.md)
-## Prompts
-
-- [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
-- [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
-- [MAKE-PROJECT-RECOMMENDATIONS.md](prompts/MAKE-PROJECT-RECOMMENDATIONS.md)
-## Templates
-
-- [ADR-TEMPLATE.md](templates/ADR-TEMPLATE.md)
 ## Skills
 
 - [QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)
 - [README.md](skills/README.md)
 - [SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)
 - [SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)
+## Skills / Examples / Content-Reviewer
+
+- [SKILL.md](skills/examples/content-reviewer/SKILL.md)
+## Skills / Examples / Hypothesis-Validator
+
+- [SKILL.md](skills/examples/hypothesis-validator/SKILL.md)
+## Skills / Examples / Git-Workflow-Helper
+
+- [SKILL.md](skills/examples/git-workflow-helper/SKILL.md)
+## Skills / Examples / Tdd-Enforcer
+
+- [SKILL.md](skills/examples/tdd-enforcer/SKILL.md)
+## Skills / Examples / Detection-Rule-Reviewer
+
+- [SKILL.md](skills/examples/detection-rule-reviewer/SKILL.md)
 ## Skills / Examples / Ultrathink-Analyst
 
 - [SKILL.md](skills/examples/ultrathink-analyst/SKILL.md)
@@ -152,9 +133,9 @@
 - [analyze-deep-investigation.md](skills/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
 - [frame-problem-definition.md](skills/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
 - [synthesize-integration.md](skills/examples/ultrathink-analyst/workflows/synthesize-integration.md)
-## Skills / Examples / Research-Extractor
+## Skills / Examples / Systematic-Debugger
 
-- [SKILL.md](skills/examples/research-extractor/SKILL.md)
+- [SKILL.md](skills/examples/systematic-debugger/SKILL.md)
 ## Skills / Examples / Recursive-Analyst
 
 - [SKILL.md](skills/examples/recursive-analyst/SKILL.md)
@@ -162,33 +143,53 @@
 
 - [crossover-prompt.md](skills/examples/recursive-analyst/templates/crossover-prompt.md)
 - [judge-prompt.md](skills/examples/recursive-analyst/templates/judge-prompt.md)
-## Skills / Examples / Tdd-Enforcer
-
-- [SKILL.md](skills/examples/tdd-enforcer/SKILL.md)
-## Skills / Examples / Systematic-Debugger
-
-- [SKILL.md](skills/examples/systematic-debugger/SKILL.md)
-## Skills / Examples / Content-Reviewer
-
-- [SKILL.md](skills/examples/content-reviewer/SKILL.md)
 ## Skills / Examples / Threat-Model-Reviewer
 
 - [SKILL.md](skills/examples/threat-model-reviewer/SKILL.md)
-## Skills / Examples / Hypothesis-Validator
+## Skills / Examples / Research-Extractor
 
-- [SKILL.md](skills/examples/hypothesis-validator/SKILL.md)
-## Skills / Examples / Detection-Rule-Reviewer
+- [SKILL.md](skills/examples/research-extractor/SKILL.md)
+## Research
 
-- [SKILL.md](skills/examples/detection-rule-reviewer/SKILL.md)
-## Skills / Examples / Git-Workflow-Helper
+- [ai-creators-analysis.md](research/ai-creators-analysis.md)
+- [codeguard-review-2026-02.md](research/codeguard-review-2026-02.md)
+## Mcp-Server
 
-- [SKILL.md](skills/examples/git-workflow-helper/SKILL.md)
+- [README.md](mcp-server/README.md)
+## Specs
+
+- [PATTERN-TEMPLATE.md](specs/PATTERN-TEMPLATE.md)
 ## Presets
 
 - [coding.md](presets/coding.md)
 - [hybrid.md](presets/hybrid.md)
 - [research.md](presets/research.md)
 - [writing.md](presets/writing.md)
+## Examples / Coding-Project
+
+- [README.md](examples/coding-project/README.md)
+## Examples / Writing-Project
+
+- [README.md](examples/writing-project/README.md)
+## Examples / Research-Project
+
+- [README.md](examples/research-project/README.md)
+## Templates
+
+- [ADR-TEMPLATE.md](templates/ADR-TEMPLATE.md)
+## Prompts
+
+- [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
+- [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md)
+- [MAKE-PROJECT-RECOMMENDATIONS.md](prompts/MAKE-PROJECT-RECOMMENDATIONS.md)
+## Archive
+
+- [AUDIT-2026-02-27.md](archive/AUDIT-2026-02-27.md)
+- [REFACTORING-PLAN-2026-01-COMPLETED.md](archive/REFACTORING-PLAN-2026-01-COMPLETED.md)
+- [SCHEDULE-CHANGE.md](archive/SCHEDULE-CHANGE.md)
+- [WORKFLOWS-ISSUES-2026-02-13-FIXED.md](archive/WORKFLOWS-ISSUES-2026-02-13-FIXED.md)
+- [WORKFLOWS-SETUP-2026-02-13-REFERENCE.md](archive/WORKFLOWS-SETUP-2026-02-13-REFERENCE.md)
+- [WORKFLOWS-SUMMARY.md](archive/WORKFLOWS-SUMMARY.md)
 
 ---
 
