@@ -366,9 +366,9 @@ From valgard's analysis:
 
 - [MCP Patterns](./mcp-patterns.md) - Comprehensive MCP usage patterns
 - [MCP vs Skills Economics](./mcp-vs-skills-economics.md) - Token efficiency comparison
-- [Context Engineering](./context-engineering.md) - Managing context budget
+- [Context Engineering](./behavioral-insights.md) - Managing context budget
 - [Plugins and Extensions](./plugins-and-extensions.md) - Plugin vs MCP decision making
-- [Productivity Tooling](./productivity-tooling.md) - Environment optimization
+- [Productivity Tooling](../archive/patterns-v1/productivity-tooling.md) - Environment optimization
 
 ---
 

@@ -853,10 +853,10 @@ These complement our existing OWASP MCP Top 10 checklist and defense-in-depth st
 
 ## Related Patterns
 
-- [Advanced Tool Use](./advanced-tool-use.md) - Tool Search for token efficiency
-- [Context Engineering](./context-engineering.md) - Security in context design
+- [Advanced Tool Use](../archive/patterns-v1/advanced-tool-use.md) - Tool Search for token efficiency
+- [Context Engineering](./behavioral-insights.md) - Security in context design
 - [Plugins and Extensions](./plugins-and-extensions.md) - When to use MCP vs alternatives
-- [Spec-Driven Development](./spec-driven-development.md) - Write spec before MCP implementation
+- [Spec-Driven Development](../archive/patterns-v1/spec-driven-development.md) - Write spec before MCP implementation
 - [Safety and Sandboxing](./safety-and-sandboxing.md) - OS-level security for MCP servers
 - [Secure Code Generation](./secure-code-generation.md) - CodeGuard framework for secure AI-generated code
 

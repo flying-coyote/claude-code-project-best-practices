@@ -335,7 +335,7 @@ uv run python main.py output.png "A 3D diagram of microservices architecture"
 
 **Style Templates**: Reusable prompt templates in `styles/*.md` ensure visual consistency across generated assets.
 
-**Pattern**: See [AI Image Generation](./ai-image-generation.md) for comprehensive integration guidance.
+**Pattern**: See [AI Image Generation](../archive/patterns-v1/ai-image-generation.md) for comprehensive integration guidance.
 
 ---
 
@@ -361,8 +361,8 @@ uv run python main.py output.png "A 3D diagram of microservices architecture"
 ## Related Patterns
 
 - [Plugins and Extensions](./plugins-and-extensions.md) - Claude Code extension mechanisms
-- [Context Engineering](./context-engineering.md) - Applies to all tools
-- [Spec-Driven Development](./spec-driven-development.md) - Tool-agnostic methodology
+- [Context Engineering](./behavioral-insights.md) - Applies to all tools
+- [Spec-Driven Development](../archive/patterns-v1/spec-driven-development.md) - Tool-agnostic methodology
 - [Safety and Sandboxing](./safety-and-sandboxing.md) - Security across tools
 - [Agent Evaluation](./agent-evaluation.md) - Evaluating AI coding tool effectiveness
 

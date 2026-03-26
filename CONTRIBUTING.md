@@ -1,48 +1,39 @@
 # Contributing to Claude Code Project Best Practices
 
-Thank you for your interest in contributing! This repository documents evidence-based patterns for Claude Code projects.
+Thank you for your interest in contributing! This repository provides evidence-based analysis of Claude Code patterns and practices.
 
 ## Contribution Philosophy
 
 This repository follows strict quality standards:
-- **Evidence-based**: All patterns must be backed by authoritative sources (Tier A or B)
-- **Production-validated**: Patterns should be tested in real projects before documenting
-- **Self-compliant**: The repo practices the patterns it teaches
+- **Evidence-based**: All analysis must cite authoritative sources (Tier A or B)
+- **Analytical focus**: We evaluate and compare, not provide implementation guides
+- **Quantified claims**: Behavioral observations require source attribution and dates
 
 ## What We Accept
 
-### New Patterns (High Value)
-Contribute new patterns when you have:
-- **Tier A source**: Direct from Anthropic (blog, docs, official announcements)
-- **Tier B source**: Production-validated in 3+ projects with measured results
-- Clear use cases and anti-patterns
-- Integration with existing patterns
+### New Analysis (High Value)
+- Evidence-based evaluations of new claims or approaches
+- Quantified behavioral observations from expert practitioners
+- Comparative analysis of tools, frameworks, or approaches
+- Source verification and revalidation of existing claims
 
-### Pattern Improvements (Medium Value)
-- Additional examples from production usage
-- Clarifications based on user confusion
+### Analysis Improvements (Medium Value)
 - Updated metrics from recent validation
-- Bug fixes in existing patterns
-
-### Skills Examples (Medium Value)
-- Universal skills (debugging, testing, workflows)
-- Production-validated in multiple projects
-- Follow SKILL-TEMPLATE.md structure
-- Include security classification
+- New source material for existing analysis documents
+- Clarifications based on reader confusion
+- Cross-reference improvements
 
 ### Documentation Improvements (Lower Value)
 - Typo fixes
 - Broken link repairs
-- Cross-reference improvements
-- README clarity enhancements
+- Formatting improvements
 
 ## What We Don't Accept
 
-- ❌ Theoretical patterns without production validation
-- ❌ Patterns based solely on personal preference
-- ❌ Skills specific to single organizations/domains
-- ❌ Content without source attribution
-- ❌ Patterns that contradict Anthropic guidance
+- Implementation guides (defer to ECC or superpowers)
+- Theoretical patterns without production validation
+- Content without source attribution
+- Claims without evidence tier classification
 
 ## How to Contribute
 

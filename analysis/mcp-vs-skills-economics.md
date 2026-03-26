@@ -351,9 +351,9 @@ Don't rip out MCP overnight:
 ## Related Patterns
 
 - [MCP Patterns](./mcp-patterns.md) - MCP security and architecture patterns
-- [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient skill loading
-- [Skills Domain Knowledge](./skills-domain-knowledge.md) - Embedding expertise in skills
-- [Context Engineering](./context-engineering.md) - Managing context effectively
+- [Progressive Disclosure](./plugins-and-extensions.md) - Token-efficient skill loading
+- [Skills Domain Knowledge](./plugins-and-extensions.md) - Embedding expertise in skills
+- [Context Engineering](./behavioral-insights.md) - Managing context effectively
 
 ---
 

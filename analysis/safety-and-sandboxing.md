@@ -309,10 +309,10 @@ Layer 4: Hooks (application-level)    — Custom validation logic
 ## Related Patterns
 
 - [Secure Code Generation](./secure-code-generation.md) - Securing the code Claude generates (output-level security)
-- [Advanced Hooks](./advanced-hooks.md) - Hook patterns for security and quality gates
+- [Advanced Hooks](../archive/patterns-v1/advanced-hooks.md) - Hook patterns for security and quality gates
 - [MCP Patterns](./mcp-patterns.md) - MCP security framework and OWASP compliance
-- [Project Infrastructure](./project-infrastructure.md) - Infrastructure tiers including security
-- [Subagent Orchestration](./subagent-orchestration.md) - Security for multi-agent execution
+- [Project Infrastructure](../archive/patterns-v1/project-infrastructure.md) - Infrastructure tiers including security
+- [Subagent Orchestration](./orchestration-comparison.md) - Security for multi-agent execution
 
 ---
 

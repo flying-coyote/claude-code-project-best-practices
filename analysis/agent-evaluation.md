@@ -297,8 +297,8 @@ Claude Opus 4.6 independently hypothesized it was undergoing evaluation, identif
 
 ## Related Patterns
 
-- [Subagent Orchestration](./subagent-orchestration.md) - Evaluating multi-agent coordination
-- [Context Engineering](./context-engineering.md) - Context quality affects eval results
+- [Subagent Orchestration](./orchestration-comparison.md) - Evaluating multi-agent coordination
+- [Context Engineering](./behavioral-insights.md) - Context quality affects eval results
 - [Evidence Tiers](./evidence-tiers.md) - Applying evidence standards to eval results
 - [Confidence Scoring](./confidence-scoring.md) - Scoring methodology applicable to evals
 

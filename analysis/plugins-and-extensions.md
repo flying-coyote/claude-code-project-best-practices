@@ -670,7 +670,7 @@ Share pre-approved commands via `.claude/settings.json`:
 
 - [MCP Patterns](./mcp-patterns.md) - Failure modes + positive patterns + security
 - [Skills README](../skills/README.md) - Comprehensive skills guide
-- [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient skill architecture
+- [Progressive Disclosure](./plugins-and-extensions.md) - Token-efficient skill architecture
 - [Secure Code Generation](./secure-code-generation.md) - CodeGuard integration for secure AI-generated code
 
 ---

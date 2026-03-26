@@ -1,357 +1,101 @@
-# AI-Driven Development Best Practices
+# Claude Code Best Practices: Evidence-Based Analysis
 
-A **meta-guide** curating community Claude Code resources with unique contributions: evidence assessment, SDD methodology, context engineering, security frameworks, and measurement discipline.
+An **analytical layer** for Claude Code — evidence assessment, comparative analysis, and quantified behavioral insights that comprehensive tooling repos don't provide.
 
-**Philosophy**: We defer to community consensus where it exists (tool discovery, implementation guides) and focus on what we uniquely provide (architectural analysis, integration guidance, evidence validation).
+**Philosophy**: We don't duplicate implementation guides. We evaluate claims, compare approaches, and surface the behavioral insights that make the difference between naive and expert usage.
 
-**Methodology**: We adopt [spec-driven development (SDD)](patterns/spec-driven-development.md) as our foundational approach, aligned with industry standards like [GitHub Spec Kit](https://github.com/github/spec-kit) and [agentskills.io](https://agentskills.io).
+> **Looking for implementation guides?** See [everything-claude-code](https://github.com/anthropics-solutions/everything-claude-code) (110K+ stars, 125+ skills, 28+ agents) for batteries-included tooling, or [superpowers](https://github.com/obraun-cl/superpowers) for disciplined methodology with anti-rationalization patterns.
 
-> 🔗 **Looking for tool recommendations?** See [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) (5.6k+ stars) for community-curated MCPs, plugins, and productivity tips. See [COMMUNITY-RESOURCES.md](COMMUNITY-RESOURCES.md) for our complete community directory.
+## What This Project Uniquely Provides
 
-## The Problem
+| Capability | Why It Matters | Where Else? |
+|-----------|---------------|-------------|
+| **Evidence tier system** (A-D source + 1-5 claim strength) | Know which advice to trust | Nowhere |
+| **Quantified behavioral insights** (80% CLAUDE.md adherence, 60% context threshold, etc.) | Calibrate expectations from data, not vibes | Scattered across interviews |
+| **Comparative analysis** (MCP vs Skills economics, orchestration approaches) | Make informed architectural decisions | Nowhere as analysis |
+| **Security analysis** (OWASP MCP Top 10, auto mode classifier, sandbox architecture) | Understand real security boundaries | OWASP (raw), not Claude-specific |
+| **Tool ecosystem evaluation** (Claude Code vs Aider vs Cursor vs Codex) | Choose the right tool for the task | Marketing pages only |
 
-When you use AI coding agents without structure:
-- Inconsistent results across sessions
-- Context loss in complex features
-- "Works but wrong" implementations
-- Difficult to maintain or extend
-- Poor team coordination
+## Analysis Documents
 
-## The Solution
+### Core Analysis (14 documents)
 
-A **spec-driven approach** that gives AI agents persistent context through structured artifacts:
+| Document | What It Covers |
+|----------|---------------|
+| [evidence-tiers.md](analysis/evidence-tiers.md) | Dual-tier classification system for evaluating claims |
+| [behavioral-insights.md](analysis/behavioral-insights.md) | Quantified Claude Code behavior: context thresholds, instruction adherence, thinking trade-offs |
+| [orchestration-comparison.md](analysis/orchestration-comparison.md) | When to use native subagents vs GSD vs CAII vs agent teams |
+| [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md) | Cost/performance analysis: Skills 50% cheaper than MCP |
+| [mcp-patterns.md](analysis/mcp-patterns.md) | 7 failure modes + OWASP security mapping |
+| [mcp-daily-essentials.md](analysis/mcp-daily-essentials.md) | Optimal plugin/MCP configuration (4 plugins + 2 MCPs) |
+| [plugins-and-extensions.md](analysis/plugins-and-extensions.md) | Skills vs MCP vs Hooks vs Commands decision framework |
+| [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md) | 4-layer security stack, auto mode analysis, sandbox architecture |
+| [secure-code-generation.md](analysis/secure-code-generation.md) | OWASP-aware code generation patterns |
+| [tool-ecosystem.md](analysis/tool-ecosystem.md) | Claude Code vs alternatives + Specification Gap framework |
+| [framework-selection-guide.md](analysis/framework-selection-guide.md) | Orchestration framework decision matrix |
+| [agent-evaluation.md](analysis/agent-evaluation.md) | Eval methodology from Anthropic engineering |
+| [agent-principles.md](analysis/agent-principles.md) | 6 production reliability principles |
+| [confidence-scoring.md](analysis/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework |
 
-```
-your-project/
-├── specs/                  # Feature specifications (Specify phase)
-├── ARCHITECTURE.md         # System design (Plan phase)
-├── PLAN.md                 # Current priorities (Tasks phase)
-└── .claude/                # Claude Code implementation
-    ├── CLAUDE.md           # Project context
-    ├── settings.json       # Hook configurations
-    ├── hooks/              # Automation scripts
-    ├── commands/           # Slash commands
-    └── skills/             # Reusable methodologies
-```
+### Source Database
 
-This approach implements the **4-phase SDD model**:
-1. **Specify** → Define what to build (CLAUDE.md, specs/)
-2. **Plan** → Technical design (ARCHITECTURE.md, DECISIONS.md)
-3. **Tasks** → Break down work (PLAN.md, TodoWrite)
-4. **Implement** → Execute with context (skills, hooks, one feature at a time)
-
-## Quick Start
-
-### Recommended Setup (15-30 minutes)
-
-All projects should have these four components:
-
-```bash
-# Create .claude directory
-mkdir -p .claude .claude/hooks
-
-# Setup will create:
-# ✅ CLAUDE.md (~60 lines of project context)
-# ✅ Stop hook (warns about uncommitted changes)
-# ✅ SessionStart hook (shows git status)
-# ✅ Permission rules (pre-approves safe commands)
-```
-
-**What this gives you**:
-- **Context across sessions**: CLAUDE.md persists project knowledge
-- **Prevents lost work**: Stop hook warns before closing with uncommitted changes
-- **Session awareness**: SessionStart hook shows branch + uncommitted count
-- **Reduced friction**: Pre-approved git commands (status, diff, log)
-
-**Time**: 15-30 minutes • **Maintenance**: ~5 min/month (keep CLAUDE.md minimal)
-
-[See detailed setup commands in QUICKSTART.md](QUICKSTART.md)
-
----
-
-### AI-Guided Setup (Alternative)
-
-Prefer interactive guidance? Paste this into Claude Code:
-
-```
-Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/refs/heads/master/prompts/MAKE-PROJECT-RECOMMENDATIONS.md and follow its instructions.
-```
-
-#### Which Entry Point Should I Use?
-
-| I Want To... | Use This | Time |
-|--------------|----------|------|
-| Set up any project (new or existing) | [MAKE-PROJECT-RECOMMENDATIONS.md](prompts/MAKE-PROJECT-RECOMMENDATIONS.md) | 15-30 min |
-| Bootstrap a brand-new project with preset selection | [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md) | 20-40 min |
-| Audit an existing project for gaps | [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md) | 15-30 min |
-
-**Recommendation**: Use **MAKE-PROJECT-RECOMMENDATIONS** for most cases. It handles both new and existing projects with the same unified approach. The other two prompts offer more specialized workflows (preset-guided bootstrapping or detailed gap analysis) if you prefer structured guidance.
-
----
-
-### Advanced Options (Optional)
-
-**For teams with collaborators:**
-- Add GitHub Actions workflow for `@.claude` PR reviews
-- Add ARCHITECTURE.md for shared understanding
-- See: [Collaborative Patterns](patterns/project-infrastructure.md#collaborative-patterns)
-
-**For documentation projects tracking fast-moving tech:**
-- Add TOOLS-TRACKER.md (auto-updated version monitoring)
-- Add blog RSS monitoring for ecosystem changes
-- See: [Evolution Tracking](patterns/project-infrastructure.md#evolution-tracking)
-
-**There's no difference between "new" and "existing" projects** - both follow the same setup approach.
-
-See **[Project Infrastructure Pattern](patterns/project-infrastructure.md)** for complete guidance.
-
-## Pattern Decision Matrix
-
-Quick reference: Which pattern solves which problem?
-
-| I Need To... | Use This Pattern | Alternative/Related |
-|--------------|------------------|---------------------|
-| **Getting Started** |
-| Set up project infrastructure | [project-infrastructure.md](patterns/project-infrastructure.md) | [MAKE-PROJECT-RECOMMENDATIONS.md](prompts/MAKE-PROJECT-RECOMMENDATIONS.md) |
-| Understand core principles | [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) | [spec-driven-development.md](patterns/spec-driven-development.md) |
-| Learn patterns progressively | [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md) | Pattern tables below |
-| Migrate from Cursor or other tools | [MIGRATION-GUIDE.md](MIGRATION-GUIDE.md) | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) |
-| Choose daily MCP servers | [mcp-daily-essentials.md](patterns/mcp-daily-essentials.md) | [mcp-patterns.md](patterns/mcp-patterns.md) |
-| Optimize developer workflow | [productivity-tooling.md](patterns/productivity-tooling.md) | [tool-ecosystem.md](patterns/tool-ecosystem.md) |
-| **Context & Planning** |
-| Keep CLAUDE.md minimal | [context-engineering.md](patterns/context-engineering.md) | [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) |
-| Plan before implementing | [planning-first-development.md](patterns/planning-first-development.md) | [spec-driven-development.md](patterns/spec-driven-development.md) |
-| Manage information lifecycle | [memory-architecture.md](patterns/memory-architecture.md) | [context-engineering.md](patterns/context-engineering.md) |
-| Surface hidden assumptions | [johari-window-ambiguity.md](patterns/johari-window-ambiguity.md) | - |
-| Document architecture decisions | [architecture-decision-records.md](patterns/architecture-decision-records.md) | [documentation-maintenance.md](patterns/documentation-maintenance.md) |
-| **Implementation** |
-| Work across multiple sessions | [long-running-agent.md](patterns/long-running-agent.md) | [session-learning.md](patterns/session-learning.md) |
-| Add quality gates (hooks) | [advanced-hooks.md](patterns/advanced-hooks.md) | [project-infrastructure.md](patterns/project-infrastructure.md) |
-| Use advanced tool features | [advanced-tool-use.md](patterns/advanced-tool-use.md) | - |
-| Run parallel work streams | [parallel-sessions.md](patterns/parallel-sessions.md) | - |
-| Navigate code dynamically | [agentic-retrieval.md](patterns/agentic-retrieval.md) | - |
-| Generate images in pipeline | [ai-image-generation.md](patterns/ai-image-generation.md) | - |
-| **Extensions** |
-| Choose MCP vs Skills vs Hooks | [plugins-and-extensions.md](patterns/plugins-and-extensions.md) | [mcp-vs-skills-economics.md](patterns/mcp-vs-skills-economics.md) |
-| Design large skills efficiently | [progressive-disclosure.md](patterns/progressive-disclosure.md) | [skills-domain-knowledge.md](patterns/skills-domain-knowledge.md) |
-| Understand MCP failure modes | [mcp-patterns.md](patterns/mcp-patterns.md) | [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md) |
-| Evaluate cost vs performance | [mcp-vs-skills-economics.md](patterns/mcp-vs-skills-economics.md) | [plugins-and-extensions.md](patterns/plugins-and-extensions.md) |
-| Add domain knowledge to skills | [skills-domain-knowledge.md](patterns/skills-domain-knowledge.md) | [progressive-disclosure.md](patterns/progressive-disclosure.md) |
-| **Orchestration** |
-| Choose orchestration framework | [framework-selection-guide.md](patterns/framework-selection-guide.md) | - |
-| Use GSD pattern | [gsd-orchestration.md](patterns/gsd-orchestration.md) | [subagent-orchestration.md](patterns/subagent-orchestration.md) |
-| Implement cognitive agents | [cognitive-agent-infrastructure.md](patterns/cognitive-agent-infrastructure.md) | [framework-selection-guide.md](patterns/framework-selection-guide.md) |
-| Orchestrate subagents | [subagent-orchestration.md](patterns/subagent-orchestration.md) | [gsd-orchestration.md](patterns/gsd-orchestration.md) |
-| Manage recursive context | [recursive-context-management.md](patterns/recursive-context-management.md) | [memory-architecture.md](patterns/memory-architecture.md) |
-| **Quality & Security** |
-| Ensure security and isolation | [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md) | [mcp-patterns.md](patterns/mcp-patterns.md) |
-| Generate secure code | [secure-code-generation.md](patterns/secure-code-generation.md) | [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md) |
-| Assess output confidence | [confidence-scoring.md](patterns/confidence-scoring.md) | - |
-| Apply production AI principles | [agent-principles.md](patterns/agent-principles.md) | [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md) |
-| Evaluate agent performance | [agent-evaluation.md](patterns/agent-evaluation.md) | [confidence-scoring.md](patterns/confidence-scoring.md) |
-| Implement self-improvement | [recursive-evolution.md](patterns/recursive-evolution.md) | [session-learning.md](patterns/session-learning.md) |
-| **Research & Documentation** |
-| Classify evidence quality | [evidence-tiers.md](patterns/evidence-tiers.md) | [confidence-scoring.md](patterns/confidence-scoring.md) |
-| Maintain documentation | [documentation-maintenance.md](patterns/documentation-maintenance.md) | [architecture-decision-records.md](patterns/architecture-decision-records.md) |
-| Learn from session corrections | [session-learning.md](patterns/session-learning.md) | [long-running-agent.md](patterns/long-running-agent.md) |
-| Integrate with CI/CD | [github-actions-integration.md](patterns/github-actions-integration.md) | [advanced-hooks.md](patterns/advanced-hooks.md) |
-| **Tool Selection** |
-| Choose Claude Code vs alternatives | [tool-ecosystem.md](patterns/tool-ecosystem.md) | [framework-selection-guide.md](patterns/framework-selection-guide.md) |
-
-**Can't find what you need?** See [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md) for guided learning by role or [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for common issues.
-
-## What's Included
-
-### Prompts
-- **[MAKE-PROJECT-RECOMMENDATIONS.md](prompts/MAKE-PROJECT-RECOMMENDATIONS.md)** - Analyzes your project and recommends appropriate infrastructure (replaces separate new/existing prompts)
-
-### Templates
-- **[CLAUDE.md.template](templates/CLAUDE.md.template)** - Project context template
-- **[settings.json.template](templates/settings.json.template)** - Hook configuration
-- **[session-start.sh](templates/session-start.sh)** - Session initialization script
-
-### Presets
-Project-type configurations with appropriate defaults:
-- **[coding.md](presets/coding.md)** - Software development (TDD, debugging, git workflow)
-- **[writing.md](presets/writing.md)** - Content creation (voice consistency, citations)
-- **[research.md](presets/research.md)** - Analysis projects (evidence tiers, hypotheses)
-- **[hybrid.md](presets/hybrid.md)** - Mixed-purpose projects
-
-### Patterns (by SDD Phase)
-
-Core implementation patterns organized by the spec-driven development phase they support:
-
-#### Foundational
-| Pattern | Key Insight | Source |
-|---------|-------------|--------|
-| [Spec-Driven Development](patterns/spec-driven-development.md) | 4-phase model: Specify→Plan→Tasks→Implement | GitHub Spec Kit |
-| [Framework Selection Guide](patterns/framework-selection-guide.md) | Choose orchestration: Native (default) vs GSD vs CAII | Synthesis |
-| [Project Infrastructure](patterns/project-infrastructure.md) | CLAUDE.md + hooks + permissions as baseline for all projects | Boris Cherny |
-
-#### Specify Phase
-| Pattern | Key Insight | Source |
-|---------|-------------|--------|
-| [Context Engineering](patterns/context-engineering.md) | Specs as deterministic context; correctness > compression | Nate B. Jones |
-| [Memory Architecture](patterns/memory-architecture.md) | 4-tier lifecycle model for information management | Nate B. Jones |
-| [Johari Window Ambiguity](patterns/johari-window-ambiguity.md) | Surface hidden assumptions before task execution | CAII |
-
-#### Plan Phase
-| Pattern | Key Insight | Source |
-|---------|-------------|--------|
-| [Planning-First Development](patterns/planning-first-development.md) | Planning effort directly improves AI output quality | IndyDevDan |
-| [Documentation Maintenance](patterns/documentation-maintenance.md) | ARCH/PLAN/INDEX trio as spec artifacts | Production |
-| [Architecture Decision Records](patterns/architecture-decision-records.md) | Document why, not just what | Software Eng |
-| [Evidence Tiers](patterns/evidence-tiers.md) | Dual tier system (A-D + 1-5) for claims | Production |
-
-#### Tasks + Implement Phase
-| Pattern | Key Insight | Source |
-|---------|-------------|--------|
-| [Long-Running Agent](patterns/long-running-agent.md) | External artifacts as memory; one feature at a time | Anthropic |
-| [Progressive Disclosure](patterns/progressive-disclosure.md) | 3-tier architecture; 73% token savings | Production |
-| [Advanced Hooks](patterns/advanced-hooks.md) | PreToolUse, PostToolUse, Stop hooks for quality gates | Production |
-| [Advanced Tool Use](patterns/advanced-tool-use.md) | Tool search, programmatic calling | Anthropic |
-| [Agentic Retrieval](patterns/agentic-retrieval.md) | Dynamic navigation vs pre-computed embeddings | LlamaIndex |
-| [Parallel Sessions](patterns/parallel-sessions.md) | 5+ terminal + 5-10 web sessions for parallel work streams | Boris Cherny |
-| [AI Image Generation](patterns/ai-image-generation.md) | Automated visual assets in development pipelines | Community |
-| [GitHub Actions Integration](patterns/github-actions-integration.md) | @.claude PR reviews and CI/CD automation | Anthropic |
-
-#### Cross-Phase
-| Pattern | Key Insight | Source |
-|---------|-------------|--------|
-| [Agent Principles](patterns/agent-principles.md) | 6 principles for production AI reliability | Nate B. Jones |
-| [Agent Evaluation](patterns/agent-evaluation.md) | Evals as tests; task-based, LLM-as-judge, infrastructure noise | Anthropic |
-| [MCP Patterns](patterns/mcp-patterns.md) | 7 failure modes + positive patterns + OWASP security | Nate B. Jones + OWASP |
-| [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md) | Skills 50% cheaper than MCP; tradeoffs on speed vs cost | Tenzir |
-| [Plugins and Extensions](patterns/plugins-and-extensions.md) | When to use Skills vs MCP vs Hooks vs Commands | Production |
-| [MCP Daily Essentials](patterns/mcp-daily-essentials.md) | Sweet spot: 4 plugins + 2 MCPs for optimal context | Community |
-| [Productivity Tooling](patterns/productivity-tooling.md) | Voice prompting, workflow automation, dev velocity | Community |
-| [Safety and Sandboxing](patterns/safety-and-sandboxing.md) | OS-level isolation over permission prompts | Anthropic + OWASP |
-| [Secure Code Generation](patterns/secure-code-generation.md) | OWASP-aware code generation with security gates | Production |
-| [Subagent Orchestration](patterns/subagent-orchestration.md) | Native subagents, agent teams, custom agents | Anthropic |
-| [GSD Orchestration](patterns/gsd-orchestration.md) | Fresh context per subagent; state externalization | glittercowboy |
-| [Cognitive Agent Infrastructure](patterns/cognitive-agent-infrastructure.md) | 7 fixed cognitive agents vs domain-specific proliferation | CAII |
-| [Recursive Context Management](patterns/recursive-context-management.md) | Programmatic self-examination vs single forward pass | MIT CSAIL |
-| [Skills Domain Knowledge](patterns/skills-domain-knowledge.md) | Embed domain expertise in reusable skill files | Production |
-| [Session Learning](patterns/session-learning.md) | Capture corrections to update persistent config | Lance Martin |
-| [Confidence Scoring](patterns/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework | Production |
-| [Recursive Evolution](patterns/recursive-evolution.md) | Self-Evolution Algorithm: multi-candidate, judge loop, crossover | Google TTD-DR |
-| [Tool Ecosystem](patterns/tool-ecosystem.md) | When Claude Code vs alternatives (Aider, Cursor, OpenHands) | Community |
-
-### Skills
-Reusable AI behavior patterns:
-- **[skills/README.md](skills/README.md)** - Comprehensive skills guide
-- **[skills/QUICK-REFERENCE.md](skills/QUICK-REFERENCE.md)** - Fast skill lookup and integration patterns
-- **[skills/SKILL-TEMPLATE.md](skills/SKILL-TEMPLATE.md)** - Template for new skills
-- **[skills/SECURITY-GUIDELINES.md](skills/SECURITY-GUIDELINES.md)** - Security framework with MITRE ATLAS mapping
-- **[skills/examples/](skills/examples/)** - 10 production-validated example skills:
-  - `systematic-debugger` - 4-phase debugging methodology (REPRODUCE-ISOLATE-UNDERSTAND-FIX)
-  - `tdd-enforcer` - Test-driven development enforcement (RED-GREEN-REFACTOR)
-  - `git-workflow-helper` - Git best practices and safe operations
-  - `ultrathink-analyst` - Deep analysis (FRAME-ANALYZE-SYNTHESIZE)
-  - `recursive-analyst` - Self-Evolution Algorithm (multi-candidate, judge loop, crossover)
-  - `content-reviewer` - Publication quality (evidence tiers, voice, balance)
-  - `research-extractor` - Systematic research synthesis (HIGH RISK - 5-layer defense)
-  - `hypothesis-validator` - Research hypothesis validation with confidence scoring
-  - `threat-model-reviewer` - Security threat modeling (STRIDE)
-  - `detection-rule-reviewer` - SIEM/detection engineering quality
-
-### Examples
-Complete `.claude/` directories you can reference:
-- **[examples/coding-project/](examples/coding-project/)** - Software development setup
-- **[examples/writing-project/](examples/writing-project/)** - Content creation setup
-- **[examples/research-project/](examples/research-project/)** - Research and analysis setup
-
-## Core Principles
-
-### 1. Specify Before Implement
-The SDD 4-phase model ensures clarity before code:
-- **Specify**: What are we building and why?
-- **Plan**: How will we build it?
-- **Tasks**: What are the concrete steps?
-- **Implement**: Execute with full context
-
-### 2. External Artifacts as Memory
-From Anthropic's engineering blog:
-> "External artifacts become the agent's memory. Progress files, git history, and structured feature lists persist across sessions."
-
-Specs, architecture docs, and task files bridge session boundaries.
-
-### 3. Scale Rigor to Complexity
-- **Simple bug fix**: Skip to Tasks phase, brief spec in commit message
-- **Small feature (<1 day)**: Combine Specify+Plan, then implement
-- **Complex feature**: Full 4-phase workflow with specs/
-- **Exploratory work**: "Vibe code" first, retrofit specs if keeping
-
-### 4. Cross-Platform Awareness
-These patterns work across AI coding tools:
-- Skills follow [agentskills.io](https://agentskills.io) open standard (Claude, Codex, Cursor, etc.)
-- SDD methodology applies to any AI coding agent
-- Claude Code is our implementation context, not the only option
-
-## Thought Leaders & Authoritative Sources
-
-This repository synthesizes guidance from top practitioners and authoritative sources:
-
-### Primary Sources (Tier A)
-
-| Expert/Source | Role | Key Contribution |
-|---------------|------|------------------|
-| **[Boris Cherny](https://paddo.dev/blog/how-boris-uses-claude-code/)** | Claude Code Creator (Anthropic) | Parallel sessions, plan-first methodology, 2-3x quality improvement through verification |
-| **[Anthropic Official Docs](https://code.claude.com/docs/en/best-practices)** | Canonical Documentation | CLAUDE.md ~60 lines, "Would removing this cause mistakes? If not, cut it." |
-| **[Nate B. Jones](https://www.linkedin.com/in/nathaniel-b-jones-phd/)** | Production AI Engineering | 6 principles for reliability, lifecycle-aware context model, MCP failure modes |
-| **[GitHub Spec Kit](https://github.com/github/spec-kit)** | Industry Standard (59K+ stars) | Spec-driven development 4-phase model |
-| **[OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)** | Security Standard | MCP security risks & mitigation strategies |
-
-### Community Leaders (Tier B)
-
-| Expert/Project | Contribution |
-|----------------|--------------|
-| **[glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done)** | Fresh context per subagent orchestration |
-| **[skribblez2718/CAII](https://github.com/skribblez2718/caii)** | 7 fixed cognitive agents, Johari Window for ambiguity |
-| **[Tenzir](https://tenzir.com/blog/we-did-mcp-wrong)** | MCP vs Skills economics (50% cost savings) |
-| **[LlamaIndex](https://www.llamaindex.ai/blog/rag-is-dead-long-live-agentic-retrieval)** | Agentic retrieval vs RAG patterns |
-| **[shanraisshan](https://github.com/shanraisshan/claude-code-best-practice)** | Community tool curation (5.6K+ stars) |
-
-**Complete source database**: See [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (top 20) or [SOURCES.md](SOURCES.md) (comprehensive, 1,278 lines)
-
-**Evidence methodology**: We use a dual-tier system (A-D for source quality + 1-5 for claim strength). See [evidence-tiers.md](patterns/evidence-tiers.md).
-
-## Why This Approach?
-
-See **[DECISIONS.md](DECISIONS.md)** for detailed reasoning on:
-- Why prompts instead of template repos
-- Why four presets instead of one or many
-- Why AI-guided setup instead of scripts
-- What to include vs. exclude
-
-## Sources & Acknowledgments
-
-See **[SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md)** for top 20 Tier A/B sources or **[SOURCES.md](SOURCES.md)** for comprehensive database, including:
-- Anthropic Engineering Blog posts
-- Industry standards (GitHub Spec Kit, agentskills.io, OWASP MCP Guide)
-- Production validation from real projects
-
-**Aligned standards:**
-- **[GitHub Spec Kit](https://github.com/github/spec-kit)** - 4-phase SDD model (59K+ stars)
-- **[agentskills.io](https://agentskills.io)** - Open standard for cross-platform skills
-- **[OWASP MCP Security Guide](https://genai.owasp.org)** - MCP security best practices
-
-**Foundational influences:**
-- **[Daniel Miessler's Fabric](https://github.com/danielmiessler/fabric)** - Pattern structure and "scaffolding > models" philosophy
-- **[Nate B. Jones's Memory Prompts](https://natesnewsletter.substack.com)** - Context lifecycle management
-- **[BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD)** - Multi-agent architecture patterns
+| Document | Purpose |
+|----------|---------|
+| [SOURCES.md](SOURCES.md) | Comprehensive source database with evidence tiers |
+| [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) | Top 20 sources at a glance |
+
+## How to Use This Repo
+
+**For practitioners**: Browse `analysis/` for evidence-based guidance on specific decisions. Each document includes source attribution and evidence tier ratings.
+
+**For evaluators**: Use [evidence-tiers.md](analysis/evidence-tiers.md) to assess claims from any source. The dual-tier system (source quality A-D + claim strength 1-5) works for any AI tooling claim.
+
+**For tool selection**: Start with [tool-ecosystem.md](analysis/tool-ecosystem.md) for high-level comparison, then dive into specific analysis documents for detailed trade-offs.
+
+## Key Findings
+
+Highlights from our analysis (see individual documents for full evidence):
+
+- **CLAUDE.md is followed ~80% of the time** — use hooks for 100% enforcement (Boris Cherny, March 2026)
+- **Context quality degrades at 60%, not when full** — proactive intervention saves quality (Boris Cherny)
+- **Skills are 50% cheaper than equivalent MCP** — but MCP offers better isolation (Tenzir)
+- **Auto mode approves 93% of tool calls** — viable for most workflows (Anthropic, March 2026)
+- **Custom subagents can "gatekeep context"** — prefer native delegation unless truly specialized (Boris Cherny)
+- **Extended thinking often reduces total time** — fewer steering corrections outweigh 2-3x latency (Boris Cherny)
+
+## Thought Leaders & Sources
+
+### Tier A (Primary/Vendor)
+
+| Source | Key Contribution |
+|--------|-----------------|
+| **Boris Cherny** (Claude Code Creator) | Quantified behavioral insights, five-layer architecture |
+| **Anthropic Engineering Blog** | Auto mode, agent skills, hooks reference, eval methodology |
+| **OWASP MCP Top 10** | MCP security framework |
+
+### Tier B (Validated Practitioners)
+
+| Source | Key Contribution |
+|--------|-----------------|
+| **Nate B. Jones** | Agent principles, Specification Gap, OB1 memory architecture |
+| **IndyDevDan** | Trust-based engineering, hooks mastery, agent-scoped patterns |
+| **everything-claude-code** | Comprehensive tooling reference (110K stars) |
+| **superpowers** | Disciplined methodology, anti-rationalization |
+
+Full database: [SOURCES.md](SOURCES.md)
+
+## Project Status
+
+**v2.0** — Repositioned from 36-pattern best practices guide to focused analytical layer. Prior patterns archived in `archive/patterns-v1/`.
 
 ## Contributing
 
-Contributions welcome! Please:
-1. Open an issue to discuss changes
-2. Follow existing patterns and style
-3. Update documentation as needed
+Contributions welcome, especially:
+- Evidence-based analysis of new claims
+- Quantified behavioral observations
+- Comparative evaluations of tools and approaches
+- Source verification and revalidation
 
 ## License
 
 MIT License - Use freely, attribution appreciated.
-
----
-
-*Built from patterns validated across 12+ production projects.*

@@ -114,7 +114,7 @@ Use NATIVE SUBAGENT ORCHESTRATION (Default)
 
 **Validated by**: H-CLAUDE-CODE-01 through H-CLAUDE-CODE-04 (all validated)
 
-**Documentation**: [Subagent Orchestration](./subagent-orchestration.md)
+**Documentation**: [Subagent Orchestration](./orchestration-comparison.md)
 
 ---
 
@@ -140,7 +140,7 @@ GSD: Each executor gets fresh 200K → Consistent quality
 - `.planning/` - Research, plans, summaries
 - XML task specifications with embedded verification
 
-**Documentation**: [GSD Orchestration](./gsd-orchestration.md)
+**Documentation**: [GSD Orchestration](./orchestration-comparison.md)
 
 ---
 
@@ -169,9 +169,9 @@ CAII: 7 agents (constant) → Sustainable architecture
 - Projects requiring deterministic orchestration
 - Long-term systems that need to improve over time
 
-**Bonus**: The [Johari Window](./johari-window-ambiguity.md) methodology (from CAII) is valuable for ANY framework
+**Bonus**: The [Johari Window](./behavioral-insights.md) methodology (from CAII) is valuable for ANY framework
 
-**Documentation**: [Cognitive Agent Infrastructure](./cognitive-agent-infrastructure.md)
+**Documentation**: [Cognitive Agent Infrastructure](./orchestration-comparison.md)
 
 ---
 
@@ -222,7 +222,7 @@ RLM: [Context as Variable] → [Model decides: peek, grep, partition] → [Recur
 - Explicit context partitioning ("process in batches of 3")
 - Programmatic filtering ("search for X first, then examine only those")
 
-**Documentation**: [Recursive Context Management](./recursive-context-management.md)
+**Documentation**: [Recursive Context Management](./behavioral-insights.md)
 
 ---
 
@@ -273,9 +273,9 @@ Some patterns extracted from these frameworks work with ANY orchestration:
 
 | Pattern | Origin | Universal Value |
 |---------|--------|-----------------|
-| [Johari Window](./johari-window-ambiguity.md) | CAII | Surface unknowns before implementation |
+| [Johari Window](./behavioral-insights.md) | CAII | Surface unknowns before implementation |
 | [STATE.md](./gsd-orchestration.md#the-statemd-pattern) | GSD | Cross-session memory (even without full GSD) |
-| [Progressive Disclosure](./progressive-disclosure.md) | Production | Token efficiency for all frameworks |
+| [Progressive Disclosure](./plugins-and-extensions.md) | Production | Token efficiency for all frameworks |
 | [Atomic Commits](./gsd-orchestration.md#atomic-commits-pattern) | GSD | One task = one commit (good practice anyway) |
 
 ---
@@ -403,13 +403,13 @@ Some patterns extracted from these frameworks work with ANY orchestration:
 
 ## Related Patterns
 
-- [Spec-Driven Development](./spec-driven-development.md) - The foundational methodology (always use)
-- [Subagent Orchestration](./subagent-orchestration.md) - Default orchestration patterns
-- [GSD Orchestration](./gsd-orchestration.md) - Multi-session, fresh context patterns
-- [Cognitive Agent Infrastructure](./cognitive-agent-infrastructure.md) - Scalable agent architecture
-- [Context Engineering](./context-engineering.md) - Context strategies for all frameworks
+- [Spec-Driven Development](../archive/patterns-v1/spec-driven-development.md) - The foundational methodology (always use)
+- [Subagent Orchestration](./orchestration-comparison.md) - Default orchestration patterns
+- [GSD Orchestration](./orchestration-comparison.md) - Multi-session, fresh context patterns
+- [Cognitive Agent Infrastructure](./orchestration-comparison.md) - Scalable agent architecture
+- [Context Engineering](./behavioral-insights.md) - Context strategies for all frameworks
 - [MCP vs Skills Economics](./mcp-vs-skills-economics.md) - Execution layer decisions
-- [Recursive Context Management](./recursive-context-management.md) - Emerging RLM paradigm (monitor)
+- [Recursive Context Management](./behavioral-insights.md) - Emerging RLM paradigm (monitor)
 
 ---
 
