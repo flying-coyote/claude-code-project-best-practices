@@ -1,30 +1,35 @@
 # Architecture
 
 **Purpose**: System design, directory structure, and current phase status
-**Last Updated**: March 11, 2026
+**Last Updated**: March 26, 2026
 
 ---
 
 ## Project Purpose
 
-This repository documents and validates patterns for Claude Code projects. It serves as:
-- **Reference implementation** - Practices what it preaches
-- **Teaching resource** - Examples and templates for users
-- **Validation testbed** - Patterns tested in production before documenting
+This repository provides an **evidence-based analytical layer** for Claude Code. It evaluates claims, compares approaches, and surfaces quantified behavioral insights — the "Consumer Reports" for Claude Code tooling.
+
+**What we are**:
+- Evidence assessor (dual-tier system for claims)
+- Comparative analyst (tools, frameworks, approaches)
+- Behavioral insight aggregator (quantified observations from expert practitioners)
+
+**What we are NOT**:
+- Implementation guide (see [everything-claude-code](https://github.com/anthropics-solutions/everything-claude-code))
+- Methodology framework (see [superpowers](https://github.com/obraun-cl/superpowers))
+- Tool catalog (see community repos in SOURCES.md)
 
 ---
 
 ## Current Phase
 
-**Phase**: Post-v1.0 Maintenance + Pattern Expansion
-**Status**: Active development
+**Phase**: v2.0 — Analytical Layer Repositioning
+**Status**: Active
 
-**Recent Milestones**:
+**Milestones**:
 - v1.0: Initial patterns from Anthropic (Nov 2025)
-- v1.1: Nate B. Jones patterns added (Dec 8, 2025)
-- v1.2: Self-compliance - repo follows its own patterns (Dec 8, 2025)
-- v1.3: Production patterns from second-brain integration (Dec 13, 2025)
-- v1.4: Tier language removal, SDD adoption, 36 patterns (Mar 2026)
+- v1.1-v1.4: Pattern expansion to 36 patterns (Nov 2025 - Mar 2026)
+- v2.0: Repositioned as analytical layer; 36 patterns → 14 analysis documents (Mar 2026)
 
 ---
 
@@ -35,206 +40,94 @@ claude-code-project-best-practices/
 ├── .claude/                    # Meta-project infrastructure
 │   ├── CLAUDE.md              # Project context
 │   ├── settings.json          # Hooks configuration
-│   ├── hooks/                 # Hook scripts
-│   │   ├── session-start.sh   # Context loading
-│   │   ├── post-tool-use.sh   # INDEX.md regeneration
-│   │   └── stop-doc-check.sh  # Documentation currency
-│   └── claude-tasks.json      # Task tracking
+│   └── hooks/                 # Hook scripts
 │
-├── patterns/                   # Core implementation patterns (36 total)
-│   ├── advanced-hooks.md      # PostToolUse, Stop hooks
-│   ├── advanced-tool-use.md   # Tool search, programmatic calling
-│   ├── agent-evaluation.md    # Agent performance assessment
-│   ├── agent-principles.md    # 6 production principles
-│   ├── agentic-retrieval.md   # AI-driven information retrieval
-│   ├── ai-image-generation.md # AI asset generation for development
-│   ├── architecture-decision-records.md  # ADR framework
-│   ├── cognitive-agent-infrastructure.md # Cognitive architecture
-│   ├── confidence-scoring.md  # HIGH/MEDIUM/LOW hypothesis confidence
-│   ├── context-engineering.md # Deterministic vs probabilistic
-│   ├── documentation-maintenance.md  # ARCH/PLAN/INDEX trio
+├── analysis/                   # Core content (14 documents)
 │   ├── evidence-tiers.md      # Dual tier system (A-D + 1-5)
-│   ├── framework-selection-guide.md  # Framework comparison
-│   ├── github-actions-integration.md # CI/CD with Claude
-│   ├── gsd-orchestration.md   # Goal-structured decomposition
-│   ├── johari-window-ambiguity.md    # Ambiguity resolution
-│   ├── long-running-agent.md  # Anthropic harness patterns
-│   ├── mcp-daily-essentials.md      # Daily MCP tools
-│   ├── mcp-patterns.md        # Failure modes + positive patterns
-│   ├── mcp-vs-skills-economics.md   # MCP vs Skills trade-offs
-│   ├── memory-architecture.md # Lifecycle-based memory
-│   ├── parallel-sessions.md   # Concurrent session patterns
-│   ├── planning-first-development.md  # "Great Planning is Great Prompting"
-│   ├── plugins-and-extensions.md  # Skills vs MCP vs Hooks decision
-│   ├── productivity-tooling.md    # Developer productivity
-│   ├── progressive-disclosure.md  # 3-tier skill architecture
-│   ├── project-infrastructure.md  # Recommended setup
-│   ├── recursive-context-management.md # Context lifecycle
-│   ├── recursive-evolution.md # Self-Evolution Algorithm
-│   ├── safety-and-sandboxing.md   # Security sandboxing
-│   ├── secure-code-generation.md  # Secure coding patterns
-│   ├── session-learning.md    # Cross-session learning
-│   ├── skills-domain-knowledge.md  # Domain expertise
-│   ├── spec-driven-development.md  # 4-phase SDD model
-│   ├── subagent-orchestration.md  # Multi-agent patterns
-│   └── tool-ecosystem.md          # Claude Code vs alternatives
+│   ├── behavioral-insights.md # Quantified Claude Code behavior
+│   ├── orchestration-comparison.md  # Orchestration approach comparison
+│   ├── mcp-vs-skills-economics.md   # Cost/performance analysis
+│   ├── mcp-patterns.md        # Failure modes + OWASP mapping
+│   ├── mcp-daily-essentials.md      # Optimal plugin configuration
+│   ├── plugins-and-extensions.md    # Skills vs MCP vs Hooks decision
+│   ├── safety-and-sandboxing.md     # 4-layer security stack
+│   ├── secure-code-generation.md    # OWASP-aware code generation
+│   ├── tool-ecosystem.md           # Claude Code vs alternatives
+│   ├── framework-selection-guide.md # Framework decision matrix
+│   ├── agent-evaluation.md         # Eval methodology
+│   ├── agent-principles.md         # 6 production principles
+│   └── confidence-scoring.md       # Assessment framework
 │
-├── skills/                     # Skill documentation
-│   ├── README.md              # Skills guide
-│   ├── QUICK-REFERENCE.md     # Fast lookup
-│   ├── SKILL-TEMPLATE.md      # Template with all sections
-│   ├── SECURITY-GUIDELINES.md # Risk classification
-│   └── examples/              # 10 example skills
-│       ├── content-reviewer/
-│       ├── detection-rule-reviewer/
-│       ├── git-workflow-helper/
-│       ├── hypothesis-validator/
-│       ├── recursive-analyst/
-│       ├── research-extractor/
-│       ├── systematic-debugger/
-│       ├── tdd-enforcer/
-│       ├── threat-model-reviewer/
-│       └── ultrathink-analyst/ (with 3 workflows)
-│
-├── templates/                  # Ready-to-use templates
-│   ├── CLAUDE.md.template     # Handlebars template
-│   ├── settings.json.template # Hook configuration
-│   └── session-start.sh       # Session hook script
-│
-├── examples/                   # Complete project examples
-│   ├── coding-project/        # Software development setup
-│   ├── research-project/      # Research and analysis setup
-│   └── writing-project/       # Content creation setup
-│
-├── presets/                    # Quick-start configurations
-│   ├── coding.md
-│   ├── writing.md
-│   ├── research.md
-│   └── hybrid.md
-│
-├── prompts/                    # Interactive setup guides
-│   ├── BOOTSTRAP-NEW-PROJECT.md
-│   ├── AUDIT-EXISTING-PROJECT.md
-│   └── MAKE-PROJECT-RECOMMENDATIONS.md
+├── archive/                    # Prior v1 content (preserved)
+│   ├── patterns-v1/           # 24 archived patterns
+│   ├── skills-v1/             # Archived skills + examples
+│   ├── templates-v1/          # Archived templates
+│   ├── presets-v1/            # Archived presets
+│   ├── prompts-v1/            # Archived prompts
+│   ├── examples-v1/           # Archived project examples
+│   ├── mcp-server-v1/         # Archived MCP server
+│   └── specs-v1/              # Archived specs
 │
 ├── automation/                 # Scripts
 │   └── generate_index.py      # INDEX.md generator
 │
 ├── research/                   # Research and analysis
-│   └── ai-creators-analysis.md # Tier A source analysis
 │
-├── ARCHITECTURE.md            # This file (strategic)
-├── ARCHIVE.md                 # Completed work and milestones
-├── CONTRIBUTING.md            # Contribution guidelines
+├── ARCHITECTURE.md            # This file
 ├── DECISIONS.md               # Design rationale
-├── DEPRECATIONS.md            # Removed features and migration
-├── DOGFOODING-GAPS.md         # Self-compliance tracking
-├── FOUNDATIONAL-PRINCIPLES.md # Core project principles
 ├── INDEX.md                   # Auto-generated inventory
-├── MIGRATION-GUIDE.md         # Cursor/.cursorrules migration
-├── PATTERN-LEARNING-PATH.md   # Guided learning by role
-├── PATTERN-QUALITY-CHECKLIST.md # Validation tool for new patterns
-├── PLAN.md                    # Current priorities (tactical)
-├── QUARTERLY-REVIEW.md        # Quarterly review tracker
+├── PLAN.md                    # Current priorities
 ├── README.md                  # Project overview
-├── SOURCES.md                 # All sources with evidence tiers
-├── SOURCES-QUICK-REFERENCE.md # Top 20 sources (fast lookup)
-├── TOOLS-TRACKER.md           # Tool evolution tracking
-├── TROUBLESHOOTING.md         # Common issues and fixes
-└── VERSION-TRACKING.md        # Pattern version tracking
+├── SOURCES.md                 # Comprehensive source database
+└── SOURCES-QUICK-REFERENCE.md # Top 20 sources
 ```
 
 ---
 
-## Project Philosophy (Updated February 2026)
+## Three-Project Ecosystem
 
-### Meta-Guide Approach
+This project occupies a specific niche in the Claude Code ecosystem:
 
-This project is a **meta-guide** that curates and enhances community Claude Code resources rather than duplicating them. We follow a three-layer strategy:
+| Project | Role | Stars | Content |
+|---------|------|-------|---------|
+| **everything-claude-code** | Batteries-included tooling | 110K | 125+ skills, 28+ agents, implementation guides |
+| **superpowers** | Disciplined methodology | - | 14 skills, anti-rationalization, structured workflow |
+| **This project** | Evidence-based analysis | - | 14 analysis documents, source database, behavioral insights |
 
-#### Layer 1: Pointer Patterns (~12 patterns, 33%)
-- Point to best community resource with evidence tier assessment
-- Add integration guidance and decision matrices
-- Track deprecations and provide migration paths
-- **Examples**: [mcp-daily-essentials.md](patterns/mcp-daily-essentials.md) → shanraisshan, [advanced-tool-use.md](patterns/advanced-tool-use.md) → Anthropic blog
+### Unique Value (Not Found Elsewhere)
 
-#### Layer 2: Deep Methodology (~18 patterns, 50%)
-- Unique architectural analysis not found in community
-- SDD methodology, context engineering, evidence tiers
-- Security frameworks, orchestration patterns
-- Measurement discipline with revalidation
-- **Examples**: [spec-driven-development.md](patterns/spec-driven-development.md), [context-engineering.md](patterns/context-engineering.md), [evidence-tiers.md](patterns/evidence-tiers.md)
+Based on comparative analysis (March 2026), these insights are ABSENT from ECC:
 
-#### Layer 3: Synthesis & Integration (~6 patterns, 17%)
-- Comparative frameworks (tool ecosystem, framework selection)
-- Integration patterns between resources
-- Decision trees and trade-off analysis
-- **Examples**: [framework-selection-guide.md](patterns/framework-selection-guide.md), [mcp-vs-skills-economics.md](patterns/mcp-vs-skills-economics.md)
-
-### Why This Approach?
-
-**Problem identified (February 2026)**:
-- 15 of 36 patterns (42%) had 50%+ overlap with community projects
-- Maintaining tool lists that community projects maintain better
-- Duplication created maintenance burden and slower-than-community updates
-- Our unique value (SDD, evidence tiers, measurements) was getting diluted
-
-**Solution**:
-- **Curate** community resources with evidence tier assessment
-- **Integrate** resources through decision matrices
-- **Fill gaps** not covered by community
-- **Track** deprecations and coordination issues
-- **Defer to community consensus** where it exists
-
-**Result**: Focus on 18 unique patterns (evidence tiers, SDD, context engineering, security frameworks, measurement discipline) while pointing to community leaders for tool discovery and implementation details.
-
-See: [COMMUNITY-RESOURCES.md](COMMUNITY-RESOURCES.md) for complete directory of community projects we curate and enhance.
+1. Evidence tier classification system (A-D + 1-5)
+2. ~80% CLAUDE.md adherence rate
+3. 60% context degradation threshold
+4. Custom subagent gatekeeping anti-pattern
+5. MCP vs Skills cost analysis (50% savings)
+6. Specification Gap framework (colleague-shaped vs tool-shaped)
+7. Cross-approach orchestration comparison
 
 ---
 
 ## Key Design Decisions
 
-### 1. Self-Compliance
-The repository follows the patterns it documents. This provides:
-- Credibility (practices what it preaches)
-- Validation (patterns tested on this repo)
-- Example (users can see patterns in action)
+### 1. Analysis Over Implementation
+We evaluate and compare rather than providing implementation guides. This keeps the project maintainable and avoids duplication.
 
-### 2. Evidence-Based Documentation
-All patterns must be backed by:
-- Tier A: Anthropic official sources
-- Tier B: Production-validated implementations
-- Tier C: Community best practices
+### 2. Evidence-Based Claims
+All claims must include source, evidence tier, and date. Measurements require revalidation dates.
 
-### 3. Progressive Disclosure
-Documentation is layered:
-- README.md: Quick start
-- patterns/: Deep dives
-- examples/: Complete implementations
-
----
-
-## Integration Points
-
-### Sources
-- Anthropic Engineering Blog
-- Nate B. Jones (Memory Prompts, MCP Guide)
-- Daniel Miessler (Fabric framework)
-- Production validation (12+ projects)
-
-### Validation
-Patterns are validated in production before documenting:
-- project1 (second-brain): 21 skills, 50 hypotheses
-- 8 independent repositories
+### 3. Narrow Focus
+14 analysis documents rather than 36 patterns. Depth over breadth.
 
 ---
 
 ## Maintenance
 
-| Document | Update Trigger | Owner |
-|----------|---------------|-------|
-| ARCHITECTURE.md | Major milestones, structure changes | Manual |
-| PLAN.md | Weekly, priority shifts | Manual |
+| Document | Update Trigger | Frequency |
+|----------|---------------|-----------|
+| analysis/ docs | New source material from Tier A/B sources | Monthly |
+| SOURCES.md | New publications from tracked sources | Biweekly |
+| ARCHITECTURE.md | Structure changes | As needed |
 | INDEX.md | File changes | Automated |
 
 See [PLAN.md](PLAN.md) for current priorities.

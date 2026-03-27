@@ -278,7 +278,7 @@ After Peer Review: HIGH (independently verified)
 
 - [Evidence Tiers](./evidence-tiers.md) - Classification of source quality and research evidence
 - [Agent Principles](./agent-principles.md) - Accuracy and intellectual honesty
-- [Context Engineering](./context-engineering.md) - Correctness over compression
+- [Context Engineering](./behavioral-insights.md) - Correctness over compression
 
 ---
 

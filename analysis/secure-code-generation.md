@@ -383,9 +383,9 @@ CodeGuard includes an MCP-specific security rule that complements our existing [
 
 - [Safety and Sandboxing](./safety-and-sandboxing.md) — OS-level agent security (complements output-level security)
 - [MCP Patterns](./mcp-patterns.md) — MCP-specific security including OWASP Top 10
-- [Advanced Hooks](./advanced-hooks.md) — Hook patterns for credential scanning and security gates
+- [Advanced Hooks](../archive/patterns-v1/advanced-hooks.md) — Hook patterns for credential scanning and security gates
 - [Plugins and Extensions](./plugins-and-extensions.md) — CodeGuard as a recommended security plugin
-- [Skills Domain Knowledge](./skills-domain-knowledge.md) — Embedding security expertise as a skill
+- [Skills Domain Knowledge](./plugins-and-extensions.md) — Embedding security expertise as a skill
 
 ---
 

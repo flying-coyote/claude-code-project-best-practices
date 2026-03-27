@@ -242,21 +242,86 @@ For production deployments, layer security mechanisms:
 
 ---
 
+## Auto Mode: Classifier-Based Permissions (March 2026)
+
+**Source**: [Claude Code Auto Mode](https://www.anthropic.com/engineering/claude-code-auto-mode) (March 25, 2026)
+**Evidence Tier**: A (Primary vendor)
+
+Auto mode automates permission decisions using a two-stage classifier, reducing friction while maintaining security.
+
+### How It Works
+
+```
+Permission Request
+    │
+    ├── Stage 1: Fast single-token filter (Sonnet 4.6)
+    │   └── SAFE → Auto-approve
+    │
+    └── Stage 2: Chain-of-thought reasoning (if flagged)
+        ├── SAFE → Auto-approve
+        └── RISKY → Prompt user (interactive) or abort (non-interactive)
+```
+
+### Key Metrics
+
+| Metric | Value |
+|--------|-------|
+| **User approval rate** | 93% of permission prompts are approved |
+| **Classifier model** | Sonnet 4.6 |
+| **Non-interactive behavior** | Aborts if classifier repeatedly blocks (no user fallback) |
+
+### Enabling
+
+```bash
+# Via CLI flag
+claude --permission-mode auto
+
+# Via settings.json
+{
+  "permissions": {
+    "mode": "auto"
+  }
+}
+```
+
+### New Sandbox Settings (v2.1.77-83)
+
+| Setting | Purpose | Version |
+|---------|---------|---------|
+| `sandbox.failIfUnavailable` | Fail startup if sandbox unavailable (strict mode) | v2.1.83 |
+| `sandbox.filesystem.allowRead` | Allow read within `denyRead` regions | v2.1.77 |
+| `CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1` | Strip Anthropic/cloud credentials from subprocesses | v2.1.83 |
+| Silent sandbox disable warning | Visible startup warning if sandbox silently disabled | v2.1.78 |
+
+### Recommendation Update
+
+The permission/security stack is now four layers (up from three):
+
+```
+Layer 1: Sandboxing (OS-level)        — 84% permission reduction
+Layer 2: Auto Mode (classifier)       — Automates 93% of remaining prompts
+Layer 3: Permission Rules (settings)  — Pre-approve safe patterns
+Layer 4: Hooks (application-level)    — Custom validation logic
+```
+
+---
+
 ## Related Patterns
 
 - [Secure Code Generation](./secure-code-generation.md) - Securing the code Claude generates (output-level security)
-- [Advanced Hooks](./advanced-hooks.md) - Hook patterns for security and quality gates
+- [Advanced Hooks](../archive/patterns-v1/advanced-hooks.md) - Hook patterns for security and quality gates
 - [MCP Patterns](./mcp-patterns.md) - MCP security framework and OWASP compliance
-- [Project Infrastructure](./project-infrastructure.md) - Infrastructure tiers including security
-- [Subagent Orchestration](./subagent-orchestration.md) - Security for multi-agent execution
+- [Project Infrastructure](../archive/patterns-v1/project-infrastructure.md) - Infrastructure tiers including security
+- [Subagent Orchestration](./orchestration-comparison.md) - Security for multi-agent execution
 
 ---
 
 ## Sources
 
 - [Beyond Permission Prompts](https://www.anthropic.com/engineering/beyond-permission-prompts) (October 2025)
+- [Claude Code Auto Mode](https://www.anthropic.com/engineering/claude-code-auto-mode) (March 25, 2026)
 - [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)
 - [Claude Code Security Documentation](https://code.claude.com/docs/en/security)
 - [Data Residency Documentation](https://platform.claude.com/docs/en/build-with-claude/data-residency) (February 2026)
 
-*Last updated: February 2026*
+*Last updated: March 2026*

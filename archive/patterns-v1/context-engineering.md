@@ -221,14 +221,27 @@ Opus 4.6 extends the context window to 1M tokens, previously only available on S
 ## Context Rot
 
 > "Context rot is the degradation of model accuracy as context windows fill up."
+> — Boris Cherny: "Context degradation is the primary failure mode of Claude Code."
 
 As more tokens are added, the transformer architecture struggles to track relationships between all tokens. The number of relationships grows as n² for n tokens—with a limited "attention budget," LLMs quickly get overwhelmed.
+
+### Context Capacity Thresholds (Boris Cherny, March 2026)
+
+| Capacity | Behavior |
+|----------|----------|
+| **0-20%** | Optimal performance |
+| **20-40%** | Performance begins to degrade |
+| **40-60%** | Noticeable quality reduction |
+| **60%+** | **Do not exceed** — quality degrades significantly |
+| **~83.5%** | Auto-compaction fires |
+
+**Rule**: Don't let context exceed **60% capacity**. If you're approaching this threshold, compact manually (`/compact`) or start a fresh session.
 
 **Implications**:
 - Longer context ≠ better context
 - Recency bias affects recall
 - Position in context matters (needle-in-haystack problem)
-- Performance degrades before you hit the technical limit
+- Performance degrades well before you hit the technical limit
 
 ### Three Mitigation Strategies (Anthropic Official)
 
@@ -283,6 +296,31 @@ From Anthropic's internal testing:
 - **Memory Tool + Context Editing**: 39% improvement in agent search performance
 - **Context editing alone**: 29% improvement
 - **Token consumption in 100-round search**: 84% reduction
+
+### Document & Clear Pattern (Boris Cherny, March 2026)
+
+> "Never let a long session be your only record. Commit frequently, dump progress to files, treat every session as disposable."
+
+**Implementation**:
+1. **Commit frequently** — After each meaningful change, not at session end
+2. **Maintain notes** — Keep a notes directory per project, updated after each PR
+3. **Dump progress to files** — Write progress to `claude-progress.md` or similar before context fills
+4. **Treat sessions as disposable** — If a session dies, you should lose nothing
+
+**Why this matters**: Context compaction can erase session knowledge. A PostCompact hook can re-inject critical instructions (see [Advanced Hooks](./advanced-hooks.md#hook-7-postcompact---context-recovery-boris-cherny-pattern)), but externalized state is the only reliable safety net.
+
+### Writer/Reviewer Pattern (Boris Cherny)
+
+> "A fresh context improves code review since Claude won't be biased toward code it just wrote."
+
+After implementation, use a **separate Claude session** (or subagent) to review the code. The reviewer has no implementation bias — it evaluates the code purely on its merits.
+
+```
+Session 1 (Writer): Implement feature → commit
+Session 2 (Reviewer): "Review the changes in the last commit. What would a senior engineer critique?"
+```
+
+This leverages context isolation as a feature, not a limitation.
 
 ### Progressive Disclosure Integration
 

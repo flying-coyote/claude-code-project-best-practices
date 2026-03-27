@@ -13,22 +13,35 @@ All patterns in this repository are derived from authoritative sources and produ
 - [Paddo.dev: How Boris Uses Claude Code](https://paddo.dev/blog/how-boris-uses-claude-code/) (January 2026)
 - [VentureBeat: Creator of Claude Code Workflow](https://venturebeat.com/technology/the-creator-of-claude-code-just-revealed-his-workflow-and-developers-are) (January 2026)
 - [Anthropic Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
+- ["How I Use Claude Code" Threads mega-post](https://www.threads.com/@boris_cherny/post/DTBVlMIkpcm/) (February 1, 2026 — 8M views on X)
+- ["Team Tips" Threads posts](https://www.threads.com/@boris_cherny/post/DUMZr4VElyb/) (42 tips, January-February 2026)
+- [Lenny's Podcast: "Head of Claude Code"](https://www.lennysnewsletter.com/p/head-of-claude-code-what-happens) (February 19, 2026)
+- [Pragmatic Engineer: "Building Claude Code with Boris Cherny"](https://newsletter.pragmaticengineer.com/p/building-claude-code-with-boris-cherny) (March 4, 2026)
+- [Anthropic Webinar: "Claude Code Advanced Patterns"](https://www.anthropic.com/webinars/claude-code-advanced-patterns) (March 24, 2026)
 
 **Key Workflow Insights**:
 1. **Parallel Sessions**: Run 5 terminal instances + 5-10 web sessions simultaneously
 2. **Opus 4.6 (latest)**: Use for all tasks—agent teams, 1M context, adaptive thinking
-3. **CLAUDE.md as Team Memory**: Update multi-weekly, capture mistakes as they happen
-4. **Plan Mode First**: Always for non-trivial work
+3. **CLAUDE.md as Team Memory**: Update multi-weekly, capture mistakes as they happen; CLAUDE.md is advisory (~80% adherence)—use hooks for 100% enforcement
+4. **Plan Mode First**: Always for non-trivial work; have one Claude draft the plan, another review it as "staff engineer"
 5. **Natural Language Git**: "commit and push" works without custom commands (per official guidance, avoid complex slash command lists)
-6. **PostToolUse Auto-Formatting**: Run formatters (prettier, black) after Write
+6. **PostToolUse Auto-Formatting**: Run formatters (prettier, black) after Write (caveat: can consume 160K tokens in 3 rounds)
 7. **Pre-Allow Permissions**: `/permissions` to allow `bun run build:*`, `bun run test:*`
 8. **MCP for External Tools**: When native tools insufficient
-9. **Verification = 2-3x Quality**: Subagent verification before finalizing
+9. **Verification = 2-3x Quality**: Subagent verification before finalizing; Writer/Reviewer pattern — fresh context improves review since Claude won't be biased toward code it just wrote
 10. **Background Agents**: Stop hooks to avoid lost work
 11. **GitHub Actions + @.claude**: Trigger Claude from CI/CD
 12. **Skip Exotic Customization**: Standard patterns over novel approaches
+13. **Document & Clear Pattern**: Never let a long session be your only record; commit frequently, dump progress to files, treat sessions as disposable
+14. **60% Context Threshold**: Performance degrades at 20-40% capacity; auto-compaction fires at ~83.5%
+15. **PostCompact Hook**: Re-inject critical instructions after context compaction (March 2026)
+16. **Five-Layer Architecture**: MCP → Skills → Agent → Subagents → Agent Teams
+17. **~150 Instruction Cap**: Keep CLAUDE.md under ~150 instructions; use progressive disclosure into skill files
+18. **Subagent Anti-Pattern**: Custom subagents can "gatekeep context" and force rigid human workflows—consider letting the main agent use native delegation features
+19. **New CLI Features**: `/loop` (recurring tasks, up to 3 days), `/btw` (side questions without breaking flow), `/effort max` (4 levels), `/insights` (weekly pattern review)
+20. **100% AI-Authored Code**: Boris has written zero manual code since November 2025; ships 20-30 PRs/day
 
-**Pattern References**: [Parallel Sessions](patterns/parallel-sessions.md), [Subagent Orchestration](patterns/subagent-orchestration.md), [Documentation Maintenance](patterns/documentation-maintenance.md), [GitHub Actions Integration](patterns/github-actions-integration.md)
+**Pattern References**: [Parallel Sessions](patterns/parallel-sessions.md), [Subagent Orchestration](patterns/subagent-orchestration.md), [Documentation Maintenance](patterns/documentation-maintenance.md), [GitHub Actions Integration](patterns/github-actions-integration.md), [Context Engineering](patterns/context-engineering.md), [Advanced Hooks](patterns/advanced-hooks.md)
 **Evidence Tier**: A (Primary vendor/creator)
 
 ### Anthropic Engineering Blog
@@ -297,6 +310,31 @@ All patterns in this repository are derived from authoritative sources and produ
   - Context isolation for fresh context windows
 - **Pattern**: [Subagent Orchestration](patterns/subagent-orchestration.md)
 
+#### Auto Mode: Classifier-Based Permissions
+- **Title**: "Claude Code Auto Mode"
+- **Source**: Anthropic Engineering Blog
+- **Date**: March 25, 2026
+- **URL**: https://www.anthropic.com/engineering/claude-code-auto-mode
+- **Key Insights**:
+  - Users approve 93% of permission prompts — auto mode automates the safe ones
+  - Two-stage classifier: fast single-token filter, then chain-of-thought reasoning
+  - Classifier runs on Sonnet 4.6
+  - For non-interactive `-p` runs, auto mode aborts if classifier repeatedly blocks
+- **Pattern**: [Safety and Sandboxing](patterns/safety-and-sandboxing.md)
+
+#### Agent Skills System (Updated)
+- **Title**: "Equipping agents for the real world with Agent Skills"
+- **Source**: Anthropic Engineering Blog
+- **Date**: March 19, 2026
+- **URL**: https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills
+- **Key Insights**:
+  - New frontmatter fields: `effort`, `paths` (conditional activation), `shell`, `hooks` (skill-scoped), `agent` (subagent type)
+  - `${CLAUDE_SKILL_DIR}` variable for self-referencing skills
+  - Skill description budget scales dynamically at 2% of context window (fallback 16KB)
+  - Keep SKILL.md under 500 lines; move reference material to supporting files
+  - Dynamic context injection via `` !`command` `` syntax
+- **Pattern**: [Plugins and Extensions](patterns/plugins-and-extensions.md), [Progressive Disclosure](patterns/progressive-disclosure.md)
+
 #### Claude Code Hooks Reference
 - **Source**: Anthropic Official Documentation
 - **URL**: https://docs.anthropic.com/en/docs/claude-code/hooks
@@ -305,6 +343,8 @@ All patterns in this repository are derived from authoritative sources and produ
   - PostToolUse output formatting
   - PermissionRequest hooks (v2.0.45+)
   - SubagentStop and SessionEnd hooks
+  - New events (v2.1.76-84): TaskCreated, TaskCompleted, TeammateIdle, CwdChanged, FileChanged, PostCompact, InstructionsLoaded, WorktreeCreate
+  - New hook handler types: `http` (POST to endpoint), `prompt` (single LLM call), `agent` (subagent with 50 tool turns, 60s timeout)
 - **Pattern**: [Advanced Hooks](patterns/advanced-hooks.md)
 
 ### Coalition for Secure AI (CoSAI) - Project CodeGuard
@@ -595,6 +635,24 @@ Track these for production readiness:
 - **Pattern**: [MCP Patterns - CLI vs MCP](patterns/mcp-patterns.md#cli-vs-mcp-the-token-efficiency-case)
 - **Evidence Tier**: B (Microsoft, measured benchmarks, 3.6k stars) ✅ Verified
 
+### affaan-m/everything-claude-code
+- **URL**: https://github.com/affaan-m/everything-claude-code
+- **Stars**: 110K+ (as of March 2026)
+- **Author**: Affaan Mustafa (Anthropic Hackathon Winner)
+- **Description**: Maximalist Claude Code plugin ecosystem with 28 agents, 125+ skills, 60+ commands, and rules for 12 language ecosystems. Built over 10+ months of daily production use.
+- **Key Contributions**:
+  - **Agent auto-delegation**: Complex requests auto-route to specialized agents (planner, code-reviewer, tdd-guide, architect, build-error-resolver)
+  - **Continuous learning pipeline**: Sessions → instincts (confidence-scored) → skills via `/learn` → `/evolve` → `/prune`
+  - **Context budget management**: MCP discipline (limit to 5-6 active per project), context budget tracking, model routing (Haiku/Sonnet/Opus)
+  - **12 language ecosystems**: TypeScript, Python, Go, Swift, PHP, Java, Kotlin, Rust, C++, Perl with language-specific rules, agents, and skills
+  - **Industry-specific skills**: Logistics, customs compliance, energy procurement, production scheduling
+  - **Hook runtime profiles**: `ECC_HOOK_PROFILE=standard|minimal|strict` with env-var disabling of individual hooks
+  - **Multi-platform**: Claude Code, Cursor, Codex, OpenCode, Antigravity IDE
+- **Philosophy**: Maximalist platform tuning — Claude becomes more effective with a rich pre-built library that automatically delegates, learns, and optimizes
+- **Relevance**: Largest community Claude Code configuration ecosystem; validates patterns documented in this project at scale; complementary approach (batteries-included vs evidence-based guidance)
+- **Evidence Tier**: B (Open source, 110K+ stars, production-validated across 10+ months, Anthropic hackathon winner)
+- **Patterns**: [Plugins and Extensions](patterns/plugins-and-extensions.md), [Subagent Orchestration](patterns/subagent-orchestration.md), [Memory Architecture](patterns/memory-architecture.md)
+
 ### obra/superpowers
 - **URL**: https://github.com/obra/superpowers
 - **Description**: Framework plugin equipping AI coding agents with structured workflows (brainstorming, TDD, systematic debugging, subagent coordination)
@@ -742,6 +800,16 @@ These individuals have developed principled methodologies for AI-assisted develo
 4. **Prompts as Programming Primitives** - Prompts deserve the same engineering rigor as code.
 5. **Massive Spec Prompts** - Feature requirements → fully generated code in a single prompt via comprehensive specs.
 
+#### 2026 Updates
+
+- **"Top 2% Agentic Engineering" Roadmap** ([agenticengineer.com/top-2-percent-agentic-engineering](https://agenticengineer.com/top-2-percent-agentic-engineering), March 2026):
+  - Central thesis: "2026 is the year of trust" — every prediction comes down to *do you trust your agents?*
+  - Multi-agent mandate: "Stop running a single Claude Code instance and start running three, five, ten, or hundreds."
+  - Agent sandboxes are essential — "running agents unconstrained is how you delete your device, leak your API keys"
+  - Fine-tuned specialization: "When you fine-tune an agent to solve one problem extraordinarily well, your trust in that agent skyrockets"
+- **Agent-scoped hooks**: Hooks embedded in agents/skills, not just global settings.json — evolution from global to local hook control
+- **Builder/Validator agent teams**: Separation of concerns via agent config (builder = full access, validator = read-only)
+
 #### Open Source Artifacts
 
 | Repository | Purpose | Relevance |
@@ -750,6 +818,9 @@ These individuals have developed principled methodologies for AI-assisted develo
 | [indydevtools](https://github.com/disler/indydevtools) | Agentic engineering toolbox for autonomous problem-solving | Multi-agent architecture patterns |
 | [claude-code-hooks-multi-agent-observability](https://github.com/disler/claude-code-hooks-multi-agent-observability) | Real-time monitoring for parallel Claude Code agents | Production observability patterns |
 | [infinite-agentic-loop](https://github.com/disler/infinite-agentic-loop) | Two-prompt system for continuous agent operation | Advanced orchestration patterns |
+| [claude-code-hooks-mastery](https://github.com/disler/claude-code-hooks-mastery) (3.4K stars, March 2026) | Comprehensive tutorial covering all 13 hook lifecycle events | UV single-file script pattern, deterministic hook control |
+| [pi-vs-claude-code](https://github.com/disler/pi-vs-claude-code) (555 stars, March 2026) | Open-source Pi agent vs Claude Code comparison | Cross-agent config portability |
+| [the-library](https://github.com/disler/the-library) (270 stars, March 2026) | Meta-skill for private-first distribution of agentic capabilities | Skill distribution across agents/devices/teams |
 
 #### Advanced Concepts (TAC Course)
 
@@ -859,6 +930,28 @@ These sources directly influenced the design of the skill structure and project 
   - ~43% of MCP servers have security vulnerabilities
 
 - **Influence on This Repo**: Skill structure, context patterns, and three pattern files derive from Nate B. Jones' work
+
+#### 2026 Updates
+
+- **OB1 "Open Brain"** ([github.com/NateBJones-Projects/OB1](https://github.com/NateBJones-Projects/OB1), March 11, 2026):
+  - Open-source MCP-based shared memory infrastructure with PostgreSQL + pgvector
+  - SHA-256 content fingerprinting for deduplication; atomic embeddings (Zettelkasten-style)
+  - Hub-and-spoke model: one central database, multiple AI tools connect via MCP
+  - Four well-scoped MCP tools (semantic search, browse recent, stats, capture)
+  - Row-level security for multi-user isolation; cost: $0.10-$0.30/month on free tier
+  - Design principle: "Memory as infrastructure, not a feature — you own the data, not a platform"
+  - Concrete implementation of the Memory Architecture pattern documented in this repo
+- **Specification Gap** ([Substack, January 21, 2026](https://natesnewsletter.substack.com/p/tool-shaped-vs-colleague-shaped-ai)):
+  - "Claude Code = colleague-shaped; Codex = tool-shaped. Know which you need."
+  - Senior engineers gravitate toward Codex (well-specified tasks); juniors prefer Claude Code (conversational friction catches errors)
+  - "The Specification Gap" — teams overestimate their ability to specify precise intent
+- **Identity Shift** ([Substack, January 23, 2026](https://natesnewsletter.substack.com/p/6-practices-for-when-the-models-got)):
+  - Bottleneck shifts from agents to keeping them fed with work
+  - Identity shift: from "person who writes code" to "person who specifies, reviews, and orchestrates"
+- **Claude Code Without the Code** ([Substack, updated March 17, 2026](https://natesnewsletter.substack.com/p/claude-code-without-the-code-the)):
+  - 64-page guide to non-coding agent workflows (legal, research, document automation)
+  - Positions Claude Code as "a general purpose AI agent hiding under the guise of just being a coding agent"
+- **Note**: Primary website is **natebjones.com** (not nateb.xyz)
 
 ### Daniel Miessler - Fabric Framework & PAI (Personal AI Infrastructure)
 - **Author**: Daniel Miessler

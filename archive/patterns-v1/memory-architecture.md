@@ -288,6 +288,67 @@ For full documentation, see [claude-mem GitHub](https://github.com/thedotmack/cl
 
 ---
 
+## Production Implementation: OB1 "Open Brain" (Nate B. Jones)
+
+**Source**: [github.com/NateBJones-Projects/OB1](https://github.com/NateBJones-Projects/OB1) (March 2026)
+**Evidence Tier**: B (Open source, from Tier A practitioner)
+
+For teams seeking **cross-tool shared memory** that persists across Claude Code, Claude Desktop, ChatGPT, and Cursor, OB1 provides a concrete MCP-based implementation of the memory architecture principles documented here.
+
+> "The memory problem is quietly capping everything we do with AI, and the fix requires infrastructure you own, not features a platform controls." — Nate B. Jones
+
+### Architecture
+
+```
+┌─────────────────────────────────────────────┐
+│            PostgreSQL + pgvector            │
+│         (Single Source of Truth)             │
+│    SHA-256 content fingerprinting (dedup)    │
+│    Row-level security (multi-user)          │
+└────────────────┬────────────────────────────┘
+                 │ MCP Protocol
+    ┌────────────┼────────────┐
+    │            │            │
+Claude Code  Claude Desktop  ChatGPT
+    │            │            │
+    └────────────┼────────────┘
+         4 MCP Tools:
+    semantic search, browse recent,
+         stats, capture
+```
+
+### Design Principles
+
+| Principle | Implementation |
+|-----------|---------------|
+| **Memory as infrastructure** | You own the data (Supabase), not a platform |
+| **Single source of truth** | One database, one AI gateway, one chat channel |
+| **Atomic embeddings** | One idea per entry (Zettelkasten-style) — tight embeddings yield precise retrieval |
+| **No middleware** | Embed capabilities in database + MCP protocol; avoid Zapier-style automation |
+| **Composable extensions** | 6 curated extensions; cross-extension knowledge compounds |
+
+### Integration with This Pattern
+
+| Memory Lifecycle | OB1 Implementation |
+|-----------------|---------------------|
+| PERMANENT | Profile + preferences stored with semantic embeddings |
+| EVERGREEN | Domain knowledge captured via Slack/Discord bots |
+| PROJECT | Project context captured per session via MCP |
+| SESSION | Real-time capture through MCP `capture` tool |
+
+### When to Use OB1 vs claude-mem
+
+| Factor | OB1 | claude-mem |
+|--------|-----|-----------|
+| **Cross-tool memory** | ✅ (any MCP-capable tool) | ❌ (Claude Code only) |
+| **Setup complexity** | ~45 minutes (Supabase + MCP) | `npm install -g` |
+| **Cost** | $0.10-$0.30/month | Free (local) |
+| **Multi-user** | ✅ (row-level security) | ❌ |
+| **Team use** | ✅ (shared brain) | ❌ (individual) |
+| **Best for** | Multi-tool workflows, teams | Single-user, single-tool |
+
+---
+
 ## Related Patterns
 
 - [Context Engineering](./context-engineering.md) - Deterministic vs probabilistic context
@@ -295,5 +356,6 @@ For full documentation, see [claude-mem GitHub](https://github.com/thedotmack/cl
 - [Documentation Maintenance](./documentation-maintenance.md) - Keeping memory current
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
 - [Session Learning](./session-learning.md) - Cross-session preference capture from corrections
+- [MCP Patterns](./mcp-patterns.md) - MCP server architecture and security
 
-*Last updated: January 2026*
+*Last updated: March 2026*

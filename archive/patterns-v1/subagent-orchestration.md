@@ -27,6 +27,20 @@ Subagents are specialized Claude instances spawned by a parent agent to handle s
 
 **SDD Phase**: Tasks + Implement (execution layer optimization)
 
+### Five-Layer Architecture (Boris Cherny, March 2026)
+
+The Claude Code stack can be conceptualized as five layers of increasing coordination:
+
+```
+Layer 5: Agent Teams    ← Multi-agent coordination with shared task lists
+Layer 4: Subagents      ← Parallel independent workers, report to parent
+Layer 3: Agent          ← Primary worker (the main Claude session)
+Layer 2: Skills         ← Task-specific knowledge and workflows
+Layer 1: MCP            ← Connectivity to external tools and services
+```
+
+Each layer builds on the one below. Most work should start at Layer 3 (the main agent) and escalate to Layers 4-5 only when needed.
+
 **When to consider alternatives**:
 - Multi-session continuity needed → [GSD Orchestration](./gsd-orchestration.md)
 - Building reusable agent systems → [Cognitive Agent Infrastructure](./cognitive-agent-infrastructure.md)
@@ -103,6 +117,23 @@ You are a senior security engineer. Review code for:
 ```
 
 Custom subagents are referenced by name: *"Use a subagent to review this code for security issues."*
+
+### Declarative Worktree Isolation (v2.1.76+)
+
+Add `isolation: worktree` to agent definitions for automatic git worktree isolation:
+
+```markdown
+<!-- .claude/agents/feature-builder.md -->
+---
+name: feature-builder
+description: Implements features in isolated worktree
+tools: Read, Write, Edit, Bash, Glob, Grep
+isolation: worktree
+---
+You implement features in an isolated git worktree...
+```
+
+This gives the agent its own filesystem copy — changes are automatically cleaned up if the agent makes no modifications, or returned as a branch if changes are made.
 
 ---
 
@@ -904,6 +935,11 @@ CAII organizes by cognitive function, not domain:
 **Symptom**: Fragmented understanding, missed connections between findings
 **Solution**: Always synthesize and reconcile results after parallel subagent completion
 
+### ❌ Custom Subagents That Gatekeep Context (Boris Cherny Warning)
+**Problem**: Custom subagents can "gatekeep context" and force rigid human workflows onto the agent
+**Symptom**: Agent is constrained to predefined delegation patterns instead of using native judgment; configuration becomes maintenance burden
+**Solution**: Consider giving the main agent context in CLAUDE.md and letting it use native Task/Explore features for delegation. Reserve custom agents for truly specialized roles (security review, domain-specific validation) where the main agent lacks expertise.
+
 ---
 
 ## Sources
@@ -920,4 +956,4 @@ CAII organizes by cognitive function, not domain:
 - [wshobson/agents](https://github.com/wshobson/agents) - Tiered model strategy (24.2k stars)
 - [ccswarm](https://github.com/nwiizo/ccswarm) - Git worktree + channel-based communication
 
-*Last updated: February 2026*
+*Last updated: March 2026*
