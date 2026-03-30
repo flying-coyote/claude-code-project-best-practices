@@ -651,7 +651,7 @@ Track these for production readiness:
 - **Philosophy**: Maximalist platform tuning — Claude becomes more effective with a rich pre-built library that automatically delegates, learns, and optimizes
 - **Relevance**: Largest community Claude Code configuration ecosystem; validates patterns documented in this project at scale; complementary approach (batteries-included vs evidence-based guidance)
 - **Evidence Tier**: B (Open source, 110K+ stars, production-validated across 10+ months, Anthropic hackathon winner)
-- **Patterns**: [Plugins and Extensions](patterns/plugins-and-extensions.md), [Subagent Orchestration](patterns/subagent-orchestration.md), [Memory Architecture](patterns/memory-architecture.md)
+- **Patterns**: [Plugins and Extensions](analysis/plugins-and-extensions.md), [Harness Engineering](analysis/harness-engineering.md)
 
 ### obra/superpowers
 - **URL**: https://github.com/obra/superpowers
@@ -667,7 +667,20 @@ Track these for production readiness:
 - **Pattern Overlap**: This project independently implements equivalent patterns (tdd-enforcer skill, systematic-debugger skill, subagent-orchestration, planning-first-development)
 - **Relevance**: Reference implementation demonstrating skills-based workflow automation; validates this project's pattern documentation
 - **Evidence Tier**: B (Open source framework with cross-platform adoption)
-- **Pattern**: [Plugins and Extensions](patterns/plugins-and-extensions.md)
+- **Pattern**: [Plugins and Extensions](analysis/plugins-and-extensions.md), [Harness Engineering](analysis/harness-engineering.md)
+
+### Prompt Engineering YouTube Channel
+- **URL**: https://www.youtube.com/@engineerprompt
+- **Video**: ["The AI Model Doesn't Matter Anymore"](https://www.youtube.com/watch?v=1Ohf2aeSPFA) (February 2026)
+- **Key Thesis**: Raw model capability is commoditizing; the harness (infrastructure around the agent) determines outcomes. Introduces "harness engineering" as the defining discipline of 2026.
+- **Key Evidence Cited**:
+  - Frontier models: 90%+ on benchmarks, 24% on real professional tasks
+  - Vercel text-to-SQL: removing 80% of tools improved accuracy 80% → 100%, reduced tokens 60%, 3.5x speed
+  - Manus: 5 rebuilds in 6 months, biggest gains from removing features
+  - Three properties of a good harness: deterministic replay, observable boundaries, behavioral contracts
+  - Richard Sutton's "Bitter Lesson" applied to agents: harness should get simpler as models improve
+- **Evidence Tier**: B (Detailed analysis with multiple cited studies and experiments)
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md), [Domain Knowledge Architecture](analysis/domain-knowledge-architecture.md)
 
 ---
 

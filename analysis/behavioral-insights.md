@@ -184,5 +184,12 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 - RLM paper (Zhang, Kraska, Khattab): Context rot research
 - Anthropic Engineering Blog: Auto mode, agent skills (March 2026)
 
+## Related Analysis
+
+- [Harness Engineering](./harness-engineering.md) — The ~80% CLAUDE.md adherence rate and 60% context threshold are primary motivators for harness enforcement design
+- [Domain Knowledge Architecture](./domain-knowledge-architecture.md) — Context budget framework and progressive disclosure patterns build directly on the thresholds documented here
+
+---
+
 *Merged from: johari-window-ambiguity.md, recursive-context-management.md*
 *Last updated: March 2026*

@@ -42,7 +42,7 @@ claude-code-project-best-practices/
 │   ├── settings.json          # Hooks configuration
 │   └── hooks/                 # Hook scripts
 │
-├── analysis/                   # Core content (14 documents)
+├── analysis/                   # Core content (16 documents)
 │   ├── evidence-tiers.md      # Dual tier system (A-D + 1-5)
 │   ├── behavioral-insights.md # Quantified Claude Code behavior
 │   ├── orchestration-comparison.md  # Orchestration approach comparison
@@ -54,6 +54,8 @@ claude-code-project-best-practices/
 │   ├── secure-code-generation.md    # OWASP-aware code generation
 │   ├── tool-ecosystem.md           # Claude Code vs alternatives
 │   ├── framework-selection-guide.md # Framework decision matrix
+│   ├── harness-engineering.md       # Harness philosophy + diagnostics
+│   ├── domain-knowledge-architecture.md # Domain knowledge for LLMs
 │   ├── agent-evaluation.md         # Eval methodology
 │   ├── agent-principles.md         # 6 production principles
 │   └── confidence-scoring.md       # Assessment framework
@@ -92,7 +94,7 @@ This project occupies a specific niche in the Claude Code ecosystem:
 |---------|------|-------|---------|
 | **everything-claude-code** | Batteries-included tooling | 110K | 125+ skills, 28+ agents, implementation guides |
 | **superpowers** | Disciplined methodology | - | 14 skills, anti-rationalization, structured workflow |
-| **This project** | Evidence-based analysis | - | 14 analysis documents, source database, behavioral insights |
+| **This project** | Evidence-based analysis | - | 16 analysis documents, source database, behavioral insights |
 
 ### Unique Value (Not Found Elsewhere)
 

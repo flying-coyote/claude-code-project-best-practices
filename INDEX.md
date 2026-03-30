@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-03-26 23:41*
+*Auto-generated: 2026-03-30 17:53*
 
 ## Summary
 
-**Total documents**: 103
+**Total documents**: 105
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 14 |
+| analysis | 16 |
 | archive | 6 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
@@ -60,8 +60,10 @@
 - [agent-principles.md](analysis/agent-principles.md)
 - [behavioral-insights.md](analysis/behavioral-insights.md)
 - [confidence-scoring.md](analysis/confidence-scoring.md)
+- [domain-knowledge-architecture.md](analysis/domain-knowledge-architecture.md)
 - [evidence-tiers.md](analysis/evidence-tiers.md)
 - [framework-selection-guide.md](analysis/framework-selection-guide.md)
+- [harness-engineering.md](analysis/harness-engineering.md)
 - [mcp-daily-essentials.md](analysis/mcp-daily-essentials.md)
 - [mcp-patterns.md](analysis/mcp-patterns.md)
 - [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md)
@@ -78,77 +80,17 @@
 - [WORKFLOWS-ISSUES-2026-02-13-FIXED.md](archive/WORKFLOWS-ISSUES-2026-02-13-FIXED.md)
 - [WORKFLOWS-SETUP-2026-02-13-REFERENCE.md](archive/WORKFLOWS-SETUP-2026-02-13-REFERENCE.md)
 - [WORKFLOWS-SUMMARY.md](archive/WORKFLOWS-SUMMARY.md)
-## Archive / Specs-V1
-
-- [PATTERN-TEMPLATE.md](archive/specs-v1/PATTERN-TEMPLATE.md)
-## Archive / Examples-V1 / Coding-Project
-
-- [README.md](archive/examples-v1/coding-project/README.md)
-## Archive / Examples-V1 / Writing-Project
-
-- [README.md](archive/examples-v1/writing-project/README.md)
-## Archive / Examples-V1 / Research-Project
-
-- [README.md](archive/examples-v1/research-project/README.md)
 ## Archive / Presets-V1
 
 - [coding.md](archive/presets-v1/coding.md)
 - [hybrid.md](archive/presets-v1/hybrid.md)
 - [research.md](archive/presets-v1/research.md)
 - [writing.md](archive/presets-v1/writing.md)
-## Archive / Community-Contributions-V1
+## Archive / Prompts-V1
 
-- [obra-superpowers-integration-guide.md](archive/community-contributions-v1/obra-superpowers-integration-guide.md)
-- [reddit-evidence-tier-system-post.md](archive/community-contributions-v1/reddit-evidence-tier-system-post.md)
-- [shanraisshan-claude-in-chrome-deprecation-issue.md](archive/community-contributions-v1/shanraisshan-claude-in-chrome-deprecation-issue.md)
-## Archive / Templates-V1
-
-- [ADR-TEMPLATE.md](archive/templates-v1/ADR-TEMPLATE.md)
-## Archive / Skills-V1
-
-- [QUICK-REFERENCE.md](archive/skills-v1/QUICK-REFERENCE.md)
-- [README.md](archive/skills-v1/README.md)
-- [SECURITY-GUIDELINES.md](archive/skills-v1/SECURITY-GUIDELINES.md)
-- [SKILL-TEMPLATE.md](archive/skills-v1/SKILL-TEMPLATE.md)
-## Archive / Skills-V1 / Examples / Content-Reviewer
-
-- [SKILL.md](archive/skills-v1/examples/content-reviewer/SKILL.md)
-## Archive / Skills-V1 / Examples / Hypothesis-Validator
-
-- [SKILL.md](archive/skills-v1/examples/hypothesis-validator/SKILL.md)
-## Archive / Skills-V1 / Examples / Git-Workflow-Helper
-
-- [SKILL.md](archive/skills-v1/examples/git-workflow-helper/SKILL.md)
-## Archive / Skills-V1 / Examples / Tdd-Enforcer
-
-- [SKILL.md](archive/skills-v1/examples/tdd-enforcer/SKILL.md)
-## Archive / Skills-V1 / Examples / Detection-Rule-Reviewer
-
-- [SKILL.md](archive/skills-v1/examples/detection-rule-reviewer/SKILL.md)
-## Archive / Skills-V1 / Examples / Ultrathink-Analyst
-
-- [SKILL.md](archive/skills-v1/examples/ultrathink-analyst/SKILL.md)
-## Archive / Skills-V1 / Examples / Ultrathink-Analyst / Workflows
-
-- [analyze-deep-investigation.md](archive/skills-v1/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
-- [frame-problem-definition.md](archive/skills-v1/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
-- [synthesize-integration.md](archive/skills-v1/examples/ultrathink-analyst/workflows/synthesize-integration.md)
-## Archive / Skills-V1 / Examples / Systematic-Debugger
-
-- [SKILL.md](archive/skills-v1/examples/systematic-debugger/SKILL.md)
-## Archive / Skills-V1 / Examples / Recursive-Analyst
-
-- [SKILL.md](archive/skills-v1/examples/recursive-analyst/SKILL.md)
-## Archive / Skills-V1 / Examples / Recursive-Analyst / Templates
-
-- [crossover-prompt.md](archive/skills-v1/examples/recursive-analyst/templates/crossover-prompt.md)
-- [judge-prompt.md](archive/skills-v1/examples/recursive-analyst/templates/judge-prompt.md)
-## Archive / Skills-V1 / Examples / Threat-Model-Reviewer
-
-- [SKILL.md](archive/skills-v1/examples/threat-model-reviewer/SKILL.md)
-## Archive / Skills-V1 / Examples / Research-Extractor
-
-- [SKILL.md](archive/skills-v1/examples/research-extractor/SKILL.md)
+- [AUDIT-EXISTING-PROJECT.md](archive/prompts-v1/AUDIT-EXISTING-PROJECT.md)
+- [BOOTSTRAP-NEW-PROJECT.md](archive/prompts-v1/BOOTSTRAP-NEW-PROJECT.md)
+- [MAKE-PROJECT-RECOMMENDATIONS.md](archive/prompts-v1/MAKE-PROJECT-RECOMMENDATIONS.md)
 ## Archive / Docs-V1
 
 - [COMMUNITY-CONTRIBUTIONS.md](archive/docs-v1/COMMUNITY-CONTRIBUTIONS.md)
@@ -164,11 +106,59 @@
 - [TOOLS-TRACKER.md](archive/docs-v1/TOOLS-TRACKER.md)
 - [TROUBLESHOOTING.md](archive/docs-v1/TROUBLESHOOTING.md)
 - [VERSION-TRACKING.md](archive/docs-v1/VERSION-TRACKING.md)
-## Archive / Prompts-V1
+## Archive / Community-Contributions-V1
 
-- [AUDIT-EXISTING-PROJECT.md](archive/prompts-v1/AUDIT-EXISTING-PROJECT.md)
-- [BOOTSTRAP-NEW-PROJECT.md](archive/prompts-v1/BOOTSTRAP-NEW-PROJECT.md)
-- [MAKE-PROJECT-RECOMMENDATIONS.md](archive/prompts-v1/MAKE-PROJECT-RECOMMENDATIONS.md)
+- [obra-superpowers-integration-guide.md](archive/community-contributions-v1/obra-superpowers-integration-guide.md)
+- [reddit-evidence-tier-system-post.md](archive/community-contributions-v1/reddit-evidence-tier-system-post.md)
+- [shanraisshan-claude-in-chrome-deprecation-issue.md](archive/community-contributions-v1/shanraisshan-claude-in-chrome-deprecation-issue.md)
+## Archive / Specs-V1
+
+- [PATTERN-TEMPLATE.md](archive/specs-v1/PATTERN-TEMPLATE.md)
+## Archive / Skills-V1
+
+- [QUICK-REFERENCE.md](archive/skills-v1/QUICK-REFERENCE.md)
+- [README.md](archive/skills-v1/README.md)
+- [SECURITY-GUIDELINES.md](archive/skills-v1/SECURITY-GUIDELINES.md)
+- [SKILL-TEMPLATE.md](archive/skills-v1/SKILL-TEMPLATE.md)
+## Archive / Skills-V1 / Examples / Ultrathink-Analyst
+
+- [SKILL.md](archive/skills-v1/examples/ultrathink-analyst/SKILL.md)
+## Archive / Skills-V1 / Examples / Ultrathink-Analyst / Workflows
+
+- [analyze-deep-investigation.md](archive/skills-v1/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
+- [frame-problem-definition.md](archive/skills-v1/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
+- [synthesize-integration.md](archive/skills-v1/examples/ultrathink-analyst/workflows/synthesize-integration.md)
+## Archive / Skills-V1 / Examples / Research-Extractor
+
+- [SKILL.md](archive/skills-v1/examples/research-extractor/SKILL.md)
+## Archive / Skills-V1 / Examples / Recursive-Analyst
+
+- [SKILL.md](archive/skills-v1/examples/recursive-analyst/SKILL.md)
+## Archive / Skills-V1 / Examples / Recursive-Analyst / Templates
+
+- [crossover-prompt.md](archive/skills-v1/examples/recursive-analyst/templates/crossover-prompt.md)
+- [judge-prompt.md](archive/skills-v1/examples/recursive-analyst/templates/judge-prompt.md)
+## Archive / Skills-V1 / Examples / Tdd-Enforcer
+
+- [SKILL.md](archive/skills-v1/examples/tdd-enforcer/SKILL.md)
+## Archive / Skills-V1 / Examples / Systematic-Debugger
+
+- [SKILL.md](archive/skills-v1/examples/systematic-debugger/SKILL.md)
+## Archive / Skills-V1 / Examples / Content-Reviewer
+
+- [SKILL.md](archive/skills-v1/examples/content-reviewer/SKILL.md)
+## Archive / Skills-V1 / Examples / Threat-Model-Reviewer
+
+- [SKILL.md](archive/skills-v1/examples/threat-model-reviewer/SKILL.md)
+## Archive / Skills-V1 / Examples / Hypothesis-Validator
+
+- [SKILL.md](archive/skills-v1/examples/hypothesis-validator/SKILL.md)
+## Archive / Skills-V1 / Examples / Detection-Rule-Reviewer
+
+- [SKILL.md](archive/skills-v1/examples/detection-rule-reviewer/SKILL.md)
+## Archive / Skills-V1 / Examples / Git-Workflow-Helper
+
+- [SKILL.md](archive/skills-v1/examples/git-workflow-helper/SKILL.md)
 ## Archive / Patterns-V1
 
 - [advanced-hooks.md](archive/patterns-v1/advanced-hooks.md)
@@ -198,6 +188,18 @@
 ## Archive / Mcp-Server-V1
 
 - [README.md](archive/mcp-server-v1/README.md)
+## Archive / Templates-V1
+
+- [ADR-TEMPLATE.md](archive/templates-v1/ADR-TEMPLATE.md)
+## Archive / Examples-V1 / Writing-Project
+
+- [README.md](archive/examples-v1/writing-project/README.md)
+## Archive / Examples-V1 / Research-Project
+
+- [README.md](archive/examples-v1/research-project/README.md)
+## Archive / Examples-V1 / Coding-Project
+
+- [README.md](archive/examples-v1/coding-project/README.md)
 
 ---
 

@@ -669,9 +669,9 @@ Share pre-approved commands via `.claude/settings.json`:
 ## Related Patterns
 
 - [MCP Patterns](./mcp-patterns.md) - Failure modes + positive patterns + security
-- [Skills README](../skills/README.md) - Comprehensive skills guide
-- [Progressive Disclosure](./plugins-and-extensions.md) - Token-efficient skill architecture
 - [Secure Code Generation](./secure-code-generation.md) - CodeGuard integration for secure AI-generated code
+- [Harness Engineering](./harness-engineering.md) - The extension landscape documented here IS the harness toolkit; see diagnostic framework for choosing the right mechanism
+- [Domain Knowledge Architecture](./domain-knowledge-architecture.md) - How to structure domain knowledge using these extension mechanisms without overwhelming context
 
 ---
 

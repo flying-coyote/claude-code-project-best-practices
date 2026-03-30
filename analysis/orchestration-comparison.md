@@ -247,5 +247,11 @@ Based on analysis of [everything-claude-code](https://github.com/anthropics-solu
 - [skribblez2718/caii](https://github.com/skribblez2718/caii) — CAII cognitive agents
 - Google TTD-DR Paper — Self-Evolution Algorithm
 
+## Related Analysis
+
+- [Harness Engineering](./harness-engineering.md) — Orchestration is one layer of the broader harness stack; see the 6-layer model and diagnostic framework
+
+---
+
 *Merged from: gsd-orchestration.md, cognitive-agent-infrastructure.md, subagent-orchestration.md, recursive-evolution.md*
 *Last updated: March 2026*
