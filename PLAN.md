@@ -60,7 +60,18 @@
 
 ---
 
+## Recent Activity
+
+### April 2026 Review (in progress)
+- Added production-scale agent-driven development evidence to `analysis/harness-engineering.md`:
+  - Nick Schrock (Dagster): 1,000+ PRs merged in 3 weeks with Claude Code
+  - Matthias Vallentin (Tenzir): 3x development velocity claim
+- Updated SOURCES.md with Schrock and Vallentin agent-driven development entries
+- Cross-referenced from third-brain concept imports (agent-driven-development-patterns)
+
+---
+
 ## Next Review
 
-**When**: April 2026
-**Focus**: Verify v2.0 repositioning is working, check for new source material
+**When**: May 2026
+**Focus**: Complete April review cycle, monitor for new Tier A sources, check SDD framework updates (quarterly)

@@ -241,6 +241,18 @@ START: What is your task complexity?
 | Removing features was the primary optimization (Manus) | Manus context engineering (5 rebuilds) | B |
 | Same harness works across Claude Code, Cursor, OpenCode, Codex | everything-claude-code cross-platform support | B |
 | Boris Cherny's success depends on parallel sessions, hooks, permissions — all harness | Boris Cherny interviews (March 2026) | A |
+| **1000+ PRs in 3 weeks** with ~5 manual IDE edits — review-loop development | Nick Schrock, Dagster founder (Dec 2025) | B |
+| **3x velocity** with agents handling commits, changelogs, docs, releases — org transformation | Matthias Vallentin, Tenzir CEO (Dec 2025) | B |
+
+### Production-Scale Agent-Driven Development (New Evidence, April 2026)
+
+Two high-credibility practitioners independently validated that agent-driven development achieves transformational velocity when the harness is right:
+
+**Nick Schrock (Dagster)** — Merged 1,000+ PRs in 3 weeks with approximately 5 manual IDE edits. His workflow: local dev -> cloud code review -> one command -> agent applies feedback. CI errors: downloads logs, agent fixes automatically. Key quote: "This isn't vibe coding. The process is still software engineering forward." The IDE becomes a read-only interface; code review in the browser is the primary editing surface.
+
+**Matthias Vallentin (Tenzir)** — Achieved 3x velocity improvement with agents handling commits, changelogs, docs, and releases. Framed as engineering org transformation, not individual productivity. This is the same team whose MCP vs Skills production data (see [MCP vs Skills Economics](./mcp-vs-skills-economics.md)) showed 50% cost reduction through architecture choices.
+
+**What makes this harness evidence**: Both practitioners emphasize that the velocity gains came from the review-loop workflow (harness) not from model improvements. Schrock's one-command CI fix cycle and Vallentin's agent-managed release process are harness engineering — giving agents the right tools, permissions, and recovery mechanisms.
 
 ### Evidence Nuancing the Thesis
 

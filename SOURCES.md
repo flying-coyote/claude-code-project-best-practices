@@ -577,8 +577,21 @@ Track these for production readiness:
   | **Cost** | $20.78 | $10.27 | **Skills (50% cheaper)** |
   | Cached tokens | 8.8M | 4.0M | Skills (55% less) |
 - **Philosophy Shift**: "Force-feed structured context" → "Provide capabilities and documentation"
-- **Pattern**: [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md)
+- **Agent-Driven Development**: Vallentin also reported 3x development velocity with Claude Code agent-driven workflows (LinkedIn, December 2025), providing production validation of harness engineering patterns
+- **Pattern**: [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md), [Harness Engineering](analysis/harness-engineering.md)
 - **Evidence Tier**: B (Production data from active project)
+
+### Nick Schrock (Dagster) - Agent-Driven Development at Scale
+- **Author**: Nick Schrock, CEO of Dagster Labs
+- **Source**: LinkedIn (December 2025)
+- **Description**: Production evidence of agent-driven development at enterprise scale
+- **Key Data**:
+  - 1,000+ pull requests merged in 3 weeks using Claude Code
+  - IDE used as read-only review interface, not primary authoring tool
+  - Review-loop development: human specifies → agent implements → human reviews
+- **Relevance**: Strongest quantitative evidence for agent-driven development thesis. Demonstrates that harness engineering (structured agent workflows) matters more than raw model capability at scale.
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md)
+- **Evidence Tier**: B (Production data from major open-source project CEO)
 
 ### LlamaIndex - Agentic Document Workflows
 - **Source**: LlamaIndex Engineering Blog
@@ -1455,4 +1468,4 @@ This sources document is updated when:
 - Additional production validation is completed
 - Community contributions add new references
 
-*Last updated: February 2026*
+*Last updated: April 2026*
