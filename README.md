@@ -18,7 +18,7 @@ An **analytical layer** for Claude Code — evidence assessment, comparative ana
 
 ## Analysis Documents
 
-### Core Analysis (14 documents)
+### Core Analysis (26 documents)
 
 | Document | What It Covers |
 |----------|---------------|
@@ -36,6 +36,18 @@ An **analytical layer** for Claude Code — evidence assessment, comparative ana
 | [agent-evaluation.md](analysis/agent-evaluation.md) | Eval methodology from Anthropic engineering |
 | [agent-principles.md](analysis/agent-principles.md) | 6 production reliability principles |
 | [confidence-scoring.md](analysis/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework |
+| [harness-engineering.md](analysis/harness-engineering.md) | Harness philosophy, diagnostic framework, infrastructure patterns |
+| [domain-knowledge-architecture.md](analysis/domain-knowledge-architecture.md) | Domain knowledge encoding for LLM-assisted development |
+| [agent-driven-development.md](analysis/agent-driven-development.md) | Agent-driven methodology with 7-repo quantified evidence |
+| [local-cloud-llm-orchestration.md](analysis/local-cloud-llm-orchestration.md) | Hybrid MLX+Claude architecture, tokenization boundary, hallucination scrubbing |
+| [mcp-client-integration.md](analysis/mcp-client-integration.md) | Two MCP server architectures compared (structured tools vs orchestrated playbooks) |
+| [federated-query-architecture.md](analysis/federated-query-architecture.md) | 15/15 benchmark queries, 86-99% cost savings, TCO calculator |
+| [automated-config-assessment.md](analysis/automated-config-assessment.md) | Baseline-deviation-remediation pattern, 3,816+ sensors, 100% detection |
+| [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md) | 3-tier CLAUDE.md evolution across 6 repos, ~150 instruction budget |
+| [memory-system-patterns.md](analysis/memory-system-patterns.md) | Auto-memory sizing by project type, 4 memory types, staleness patterns |
+| [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md) | Hypothesis confidence tracking, revalidation before demos |
+| [security-data-pipeline.md](analysis/security-data-pipeline.md) | Zeek → OCSF → Parquet → Iceberg pipeline, 30K records/sec |
+| [cross-project-synchronization.md](analysis/cross-project-synchronization.md) | Cross-repo dependency cascading, 4-phase enrichment cascade |
 
 ### Source Database
 
@@ -62,6 +74,10 @@ Highlights from our analysis (see individual documents for full evidence):
 - **Auto mode approves 93% of tool calls** — viable for most workflows (Anthropic, March 2026)
 - **Custom subagents can "gatekeep context"** — prefer native delegation unless truly specialized (Boris Cherny)
 - **Extended thinking often reduces total time** — fewer steering corrections outweigh 2-3x latency (Boris Cherny)
+- **Agent-driven repos achieve 95-100% co-authoring** — with full harness infrastructure (7-repo portfolio analysis)
+- **PreToolUse hooks enforce ~100% vs ~80% for CLAUDE.md alone** — hooks are the security boundary, not instructions (production observation)
+- **Federated query saves 86-99% vs Splunk** — ClickHouse 0.19s vs Splunk 27.52s for equivalent queries (zeek-iceberg-demo)
+- **CLAUDE.md follows 3-tier progressive disclosure** — 42-57 lines (minimal) → 99-112 (resource map) → 166-209 (rules+security) across 6 repos
 
 ## Thought Leaders & Sources
 
@@ -72,6 +88,7 @@ Highlights from our analysis (see individual documents for full evidence):
 | **Boris Cherny** (Claude Code Creator) | Quantified behavioral insights, five-layer architecture |
 | **Anthropic Engineering Blog** | Auto mode, agent skills, hooks reference, eval methodology |
 | **OWASP MCP Top 10** | MCP security framework |
+| **7-Repo Portfolio Analysis** | Agent-driven development evidence, infrastructure maturity, cross-repo coordination |
 
 ### Tier B (Validated Practitioners)
 
@@ -86,7 +103,7 @@ Full database: [SOURCES.md](SOURCES.md)
 
 ## Project Status
 
-**v2.0** — Repositioned from 36-pattern best practices guide to focused analytical layer. Prior patterns archived in `archive/patterns-v1/`.
+**v2.1** — Expanded from 14 to 26 analysis documents with production evidence from 7-repo portfolio. Covers agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, and more. Prior v1 patterns archived in `archive/patterns-v1/`.
 
 ## Contributing
 
