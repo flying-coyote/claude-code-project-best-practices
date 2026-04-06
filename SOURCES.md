@@ -593,6 +593,63 @@ Track these for production readiness:
 - **Pattern**: [Harness Engineering](analysis/harness-engineering.md)
 - **Evidence Tier**: B (Production data from major open-source project CEO)
 
+### Portfolio Analysis: Agent-Driven Development Evidence (7 Repos)
+
+- **Author**: Jeremy Wiley (direct observation)
+- **Source**: Production git history analysis across 7 repositories (April 2026)
+- **Description**: Controlled comparison of agent-driven development patterns across repos with varying infrastructure maturity — from no harness (tme-mcp-server, 10% co-authored) to full harness (mndr-review-automation, 95% co-authored)
+- **Key Data**:
+  - 7 repos: third-brain, mndr-review-automation, health-inventory, zeek-iceberg-demo, network-visualization-services, Splunk-db-connect-benchmark, tme-mcp-server
+  - Co-authoring range: 10% (no infrastructure) to 100% (full harness)
+  - Commit burst peaks: 22-25 commits/day during focused agent sessions
+  - Hub-spoke coordination: 4 repos tracked, 120 commits in 14 days
+  - Security enforcement: PreToolUse hook blocking customer data access
+  - Specialized agents: finding-reviewer (Sonnet model, restricted tools, structured coaching)
+  - Infrastructure maturity model: 4 levels validated across portfolio
+- **Relevance**: First-party production evidence validating harness engineering thesis across multiple project types and maturity levels. Corroborates Schrock and Vallentin claims with controlled infrastructure comparison.
+- **Pattern**: [Agent-Driven Development](analysis/agent-driven-development.md)
+- **Evidence Tier**: A (Primary production observation)
+
+### Portfolio Analysis: Local+Cloud LLM Orchestration
+
+- **Author**: Jeremy Wiley (direct observation)
+- **Source**: Production analysis of mndr-review-automation hybrid LLM pipeline (April 2026)
+- **Key Data**: MLX/Gemma 4 31B local inference, Claude Sonnet cloud coaching, 10 tokenization entity types, 7 hallucination scrubbers, 1,216 tests, supply chain security (litellm rejected)
+- **Pattern**: [Local+Cloud LLM Orchestration](analysis/local-cloud-llm-orchestration.md)
+- **Evidence Tier**: A (Primary production observation)
+
+### Portfolio Analysis: MCP Client Integration Patterns
+
+- **Author**: Jeremy Wiley (direct observation)
+- **Source**: Production analysis of InspectorClient, TmePlaybookClient, and TME MCP server (April 2026)
+- **Key Data**: JSON-RPC 2.0 over Streamable HTTP, Mcp-Session-Id lifecycle, localhost-only enforcement, two server architectures (structured tools vs orchestrated playbooks)
+- **Pattern**: [MCP Client Integration](analysis/mcp-client-integration.md)
+- **Evidence Tier**: A (Primary production observation)
+
+### Portfolio Analysis: Federated Query Architecture
+
+- **Author**: Jeremy Wiley (direct observation)
+- **Source**: Production analysis of zeek-iceberg-demo + third-brain federation hypothesis (April 2026)
+- **Key Data**: 15/15 benchmark queries pass (<10s), 93-99.9% WAN reduction, 86-99% cost savings, 20M OCSF events, TCO calculator validated
+- **Pattern**: [Federated Query Architecture](analysis/federated-query-architecture.md)
+- **Evidence Tier**: A (Primary production observation)
+
+### Portfolio Analysis: Automated Config Assessment
+
+- **Author**: Jeremy Wiley (direct observation)
+- **Source**: Production analysis of health-inventory deviation engine + H-CONFIG-01 hypothesis (April 2026)
+- **Key Data**: 3,816+ sensors, 12/12 ground truth detection (100%), 5-dimension YAML baseline, LLM remediation, confidence 4.7/5
+- **Pattern**: [Automated Config Assessment](analysis/automated-config-assessment.md)
+- **Evidence Tier**: A (Primary production observation)
+
+### Portfolio Analysis: Progressive Disclosure, Memory, Revalidation, Pipeline, Synchronization
+
+- **Author**: Jeremy Wiley (direct observation)
+- **Source**: Cross-portfolio analysis of CLAUDE.md evolution, memory systems, revalidation patterns, security pipelines, and dependency cascading (April 2026)
+- **Key Data**: 6 repos with CLAUDE.md (42-209 lines), 5 repos with memory systems (2-13 files), hypothesis confidence tracking (3.0→4.7/5), Zeek→OCSF pipeline, 4-phase enrichment cascade
+- **Patterns**: [CLAUDE.md Progressive Disclosure](analysis/claude-md-progressive-disclosure.md), [Memory System Patterns](analysis/memory-system-patterns.md), [Evidence-Based Revalidation](analysis/evidence-based-revalidation.md), [Security Data Pipeline](analysis/security-data-pipeline.md), [Cross-Project Synchronization](analysis/cross-project-synchronization.md)
+- **Evidence Tier**: A (Primary production observation)
+
 ### LlamaIndex - Agentic Document Workflows
 - **Source**: LlamaIndex Engineering Blog
 - **URLs**:

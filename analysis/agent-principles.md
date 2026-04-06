@@ -219,5 +219,6 @@ These principles manifest in Claude Code patterns:
 - [Context Engineering](./behavioral-insights.md) - Deterministic vs probabilistic context
 - [Session Learning](./behavioral-insights.md) - Implements Principle 1 (Persistent Memory)
 - [Subagent Orchestration](./orchestration-comparison.md) - Applies principles in subagent design
+- [Agent-Driven Development](./agent-driven-development.md) - Production validation of these 6 principles across 7 agent-driven repos
 
 *Last updated: January 2026*

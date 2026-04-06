@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-03-30 17:53*
+*Auto-generated: 2026-04-06 09:11*
 
 ## Summary
 
-**Total documents**: 105
+**Total documents**: 115
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 16 |
+| analysis | 26 |
 | archive | 6 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
@@ -56,21 +56,31 @@
 - [codeguard-review-2026-02.md](research/codeguard-review-2026-02.md)
 ## Analysis
 
+- [agent-driven-development.md](analysis/agent-driven-development.md)
 - [agent-evaluation.md](analysis/agent-evaluation.md)
 - [agent-principles.md](analysis/agent-principles.md)
+- [automated-config-assessment.md](analysis/automated-config-assessment.md)
 - [behavioral-insights.md](analysis/behavioral-insights.md)
+- [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md)
 - [confidence-scoring.md](analysis/confidence-scoring.md)
+- [cross-project-synchronization.md](analysis/cross-project-synchronization.md)
 - [domain-knowledge-architecture.md](analysis/domain-knowledge-architecture.md)
+- [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md)
 - [evidence-tiers.md](analysis/evidence-tiers.md)
+- [federated-query-architecture.md](analysis/federated-query-architecture.md)
 - [framework-selection-guide.md](analysis/framework-selection-guide.md)
 - [harness-engineering.md](analysis/harness-engineering.md)
+- [local-cloud-llm-orchestration.md](analysis/local-cloud-llm-orchestration.md)
+- [mcp-client-integration.md](analysis/mcp-client-integration.md)
 - [mcp-daily-essentials.md](analysis/mcp-daily-essentials.md)
 - [mcp-patterns.md](analysis/mcp-patterns.md)
 - [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md)
+- [memory-system-patterns.md](analysis/memory-system-patterns.md)
 - [orchestration-comparison.md](analysis/orchestration-comparison.md)
 - [plugins-and-extensions.md](analysis/plugins-and-extensions.md)
 - [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)
 - [secure-code-generation.md](analysis/secure-code-generation.md)
+- [security-data-pipeline.md](analysis/security-data-pipeline.md)
 - [tool-ecosystem.md](analysis/tool-ecosystem.md)
 ## Archive
 

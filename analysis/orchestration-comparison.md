@@ -250,6 +250,7 @@ Based on analysis of [everything-claude-code](https://github.com/anthropics-solu
 ## Related Analysis
 
 - [Harness Engineering](./harness-engineering.md) — Orchestration is one layer of the broader harness stack; see the 6-layer model and diagnostic framework
+- [Agent-Driven Development](./agent-driven-development.md) — Parallel agent strategies and specialized agent design (finding-reviewer case study) from production repos
 
 ---
 

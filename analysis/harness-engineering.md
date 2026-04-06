@@ -324,6 +324,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 | Implement a disciplined workflow | [superpowers](https://github.com/obra/superpowers) | External |
 | Implement a minimal long-running harness | [Anthropic harness blog](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) | External |
 | Harden security layer | [Safety & Sandboxing](./safety-and-sandboxing.md) + [Secure Code Generation](./secure-code-generation.md) | This project |
+| See harness concepts operationalized with 7-repo evidence | [Agent-Driven Development](./agent-driven-development.md) | This project |
 
 ---
 

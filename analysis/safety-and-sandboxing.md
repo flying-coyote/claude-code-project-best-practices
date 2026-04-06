@@ -313,6 +313,7 @@ Layer 4: Hooks (application-level)    — Custom validation logic
 - [MCP Patterns](./mcp-patterns.md) - MCP security framework and OWASP compliance
 - [Project Infrastructure](../archive/patterns-v1/project-infrastructure.md) - Infrastructure tiers including security
 - [Subagent Orchestration](./orchestration-comparison.md) - Security for multi-agent execution
+- [Agent-Driven Development](./agent-driven-development.md) - PreToolUse security hooks and permission matrices from production repos (mndr-review-automation case study)
 
 ---
 

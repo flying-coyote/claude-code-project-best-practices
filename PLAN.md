@@ -1,7 +1,7 @@
 # Plan
 
 **Purpose**: Current priorities, immediate next actions
-**Last Updated**: March 26, 2026
+**Last Updated**: April 6, 2026
 
 ---
 
@@ -16,7 +16,7 @@
 
 | Metric | Status |
 |--------|--------|
-| Analysis documents | 14 |
+| Analysis documents | 26 |
 | Archived v1 patterns | 24 |
 | Source database entries | 80+ |
 | Source attribution | 100% |
@@ -68,6 +68,19 @@
   - Matthias Vallentin (Tenzir): 3x development velocity claim
 - Updated SOURCES.md with Schrock and Vallentin agent-driven development entries
 - Cross-referenced from third-brain concept imports (agent-driven-development-patterns)
+- Added `analysis/agent-driven-development.md`: Agent-driven development patterns with quantified evidence from 7 production repos (infrastructure maturity model, cross-repo coordination, security boundaries, velocity data)
+- Updated cross-references in 5 existing analysis docs
+- Updated SOURCES.md with 7-repo portfolio analysis evidence (Tier A)
+- Added 9 additional analysis documents covering all 10 identified gaps:
+  - `local-cloud-llm-orchestration.md`: Hybrid MLX+Claude architecture from mndr-review-automation
+  - `mcp-client-integration.md`: MCP client patterns from InspectorClient + TmePlaybookClient
+  - `federated-query-architecture.md`: 15/15 benchmarks, 86-99% cost savings, TCO calculator
+  - `automated-config-assessment.md`: Baseline-deviation-remediation, 3,816+ sensors, 100% detection
+  - `claude-md-progressive-disclosure.md`: 3-tier CLAUDE.md evolution across 6 repos
+  - `memory-system-patterns.md`: Auto-memory sizing by project type across 5 projects
+  - `evidence-based-revalidation.md`: Hypothesis confidence tracking and demo prep
+  - `security-data-pipeline.md`: Zeek → OCSF → Parquet → Iceberg pipeline case study
+  - `cross-project-synchronization.md`: Dependency cascading across 7 repos
 
 ---
 

@@ -188,6 +188,7 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 
 - [Harness Engineering](./harness-engineering.md) — The ~80% CLAUDE.md adherence rate and 60% context threshold are primary motivators for harness enforcement design
 - [Domain Knowledge Architecture](./domain-knowledge-architecture.md) — Context budget framework and progressive disclosure patterns build directly on the thresholds documented here
+- [Agent-Driven Development](./agent-driven-development.md) — Commit burst patterns and ~80% adherence rate motivating hook-based security enforcement in practice
 
 ---
 
