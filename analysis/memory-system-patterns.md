@@ -166,6 +166,53 @@ Memory is one of several ways context persists. Use the right mechanism:
 
 ---
 
+## External Memory Systems (April 2026)
+
+Beyond Claude Code's built-in auto-memory, external memory systems are emerging that provide cross-session persistence through different mechanisms:
+
+### MemPalace (Local-First via MCP)
+
+- **Repository**: https://github.com/memorylake-ai/mempalace
+- **Architecture**: ChromaDB (vector search) + SQLite (structured storage), fully local
+- **Integration**: `claude mcp add mempalace` — exposes 19 MCP tools for memory operations
+- **Stars**: 43k+ (April 2026)
+- **Maturity**: Active development, macOS ARM64 segfault reported in some configurations
+
+**Trade-offs vs built-in auto-memory**:
+
+| Dimension | Claude Auto-Memory | MemPalace |
+|-----------|-------------------|-----------|
+| Setup | Zero (built-in) | Install + MCP configuration |
+| Persistence | File-based MEMORY.md | ChromaDB + SQLite |
+| Search | Index scanning | Semantic vector search |
+| Scope | Per-project | Cross-project (shared DB) |
+| Privacy | Local files | Local (no cloud) |
+| Dependencies | None | Python, ChromaDB, SQLite |
+
+**Best for**: Users who need semantic search across large knowledge bases or cross-project memory sharing. The built-in auto-memory remains sufficient for most project-scoped workflows.
+
+### Honcho (Server-Based, Multi-Agent)
+
+- **Repository**: https://github.com/plastic-labs/honcho
+- **Architecture**: FastAPI + PostgreSQL + pgvector, background "deriver" worker
+- **Version**: v3.0.6 (production, 2.2k stars)
+- **Deployment**: Docker, Fly.io, or self-hosted
+
+**Key differentiator**: The "peer paradigm" treats all participants (human and AI) uniformly in the data model, and a background deriver generates cross-session insights asynchronously. This makes Honcho more suited to multi-agent systems with shared state than to single-developer workflows.
+
+**Assessment**: Honcho requires PostgreSQL infrastructure, making it heavier than either MemPalace or built-in memory. It's most relevant for teams building multi-agent systems that need shared persistent state across many sessions and participants — not for individual developer workflows where Claude Code's auto-memory is sufficient.
+
+### Choosing a Memory Approach
+
+| Scenario | Recommended Approach |
+|----------|---------------------|
+| Single developer, project-scoped context | Claude Code auto-memory (built-in) |
+| Cross-project knowledge, semantic search | MemPalace via MCP |
+| Multi-agent shared state, team workflows | Honcho (PostgreSQL-backed) |
+| Domain-specific coaching cache | File-based archive (MNDR pattern) |
+
+---
+
 ## Anti-Patterns
 
 | Anti-Pattern | Symptom | Fix |

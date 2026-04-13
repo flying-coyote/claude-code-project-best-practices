@@ -766,8 +766,27 @@ These tools complement Claude Code or provide alternative approaches to AI-assis
 | **OpenHands** | [All-Hands-AI/OpenHands](https://github.com/All-Hands-AI/OpenHands) | Dockerized autonomous agents | Sandboxed execution, reproducibility |
 | **Goose** | [block/goose](https://github.com/block/goose) | Extensible local agent framework | Custom agent development |
 | **Cursor** | [cursor.sh](https://cursor.sh) | VS Code fork with native AI | IDE-native experience |
+| **Crush** | [charmbracelet/crush](https://github.com/charmbracelet/crush) | Go-based, model-agnostic, MCP support (22.9k stars) | Multi-provider terminal agent |
 
 - **Pattern**: [Tool Ecosystem](patterns/tool-ecosystem.md)
+
+### External Memory Systems
+
+| Tool | Repository | Architecture | Use Case |
+|------|------------|-------------|----------|
+| **MemPalace** | [memorylake-ai/mempalace](https://github.com/memorylake-ai/mempalace) | ChromaDB + SQLite, 19 MCP tools (43k stars) | Local-first cross-session memory via MCP |
+| **Honcho** | [plastic-labs/honcho](https://github.com/plastic-labs/honcho) | FastAPI + PostgreSQL + pgvector, v3.0.6 (2.2k stars) | Multi-agent shared state, background reasoning |
+
+- **Pattern**: [Memory System Patterns](analysis/memory-system-patterns.md#external-memory-systems-april-2026)
+
+### Local LLM Ecosystem Updates (April 2026)
+
+| Development | Source | Key Impact |
+|-------------|--------|------------|
+| **Gemma 4 26B MoE** | [Google DeepMind](https://blog.google/technology/developers/gemma-4/) (April 2, 2026) | 3.8B active params, 256K context, native function calling. 86.4% tau2-bench (agentic tool use). Available via `ollama run gemma4:26b` |
+| **Ollama v0.19 MLX** | [Ollama Release Notes](https://github.com/ollama/ollama/releases) (March 27, 2026) | Native Apple MLX backend on Apple Silicon. Narrows the gap between direct MLX and Ollama for local inference |
+
+- **Pattern**: [Local+Cloud LLM Orchestration](analysis/local-cloud-llm-orchestration.md#model-alternatives-gemma-4-26b-moe-april-2026), [Tool Ecosystem](analysis/tool-ecosystem.md#ecosystem-development-ollama-v019-mlx-backend-march-2026)
 
 ### Context Extraction Tools
 

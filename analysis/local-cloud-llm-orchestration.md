@@ -136,6 +136,37 @@ This function is called before `step_cloud_coach()` and `step_cloud_review()`. I
 - **Runtime**: MLX on Apple Silicon unified memory — no network calls, no API server, fully in-process
 - **Fallback**: Tries `mlx_vlm` first (VLM architectures), falls back to `mlx_lm`
 
+### Model Alternatives: Gemma 4 26B MoE (April 2026)
+
+Google's Gemma 4 family (released April 2, 2026) includes a 26B Mixture of Experts model with properties relevant to local inference:
+
+| Property | Gemma 4 31B (current) | Gemma 4 26B MoE |
+|----------|----------------------|------------------|
+| Total parameters | 30.7B (dense) | 26B (MoE) |
+| Active parameters | 30.7B | 3.8B per token |
+| Context window | 256K | 256K |
+| Function calling | Prompt-injected | Native (built-in) |
+| Inference speed | Baseline | Potentially faster (fewer active params) |
+| Agentic benchmark (tau2) | — | 86.4% |
+
+**Native function calling** is the key differentiator — the 26B MoE model supports tool use natively rather than through prompt templates. For pipelines with many structured LLM calls (like the ~200 per MNDR review), this could improve both accuracy and latency.
+
+**Decision pending**: Benchmarking 26B MoE vs 31B dense on domain-specific tasks is required before switching production pipelines. Available via Ollama: `ollama run gemma4:26b`.
+
+### Ollama v0.19 MLX Backend (March 2026)
+
+Ollama v0.19 (released March 27, 2026) introduced native Apple MLX framework integration. The original decision to use direct MLX-LM over Ollama was driven by eliminating HTTP overhead and network listeners. With Ollama now using MLX natively on Apple Silicon, the gap has narrowed:
+
+| Factor | Direct MLX-LM (current) | Ollama v0.19 + MLX |
+|--------|------------------------|---------------------|
+| Inference engine | MLX (in-process) | MLX (via Ollama) |
+| Network calls | None | Localhost HTTP (minimal overhead) |
+| Model management | Manual (`mlx-lm` downloads) | `ollama pull` (managed) |
+| Multi-model switching | Code change required | Config/runtime switch |
+| Security surface | `mlx-lm` package only | `ollama` binary + HTTP listener |
+
+**Assessment**: For single-model pipelines with security constraints (like MNDR), direct MLX remains simpler. For development workflows needing quick model switching, Ollama v0.19 is now a viable alternative. Benchmarking is needed to quantify the actual latency difference.
+
 ### Four Core Functions
 
 | Function | Purpose | Temperature | Max Tokens |

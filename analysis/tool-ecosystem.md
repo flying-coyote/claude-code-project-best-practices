@@ -70,6 +70,7 @@ Before choosing a tool, understand the fundamental distinction:
 | **IDE-native workflow** | Cursor, Windsurf | Tight editor integration, visual diff |
 | **Containerized agents** | OpenHands | Sandboxed execution, reproducibility |
 | **Multi-model orchestration** | Goose | Extensible local agent framework |
+| **Model-agnostic terminal agent** | Crush (opencode) | Go-based, multi-provider, MCP support |
 | **GitHub Copilot investment** | Copilot Chat | Existing enterprise licenses |
 | **Multi-agent orchestration** | Auto-Claude | Parallel agents, worktree isolation, autonomous workflows |
 | **Browser automation** | Playwright | Mature, battle-tested, production-ready |
@@ -220,6 +221,15 @@ Some developers use multiple tools strategically:
 - **Key Feature**: Multi-agent orchestration with git worktree isolation
 - **Best For**: Autonomous parallel development, safe experimentation
 
+### Crush (formerly opencode)
+- **Repository**: https://github.com/charmbracelet/crush
+- **Author**: Charm (charmbracelet)
+- **Stars**: 22.9k+ (April 2026)
+- **Key Feature**: Go-based, model-agnostic terminal AI coding assistant with MCP support
+- **Models**: Anthropic, OpenAI, Google, Ollama (local), OpenRouter, and more
+- **Best For**: Developers wanting a model-agnostic terminal agent with broad provider support
+- **Note**: Rebranded from "opencode" — if you encounter references to opencode from Charm, this is the same tool
+
 ---
 
 ## Claude Code Deployment Options
@@ -248,6 +258,16 @@ The think tool enables Claude to pause mid-response to verify information before
 - Tasks requiring cross-referencing information from multiple sources
 
 **For tool designers**: When building MCP servers or skills, design tool descriptions that encourage Claude to use the think tool between critical steps. See [Writing Effective Tools for Agents](https://www.anthropic.com/engineering/writing-effective-tools-for-agents).
+
+---
+
+## Ecosystem Development: Ollama v0.19 MLX Backend (March 2026)
+
+Ollama v0.19 (released March 27, 2026) introduced native Apple MLX framework integration. On Apple Silicon Macs, Ollama now runs models through MLX rather than its previous inference backend, eliminating the performance gap that previously made direct MLX-LM the preferred approach for local inference.
+
+**Implication for tool selection**: The original rationale for "MLX in-process over Ollama" (eliminating HTTP overhead and network listener) has narrowed significantly. Ollama with MLX backend provides the same inference engine with the convenience of a managed runtime. Projects that chose direct MLX integration should benchmark Ollama v0.19 before continuing to maintain custom MLX code.
+
+See also: [Local+Cloud LLM Orchestration](./local-cloud-llm-orchestration.md) for production pipeline implications.
 
 ---
 
