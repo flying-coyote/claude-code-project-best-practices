@@ -116,8 +116,16 @@ All analysis documents in this repository are derived from authoritative sources
 - **Source**: Anthropic GitHub Repository
 - **URL**: https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
 - **Releases**: https://github.com/anthropics/claude-code/releases
-- **Key Updates Referenced** (as of March 2026):
-  - v2.1.81 (current): `--bare` flag, `--channels` permission relay, MCP OAuth updates
+- **Key Updates Referenced** (as of April 2026):
+  - **April 2026 Features**:
+    - Advisor Strategy: Opus advisor + Sonnet/Haiku executor, 2% higher on SWE-bench at 11% lower cost
+    - Monitor Tool: Interrupt-based background process monitoring, replaces polling loops
+    - Managed Agents: Anthropic-hosted agent infrastructure, $0.08/hr + tokens, OAuth vaults, environment scoping
+    - Claude Code Desktop Redesign: Multi-panel IDE-like experience, parallel sessions, integrated terminal
+    - Routines: Cloud-hosted scheduled/triggered autonomous workflows (research preview)
+    - Ultra Plan: Web-based planning interface, separate from execution
+    - PR Session Launch: Start Claude Code session from pull request context
+  - v2.1.81: `--bare` flag, `--channels` permission relay, MCP OAuth updates
   - v2.1.80: Channels (`--channels`), `effort` frontmatter for skills, `rate_limits` in statusline
   - v2.1.79: `--console` flag, `/remote-control` for VSCode, AI session titles
   - v2.1.78: `StopFailure` hook, `effort`/`maxTurns`/`disallowedTools` frontmatter, `${CLAUDE_PLUGIN_DATA}`

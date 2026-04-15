@@ -10,7 +10,7 @@
 
 ---
 
-## Top 21 Sources (Authority-Weighted)
+## Top 26 Sources (Authority-Weighted)
 
 ### 1. Boris Cherny (Claude Code Creator) — Authority: 5 (Foundational)
 **Role**: Engineering Manager at Anthropic, Claude Code creator
@@ -140,6 +140,39 @@
 **Date**: Ongoing | **Foundational**: No | **Effective Weight**: 0.65 (0.65 x 1.0)
 **Dual System**: A-D for source quality (primary/secondary/tertiary/opinion) + 1-5 for claim strength. Now extended with 0-5 authority scale + recency weighting (see karen-evaluator source-authority-matrix).
 **Referenced in**: [evidence-tiers.md](analysis/evidence-tiers.md), [confidence-scoring.md](analysis/confidence-scoring.md)
+
+### 22. Dexter Horthy / Human Layer — Authority: 4 (Authoritative)
+**Role**: Co-creator of RPI methodology, now CRISPY
+**Source**: Conference talk (March 2026)
+**Date**: March 2026 | **Foundational**: No | **Effective Weight**: 0.77 (0.85 x 0.9)
+**Key Insights**: Production-validated corrections across "thousands of engineers." Self-correction (RPI to CRISPY) is a strong credibility signal — practitioners who publicly revise their own frameworks demonstrate intellectual honesty.
+**Referenced in**: Harness engineering, agent evaluation methodology
+
+### 23. Andrej Karpathy / No Priors Podcast — Authority: 4 (Authoritative)
+**Role**: Former VP AI at Tesla, OpenAI founding member
+**Source**: No Priors podcast (March 2026)
+**Date**: March 2026 | **Foundational**: No | **Effective Weight**: 0.77 (0.85 x 0.9)
+**Key Insights**: First-person observations on code agents, auto-research, agent workflows. Unique perspective bridging model development and agent deployment from someone who has worked at the frontier of both.
+**Referenced in**: Agent-driven development, behavioral insights
+
+### 24. Stanford Meta-Harness / Omar Khattab — Authority: 4 (Authoritative)
+**Role**: DSPy creator, Stanford
+**Source**: Research results (March 2026)
+**Date**: March 2026 | **Foundational**: No | **Effective Weight**: 0.77 (0.85 x 0.9)
+**Key Insights**: Specific benchmark results — Rank 1 on TerminalBench 2 with Haiku via harness optimization alone. Demonstrates that harness engineering can compensate for model capability gaps. Needs paper link for full citation.
+**Referenced in**: Harness engineering, agent evaluation
+
+### 25. Tingua NLH Papers — Authority: 3 (Practitioner)
+**Source**: Two March 2026 papers
+**Date**: March 2026 | **Foundational**: No | **Effective Weight**: 0.59 (0.65 x 0.9)
+**Key Insights**: Ablation data on verifiers (actively hurt performance in some configurations) and NLH representation gains. Challenges assumptions about verification-always-helps. Needs paper links for full citations.
+**Referenced in**: Agent evaluation, harness engineering
+
+### 26. Anthropic Harness v2 Blog Update — Authority: 5 (Foundational)
+**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (March 2026 update to November 2025 blog)
+**Date**: March 2026 | **Foundational**: Yes | **Effective Weight**: 0.90 (1.0 x 0.9)
+**Key Insights**: v2 simplification data ($125/4hrs with Opus 4.6). "Context anxiety" concept — overloading context to prevent mistakes actually degrades performance. Candid admission of poor self-evaluation by agents. Updates the foundational harness blog with production cost data.
+**Referenced in**: [harness-engineering.md](analysis/harness-engineering.md), behavioral insights
 
 ---
 

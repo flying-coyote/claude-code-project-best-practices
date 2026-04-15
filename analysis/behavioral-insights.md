@@ -78,15 +78,23 @@ AI conversations suffer from four knowledge quadrants (adapted from CAII/skribbl
 
 ## Instruction Processing
 
-### ~150 Instruction Cap
+### ~150 Instruction Cap (Convergent Evidence)
 
-Boris Cherny's observation: Claude Code performance degrades beyond approximately 150 instructions in CLAUDE.md. This aligns with the broader finding that more context doesn't always mean better results.
+The ~150 instruction cap is now independently validated by multiple high-authority sources:
+
+| Source | Authority | Basis |
+|--------|-----------|-------|
+| Boris Cherny (Claude Code creator) | 5/5 | Direct practitioner observation |
+| Dexter Horthy (RPI/CRISPY creator) | 4/5 | Cites arXiv paper via Kyle's blog |
+
+This upgrades the claim from single-source expert guidance to **convergent practitioner evidence** — different practitioners, different data sources, same conclusion. The cap appears to be a genuine behavioral boundary, not an artifact of one person's workflow.
 
 **Recommendations**:
 - Keep CLAUDE.md under 150 lines (60 lines optimal)
 - Use progressive disclosure — reference files instead of inlining content
 - Skills load ~2% of context budget each; budget accordingly
 - 500-line cap on individual SKILL.md files
+- Split mega-prompts with 85+ instructions into phases with <40 instructions each (see Design Rule below)
 
 ### Prompt Sensitivity (Opus 4.5/4.6)
 
@@ -94,6 +102,40 @@ Opus 4.5/4.6 models are more responsive to system prompts than earlier models. I
 - Dial back assertive/aggressive language
 - Reduce "ALWAYS"/"NEVER" emphasis (model already more compliant)
 - Watch for overtriggering on tool/skill invocation language
+
+### Vertical Planning Principle (Horthy, Authority 4/5)
+
+Models default to **horizontal plans**: all DB schema, then all services, then all API endpoints, then all frontend components. This produces 1200+ lines of untestable code before anything can be verified.
+
+**Vertical plans** create testable checkpoints at each stage:
+1. Mock API -> frontend (verify UI works with mocked data)
+2. Real services -> API (verify backend works)
+3. Database -> services (verify data layer)
+4. Integration (verify everything together)
+
+**Harness implication**: If your agent produces large untestable blocks, the issue may be plan orientation, not model capability. Instruct vertical slicing explicitly.
+
+Source: Dexter Horthy (RPI/CRISPY creator), Authority 4/5.
+
+### Design Rule: Control Flow, Not Prompts
+
+> "Don't use prompts for control flow; use control flow for control flow."
+
+Mega-prompts with 85+ instructions cause inconsistent adherence and require "magic words" to trigger specific behaviors. The failure mode: the agent follows some instructions reliably but ignores others unpredictably.
+
+**Fix**: Split into discrete phases with <40 instructions each. Use actual control flow (hooks, scripts, staged prompts) to sequence the phases rather than hoping the model will self-sequence through a long instruction list.
+
+This aligns with the ~150 instruction cap above — the cap isn't just about total count but about cognitive load per decision point.
+
+Source: Dexter Horthy (RPI/CRISPY creator), Authority 4/5.
+
+### Monitor Tool (Anthropic, April 2026)
+
+New built-in tool for background process observation. Uses **interrupt-based notification** instead of polling loops — the agent no longer wastes tokens repeatedly checking subprocess status.
+
+**Key behavioral note**: The Monitor tool requires explicit prompting. Without instruction, the agent defaults to polling patterns (run command, check output, wait, check again). With instruction ("use the monitor tool to observe for errors"), it switches to an event-driven pattern that is both cheaper and more responsive.
+
+Source: Anthropic, April 2026.
 
 ---
 
@@ -149,6 +191,41 @@ Custom subagents (`.claude/agents/`) can **"gatekeep context"** and force rigid 
 
 ---
 
+## Agent Capability Boundaries
+
+### Jaggedness Principle (Karpathy, Authority 4/5)
+
+Agent capability is not uniformly distributed — it is **domain-structured**. Agents excel in verifiable domains and stagnate in non-verifiable ones:
+
+| Domain Type | Examples | Agent Performance | Why |
+|-------------|----------|-------------------|-----|
+| **Verifiable** | Code, tests, structured data, SQL, math | Rapidly improving | RL can optimize against clear correctness signals |
+| **Non-verifiable** | Design taste, writing style, judgment calls, UX decisions | Stagnating | No ground truth to train against |
+
+The unpredictability of agent performance is not random — it follows this verifiable/non-verifiable axis. This has direct harness design implications:
+
+- **Route to agents**: Tasks with verifiable outputs (write a function, fix a test, generate SQL, refactor code)
+- **Keep for humans**: Tasks requiring subjective judgment (API design, naming conventions, UX flow, architectural trade-offs)
+- **Hybrid**: Agent drafts, human evaluates on subjective dimensions
+
+Source: Andrej Karpathy, No Priors podcast, March 2026. Authority 4/5.
+
+### Poor Self-Evaluation Failure Mode (Anthropic, Authority 5/5)
+
+Anthropic disclosed a specific failure pattern in Claude's self-evaluation: the model identifies legitimate issues then **rationalizes them away**.
+
+> Claude "talked itself into deciding they weren't a big deal and approved the work anyway."
+
+The failure mode is NOT "misses issues." The model *sees* the problems. The failure mode is "identifies then rationalizes" — a motivated reasoning pattern where the model talks itself out of its own correct assessment.
+
+**Mitigation**: Independent evaluator agents with weighted rubrics. The evaluator must be context-isolated from the builder (fresh session, no shared conversation history) to prevent the same rationalization pattern. Structured rubrics with explicit scoring prevent narrative self-persuasion.
+
+This aligns with Boris Cherny's Writer/Reviewer pattern: the review session catches what the writer session rationalized away, because it has fresh context and no sunk cost in the implementation.
+
+Source: Anthropic engineering blog, Authority 5/5.
+
+---
+
 ## Auto Mode Behavior (v2.1.84+)
 
 ### Two-Stage Classifier
@@ -169,20 +246,26 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 | CLAUDE.md followed ~80% of the time | Boris Cherny (March 2026) | High (Tier A practitioner) |
 | Auto-compaction at ~83.5% context | Boris Cherny (March 2026) | High |
 | 60% context = quality decline threshold | Boris Cherny (March 2026) | High |
-| ~150 instruction cap for CLAUDE.md | Boris Cherny (March 2026) | Medium (observation, not measured) |
+| ~150 instruction cap for CLAUDE.md | Boris Cherny + Dexter Horthy (convergent) | **High** (upgraded: convergent evidence) |
 | Auto mode 93% approval rate | Anthropic blog (March 2026) | High (Tier A) |
 | Extended thinking = 2-3x latency | Boris Cherny (March 2026) | High |
 | Skills use ~2% context budget each | Anthropic docs | High (Tier A) |
+| Jaggedness: verifiable domains improve, non-verifiable stagnate | Karpathy (March 2026) | Medium-High (Authority 4/5, conceptual framework) |
+| Self-evaluation: identifies then rationalizes issues away | Anthropic engineering blog | High (Tier A, vendor self-disclosure) |
+| Monitor tool requires explicit prompting for interrupt-based mode | Anthropic (April 2026) | High (Tier A) |
+| Mega-prompts with 85+ instructions cause inconsistent adherence | Horthy (CRISPY creator) | Medium-High (Authority 4/5) |
 
 ---
 
 ## Sources
 
 - Boris Cherny interviews: Lenny's Podcast, Pragmatic Engineer, Threads mega-posts (March 2026)
+- Dexter Horthy (RPI/CRISPY creator): Vertical planning, control flow design rule, ~150 instruction convergent validation (via arXiv paper/Kyle's blog)
+- Andrej Karpathy: No Priors podcast (March 2026) — Jaggedness principle, verifiable vs non-verifiable domain axis
 - Nate B. Jones: Specification Gap, Agent Build Bible
 - CAII (skribblez2718): Johari Window methodology
 - RLM paper (Zhang, Kraska, Khattab): Context rot research
-- Anthropic Engineering Blog: Auto mode, agent skills (March 2026)
+- Anthropic Engineering Blog: Auto mode, agent skills (March 2026), self-evaluation failure mode, Monitor tool (April 2026)
 
 ## Related Analysis
 
@@ -193,4 +276,4 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 ---
 
 *Merged from: johari-window-ambiguity.md, recursive-context-management.md*
-*Last updated: March 2026*
+*Last updated: April 2026*
