@@ -8,27 +8,27 @@ is being done, not just what the code looks like.
 
 ### 1. Collect Raw Data (Bash)
 ```bash
-# Commit messages and authors (14 days)
-git log --oneline --since="14 days ago"
+# Commit messages and authors (90 days)
+git log --oneline --since="90 days ago"
 
 # Files changed most frequently
-git log --since="14 days ago" --name-only --format="" | sort | uniq -c | sort -rn | head -30
+git log --since="90 days ago" --name-only --format="" | sort | uniq -c | sort -rn | head -30
 
 # File types changed
-git log --since="14 days ago" --name-only --format="" | sed 's/.*\.//' | sort | uniq -c | sort -rn
+git log --since="90 days ago" --name-only --format="" | sed 's/.*\.//' | sort | uniq -c | sort -rn
 
 # AI co-authoring rate
-total=$(git log --since="14 days ago" --oneline | wc -l)
-ai=$(git log --since="14 days ago" --format="%b" | grep -c "Co-Authored-By")
+total=$(git log --since="90 days ago" --oneline | wc -l)
+ai=$(git log --since="90 days ago" --format="%b" | grep -c "Co-Authored-By")
 echo "AI co-authored: $ai / $total"
 
 # Commit size distribution
-git log --since="14 days ago" --format="%h" | while read hash; do
+git log --since="90 days ago" --format="%h" | while read hash; do
   echo "$hash $(git diff --stat $hash^..$hash 2>/dev/null | tail -1)"
 done
 
 # Time of day pattern
-git log --since="14 days ago" --format="%ad" --date=format:"%H" | sort | uniq -c | sort -rn
+git log --since="90 days ago" --format="%ad" --date=format:"%H" | sort | uniq -c | sort -rn
 ```
 
 ### 2. Categorize Changes

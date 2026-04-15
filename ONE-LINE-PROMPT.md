@@ -6,24 +6,82 @@ recommendations based on your recent work patterns and current best practices.
 ## The Prompt
 
 ```
-Review this project: read the CLAUDE.md, analyze the last 14 days of git commits (git log --oneline --since="14 days ago" && git log --since="14 days ago" --name-only --format="" | sort | uniq -c | sort -rn | head 20), then fetch https://raw.githubusercontent.com/JW-Corelight/claude-code-project-best-practices/main/SOURCES-QUICK-REFERENCE.md and cross-reference my commit patterns against those sources. Weight recommendations by the source authority tiers (5=Foundational like Anthropic docs, 2=Commentator like YouTube). Prioritize high-authority recent sources. Show what I'm doing well and what to improve, with specific source citations.
+Review this project: read the CLAUDE.md (check both ./CLAUDE.md and .claude/CLAUDE.md), analyze the last 90 days of git commits (git log --oneline --since="90 days ago" && git log --since="90 days ago" --name-only --format="" | sort | uniq -c | sort -rn | head 20), inspect harness structure (ls -la .claude/ .claude/rules/ .claude/hooks/ .claude/skills/ .claude/commands/ CLAUDE.md .claude/settings.json 2>/dev/null), then fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/SOURCES-QUICK-REFERENCE.md and cross-reference my commit patterns and harness structure against those sources. Weight recommendations by the source authority tiers (5=Foundational like Anthropic docs, 2=Commentator like YouTube). Prioritize high-authority recent sources. Output using the STRUCTURED FORMAT described in the prompt source document.
 ```
+
+> **Low-activity repos**: For repos with fewer than 10 commits in 90 days, extend
+> the window: replace `90 days` with `365 days` to capture meaningful patterns.
 
 ## What It Does
 
 1. **Reads your CLAUDE.md** — Understands your project's current configuration
 2. **Analyzes recent commits** — Identifies patterns in how work is being done
-3. **Fetches best-practice sources** — Cross-references against 21 authority-weighted sources
-4. **Produces weighted recommendations** — High priority (Foundational sources) vs worth noting (Commentator sources)
-5. **Celebrates what works** — Not just criticism; identifies positive patterns to keep
+3. **Inspects harness structure** — Checks for CLAUDE.md, rules, hooks, skills, commands, settings
+4. **Fetches best-practice sources** — Cross-references against 21 authority-weighted sources
+5. **Produces weighted recommendations** — High priority (Foundational sources) vs worth noting (Commentator sources)
+6. **Celebrates what works** — Not just criticism; identifies positive patterns to keep
 
-## Expected Output
+## Structured Output Format
 
-- Commit pattern summary (file types, AI co-authoring rate, change categories)
-- 3-5 high-priority recommendations backed by Foundational/Authoritative sources
-- 2-3 medium-priority recommendations backed by Practitioner sources
-- "What's working well" section with evidence from commits
-- Source citations with authority tier and effective weight for each recommendation
+Every audit must produce this exact structure so results can be aggregated across repos:
+
+```markdown
+---
+audit-date: YYYY-MM-DD
+repo-name: {name}
+repo-path: {local path or GitLab path}
+audit-type: local | gitlab-api
+period-days: {90 or 365}
+---
+
+# Audit: {repo-name}
+
+## Vitals
+
+| Metric | Value |
+|--------|-------|
+| Last commit | {date} |
+| Commits in period | {N} |
+| Contributors | {names} |
+| Primary language | {lang} |
+| AI co-authoring rate | {X%} |
+| Harness score | {0-6} |
+
+## Harness Inventory
+
+- [ ] CLAUDE.md (root or .claude/) — {line count or "missing"}
+- [ ] .claude/settings.json — {yes/no}
+- [ ] .claude/rules/ — {count} rule files
+- [ ] .claude/hooks/ — {list or "none"}
+- [ ] .claude/skills/ — {count} skills
+- [ ] .claude/commands/ — {count} commands
+
+## Commit Patterns
+
+{2-4 bullet points on what the commit history reveals — file hotspots,
+commit frequency, change categories, test co-location}
+
+## Recommendations
+
+### High Priority (Foundational/Authoritative backing)
+1. **{recommendation}** — Source: {name} (Authority {tier}, Weight {score})
+
+### Medium Priority (Practitioner backing)
+1. **{recommendation}** — Source: {name} (Authority {tier}, Weight {score})
+
+## What's Working Well
+
+- {positive pattern with evidence}
+
+## Staleness Assessment
+
+**Status**: {active | maintenance | stale | dormant | archived}
+{If stale: days since last activity, whether this seems intentional}
+
+## Cross-Repo Notes
+
+{Dependencies on or from other repos. Overlaps with similar projects. Gaps.}
+```
 
 ## Authority Weighting
 

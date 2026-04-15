@@ -31,11 +31,31 @@ not just what the code looks like.
 
 ### Step 1: Gather Commit Data
 ```bash
-# In the target project:
-git log --oneline --since="14 days ago" --format="%H|%s|%an|%ad" --date=short
-git log --since="14 days ago" --stat --format="" | sort | uniq -c | sort -rn | head -20
-git log --since="14 days ago" --format="%s" | grep -i "Co-Authored-By" | wc -l
+# In the target project (default 90 days, use 365 for low-activity repos):
+git log --oneline --since="90 days ago" --format="%H|%s|%an|%ad" --date=short
+git log --since="90 days ago" --stat --format="" | sort | uniq -c | sort -rn | head -20
+git log --since="90 days ago" --format="%s" | grep -i "Co-Authored-By" | wc -l
 ```
+
+### Step 1.5: Inspect Harness Structure
+```bash
+# Check for Claude Code infrastructure:
+ls -la CLAUDE.md .claude/CLAUDE.md 2>/dev/null
+wc -l CLAUDE.md .claude/CLAUDE.md 2>/dev/null
+ls -la .claude/settings.json 2>/dev/null
+ls .claude/rules/*.md 2>/dev/null | wc -l
+ls .claude/hooks/ 2>/dev/null
+ls -d .claude/skills/*/ 2>/dev/null | wc -l
+ls -d .claude/commands/*/ 2>/dev/null | wc -l
+```
+
+Score 0-6 (one point per component present):
+- CLAUDE.md (root or .claude/) — presence + line count
+- .claude/settings.json — permissions configured?
+- .claude/rules/*.md — domain rules exist?
+- .claude/hooks/ — lifecycle hooks?
+- .claude/skills/ — reusable workflows?
+- .claude/commands/ — slash commands?
 
 ### Step 2: Identify Patterns
 Analyze the commit data for:
