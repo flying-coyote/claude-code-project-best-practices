@@ -1,6 +1,6 @@
 # Sources and References
 
-All patterns in this repository are derived from authoritative sources and production-validated implementations.
+All analysis documents in this repository are derived from authoritative sources and production-validated implementations.
 
 **Quick Lookup**: For the top 20 most-referenced sources, see [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (100 lines vs 1,278 here)
 
@@ -41,7 +41,7 @@ All patterns in this repository are derived from authoritative sources and produ
 19. **New CLI Features**: `/loop` (recurring tasks, up to 3 days), `/btw` (side questions without breaking flow), `/effort max` (4 levels), `/insights` (weekly pattern review)
 20. **100% AI-Authored Code**: Boris has written zero manual code since November 2025; ships 20-30 PRs/day
 
-**Pattern References**: [Parallel Sessions](patterns/parallel-sessions.md), [Subagent Orchestration](patterns/subagent-orchestration.md), [Documentation Maintenance](patterns/documentation-maintenance.md), [GitHub Actions Integration](patterns/github-actions-integration.md), [Context Engineering](patterns/context-engineering.md), [Advanced Hooks](patterns/advanced-hooks.md)
+**Pattern References**: [Parallel Sessions](analysis/orchestration-comparison.md), [Subagent Orchestration](analysis/orchestration-comparison.md), [Documentation Maintenance](analysis/harness-engineering.md), [GitHub Actions Integration](analysis/harness-engineering.md), [Context Engineering](analysis/harness-engineering.md), [Advanced Hooks](analysis/harness-engineering.md)
 **Evidence Tier**: A (Primary vendor/creator)
 
 ### Anthropic Engineering Blog
@@ -80,7 +80,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Agent specialization: deduplicate code, optimize performance, documentation, design critique
   - `--fast` mode: deterministic 1-10% test sampling to prevent endless test execution
   - Results: 2,000+ sessions, $20K API cost, 100K-line compiler building Linux 6.9 (x86/ARM/RISC-V)
-- **Pattern**: [Parallel Sessions](patterns/parallel-sessions.md), [Subagent Orchestration](patterns/subagent-orchestration.md)
+- **Pattern**: [Parallel Sessions](analysis/orchestration-comparison.md), [Subagent Orchestration](analysis/orchestration-comparison.md)
 
 #### Eval Awareness in BrowseComp
 - **Title**: "Eval awareness in Claude Opus 4.6's BrowseComp performance"
@@ -93,7 +93,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Multi-agent amplification: 3.7x higher unintended solution rate in multi-agent (0.87%) vs single-agent (0.24%)
   - At least 20 distinct sources of leaked answers found (academic papers, appendices)
   - Recommendation: treat evaluation integrity as ongoing adversarial problem, not design-time concern
-- **Pattern**: [Agent Evaluation](patterns/agent-evaluation.md)
+- **Pattern**: [Agent Evaluation](analysis/agent-evaluation.md)
 
 ### Claude Code Documentation (Canonical)
 - **Source**: Anthropic Official Documentation
@@ -133,7 +133,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Opus 4.5 (November 24, 2025): 67% price reduction to $5/$25 per million tokens
   - Sonnet 4.5 (September 29, 2025): Agent-first design, Agent SDK support
   - Haiku 4.5 (October 2025): Extended thinking support, 1/3 cost of Sonnet
-- **Pattern References**: [Advanced Hooks](patterns/advanced-hooks.md), [Skills README](skills/README.md), [Subagent Orchestration](patterns/subagent-orchestration.md), [Plugins and Extensions](patterns/plugins-and-extensions.md)
+- **Pattern References**: [Advanced Hooks](analysis/harness-engineering.md), [Plugins and Extensions](analysis/plugins-and-extensions.md), [Subagent Orchestration](analysis/orchestration-comparison.md), [Plugins and Extensions](analysis/plugins-and-extensions.md)
 
 #### Context Engineering for AI Agents
 - **Title**: "Effective context engineering for AI agents"
@@ -148,7 +148,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Three mitigation strategies: compaction, structured notes, sub-agent architectures
   - Memory Tool + Context Editing: 39% improvement in agent search performance
   - Token consumption reduction: 84% in 100-round web search
-- **Pattern**: [Context Engineering](patterns/context-engineering.md)
+- **Pattern**: [Context Engineering](analysis/harness-engineering.md)
 
 #### Agent Skills for Real-World Applications
 - **Title**: "Equipping agents for the real world with Agent Skills"
@@ -160,7 +160,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Progressive disclosure is the core design principle
   - Published as open standard for cross-platform portability
   - Skills extend Claude's capabilities into domain-specific expertise
-- **Pattern**: [Plugins and Extensions](patterns/plugins-and-extensions.md), [Progressive Disclosure](patterns/progressive-disclosure.md)
+- **Pattern**: [Plugins and Extensions](analysis/plugins-and-extensions.md), [Progressive Disclosure](analysis/claude-md-progressive-disclosure.md)
 
 #### The Complete Guide to Building Skills for Claude
 - **Title**: "The Complete Guide to Building Skills for Claude"
@@ -181,7 +181,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Model laziness mitigation more effective in user prompts than SKILL.md
   - Skill packs for 20-50+ simultaneous skills
   - Skills API: `/v1/skills` endpoint, `container.skills` Messages API parameter
-- **Patterns**: [Skills Domain Knowledge](patterns/skills-domain-knowledge.md), [Progressive Disclosure](patterns/progressive-disclosure.md), [Agent Evaluation](patterns/agent-evaluation.md), [Plugins and Extensions](patterns/plugins-and-extensions.md)
+- **Patterns**: [Skills Domain Knowledge](analysis/domain-knowledge-architecture.md), [Progressive Disclosure](analysis/claude-md-progressive-disclosure.md), [Agent Evaluation](analysis/agent-evaluation.md), [Plugins and Extensions](analysis/plugins-and-extensions.md)
 
 #### Claude Agent SDK
 - **Title**: "Building agents with the Claude Agent SDK"
@@ -193,7 +193,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Subagents are first-class: Explore, Plan, general-purpose built-in
   - Plugins bundle skills + hooks + MCP servers
   - Supports context forking for isolated subagent execution
-- **Pattern**: [Subagent Orchestration](patterns/subagent-orchestration.md)
+- **Pattern**: [Subagent Orchestration](analysis/orchestration-comparison.md)
 
 #### Code Execution with MCP
 - **Title**: "Code execution with MCP: building more efficient AI agents"
@@ -205,7 +205,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Filter data before it reaches the model
   - Execute complex logic in a single step
   - Security and state management benefits
-- **Pattern**: [MCP Patterns](patterns/mcp-patterns.md)
+- **Pattern**: [MCP Patterns](analysis/mcp-patterns.md)
 
 #### The Think Tool
 - **Title**: "The think tool: Enabling Claude to stop and think"
@@ -217,7 +217,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - 54% relative improvement on complex policy-following tasks
   - Different from extended thinking (which happens before response generation)
   - Valuable in complex multi-step tool chains
-- **Pattern**: [Tool Ecosystem](patterns/tool-ecosystem.md)
+- **Pattern**: [Tool Ecosystem](analysis/tool-ecosystem.md)
 
 #### Building a C Compiler with Parallel Claudes
 - **Title**: "Building a C compiler with a team of parallel Claudes"
@@ -229,7 +229,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Nearly 2,000 sessions, ~$20,000 API cost
   - Capable of compiling the Linux kernel on x86, ARM, and RISC-V
   - Agent teams stress test demonstrating multi-agent coordination at scale
-- **Pattern**: [Subagent Orchestration](patterns/subagent-orchestration.md)
+- **Pattern**: [Subagent Orchestration](analysis/orchestration-comparison.md)
 
 #### Quantifying Infrastructure Noise in Agentic Coding Evals
 - **Title**: "Quantifying infrastructure noise in agentic coding evals"
@@ -240,7 +240,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Infrastructure noise is a significant confounder in agentic coding evaluations
   - Non-deterministic environments affect eval reliability
   - Methodology for isolating infrastructure effects from model capability
-- **Pattern**: [Agent Evaluation](patterns/agent-evaluation.md)
+- **Pattern**: [Agent Evaluation](analysis/agent-evaluation.md)
 
 #### Designing AI-Resistant Technical Evaluations
 - **Title**: "Designing AI-resistant technical evaluations"
@@ -251,7 +251,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Principles for evaluations that remain valid as AI capabilities improve
   - Avoiding benchmark saturation and gaming
   - Designing for measurement of genuine capability
-- **Pattern**: [Agent Evaluation](patterns/agent-evaluation.md)
+- **Pattern**: [Agent Evaluation](analysis/agent-evaluation.md)
 
 #### Demystifying Evals for AI Agents
 - **Title**: "Demystifying evals for AI agents"
@@ -263,7 +263,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Start with 20-50 tasks derived from real failures
   - Practical checklist for building agent evals
   - Evaluation design principles
-- **Pattern**: [Agent Evaluation](patterns/agent-evaluation.md)
+- **Pattern**: [Agent Evaluation](analysis/agent-evaluation.md)
 
 #### Beyond Permission Prompts: Making Claude Code More Secure
 - **Title**: "Beyond permission prompts: making Claude Code more secure"
@@ -275,7 +275,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - 84% reduction in permission prompts through sandboxing
   - Complementary to hooks-based security, not a replacement
   - Open-sourced sandboxing implementation
-- **Pattern**: [Safety and Sandboxing](patterns/safety-and-sandboxing.md)
+- **Pattern**: [Safety and Sandboxing](analysis/safety-and-sandboxing.md)
 
 #### Writing Effective Tools for Agents
 - **Title**: "Writing effective tools for agents -- with agents"
@@ -287,7 +287,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Clear, unambiguous tool descriptions
   - Input validation and error messaging designed for AI consumption
   - Agent-tested tool refinement methodology
-- **Pattern**: [Tool Ecosystem](patterns/tool-ecosystem.md)
+- **Pattern**: [Tool Ecosystem](analysis/tool-ecosystem.md)
 
 #### How We Built Our Multi-Agent Research System
 - **Title**: "How we built our multi-agent research system"
@@ -299,7 +299,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Lead/worker agent coordination patterns
   - Parallel research with result synthesis
   - Foundation for Agent Teams feature
-- **Pattern**: [Subagent Orchestration](patterns/subagent-orchestration.md)
+- **Pattern**: [Subagent Orchestration](analysis/orchestration-comparison.md)
 
 #### Claude Code Sub-agents
 - **Source**: Anthropic Official Documentation
@@ -308,7 +308,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Specialized subagent types (Explore, Plan, general-purpose)
   - Parallel execution patterns
   - Context isolation for fresh context windows
-- **Pattern**: [Subagent Orchestration](patterns/subagent-orchestration.md)
+- **Pattern**: [Subagent Orchestration](analysis/orchestration-comparison.md)
 
 #### Auto Mode: Classifier-Based Permissions
 - **Title**: "Claude Code Auto Mode"
@@ -320,7 +320,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Two-stage classifier: fast single-token filter, then chain-of-thought reasoning
   - Classifier runs on Sonnet 4.6
   - For non-interactive `-p` runs, auto mode aborts if classifier repeatedly blocks
-- **Pattern**: [Safety and Sandboxing](patterns/safety-and-sandboxing.md)
+- **Pattern**: [Safety and Sandboxing](analysis/safety-and-sandboxing.md)
 
 #### Agent Skills System (Updated)
 - **Title**: "Equipping agents for the real world with Agent Skills"
@@ -333,7 +333,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Skill description budget scales dynamically at 2% of context window (fallback 16KB)
   - Keep SKILL.md under 500 lines; move reference material to supporting files
   - Dynamic context injection via `` !`command` `` syntax
-- **Pattern**: [Plugins and Extensions](patterns/plugins-and-extensions.md), [Progressive Disclosure](patterns/progressive-disclosure.md)
+- **Pattern**: [Plugins and Extensions](analysis/plugins-and-extensions.md), [Progressive Disclosure](analysis/claude-md-progressive-disclosure.md)
 
 #### Claude Code Hooks Reference
 - **Source**: Anthropic Official Documentation
@@ -345,7 +345,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - SubagentStop and SessionEnd hooks
   - New events (v2.1.76-84): TaskCreated, TaskCompleted, TeammateIdle, CwdChanged, FileChanged, PostCompact, InstructionsLoaded, WorktreeCreate
   - New hook handler types: `http` (POST to endpoint), `prompt` (single LLM call), `agent` (subagent with 50 tool turns, 60s timeout)
-- **Pattern**: [Advanced Hooks](patterns/advanced-hooks.md)
+- **Pattern**: [Advanced Hooks](analysis/harness-engineering.md)
 
 ### Coalition for Secure AI (CoSAI) - Project CodeGuard
 - **Source**: https://github.com/cosai-oasis/project-codeguard
@@ -363,7 +363,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Integration tools for Cursor, Windsurf, Copilot, Agent Skills, and Claude Code
 - **License**: CC BY 4.0 (rules), Apache 2.0 (tools)
 - **Governance**: CoSAI Special Interest Group within AI Security Risk Governance Workstream
-- **Pattern**: [Secure Code Generation](patterns/secure-code-generation.md)
+- **Pattern**: [Secure Code Generation](analysis/secure-code-generation.md)
 
 ### OWASP Security Standards
 
@@ -376,7 +376,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Schema poisoning
   - Memory poisoning
   - Supply chain attacks
-- **Pattern**: [MCP Patterns](patterns/mcp-patterns.md)
+- **Pattern**: [MCP Patterns](analysis/mcp-patterns.md)
 
 #### OWASP Guide for Securely Using Third-Party MCP Servers
 - **Source**: OWASP GenAI Security Project
@@ -388,7 +388,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Server verification (version pinning, checksums)
   - OAuth 2.1/OIDC authorization
   - Trusted MCP registry governance
-- **Pattern**: [MCP Patterns](patterns/mcp-patterns.md)
+- **Pattern**: [MCP Patterns](analysis/mcp-patterns.md)
 
 ### Agent Skills Open Standard
 - **Title**: "Agent Skills Specification"
@@ -400,7 +400,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Required fields: name, description
   - SKILL.md with YAML frontmatter
   - Progressive disclosure via directory structure
-- **Pattern**: [SKILL-TEMPLATE](skills/SKILL-TEMPLATE.md)
+- **Pattern**: [SKILL-TEMPLATE](analysis/domain-knowledge-architecture.md)
 
 ### Claude Code Plugins Directory
 - **Source**: Anthropic Official Plugin Marketplace
@@ -414,7 +414,7 @@ All patterns in this repository are derived from authoritative sources and produ
 - **Key Features**: Plugin submission process, installation statistics, compatibility information
 - **Relevance**: Canonical reference for plugin ecosystem and official extension recommendations
 - **Evidence Tier**: A (Primary vendor marketplace)
-- **Pattern**: [Plugins and Extensions](patterns/plugins-and-extensions.md)
+- **Pattern**: [Plugins and Extensions](analysis/plugins-and-extensions.md)
 
 ---
 
@@ -434,7 +434,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - **.planning/ Directory Structure**: Isolates planning artifacts from source code
   - **Atomic Commits**: One git commit per task
 - **Key Quote**: "The orchestrator never does heavy lifting. It spawns agents, waits, integrates results."
-- **Pattern**: [GSD Orchestration](patterns/gsd-orchestration.md)
+- **Pattern**: [GSD Orchestration](analysis/orchestration-comparison.md)
 - **Evidence Tier**: B (Open source, production-validated)
 
 ### shanraisshan/claude-code-best-practice
@@ -450,7 +450,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Monorepo CLAUDE.md loading behavior documentation
 - **Relevance**: Practical workflow tips and community-validated tool recommendations complement this project's methodology focus
 - **Evidence Tier**: B (Community validation with 5.6k+ stars, production usage patterns)
-- **Patterns**: [Plugins and Extensions](patterns/plugins-and-extensions.md), [Productivity Tooling](patterns/productivity-tooling.md), [MCP Daily Essentials](patterns/mcp-daily-essentials.md)
+- **Patterns**: [Plugins and Extensions](analysis/plugins-and-extensions.md), [Productivity Tooling](analysis/tool-ecosystem.md), [MCP Daily Essentials](analysis/mcp-daily-essentials.md)
 
 ### CAII (Cognitive Agent Infrastructure Implementation)
 - **Author**: Kristoffer Sketch (skribblez2718)
@@ -462,7 +462,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - **7 Cognitive Agents**: Clarification, Research, Analysis, Synthesis, Generation, Validation, Memory/Metacognition
   - **Learning & Memory System**: Task-specific memories with indexed learnings
 - **Key Quote**: "Even well-written and well-structured prompts have ambiguity, which stems from the fact 'we don't know what we don't know.'"
-- **Patterns**: [Johari Window](patterns/johari-window-ambiguity.md), [Cognitive Agent Infrastructure](patterns/cognitive-agent-infrastructure.md)
+- **Patterns**: [Johari Window](analysis/orchestration-comparison.md), [Cognitive Agent Infrastructure](analysis/orchestration-comparison.md)
 - **Evidence Tier**: B (Production implementation, documented methodology)
 
 ### Claude-Flow Enterprise Orchestration
@@ -476,7 +476,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - **6 Swarm Topologies**: Hierarchical, Mesh, Ring, Star, Hybrid, Adaptive
   - **ReasoningBank**: Trajectory storage with semantic pattern matching
 - **Performance Claims**: 250% Claude Code usage extension
-- **Pattern**: Reference architecture only (see [Framework Selection Guide](patterns/framework-selection-guide.md#claude-flow-reference-only))
+- **Pattern**: Reference architecture only (see [Framework Selection Guide](analysis/framework-selection-guide.md#claude-flow-reference-only))
 - **Evidence Tier**: B (Enterprise-focused documentation)
 
 ### MCP Context Budget Analysis
@@ -490,7 +490,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Recommended core MCPs: Context7 + Sequential Thinking
   - Use `disabledMcpServers` to limit per-project
   - Activate specialized MCPs on-demand, not by default
-- **Patterns**: [MCP Patterns](patterns/mcp-patterns.md#mcp-context-budget-management), [MCP Daily Essentials](patterns/mcp-daily-essentials.md)
+- **Patterns**: [MCP Patterns](analysis/mcp-patterns.md#mcp-context-budget-management), [MCP Daily Essentials](analysis/mcp-daily-essentials.md)
 - **Evidence Tier**: B (Production measurement, documented methodology)
 
 ### Context Rot Deep Dive
@@ -504,7 +504,7 @@ All patterns in this repository are derived from authoritative sources and produ
   - Three mitigations: compaction, structured notes, sub-agent architectures
   - Memory Tool + Context Editing: 39% improvement
   - 84% token reduction in 100-round web search
-- **Pattern**: [Context Engineering](patterns/context-engineering.md#context-rot)
+- **Pattern**: [Context Engineering](analysis/harness-engineering.md#context-rot)
 - **Evidence Tier**: B (Analysis of primary source + practitioner validation)
 
 ### Recursive Language Models (RLM)
@@ -526,7 +526,7 @@ All patterns in this repository are derived from authoritative sources and produ
   | CodeQA | GPT-5: 24% | RLM: 62% | 158% |
   | BrowseComp-Plus | Degradation at scale | Perfect | Maintained at 10M+ |
 - **Key Quote**: "If I split the context into two model calls, then combine them in a third model call, I'd avoid this degradation issue." — Alex Zhang
-- **Pattern**: [Recursive Context Management](patterns/recursive-context-management.md)
+- **Pattern**: [Recursive Context Management](analysis/harness-engineering.md)
 - **Evidence Tier**: B (Academic research + industry recognition, no Claude-specific validation)
 - **Status**: EMERGING PATTERN - Monitor for Claude-specific validation
 
@@ -578,7 +578,7 @@ Track these for production readiness:
   | Cached tokens | 8.8M | 4.0M | Skills (55% less) |
 - **Philosophy Shift**: "Force-feed structured context" → "Provide capabilities and documentation"
 - **Agent-Driven Development**: Vallentin also reported 3x development velocity with Claude Code agent-driven workflows (LinkedIn, December 2025), providing production validation of harness engineering patterns
-- **Pattern**: [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md), [Harness Engineering](analysis/harness-engineering.md)
+- **Pattern**: [MCP vs Skills Economics](analysis/mcp-vs-skills-economics.md), [Harness Engineering](analysis/harness-engineering.md)
 - **Evidence Tier**: B (Production data from active project)
 
 ### Nick Schrock (Dagster) - Agent-Driven Development at Scale
@@ -661,7 +661,7 @@ Track these for production readiness:
   - Three-phase exploration: Parallel Scan → Deep Dive → Backtrack
   - Cross-references remain opaque to vector-based matching
   - Typed messages (Pydantic) enable formal contracts between workflow stages
-- **Pattern**: [Agentic Retrieval](patterns/agentic-retrieval.md)
+- **Pattern**: [Agentic Retrieval](analysis/domain-knowledge-architecture.md)
 - **Evidence Tier**: B (Major framework vendor with production implementations)
 
 ### Claude Code Best Practices
@@ -702,7 +702,7 @@ Track these for production readiness:
   - Compact element references (e.g., `e21`) instead of full DOM trees
   - 50+ commands: navigation, interaction, screenshots, session management
   - `--skills` flag installs documentation for agent discovery
-- **Pattern**: [MCP Patterns - CLI vs MCP](patterns/mcp-patterns.md#cli-vs-mcp-the-token-efficiency-case)
+- **Pattern**: [MCP Patterns - CLI vs MCP](analysis/mcp-patterns.md#cli-vs-mcp-the-token-efficiency-case)
 - **Evidence Tier**: B (Microsoft, measured benchmarks, 3.6k stars) ✅ Verified
 
 ### affaan-m/everything-claude-code
@@ -768,7 +768,7 @@ These tools complement Claude Code or provide alternative approaches to AI-assis
 | **Cursor** | [cursor.sh](https://cursor.sh) | VS Code fork with native AI | IDE-native experience |
 | **Crush** | [charmbracelet/crush](https://github.com/charmbracelet/crush) | Go-based, model-agnostic, MCP support (22.9k stars) | Multi-provider terminal agent |
 
-- **Pattern**: [Tool Ecosystem](patterns/tool-ecosystem.md)
+- **Pattern**: [Tool Ecosystem](analysis/tool-ecosystem.md)
 
 ### External Memory Systems
 
@@ -795,7 +795,7 @@ These tools complement Claude Code or provide alternative approaches to AI-assis
 | **repomix** | [yamadashy/repomix](https://github.com/yamadashy/repomix) | Pack repository into AI-friendly single file |
 | **code2prompt** | [mufeedvh/code2prompt](https://github.com/mufeedvh/code2prompt) | Token-optimized codebase context extraction |
 
-- **Pattern**: [Context Engineering](patterns/context-engineering.md)
+- **Pattern**: [Context Engineering](analysis/harness-engineering.md)
 
 ### Agentic Retrieval Tools
 
@@ -804,7 +804,7 @@ These tools complement Claude Code or provide alternative approaches to AI-assis
 | **agentic-file-search** | [PromtEngineer/agentic-file-search](https://github.com/PromtEngineer/agentic-file-search) | Dynamic document exploration with LlamaIndex Workflows + Gemini |
 
 - **Key Features**: Three-phase exploration (scan/dive/backtrack), 6 filesystem tools, multi-format support (PDF, DOCX, PPTX), ~$0.001/query
-- **Pattern**: [Agentic Retrieval](patterns/agentic-retrieval.md)
+- **Pattern**: [Agentic Retrieval](analysis/domain-knowledge-architecture.md)
 
 ### AI Asset Generation Tools
 
@@ -812,7 +812,7 @@ These tools complement Claude Code or provide alternative approaches to AI-assis
 |------|------------|-----|---------|
 | **google-image-gen-api-starter** | [AI-Engineer-Skool/google-image-gen-api-starter](https://github.com/AI-Engineer-Skool/google-image-gen-api-starter) | Google Gemini | CLI for image generation with style templates |
 
-- **Pattern**: [AI Image Generation](patterns/ai-image-generation.md), [Tool Ecosystem](patterns/tool-ecosystem.md)
+- **Pattern**: [AI Image Generation](analysis/tool-ecosystem.md), [Tool Ecosystem](analysis/tool-ecosystem.md)
 
 ---
 
@@ -830,7 +830,7 @@ These represent the industry-standard methodologies for AI-driven development th
   - 4-phase workflow: Specify → Plan → Tasks → Implement
   - Constitution command for project governing principles
   - Supports 16+ coding agents including Claude Code
-- **Pattern**: [Spec-Driven Development](patterns/spec-driven-development.md)
+- **Pattern**: [Spec-Driven Development](analysis/harness-engineering.md)
 - **Evidence Tier**: A (Industry standard - 59K+ stars, adopted by this repository as foundational methodology)
 
 ### BMAD Method
@@ -844,7 +844,7 @@ These represent the industry-standard methodologies for AI-driven development th
   - Scale-Adaptive Intelligence
   - Document Sharding for token optimization
 - **Claude Code Port**: https://github.com/24601/BMAD-AT-CLAUDE
-- **Pattern**: [Spec-Driven Development](patterns/spec-driven-development.md)
+- **Pattern**: [Spec-Driven Development](analysis/harness-engineering.md)
 - **Evidence Tier**: C (Community-driven, MIT licensed)
 
 ### Kiro (AWS)
@@ -857,7 +857,7 @@ These represent the industry-standard methodologies for AI-driven development th
   - Agent Hooks for event-driven automation
   - MCP integration for multimodal context
 - **Analysis**: [InfoQ Coverage](https://www.infoq.com/news/2025/08/aws-kiro-spec-driven-agent/)
-- **Pattern**: [Spec-Driven Development](patterns/spec-driven-development.md)
+- **Pattern**: [Spec-Driven Development](analysis/harness-engineering.md)
 - **Evidence Tier**: B (Major vendor implementation)
 
 ### ThoughtWorks Analysis
@@ -934,8 +934,8 @@ These individuals have developed principled methodologies for AI-assisted develo
 - **Influence on This Repo**:
   - Direct validation of SDD methodology from practitioner perspective
   - Context-Prompt-Model framework reinforces specs-as-context pattern
-  - "Great Planning" principle documented in [Planning-First Development](patterns/planning-first-development.md)
-  - Orchestrator pattern informs [Subagent Orchestration](patterns/subagent-orchestration.md)
+  - "Great Planning" principle documented in [Planning-First Development](analysis/harness-engineering.md)
+  - Orchestrator pattern informs [Subagent Orchestration](analysis/orchestration-comparison.md)
 - **Evidence Tier**: A (Principled methodology with open-source implementations, production-validated across thousands of engineers)
 
 ### Aniket Panjwani - Plan-Then-Act & Domain Knowledge Embedding
@@ -982,7 +982,7 @@ From his [viral X thread](https://x.com/aniketapanjwani/status/19994879996046053
 
 - **Influence on This Repo**:
   - Plan-then-act validates SDD's Specify→Implement flow from practitioner perspective
-  - Domain knowledge embedding documented in [Skills for Domain Knowledge](patterns/skills-domain-knowledge.md)
+  - Domain knowledge embedding documented in [Skills for Domain Knowledge](analysis/domain-knowledge-architecture.md)
   - Phase-based skill separation reinforces progressive disclosure pattern
   - Non-engineering use cases validate SDD for knowledge work beyond software
 - **Evidence Tier**: A (PhD research rigor + production ML engineering + actionable best practices with measured outcomes)
@@ -1003,9 +1003,9 @@ These sources directly influenced the design of the skill structure and project 
 
 | Article | Pattern | Key Insights |
 |---------|---------|--------------|
-| [Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive) | [Context Engineering](../patterns/context-engineering.md) | Deterministic vs probabilistic context, correctness over compression |
-| [2025 Agent Build Bible](https://natesnewsletter.substack.com/p/why-your-ai-breaks-in-production) | [Agent Principles](../patterns/agent-principles.md) | 6 principles for production AI, semantic validation |
-| [MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving) | [MCP Patterns](../patterns/mcp-patterns.md) | 7 failure modes, Intelligence Layer/Sidecar/Batch patterns |
+| [Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive) | [Context Engineering](analysis/harness-engineering.md) | Deterministic vs probabilistic context, correctness over compression |
+| [2025 Agent Build Bible](https://natesnewsletter.substack.com/p/why-your-ai-breaks-in-production) | [Agent Principles](analysis/agent-principles.md) | 6 principles for production AI, semantic validation |
+| [MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving) | [MCP Patterns](analysis/mcp-patterns.md) | 7 failure modes, Intelligence Layer/Sidecar/Batch patterns |
 | Million-Dollar Workflows in 10 Minutes | Skills structure | IDENTITY/GOAL/STEPS/OUTPUT skill format |
 
 #### Core Concepts
@@ -1093,7 +1093,7 @@ These community repositories provide additional examples and inspiration for Cla
   - Vector search via Chroma for semantic retrieval
   - Web viewer at localhost:37777
   - Privacy controls with `<private>` tags
-- **Relevance**: Production implementation of concepts in [Memory Architecture](patterns/memory-architecture.md) and [Long-Running Agent](patterns/long-running-agent.md)
+- **Relevance**: Production implementation of concepts in [Memory Architecture](analysis/memory-system-patterns.md) and [Long-Running Agent](analysis/harness-engineering.md)
 - **Evidence Tier**: C (Community tool with production validation)
 
 ### Claude Diary (Session Learning)
@@ -1107,7 +1107,7 @@ These community repositories provide additional examples and inspiration for Cla
   - Human review required before CLAUDE.md updates
   - Pattern detection (2+ occurrences = pattern, 3+ = strong pattern)
 - **Categories Analyzed**: PR feedback, persistent preferences, design decisions, anti-patterns, efficiency improvements
-- **Relevance**: Reference implementation for [Session Learning](patterns/session-learning.md) pattern
+- **Relevance**: Reference implementation for [Session Learning](analysis/memory-system-patterns.md) pattern
 - **Evidence Tier**: B (Expert practitioner with academic research basis)
 
 ### Claude Reflect (Hook-Based Learning)
@@ -1118,7 +1118,7 @@ These community repositories provide additional examples and inspiration for Cla
   - Automatic detection of correction patterns ("no, use X", tool rejections)
   - Queued learnings reviewed via `/reflect` command
   - Plugin ecosystem integration
-- **Relevance**: Alternative implementation for [Session Learning](patterns/session-learning.md) pattern
+- **Relevance**: Alternative implementation for [Session Learning](analysis/memory-system-patterns.md) pattern
 - **Evidence Tier**: C (Community implementation)
 
 ### Autoskill (Meta-Skill Learning)
@@ -1131,7 +1131,7 @@ These community repositories provide additional examples and inspiration for Cla
   - Confidence levels (HIGH/MEDIUM) for proposals
   - Routes learnings to appropriate skill files
 - **Caution**: Updates skill files directly — higher risk than CLAUDE.md-only approaches
-- **Relevance**: Alternative approach for [Session Learning](patterns/session-learning.md) pattern
+- **Relevance**: Alternative approach for [Session Learning](analysis/memory-system-patterns.md) pattern
 - **Evidence Tier**: C (Community, minimal documentation, no production validation)
 
 ### Fabric Framework (Implementation Reference)
@@ -1243,7 +1243,7 @@ These sources document session learning, self-improvement, and the risks of auto
   - Three-tier memory: Observation → Reflection → Retrieval
   - Agents that form memories and plan behavior based on experience
   - 54% improvement from reflection-based memory in studies
-- **Relevance**: Foundational research for [Session Learning](patterns/session-learning.md) pattern
+- **Relevance**: Foundational research for [Session Learning](analysis/memory-system-patterns.md) pattern
 - **Evidence Tier**: A (Peer-reviewed academic research)
 
 ### Yohei Nakajima: Self-Improving Agents
@@ -1264,7 +1264,7 @@ These sources document session learning, self-improvement, and the risks of auto
   - Four risk pathways: model, memory, tool, workflow misevolution
   - Self-training reduced safety refusal rates by up to 70%
   - Quick fixes failed to restore original alignment
-- **Relevance**: Critical risk documentation for [Session Learning](patterns/session-learning.md) pattern
+- **Relevance**: Critical risk documentation for [Session Learning](analysis/memory-system-patterns.md) pattern
 - **Evidence Tier**: B (Research summary with citations)
 
 ### Reflexion Paper
@@ -1291,7 +1291,7 @@ These sources document session learning, self-improvement, and the risks of auto
 
 ## Self-Evolution Algorithm Sources (Tier B)
 
-These sources document the Self-Evolution Algorithm (TTD-DR) used in the [Recursive Evolution](patterns/recursive-evolution.md) pattern:
+These sources document the Self-Evolution Algorithm (TTD-DR) used in the [Recursive Evolution](analysis/evidence-based-revalidation.md) pattern:
 
 ### Google TTD-DR Paper
 - **Title**: "Deep Researcher with Test-Time Diffusion"

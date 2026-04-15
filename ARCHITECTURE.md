@@ -1,7 +1,7 @@
 # Architecture
 
 **Purpose**: System design, directory structure, and current phase status
-**Last Updated**: April 6, 2026
+**Last Updated**: April 13, 2026
 
 ---
 
@@ -23,13 +23,14 @@ This repository provides an **evidence-based analytical layer** for Claude Code.
 
 ## Current Phase
 
-**Phase**: v2.0 — Analytical Layer Repositioning
+**Phase**: v2.1 — Production Evidence Integration
 **Status**: Active
 
 **Milestones**:
 - v1.0: Initial patterns from Anthropic (Nov 2025)
 - v1.1-v1.4: Pattern expansion to 36 patterns (Nov 2025 - Mar 2026)
 - v2.0: Repositioned as analytical layer; 36 patterns → 14 analysis documents (Mar 2026)
+- v2.1: Expanded to 26 analysis documents with 7-repo portfolio evidence + harness template kit (Apr 2026)
 
 ---
 
@@ -129,7 +130,7 @@ We evaluate and compare rather than providing implementation guides. This keeps 
 All claims must include source, evidence tier, and date. Measurements require revalidation dates.
 
 ### 3. Narrow Focus
-14 analysis documents rather than 36 patterns. Depth over breadth.
+26 analysis documents rather than 36 patterns. Depth over breadth, expanded with production evidence.
 
 ---
 

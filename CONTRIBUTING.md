@@ -40,12 +40,12 @@ This repository follows strict quality standards:
 ### 1. Check Existing Issues
 Before starting, check if your idea is already being discussed:
 - Browse [Issues](https://github.com/flying-coyote/claude-code-project-best-practices/issues)
-- Search for related patterns in the repo
+- Search for related analysis documents in the repo
 
 ### 2. Open a Discussion Issue
-For new patterns or significant changes:
+For new analysis documents or significant changes:
 ```markdown
-Title: [Pattern Proposal] Name of Pattern
+Title: [Analysis Proposal] Name of Analysis
 
 ## Source
 - Tier: [A/B/C]
@@ -56,79 +56,57 @@ Title: [Pattern Proposal] Name of Pattern
 - Projects tested: [number]
 - Measured results: [metrics if available]
 
-## Pattern Summary
-[What problem does it solve?]
-[How is it implemented?]
-[When should it be used?]
+## Analysis Summary
+[What claim or approach does it evaluate?]
+[What evidence supports or contradicts it?]
+[When does this apply?]
 
 ## Integration
-[How does it relate to existing patterns?]
+[How does it relate to existing analysis documents?]
 ```
 
 ### 3. Submit a Pull Request
 
-#### For Pattern Contributions
+#### For Analysis Contributions
 
 **File Structure**:
 ```bash
-# Create pattern file
-touch patterns/your-pattern.md
+# Create analysis document
+touch analysis/your-analysis.md
 
-# Add to SOURCES.md
-# Reference in README.md if appropriate
-# Add cross-references to related patterns
+# Add source to SOURCES.md with evidence tier
+# Add cross-references to related analysis documents
 ```
 
-**Pattern Template**:
+**Analysis Document Template**:
 ```markdown
-# Pattern Name
+# Analysis Title
 
 **Source**: [Author/Source Name with URL]
-**Evidence Tier**: [A/B/C]
+**Evidence Tier**: [A/B/C] — Claim Strength: [1-5]
+**Last Validated**: YYYY-MM-DD
 
-## The Core Problem
+## The Claim
 
-[What problem does this solve?]
+[What claim or approach is being evaluated?]
 
-## The Solution
+## Evidence
 
-[How to implement the pattern]
+[Evidence for and against, with source attribution]
 
-## Implementation Pattern
+## Comparative Analysis
 
-[Step-by-step guide]
+[How does this compare to alternatives?]
 
 ## Measured Results (if applicable)
 
-[Metrics from production validation]
+[Quantified metrics from production validation]
 
-## Related Patterns
+## Related Analysis
 
-- [Related Pattern 1](./related-1.md)
-- [Related Pattern 2](./related-2.md)
+- [Related Analysis 1](./related-1.md)
+- [Related Analysis 2](./related-2.md)
 ```
-
-#### For Skills Contributions
-
-**File Structure**:
-```bash
-# Create skill directory
-mkdir -p skills/examples/your-skill
-
-# Create SKILL.md
-touch skills/examples/your-skill/SKILL.md
-
-# Use SKILL-TEMPLATE.md as starting point
-```
-
-**Required Sections**:
-- YAML frontmatter (name, description, allowed-tools)
-- IDENTITY, GOAL, TRIGGER CONDITIONS
-- STEPS (clear methodology)
-- OUTPUT FORMAT
-- EXAMPLES
-- ANTI-PATTERNS
-- SECURITY (risk classification)
 
 #### For Documentation Contributions
 
@@ -142,25 +120,15 @@ Small fixes can go directly to PR:
 
 Before submitting, verify:
 
-**For New Patterns**:
+**For New Analysis Documents**:
 - [ ] Has authoritative source (Tier A or B)
-- [ ] Tested in production (3+ projects for Tier B)
-- [ ] Includes implementation guide
-- [ ] Has examples or use cases
-- [ ] Documents anti-patterns
-- [ ] Cross-references related patterns
+- [ ] Evaluated against production evidence (3+ projects for Tier B)
+- [ ] Includes comparative analysis or quantified metrics
+- [ ] Has clear claim statement with evidence tier classification
+- [ ] Documents limitations and trade-offs
+- [ ] Cross-references related analysis documents
 - [ ] Added to SOURCES.md with evidence tier
 - [ ] Mentioned in appropriate README sections
-
-**For New Skills**:
-- [ ] Follows SKILL-TEMPLATE.md structure
-- [ ] Has third-person description (for skill selection)
-- [ ] Includes DO NOT ACTIVATE conditions
-- [ ] Has clear trigger conditions
-- [ ] Includes security classification
-- [ ] Has integration section
-- [ ] Tested in at least 2 different projects
-- [ ] Examples demonstrate real usage
 
 **For Documentation Changes**:
 - [ ] Markdown formatting is correct
@@ -237,11 +205,11 @@ When deprecating a pattern, tool, or recommendation, follow this checklist to pr
    [Clear instructions on what to use instead]
    ```
 
-2. **Search all patterns for references**:
+2. **Search all analysis documents for references**:
    ```bash
    # Find all mentions of deprecated item
-   grep -r "deprecated-tool-name" patterns/
-   grep -r "deprecated-pattern" patterns/
+   grep -r "deprecated-tool-name" analysis/
+   grep -r "deprecated-item" analysis/
    ```
 
 3. **Update or remove recommendations**:
@@ -251,7 +219,7 @@ When deprecating a pattern, tool, or recommendation, follow this checklist to pr
    - Replace with migration path where appropriate
 
 4. **Add migration notes**:
-   - In patterns that reference deprecated item, add:
+   - In analysis documents that reference deprecated item, add:
      ```markdown
      > ⚠️ **Deprecated**: [Tool] was deprecated YYYY-MM-DD.
      > Use [replacement] instead. See [DEPRECATIONS.md](../DEPRECATIONS.md#tool-name).
@@ -282,12 +250,12 @@ See [AUDIT-2026-02-27.md](AUDIT-2026-02-27.md) for case study of deprecation coo
 - mcp-daily-essentials.md still recommended it ❌
 - tool-ecosystem.md recommended alternative ✅
 
-**Lesson**: Must update ALL patterns that reference deprecated item, not just DEPRECATIONS.md.
+**Lesson**: Must update ALL analysis documents that reference deprecated item, not just DEPRECATIONS.md.
 
 ### After Grace Period
 
 When grace period expires:
-1. Remove all mentions from patterns (no more "deprecated" notices)
+1. Remove all mentions from analysis documents (no more "deprecated" notices)
 2. Update DEPRECATIONS.md to mark grace period as ended
 3. Grep to verify complete removal
 4. Consider moving to ARCHIVE.md if historical value
@@ -332,9 +300,9 @@ When grace period expires:
 - Bold for **emphasis**, italics for *examples*
 
 ### File Naming
-- Lowercase with dashes: `pattern-name.md`
+- Lowercase with dashes: `analysis-name.md`
 - Descriptive: `context-engineering.md` not `context.md`
-- Consistent with existing patterns
+- Consistent with existing analysis documents
 
 ## Questions?
 
@@ -345,7 +313,7 @@ When grace period expires:
 ## Code of Conduct
 
 - Be respectful and professional
-- Focus on patterns, not individuals
+- Focus on analysis, not individuals
 - Assume good intent
 - Provide constructive feedback
 - Acknowledge prior art and sources
@@ -356,4 +324,4 @@ By contributing, you agree that your contributions will be licensed under the MI
 
 ---
 
-**Thank you for helping improve Claude Code project patterns!**
+**Thank you for helping improve Claude Code evidence-based analysis!**

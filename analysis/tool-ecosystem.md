@@ -190,9 +190,8 @@ Some developers use multiple tools strategically:
 ## Tool-Specific Resources
 
 ### Claude Code (This Repository)
-- [Patterns](../patterns/) - Core implementation patterns
-- [Skills](../skills/) - Reusable AI behavior patterns
-- [Templates](../templates/) - Ready-to-use configurations
+- [Analysis](../analysis/) - Evidence-based analysis documents
+- [Templates](../templates/) - Ready-to-use harness configurations
 
 ### Aider
 - **Repository**: https://github.com/paul-gauthier/aider

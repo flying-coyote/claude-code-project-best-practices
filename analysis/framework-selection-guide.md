@@ -37,7 +37,7 @@ Is this a simple, single-session task?
   ├─YES──► Use NATIVE SUBAGENT ORCHESTRATION (Default)
   │        • Explore, Plan, general-purpose subagent types
   │        • Built into Claude Code, zero setup
-  │        • See: patterns/subagent-orchestration.md
+  │        • See: analysis/orchestration-comparison.md
   │
   ▼
   NO
@@ -49,7 +49,7 @@ Do you need state persistence across sessions?
   │        • STATE.md for cross-session memory
   │        • Fresh context per executor (prevents rot)
   │        • .planning/ directory structure
-  │        • See: patterns/gsd-orchestration.md
+  │        • See: analysis/orchestration-comparison.md
   │
   ▼
   NO
@@ -61,7 +61,7 @@ Are you building a reusable agent architecture?
   │        • 7 fixed agents (constant complexity)
   │        • Deterministic orchestration
   │        • Learning & memory capture
-  │        • See: patterns/cognitive-agent-infrastructure.md
+  │        • See: analysis/orchestration-comparison.md
   │
   ▼
   NO

@@ -1,13 +1,13 @@
 # Plan
 
 **Purpose**: Current priorities, immediate next actions
-**Last Updated**: April 6, 2026
+**Last Updated**: April 13, 2026
 
 ---
 
 ## Current Focus
 
-**Phase**: v2.0 — Analytical Layer Repositioning
+**Phase**: v2.1 — Production Evidence Integration
 **Goal**: Maintain focused, evidence-based analysis that complements ECC and superpowers
 
 ---
@@ -37,8 +37,8 @@
 
 | Item | Effort | Notes |
 |------|--------|-------|
-| Update internal cross-references in analysis/ docs | Low | Some still reference patterns/ paths |
-| Review CONTRIBUTING.md for v2.0 alignment | Low | Pending |
+| Update internal cross-references in analysis/ docs | Low | Completed April 2026 |
+| Review CONTRIBUTING.md for v2.1 alignment | Low | Completed April 2026 |
 
 ### Low Priority
 
