@@ -2,7 +2,7 @@
 
 All analysis documents in this repository are derived from authoritative sources and production-validated implementations.
 
-**Quick Lookup**: For the top 20 most-referenced sources, see [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (100 lines vs 1,278 here)
+**Quick Lookup**: For the top 20 most-referenced sources, see [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (100 lines vs 1,579 here)
 
 ## Primary Sources (Tier A)
 
@@ -1491,6 +1491,30 @@ These patterns have been validated across 12+ production projects:
 - **Context retention**: Improved across session boundaries
 - **Consistency**: 90%+ adherence to project standards
 - **Maintenance**: Minimal ongoing overhead
+
+---
+
+## Internal Methodology
+
+These analysis documents define the evidence and scoring frameworks used throughout this repository. They are self-referential methodology — their sources are documented in each file's header.
+
+### Behavioral Insights
+
+- **Document**: [behavioral-insights.md](analysis/behavioral-insights.md)
+- **Role**: Quantified behavioral observations about Claude Code (context thresholds, adherence rates, performance characteristics)
+- **Classification**: Mixed A-B — synthesizes Boris Cherny data, Anthropic engineering blog, and RLM research (Zhang et al.)
+
+### Confidence Scoring
+
+- **Document**: [confidence-scoring.md](analysis/confidence-scoring.md)
+- **Role**: HIGH/MEDIUM/LOW confidence assessment methodology for research hypotheses and technical claims
+- **Classification**: Tier B — validated in production cybersecurity research projects
+
+### Evidence Tiers
+
+- **Document**: [evidence-tiers.md](analysis/evidence-tiers.md)
+- **Role**: Dual classification framework (A-D source quality + 1-5 claim strength) used by all analysis documents
+- **Classification**: Tier B — adapted from established research methodology, validated in this repository
 
 ---
 

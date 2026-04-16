@@ -1,7 +1,7 @@
 # Plan
 
 **Purpose**: Current priorities, immediate next actions
-**Last Updated**: April 13, 2026
+**Last Updated**: April 16, 2026
 
 ---
 
@@ -18,7 +18,7 @@
 |--------|--------|
 | Analysis documents | 26 |
 | Archived v1 patterns | 24 |
-| Source database entries | 80+ |
+| Source database entries | 85+ |
 | Source attribution | 100% |
 
 ---
@@ -62,7 +62,7 @@
 
 ## Recent Activity
 
-### April 2026 Review (in progress)
+### April 2026 Review (complete)
 - Added production-scale agent-driven development evidence to `analysis/harness-engineering.md`:
   - Nick Schrock (Dagster): 1,000+ PRs merged in 3 weeks with Claude Code
   - Matthias Vallentin (Tenzir): 3x development velocity claim
@@ -81,6 +81,9 @@
   - `evidence-based-revalidation.md`: Hypothesis confidence tracking and demo prep
   - `security-data-pipeline.md`: Zeek → OCSF → Parquet → Iceberg pipeline case study
   - `cross-project-synchronization.md`: Dependency cascading across 7 repos
+- Synced SOURCES.md: added Internal Methodology section for 3 meta-framework docs (behavioral-insights, confidence-scoring, evidence-tiers)
+- Fixed stale line count references in SOURCES.md and SOURCES-QUICK-REFERENCE.md (1,278 → 1,579)
+- Committed auto-regenerated INDEX.md (115 → 123 documents, added templates section)
 
 ---
 

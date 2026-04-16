@@ -2,7 +2,7 @@
 
 **Purpose**: Fast lookup for the most commonly referenced sources with authority + recency weighting
 
-**For complete source database**: See [SOURCES.md](SOURCES.md) (1,278 lines, comprehensive)
+**For complete source database**: See [SOURCES.md](SOURCES.md) (1,579 lines, comprehensive)
 
 **Authority Scale (0-5)**: 5=Foundational (built it), 4=Authoritative (core team/peer-reviewed), 3=Practitioner (production metrics), 2=Commentator (blog/YouTube), 1=Unverified, 0=Rejected
 
