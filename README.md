@@ -18,7 +18,7 @@ An **analytical layer** for Claude Code — evidence assessment, comparative ana
 
 ## Analysis Documents
 
-### Core Analysis (26 documents)
+### Core Analysis (27 documents)
 
 | Document | What It Covers |
 |----------|---------------|
@@ -48,6 +48,7 @@ An **analytical layer** for Claude Code — evidence assessment, comparative ana
 | [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md) | Hypothesis confidence tracking, revalidation before demos |
 | [security-data-pipeline.md](analysis/security-data-pipeline.md) | Zeek → OCSF → Parquet → Iceberg pipeline, 30K records/sec |
 | [cross-project-synchronization.md](analysis/cross-project-synchronization.md) | Cross-repo dependency cascading, 4-phase enrichment cascade |
+| [session-quality-tools.md](analysis/session-quality-tools.md) | claude-doctor signal reliability, score interpretation, evidence-filtered CLAUDE.md rules |
 
 ### Source Database
 
@@ -113,7 +114,7 @@ Full database: [SOURCES.md](SOURCES.md)
 
 ## Project Status
 
-**v2.1** — Expanded from 14 to 26 analysis documents with production evidence from 7-repo portfolio. Covers agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, and more. Prior v1 patterns archived in `archive/patterns-v1/`.
+**v2.2** — 27 analysis documents. Added session quality diagnostic tools analysis (claude-doctor evidence assessment). Covers agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, and more. Prior v1 patterns archived in `archive/patterns-v1/`.
 
 ## Contributing
 
