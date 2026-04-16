@@ -56,6 +56,16 @@ An **analytical layer** for Claude Code — evidence assessment, comparative ana
 | [SOURCES.md](SOURCES.md) | Comprehensive source database with evidence tiers |
 | [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) | Top 20 sources at a glance |
 
+## Quick Start: One-Prompt Project Review
+
+Copy-paste this into Claude Code in **any project** to get an authority-weighted audit of your harness, commit patterns, and best-practice alignment:
+
+```
+Review this project: read the CLAUDE.md (check both ./CLAUDE.md and .claude/CLAUDE.md), analyze the last 90 days of git commits (git log --oneline --since="90 days ago" && git log --since="90 days ago" --name-only --format="" | sort | uniq -c | sort -rn | head 20), inspect harness structure (ls -la .claude/ .claude/rules/ .claude/hooks/ .claude/skills/ .claude/commands/ CLAUDE.md .claude/settings.json 2>/dev/null), then fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/SOURCES-QUICK-REFERENCE.md and cross-reference my commit patterns and harness structure against those sources. Weight recommendations by the source authority tiers (5=Foundational like Anthropic docs, 2=Commentator like YouTube). Prioritize high-authority recent sources. Output using the STRUCTURED FORMAT described in the prompt source document.
+```
+
+See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for output format details, authority weighting, and customization options.
+
 ## How to Use This Repo
 
 **For practitioners**: Browse `analysis/` for evidence-based guidance on specific decisions. Each document includes source attribution and evidence tier ratings.
