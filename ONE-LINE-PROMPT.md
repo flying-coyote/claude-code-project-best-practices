@@ -6,7 +6,7 @@ recommendations based on your recent work patterns and current best practices.
 ## The Prompt
 
 ```
-Review this project: read the CLAUDE.md (check both ./CLAUDE.md and .claude/CLAUDE.md), analyze the last 90 days of git commits (git log --oneline --since="90 days ago" && git log --since="90 days ago" --name-only --format="" | sort | uniq -c | sort -rn | head 20), inspect harness structure (ls -la .claude/ .claude/rules/ .claude/hooks/ .claude/skills/ .claude/commands/ CLAUDE.md .claude/settings.json 2>/dev/null), then fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/SOURCES-QUICK-REFERENCE.md and cross-reference my commit patterns and harness structure against those sources. Weight recommendations by the source authority tiers (5=Foundational like Anthropic docs, 2=Commentator like YouTube). Prioritize high-authority recent sources. Output using the STRUCTURED FORMAT described in the prompt source document.
+Review this project: read the CLAUDE.md (check both ./CLAUDE.md and .claude/CLAUDE.md), analyze the last 90 days of git commits (git log --oneline --since="90 days ago" && git log --since="90 days ago" --name-only --format="" | sort | uniq -c | sort -rn | head 20), inspect harness structure (ls -la .claude/ .claude/rules/ .claude/hooks/ .claude/skills/ .claude/commands/ CLAUDE.md .claude/settings.json 2>/dev/null), run session quality diagnostics (npx -y claude-doctor 2>/dev/null || echo "claude-doctor not available"), then fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/SOURCES-QUICK-REFERENCE.md and cross-reference my commit patterns, harness structure, and session quality signals against those sources. For session signals, focus on edit-thrashing and error-loop counts (most reliable); treat sentiment scores as directional only. Weight recommendations by the source authority tiers (5=Foundational like Anthropic docs, 2=Commentator like YouTube). Prioritize high-authority recent sources. Output using the STRUCTURED FORMAT described in the prompt source document.
 ```
 
 > **Low-activity repos**: For repos with fewer than 10 commits in 90 days, extend
@@ -17,9 +17,10 @@ Review this project: read the CLAUDE.md (check both ./CLAUDE.md and .claude/CLAU
 1. **Reads your CLAUDE.md** — Understands your project's current configuration
 2. **Analyzes recent commits** — Identifies patterns in how work is being done
 3. **Inspects harness structure** — Checks for CLAUDE.md, rules, hooks, skills, commands, settings
-4. **Fetches best-practice sources** — Cross-references against 21 authority-weighted sources
-5. **Produces weighted recommendations** — High priority (Foundational sources) vs worth noting (Commentator sources)
-6. **Celebrates what works** — Not just criticism; identifies positive patterns to keep
+4. **Runs session quality diagnostics** — Detects edit-thrashing, error-loops, and sentiment patterns from your Claude Code session history
+5. **Fetches best-practice sources** — Cross-references against 26 authority-weighted sources
+6. **Produces weighted recommendations** — High priority (Foundational sources) vs worth noting (Commentator sources)
+7. **Celebrates what works** — Not just criticism; identifies positive patterns to keep
 
 ## Structured Output Format
 
@@ -55,6 +56,19 @@ period-days: {90 or 365}
 - [ ] .claude/hooks/ — {list or "none"}
 - [ ] .claude/skills/ — {count} skills
 - [ ] .claude/commands/ — {count} commands
+
+## Session Quality (claude-doctor)
+
+| Signal | Count | Action |
+|--------|-------|--------|
+| edit-thrashing | {N} | {if >5: investigate — what file pattern knowledge is missing?} |
+| error-loop | {N} | {if >3: add error-recovery rule} |
+| negative-sentiment | {N} | {directional only — don't act on this alone} |
+| repeated-instructions | {N} | {if >2: the repeated thing belongs in CLAUDE.md} |
+
+**Health score**: {N%} (NOTE: arbitrary weighting — interpret signals individually, not the composite)
+**Sessions analyzed**: {N}
+**Reliable signals to act on**: {list edit-thrashing and error-loop if present}
 
 ## Commit Patterns
 
