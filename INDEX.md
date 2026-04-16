@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-04-06 09:17*
+*Auto-generated: 2026-04-16 09:30*
 
 ## Summary
 
-**Total documents**: 115
+**Total documents**: 123
 
 | Directory | Count |
 |-----------|-------|
@@ -35,7 +35,9 @@
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
 | research | 2 |
-| root | 9 |
+| root | 10 |
+| templates | 4 |
+| templates/rules | 3 |
 
 ---
 
@@ -46,6 +48,7 @@
 - [CONTRIBUTING.md](CONTRIBUTING.md)
 - [DECISIONS.md](DECISIONS.md)
 - [INDEX.md](INDEX.md)
+- [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md)
 - [PLAN.md](PLAN.md)
 - [README.md](README.md)
 - [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md)
@@ -210,6 +213,17 @@
 ## Archive / Examples-V1 / Coding-Project
 
 - [README.md](archive/examples-v1/coding-project/README.md)
+## Templates
+
+- [GETTING-STARTED.md](templates/GETTING-STARTED.md)
+- [claude-md-tier1-minimal.md](templates/claude-md-tier1-minimal.md)
+- [claude-md-tier2-standard.md](templates/claude-md-tier2-standard.md)
+- [claude-md-tier3-advanced.md](templates/claude-md-tier3-advanced.md)
+## Templates / Rules
+
+- [code-style.md](templates/rules/code-style.md)
+- [domain-context.md](templates/rules/domain-context.md)
+- [security-boundaries.md](templates/rules/security-boundaries.md)
 
 ---
 
