@@ -822,6 +822,20 @@ These tools complement Claude Code or provide alternative approaches to AI-assis
 
 - **Pattern**: [AI Image Generation](analysis/tool-ecosystem.md), [Tool Ecosystem](analysis/tool-ecosystem.md)
 
+### Session Quality Diagnostic Tools
+
+| Tool | Repository | Purpose |
+|------|------------|---------|
+| **claude-doctor** | [aidenybai/claude-doctor](https://github.com/aidenybai/claude-doctor) | Session transcript analysis via AFINN-165 sentiment + heuristic pattern detection |
+
+- **Author**: Aiden Bai
+- **Version**: v0.0.3 (April 2026)
+- **Evidence Tier**: C (Tool methodology — self-published, unvalidated thresholds)
+- **Underlying Library**: AFINN-165 sentiment lexicon (Tier B — peer-reviewed, 2,477 words scored -5 to +5)
+- **Key Capabilities**: Edit-thrashing detection (5+ edits/file), error-loop detection (3+ consecutive failures), sentiment analysis, repeated-instruction detection (60% Jaccard similarity)
+- **Limitations**: Arbitrary severity weighting, no positive signal detection, no task-type normalization, percentage score not calibrated
+- **Analysis**: [Session Quality Diagnostic Tools](analysis/session-quality-tools.md)
+
 ---
 
 ## Spec-Driven Development Standards (Tier A)
@@ -1515,6 +1529,12 @@ These analysis documents define the evidence and scoring frameworks used through
 - **Document**: [evidence-tiers.md](analysis/evidence-tiers.md)
 - **Role**: Dual classification framework (A-D source quality + 1-5 claim strength) used by all analysis documents
 - **Classification**: Tier B — adapted from established research methodology, validated in this repository
+
+### Session Quality Diagnostics
+
+- **Document**: [session-quality-tools.md](analysis/session-quality-tools.md)
+- **Role**: Evidence assessment of session quality diagnostic tools (claude-doctor), signal reliability analysis, harness maturity correlation
+- **Classification**: Mixed B-C — AFINN-165 lexicon (Tier B, peer-reviewed), tool methodology and thresholds (Tier C, unvalidated)
 
 ---
 
