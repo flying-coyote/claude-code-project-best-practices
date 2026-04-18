@@ -97,7 +97,7 @@ All analysis documents in this repository are derived from authoritative sources
 
 ### Claude Code Documentation (Canonical)
 - **Source**: Anthropic Official Documentation
-- **URL**: https://code.claude.com/docs/en/best-practices (Canonical - January 2026)
+- **URL**: https://code.claude.com/docs/en/best-practices (Canonical - January 2026, continuously updated)
 - **Legacy URL**: https://docs.anthropic.com/en/docs/claude-code (redirects to above)
 - **Evidence Tier**: A (Primary vendor documentation)
 - **Key Guidance**:
@@ -106,11 +106,20 @@ All analysis documents in this repository are derived from authoritative sources
   - Avoid long lists of custom slash commands (anti-pattern)
   - Include verification (tests, linting) as highest-leverage practice
   - Use hooks sparingly; prefer pre-approved permissions
+  - Custom subagents via `.claude/agents/*.md` — isolated context, scoped tools, model selection per agent
+  - Plugins via `/plugin` marketplace — bundle skills, hooks, subagents, and MCP servers
+  - Auto mode (`--permission-mode auto`) — AI classifier reviews commands, 0.4% FPR, replaces `--dangerously-skip-permissions`
+  - `/btw` for side questions without growing context (dismissible overlay)
+  - "Summarize from here" via `/rewind` — selective partial compaction
 - **Topics Used**:
   - CLAUDE.md file format
   - Settings and hooks configuration
   - Slash commands structure
   - Skills system
+  - Custom subagents (`.claude/agents/`)
+  - Plugin marketplace and installation
+  - Auto mode permission handling
+  - Context management (`/btw`, `/rewind` summarize)
 
 ### Claude Code Changelog
 - **Source**: Anthropic GitHub Repository
@@ -125,6 +134,9 @@ All analysis documents in this repository are derived from authoritative sources
     - Routines: Cloud-hosted scheduled/triggered autonomous workflows (research preview)
     - Ultra Plan: Web-based planning interface, separate from execution
     - PR Session Launch: Start Claude Code session from pull request context
+  - v2.1.114: Agent teams teammate permission dialog crash fix (April 18, 2026)
+  - v2.1.113: Native binary CLI, `sandbox.network.deniedDomains`, Ultrareview parallelized launch, OSC 8 hyperlinks for wrapped URLs, 50+ security/bug fixes including `find -exec`/`-delete` no longer auto-approved (April 17, 2026)
+  - v2.1.112: Opus 4.7 availability fix for auto mode (April 16, 2026)
   - v2.1.81: `--bare` flag, `--channels` permission relay, MCP OAuth updates
   - v2.1.80: Channels (`--channels`), `effort` frontmatter for skills, `rate_limits` in statusline
   - v2.1.79: `--console` flag, `/remote-control` for VSCode, AI session titles
@@ -137,6 +149,7 @@ All analysis documents in this repository are derived from authoritative sources
   - v2.0.76: LSP tool (go-to-definition, find references, hover)
   - v2.0.60: Background agent support
 - **Model Updates**:
+  - Opus 4.7 (April 2026): Referenced in v2.1.112 auto mode fix; details pending official announcement
   - Opus 4.6 (February 5, 2026): 1M token context, agent teams, adaptive reasoning, data residency controls
   - Opus 4.5 (November 24, 2025): 67% price reduction to $5/$25 per million tokens
   - Sonnet 4.5 (September 29, 2025): Agent-first design, Agent SDK support

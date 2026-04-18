@@ -241,4 +241,4 @@
 
 **For detailed citations, methodology, and complete source database**: See [SOURCES.md](SOURCES.md)
 
-**Last Updated**: April 2026
+**Last Updated**: April 18, 2026 (v2.1.114, Opus 4.7 signal detected)
