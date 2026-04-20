@@ -2,7 +2,7 @@
 
 **Purpose**: Fast lookup for the most commonly referenced sources with authority + recency weighting
 
-**For complete source database**: See [SOURCES.md](SOURCES.md) (1,579 lines, comprehensive)
+**For complete source database**: See [SOURCES.md](SOURCES.md) (1,612 lines, comprehensive)
 
 **Authority Scale (0-5)**: 5=Foundational (built it), 4=Authoritative (core team/peer-reviewed), 3=Practitioner (production metrics), 2=Commentator (blog/YouTube), 1=Unverified, 0=Rejected
 
@@ -241,4 +241,4 @@
 
 **For detailed citations, methodology, and complete source database**: See [SOURCES.md](SOURCES.md)
 
-**Last Updated**: April 18, 2026 (v2.1.114, Opus 4.7 signal detected)
+**Last Updated**: April 20, 2026 (verified current — no new releases or blog posts since v2.1.114)

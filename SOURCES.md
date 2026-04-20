@@ -2,7 +2,7 @@
 
 All analysis documents in this repository are derived from authoritative sources and production-validated implementations.
 
-**Quick Lookup**: For the top 20 most-referenced sources, see [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (100 lines vs 1,579 here)
+**Quick Lookup**: For the top 20 most-referenced sources, see [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (100 lines vs 1,612 here)
 
 ## Primary Sources (Tier A)
 
@@ -1608,5 +1608,12 @@ This sources document is updated when:
 - New Anthropic patterns are released
 - Additional production validation is completed
 - Community contributions add new references
+
+### Refresh Log
+
+| Date | Action | Result |
+|------|--------|--------|
+| 2026-04-20 | Advisory-triggered refresh | Verified current — no new releases (latest v2.1.114), no new Anthropic blog posts since April 18. 90 sections, all sources valid. |
+| 2026-04-18 | Sources refresh | Added v2.1.112-114 changelog, Opus 4.7 signal, expanded best-practices coverage |
 
 *Last updated: April 2026*
