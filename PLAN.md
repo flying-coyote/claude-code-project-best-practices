@@ -16,7 +16,7 @@
 
 | Metric | Status |
 |--------|--------|
-| Analysis documents | 26 |
+| Analysis documents | 27 |
 | Archived v1 patterns | 24 |
 | Source database entries | 85+ |
 | Source attribution | 100% |

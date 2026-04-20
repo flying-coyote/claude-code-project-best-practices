@@ -114,7 +114,7 @@ Full database: [SOURCES.md](SOURCES.md)
 
 ## Project Status
 
-**v2.2** — 27 analysis documents. Added session quality diagnostic tools analysis (claude-doctor evidence assessment). Covers agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, and more. Prior v1 patterns archived in `archive/patterns-v1/`.
+**v2.1** — 27 analysis documents. Production evidence integrated from 7-repo portfolio. Covers agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, and more. Prior v1 patterns archived in `archive/patterns-v1/`.
 
 ## Contributing
 

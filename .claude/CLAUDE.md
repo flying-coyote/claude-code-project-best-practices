@@ -14,7 +14,7 @@ Commit prefixes:
 - 🔧 Configuration and infrastructure
 
 ## Project Structure
-- `analysis/` - 26 evidence-based analysis documents (the core content)
+- `analysis/` - 27 evidence-based analysis documents (the core content)
 - `archive/` - Prior v1 patterns, skills, templates (preserved for reference)
 - `SOURCES.md` - Comprehensive source database with evidence tiers
 
@@ -30,4 +30,6 @@ Commit prefixes:
 - PLAN.md stays in git as canonical plan
 
 ## Current Focus
-v2.1 — 26 analysis documents with production evidence from 7-repo portfolio, complementing ECC (tooling) and superpowers (methodology)
+v2.1 — 27 analysis documents with production evidence from 7-repo portfolio, complementing ECC (tooling) and superpowers (methodology)
+
+Note: This project uses emoji prefixes (documentation project). Code repos in the portfolio use conventional commits (`feat:`, `fix:`, `docs:`).
