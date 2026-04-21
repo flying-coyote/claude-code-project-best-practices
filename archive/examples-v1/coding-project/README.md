@@ -227,11 +227,10 @@ After setting up:
 ---
 
 ## Related Patterns
-
-- [project-infrastructure.md](../../patterns/project-infrastructure.md) - Tiered infrastructure approach
-- [advanced-hooks.md](../../patterns/advanced-hooks.md) - Hook patterns and examples
-- [context-engineering.md](../../patterns/context-engineering.md) - Minimal CLAUDE.md principles
-- [FOUNDATIONAL-PRINCIPLES.md](../../FOUNDATIONAL-PRINCIPLES.md) - The Big 3
+[project-infrastructure.md](archive/patterns-v1/project-infrastructure.md)
+[advanced-hooks.md](archive/patterns-v1/advanced-hooks.md)
+[advanced-hooks.md](archive/patterns-v1/advanced-hooks.md)
+[context-engineering.md](archive/patterns-v1/context-engineering.md)
 
 ---
 
