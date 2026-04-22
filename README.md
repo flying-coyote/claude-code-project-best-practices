@@ -1,8 +1,17 @@
 # Claude Code Best Practices: Evidence-Based Analysis
 
-An **analytical layer** for Claude Code: evidence assessment, comparative analysis, quantified behavioral insights, and an adaptive routing audit that maps *your project's signals* to the specific guidance that applies.
+**A portable, evidence-based audit you can run against any Claude Code project to get recommendations specific to *that project* — not generic best-practice advice.**
 
-## What This Project Uniquely Provides
+## The Problem This Solves
+
+Claude Code best-practice content is scattered across vendor docs, interviews, blogs, and community repos. Two problems follow:
+
+1. **Trust** — a recommendation from the Claude Code creator and a recommendation from a random blog post both read as "best practice." You cannot tell which to act on without doing the triage yourself.
+2. **Applicability** — advice that is load-bearing for an agent-heavy data pipeline is noise for a static site generator. Generic best-practice lists waste attention; project-specific recommendations do not.
+
+This project solves both by pairing an **evidence-tier system** (every source and claim labelled A/B/C — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 28 analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
+
+## What You Get
 
 | Capability | Why It Matters | Where Else? |
 |-----------|---------------|-------------|
@@ -25,9 +34,19 @@ Every recommendation from the audit cites its source doc, evidence tier, and the
   "Use the Explore subagent to scan src/, then the Plan subagent to design the change."
 ```
 
-If you can't verify a recommendation against the cited doc, the audit failed — that's the design.
+If you cannot verify a recommendation against the cited doc, the audit failed — that is the design.
 
-> **Looking for implementation tooling instead?** See [everything-claude-code](https://github.com/affaan-m/everything-claude-code) (119K+ stars, comprehensive skill/agent library) or [superpowers](https://github.com/obra/superpowers) (disciplined methodology plugin). This project is the analytical layer that complements them — use alongside, not instead of.
+## Who It Is For
+
+- **Practitioners with a specific repo**: run the one-prompt audit; get 4–8 cited recommendations scoped to your project rather than 28 docs to read.
+- **Evaluators weighing claims from any AI tooling source**: the evidence-tier system (A–D source quality + 1–5 claim strength) applies to any claim, not just claims in this repo.
+- **Teams standardizing practice across multiple Claude Code projects**: the audit output is structured and comparable — diff two repos' audits to surface drift.
+
+## What It Is *Not*
+
+- **Not a tooling library.** See [everything-claude-code](https://github.com/affaan-m/everything-claude-code) (119K+ stars, 125+ skills, 28+ agents) for batteries-included tooling.
+- **Not a methodology framework.** See [superpowers](https://github.com/obra/superpowers) for disciplined workflow patterns (TDD enforcement, systematic debugging).
+- **Not implementation how-to.** If a recommendation says "add a PreToolUse hook," this project explains *why and when*; it does not paste the hook code. Pair this project with the two above — use alongside, not instead of.
 
 ---
 
@@ -36,32 +55,13 @@ If you can't verify a recommendation against the cited doc, the audit failed —
 Copy-paste this into Claude Code in **any project**. It collects signals, fetches the [routing map](AUDIT-CONTEXT.md), and conditionally fetches 4–8 of the 28 analysis docs based on what it observes. One prompt; 6–10 network fetches; 1–5 minutes typical round-trip.
 
 ```
-Audit this project against Claude Code best practices using the adaptive routing protocol.
+Audit this project with the adaptive routing protocol at
+https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/AUDIT-CONTEXT.md
 
-STEP 1 — COLLECT SIGNALS (run in parallel where possible):
-- Read CLAUDE.md: check ./CLAUDE.md and .claude/CLAUDE.md. Note line count. Grep for vague descriptors, unanchored triggers, and references:
-  grep -nEi "\b(best practices|idiomatic|robust|proper|clean code)\b" CLAUDE.md .claude/CLAUDE.md 2>/dev/null
-  grep -nEi "\b(where applicable|as needed|if relevant|consider edge cases)\b" CLAUDE.md .claude/CLAUDE.md 2>/dev/null
-  grep -nE "see (rules/|\.claude/|[A-Z])" CLAUDE.md .claude/CLAUDE.md 2>/dev/null
-- Commit patterns (90 days): git log --oneline --since="90 days ago" | head -50
-  Files touched: git log --since="90 days ago" --name-only --format="" | sort | uniq -c | sort -rn | head -20
-  If commit count < 10, retry with --since="365 days ago".
-- Harness layout: ls -la .claude/ .claude/hooks/ .claude/rules/ .claude/skills/ .claude/agents/ .claude/commands/ 2>/dev/null
-  cat .claude/settings.json 2>/dev/null | head -40
-- Model version detection: grep -REi "opus-4-?[567]|sonnet-4-?[567]|claude-[0-9]" .claude/ .github/workflows/ 2>/dev/null
-- Session diagnostics: npx -y claude-doctor 2>/dev/null || echo "claude-doctor not available"
-- Project type: read README.md first 30 lines to classify.
-
-STEP 2 — FETCH ROUTING MAP:
-WebFetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/AUDIT-CONTEXT.md
-
-STEP 3 — ROUTE TO APPLICABLE ADVISORIES:
-For each Signal row in AUDIT-CONTEXT.md matching your observations, fetch the listed docs from https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/{path}. Include the three Always Fetch docs unconditionally. Apply the Anti-Bloat Rule (target 4–8 signal-triggered + 3 baseline = 7–11 total).
-
-STEP 4 — PRODUCE AUDIT:
-Use the structured output format in ONE-LINE-PROMPT.md. Every recommendation MUST cite signal key, source doc, and evidence-tier read from the doc's YAML frontmatter (not prose). Act on edit-thrashing and error-loop counts only; treat composite health percentage as directional. Prefer positive examples over MUST NOT rules (per the Anthropic Opus 4.7 migration guide).
-
-Edge cases (no .claude/ directory, bare repo, claude-doctor unavailable, no model field in settings.json): see ONE-LINE-PROMPT.md "EDGE CASES" block — handle silently, do not fail the audit.
+1. WebFetch AUDIT-CONTEXT.md. Run every command in its "Signal Collection Commands" section.
+2. For each Signal row whose condition your output matches, queue the listed docs. Add the three "Always Fetch" docs unconditionally. Apply the Anti-Bloat Rule (drop to ≤8 signal-triggered fetches).
+3. WebFetch each queued doc from https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/{path}.
+4. Produce the audit using the output format in ONE-LINE-PROMPT.md. Every recommendation must cite signal key, source doc, and evidence-tier (read from YAML frontmatter, not prose). Edge cases (no .claude/, bare repo, missing claude-doctor, no model field): handle silently per ONE-LINE-PROMPT.md "EDGE CASES" block.
 ```
 
 See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-example recommendation, edge-case handling, and customization flags.

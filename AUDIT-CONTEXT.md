@@ -40,7 +40,14 @@ git log --since="90 days ago" --pretty=format:'%s' 2>/dev/null | grep -cE "(Clau
 npx -y claude-doctor 2>/dev/null
 ```
 
-**Edge cases handled explicitly in the prompt**: no `.claude/` → treat as "no harness" signal; no git → skip commit-pattern rows; `settings.json` without model field → "model unknown" signal; `claude-doctor` unavailable → skip session rows.
+### Edge Cases — handle silently, do not fail the audit
+
+- **No `.claude/` directory**: signal = `harness-minimal` (if CLAUDE.md exists at repo root) or `claude-md-missing` (if not).
+- **No git history or bare repo**: skip commit-pattern rows; note in output.
+- **`settings.json` has no model field**: signal = `model-version-unknown`.
+- **`claude-doctor` unavailable**: skip session-diagnostic rows; note in output.
+- **WSL or non-POSIX paths**: commands still work; treat any command failure as "signal not observed."
+- **Any command times out or errors**: treat as signal not observed; do not fail the audit.
 
 ---
 

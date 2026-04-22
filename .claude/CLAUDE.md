@@ -1,6 +1,6 @@
 # Claude Code Best Practices — Analytical Layer
 
-Evidence-based analysis of Claude Code patterns, not implementation guides. We evaluate claims, compare approaches, and surface quantified behavioral insights.
+A portable, evidence-based audit you can run against any Claude Code project to get recommendations specific to *that project*. Every claim carries an evidence tier (A/B/C); the one-prompt audit routes observed project signals to the 4–8 of 28 analysis docs that apply. Not a tooling library (see `everything-claude-code`) and not a methodology framework (see `superpowers`) — the analytical layer that complements both.
 
 ## Commands
 - `npm run lint` - Lint all markdown files

@@ -7,57 +7,16 @@ Copy-paste this prompt into Claude Code in **any project** to get an evidence-ba
 ## The Prompt
 
 ```
-Audit this project against Claude Code best practices using the adaptive routing protocol.
+Audit this project with the adaptive routing protocol at
+https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/AUDIT-CONTEXT.md
 
-STEP 1 — COLLECT SIGNALS (in parallel where possible):
-Run each of these and capture output for Step 3 routing:
-
-- Read CLAUDE.md: check ./CLAUDE.md and .claude/CLAUDE.md. Note line count. Grep for vague descriptors and unanchored triggers:
-  grep -nEi "\b(best practices|idiomatic|robust|proper|clean code)\b" CLAUDE.md .claude/CLAUDE.md 2>/dev/null
-  grep -nEi "\b(where applicable|as needed|if relevant|consider edge cases)\b" CLAUDE.md .claude/CLAUDE.md 2>/dev/null
-  grep -nE "see (rules/|\.claude/|[A-Z])" CLAUDE.md .claude/CLAUDE.md 2>/dev/null
-- Commit patterns (90 days): git log --oneline --since="90 days ago" | head -50
-  Files touched: git log --since="90 days ago" --name-only --format="" | sort | uniq -c | sort -rn | head -20
-  If commit count < 10, retry with --since="365 days ago".
-- Harness layout: ls -la .claude/ .claude/hooks/ .claude/rules/ .claude/skills/ .claude/agents/ .claude/commands/ 2>/dev/null
-  cat .claude/settings.json 2>/dev/null | head -40
-- Model version detection: grep -REi "opus-4-?[567]|sonnet-4-?[567]|claude-[0-9]" .claude/ .github/workflows/ 2>/dev/null
-- Session diagnostics: npx -y claude-doctor 2>/dev/null || echo "claude-doctor not available"
-- Project type: read README.md first 30 lines to classify (docs / data pipeline / library / hybrid-llm / research / multi-repo / other).
-
-EDGE CASES — handle silently, do not fail the audit:
-- No .claude/ directory: signal = harness-minimal (if CLAUDE.md exists) or claude-md-missing (if not).
-- No git history or bare repo: skip commit-pattern rows; note in output.
-- settings.json has no model field: signal = model-version-unknown.
-- claude-doctor unavailable: skip session rows; note in output.
-- WSL / non-POSIX paths: commands still work; treat any command failure as "signal not observed."
-
-STEP 2 — FETCH ROUTING MAP:
-WebFetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/AUDIT-CONTEXT.md
-
-STEP 3 — ROUTE TO APPLICABLE ADVISORIES:
-For each Signal row in AUDIT-CONTEXT.md whose verifiable condition matches what you observed in Step 1, note the Fetch column. Also include the three Always Fetch docs unconditionally.
-
-Deduplicate: if multiple rows list the same doc, fetch it once.
-
-Apply the Anti-Bloat Rule (AUDIT-CONTEXT.md § Anti-Bloat Rule):
-- Count signal-triggered fetches only (Always Fetch docs don't count).
-- If > 8, drop rows in the order specified: uncertain signals first, then overlap, then adjacent-not-central.
-- Target 4–8 signal-triggered + 3 baseline = 7–11 total docs.
-
-Fetch each selected doc from https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/{path}.
-
-STEP 4 — PRODUCE AUDIT:
-Use the structured output format below. Every recommendation MUST include:
-- Signal key (e.g., model-version-4-7)
-- Source doc path (e.g., analysis/model-migration-anti-patterns.md)
-- Evidence tier (read from the doc's YAML frontmatter `evidence-tier:` field, NOT prose)
-- Concrete action
-
-For session diagnostics, act on edit-thrashing and error-loop counts only. Treat the composite health percentage as directional; do not cite it as a score.
-
-Prefer positive examples over MUST NOT rules in recommendations (per Anthropic Opus 4.7 migration guide: "Positive examples... tend to be more effective than negative examples").
+1. WebFetch AUDIT-CONTEXT.md. Run every command in its "Signal Collection Commands" section. Handle missing outputs per its Edge Cases guidance — do not fail the audit.
+2. For each Signal row whose condition your output matches, queue the listed docs. Add the three "Always Fetch" docs unconditionally. Apply the Anti-Bloat Rule (drop to ≤8 signal-triggered fetches; never drop Always Fetch).
+3. WebFetch each queued doc from https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/{path}. Deduplicate.
+4. Produce the audit using the Structured Output Format below. Every recommendation MUST cite: signal key, source doc path, and the `evidence-tier` field from the doc's YAML frontmatter (not prose). Act on edit-thrashing and error-loop counts only; treat composite health percentage as directional. Prefer positive examples over MUST NOT rules.
 ```
+
+Four numbered steps, one URL, one reference to the output format below. The routing map itself carries the signal-collection commands, edge-case handling, and anti-bloat drop order — keeping the prompt thin prevents the prompt and the map from drifting out of sync.
 
 ## Structured Output Format
 
