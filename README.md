@@ -18,7 +18,7 @@ An **analytical layer** for Claude Code — evidence assessment, comparative ana
 
 ## Analysis Documents
 
-### Core Analysis (27 documents)
+### Core Analysis (28 documents)
 
 | Document | What It Covers |
 |----------|---------------|
@@ -49,6 +49,7 @@ An **analytical layer** for Claude Code — evidence assessment, comparative ana
 | [security-data-pipeline.md](analysis/security-data-pipeline.md) | Zeek → OCSF → Parquet → Iceberg pipeline, 30K records/sec |
 | [cross-project-synchronization.md](analysis/cross-project-synchronization.md) | Cross-repo dependency cascading, 4-phase enrichment cascade |
 | [session-quality-tools.md](analysis/session-quality-tools.md) | claude-doctor signal reliability, score interpretation, evidence-filtered CLAUDE.md rules |
+| [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md) | Six prompt anti-patterns that break on Opus 4.7; cross-version diagnostic matrix |
 
 ### Source Database
 
@@ -59,13 +60,31 @@ An **analytical layer** for Claude Code — evidence assessment, comparative ana
 
 ## Quick Start: One-Prompt Project Review
 
-Copy-paste this into Claude Code in **any project** to get an authority-weighted audit of your harness, commit patterns, and best-practice alignment:
+Copy-paste this into Claude Code in **any project**. The prompt collects signals from your repo, fetches a routing map ([AUDIT-CONTEXT.md](AUDIT-CONTEXT.md)), and selectively fetches only the analysis docs that apply to what it actually observed — typically 4–8 of the 28. Every recommendation cites the source doc and evidence tier.
 
 ```
-Review this project: read the CLAUDE.md (check both ./CLAUDE.md and .claude/CLAUDE.md), analyze the last 90 days of git commits (git log --oneline --since="90 days ago" && git log --since="90 days ago" --name-only --format="" | sort | uniq -c | sort -rn | head 20), inspect harness structure (ls -la .claude/ .claude/rules/ .claude/hooks/ .claude/skills/ .claude/commands/ CLAUDE.md .claude/settings.json 2>/dev/null), run session quality diagnostics (npx -y claude-doctor 2>/dev/null || echo "claude-doctor not available"), then fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/SOURCES-QUICK-REFERENCE.md and cross-reference my commit patterns, harness structure, and session quality signals against those sources. For session signals, focus on edit-thrashing and error-loop counts (most reliable); treat sentiment scores as directional only. Weight recommendations by the source authority tiers (5=Foundational like Anthropic docs, 2=Commentator like YouTube). Prioritize high-authority recent sources. Output using the STRUCTURED FORMAT described in the prompt source document.
+Audit this project against Claude Code best practices.
+
+STEP 1 — COLLECT SIGNALS (in parallel where possible):
+- Read CLAUDE.md (check ./CLAUDE.md and .claude/CLAUDE.md; note line count and whether it references other files).
+- Run: git log --oneline --since="90 days ago" | head -50
+- Run: git log --since="90 days ago" --name-only --format="" | sort | uniq -c | sort -rn | head -20
+- Inspect harness: ls -la .claude/ .claude/rules/ .claude/hooks/ .claude/skills/ .claude/agents/ .claude/commands/ .claude/settings.json 2>/dev/null
+- Check model version in use: grep -r "opus\|sonnet\|haiku\|claude-" .claude/settings.json 2>/dev/null; also note model from recent CI config, agent frontmatter, or MCP settings.
+- Run session diagnostics: npx -y claude-doctor 2>/dev/null || echo "claude-doctor not available"
+- Note project type (docs, data pipeline, library, multi-repo, research, etc.) from README/structure.
+
+STEP 2 — FETCH ROUTING MAP:
+Fetch https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/AUDIT-CONTEXT.md
+
+STEP 3 — ROUTE TO APPLICABLE ADVISORIES:
+For each Signal row in AUDIT-CONTEXT.md that matches what you observed, fetch the listed analysis doc(s) from https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/{path}. Also fetch the "Always Fetch" docs. Do not fetch docs whose signal you did not observe.
+
+STEP 4 — PRODUCE AUDIT:
+Use the structured output format in ONE-LINE-PROMPT.md. Every recommendation must cite the analysis doc it came from and that doc's evidence tier. For claude-doctor output, act on edit-thrashing and error-loop counts; treat composite health percentage as directional only. Prefer positive examples over MUST NOT rules (per the Anthropic Opus 4.7 migration guide).
 ```
 
-See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for output format details, authority weighting, and customization options.
+See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, customization flags, and rationale for the routing design.
 
 ## How to Use This Repo
 
@@ -114,7 +133,7 @@ Full database: [SOURCES.md](SOURCES.md)
 
 ## Project Status
 
-**v2.1** — 27 analysis documents. Production evidence integrated from 7-repo portfolio. Covers agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, and more. Prior v1 patterns archived in `archive/patterns-v1/`.
+**v2.1** — 28 analysis documents. Production evidence integrated from 7-repo portfolio. Covers agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, and more. Prior v1 patterns archived in `archive/patterns-v1/`.
 
 ## Contributing
 

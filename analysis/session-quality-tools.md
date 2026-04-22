@@ -62,6 +62,17 @@ The multipliers (5, 3, 1) and scaling constant (8) are arbitrary. A 30% score do
 - **No task-type normalization** — Exploratory research sessions naturally have more course-correction than bug-fix sessions. Both get penalized equally.
 - **No outcome measurement** — A session that produces excellent code through 3 corrections scores worse than a session that produces nothing without friction.
 
+### Gaps (explicit confidence statements)
+
+Per [Confidence Scoring](confidence-scoring.md), claims with unvalidated thresholds should state what would raise confidence:
+
+- **Gap: severity-weight calibration.** The 5/3/1 multipliers and ×8 scaling constant have no reported derivation. **Needs**: published study correlating score bands to independent outcome measures (task-completion rate, user-reported frustration rating, downstream bug rate).
+- **Gap: threshold validation.** The 60% Jaccard similarity (repeated-instructions), 3-failure error-loop trigger, and 10-second rapid-corrections threshold are not empirically calibrated against labeled session data. **Needs**: precision/recall metrics on a labeled corpus of sessions classified as high/low-quality by experienced users.
+- **Gap: task-type baseline rates.** Unknown how each signal's false-positive rate varies across task types (debugging vs. exploratory research vs. feature implementation). **Needs**: per-task-type baseline distributions so scores can be interpreted relative to a task class, not uniformly.
+- **Gap: positive-signal taxonomy.** The tool is entirely friction-focused — no evidence basis exists for what flow-state signals look like in Claude Code sessions. **Needs**: qualitative study identifying positive-flow indicators (successful one-shot task completion, low-latency satisfied responses, etc.) that could balance the scoring.
+
+These gaps place claude-doctor output at **Tier C** for absolute interpretation (score thresholds) and **Tier B** for relative comparison (same tool, same user, session-over-session trend). See [Confidence Scoring](confidence-scoring.md#medium-confidence) for the template this follows.
+
 ---
 
 ## What Low Scores Actually Indicate

@@ -226,6 +226,23 @@ This is a vendor demonstrating the Bitter Lesson on their own product — stripp
 
 Source: Anthropic engineering blog, April 2026. Authority 5/5.
 
+### Counter-signal: Opus 4.7 Pushes *Prompt* Complexity Up (April 2026)
+
+The Bitter Lesson predicts monotonic simplification as models improve. Opus 4.7 complicates the picture: the *harness* continues to simplify (Anthropic's migration guide confirms "fewer subagents spawned by default," "fewer tool calls by default"), but the *prompt* may need to be **more explicit**, not less.
+
+4.7's literal interpretation (see [Model Migration Anti-Patterns](model-migration-anti-patterns.md)) means instructions that 4.6 successfully generalized now fail silently. Remediation per the Anthropic migration guide: enumerate cases, anchor triggers, declare dispatch mechanism, add verbosity directives. These are prompt-side additions, not harness-side.
+
+**Diagnostic split for 4.7**:
+
+| Layer | Direction | Evidence |
+|---|---|---|
+| Harness (orchestration, tooling, subagent wiring) | ↓ Simpler | Anthropic migration guide: fewer default subagents, fewer tool calls |
+| Prompt (instructions, CLAUDE.md, skill bodies) | ↑ More explicit | Anthropic migration guide: literal interpretation, no silent generalization |
+
+This does not invalidate the Bitter Lesson — the *orchestration* around the model is still simplifying. But the prompt itself is a joint product of human intent and model inference, and 4.7 shifts the inference burden back to the human. Treat this as version-scoped: a future model that re-adds intent inference would reverse the prompt-complexity pressure.
+
+Source: Anthropic migration guide (April 2026), [Model Migration Anti-Patterns](model-migration-anti-patterns.md). Authority 5/5 (Tier A).
+
 ### Convergence of Architectures
 
 Three leading systems arrived at the same insight from different starting points:
@@ -355,6 +372,7 @@ Two high-credibility practitioners independently validated that agent-driven dev
 |----------|--------|------|
 | Lower-tier models (Haiku, Flash) still need more structured tooling | Video acknowledgment | B |
 | Model version changes (Opus 4.5→4.6) require harness retuning | Behavioral Insights — prompt sensitivity | A |
+| Opus 4.7 literalism pushes *prompt* complexity up while harness simplifies | Anthropic migration guide (April 2026) | A |
 | 1M context window fundamentally changes context management strategies | Anthropic model release | A |
 | Specification gap: model architecture determines task feasibility | Nate B. Jones (2026) | B |
 | Explicit verifier modules hurt benchmark performance (-0.8 SWE, -8.4 OS World) | Tingua ablation study (March 2026) | B |
@@ -430,6 +448,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 
 - Anthropic: ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025) — Two-part architecture, external artifacts as memory, one feature at a time
 - Anthropic: v2 harness simplification with Opus 4.6 (April 2026) — Removed sprints/negotiation/resets, single build session, evaluator-at-the-end pattern
+- Anthropic: [Migration Guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) (April 2026) — Opus 4.7 literal interpretation, fewer default subagents, adaptive verbosity; pushes prompt complexity up while harness simplifies
 - Boris Cherny: Interviews and posts (March 2026) — Parallel sessions, hooks, permissions pre-configuration, Document-and-Clear pattern
 
 ### Tier B (Validated / Expert Practitioner)
@@ -453,6 +472,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - [Orchestration Comparison](./orchestration-comparison.md) — Orchestration layer analysis
 - [Framework Selection Guide](./framework-selection-guide.md) — Framework decision trees
 - [Agent Principles](./agent-principles.md) — Persistent memory, unpredictability, monitoring
+- [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Six prompt anti-patterns that break on Opus 4.7; split between harness (simpler) and prompt (more explicit)
 
 ---
 

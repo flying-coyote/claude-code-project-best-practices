@@ -10,7 +10,7 @@
 
 ---
 
-## Top 26 Sources (Authority-Weighted)
+## Top 29 Sources (Authority-Weighted)
 
 ### 1. Boris Cherny (Claude Code Creator) — Authority: 5 (Foundational)
 **Role**: Engineering Manager at Anthropic, Claude Code creator
@@ -174,6 +174,25 @@
 **Key Insights**: v2 simplification data ($125/4hrs with Opus 4.6). "Context anxiety" concept — overloading context to prevent mistakes actually degrades performance. Candid admission of poor self-evaluation by agents. Updates the foundational harness blog with production cost data.
 **Referenced in**: [harness-engineering.md](analysis/harness-engineering.md), behavioral insights
 
+### 27. Anthropic Opus 4.7 Migration Guide — Authority: 5 (Foundational)
+**Source**: [Migration Guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) + [What's New 4.7](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-7) + [Best Practices for Opus 4.7 with Claude Code](https://claude.com/blog/best-practices-for-using-claude-opus-4-7-with-claude-code)
+**Date**: April 16, 2026 | **Foundational**: Yes | **Effective Weight**: 1.00 (1.0 x 1.0)
+**Key Claims (verbatim)**: "Claude Opus 4.7 interprets prompts more literally and explicitly than Claude Opus 4.6... It will not silently generalize an instruction from one item to another, and it will not infer requests you didn't make." Also: fewer subagents spawned by default, fewer tool calls by default, adaptive response-length calibration. "Positive examples... tend to be more effective than negative examples."
+**Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md), [behavioral-insights.md](analysis/behavioral-insights.md), [harness-engineering.md](analysis/harness-engineering.md), [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md), [agent-evaluation.md](analysis/agent-evaluation.md), [agent-principles.md](analysis/agent-principles.md), [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md)
+
+### 28. Simon Willison — Opus 4.7 System Prompt Analysis — Authority: 3 (Practitioner)
+**Source**: [simonwillison.net (April 18, 2026)](https://simonwillison.net/2026/Apr/18/opus-system-prompt/)
+**Date**: April 2026 | **Foundational**: No | **Effective Weight**: 0.65 (0.65 x 1.0)
+**Key Insight (counter-signal)**: Opus 4.7 literalism is *selective*, not uniform. Leaked system prompt instructs Claude to "make a reasonable attempt now, not to be interviewed first" on clarifying questions — audits that treat literalism as universal will over-correct.
+**Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md), [behavioral-insights.md](analysis/behavioral-insights.md)
+
+### 29. Jason Vertrees — "Claude 4.7 Quietly Broke Your Prompts and Harness" — Authority: 2 (Commentator)
+**Source**: [LinkedIn (April 2026)](https://www.linkedin.com/pulse/claude-47-quietly-break-your-prompts-harness-heres-how-jason-vertrees-mscpe/)
+**Date**: April 2026 | **Foundational**: No | **Effective Weight**: 0.35 (0.35 x 1.0)
+**Value**: Operationalizes the Anthropic migration guide into six auditable prompt anti-patterns (vague quality descriptors, edge-case gestures, unanchored triggers, implicit subagent dispatch, missing verbosity directives, references without read-enforcement).
+**Caveat (Karen note)**: Leans heavily on MUST / MUST NOT rules — conflicts with Anthropic's stated preference for positive examples in the same migration guide. Use the six-pattern taxonomy; substitute positive-framing remediation.
+**Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md)
+
 ---
 
 ## By Analysis Category
@@ -241,4 +260,4 @@
 
 **For detailed citations, methodology, and complete source database**: See [SOURCES.md](SOURCES.md)
 
-**Last Updated**: April 20, 2026 (verified current — no new releases or blog posts since v2.1.114)
+**Last Updated**: April 22, 2026 — added Anthropic Opus 4.7 migration guide (#27, Authority 5), Willison counter-signal (#28, Authority 3), Vertrees operationalization (#29, Authority 2 with Karen note). Count bumped 26 → 29.

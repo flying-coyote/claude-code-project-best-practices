@@ -265,6 +265,16 @@ For teams using Claude Code with custom CLAUDE.md, skills, and hooks:
 **Symptom**: Discovering fundamental issues late in development
 **Solution**: Start with 20 tasks from real failures on day one
 
+### ❌ Implicit Subagent Dispatch (Opus 4.7 regression risk)
+**Problem**: Prompts that assume the model will autonomously spawn subagents ("execute the tasks," "dispatch the work") were implicitly tuned to 4.6's liberal default. The [Opus 4.7 migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) confirms 4.7 "spawns fewer subagents by default" and requires explicit steering.
+**Symptom**: Evals that passed on 4.6 now return a single in-context response instead of parallel subagent work. Performance regresses silently — the output is plausible but the dispatch never happened.
+**Solution**: Name the mechanism in the prompt ("Use the Explore subagent to..." or "complete in-context without subagents"). Add regression evals that count subagent invocations, not just output quality. See [Model Migration Anti-Patterns](model-migration-anti-patterns.md).
+
+### ❌ Single-Model Eval Baselines
+**Problem**: Eval suite validated against one Opus version (commonly 4.6); results carried forward without re-running on new releases.
+**Symptom**: Silent capability regressions or unexpected cost shifts after a model upgrade. Especially problematic for prompts with vague descriptors, edge-case gestures, or unanchored triggers — 4.7's literal interpretation exposes what 4.6 had been silently generalizing.
+**Solution**: Re-run the eval suite on each major model version; treat version migration as a revalidation trigger ([Evidence-Based Revalidation](evidence-based-revalidation.md)). Track per-version pass rates, not just a single headline number.
+
 ---
 
 ## Eval Awareness and Integrity (March 2026)

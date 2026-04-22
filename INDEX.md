@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-04-16 09:30*
+*Auto-generated: 2026-04-22 08:26*
 
 ## Summary
 
-**Total documents**: 123
+**Total documents**: 126
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 26 |
+| analysis | 28 |
 | archive | 6 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
@@ -35,7 +35,7 @@
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
 | research | 2 |
-| root | 10 |
+| root | 11 |
 | templates | 4 |
 | templates/rules | 3 |
 
@@ -45,6 +45,7 @@
 
 - [ARCHITECTURE.md](ARCHITECTURE.md)
 - [ARCHIVE.md](ARCHIVE.md)
+- [AUDIT-CONTEXT.md](AUDIT-CONTEXT.md)
 - [CONTRIBUTING.md](CONTRIBUTING.md)
 - [DECISIONS.md](DECISIONS.md)
 - [INDEX.md](INDEX.md)
@@ -79,11 +80,13 @@
 - [mcp-patterns.md](analysis/mcp-patterns.md)
 - [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md)
 - [memory-system-patterns.md](analysis/memory-system-patterns.md)
+- [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md)
 - [orchestration-comparison.md](analysis/orchestration-comparison.md)
 - [plugins-and-extensions.md](analysis/plugins-and-extensions.md)
 - [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)
 - [secure-code-generation.md](analysis/secure-code-generation.md)
 - [security-data-pipeline.md](analysis/security-data-pipeline.md)
+- [session-quality-tools.md](analysis/session-quality-tools.md)
 - [tool-ecosystem.md](analysis/tool-ecosystem.md)
 ## Archive
 

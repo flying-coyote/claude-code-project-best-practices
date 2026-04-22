@@ -212,6 +212,11 @@ These principles manifest in Claude Code patterns:
 **Symptom**: Users repeat context every session, cross-session workflows break
 **Solution**: External artifacts (CLAUDE.md, task files, git) as persistent memory
 
+### ❌ Implicit Subagent Dispatch (Opus 4.7 regression)
+**Problem**: Instructions like "execute the tasks in parallel" or "dispatch the work" relied on pre-4.7 models spawning subagents on their own initiative. The [Anthropic Opus 4.7 migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) confirms 4.7 spawns "fewer subagents by default" and is "steerable through prompting" — dispatch must now be explicit.
+**Symptom**: Workflows that achieved parallelism on 4.6 collapse to sequential in-context work on 4.7; throughput and cost both regress silently.
+**Solution**: Name the subagent mechanism in the prompt. For parallel work: "Use three Explore subagents in parallel, one per directory." For in-context work: "Handle all three tasks in this session without spawning subagents." See [Model Migration Anti-Patterns](model-migration-anti-patterns.md).
+
 ---
 
 ## Related Patterns
@@ -220,5 +225,6 @@ These principles manifest in Claude Code patterns:
 - [Session Learning](./behavioral-insights.md) - Implements Principle 1 (Persistent Memory)
 - [Subagent Orchestration](./orchestration-comparison.md) - Applies principles in subagent design
 - [Agent-Driven Development](./agent-driven-development.md) - Production validation of these 6 principles across 7 agent-driven repos
+- [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) - Opus 4.7 changes to subagent defaults and prompt literalism
 
-*Last updated: January 2026*
+*Last updated: April 2026*

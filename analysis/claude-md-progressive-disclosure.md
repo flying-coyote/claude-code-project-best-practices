@@ -109,6 +109,16 @@ CLAUDE.md is only the first layer. Progressive disclosure distributes domain kno
 
 Loaded at session start. Counts against the ~150 instruction budget. Must be lean enough for the agent to absorb fully. Front-load critical constraints (security boundaries, data isolation) because later content has lower adherence probability.
 
+**Opus 4.7 failure mode — references without read-enforcement.** On Opus 4.6 and earlier, a CLAUDE.md line like `"See rules/data-isolation.md for restrictions"` would often cause the agent to read that file before proceeding. On Opus 4.7, the [Anthropic migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) confirms the model "will not infer requests you didn't make" — a reference is just a reference. If the read isn't explicitly demanded, it may not happen.
+
+Remediation (any one is sufficient, listed by enforcement strength):
+
+1. **PreToolUse hook** — block the risky operation until the referenced file is read. 100% enforcement. Appropriate for security boundaries.
+2. **Explicit Read step in the instruction** — `"Before editing files in data/, Read rules/data-isolation.md first."` Names the tool, names the file, states the trigger.
+3. **Required-reading block at the top of CLAUDE.md** — inline the content rather than referencing it, for constraints small enough to fit the instruction budget.
+
+Advisory-style references remain fine for context (resource maps, conventions) — just not for constraints where bypass is unsafe. See [Model Migration Anti-Patterns](model-migration-anti-patterns.md) for the full inventory of 4.7 failure modes.
+
 ### 2. Rules Files (Path-Triggered)
 
 Loaded when the agent works with files matching the rule's path pattern. Each rule file is narrow (500-700 bytes) and domain-specific:

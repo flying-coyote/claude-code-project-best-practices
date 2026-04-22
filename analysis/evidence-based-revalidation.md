@@ -109,6 +109,38 @@ This is **continuous revalidation** — not triggered by milestones, but by the 
 
 ---
 
+## Case Study: Model Migration as Revalidation Trigger (Opus 4.6 → 4.7, April 2026)
+
+The Opus 4.7 release on 2026-04-16 is a canonical revalidation trigger that does **not** fit the usual milestone pattern. No code changed; no benchmark ran; the only change was the underlying model's prompt-interpretation behavior. Yet claims validated on 4.6 can no longer be cited without re-verification.
+
+### Why This Is a Revalidation Event
+
+The [Anthropic migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) states: "Claude Opus 4.7 interprets prompts more literally and explicitly than Claude Opus 4.6... It will not silently generalize an instruction from one item to another." This means any prompt, skill, or CLAUDE.md instruction that depended on 4.6's willingness to infer intent may now produce a silent no-op on 4.7 — the output looks plausible, but the actual work was never performed.
+
+Silent no-ops are the worst class of regression: no exception, no failed assertion, no visible symptom. Only revalidation catches them.
+
+### Revalidation Table (this repo's own claims)
+
+| Claim | 4.6 status | 4.7 revalidation approach | Gap |
+|---|---|---|---|
+| CLAUDE.md instructions followed ~80% of the time | Validated (Boris Cherny, March 2026) | Re-run sample on 4.7 with same CLAUDE.md; measure whether literal interpretation raises or lowers rate | Not yet measured |
+| References in CLAUDE.md trigger file reads | Advisory loading worked on 4.6 | Mechanical enforcement required on 4.7 (PreToolUse hook, explicit Read step) | See [progressive-disclosure](claude-md-progressive-disclosure.md) |
+| Implicit subagent dispatch ("execute in parallel") spawns subagents | Validated on 4.6 | Migration guide confirms 4.7 spawns fewer by default — explicit dispatch required | See [Model Migration Anti-Patterns](model-migration-anti-patterns.md) |
+| 16 occurrences of "Opus 4.5/4.6" across analysis/ | Current as of prior release | Each needs either revalidation on 4.7 or explicit historical framing | Tracked in [PLAN.md](../PLAN.md) |
+
+### Pattern Generalization
+
+Any model release is a revalidation trigger for:
+
+1. **Prompt-sensitivity claims** — literal vs. inferred interpretation can shift
+2. **Subagent-dispatch claims** — default spawning behavior can shift
+3. **Verbosity claims** — response-length calibration can shift
+4. **Tool-use frequency claims** — default tool-call behavior can shift
+
+Unlike code-driven revalidation (a benchmark script you can re-run), model-driven revalidation requires side-by-side behavior comparison: run the same prompt on the old and new version, diff outputs, flag divergences. This is a new revalidation method worth formalizing.
+
+---
+
 ## Integration with Evidence Tiers
 
 The revalidation pattern connects to the [Evidence Tiers](./evidence-tiers.md) system:
@@ -132,6 +164,7 @@ The `measurement-claims` frontmatter in each analysis document includes `revalid
 | Confidence without remaining gaps | "4.7/5 confidence" with no mention of what's unvalidated | Every confidence score must state what remains |
 | Demo without revalidation | Presenter discovers failures live | Revalidation step in demo prep checklist |
 | One-time validation | "It worked in March" as permanent proof | Scheduled revalidation or `revalidate` dates in frontmatter |
+| Model version drift | Claim validated on 4.6 cited after 4.7 release | Re-verify on new model; prompt behavior changes silently |
 
 ---
 
@@ -149,6 +182,7 @@ The `measurement-claims` frontmatter in each analysis document includes `revalid
 - [Confidence Scoring](./confidence-scoring.md) — Assessment framework for research hypotheses
 - [Automated Config Assessment](./automated-config-assessment.md) — H-CONFIG-01 as primary revalidation case study
 - [Federated Query Architecture](./federated-query-architecture.md) — H-NDR-FEDERATION-01 as milestone revalidation case study
+- [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Opus 4.6 → 4.7 as a revalidation trigger; six prompt anti-patterns to audit on each release
 
 ---
 

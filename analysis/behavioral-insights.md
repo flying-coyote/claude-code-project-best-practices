@@ -96,12 +96,24 @@ This upgrades the claim from single-source expert guidance to **convergent pract
 - 500-line cap on individual SKILL.md files
 - Split mega-prompts with 85+ instructions into phases with <40 instructions each (see Design Rule below)
 
-### Prompt Sensitivity (Opus 4.5/4.6)
+### Prompt Sensitivity Across Model Versions
 
-Opus 4.5/4.6 models are more responsive to system prompts than earlier models. If prompts were tuned for older models:
-- Dial back assertive/aggressive language
-- Reduce "ALWAYS"/"NEVER" emphasis (model already more compliant)
-- Watch for overtriggering on tool/skill invocation language
+Prompt sensitivity is not uniform across the Opus family — what works on one version can silently degrade on the next. Cross-version diagnostic table:
+
+| Version | Sensitivity pattern | Implication for existing prompts |
+|---|---|---|
+| **Opus 4.5 / 4.6** | More responsive to system prompts than earlier models; infers intent liberally from loose phrasing | Dial back "ALWAYS"/"NEVER" emphasis; watch for overtriggering on tool/skill invocation language |
+| **Opus 4.7** (April 16, 2026) | **Literal interpretation** — will not silently generalize instructions; fewer default subagents; adaptive verbosity | 4.6-validated prompts with vague descriptors, edge-case gestures, or unanchored triggers may silently no-op |
+
+The Anthropic migration guide states explicitly:
+
+> "Claude Opus 4.7 interprets prompts more literally and explicitly than Claude Opus 4.6... It will not silently generalize an instruction from one item to another, and it will not infer requests you didn't make."
+
+**Selective literalism caveat** (Willison, April 18, 2026): 4.7 is tuned to be *less* literal about clarifying-question behavior — the leaked system prompt instructs Claude to "make a reasonable attempt now, not... be interviewed first." Audits that treat literalism as uniform will over-correct.
+
+**Community counter-signals (Tier C)**: [HN 47793411](https://news.ycombinator.com/item?id=47793411) reports adaptive thinking under-triggering on reasoning-heavy tasks (workaround: `xhigh` effort). [HN 47814832](https://news.ycombinator.com/item?id=47814832) reports system-reminder over-application to every file read.
+
+See [Model Migration Anti-Patterns](model-migration-anti-patterns.md) for the six failure modes, remediation patterns, and the MUST-vs-positive-examples tension (Vertrees's MUST/MUST NOT framing conflicts with Anthropic's stated preference for positive examples).
 
 ### Vertical Planning Principle (Horthy, Authority 4/5)
 
@@ -254,6 +266,8 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 | Self-evaluation: identifies then rationalizes issues away | Anthropic engineering blog | High (Tier A, vendor self-disclosure) |
 | Monitor tool requires explicit prompting for interrupt-based mode | Anthropic (April 2026) | High (Tier A) |
 | Mega-prompts with 85+ instructions cause inconsistent adherence | Horthy (CRISPY creator) | Medium-High (Authority 4/5) |
+| Opus 4.7 interprets instructions literally; no silent generalization | Anthropic migration guide (April 2026) | High (Tier A, vendor docs) |
+| Opus 4.7 literalism is selective — less literal on clarifying-question behavior | Willison (April 18, 2026) | Medium (Tier B, leaked system prompt analysis) |
 
 ---
 
@@ -266,12 +280,16 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 - CAII (skribblez2718): Johari Window methodology
 - RLM paper (Zhang, Kraska, Khattab): Context rot research
 - Anthropic Engineering Blog: Auto mode, agent skills (March 2026), self-evaluation failure mode, Monitor tool (April 2026)
+- Anthropic Migration Guide (April 2026): Opus 4.7 literal interpretation, fewer default subagents, adaptive verbosity
+- Simon Willison (April 18, 2026): Opus 4.7 system-prompt analysis — selective literalism
+- Hacker News 47793411, 47814832: Community observation of 4.7 thinking-calibration and system-reminder over-application
 
 ## Related Analysis
 
 - [Harness Engineering](./harness-engineering.md) — The ~80% CLAUDE.md adherence rate and 60% context threshold are primary motivators for harness enforcement design
 - [Domain Knowledge Architecture](./domain-knowledge-architecture.md) — Context budget framework and progressive disclosure patterns build directly on the thresholds documented here
 - [Agent-Driven Development](./agent-driven-development.md) — Commit burst patterns and ~80% adherence rate motivating hook-based security enforcement in practice
+- [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Six prompt anti-patterns that break on Opus 4.7 (vague descriptors, edge-case gestures, unanchored triggers, implicit subagent dispatch, missing verbosity directives, references without read-enforcement)
 
 ---
 

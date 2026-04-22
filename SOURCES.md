@@ -149,12 +149,58 @@ All analysis documents in this repository are derived from authoritative sources
   - v2.0.76: LSP tool (go-to-definition, find references, hover)
   - v2.0.60: Background agent support
 - **Model Updates**:
-  - Opus 4.7 (April 2026): Referenced in v2.1.112 auto mode fix; details pending official announcement
+  - Opus 4.7 (April 16, 2026): Literal instruction following, fewer silent generalizations, fewer default subagents, adaptive response-length calibration — see Opus 4.7 Migration Guidance section below
   - Opus 4.6 (February 5, 2026): 1M token context, agent teams, adaptive reasoning, data residency controls
   - Opus 4.5 (November 24, 2025): 67% price reduction to $5/$25 per million tokens
   - Sonnet 4.5 (September 29, 2025): Agent-first design, Agent SDK support
   - Haiku 4.5 (October 2025): Extended thinking support, 1/3 cost of Sonnet
 - **Pattern References**: [Advanced Hooks](analysis/harness-engineering.md), [Plugins and Extensions](analysis/plugins-and-extensions.md), [Subagent Orchestration](analysis/orchestration-comparison.md), [Plugins and Extensions](analysis/plugins-and-extensions.md)
+
+#### Opus 4.7 Migration Guidance (April 2026)
+
+- **Primary — Anthropic Migration Guide**
+  - **URL**: https://platform.claude.com/docs/en/about-claude/models/migration-guide
+  - **Evidence Tier**: A (Primary vendor documentation)
+  - **Key Claim (verbatim)**: "Claude Opus 4.7 interprets prompts more literally and explicitly than Claude Opus 4.6, particularly at lower effort levels. It will not silently generalize an instruction from one item to another, and it will not infer requests you didn't make."
+  - **Additional guidance**:
+    - "Response length calibrates to perceived task complexity rather than defaulting to a fixed verbosity" — to reduce verbosity, add explicit concision directive
+    - "Fewer subagents spawned by default. Steerable through prompting."
+    - "Fewer tool calls by default, using reasoning more."
+    - "More regular progress updates... If you've added scaffolding to force interim status messages, try removing it."
+    - **Tension with heavy MUST NOT patterns**: "Positive examples... tend to be more effective than negative examples or instructions that tell the model what not to do."
+  - **Pattern**: [Model Migration Anti-Patterns](analysis/model-migration-anti-patterns.md), [Behavioral Insights](analysis/behavioral-insights.md)
+
+- **Primary — What's New Claude 4.7**
+  - **URL**: https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-7
+  - **Evidence Tier**: A
+  - **Key points**: Literal instruction following, adaptive thinking, tool-call frugality
+  - **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md)
+
+- **Primary — Best Practices for Opus 4.7 with Claude Code**
+  - **URL**: https://claude.com/blog/best-practices-for-using-claude-opus-4-7-with-claude-code
+  - **Evidence Tier**: A
+  - **Pattern**: [Harness Engineering](analysis/harness-engineering.md), [Model Migration Anti-Patterns](analysis/model-migration-anti-patterns.md)
+
+- **Secondary — Jason Vertrees: "Claude 4.7 Quietly Broke Your Prompts and Harness"**
+  - **URL**: https://www.linkedin.com/pulse/claude-47-quietly-break-your-prompts-harness-heres-how-jason-vertrees-mscpe/
+  - **Date**: April 2026
+  - **Evidence Tier**: B (Practitioner commentary operationalizing Tier A guidance)
+  - **Contribution**: Six prompt anti-patterns (vague quality descriptors, edge-case gestures, unanchored triggers, implicit subagent dispatch, missing verbosity directives, references without read-enforcement). Proposes audit with grep + CI regression tests.
+  - **Caveat**: Vertrees leans heavily on MUST/MUST NOT rules; this conflicts with Anthropic's stated preference for positive examples.
+  - **Pattern**: [Model Migration Anti-Patterns](analysis/model-migration-anti-patterns.md)
+
+- **Secondary — Simon Willison: Opus 4.7 System Prompt Analysis**
+  - **URL**: https://simonwillison.net/2026/Apr/18/opus-system-prompt/
+  - **Date**: April 18, 2026
+  - **Evidence Tier**: B
+  - **Counter-signal**: Literalism is selective, not uniform. Anthropic's leaked system prompt nudges 4.7 to be *less* literal about clarifying questions — "the person typically wants Claude to make a reasonable attempt now, not to be interviewed first."
+  - **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md)
+
+- **Practitioner — Hacker News 4.7 Discussions**
+  - **HN 47793411** (1,955 points): "adaptive thinking chooses to not think when it should"; workaround = `xhigh` effort + explicit thinking-summary config
+  - **HN 47814832**: 4.7 over-literally applies system-reminder instructions (e.g., malware check) to every file read — red-teamers describe as "close to unusable" for certain workflows
+  - **Evidence Tier**: C (Community observation, unvalidated)
+  - **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md)
 
 #### Context Engineering for AI Agents
 - **Title**: "Effective context engineering for AI agents"
@@ -1613,6 +1659,7 @@ This sources document is updated when:
 
 | Date | Action | Result |
 |------|--------|--------|
+| 2026-04-22 | Opus 4.7 migration evidence | Added Anthropic migration guide, What's New 4.7, Best Practices 4.7 blog (Tier A); Vertrees LinkedIn, Willison counter-signal (Tier B); HN 47793411/47814832 (Tier C). Registered for use in new model-migration-anti-patterns analysis. |
 | 2026-04-20 | Advisory-triggered refresh | Verified current — no new releases (latest v2.1.114), no new Anthropic blog posts since April 18. 90 sections, all sources valid. |
 | 2026-04-18 | Sources refresh | Added v2.1.112-114 changelog, Opus 4.7 signal, expanded best-practices coverage |
 
