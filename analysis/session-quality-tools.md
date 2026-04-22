@@ -1,3 +1,11 @@
+---
+evidence-tier: Mixed
+applies-to-signals: [session-diagnostics-run, session-edit-thrashing, session-error-loop, session-repeated-instructions]
+last-verified: 2026-04-22
+revalidate-by: 2026-10-22
+status: PRODUCTION
+---
+
 # Session Quality Diagnostic Tools
 
 **Sources**:
@@ -175,6 +183,16 @@ From claude-doctor's 8 suggested rules, filtered by evidence reliability:
 > **Complete the FULL task before stopping.**
 
 *Why*: Claude Code already does this by default. Adding this instruction wastes CLAUDE.md budget for zero behavioral change.
+
+---
+
+## Related Analysis
+
+- [Confidence Scoring](confidence-scoring.md) — the Gap-statement format this doc uses
+- [CLAUDE.md Progressive Disclosure](claude-md-progressive-disclosure.md) — edit-thrashing and repeated-instructions signals often map to CLAUDE.md gaps
+- [Harness Engineering](harness-engineering.md) — error-loop signals often map to missing harness-level recovery
+- [Model Migration Anti-Patterns](model-migration-anti-patterns.md) — distinguishing genuine session-quality issues from Opus 4.7 silent-no-op artifacts
+- [Evidence-Based Revalidation](evidence-based-revalidation.md) — session diagnostics as a revalidation signal over time
 
 ---
 

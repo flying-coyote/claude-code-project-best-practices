@@ -19,8 +19,11 @@ measurement-claims:
     source: "Direct analysis — mndr-review-automation lib conventions + scripts/verify_deps.py"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-04-06"
+evidence-tier: A
+applies-to-signals: [project-type-hybrid-llm]
+revalidate-by: 2026-10-06
 ---
 
 # Local+Cloud LLM Orchestration: Hybrid Architecture for Sensitive Data

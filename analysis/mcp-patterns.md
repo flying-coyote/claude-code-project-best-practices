@@ -23,8 +23,11 @@ measurement-claims:
     source: "Jenova Research"
     date: "2026-03-01"
     revalidate: "2026-09-01"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-04-15"
+evidence-tier: A
+applies-to-signals: [harness-mcp, commit-security-paths]
+revalidate-by: 2026-10-15
 ---
 
 # MCP Patterns and Security

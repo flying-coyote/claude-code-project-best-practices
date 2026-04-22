@@ -1,3 +1,11 @@
+---
+evidence-tier: Mixed
+applies-to-signals: [model-version-4-7, model-version-4-6, model-version-4-5, model-version-migration, model-version-unknown, claude-md-vague-descriptors]
+last-verified: 2026-04-22
+revalidate-by: 2026-10-22
+status: PRODUCTION
+---
+
 # Model Migration Anti-Patterns
 
 **Evidence Tier**: Mixed (A-B) — Anthropic migration guide (Tier A) + practitioner commentary (Tier B) + community observation (Tier C counter-signals)
@@ -103,11 +111,25 @@ This repo's own audit (performed 2026-04-22) surfaced 16 Opus 4.5/4.6 references
 
 ## Related Analysis
 
+This doc is cited by (inbound) and cites (outbound) the following. Use the bidirectional links to pivot between version-behavior (here) and the specific practice affected.
+
+**Outbound — docs this one draws on**:
+
 - [Behavioral Insights](behavioral-insights.md#prompt-sensitivity-across-model-versions) — version-by-version prompt sensitivity table
-- [Harness Engineering](harness-engineering.md) — 4.7 pushes *prompt* complexity up even as *harness* simplifies (fewer subagents, fewer tool calls)
-- [CLAUDE.md Progressive Disclosure](claude-md-progressive-disclosure.md) — references-without-read-enforcement is the 4.7 failure mode that most affects progressive-disclosure patterns
-- [Evidence-Based Revalidation](evidence-based-revalidation.md) — model migrations are a revalidation trigger; 4.6-validated prompts may silently no-op on 4.7
+- [Harness Engineering](harness-engineering.md) — 4.7 pushes *prompt* complexity up even as *harness* simplifies
+- [CLAUDE.md Progressive Disclosure](claude-md-progressive-disclosure.md) — references-without-read-enforcement is the 4.7 failure mode that most affects progressive-disclosure
+- [Evidence-Based Revalidation](evidence-based-revalidation.md) — model migrations are a canonical revalidation trigger
 - [Agent Evaluation](agent-evaluation.md) — implicit subagent dispatch as an evaluation anti-pattern
+
+**Inbound — docs that cite this one**:
+
+- [Behavioral Insights](behavioral-insights.md) — links here for the MUST-vs-positive tension and the six failure modes
+- [Harness Engineering](harness-engineering.md) — links here from its 4.7 counter-signal row
+- [CLAUDE.md Progressive Disclosure](claude-md-progressive-disclosure.md) — links here from the Opus 4.7 references-without-read-enforcement warning
+- [Agent Evaluation](agent-evaluation.md) — links here from the implicit-subagent-dispatch anti-pattern
+- [Agent Principles](agent-principles.md) — links here from the 4.7 regression anti-pattern
+- [Evidence-Based Revalidation](evidence-based-revalidation.md) — links here from the 4.6 → 4.7 case study
+- [Session Quality Tools](session-quality-tools.md) — relevant for distinguishing 4.7 silent-no-op sessions from normal low-signal sessions
 
 ## Sources
 

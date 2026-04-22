@@ -2,9 +2,12 @@
 version-requirements:
   claude-code: "v2.0.0+"
 version-last-verified: "2026-02-27"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-02-16"
 notes: "Comparative guide - native subagents handle ~80% of use cases"
+evidence-tier: B
+applies-to-signals: [project-type-framework-selection, harness-comprehensive]
+revalidate-by: 2026-10-22
 ---
 
 # Framework Selection Guide
@@ -85,14 +88,16 @@ Use NATIVE SUBAGENT ORCHESTRATION (Default)
 
 ## Framework Comparison
 
-| Framework | Agent Model | Context Strategy | State Management | Evidence |
-|-----------|-------------|------------------|------------------|----------|
-| **Native Subagent** | 1 parent + N subagents | Accumulating | Conversation history | Tier A |
-| **GSD** | ~5 workflow agents | Fresh per subagent | STATE.md + .planning/ | Tier B |
-| **CAII** | 7 cognitive agents | On-the-fly injection | Task-specific memories | Tier B |
-| **CRISPY** | Single agent, 7 phases | Phase-scoped | Design doc + vertical plans | Tier B |
-| **Claude-Flow** | 60+ specialized | Vector retrieval | ReasoningBank | Tier B (docs only) |
-| **RLM** | Model-managed | REPL variable + recursive | Sub-call outputs | Tier B (emerging) |
+**Sources per row** (full citations in [SOURCES.md](../SOURCES.md)):
+
+| Framework | Agent Model | Context Strategy | State Management | Evidence | Primary source |
+|-----------|-------------|------------------|------------------|----------|---|
+| **Native Subagent** | 1 parent + N subagents | Accumulating | Conversation history | Tier A | Anthropic Claude Code docs |
+| **GSD** | ~5 workflow agents | Fresh per subagent | STATE.md + .planning/ | Tier B | glittercowboy/get-shit-done |
+| **CAII** | 7 cognitive agents | On-the-fly injection | Task-specific memories | Tier B | skribblez2718/caii |
+| **CRISPY** | Single agent, 7 phases | Phase-scoped | Design doc + vertical plans | Tier B | Dexter Horthy conference talk (March 2026) |
+| **Claude-Flow** | 60+ specialized | Vector retrieval | ReasoningBank | Tier B (docs only) | ruvnet/claude-flow (enterprise-focused docs) |
+| **RLM** | Model-managed | REPL variable + recursive | Sub-call outputs | Tier B (emerging) | Zhang/Kraska/Khattab (arXiv:2512.24601) |
 
 ---
 

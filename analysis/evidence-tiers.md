@@ -1,3 +1,11 @@
+---
+evidence-tier: B
+applies-to-signals: [audit-always-fetch, contributing-new-analysis]
+last-verified: 2026-04-22
+revalidate-by: 2026-10-22
+status: PRODUCTION
+---
+
 # Evidence Tier System
 
 **Evidence Tier**: B (methodology document — adapted from established research methodology, validated in production use across this repository; self-referential scheme)

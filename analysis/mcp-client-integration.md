@@ -15,8 +15,11 @@ measurement-claims:
     source: "Direct analysis — mndr-review-automation lib/tme_playbook_client.py"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-04-06"
+evidence-tier: A
+applies-to-signals: [harness-mcp]
+revalidate-by: 2026-10-06
 ---
 
 # MCP Client Integration: Patterns from Two Server Architectures

@@ -1,3 +1,11 @@
+---
+evidence-tier: Mixed
+applies-to-signals: [audit-always-fetch, model-version-migration]
+last-verified: 2026-04-22
+revalidate-by: 2026-10-22
+status: PRODUCTION
+---
+
 # Behavioral Insights: How Claude Code Actually Works
 
 **Evidence Tier**: Mixed (A-B) — Quantified claims from Boris Cherny, Anthropic engineering blog, and practitioner observation
@@ -248,6 +256,19 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 - Non-interactive mode: aborts (doesn't skip) when approval would be needed
 
 **Implication**: Auto mode is viable for most workflows. The 7% denial rate covers genuinely risky operations (file deletion, force push, etc.).
+
+---
+
+## Gaps
+
+Several widely-cited thresholds in this doc are load-bearing but carry single-source confidence. Explicit gap statements:
+
+- **Gap: 60% context quality threshold.** Boris Cherny reports proactive intervention at 60% context; the claim is practitioner-observed, not independently benchmarked. **Needs**: correlation study between context fill percentage and a measurable output-quality metric (task-pass rate, reviewer score) across sessions.
+- **Gap: ~80% CLAUDE.md adherence.** Cited ubiquitously in this repo. Source is Boris Cherny's direct observation; no public methodology for the 80% figure. **Needs**: controlled study running the same CLAUDE.md across N sessions, measuring instruction-follow rate per instruction type.
+- **Gap: ~150 instruction cap.** Convergent evidence (Cherny + Horthy) upgrades confidence, but both sources reach it by observation, not measurement. **Needs**: ablation study varying CLAUDE.md instruction count and measuring adherence.
+- **Gap: Opus 4.7 literalism rate.** Anthropic states 4.7 "will not silently generalize," but does not quantify *how often* 4.6 was generalizing. **Needs**: side-by-side prompt-running on 4.6 vs 4.7 against a corpus of vague prompts; measure the silent-no-op rate delta.
+
+These gaps do not invalidate the claims — they scope them. Practitioner-observed thresholds are still the best available evidence for these behaviors.
 
 ---
 

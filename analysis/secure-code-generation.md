@@ -1,3 +1,11 @@
+---
+evidence-tier: A
+applies-to-signals: [commit-security-paths]
+last-verified: 2026-04-15
+revalidate-by: 2026-10-15
+status: PRODUCTION
+---
+
 # Secure Code Generation
 
 **Sources**:

@@ -19,8 +19,11 @@ measurement-claims:
     source: "Direct analysis — third-brain H-CONFIG-01-evidence.md"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-04-06"
+evidence-tier: A
+applies-to-signals: [project-type-config-assessment]
+revalidate-by: 2026-10-06
 ---
 
 # Automated Config Assessment: Baseline-Deviation-Remediation Pattern

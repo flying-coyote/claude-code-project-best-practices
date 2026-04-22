@@ -1,3 +1,11 @@
+---
+evidence-tier: B
+applies-to-signals: [audit-always-fetch, revalidation-trigger]
+last-verified: 2026-04-22
+revalidate-by: 2026-10-22
+status: PRODUCTION
+---
+
 # Confidence Scoring for Research and Hypotheses
 
 **Source**: Production-validated pattern from research projects
@@ -271,6 +279,18 @@ After Peer Review: HIGH (independently verified)
 - ✅ Acknowledge contradictions and gaps
 - ✅ Use appropriate hedge language
 - ✅ Update confidence as evidence evolves
+
+---
+
+## Gaps
+
+The confidence-scoring framework itself carries unvalidated thresholds — applying its own medicine:
+
+- **Gap: threshold calibration.** The HIGH >80% / MEDIUM 50–80% / LOW <50% bands are cognitive anchors, not empirically derived. **Needs**: a study correlating band assignment to outcome accuracy across a corpus of labeled claims. Without this, "HIGH" and "MEDIUM" are more about reviewer calibration than about reality.
+- **Gap: tier → confidence mapping.** The mapping of Tier A source quality to HIGH confidence assumes primary sources are consistently correct. Anthropic's own disclosed "eval awareness" and "self-evaluation rationalization" failure modes (see [agent-evaluation.md](agent-evaluation.md)) show that even Tier A sources can have systematic errors. **Needs**: explicit Tier A source-reliability audit before promoting claims to HIGH.
+- **Gap: confidence inflation over time.** As a claim accumulates citations, confidence scores tend to drift upward (citation cascades). This framework has no mechanism to detect or correct inflation. **Needs**: periodic downward-revalidation where highly-confident claims are deliberately stress-tested against counter-evidence.
+
+These gaps don't invalidate the framework — they are the framework applied to itself. See [session-quality-tools.md](session-quality-tools.md) for an exemplar of full gap-statement usage.
 
 ---
 

@@ -15,8 +15,11 @@ measurement-claims:
     source: "Direct analysis — 7 repository memory directories"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-04-06"
+evidence-tier: A
+applies-to-signals: [project-type-docs, project-type-research]
+revalidate-by: 2026-10-06
 ---
 
 # Memory System Patterns: Cross-Session Context Persistence

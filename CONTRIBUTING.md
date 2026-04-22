@@ -65,48 +65,45 @@ Title: [Analysis Proposal] Name of Analysis
 [How does it relate to existing analysis documents?]
 ```
 
-### 3. Submit a Pull Request
+### 3. Integration Checklist — Adding a New Analysis Document
+
+When you add a new analysis doc, these files must be updated in the same PR. Missing any of them means the new doc is invisible to readers or unreachable by the audit prompt.
+
+- [ ] **`analysis/{new-topic}.md`** — created from [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md). Required frontmatter: `evidence-tier`, `applies-to-signals`, `last-verified`, `revalidate-by`, `status`. Required sections: Purpose, Core Problem, Diagnostic Framework / Anti-Patterns / Comparison, Counter-Evidence (if thesis-framed), Gaps (if threshold-dependent), Related Analysis, Sources.
+- [ ] **`SOURCES.md`** — full source entry with URL, date, evidence tier, key insights, pattern reference.
+- [ ] **`SOURCES-QUICK-REFERENCE.md`** — add only if the source is Authority 3 or higher (practitioner / authoritative / foundational). Skip for Authority 1–2 sources.
+- [ ] **`AUDIT-CONTEXT.md`** — **mandatory**. Add at least one signal → fetch row. Signal keys must match the `applies-to-signals` frontmatter in your new doc. **Without this, the doc is unreachable by the audit prompt.**
+- [ ] **`README.md`** — add to the "Core Analysis" table with a one-line description. Bump the count in `## Project Status` if applicable.
+- [ ] **`INDEX.md`** — auto-regenerated. Run the regenerator skill (`index-regenerator`) if configured, or leave for the next maintenance pass.
+- [ ] **`PLAN.md`** — add a bullet to `## Recent Activity` (only if you have maintainer access).
+
+**Canonical template**: start every new doc from [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md). It includes the exact frontmatter schema, section order, citation format, counter-evidence pattern, and gap-statement format.
+
+### Renaming or Removing an Analysis Document
+
+Same coordination burden, reversed:
+
+- [ ] `analysis/{old-name}.md` — removed or renamed.
+- [ ] `AUDIT-CONTEXT.md` — remove or update the routing row pointing to the old path.
+- [ ] `README.md` — remove from or update the "Core Analysis" table.
+- [ ] `SOURCES.md` and `SOURCES-QUICK-REFERENCE.md` — update any `Referenced in:` back-links.
+- [ ] `grep -rn "{old-filename}" analysis/ *.md` — fix every cross-reference.
+- [ ] `INDEX.md` — regenerate.
+
+### 4. Submit a Pull Request
 
 #### For Analysis Contributions
 
 **File Structure**:
 ```bash
-# Create analysis document
-touch analysis/your-analysis.md
+# Create from canonical template
+cp analysis/CANONICAL-DOC-TEMPLATE.md analysis/your-analysis.md
 
-# Add source to SOURCES.md with evidence tier
-# Add cross-references to related analysis documents
+# Edit frontmatter, body, signals
+# Update SOURCES.md, AUDIT-CONTEXT.md, README.md per checklist above
 ```
 
-**Analysis Document Template**:
-```markdown
-# Analysis Title
-
-**Source**: [Author/Source Name with URL]
-**Evidence Tier**: [A/B/C] — Claim Strength: [1-5]
-**Last Validated**: YYYY-MM-DD
-
-## The Claim
-
-[What claim or approach is being evaluated?]
-
-## Evidence
-
-[Evidence for and against, with source attribution]
-
-## Comparative Analysis
-
-[How does this compare to alternatives?]
-
-## Measured Results (if applicable)
-
-[Quantified metrics from production validation]
-
-## Related Analysis
-
-- [Related Analysis 1](./related-1.md)
-- [Related Analysis 2](./related-2.md)
-```
+**Analysis Document Template**: see [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md) for the canonical structure with worked-example frontmatter and section order. The template is authoritative — this CONTRIBUTING.md file defers to it rather than duplicating.
 
 #### For Documentation Contributions
 
@@ -116,19 +113,21 @@ Small fixes can go directly to PR:
 - Formatting issues
 - Minor clarifications
 
-### 4. Pass Validation Checklist
+### 5. Pass Validation Checklist
 
 Before submitting, verify:
 
-**For New Analysis Documents**:
+**For New Analysis Documents** (expand on the Step 3 integration checklist):
 - [ ] Has authoritative source (Tier A or B)
 - [ ] Evaluated against production evidence (3+ projects for Tier B)
 - [ ] Includes comparative analysis or quantified metrics
-- [ ] Has clear claim statement with evidence tier classification
-- [ ] Documents limitations and trade-offs
-- [ ] Cross-references related analysis documents
-- [ ] Added to SOURCES.md with evidence tier
-- [ ] Mentioned in appropriate README sections
+- [ ] Has canonical YAML frontmatter (`evidence-tier`, `applies-to-signals`, `last-verified`, `revalidate-by`, `status`)
+- [ ] Signal keys in frontmatter match entries in `AUDIT-CONTEXT.md`
+- [ ] Documents limitations and trade-offs (Counter-Evidence or Gaps section)
+- [ ] Cross-references related analysis documents (bidirectional where logical)
+- [ ] Added to SOURCES.md with full entry
+- [ ] Added to AUDIT-CONTEXT.md routing table (mandatory)
+- [ ] Mentioned in README.md Core Analysis table
 
 **For Documentation Changes**:
 - [ ] Markdown formatting is correct
@@ -136,7 +135,7 @@ Before submitting, verify:
 - [ ] No typos or grammar errors
 - [ ] Changes align with existing voice/style
 
-### 5. PR Description Template
+### 6. PR Description Template
 
 ```markdown
 ## What This Changes

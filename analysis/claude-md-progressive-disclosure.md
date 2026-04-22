@@ -15,8 +15,11 @@ measurement-claims:
     source: "Boris Cherny interviews (March 2026) + behavioral-insights.md"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-04-06"
+evidence-tier: A
+applies-to-signals: [claude-md-size, claude-md-references, claude-md-missing, claude-md-vague-descriptors, session-edit-thrashing, session-repeated-instructions]
+revalidate-by: 2026-10-22
 ---
 
 # CLAUDE.md Progressive Disclosure: How Project Context Scales

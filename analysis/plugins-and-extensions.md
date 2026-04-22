@@ -7,8 +7,11 @@ measurement-claims:
     source: "Simon Willison analysis"
     date: "2025-10-16"
     revalidate: "2026-10-16"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-02-16"
+evidence-tier: B
+applies-to-signals: [harness-skills, harness-mcp]
+revalidate-by: 2026-09-30
 ---
 
 # Claude Code Plugins and Extension Mechanisms

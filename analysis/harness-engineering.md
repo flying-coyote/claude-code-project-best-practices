@@ -39,8 +39,11 @@ measurement-claims:
     source: "Anthropic engineering blog"
     date: "2026-04-01"
     revalidate: "2026-10-01"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-04-15"
+evidence-tier: Mixed
+applies-to-signals: [harness-hooks, harness-minimal, harness-comprehensive, commit-bursts, session-error-loop]
+revalidate-by: 2026-10-22
 ---
 
 # Harness Engineering: Diagnostic Framework for Agent Infrastructure
@@ -376,6 +379,12 @@ Two high-credibility practitioners independently validated that agent-driven dev
 | 1M context window fundamentally changes context management strategies | Anthropic model release | A |
 | Specification gap: model architecture determines task feasibility | Nate B. Jones (2026) | B |
 | Explicit verifier modules hurt benchmark performance (-0.8 SWE, -8.4 OS World) | Tingua ablation study (March 2026) | B |
+
+**Practical implication of the nuancing evidence**: The "harness simplifies as models improve" thesis holds, but three specific decisions should be hedged:
+
+1. **Don't strip harness for lower-tier models.** If your project routes some tasks to Haiku for cost reasons, the harness those tasks need is *not* the same as the harness Opus needs. Keep fallback scaffolding for cheaper models rather than optimizing for the top tier only.
+2. **Retune prompts on every model release, even if the harness is unchanged.** Opus 4.6 → 4.7 is the canonical case: the harness did not need to change, but prompt idioms that assumed inferred intent silently regressed. See [model-migration-anti-patterns.md](model-migration-anti-patterns.md).
+3. **Don't add verifier modules prophylactically.** The Tingua ablation is narrow but pointed: explicit verifiers hurt benchmark performance. Reserve verification for where you have evidence the agent is getting it wrong, not as a default safety layer.
 
 ### Verdict
 

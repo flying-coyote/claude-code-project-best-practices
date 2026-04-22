@@ -15,8 +15,11 @@ measurement-claims:
     source: "Direct analysis — zeek-iceberg-demo transformation scripts"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-04-06"
+evidence-tier: A
+applies-to-signals: [project-type-data-pipeline]
+revalidate-by: 2026-10-06
 ---
 
 # Security Data Pipeline: Zeek to Lakehouse as a Claude Code Case Study

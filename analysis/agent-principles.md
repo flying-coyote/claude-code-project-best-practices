@@ -7,9 +7,12 @@ measurement-claims:
     source: "Nate B. Jones - Agent Build Bible"
     date: "2025-09-01"
     revalidate: "2026-09-01"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-02-16"
 notes: "Foundational principles - validated across 100+ production AI builds"
+evidence-tier: B
+applies-to-signals: [harness-custom-agents, audit-always-fetch]
+revalidate-by: 2026-10-22
 ---
 
 # AI Agent Principles for Production
@@ -172,6 +175,25 @@ For each AI integration, verify:
 - [ ] **Boundaries**: What stays traditional? What goes AI?
 - [ ] **State**: Where does AI-readable state live?
 - [ ] **Validation**: How do you test semantic correctness?
+
+---
+
+## When These Principles Break
+
+These six principles are framed as axioms but are not universal. Known exceptions:
+
+| Principle | Exception | Why |
+|---|---|---|
+| **1. Persistent Memory** | Stateless batch jobs (one-shot code generation, single-file transforms) | Cross-session memory adds no value when the session has no "after." Externalizing state is pure overhead. |
+| **2. Inherent Unpredictability** | Deterministic-mode runs with temperature=0, seed pinned, tool whitelist fixed | Claude Code doesn't expose temperature=0 for end users, but the Claude Agent SDK does; production pipelines may approach near-determinism. |
+| **3. Monitoring Limitations** | Non-semantic workflows (pure syntactic transforms, lint-only tasks) | Traditional metrics (pass/fail, exit codes) remain informative for non-semantic output. Semantic evaluation matters where the output *has* semantic content. |
+| **4. Hybrid Architecture** | Pure-content workflows where there is no trust boundary (private note-taking, personal research) | Not every use case has a "trust infrastructure" to keep traditional. Principle 4 is load-bearing for multi-tenant and regulated contexts. |
+| **5. Persistent State** | Ephemeral experiments, throwaway prototypes | File-based memory is overhead for sessions that end in a discard. |
+| **6. Semantic Validation** | Code with comprehensive traditional test suites (unit + integration + property-based) | When `pytest` passes and covers intent, semantic validation is redundant. The principle matters most where traditional testing is structurally inadequate (creative writing, open-ended research, UI/UX). |
+
+The principles are **load-bearing for agentic systems in production**. Most exceptions live at the edges: pure-batch, pure-deterministic, pure-syntactic, or pure-personal. When the principle's context obtains, follow it; when it doesn't, don't retrofit infrastructure you won't use.
+
+**Source for exception analysis** (Tier A — this repo's 7-repo portfolio): repos that operate mostly in the principle-holds regime (mndr-review-automation, health-inventory) versus repos at the edge (research prototypes, one-shot analysis scripts). See [agent-driven-development.md](agent-driven-development.md).
 
 ---
 

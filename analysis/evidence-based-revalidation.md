@@ -11,8 +11,11 @@ measurement-claims:
     source: "Direct analysis — third-brain H-NDR-FEDERATION-01-evidence.md"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-04-06"
+evidence-tier: A
+applies-to-signals: [revalidation-trigger, model-version-migration, audit-always-fetch]
+revalidate-by: 2026-10-22
 ---
 
 # Evidence-Based Revalidation: Hypothesis-Driven Confidence Tracking

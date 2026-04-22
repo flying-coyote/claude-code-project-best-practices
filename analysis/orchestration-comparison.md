@@ -1,3 +1,11 @@
+---
+evidence-tier: Mixed
+applies-to-signals: [harness-custom-agents]
+last-verified: 2026-03-30
+revalidate-by: 2026-09-30
+status: PRODUCTION
+---
+
 # Orchestration Approaches: Comparative Analysis
 
 **Evidence Tier**: Mixed (A-B) — Vendor documentation + production-validated community patterns

@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-04-22 08:26*
+*Auto-generated: 2026-04-22 09:07*
 
 ## Summary
 
-**Total documents**: 126
+**Total documents**: 127
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 28 |
+| analysis | 29 |
 | archive | 6 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
@@ -60,6 +60,7 @@
 - [codeguard-review-2026-02.md](research/codeguard-review-2026-02.md)
 ## Analysis
 
+- [CANONICAL-DOC-TEMPLATE.md](analysis/CANONICAL-DOC-TEMPLATE.md)
 - [agent-driven-development.md](analysis/agent-driven-development.md)
 - [agent-evaluation.md](analysis/agent-evaluation.md)
 - [agent-principles.md](analysis/agent-principles.md)

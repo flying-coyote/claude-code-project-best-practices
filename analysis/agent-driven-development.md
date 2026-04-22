@@ -23,8 +23,11 @@ measurement-claims:
     source: "Direct analysis — third-brain cross-repo-progress.json"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-04-06"
+evidence-tier: Mixed
+applies-to-signals: [commit-ai-coauthoring, commit-bursts, commit-cross-repo, harness-comprehensive]
+revalidate-by: 2026-10-06
 ---
 
 # Agent-Driven Development: Patterns from a 7-Repo Portfolio

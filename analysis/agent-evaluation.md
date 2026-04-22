@@ -1,3 +1,11 @@
+---
+evidence-tier: A
+applies-to-signals: [harness-custom-agents, revalidation-trigger, model-version-migration]
+last-verified: 2026-04-22
+revalidate-by: 2026-10-22
+status: PRODUCTION
+---
+
 # Agent Evaluation Patterns
 
 **Sources**:

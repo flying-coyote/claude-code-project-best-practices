@@ -19,8 +19,11 @@ measurement-claims:
     source: "Direct analysis — zeek-iceberg-demo + third-brain M1 milestone"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-04-06"
+evidence-tier: A
+applies-to-signals: [project-type-data-pipeline]
+revalidate-by: 2026-10-06
 ---
 
 # Federated Query Architecture: Claude Code as Design and Benchmarking Tool
