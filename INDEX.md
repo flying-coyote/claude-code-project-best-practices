@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-04-27 15:54*
+*Auto-generated: 2026-04-27 17:47*
 
 ## Summary
 
-**Total documents**: 127
+**Total documents**: 131
 
 | Directory | Count |
 |-----------|-------|
@@ -34,7 +34,7 @@
 | archive/skills-v1/examples/ultrathink-analyst/workflows | 3 |
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
-| research | 2 |
+| research | 6 |
 | root | 11 |
 | templates | 4 |
 | templates/rules | 3 |
@@ -58,6 +58,10 @@
 
 - [ai-creators-analysis.md](research/ai-creators-analysis.md)
 - [codeguard-review-2026-02.md](research/codeguard-review-2026-02.md)
+- [memory-systems-architecture-axes.md](research/memory-systems-architecture-axes.md)
+- [memory-systems-project-archetypes.md](research/memory-systems-project-archetypes.md)
+- [memory-systems-tools-inventory.md](research/memory-systems-tools-inventory.md)
+- [rethink-memory-stack-prompt.md](research/rethink-memory-stack-prompt.md)
 ## Templates
 
 - [GETTING-STARTED.md](templates/GETTING-STARTED.md)
