@@ -1,3 +1,11 @@
+---
+evidence-tier: A
+applies-to-signals: [commit-security-paths]
+last-verified: 2026-04-15
+revalidate-by: 2026-10-15
+status: PRODUCTION
+---
+
 # Secure Code Generation
 
 **Sources**:
@@ -14,6 +22,34 @@
 AI coding agents generate vulnerable code at machine speed. Hardcoded secrets, weak cryptography, missing input validation, SQL injection — all produced as effortlessly as correct code. Traditional post-hoc security review can't keep pace with AI-generated output volume.
 
 **The gap**: Most Claude Code security guidance (sandboxing, permissions, hooks) focuses on securing *the agent itself*. This pattern addresses securing *the code the agent generates*.
+
+---
+
+## Scale of the Problem
+
+**Sources**: H-AI-ASYMMETRY-01 (4.5/5 confidence), H-AI-REFACTOR-01 (4/5 confidence)
+
+AI-generated code is now a substantial fraction of all new code, and the security implications are compounding:
+
+| Metric | Finding | Source |
+|--------|---------|--------|
+| AI-generated code share | 41% of all code is now AI-generated (256 billion lines in 2024) | Industry surveys |
+| Vulnerability rate | 45% of AI-generated code introduces OWASP Top 10 vulnerabilities | Security research |
+| Startup adoption | 25% of Y Combinator Winter 2025 startups have 95%+ AI-generated codebases | Y Combinator |
+| Code duplication | 8x increase in duplicated code blocks (2020-2024) | GitClear |
+| Code churn | 2x increase in code churn (2020-2024) | GitClear |
+| Privilege escalation | 322% increase in privilege escalation paths | Apiiro |
+| Architectural flaws | 153% spike in architectural-level security flaws | Apiiro |
+
+**Georgetown CSET finding**: Models are getting better at coding but are NOT improving at security. Code generation capability and security awareness are diverging -- more code is generated faster, but the vulnerability rate per line is not decreasing.
+
+### 22-Minute Weaponization Window
+
+Cloudflare reported in 2024 that the time from CVE publication to proof-of-concept weaponization has collapsed to 22 minutes. AI-generated code with security flaws is not just a future risk -- vulnerabilities can be exploited within minutes of the code being deployed.
+
+### The "Almost Problem"
+
+Vibe-coded applications present a deceptive risk profile. They look production-ready: the happy path works, the UI is polished, and demos are convincing. But they fail under production pressure -- at scale, under adversarial input, or when edge cases appear. Code that appears correct but has never been stress-tested creates a false sense of security that delays vulnerability discovery until production.
 
 ---
 
@@ -377,6 +413,12 @@ CodeGuard includes an MCP-specific security rule that complements our existing [
 **Symptom**: Excessive context consumption, irrelevant warnings
 **Solution**: Start with the 3 mandatory rules; add domain-specific rules as needed
 
+### 6. Code-Level Security Rules Without Architectural Coverage
+
+**Problem**: Current CodeGuard rules focus on code-level security (injection, crypto, credentials) but evidence shows privilege escalation paths (322% increase) and architectural flaws (153% spike) are growing faster than code-level issues
+**Symptom**: Clean code-level scans but systemic vulnerabilities in access control, service boundaries, and data flow architecture
+**Solution**: Security rules need to operate at the architectural level too -- validate service boundaries, least-privilege access patterns, and data flow integrity, not just individual code patterns. Source: H-AI-REFACTOR-01
+
 ---
 
 ## Related Patterns
@@ -395,5 +437,10 @@ CodeGuard includes an MCP-specific security rule that complements our existing [
 - [Cisco Donates Project CodeGuard to CoSAI](https://blogs.cisco.com/ai/cisco-donates-project-codeguard-to-the-coalition-for-secure-ai) (February 2026)
 - [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)
 - [Coalition for Secure AI](https://www.coalitionforsecureai.org/)
+- H-AI-ASYMMETRY-01 — AI code volume vs. security gap analysis (4.5/5 confidence)
+- H-AI-REFACTOR-01 — Architectural-level security flaws in AI-generated code (4/5 confidence)
+- Cloudflare 2024 — 22-minute CVE-to-weaponization window
+- GitClear — Code duplication and churn metrics (2020-2024)
+- Apiiro — Privilege escalation and architectural flaw trends
 
-*Last updated: February 2026*
+*Last updated: April 2026*

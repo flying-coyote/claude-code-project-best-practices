@@ -19,8 +19,31 @@ measurement-claims:
     source: "Claude plugin directory + GitHub repository"
     date: "2026-03-30"
     revalidate: "2026-09-30"
-status: "PRODUCTION"
-last-verified: "2026-03-30"
+  - claim: "NLH representation: 30.4% to 47.2% performance, 1200 to 34 LLM calls"
+    source: "Tingua NLH papers"
+    date: "2026-03-01"
+    revalidate: "2026-09-01"
+  - claim: "Verifiers hurt performance: -0.8 SWE-bench, -8.4 OS World"
+    source: "Tingua NLH ablation study"
+    date: "2026-03-01"
+    revalidate: "2026-09-01"
+  - claim: "Meta-Harness: Rank 1 TerminalBench 2 with Haiku via harness optimization"
+    source: "Stanford/Omar Khattab DSPy team"
+    date: "2026-03-01"
+    revalidate: "2026-09-01"
+  - claim: "6x performance difference from orchestration code alone"
+    source: "Stanford researchers via synthesis transcript"
+    date: "2026-03-01"
+    revalidate: "2026-09-01"
+  - claim: "v2 DAW built in 4 hours for $125 after harness simplification"
+    source: "Anthropic engineering blog"
+    date: "2026-04-01"
+    revalidate: "2026-10-01"
+status: PRODUCTION
+last-verified: "2026-04-15"
+evidence-tier: Mixed
+applies-to-signals: [harness-hooks, harness-minimal, harness-comprehensive, commit-bursts, session-error-loop]
+revalidate-by: 2026-10-22
 ---
 
 # Harness Engineering: Diagnostic Framework for Agent Infrastructure
@@ -101,6 +124,65 @@ Source: "The AI Model Doesn't Matter Anymore" (Tier B — multiple cited studies
 
 ---
 
+## Harness Representation and Optimization
+
+Recent research (March 2026) reveals that **how** a harness is expressed and optimized matters independently of what it does.
+
+### Natural Language Harness (NLH) Representation Gains
+
+Migrating OS Symfony's native code harness into a Natural Language Harness representation produced dramatic improvements:
+
+| Metric | Native Code Harness | NLH Representation | Change |
+|--------|--------------------|--------------------|--------|
+| Performance | 30.4% | **47.2%** | +55% relative |
+| Runtime | 361 min | **141 min** | -61% |
+| LLM calls | 1,200 | **34** | -97% |
+
+The harness did the same thing in both cases — the representation changed. This suggests that expressing harness logic in natural language (closer to the model's native reasoning) is a distinct optimization axis from harness design itself.
+
+Source: Tingua NLH papers, March 2026. Authority 3/5.
+
+### Ablation Evidence: Verifiers Hurt, Self-Evolution Helps
+
+Tingua NLH research (March 2026) ran ablation studies on harness modules:
+
+| Module | SWE-bench Impact | OS World Impact | Net Effect |
+|--------|-----------------|-----------------|------------|
+| Verifiers | **-0.8** | **-8.4** | Hurt performance |
+| Multi-candidate search | **-2.4** | **-5.6** | Hurt performance |
+| Self-evolution (narrowing the agent's own attempt loop) | **+4.8** | **+2.7** | **Only consistently helpful module** |
+
+**Key nuance for harness design**: This challenges the "Quality gates" layer in the harness stack. Explicit verifier modules — separate components that check the agent's work — actively degraded performance. The agent's own iterative refinement (self-evolution) was the only module that consistently helped.
+
+**Caveat**: This is benchmark evaluation, not production deployment. Production environments with real consequences may benefit from verification that benchmarks don't reward. But the default assumption should be: let the agent self-correct rather than bolting on external verifiers.
+
+Source: Tingua team, March 2026. Authority 3/5.
+
+### Meta-Harness: Automated Harness Optimization
+
+Stanford researchers (Omar Khattab/DSPy team) treat the harness itself as an optimization target:
+
+- An agentic proposer reads failed execution traces
+- It diagnoses breakages and writes a complete new harness
+- Cost: ~10M tokens per iteration, 82 files read per round
+- Result: **Rank 1 on TerminalBench 2 with Haiku** — a smaller, cheaper model outranking larger ones through harness optimization alone
+
+**Cross-model transfer**: A harness optimized on one model transferred to five others, improving all of them. This is strong evidence that harness quality is model-independent — good infrastructure helps any model.
+
+**Convergence note**: Andrej Karpathy (Authority 4/5) independently described the same concept — meta-optimization of program.md — without referencing the Stanford work. Two high-authority sources arriving at the same idea from different directions.
+
+Source: Stanford/Omar Khattab, Authority 4/5.
+
+### 6x Performance Difference from Orchestration Code Alone
+
+Stanford researchers demonstrated that the same model on the same benchmark produced a **6x performance difference** from harness changes only. No model changes, no prompt changes — purely orchestration code.
+
+Specific replication: Langchain's terminal-bench-2 submission went from outside the top 30 to rank 5 by changing only the harness code.
+
+Source: Stanford researchers via synthesis transcript. Authority needs primary source verification — treat as directional evidence until confirmed.
+
+---
+
 ## The "Less Is More" Evidence
 
 The strongest and most counterintuitive finding across all sources.
@@ -134,6 +216,35 @@ Sutton's core argument: approaches that scale with computational power always be
 Applied to agent harnesses: **as models get smarter, your harness should get simpler**. If you are adding hand-coded logic and specialized routing with every model upgrade, you are swimming against the current.
 
 > "Every piece of your harness should be built for deletion — ready to be removed when the model no longer needs it."
+
+### v2 Harness Simplification (Anthropic, April 2026)
+
+Anthropic's Claude Code v2 with Opus 4.6 provides concrete evidence for "harness should simplify as models improve":
+
+- **Removed**: Sprints, contract negotiation, context resets
+- **Replaced with**: Single build session with evaluator at the end only
+- **Result**: DAW built in 4 hours for $125
+
+This is a vendor demonstrating the Bitter Lesson on their own product — stripping orchestration complexity because the model no longer needs it. The evaluator-at-the-end pattern also aligns with the ablation evidence above: self-evolution during work, verification only at completion.
+
+Source: Anthropic engineering blog, April 2026. Authority 5/5.
+
+### Counter-signal: Opus 4.7 Pushes *Prompt* Complexity Up (April 2026)
+
+The Bitter Lesson predicts monotonic simplification as models improve. Opus 4.7 complicates the picture: the *harness* continues to simplify (Anthropic's migration guide confirms "fewer subagents spawned by default," "fewer tool calls by default"), but the *prompt* may need to be **more explicit**, not less.
+
+4.7's literal interpretation (see [Model Migration Anti-Patterns](model-migration-anti-patterns.md)) means instructions that 4.6 successfully generalized now fail silently. Remediation per the Anthropic migration guide: enumerate cases, anchor triggers, declare dispatch mechanism, add verbosity directives. These are prompt-side additions, not harness-side.
+
+**Diagnostic split for 4.7**:
+
+| Layer | Direction | Evidence |
+|---|---|---|
+| Harness (orchestration, tooling, subagent wiring) | ↓ Simpler | Anthropic migration guide: fewer default subagents, fewer tool calls |
+| Prompt (instructions, CLAUDE.md, skill bodies) | ↑ More explicit | Anthropic migration guide: literal interpretation, no silent generalization |
+
+This does not invalidate the Bitter Lesson — the *orchestration* around the model is still simplifying. But the prompt itself is a joint product of human intent and model inference, and 4.7 shifts the inference burden back to the human. Treat this as version-scoped: a future model that re-adds intent inference would reverse the prompt-complexity pressure.
+
+Source: Anthropic migration guide (April 2026), [Model Migration Anti-Patterns](model-migration-anti-patterns.md). Authority 5/5 (Tier A).
 
 ### Convergence of Architectures
 
@@ -241,6 +352,22 @@ START: What is your task complexity?
 | Removing features was the primary optimization (Manus) | Manus context engineering (5 rebuilds) | B |
 | Same harness works across Claude Code, Cursor, OpenCode, Codex | everything-claude-code cross-platform support | B |
 | Boris Cherny's success depends on parallel sessions, hooks, permissions — all harness | Boris Cherny interviews (March 2026) | A |
+| NLH representation: same harness logic, 55% perf gain + 97% fewer LLM calls | Tingua NLH papers (March 2026) | B |
+| Meta-Harness: Haiku outranks larger models via harness optimization alone | Stanford/Omar Khattab (March 2026) | B |
+| 6x perf difference from orchestration code alone (same model, same benchmark) | Stanford researchers (March 2026) | B* |
+| v2 harness simplification: removed sprints/negotiation, DAW in 4h/$125 | Anthropic engineering blog (April 2026) | A |
+| **1000+ PRs in 3 weeks** with ~5 manual IDE edits — review-loop development | Nick Schrock, Dagster founder (Dec 2025) | B |
+| **3x velocity** with agents handling commits, changelogs, docs, releases — org transformation | Matthias Vallentin, Tenzir CEO (Dec 2025) | B |
+
+### Production-Scale Agent-Driven Development (New Evidence, April 2026)
+
+Two high-credibility practitioners independently validated that agent-driven development achieves transformational velocity when the harness is right:
+
+**Nick Schrock (Dagster)** — Merged 1,000+ PRs in 3 weeks with approximately 5 manual IDE edits. His workflow: local dev -> cloud code review -> one command -> agent applies feedback. CI errors: downloads logs, agent fixes automatically. Key quote: "This isn't vibe coding. The process is still software engineering forward." The IDE becomes a read-only interface; code review in the browser is the primary editing surface.
+
+**Matthias Vallentin (Tenzir)** — Achieved 3x velocity improvement with agents handling commits, changelogs, docs, and releases. Framed as engineering org transformation, not individual productivity. This is the same team whose MCP vs Skills production data (see [MCP vs Skills Economics](./mcp-vs-skills-economics.md)) showed 50% cost reduction through architecture choices.
+
+**What makes this harness evidence**: Both practitioners emphasize that the velocity gains came from the review-loop workflow (harness) not from model improvements. Schrock's one-command CI fix cycle and Vallentin's agent-managed release process are harness engineering — giving agents the right tools, permissions, and recovery mechanisms.
 
 ### Evidence Nuancing the Thesis
 
@@ -248,8 +375,16 @@ START: What is your task complexity?
 |----------|--------|------|
 | Lower-tier models (Haiku, Flash) still need more structured tooling | Video acknowledgment | B |
 | Model version changes (Opus 4.5→4.6) require harness retuning | Behavioral Insights — prompt sensitivity | A |
+| Opus 4.7 literalism pushes *prompt* complexity up while harness simplifies | Anthropic migration guide (April 2026) | A |
 | 1M context window fundamentally changes context management strategies | Anthropic model release | A |
 | Specification gap: model architecture determines task feasibility | Nate B. Jones (2026) | B |
+| Explicit verifier modules hurt benchmark performance (-0.8 SWE, -8.4 OS World) | Tingua ablation study (March 2026) | B |
+
+**Practical implication of the nuancing evidence**: The "harness simplifies as models improve" thesis holds, but three specific decisions should be hedged:
+
+1. **Don't strip harness for lower-tier models.** If your project routes some tasks to Haiku for cost reasons, the harness those tasks need is *not* the same as the harness Opus needs. Keep fallback scaffolding for cheaper models rather than optimizing for the top tier only.
+2. **Retune prompts on every model release, even if the harness is unchanged.** Opus 4.6 → 4.7 is the canonical case: the harness did not need to change, but prompt idioms that assumed inferred intent silently regressed. See [model-migration-anti-patterns.md](model-migration-anti-patterns.md).
+3. **Don't add verifier modules prophylactically.** The Tingua ablation is narrow but pointed: explicit verifiers hurt benchmark performance. Reserve verification for where you have evidence the agent is getting it wrong, not as a default safety layer.
 
 ### Verdict
 
@@ -312,6 +447,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 | Implement a disciplined workflow | [superpowers](https://github.com/obra/superpowers) | External |
 | Implement a minimal long-running harness | [Anthropic harness blog](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) | External |
 | Harden security layer | [Safety & Sandboxing](./safety-and-sandboxing.md) + [Secure Code Generation](./secure-code-generation.md) | This project |
+| See harness concepts operationalized with 7-repo evidence | [Agent-Driven Development](./agent-driven-development.md) | This project |
 
 ---
 
@@ -320,6 +456,8 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 ### Tier A (Primary Vendor)
 
 - Anthropic: ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025) — Two-part architecture, external artifacts as memory, one feature at a time
+- Anthropic: v2 harness simplification with Opus 4.6 (April 2026) — Removed sprints/negotiation/resets, single build session, evaluator-at-the-end pattern
+- Anthropic: [Migration Guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) (April 2026) — Opus 4.7 literal interpretation, fewer default subagents, adaptive verbosity; pushes prompt complexity up while harness simplifies
 - Boris Cherny: Interviews and posts (March 2026) — Parallel sessions, hooks, permissions pre-configuration, Document-and-Clear pattern
 
 ### Tier B (Validated / Expert Practitioner)
@@ -327,6 +465,10 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - Prompt Engineering: ["The AI Model Doesn't Matter Anymore"](https://www.youtube.com/watch?v=1Ohf2aeSPFA) (February 2026) — Full transcript analyzed. Middleware era thesis, three harness properties, Vercel experiment, Manus analysis, Bitter Lesson application
 - Vercel: Text-to-SQL experiment (as cited in video) — Removing specialized tools improved all metrics
 - Manus: Context engineering lessons (as cited in video, acquired by Meta) — 5 rebuilds, file system as memory
+- Tingua NLH team: Natural Language Harness representation research + ablation studies (March 2026) — NLH representation gains, verifier/multi-candidate ablation, self-evolution as only consistently helpful module. Authority 3/5.
+- Stanford/Omar Khattab (DSPy): Meta-Harness automated optimization (March 2026) — Agentic proposer reads failed traces, writes new harness. Rank 1 TerminalBench 2 with Haiku. Cross-model harness transfer. Authority 4/5.
+- Stanford researchers: 6x performance difference from orchestration code alone (March 2026) — Same model, same benchmark, harness-only changes. Authority needs primary source verification.
+- Andrej Karpathy: Meta-optimization of program.md (March 2026, No Priors podcast) — Independent convergence with Stanford meta-harness concept. Authority 4/5.
 - [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — 119K+ stars, Anthropic hackathon winner, maximal harness approach
 - [superpowers](https://github.com/obra/superpowers) — 294K+ installs, disciplined methodology approach
 - Richard Sutton: "The Bitter Lesson" — Approaches scaling with compute beat hand-engineered knowledge
@@ -339,7 +481,8 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - [Orchestration Comparison](./orchestration-comparison.md) — Orchestration layer analysis
 - [Framework Selection Guide](./framework-selection-guide.md) — Framework decision trees
 - [Agent Principles](./agent-principles.md) — Persistent memory, unpredictability, monitoring
+- [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Six prompt anti-patterns that break on Opus 4.7; split between harness (simpler) and prompt (more explicit)
 
 ---
 
-*Last updated: March 2026*
+*Last updated: April 2026*

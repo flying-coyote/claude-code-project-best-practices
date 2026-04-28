@@ -1,3 +1,11 @@
+---
+evidence-tier: A
+applies-to-signals: [harness-hooks, commit-security-paths]
+last-verified: 2026-04-15
+revalidate-by: 2026-10-15
+status: PRODUCTION
+---
+
 # Safety and Sandboxing
 
 **Sources**:
@@ -193,6 +201,59 @@ MCP servers introduce additional attack surfaces. Key risks from [OWASP MCP Top 
 
 ---
 
+## Agent-Specific Attack Surface
+
+**Source**: H-AGENT-SECURITY-01 hypothesis (4.8/5 confidence, settled)
+
+The 4-layer security stack (Sandboxing, Auto Mode, Permissions, Hooks) is project-scoped -- it protects the local development environment. The attack surface for AI coding agents extends well beyond the project boundary into skill marketplaces, agent-to-agent communication, and social engineering vectors.
+
+### Canonical Example: CVE-2026-25253 (OpenClaw)
+
+CVE-2026-25253 (CVSS 8.8) demonstrated one-click RCE via an unvalidated WebSocket gateway combined with authentication token theft. This is the canonical example of why OS-level sandboxing exists -- without it, a compromised agent skill has direct access to the host system.
+
+### Skill Marketplace Poisoning
+
+The agent skill ecosystem is experiencing supply-chain attacks at scale:
+- **15% of OpenClaw skills** contain harmful instructions (Jenova Research, March 2026)
+- **230 malicious plugins** published on ClawHub in a single week using the ClickFix social engineering technique (Cisco/Kaspersky, February 2026)
+- Attack vectors include agent self-destruction, identity spoofing, and semantic manipulation of agent behavior through crafted skill descriptions
+
+### Agent-to-Agent Amplification
+
+Multi-agent architectures introduce amplification risks not present in single-agent deployments:
+- Infinite reply loops between agents can burn 60K+ tokens in 9 days without human intervention
+- Compromised agents can propagate malicious instructions laterally to other agents in an orchestration chain
+
+### Attack Taxonomy
+
+| Category | Description | Mitigation Layer |
+|----------|-------------|-----------------|
+| **Social engineering** | Prompt injection via skill descriptions or tool outputs | Sandboxing + Hooks |
+| **Agent self-destruction** | Malicious skill triggers agent to delete its own config | Sandboxing (filesystem) |
+| **Identity spoofing** | Agent impersonates another agent or user in multi-agent flows | Permission model + auth |
+| **Semantic attack surface** | Exploiting natural language ambiguity in agent instructions | Explicit rules in CLAUDE.md |
+| **Skill marketplace poisoning** | Publishing malicious skills that pass superficial review | Supply chain verification |
+
+### Enterprise Governance: Microsoft Agent 365 Model
+
+For organizations deploying agents at scale, the Microsoft Agent 365 model provides a reference architecture:
+- **Centralized registry** of all deployed agents with unique Agent IDs (Entra-based)
+- **Designated human sponsor** required for each agent (accountability chain)
+- **Shadow agent detection** to identify unauthorized agent deployments
+
+### Managed Agents Security Model (Anthropic, April 2026)
+
+Anthropic's Managed Agents introduce a structured security model for agent deployments:
+- **Environment scoping** with explicit permission grants per agent instance
+- **Vault-based OAuth credential management** -- agents never see raw credentials
+- **Limited networking** -- agents can only access pre-approved endpoints
+
+### OWASP AI Vulnerability Scoring System (AIVSS)
+
+OWASP released the AI Vulnerability Scoring System (February 2026) providing use-case-aware risk quantification for agent deployments. Unlike traditional CVSS, AIVSS accounts for the non-deterministic nature of AI agents and the amplification potential of multi-agent systems.
+
+---
+
 ## Defense-in-Depth Strategy
 
 For production deployments, layer security mechanisms:
@@ -215,6 +276,9 @@ For production deployments, layer security mechanisms:
 - [ ] Set up enterprise policy via Teams/Enterprise plan
 - [ ] Implement OWASP MCP checklist for all MCP servers
 - [ ] Enable Claude Code Analytics for usage monitoring
+- [ ] Establish centralized agent registry with unique agent IDs and designated human sponsors (Microsoft Agent 365 model)
+- [ ] Deploy shadow agent detection -- 50% of employees use non-company-issued AI tools, 53% hide AI usage, and only 18.5% are aware of company AI policy (H-AI-SHADOW-01, 4.5/5 confidence). Technical enforcement via sandboxing and hooks is more reliable than policy-based controls alone
+- [ ] Apply OWASP AIVSS scoring to agent deployments for use-case-aware risk quantification
 
 ---
 
@@ -313,6 +377,7 @@ Layer 4: Hooks (application-level)    — Custom validation logic
 - [MCP Patterns](./mcp-patterns.md) - MCP security framework and OWASP compliance
 - [Project Infrastructure](../archive/patterns-v1/project-infrastructure.md) - Infrastructure tiers including security
 - [Subagent Orchestration](./orchestration-comparison.md) - Security for multi-agent execution
+- [Agent-Driven Development](./agent-driven-development.md) - PreToolUse security hooks and permission matrices from production repos (mndr-review-automation case study)
 
 ---
 
@@ -323,5 +388,9 @@ Layer 4: Hooks (application-level)    — Custom validation logic
 - [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)
 - [Claude Code Security Documentation](https://code.claude.com/docs/en/security)
 - [Data Residency Documentation](https://platform.claude.com/docs/en/build-with-claude/data-residency) (February 2026)
+- H-AGENT-SECURITY-01 — Agent-specific attack surface analysis (4.8/5 confidence, settled)
+- H-AI-SHADOW-01 — Shadow AI usage in enterprises (4.5/5 confidence)
+- [OWASP AI Vulnerability Scoring System (AIVSS)](https://owasp.org/) (February 2026)
+- Anthropic Managed Agents — Environment scoping and credential management (April 2026)
 
-*Last updated: March 2026*
+*Last updated: April 2026*

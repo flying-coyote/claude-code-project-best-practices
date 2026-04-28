@@ -1,7 +1,7 @@
 # Architecture
 
 **Purpose**: System design, directory structure, and current phase status
-**Last Updated**: March 26, 2026
+**Last Updated**: April 13, 2026
 
 ---
 
@@ -23,13 +23,14 @@ This repository provides an **evidence-based analytical layer** for Claude Code.
 
 ## Current Phase
 
-**Phase**: v2.0 — Analytical Layer Repositioning
+**Phase**: v2.1 — Production Evidence Integration
 **Status**: Active
 
 **Milestones**:
 - v1.0: Initial patterns from Anthropic (Nov 2025)
 - v1.1-v1.4: Pattern expansion to 36 patterns (Nov 2025 - Mar 2026)
 - v2.0: Repositioned as analytical layer; 36 patterns → 14 analysis documents (Mar 2026)
+- v2.1: Expanded to 26 analysis documents with 7-repo portfolio evidence + harness template kit (Apr 2026)
 
 ---
 
@@ -42,12 +43,13 @@ claude-code-project-best-practices/
 │   ├── settings.json          # Hooks configuration
 │   └── hooks/                 # Hook scripts
 │
-├── analysis/                   # Core content (16 documents)
+├── analysis/                   # Core content (26 documents)
 │   ├── evidence-tiers.md      # Dual tier system (A-D + 1-5)
 │   ├── behavioral-insights.md # Quantified Claude Code behavior
 │   ├── orchestration-comparison.md  # Orchestration approach comparison
 │   ├── mcp-vs-skills-economics.md   # Cost/performance analysis
 │   ├── mcp-patterns.md        # Failure modes + OWASP mapping
+│   ├── mcp-client-integration.md    # MCP client patterns (2 server architectures)
 │   ├── mcp-daily-essentials.md      # Optimal plugin configuration
 │   ├── plugins-and-extensions.md    # Skills vs MCP vs Hooks decision
 │   ├── safety-and-sandboxing.md     # 4-layer security stack
@@ -56,9 +58,18 @@ claude-code-project-best-practices/
 │   ├── framework-selection-guide.md # Framework decision matrix
 │   ├── harness-engineering.md       # Harness philosophy + diagnostics
 │   ├── domain-knowledge-architecture.md # Domain knowledge for LLMs
+│   ├── agent-driven-development.md  # Agent-driven development methodology + 7-repo evidence
 │   ├── agent-evaluation.md         # Eval methodology
 │   ├── agent-principles.md         # 6 production principles
-│   └── confidence-scoring.md       # Assessment framework
+│   ├── confidence-scoring.md       # Assessment framework
+│   ├── local-cloud-llm-orchestration.md  # Hybrid local+cloud LLM architecture
+│   ├── federated-query-architecture.md   # Federated query benchmarks + TCO
+│   ├── automated-config-assessment.md    # Baseline-deviation-remediation pattern
+│   ├── claude-md-progressive-disclosure.md # CLAUDE.md evolution across projects
+│   ├── memory-system-patterns.md         # Cross-session memory persistence
+│   ├── evidence-based-revalidation.md    # Hypothesis confidence tracking
+│   ├── security-data-pipeline.md         # Zeek → OCSF → Parquet pipeline
+│   └── cross-project-synchronization.md  # Cross-repo dependency cascading
 │
 ├── archive/                    # Prior v1 content (preserved)
 │   ├── patterns-v1/           # 24 archived patterns
@@ -94,7 +105,7 @@ This project occupies a specific niche in the Claude Code ecosystem:
 |---------|------|-------|---------|
 | **everything-claude-code** | Batteries-included tooling | 110K | 125+ skills, 28+ agents, implementation guides |
 | **superpowers** | Disciplined methodology | - | 14 skills, anti-rationalization, structured workflow |
-| **This project** | Evidence-based analysis | - | 16 analysis documents, source database, behavioral insights |
+| **This project** | Evidence-based analysis | - | 26 analysis documents, source database, behavioral insights |
 
 ### Unique Value (Not Found Elsewhere)
 
@@ -119,7 +130,7 @@ We evaluate and compare rather than providing implementation guides. This keeps 
 All claims must include source, evidence tier, and date. Measurements require revalidation dates.
 
 ### 3. Narrow Focus
-14 analysis documents rather than 36 patterns. Depth over breadth.
+26 analysis documents rather than 36 patterns. Depth over breadth, expanded with production evidence.
 
 ---
 

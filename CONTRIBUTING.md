@@ -40,12 +40,12 @@ This repository follows strict quality standards:
 ### 1. Check Existing Issues
 Before starting, check if your idea is already being discussed:
 - Browse [Issues](https://github.com/flying-coyote/claude-code-project-best-practices/issues)
-- Search for related patterns in the repo
+- Search for related analysis documents in the repo
 
 ### 2. Open a Discussion Issue
-For new patterns or significant changes:
+For new analysis documents or significant changes:
 ```markdown
-Title: [Pattern Proposal] Name of Pattern
+Title: [Analysis Proposal] Name of Analysis
 
 ## Source
 - Tier: [A/B/C]
@@ -56,79 +56,54 @@ Title: [Pattern Proposal] Name of Pattern
 - Projects tested: [number]
 - Measured results: [metrics if available]
 
-## Pattern Summary
-[What problem does it solve?]
-[How is it implemented?]
-[When should it be used?]
+## Analysis Summary
+[What claim or approach does it evaluate?]
+[What evidence supports or contradicts it?]
+[When does this apply?]
 
 ## Integration
-[How does it relate to existing patterns?]
+[How does it relate to existing analysis documents?]
 ```
 
-### 3. Submit a Pull Request
+### 3. Integration Checklist — Adding a New Analysis Document
 
-#### For Pattern Contributions
+When you add a new analysis doc, these files must be updated in the same PR. Missing any of them means the new doc is invisible to readers or unreachable by the audit prompt.
+
+- [ ] **`analysis/{new-topic}.md`** — created from [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md). Required frontmatter: `evidence-tier`, `applies-to-signals`, `last-verified`, `revalidate-by`, `status`. Required sections: Purpose, Core Problem, Diagnostic Framework / Anti-Patterns / Comparison, Counter-Evidence (if thesis-framed), Gaps (if threshold-dependent), Related Analysis, Sources.
+- [ ] **`SOURCES.md`** — full source entry with URL, date, evidence tier, key insights, pattern reference.
+- [ ] **`SOURCES-QUICK-REFERENCE.md`** — add only if the source is Authority 3 or higher (practitioner / authoritative / foundational). Skip for Authority 1–2 sources.
+- [ ] **`AUDIT-CONTEXT.md`** — **mandatory**. Add at least one signal → fetch row. Signal keys must match the `applies-to-signals` frontmatter in your new doc. **Without this, the doc is unreachable by the audit prompt.**
+- [ ] **`README.md`** — add to the "Core Analysis" table with a one-line description. Bump the count in `## Project Status` if applicable.
+- [ ] **`INDEX.md`** — auto-regenerated. Run the regenerator skill (`index-regenerator`) if configured, or leave for the next maintenance pass.
+- [ ] **`PLAN.md`** — add a bullet to `## Recent Activity` (only if you have maintainer access).
+
+**Canonical template**: start every new doc from [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md). It includes the exact frontmatter schema, section order, citation format, counter-evidence pattern, and gap-statement format.
+
+### Renaming or Removing an Analysis Document
+
+Same coordination burden, reversed:
+
+- [ ] `analysis/{old-name}.md` — removed or renamed.
+- [ ] `AUDIT-CONTEXT.md` — remove or update the routing row pointing to the old path.
+- [ ] `README.md` — remove from or update the "Core Analysis" table.
+- [ ] `SOURCES.md` and `SOURCES-QUICK-REFERENCE.md` — update any `Referenced in:` back-links.
+- [ ] `grep -rn "{old-filename}" analysis/ *.md` — fix every cross-reference.
+- [ ] `INDEX.md` — regenerate.
+
+### 4. Submit a Pull Request
+
+#### For Analysis Contributions
 
 **File Structure**:
 ```bash
-# Create pattern file
-touch patterns/your-pattern.md
+# Create from canonical template
+cp analysis/CANONICAL-DOC-TEMPLATE.md analysis/your-analysis.md
 
-# Add to SOURCES.md
-# Reference in README.md if appropriate
-# Add cross-references to related patterns
+# Edit frontmatter, body, signals
+# Update SOURCES.md, AUDIT-CONTEXT.md, README.md per checklist above
 ```
 
-**Pattern Template**:
-```markdown
-# Pattern Name
-
-**Source**: [Author/Source Name with URL]
-**Evidence Tier**: [A/B/C]
-
-## The Core Problem
-
-[What problem does this solve?]
-
-## The Solution
-
-[How to implement the pattern]
-
-## Implementation Pattern
-
-[Step-by-step guide]
-
-## Measured Results (if applicable)
-
-[Metrics from production validation]
-
-## Related Patterns
-
-- [Related Pattern 1](./related-1.md)
-- [Related Pattern 2](./related-2.md)
-```
-
-#### For Skills Contributions
-
-**File Structure**:
-```bash
-# Create skill directory
-mkdir -p skills/examples/your-skill
-
-# Create SKILL.md
-touch skills/examples/your-skill/SKILL.md
-
-# Use SKILL-TEMPLATE.md as starting point
-```
-
-**Required Sections**:
-- YAML frontmatter (name, description, allowed-tools)
-- IDENTITY, GOAL, TRIGGER CONDITIONS
-- STEPS (clear methodology)
-- OUTPUT FORMAT
-- EXAMPLES
-- ANTI-PATTERNS
-- SECURITY (risk classification)
+**Analysis Document Template**: see [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md) for the canonical structure with worked-example frontmatter and section order. The template is authoritative — this CONTRIBUTING.md file defers to it rather than duplicating.
 
 #### For Documentation Contributions
 
@@ -138,29 +113,21 @@ Small fixes can go directly to PR:
 - Formatting issues
 - Minor clarifications
 
-### 4. Pass Validation Checklist
+### 5. Pass Validation Checklist
 
 Before submitting, verify:
 
-**For New Patterns**:
+**For New Analysis Documents** (expand on the Step 3 integration checklist):
 - [ ] Has authoritative source (Tier A or B)
-- [ ] Tested in production (3+ projects for Tier B)
-- [ ] Includes implementation guide
-- [ ] Has examples or use cases
-- [ ] Documents anti-patterns
-- [ ] Cross-references related patterns
-- [ ] Added to SOURCES.md with evidence tier
-- [ ] Mentioned in appropriate README sections
-
-**For New Skills**:
-- [ ] Follows SKILL-TEMPLATE.md structure
-- [ ] Has third-person description (for skill selection)
-- [ ] Includes DO NOT ACTIVATE conditions
-- [ ] Has clear trigger conditions
-- [ ] Includes security classification
-- [ ] Has integration section
-- [ ] Tested in at least 2 different projects
-- [ ] Examples demonstrate real usage
+- [ ] Evaluated against production evidence (3+ projects for Tier B)
+- [ ] Includes comparative analysis or quantified metrics
+- [ ] Has canonical YAML frontmatter (`evidence-tier`, `applies-to-signals`, `last-verified`, `revalidate-by`, `status`)
+- [ ] Signal keys in frontmatter match entries in `AUDIT-CONTEXT.md`
+- [ ] Documents limitations and trade-offs (Counter-Evidence or Gaps section)
+- [ ] Cross-references related analysis documents (bidirectional where logical)
+- [ ] Added to SOURCES.md with full entry
+- [ ] Added to AUDIT-CONTEXT.md routing table (mandatory)
+- [ ] Mentioned in README.md Core Analysis table
 
 **For Documentation Changes**:
 - [ ] Markdown formatting is correct
@@ -168,7 +135,7 @@ Before submitting, verify:
 - [ ] No typos or grammar errors
 - [ ] Changes align with existing voice/style
 
-### 5. PR Description Template
+### 6. PR Description Template
 
 ```markdown
 ## What This Changes
@@ -237,11 +204,11 @@ When deprecating a pattern, tool, or recommendation, follow this checklist to pr
    [Clear instructions on what to use instead]
    ```
 
-2. **Search all patterns for references**:
+2. **Search all analysis documents for references**:
    ```bash
    # Find all mentions of deprecated item
-   grep -r "deprecated-tool-name" patterns/
-   grep -r "deprecated-pattern" patterns/
+   grep -r "deprecated-tool-name" analysis/
+   grep -r "deprecated-item" analysis/
    ```
 
 3. **Update or remove recommendations**:
@@ -251,7 +218,7 @@ When deprecating a pattern, tool, or recommendation, follow this checklist to pr
    - Replace with migration path where appropriate
 
 4. **Add migration notes**:
-   - In patterns that reference deprecated item, add:
+   - In analysis documents that reference deprecated item, add:
      ```markdown
      > ⚠️ **Deprecated**: [Tool] was deprecated YYYY-MM-DD.
      > Use [replacement] instead. See [DEPRECATIONS.md](../DEPRECATIONS.md#tool-name).
@@ -282,12 +249,12 @@ See [AUDIT-2026-02-27.md](AUDIT-2026-02-27.md) for case study of deprecation coo
 - mcp-daily-essentials.md still recommended it ❌
 - tool-ecosystem.md recommended alternative ✅
 
-**Lesson**: Must update ALL patterns that reference deprecated item, not just DEPRECATIONS.md.
+**Lesson**: Must update ALL analysis documents that reference deprecated item, not just DEPRECATIONS.md.
 
 ### After Grace Period
 
 When grace period expires:
-1. Remove all mentions from patterns (no more "deprecated" notices)
+1. Remove all mentions from analysis documents (no more "deprecated" notices)
 2. Update DEPRECATIONS.md to mark grace period as ended
 3. Grep to verify complete removal
 4. Consider moving to ARCHIVE.md if historical value
@@ -332,9 +299,9 @@ When grace period expires:
 - Bold for **emphasis**, italics for *examples*
 
 ### File Naming
-- Lowercase with dashes: `pattern-name.md`
+- Lowercase with dashes: `analysis-name.md`
 - Descriptive: `context-engineering.md` not `context.md`
-- Consistent with existing patterns
+- Consistent with existing analysis documents
 
 ## Questions?
 
@@ -345,7 +312,7 @@ When grace period expires:
 ## Code of Conduct
 
 - Be respectful and professional
-- Focus on patterns, not individuals
+- Focus on analysis, not individuals
 - Assume good intent
 - Provide constructive feedback
 - Acknowledge prior art and sources
@@ -356,4 +323,4 @@ By contributing, you agree that your contributions will be licensed under the MI
 
 ---
 
-**Thank you for helping improve Claude Code project patterns!**
+**Thank you for helping improve Claude Code evidence-based analysis!**

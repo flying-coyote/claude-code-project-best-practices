@@ -23,8 +23,11 @@ measurement-claims:
     source: "MCP patterns analysis"
     date: "2026-03-01"
     revalidate: "2026-09-01"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-03-30"
+evidence-tier: Mixed
+applies-to-signals: [project-type-domain-heavy]
+revalidate-by: 2026-09-30
 ---
 
 # Domain Knowledge Architecture: Making Expertise Findable Without Overwhelming Context

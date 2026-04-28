@@ -15,8 +15,11 @@ measurement-claims:
     source: "Tenzir production data"
     date: "2026-01-15"
     revalidate: "2027-01-15"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-02-16"
+evidence-tier: B
+applies-to-signals: [harness-skills, harness-mcp]
+revalidate-by: 2026-07-15
 ---
 
 # MCP vs Skills Economics

@@ -1,5 +1,5 @@
 ---
-status: "EMERGING"
+status: EMERGING
 last-verified: "2026-02-27"
 measurement-claims:
   - claim: "Context budget 40%+ consumed by MCP tools at startup"
@@ -10,6 +10,9 @@ measurement-claims:
     source: "valgard production analysis"
     date: "2026-01"
     revalidate: "2027-01-01"
+evidence-tier: B
+applies-to-signals: [harness-mcp]
+revalidate-by: 2026-07-15
 ---
 
 # MCP Daily Essentials: Core Servers for Daily Development
@@ -24,7 +27,15 @@ measurement-claims:
 
 Model Context Protocol (MCP) servers extend Claude's capabilities by connecting to external systems. However, each MCP server consumes context budget. This pattern identifies the "daily driver" MCP servers that provide maximum value for typical development workflows while respecting context constraints.
 
-**Key Insight**: The sweet spot is 4 plugins + 2 MCPs. Beyond this, context consumption outweighs utility.
+**Key claim** (Tier B — valgard production measurement, January 2026): *The sweet spot is 4 plugins + 2 MCPs. Beyond this, context consumption outweighs utility.*
+
+**Gap: threshold calibration.** The "4 + 2" threshold is valgard's production-measured optimum on his specific workload, not a validated universal. **Needs**: cross-project measurement across different task types (documentation-heavy vs. pure coding vs. research) to confirm the threshold generalizes. Treat "4 + 2" as a starting configuration to tune, not a universal prescription.
+
+**When "4 + 2" is wrong**:
+
+- Heavy documentation work may benefit from Context7 alone (1 MCP, more context budget for reading).
+- Security/data-pipeline work often needs 3+ specialized MCPs (worth the context cost for correctness).
+- Exploratory research may want zero MCPs (full context for reasoning).
 
 ---
 

@@ -15,8 +15,19 @@ measurement-claims:
     source: "OWASP security analysis"
     date: "2025-09-20"
     revalidate: "2026-03-20"
-status: "PRODUCTION"
-last-verified: "2026-02-16"
+  - claim: "Tool Search achieves 89% token reduction (77K to 8.7K tokens)"
+    source: "H-MCP-CONTEXT-01 hypothesis"
+    date: "2026-04-15"
+    revalidate: "2026-10-15"
+  - claim: "15% of OpenClaw skills contain harmful instructions"
+    source: "Jenova Research"
+    date: "2026-03-01"
+    revalidate: "2026-09-01"
+status: PRODUCTION
+last-verified: "2026-04-15"
+evidence-tier: A
+applies-to-signals: [harness-mcp, commit-security-paths]
+revalidate-by: 2026-10-15
 ---
 
 # MCP Patterns and Security
@@ -480,9 +491,19 @@ Based on [OWASP's Practical Guide](https://genai.owasp.org/resource/cheatsheet-a
 - [ ] Staged deployment with monitoring
 - [ ] Periodic re-validation of approved servers
 
+### Skill Supply Chain Risk
+
+**Source**: H-AGENT-SECURITY-01 hypothesis
+
+The supply chain risk extends beyond MCP servers to skills specifically. Jenova Research (March 2026) found that **15% of OpenClaw skills contain harmful instructions**. In a single week, 230 malicious plugins were published on ClawHub using the ClickFix technique — embedding malicious instructions that appear benign during casual review.
+
+This is distinct from the ~43% MCP server command injection vulnerability rate (OWASP, above). MCP vulnerabilities are implementation flaws in server code; skill supply chain attacks are intentional hostile instructions embedded in skill definitions that the model follows faithfully.
+
+> **Implication**: The 4-question Quick Security Assessment below was designed for MCP servers. Skill vetting requires additional scrutiny of instruction content, not just permission scope — a malicious skill can cause harm using only the permissions you explicitly grant it.
+
 ### Quick Security Assessment
 
-Before adding any MCP server, answer:
+Before adding any MCP server or skill, answer:
 
 ```
 1. Is the source verified and trusted?
@@ -496,6 +517,10 @@ Before adding any MCP server, answer:
 
 4. Is there a less privileged alternative?
    └── YES → Use the alternative
+
+5. [Skills only] Have you reviewed the instruction content for hidden directives?
+   └── NO → Read every instruction line before installing
+   └── 15% of community skills contain harmful instructions (Jenova Research, March 2026)
 ```
 
 ---
@@ -608,6 +633,27 @@ Session start:
 ```
 
 **Benefit**: Start lean, expand as needed—not all tools at once.
+
+### Dynamic Tool Loading: The Context Budget Solution (Validated)
+
+**Source**: H-MCP-CONTEXT-01 hypothesis (5/5 confidence, validated April 2026)
+
+Claude Code's Tool Search achieves **89% token reduction** (77K to 8.7K tokens) by deferring tool schema loading until needed. This fundamentally changes the MCP context budget economics documented above.
+
+**Key findings**:
+
+| Mechanism | Impact |
+|-----------|--------|
+| Tool Search deferred loading | 89% reduction (77K → 8.7K tokens) |
+| 10K token threshold | Tools loaded on demand, not all at startup |
+| Input schema overhead | 60-80% of MCP tool token budgets (Speakeasy Dynamic Toolsets finding) |
+| Lazy schema loading | Fix for schema bloat — load schemas only when tool is invoked |
+
+**Workflow consolidation**: 4-5 high-level workflow tools outperform 50+ granular tools — now backed by 5 independent implementations confirming this pattern.
+
+**Impact on the "4 plugins + 2 MCPs" sweet spot**: The static "4 plugins + 2 MCPs" recommendation above (from valgard, Tier B) pre-dates Tool Search. It remains valid as a fallback for users not using Tool Search, but dynamic loading fundamentally changes the economics. With deferred loading, the constraint shifts from "how many tools fit in context" to "how many tools can be discovered efficiently" — a much higher ceiling.
+
+> **Rule of thumb update**: The ">15 MCP tools = over-budget" heuristic above applies to static loading only. With Tool Search enabled, the practical limit is the 10K token threshold per deferred batch, not total tool count.
 
 ---
 
@@ -883,5 +929,9 @@ mcp-server/                      # Best Practices MCP Server
 - [Nate B. Jones - MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving)
 - [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)
 - [OWASP Guide for Securely Using Third-Party MCP Servers v1.0](https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/)
+- H-MCP-CONTEXT-01 hypothesis (5/5 confidence, validated April 2026)
+- H-AGENT-SECURITY-01 hypothesis (skill supply chain risk)
+- Jenova Research: OpenClaw skill security analysis (March 2026)
+- Speakeasy Dynamic Toolsets: input schema token overhead analysis
 
-*Last updated: February 2026*
+*Last updated: April 2026*

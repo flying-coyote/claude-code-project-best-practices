@@ -1,4 +1,14 @@
+---
+evidence-tier: B
+applies-to-signals: [audit-always-fetch, contributing-new-analysis]
+last-verified: 2026-04-22
+revalidate-by: 2026-10-22
+status: PRODUCTION
+---
+
 # Evidence Tier System
+
+**Evidence Tier**: B (methodology document — adapted from established research methodology, validated in production use across this repository; self-referential scheme)
 
 A classification framework for source quality and claim confidence.
 
@@ -267,7 +277,8 @@ Even primary sources require re-validation for time-sensitive claims.
 | **Feature availability** | Until next major version | Verify in latest release notes | "Requires v2.1.30+" |
 | **Security audit results** | 6 months | Check for new CVEs/advisories | "43% of MCP servers vulnerable" |
 | **Cost comparisons** | 6 months | Verify current pricing | "4x more cost-effective" |
-| **Model capabilities** | 6 months (after new model release) | Test with new model | "Opus 4.6 handles X well" |
+| **Model capabilities** | 6 months (after new model release) | Test with new model | "Opus 4.6 handles X well" — re-test on 4.7 given literal-interpretation shift |
+| **Prompt-interpretation behavior** | Any new model release | Side-by-side output diff on new model | "Agent infers edge cases from 'handle corner cases'" — 4.7 changed this (see [model-migration-anti-patterns.md](model-migration-anti-patterns.md)) |
 
 #### Expiry Date Citation Format
 
@@ -277,7 +288,7 @@ Even primary sources require re-validation for time-sensitive claims.
 - Source: Anthropic internal testing (Tier A)
 - Date: November 24, 2025
 - Revalidate: November 24, 2026
-- Context: Tested with Opus 4.6, may change with Opus 5.0
+- Context: Tested with Opus 4.6. Opus 4.7 (April 2026) shifted prompt interpretation toward literalism — re-test before citing on 4.7+.
 ```
 
 #### When Measurements Expire

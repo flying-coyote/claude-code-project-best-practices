@@ -2,9 +2,12 @@
 version-requirements:
   claude-code: "v2.0.0+"
 version-last-verified: "2026-02-27"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-02-16"
 notes: "Comparative guide - native subagents handle ~80% of use cases"
+evidence-tier: B
+applies-to-signals: [project-type-framework-selection, harness-comprehensive]
+revalidate-by: 2026-10-22
 ---
 
 # Framework Selection Guide
@@ -37,7 +40,7 @@ Is this a simple, single-session task?
   ├─YES──► Use NATIVE SUBAGENT ORCHESTRATION (Default)
   │        • Explore, Plan, general-purpose subagent types
   │        • Built into Claude Code, zero setup
-  │        • See: patterns/subagent-orchestration.md
+  │        • See: analysis/orchestration-comparison.md
   │
   ▼
   NO
@@ -49,7 +52,7 @@ Do you need state persistence across sessions?
   │        • STATE.md for cross-session memory
   │        • Fresh context per executor (prevents rot)
   │        • .planning/ directory structure
-  │        • See: patterns/gsd-orchestration.md
+  │        • See: analysis/orchestration-comparison.md
   │
   ▼
   NO
@@ -61,7 +64,7 @@ Are you building a reusable agent architecture?
   │        • 7 fixed agents (constant complexity)
   │        • Deterministic orchestration
   │        • Learning & memory capture
-  │        • See: patterns/cognitive-agent-infrastructure.md
+  │        • See: analysis/orchestration-comparison.md
   │
   ▼
   NO
@@ -85,13 +88,16 @@ Use NATIVE SUBAGENT ORCHESTRATION (Default)
 
 ## Framework Comparison
 
-| Framework | Agent Model | Context Strategy | State Management | Evidence |
-|-----------|-------------|------------------|------------------|----------|
-| **Native Subagent** | 1 parent + N subagents | Accumulating | Conversation history | Tier A |
-| **GSD** | ~5 workflow agents | Fresh per subagent | STATE.md + .planning/ | Tier B |
-| **CAII** | 7 cognitive agents | On-the-fly injection | Task-specific memories | Tier B |
-| **Claude-Flow** | 60+ specialized | Vector retrieval | ReasoningBank | Tier B (docs only) |
-| **RLM** | Model-managed | REPL variable + recursive | Sub-call outputs | Tier B (emerging) |
+**Sources per row** (full citations in [SOURCES.md](../SOURCES.md)):
+
+| Framework | Agent Model | Context Strategy | State Management | Evidence | Primary source |
+|-----------|-------------|------------------|------------------|----------|---|
+| **Native Subagent** | 1 parent + N subagents | Accumulating | Conversation history | Tier A | Anthropic Claude Code docs |
+| **GSD** | ~5 workflow agents | Fresh per subagent | STATE.md + .planning/ | Tier B | glittercowboy/get-shit-done |
+| **CAII** | 7 cognitive agents | On-the-fly injection | Task-specific memories | Tier B | skribblez2718/caii |
+| **CRISPY** | Single agent, 7 phases | Phase-scoped | Design doc + vertical plans | Tier B | Dexter Horthy conference talk (March 2026) |
+| **Claude-Flow** | 60+ specialized | Vector retrieval | ReasoningBank | Tier B (docs only) | ruvnet/claude-flow (enterprise-focused docs) |
+| **RLM** | Model-managed | REPL variable + recursive | Sub-call outputs | Tier B (emerging) | Zhang/Kraska/Khattab (arXiv:2512.24601) |
 
 ---
 
@@ -226,6 +232,58 @@ RLM: [Context as Variable] → [Model decides: peek, grep, partition] → [Recur
 
 ---
 
+### CRISPY: Structured Phase Decomposition (RPI Successor)
+
+**When to use**: Complex implementation tasks where mega-prompts produce poor plans
+
+**Status**: Production-validated. Evolved from Research-Plan-Implement (RPI). Source: Dexter Horthy / Human Layer (Authority 4/5), confirmed across "thousands of engineers."
+
+**Key Innovation**: RPI's 3 phases with 85+ instruction mega-prompts split into 7 phases with <40 instructions each. Core principle: "don't use prompts for control flow; use control flow for control flow."
+
+```
+RPI:     [Research 85+ instructions] → [Plan] → [Implement]  (monolithic, hard to debug)
+CRISPY:  [Questions] → [Research] → [Design] → [Structure] → [Plan] → [Work] → [Implement + PR]
+         (each phase <40 instructions, discrete control flow)
+```
+
+**The 7 Phases**:
+1. Questions — Surface unknowns
+2. Research — Gather context
+3. Design — 200-line design doc (alignment artifact)
+4. Structure — Component boundaries
+5. Plan — Vertical implementation slices
+6. Work — Execute
+7. Implement + PR — Finalize
+
+**Best for**:
+- Complex features where a single planning pass produces 1000+ line plans
+- Projects where plan-to-implementation divergence wastes review effort
+- Teams that need a lightweight alignment checkpoint before deep implementation
+
+#### The Design Doc Pattern
+
+The central alignment artifact in CRISPY. A ~200-line document capturing:
+- Where we're going (target state)
+- Patterns to follow (architectural decisions)
+- Resolved decisions (no longer open)
+- Open questions (still need answers)
+
+This is described as "brain surgery on the agent before you proceed downstream." Instead of reviewing a 1000-line generated plan, align on a 200-line design doc and invest review time in the resulting code.
+
+**Why this matters**: Plans have "surprises" — implementation frequently diverges from plan. Reviewing a plan AND then reviewing divergent code is double work. A 200-line design doc is small enough to actually read and validate. Skip plan review, invest in code review.
+
+**Applicability note**: This guidance targets very long plans (1000+ lines). Short plans for simple tasks don't have the divergence problem.
+
+#### Vertical Planning (vs. Horizontal Default)
+
+Models default to horizontal planning: all database schema, then all service layer, then all API endpoints. This produces untestable 1200+ line plans where nothing works until everything is done.
+
+Vertical slicing enforces testable checkpoints: one complete feature slice (DB + service + API + test) at a time. Each slice is independently verifiable.
+
+**Documentation**: [Orchestration Comparison — CRISPY](./orchestration-comparison.md)
+
+---
+
 ## How Frameworks Map to SDD Phases
 
 All orchestration frameworks implement the SDD 4-phase model differently:
@@ -275,6 +333,8 @@ Some patterns extracted from these frameworks work with ANY orchestration:
 |---------|--------|-----------------|
 | [Johari Window](./behavioral-insights.md) | CAII | Surface unknowns before implementation |
 | [STATE.md](./gsd-orchestration.md#the-statemd-pattern) | GSD | Cross-session memory (even without full GSD) |
+| [Design Doc](./orchestration-comparison.md) | CRISPY | 200-line alignment artifact before plan generation |
+| [Vertical Planning](./orchestration-comparison.md) | CRISPY | Testable slices vs. untestable horizontal layers |
 | [Progressive Disclosure](./plugins-and-extensions.md) | Production | Token efficiency for all frameworks |
 | [Atomic Commits](./gsd-orchestration.md#atomic-commits-pattern) | GSD | One task = one commit (good practice anyway) |
 
@@ -288,6 +348,7 @@ Some patterns extracted from these frameworks work with ANY orchestration:
 | **Small feature (<1 day)** | Native Subagent | No session continuity needed |
 | **Medium feature (1-3 days)** | Native or GSD | GSD if quality degradation noticed |
 | **Large feature (1+ week)** | GSD | STATE.md essential for continuity |
+| **Complex feature (1000+ line plans)** | CRISPY | Design doc alignment, vertical slicing |
 | **Building agent tools** | CAII | Scalable architecture matters |
 | **Research project** | Native + Johari | Johari for ambiguity; native for execution |
 | **Team collaboration** | GSD | STATE.md enables handoffs |
@@ -419,10 +480,11 @@ Some patterns extracted from these frameworks work with ANY orchestration:
 2. **Native Subagent is the default** - Zero setup, handles 80% of work
 3. **GSD for session continuity** - STATE.md when projects span sessions
 4. **CAII for agent architecture** - When building reusable agent systems
-5. **Claude-Flow for reference only** - Enterprise patterns, don't implement directly
+5. **CRISPY for complex planning** - Design doc alignment, vertical slicing (RPI successor)
+6. **Claude-Flow for reference only** - Enterprise patterns, don't implement directly
 
 **When in doubt**: Start with Native Subagent. Add complexity only when you feel specific friction.
 
 ---
 
-*Last updated: January 2026*
+*Last updated: April 2026*

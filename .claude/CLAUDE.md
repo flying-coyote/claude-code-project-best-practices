@@ -1,6 +1,6 @@
 # Claude Code Best Practices — Analytical Layer
 
-Evidence-based analysis of Claude Code patterns, not implementation guides. We evaluate claims, compare approaches, and surface quantified behavioral insights.
+A portable, evidence-based audit you can run against any Claude Code project to get recommendations specific to *that project*. Every claim carries an evidence tier (A/B/C); the one-prompt audit routes observed project signals to the 4–8 of 28 analysis docs that apply. Not a tooling library (see `everything-claude-code`) and not a methodology framework (see `superpowers`) — the analytical layer that complements both.
 
 ## Commands
 - `npm run lint` - Lint all markdown files
@@ -14,7 +14,7 @@ Commit prefixes:
 - 🔧 Configuration and infrastructure
 
 ## Project Structure
-- `analysis/` - 14 evidence-based analysis documents (the core content)
+- `analysis/` - 28 evidence-based analysis documents (the core content)
 - `archive/` - Prior v1 patterns, skills, templates (preserved for reference)
 - `SOURCES.md` - Comprehensive source database with evidence tiers
 
@@ -30,4 +30,6 @@ Commit prefixes:
 - PLAN.md stays in git as canonical plan
 
 ## Current Focus
-v2.0 repositioning — analytical layer complementing ECC (tooling) and superpowers (methodology)
+v2.1 — 28 analysis documents with production evidence from 7-repo portfolio, complementing ECC (tooling) and superpowers (methodology)
+
+Note: This project uses emoji prefixes (documentation project). Code repos in the portfolio use conventional commits (`feat:`, `fix:`, `docs:`).

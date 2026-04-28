@@ -1,3 +1,11 @@
+---
+evidence-tier: Mixed
+applies-to-signals: [audit-always-fetch, model-version-migration]
+last-verified: 2026-04-22
+revalidate-by: 2026-10-22
+status: PRODUCTION
+---
+
 # Behavioral Insights: How Claude Code Actually Works
 
 **Evidence Tier**: Mixed (A-B) — Quantified claims from Boris Cherny, Anthropic engineering blog, and practitioner observation
@@ -78,22 +86,76 @@ AI conversations suffer from four knowledge quadrants (adapted from CAII/skribbl
 
 ## Instruction Processing
 
-### ~150 Instruction Cap
+### ~150 Instruction Cap (Convergent Evidence)
 
-Boris Cherny's observation: Claude Code performance degrades beyond approximately 150 instructions in CLAUDE.md. This aligns with the broader finding that more context doesn't always mean better results.
+The ~150 instruction cap is now independently validated by multiple high-authority sources:
+
+| Source | Authority | Basis |
+|--------|-----------|-------|
+| Boris Cherny (Claude Code creator) | 5/5 | Direct practitioner observation |
+| Dexter Horthy (RPI/CRISPY creator) | 4/5 | Cites arXiv paper via Kyle's blog |
+
+This upgrades the claim from single-source expert guidance to **convergent practitioner evidence** — different practitioners, different data sources, same conclusion. The cap appears to be a genuine behavioral boundary, not an artifact of one person's workflow.
 
 **Recommendations**:
 - Keep CLAUDE.md under 150 lines (60 lines optimal)
 - Use progressive disclosure — reference files instead of inlining content
 - Skills load ~2% of context budget each; budget accordingly
 - 500-line cap on individual SKILL.md files
+- Split mega-prompts with 85+ instructions into phases with <40 instructions each (see Design Rule below)
 
-### Prompt Sensitivity (Opus 4.5/4.6)
+### Prompt Sensitivity Across Model Versions
 
-Opus 4.5/4.6 models are more responsive to system prompts than earlier models. If prompts were tuned for older models:
-- Dial back assertive/aggressive language
-- Reduce "ALWAYS"/"NEVER" emphasis (model already more compliant)
-- Watch for overtriggering on tool/skill invocation language
+Prompt sensitivity is not uniform across the Opus family — what works on one version can silently degrade on the next. Cross-version diagnostic table:
+
+| Version | Sensitivity pattern | Implication for existing prompts |
+|---|---|---|
+| **Opus 4.5 / 4.6** | More responsive to system prompts than earlier models; infers intent liberally from loose phrasing | Dial back "ALWAYS"/"NEVER" emphasis; watch for overtriggering on tool/skill invocation language |
+| **Opus 4.7** (April 16, 2026) | **Literal interpretation** — will not silently generalize instructions; fewer default subagents; adaptive verbosity | 4.6-validated prompts with vague descriptors, edge-case gestures, or unanchored triggers may silently no-op |
+
+The Anthropic migration guide states explicitly:
+
+> "Claude Opus 4.7 interprets prompts more literally and explicitly than Claude Opus 4.6... It will not silently generalize an instruction from one item to another, and it will not infer requests you didn't make."
+
+**Selective literalism caveat** (Willison, April 18, 2026): 4.7 is tuned to be *less* literal about clarifying-question behavior — the leaked system prompt instructs Claude to "make a reasonable attempt now, not... be interviewed first." Audits that treat literalism as uniform will over-correct.
+
+**Community counter-signals (Tier C)**: [HN 47793411](https://news.ycombinator.com/item?id=47793411) reports adaptive thinking under-triggering on reasoning-heavy tasks (workaround: `xhigh` effort). [HN 47814832](https://news.ycombinator.com/item?id=47814832) reports system-reminder over-application to every file read.
+
+See [Model Migration Anti-Patterns](model-migration-anti-patterns.md) for the six failure modes, remediation patterns, and the MUST-vs-positive-examples tension (Vertrees's MUST/MUST NOT framing conflicts with Anthropic's stated preference for positive examples).
+
+### Vertical Planning Principle (Horthy, Authority 4/5)
+
+Models default to **horizontal plans**: all DB schema, then all services, then all API endpoints, then all frontend components. This produces 1200+ lines of untestable code before anything can be verified.
+
+**Vertical plans** create testable checkpoints at each stage:
+1. Mock API -> frontend (verify UI works with mocked data)
+2. Real services -> API (verify backend works)
+3. Database -> services (verify data layer)
+4. Integration (verify everything together)
+
+**Harness implication**: If your agent produces large untestable blocks, the issue may be plan orientation, not model capability. Instruct vertical slicing explicitly.
+
+Source: Dexter Horthy (RPI/CRISPY creator), Authority 4/5.
+
+### Design Rule: Control Flow, Not Prompts
+
+> "Don't use prompts for control flow; use control flow for control flow."
+
+Mega-prompts with 85+ instructions cause inconsistent adherence and require "magic words" to trigger specific behaviors. The failure mode: the agent follows some instructions reliably but ignores others unpredictably.
+
+**Fix**: Split into discrete phases with <40 instructions each. Use actual control flow (hooks, scripts, staged prompts) to sequence the phases rather than hoping the model will self-sequence through a long instruction list.
+
+This aligns with the ~150 instruction cap above — the cap isn't just about total count but about cognitive load per decision point.
+
+Source: Dexter Horthy (RPI/CRISPY creator), Authority 4/5.
+
+### Monitor Tool (Anthropic, April 2026)
+
+New built-in tool for background process observation. Uses **interrupt-based notification** instead of polling loops — the agent no longer wastes tokens repeatedly checking subprocess status.
+
+**Key behavioral note**: The Monitor tool requires explicit prompting. Without instruction, the agent defaults to polling patterns (run command, check output, wait, check again). With instruction ("use the monitor tool to observe for errors"), it switches to an event-driven pattern that is both cheaper and more responsive.
+
+Source: Anthropic, April 2026.
 
 ---
 
@@ -149,6 +211,41 @@ Custom subagents (`.claude/agents/`) can **"gatekeep context"** and force rigid 
 
 ---
 
+## Agent Capability Boundaries
+
+### Jaggedness Principle (Karpathy, Authority 4/5)
+
+Agent capability is not uniformly distributed — it is **domain-structured**. Agents excel in verifiable domains and stagnate in non-verifiable ones:
+
+| Domain Type | Examples | Agent Performance | Why |
+|-------------|----------|-------------------|-----|
+| **Verifiable** | Code, tests, structured data, SQL, math | Rapidly improving | RL can optimize against clear correctness signals |
+| **Non-verifiable** | Design taste, writing style, judgment calls, UX decisions | Stagnating | No ground truth to train against |
+
+The unpredictability of agent performance is not random — it follows this verifiable/non-verifiable axis. This has direct harness design implications:
+
+- **Route to agents**: Tasks with verifiable outputs (write a function, fix a test, generate SQL, refactor code)
+- **Keep for humans**: Tasks requiring subjective judgment (API design, naming conventions, UX flow, architectural trade-offs)
+- **Hybrid**: Agent drafts, human evaluates on subjective dimensions
+
+Source: Andrej Karpathy, No Priors podcast, March 2026. Authority 4/5.
+
+### Poor Self-Evaluation Failure Mode (Anthropic, Authority 5/5)
+
+Anthropic disclosed a specific failure pattern in Claude's self-evaluation: the model identifies legitimate issues then **rationalizes them away**.
+
+> Claude "talked itself into deciding they weren't a big deal and approved the work anyway."
+
+The failure mode is NOT "misses issues." The model *sees* the problems. The failure mode is "identifies then rationalizes" — a motivated reasoning pattern where the model talks itself out of its own correct assessment.
+
+**Mitigation**: Independent evaluator agents with weighted rubrics. The evaluator must be context-isolated from the builder (fresh session, no shared conversation history) to prevent the same rationalization pattern. Structured rubrics with explicit scoring prevent narrative self-persuasion.
+
+This aligns with Boris Cherny's Writer/Reviewer pattern: the review session catches what the writer session rationalized away, because it has fresh context and no sunk cost in the implementation.
+
+Source: Anthropic engineering blog, Authority 5/5.
+
+---
+
 ## Auto Mode Behavior (v2.1.84+)
 
 ### Two-Stage Classifier
@@ -162,6 +259,19 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 
 ---
 
+## Gaps
+
+Several widely-cited thresholds in this doc are load-bearing but carry single-source confidence. Explicit gap statements:
+
+- **Gap: 60% context quality threshold.** Boris Cherny reports proactive intervention at 60% context; the claim is practitioner-observed, not independently benchmarked. **Needs**: correlation study between context fill percentage and a measurable output-quality metric (task-pass rate, reviewer score) across sessions.
+- **Gap: ~80% CLAUDE.md adherence.** Cited ubiquitously in this repo. Source is Boris Cherny's direct observation; no public methodology for the 80% figure. **Needs**: controlled study running the same CLAUDE.md across N sessions, measuring instruction-follow rate per instruction type.
+- **Gap: ~150 instruction cap.** Convergent evidence (Cherny + Horthy) upgrades confidence, but both sources reach it by observation, not measurement. **Needs**: ablation study varying CLAUDE.md instruction count and measuring adherence.
+- **Gap: Opus 4.7 literalism rate.** Anthropic states 4.7 "will not silently generalize," but does not quantify *how often* 4.6 was generalizing. **Needs**: side-by-side prompt-running on 4.6 vs 4.7 against a corpus of vague prompts; measure the silent-no-op rate delta.
+
+These gaps do not invalidate the claims — they scope them. Practitioner-observed thresholds are still the best available evidence for these behaviors.
+
+---
+
 ## Quantified Claims Summary
 
 | Claim | Source | Confidence |
@@ -169,27 +279,40 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 | CLAUDE.md followed ~80% of the time | Boris Cherny (March 2026) | High (Tier A practitioner) |
 | Auto-compaction at ~83.5% context | Boris Cherny (March 2026) | High |
 | 60% context = quality decline threshold | Boris Cherny (March 2026) | High |
-| ~150 instruction cap for CLAUDE.md | Boris Cherny (March 2026) | Medium (observation, not measured) |
+| ~150 instruction cap for CLAUDE.md | Boris Cherny + Dexter Horthy (convergent) | **High** (upgraded: convergent evidence) |
 | Auto mode 93% approval rate | Anthropic blog (March 2026) | High (Tier A) |
 | Extended thinking = 2-3x latency | Boris Cherny (March 2026) | High |
 | Skills use ~2% context budget each | Anthropic docs | High (Tier A) |
+| Jaggedness: verifiable domains improve, non-verifiable stagnate | Karpathy (March 2026) | Medium-High (Authority 4/5, conceptual framework) |
+| Self-evaluation: identifies then rationalizes issues away | Anthropic engineering blog | High (Tier A, vendor self-disclosure) |
+| Monitor tool requires explicit prompting for interrupt-based mode | Anthropic (April 2026) | High (Tier A) |
+| Mega-prompts with 85+ instructions cause inconsistent adherence | Horthy (CRISPY creator) | Medium-High (Authority 4/5) |
+| Opus 4.7 interprets instructions literally; no silent generalization | Anthropic migration guide (April 2026) | High (Tier A, vendor docs) |
+| Opus 4.7 literalism is selective — less literal on clarifying-question behavior | Willison (April 18, 2026) | Medium (Tier B, leaked system prompt analysis) |
 
 ---
 
 ## Sources
 
 - Boris Cherny interviews: Lenny's Podcast, Pragmatic Engineer, Threads mega-posts (March 2026)
+- Dexter Horthy (RPI/CRISPY creator): Vertical planning, control flow design rule, ~150 instruction convergent validation (via arXiv paper/Kyle's blog)
+- Andrej Karpathy: No Priors podcast (March 2026) — Jaggedness principle, verifiable vs non-verifiable domain axis
 - Nate B. Jones: Specification Gap, Agent Build Bible
 - CAII (skribblez2718): Johari Window methodology
 - RLM paper (Zhang, Kraska, Khattab): Context rot research
-- Anthropic Engineering Blog: Auto mode, agent skills (March 2026)
+- Anthropic Engineering Blog: Auto mode, agent skills (March 2026), self-evaluation failure mode, Monitor tool (April 2026)
+- Anthropic Migration Guide (April 2026): Opus 4.7 literal interpretation, fewer default subagents, adaptive verbosity
+- Simon Willison (April 18, 2026): Opus 4.7 system-prompt analysis — selective literalism
+- Hacker News 47793411, 47814832: Community observation of 4.7 thinking-calibration and system-reminder over-application
 
 ## Related Analysis
 
 - [Harness Engineering](./harness-engineering.md) — The ~80% CLAUDE.md adherence rate and 60% context threshold are primary motivators for harness enforcement design
 - [Domain Knowledge Architecture](./domain-knowledge-architecture.md) — Context budget framework and progressive disclosure patterns build directly on the thresholds documented here
+- [Agent-Driven Development](./agent-driven-development.md) — Commit burst patterns and ~80% adherence rate motivating hook-based security enforcement in practice
+- [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Six prompt anti-patterns that break on Opus 4.7 (vague descriptors, edge-case gestures, unanchored triggers, implicit subagent dispatch, missing verbosity directives, references without read-enforcement)
 
 ---
 
 *Merged from: johari-window-ambiguity.md, recursive-context-management.md*
-*Last updated: March 2026*
+*Last updated: April 2026*

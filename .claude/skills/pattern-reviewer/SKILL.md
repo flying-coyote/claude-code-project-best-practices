@@ -1,48 +1,49 @@
 ---
-name: pattern-reviewer
-description: Validates new patterns against project quality standards. Trigger when user adds a pattern or says "review pattern".
+name: analysis-reviewer
+description: Validates new analysis documents against project quality standards. Trigger when user adds an analysis doc or says "review analysis".
 allowed-tools: Read, Glob, Grep
 ---
 
-# Pattern Reviewer
+# Analysis Reviewer
 
-Validate patterns against this repository's quality standards.
+Validate analysis documents against this repository's quality standards.
 
 ## When to Activate
 
-- User adds a new pattern to patterns/
-- User says "review pattern", "validate pattern", "check pattern"
+- User adds a new analysis document to analysis/
+- User says "review analysis", "validate analysis", "check analysis"
 
-**Skip when**: Just reading patterns, making typo fixes
+**Skip when**: Just reading analysis docs, making typo fixes
 
 ## Validation Checklist
 
 ### Required
 
-- [ ] **Evidence Tier** label (A, B, or C)
+- [ ] **Evidence Tier** label (A, B, or C) with claim strength (1-5)
 - [ ] Source citation with URL
-- [ ] Overview/problem statement
-- [ ] Implementation guidance with examples
-- [ ] **Anti-Patterns** section (Problem/Symptom/Solution format)
-- [ ] **Related Patterns** section with valid links
+- [ ] Overview/claim statement
+- [ ] Comparative analysis or quantified metrics
+- [ ] **Limitations and Trade-offs** section
+- [ ] **Related Analysis** section with valid links to other analysis/ docs
 - [ ] "Last updated: [Month Year]" footer
 
 ### Recommended
 
-- [ ] SDD phase stated
 - [ ] Listed in SOURCES.md if new source
-- [ ] Cross-references verified
+- [ ] Cross-references verified (all links point to analysis/, not patterns/)
+- [ ] Production evidence cited where applicable
 
 ## Output Format
 
 ```markdown
-## Pattern Review: [pattern-name.md]
+## Analysis Review: [analysis-name.md]
 
 **Verdict**: [PASS/NEEDS WORK]
 
 **Source Quality**: [PASS/FAIL] - Tier [A/B/C], [source name]
 **Structure**: [PASS/FAIL] - Missing: [sections]
 **Content**: [PASS/FAIL] - [issues]
+**Cross-References**: [PASS/FAIL] - [stale links found]
 
 ### Required Changes
 1. [change]
@@ -52,4 +53,5 @@ Validate patterns against this repository's quality standards.
 
 - Rubber-stamp without checking every item
 - Focus on formatting over missing sections
-- Rewrite the pattern (flag issues for author)
+- Rewrite the analysis (flag issues for author)
+- Allow references to archived patterns/ directory

@@ -7,8 +7,11 @@ measurement-claims:
     source: "Community benchmarking"
     date: "2025-12-15"
     revalidate: "2026-12-15"
-status: "PRODUCTION"
+status: PRODUCTION
 last-verified: "2026-02-16"
+evidence-tier: B
+applies-to-signals: [project-type-framework-selection]
+revalidate-by: 2026-10-22
 ---
 
 # AI Coding Tool Ecosystem
@@ -50,44 +53,48 @@ Before choosing a tool, understand the fundamental distinction:
 
 ## Tool Selection Framework
 
+**Sources for this section**: Anthropic official docs (Tier A) for Claude Code capabilities; vendor documentation and community benchmarks (Tier B–C) for alternatives. Individual rows carry inline citations below.
+
 ### When to Use Claude Code
 
-| Scenario | Why Claude Code |
-|----------|-----------------|
-| **Anthropic ecosystem** | Native Claude integration, Opus 4.6 with 1M context |
-| **Terminal-first workflow** | CLI-native, git-centric by design |
-| **Complex reasoning tasks** | Claude's strength in multi-step reasoning + think tool |
-| **Skill-based methodology** | Official skills support (agentskills.io) |
-| **Hooks and automation** | PreToolUse, PostToolUse, Stop hooks for quality gates |
-| **Subagent orchestration** | Built-in parallel task delegation + agent teams |
-| **Web-based workflow** | Claude Code on Web (VS Code in browser) |
+| Scenario | Why Claude Code | Source |
+|----------|-----------------|--------|
+| **Anthropic ecosystem** | Native Claude integration, Opus 4.7 literal-interpretation behavior, adaptive thinking | Tier A — Anthropic migration guide (April 2026) |
+| **Terminal-first workflow** | CLI-native, git-centric by design | Tier A — Anthropic Claude Code docs |
+| **Complex reasoning tasks** | Claude's strength in multi-step reasoning + think tool (54% improvement on policy-following tasks) | Tier A — Anthropic think-tool blog |
+| **Skill-based methodology** | Official skills support, open standard | Tier A — agentskills.io |
+| **Hooks and automation** | PreToolUse, PostToolUse, Stop hooks for quality gates | Tier A — Anthropic hooks reference |
+| **Subagent orchestration** | Built-in parallel task delegation + agent teams | Tier A — Anthropic Agent SDK docs |
+| **Web-based workflow** | Claude Code on Web (VS Code in browser) | Tier A — claude.ai/code |
 
 ### When to Consider Alternatives
 
-| Scenario | Alternative | Why |
-|----------|-------------|-----|
-| **Local model requirements** | Aider + Ollama | Privacy, offline, cost optimization |
-| **IDE-native workflow** | Cursor, Windsurf | Tight editor integration, visual diff |
-| **Containerized agents** | OpenHands | Sandboxed execution, reproducibility |
-| **Multi-model orchestration** | Goose | Extensible local agent framework |
-| **GitHub Copilot investment** | Copilot Chat | Existing enterprise licenses |
-| **Multi-agent orchestration** | Auto-Claude | Parallel agents, worktree isolation, autonomous workflows |
-| **Browser automation** | Playwright | Mature, battle-tested, production-ready |
+| Scenario | Alternative | Why | Source |
+|----------|-------------|-----|--------|
+| **Local model requirements** | Aider + Ollama | Privacy, offline, cost optimization | Tier B — paul-gauthier/aider repo + Ollama docs |
+| **IDE-native workflow** | Cursor, Windsurf | Tight editor integration, visual diff | Tier C — vendor marketing, no independent benchmark |
+| **Containerized agents** | OpenHands | Sandboxed execution, reproducibility | Tier B — All-Hands-AI/OpenHands repo |
+| **Multi-model orchestration** | Goose | Extensible local agent framework | Tier B — block/goose repo |
+| **Model-agnostic terminal agent** | Crush (opencode) | Go-based, multi-provider, MCP support (22.9k stars) | Tier B — charmbracelet/crush repo |
+| **GitHub Copilot investment** | Copilot Chat | Existing enterprise licenses | Tier C — vendor positioning, not a performance claim |
+| **Browser automation** | Playwright | Mature, battle-tested, production-ready (4x token reduction vs Playwright MCP) | Tier B — Microsoft/playwright-cli benchmarks |
 
 ---
 
 ## Tool Comparison Matrix
 
+**Sources**: Claude Code column — Tier A (Anthropic docs). Aider — Tier B (paul-gauthier/aider README). Cursor — Tier C (vendor marketing, no open benchmark). OpenHands — Tier B (All-Hands-AI/OpenHands repo).
+
 | Capability | Claude Code | Aider | Cursor | OpenHands |
 |------------|-------------|-------|--------|-----------|
-| **Model** | Claude Opus 4.6 (cloud) | Any (local/cloud) | Various | Any |
+| **Model** | Claude Opus 4.7 (cloud; also 4.6, Sonnet, Haiku) | Any (local/cloud) | Various | Any |
 | **Interface** | CLI | CLI | IDE | Web/Docker |
 | **Local models** | No | Yes (Ollama) | Limited | Yes |
 | **Git integration** | Manual | Automatic commits | Manual | Automatic |
-| **Skills/Rules** | Skills (.md) | - | .cursorrules | - |
-| **MCP support** | Yes | No | Limited | No |
-| **Subagents** | Yes | No | No | Yes |
-| **Hooks** | Yes | No | No | No |
+| **Skills/Rules** | Skills (.md), open standard | - | .cursorrules | - |
+| **MCP support** | Yes (native) | No | Limited | No |
+| **Subagents** | Yes (Explore, Plan, custom) | No | No | Yes |
+| **Hooks** | Yes (13+ lifecycle events) | No | No | No |
 | **Cost** | API usage | API/free (local) | Subscription | Free |
 
 ---
@@ -189,9 +196,8 @@ Some developers use multiple tools strategically:
 ## Tool-Specific Resources
 
 ### Claude Code (This Repository)
-- [Patterns](../patterns/) - Core implementation patterns
-- [Skills](../skills/) - Reusable AI behavior patterns
-- [Templates](../templates/) - Ready-to-use configurations
+- [Analysis](../analysis/) - Evidence-based analysis documents
+- [Templates](../templates/) - Ready-to-use harness configurations
 
 ### Aider
 - **Repository**: https://github.com/paul-gauthier/aider
@@ -219,6 +225,15 @@ Some developers use multiple tools strategically:
 - **Repository**: https://github.com/AndyMik90/Auto-Claude
 - **Key Feature**: Multi-agent orchestration with git worktree isolation
 - **Best For**: Autonomous parallel development, safe experimentation
+
+### Crush (formerly opencode)
+- **Repository**: https://github.com/charmbracelet/crush
+- **Author**: Charm (charmbracelet)
+- **Stars**: 22.9k+ (April 2026)
+- **Key Feature**: Go-based, model-agnostic terminal AI coding assistant with MCP support
+- **Models**: Anthropic, OpenAI, Google, Ollama (local), OpenRouter, and more
+- **Best For**: Developers wanting a model-agnostic terminal agent with broad provider support
+- **Note**: Rebranded from "opencode" — if you encounter references to opencode from Charm, this is the same tool
 
 ---
 
@@ -248,6 +263,16 @@ The think tool enables Claude to pause mid-response to verify information before
 - Tasks requiring cross-referencing information from multiple sources
 
 **For tool designers**: When building MCP servers or skills, design tool descriptions that encourage Claude to use the think tool between critical steps. See [Writing Effective Tools for Agents](https://www.anthropic.com/engineering/writing-effective-tools-for-agents).
+
+---
+
+## Ecosystem Development: Ollama v0.19 MLX Backend (March 2026)
+
+Ollama v0.19 (released March 27, 2026) introduced native Apple MLX framework integration. On Apple Silicon Macs, Ollama now runs models through MLX rather than its previous inference backend, eliminating the performance gap that previously made direct MLX-LM the preferred approach for local inference.
+
+**Implication for tool selection**: The original rationale for "MLX in-process over Ollama" (eliminating HTTP overhead and network listener) has narrowed significantly. Ollama with MLX backend provides the same inference engine with the convenience of a managed runtime. Projects that chose direct MLX integration should benchmark Ollama v0.19 before continuing to maintain custom MLX code.
+
+See also: [Local+Cloud LLM Orchestration](./local-cloud-llm-orchestration.md) for production pipeline implications.
 
 ---
 

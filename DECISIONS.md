@@ -442,4 +442,91 @@ Evidence tiers (A-D), confidence scoring (1-5), and skill tiers (1-3) still use 
 
 ---
 
-*Last updated: March 2026*
+## Decision: Reposition as Analytical Layer — v2.0 (2026-03)
+
+### Context
+
+By March 2026, the repo had grown to 36 patterns that increasingly overlapped with everything-claude-code (110K+ stars, 125+ skills) and superpowers (disciplined methodology). Maintaining differentiation through more patterns was unsustainable.
+
+### Alternatives Considered
+
+| Approach | Pros | Cons |
+|----------|------|------|
+| **Continue adding patterns** | Familiar, incremental | Duplication with ECC, maintenance burden |
+| **Merge into ECC** | Larger audience | Loses evidence-based analytical focus |
+| **Reposition as analytical layer** | Unique niche, sustainable | Requires archiving 24 patterns |
+
+### Decision: Reposition as Evidence-Based Analytical Layer
+
+Archive 24 v1 patterns to `archive/patterns-v1/` and focus on 14 analysis documents that provide insights absent from ECC and superpowers:
+
+- Evidence tier classification system (A-D + 1-5)
+- Quantified behavioral insights (~80% CLAUDE.md adherence, 60% context threshold)
+- Comparative analysis (MCP vs Skills economics, orchestration approaches)
+- Security analysis with OWASP mapping
+
+### Three-Project Ecosystem
+
+| Project | Role |
+|---------|------|
+| **everything-claude-code** | Batteries-included tooling |
+| **superpowers** | Disciplined methodology |
+| **This project** | Evidence-based analysis |
+
+### Trade-offs Accepted
+
+- 24 patterns archived (preserved, not deleted)
+- Narrower scope, but defensible differentiation
+- Requires ongoing source monitoring to stay current
+
+---
+
+## Decision: Expand to 26 Analysis Documents — v2.1 (2026-04)
+
+### Context
+
+After v2.0 repositioning, 10 gap areas were identified where real production evidence from a 7-repo portfolio (third-brain, mndr-review-automation, health-inventory, zeek-iceberg-demo, network-visualization-services, Splunk-db-connect-benchmark, tme-mcp-server) could fill analytical gaps not covered by any existing resource.
+
+### Alternatives Considered
+
+| Approach | Pros | Cons |
+|----------|------|------|
+| **Stay at 14 docs** | Minimal maintenance | Misses unique portfolio evidence |
+| **Add 2-3 high-priority docs** | Focused expansion | Leaves 7 gaps undocumented |
+| **Document all 10 gaps** | Complete coverage of available evidence | Larger maintenance surface |
+
+### Decision: Document All 10 Gap Areas (14 → 26 documents)
+
+Each gap had Tier A evidence from direct production observation that was unavailable elsewhere. The 12 new documents:
+
+| Document | Unique Evidence |
+|----------|----------------|
+| harness-engineering.md | Harness diagnostic framework + infrastructure patterns |
+| domain-knowledge-architecture.md | Domain knowledge encoding for LLM-assisted development |
+| agent-driven-development.md | 7-repo portfolio: 10-100% co-authoring, infrastructure maturity model |
+| local-cloud-llm-orchestration.md | Hybrid MLX+Claude: tokenization boundary, 7 hallucination scrubbers |
+| mcp-client-integration.md | Two MCP architectures: structured tools vs orchestrated playbooks |
+| federated-query-architecture.md | 15/15 benchmarks, 86-99% cost savings vs Splunk |
+| automated-config-assessment.md | Baseline-deviation-remediation, 3,816+ sensors, 100% detection |
+| claude-md-progressive-disclosure.md | 3-tier CLAUDE.md evolution, ~150 instruction budget |
+| memory-system-patterns.md | Auto-memory sizing by project type across 5 projects |
+| evidence-based-revalidation.md | Hypothesis confidence tracking with remaining gaps |
+| security-data-pipeline.md | Zeek → OCSF → Parquet → Iceberg, 30K records/sec |
+| cross-project-synchronization.md | 4-phase enrichment cascade, dynamic importlib, cron monitoring |
+
+### Data Supporting This
+
+- All 12 documents grounded in real code with specific file paths, function signatures, and measured values
+- 100% source attribution with revalidation dates
+- Cross-referenced bidirectionally with existing analysis docs
+- No overlap with ECC or superpowers content
+
+### Trade-offs Accepted
+
+- Larger maintenance surface (26 vs 14 docs)
+- All measurement claims require revalidation every 6 months
+- Some documents are domain-specific (security data pipeline, config assessment) — acceptable because they demonstrate Claude Code patterns, not just domain knowledge
+
+---
+
+*Last updated: April 2026*
