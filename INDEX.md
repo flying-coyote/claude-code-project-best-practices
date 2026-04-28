@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-04-28 12:26*
+*Auto-generated: 2026-04-28 13:53*
 
 ## Summary
 
-**Total documents**: 132
+**Total documents**: 134
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 29 |
+| analysis | 31 |
 | archive | 6 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
@@ -78,6 +78,8 @@
 - [mcp-patterns.md](analysis/mcp-patterns.md)
 - [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md)
 - [memory-system-patterns.md](analysis/memory-system-patterns.md)
+- [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md)
+- [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md)
 - [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md)
 - [orchestration-comparison.md](analysis/orchestration-comparison.md)
 - [plugins-and-extensions.md](analysis/plugins-and-extensions.md)

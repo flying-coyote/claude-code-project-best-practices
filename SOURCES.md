@@ -1597,6 +1597,42 @@ These analysis documents define the evidence and scoring frameworks used through
 
 ---
 
+## Memory & Knowledge System Sources (Mixed Tiers)
+
+### Andrej Karpathy — LLM Wiki Paradigm
+
+- **Source**: [karpathy gist 442a6bf555914893e9891c11519de94f](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) (April 2026)
+- **Role**: Originated the convention for write-time wiki maintained by an LLM (sources/ + wiki/ + index.md + log.md + CLAUDE.md schema). Three workflows: ingest, query, lint. Core insight: bookkeeping (not reading) is the bottleneck in knowledge bases — "LLMs don't get bored."
+- **Pattern References**: [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md), [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md)
+- **Evidence Tier**: **B by author authority** (Karpathy is treated as a thought leader on par with Boris Cherny on Claude Code). Recency does not auto-downgrade an author-authority source. Tool-specific implementations of the paradigm (graphify, Pratiyush, MehmetGoekce, Lum1104) remain Tier C until independently reproduced.
+
+### Memory & Knowledge Tools (Tier C — implementations of the Karpathy paradigm and adjacent ideas)
+
+| Tool | Repo | License (verified 2026-04-28) | Position |
+|---|---|---|---|
+| graphify | [safishamsi/graphify](https://github.com/safishamsi/graphify) | MIT | AST + Leiden topology builder. PyPI: `graphifyy`. **No LLM SDK deps** — Pass 2 LLM work via invoking Claude Code session. |
+| Pratiyush/llm-wiki | [Pratiyush/llm-wiki](https://github.com/Pratiyush/llm-wiki) | MIT | Session-history mining → wiki. Adapters for Claude Code, Codex, Cursor, Gemini, Obsidian, Copilot. |
+| MehmetGoekce/llm-wiki | [MehmetGoekce/llm-wiki](https://github.com/MehmetGoekce/llm-wiki) | MIT | Karpathy wiki with L1/L2 cache hierarchy for context budget. |
+| Lum1104/Understand-Anything | [Lum1104/Understand-Anything](https://github.com/Lum1104/Understand-Anything) | MIT | Wiki-aware graph plugin; uses existing `[[wikilinks]]` as ground truth. |
+| zilliztech/claude-context | [zilliztech/claude-context](https://github.com/zilliztech/claude-context) | MIT | Semantic code search MCP (BM25 + vectors over Milvus). |
+| OpenBrain | [justSteve/OpenBrain](https://github.com/justSteve/OpenBrain) | FSL-1.1-MIT | Self-hosted shared memory (Postgres + pgvector + AI gateway). Compilation agent on roadmap (Tier D). |
+| Rowboat | [rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat) | Apache 2.0 | Desktop AI coworker; markdown knowledge graph from Google services (Gmail/Calendar/Drive). YC S24, ~13.1k stars. |
+
+### Dmitry Paranyushkin / InfraNodus — Text Network Analysis
+
+- **Source**: [infranodus.com](https://infranodus.com); [github.com/infranodus](https://github.com/infranodus) (clients only — core is proprietary SaaS)
+- **Role**: Established methodology for text network analysis (words as nodes, co-occurrences as edges; graph-theory algorithms for topic clusters and structural gaps). 10+ years of published research from Nodus Labs.
+- **Pattern References**: [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md) — discussed as paradigm alternative to graphify but doesn't fit local-first + markdown-substrate constraints. The official MIT MCP server ([mcp-server-infranodus](https://github.com/infranodus/mcp-server-infranodus)) makes an InfraNodus account queryable from Claude Code.
+- **Evidence Tier**: **B by author authority** for the methodology; C for product-specific quantitative claims; subscription required for the core platform (€12–66/mo).
+
+### Avi Chawla — Daily Dose of Data Science
+
+- **Source**: ["The Next Step After Karpathy's Wiki"](https://blog.dailydoseofds.com/p/the-next-step-after-karpathys-wiki) (April 2026)
+- **Role**: Surfaced Rowboat as a temporal-knowledge complement to Karpathy's wiki. The post's description of Rowboat's ingestion (Granola/Fireflies) does *not* match the actual repo's README (Google services + optional Composio MCP); the README is authoritative.
+- **Evidence Tier**: C (community blog; corrected by direct README check).
+
+---
+
 ## Evidence Tier Definitions
 
 This repository uses a tiered evidence system:
@@ -1659,6 +1695,7 @@ This sources document is updated when:
 
 | Date | Action | Result |
 |------|--------|--------|
+| 2026-04-28 | Memory & knowledge system sources added | Added Karpathy LLM Wiki paradigm (Tier B by author authority); 7 tool implementations with verified licenses (Pratiyush, MehmetGoekce, Lum1104 = MIT; Rowboat = Apache 2.0; graphify, claude-context = MIT; OpenBrain = FSL-1.1-MIT); InfraNodus + Paranyushkin (Tier B methodology); Avi Chawla post (Tier C). Registered for new analyses `memory-systems-archetype-recommendations.md` and `memory-systems-recommendation-methodology.md`. |
 | 2026-04-22 | Opus 4.7 migration evidence | Added Anthropic migration guide, What's New 4.7, Best Practices 4.7 blog (Tier A); Vertrees LinkedIn, Willison counter-signal (Tier B); HN 47793411/47814832 (Tier C). Registered for use in new model-migration-anti-patterns analysis. |
 | 2026-04-20 | Advisory-triggered refresh | Verified current — no new releases (latest v2.1.114), no new Anthropic blog posts since April 18. 90 sections, all sources valid. |
 | 2026-04-18 | Sources refresh | Added v2.1.112-114 changelog, Opus 4.7 signal, expanded best-practices coverage |
