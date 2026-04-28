@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-04-22 09:19*
+*Auto-generated: 2026-04-27 17:49*
 
 ## Summary
 
-**Total documents**: 127
+**Total documents**: 131
 
 | Directory | Count |
 |-----------|-------|
@@ -34,7 +34,7 @@
 | archive/skills-v1/examples/ultrathink-analyst/workflows | 3 |
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
-| research | 2 |
+| research | 6 |
 | root | 11 |
 | templates | 4 |
 | templates/rules | 3 |
@@ -58,6 +58,21 @@
 
 - [ai-creators-analysis.md](research/ai-creators-analysis.md)
 - [codeguard-review-2026-02.md](research/codeguard-review-2026-02.md)
+- [memory-systems-architecture-axes.md](research/memory-systems-architecture-axes.md)
+- [memory-systems-project-archetypes.md](research/memory-systems-project-archetypes.md)
+- [memory-systems-tools-inventory.md](research/memory-systems-tools-inventory.md)
+- [rethink-memory-stack-prompt.md](research/rethink-memory-stack-prompt.md)
+## Templates
+
+- [GETTING-STARTED.md](templates/GETTING-STARTED.md)
+- [claude-md-tier1-minimal.md](templates/claude-md-tier1-minimal.md)
+- [claude-md-tier2-standard.md](templates/claude-md-tier2-standard.md)
+- [claude-md-tier3-advanced.md](templates/claude-md-tier3-advanced.md)
+## Templates / Rules
+
+- [code-style.md](templates/rules/code-style.md)
+- [domain-context.md](templates/rules/domain-context.md)
+- [security-boundaries.md](templates/rules/security-boundaries.md)
 ## Analysis
 
 - [CANONICAL-DOC-TEMPLATE.md](analysis/CANONICAL-DOC-TEMPLATE.md)
@@ -97,17 +112,77 @@
 - [WORKFLOWS-ISSUES-2026-02-13-FIXED.md](archive/WORKFLOWS-ISSUES-2026-02-13-FIXED.md)
 - [WORKFLOWS-SETUP-2026-02-13-REFERENCE.md](archive/WORKFLOWS-SETUP-2026-02-13-REFERENCE.md)
 - [WORKFLOWS-SUMMARY.md](archive/WORKFLOWS-SUMMARY.md)
+## Archive / Specs-V1
+
+- [PATTERN-TEMPLATE.md](archive/specs-v1/PATTERN-TEMPLATE.md)
+## Archive / Examples-V1 / Coding-Project
+
+- [README.md](archive/examples-v1/coding-project/README.md)
+## Archive / Examples-V1 / Writing-Project
+
+- [README.md](archive/examples-v1/writing-project/README.md)
+## Archive / Examples-V1 / Research-Project
+
+- [README.md](archive/examples-v1/research-project/README.md)
 ## Archive / Presets-V1
 
 - [coding.md](archive/presets-v1/coding.md)
 - [hybrid.md](archive/presets-v1/hybrid.md)
 - [research.md](archive/presets-v1/research.md)
 - [writing.md](archive/presets-v1/writing.md)
-## Archive / Prompts-V1
+## Archive / Community-Contributions-V1
 
-- [AUDIT-EXISTING-PROJECT.md](archive/prompts-v1/AUDIT-EXISTING-PROJECT.md)
-- [BOOTSTRAP-NEW-PROJECT.md](archive/prompts-v1/BOOTSTRAP-NEW-PROJECT.md)
-- [MAKE-PROJECT-RECOMMENDATIONS.md](archive/prompts-v1/MAKE-PROJECT-RECOMMENDATIONS.md)
+- [obra-superpowers-integration-guide.md](archive/community-contributions-v1/obra-superpowers-integration-guide.md)
+- [reddit-evidence-tier-system-post.md](archive/community-contributions-v1/reddit-evidence-tier-system-post.md)
+- [shanraisshan-claude-in-chrome-deprecation-issue.md](archive/community-contributions-v1/shanraisshan-claude-in-chrome-deprecation-issue.md)
+## Archive / Templates-V1
+
+- [ADR-TEMPLATE.md](archive/templates-v1/ADR-TEMPLATE.md)
+## Archive / Skills-V1
+
+- [QUICK-REFERENCE.md](archive/skills-v1/QUICK-REFERENCE.md)
+- [README.md](archive/skills-v1/README.md)
+- [SECURITY-GUIDELINES.md](archive/skills-v1/SECURITY-GUIDELINES.md)
+- [SKILL-TEMPLATE.md](archive/skills-v1/SKILL-TEMPLATE.md)
+## Archive / Skills-V1 / Examples / Content-Reviewer
+
+- [SKILL.md](archive/skills-v1/examples/content-reviewer/SKILL.md)
+## Archive / Skills-V1 / Examples / Hypothesis-Validator
+
+- [SKILL.md](archive/skills-v1/examples/hypothesis-validator/SKILL.md)
+## Archive / Skills-V1 / Examples / Git-Workflow-Helper
+
+- [SKILL.md](archive/skills-v1/examples/git-workflow-helper/SKILL.md)
+## Archive / Skills-V1 / Examples / Tdd-Enforcer
+
+- [SKILL.md](archive/skills-v1/examples/tdd-enforcer/SKILL.md)
+## Archive / Skills-V1 / Examples / Detection-Rule-Reviewer
+
+- [SKILL.md](archive/skills-v1/examples/detection-rule-reviewer/SKILL.md)
+## Archive / Skills-V1 / Examples / Ultrathink-Analyst
+
+- [SKILL.md](archive/skills-v1/examples/ultrathink-analyst/SKILL.md)
+## Archive / Skills-V1 / Examples / Ultrathink-Analyst / Workflows
+
+- [analyze-deep-investigation.md](archive/skills-v1/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
+- [frame-problem-definition.md](archive/skills-v1/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
+- [synthesize-integration.md](archive/skills-v1/examples/ultrathink-analyst/workflows/synthesize-integration.md)
+## Archive / Skills-V1 / Examples / Systematic-Debugger
+
+- [SKILL.md](archive/skills-v1/examples/systematic-debugger/SKILL.md)
+## Archive / Skills-V1 / Examples / Recursive-Analyst
+
+- [SKILL.md](archive/skills-v1/examples/recursive-analyst/SKILL.md)
+## Archive / Skills-V1 / Examples / Recursive-Analyst / Templates
+
+- [crossover-prompt.md](archive/skills-v1/examples/recursive-analyst/templates/crossover-prompt.md)
+- [judge-prompt.md](archive/skills-v1/examples/recursive-analyst/templates/judge-prompt.md)
+## Archive / Skills-V1 / Examples / Threat-Model-Reviewer
+
+- [SKILL.md](archive/skills-v1/examples/threat-model-reviewer/SKILL.md)
+## Archive / Skills-V1 / Examples / Research-Extractor
+
+- [SKILL.md](archive/skills-v1/examples/research-extractor/SKILL.md)
 ## Archive / Docs-V1
 
 - [COMMUNITY-CONTRIBUTIONS.md](archive/docs-v1/COMMUNITY-CONTRIBUTIONS.md)
@@ -123,59 +198,11 @@
 - [TOOLS-TRACKER.md](archive/docs-v1/TOOLS-TRACKER.md)
 - [TROUBLESHOOTING.md](archive/docs-v1/TROUBLESHOOTING.md)
 - [VERSION-TRACKING.md](archive/docs-v1/VERSION-TRACKING.md)
-## Archive / Community-Contributions-V1
+## Archive / Prompts-V1
 
-- [obra-superpowers-integration-guide.md](archive/community-contributions-v1/obra-superpowers-integration-guide.md)
-- [reddit-evidence-tier-system-post.md](archive/community-contributions-v1/reddit-evidence-tier-system-post.md)
-- [shanraisshan-claude-in-chrome-deprecation-issue.md](archive/community-contributions-v1/shanraisshan-claude-in-chrome-deprecation-issue.md)
-## Archive / Specs-V1
-
-- [PATTERN-TEMPLATE.md](archive/specs-v1/PATTERN-TEMPLATE.md)
-## Archive / Skills-V1
-
-- [QUICK-REFERENCE.md](archive/skills-v1/QUICK-REFERENCE.md)
-- [README.md](archive/skills-v1/README.md)
-- [SECURITY-GUIDELINES.md](archive/skills-v1/SECURITY-GUIDELINES.md)
-- [SKILL-TEMPLATE.md](archive/skills-v1/SKILL-TEMPLATE.md)
-## Archive / Skills-V1 / Examples / Ultrathink-Analyst
-
-- [SKILL.md](archive/skills-v1/examples/ultrathink-analyst/SKILL.md)
-## Archive / Skills-V1 / Examples / Ultrathink-Analyst / Workflows
-
-- [analyze-deep-investigation.md](archive/skills-v1/examples/ultrathink-analyst/workflows/analyze-deep-investigation.md)
-- [frame-problem-definition.md](archive/skills-v1/examples/ultrathink-analyst/workflows/frame-problem-definition.md)
-- [synthesize-integration.md](archive/skills-v1/examples/ultrathink-analyst/workflows/synthesize-integration.md)
-## Archive / Skills-V1 / Examples / Research-Extractor
-
-- [SKILL.md](archive/skills-v1/examples/research-extractor/SKILL.md)
-## Archive / Skills-V1 / Examples / Recursive-Analyst
-
-- [SKILL.md](archive/skills-v1/examples/recursive-analyst/SKILL.md)
-## Archive / Skills-V1 / Examples / Recursive-Analyst / Templates
-
-- [crossover-prompt.md](archive/skills-v1/examples/recursive-analyst/templates/crossover-prompt.md)
-- [judge-prompt.md](archive/skills-v1/examples/recursive-analyst/templates/judge-prompt.md)
-## Archive / Skills-V1 / Examples / Tdd-Enforcer
-
-- [SKILL.md](archive/skills-v1/examples/tdd-enforcer/SKILL.md)
-## Archive / Skills-V1 / Examples / Systematic-Debugger
-
-- [SKILL.md](archive/skills-v1/examples/systematic-debugger/SKILL.md)
-## Archive / Skills-V1 / Examples / Content-Reviewer
-
-- [SKILL.md](archive/skills-v1/examples/content-reviewer/SKILL.md)
-## Archive / Skills-V1 / Examples / Threat-Model-Reviewer
-
-- [SKILL.md](archive/skills-v1/examples/threat-model-reviewer/SKILL.md)
-## Archive / Skills-V1 / Examples / Hypothesis-Validator
-
-- [SKILL.md](archive/skills-v1/examples/hypothesis-validator/SKILL.md)
-## Archive / Skills-V1 / Examples / Detection-Rule-Reviewer
-
-- [SKILL.md](archive/skills-v1/examples/detection-rule-reviewer/SKILL.md)
-## Archive / Skills-V1 / Examples / Git-Workflow-Helper
-
-- [SKILL.md](archive/skills-v1/examples/git-workflow-helper/SKILL.md)
+- [AUDIT-EXISTING-PROJECT.md](archive/prompts-v1/AUDIT-EXISTING-PROJECT.md)
+- [BOOTSTRAP-NEW-PROJECT.md](archive/prompts-v1/BOOTSTRAP-NEW-PROJECT.md)
+- [MAKE-PROJECT-RECOMMENDATIONS.md](archive/prompts-v1/MAKE-PROJECT-RECOMMENDATIONS.md)
 ## Archive / Patterns-V1
 
 - [advanced-hooks.md](archive/patterns-v1/advanced-hooks.md)
@@ -205,29 +232,6 @@
 ## Archive / Mcp-Server-V1
 
 - [README.md](archive/mcp-server-v1/README.md)
-## Archive / Templates-V1
-
-- [ADR-TEMPLATE.md](archive/templates-v1/ADR-TEMPLATE.md)
-## Archive / Examples-V1 / Writing-Project
-
-- [README.md](archive/examples-v1/writing-project/README.md)
-## Archive / Examples-V1 / Research-Project
-
-- [README.md](archive/examples-v1/research-project/README.md)
-## Archive / Examples-V1 / Coding-Project
-
-- [README.md](archive/examples-v1/coding-project/README.md)
-## Templates
-
-- [GETTING-STARTED.md](templates/GETTING-STARTED.md)
-- [claude-md-tier1-minimal.md](templates/claude-md-tier1-minimal.md)
-- [claude-md-tier2-standard.md](templates/claude-md-tier2-standard.md)
-- [claude-md-tier3-advanced.md](templates/claude-md-tier3-advanced.md)
-## Templates / Rules
-
-- [code-style.md](templates/rules/code-style.md)
-- [domain-context.md](templates/rules/domain-context.md)
-- [security-boundaries.md](templates/rules/security-boundaries.md)
 
 ---
 
