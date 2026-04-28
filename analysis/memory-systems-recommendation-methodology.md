@@ -68,7 +68,7 @@ Projects 12×–40× the design target (6k–20k+ markdown vaults with active in
 
 ---
 
-## Seven assumptions worth challenging before adopting
+## Eight assumptions worth challenging before adopting
 
 These are pushbacks on the user-stated constraints and on my own framing — surfaced upfront so a reader can apply judgment rather than treating the recommendations as decided.
 
@@ -107,6 +107,12 @@ Most real projects mix archetypes (e.g., A+F, C+E, A+D+F). Recommending one prim
 Verified 2026-04-28 against plugin v2.3.2: `/understand-knowledge`'s detector (`parse-knowledge-base.py`) gates on `index.md` (lowercase, at root or under `wiki/`) + ≥3 markdown files. `log.md`, `raw/`, and a root schema (`CLAUDE.md`/`AGENTS.md`) are detected but not required. Repos using `INDEX.md` uppercase, or routing schema to `.claude/CLAUDE.md` (this repo's case), fail detection.
 
 **Implication**: the archetype-A "Lum1104 alone over a hand-curated wiki" recommendation is conditional on Karpathy filename discipline, not just on having wikilinks. Renaming `INDEX.md` → `index.md` is a small change but breaks tooling that hardcodes the uppercase form (`automation/generate_index.py` here). The general `/understand-anything:understand` skill is the fallback for repos that don't match — but that's a different code path with its own assumptions, not a drop-in. Document the layout requirement at recommend-time, not at adoption-time.
+
+### 8. Graphify Pass 1 alone is not a topology layer for prose-heavy KBs (added 2026-04-28)
+
+Empirical run, 2026-04-28, this repo at 38 analysis docs + supporting code, graphify v0.5.4: `graphify update .` (Tree-sitter Pass 1, zero LLM calls, 0 tokens shipped) produced 243 nodes / 427 edges / 73% EXTRACTED — but **0 of 38 `analysis/*.md` docs received nodes**. All extracted nodes are functions/classes from `scripts/`, `archive/mcp-server-v1/`, `automation/`, `mcp-server/`. Pass 1's extraction model is code-only (Tree-sitter grammars), so prose markdown is invisible to it.
+
+**Implication**: the archetype-A "Topology = graphify" cell is gated on Pass 2 (LLM extraction over prose), which is the egress-irreversible step. The footer-injection script ran on the same graph and correctly reported "38 files scanned, 0 would change, 38 have no edges" — confirming the pipeline behaves consistently, but also confirming the recommendation's value depends on a step we deliberately defer. For sensitive prose corpora that can't accept LLM egress, the realistic stack collapses to "wikilinks + Lum1104 + grep" with no graphify layer — which is what archetype A's "below ~200 docs" branch already says, but the same constraint applies *at any scale* if Pass 2 is off the table. Update archetype-A's adoption-order step 1 to make Pass-2-or-no-graphify a *primary* decision, not a footnote.
 
 ---
 

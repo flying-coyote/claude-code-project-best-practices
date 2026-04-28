@@ -50,11 +50,21 @@ def load_graph(path: Path) -> dict:
 
 
 def extracted_edges(graph: dict) -> set[tuple[str, str]]:
+    """Edges marked EXTRACTED in either schema variant.
+
+    graphify v0.5.x stores the EXTRACTED/INFERRED label in `confidence`
+    (string) with the numeric in `confidence_score`. Older / alt schemas
+    used `provenance` (or `kind`). Accept both.
+    """
     edges = graph.get("edges") or graph.get("links") or []
     out: set[tuple[str, str]] = set()
     for e in edges:
-        prov = (e.get("provenance") or e.get("kind") or "").upper()
-        if prov != "EXTRACTED":
+        prov = (e.get("provenance") or e.get("kind") or "")
+        if not prov:
+            cval = e.get("confidence")
+            if isinstance(cval, str):
+                prov = cval
+        if str(prov).upper() != "EXTRACTED":
             continue
         src = e.get("source") or e.get("from")
         dst = e.get("target") or e.get("to")

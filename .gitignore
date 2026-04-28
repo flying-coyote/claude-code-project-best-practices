@@ -1,1 +1,4 @@
 node_modules/
+.graphify-venv/
+graphify-out/
+.understand-anything/

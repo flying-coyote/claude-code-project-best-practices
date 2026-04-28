@@ -7,8 +7,8 @@
     "example": "examples"
   },
   "scripts": {
-    "lint": "markdownlint-cli2 '**/*.md' '!node_modules' '!mcp-server/.venv'",
-    "lint:fix": "markdownlint-cli2 --fix '**/*.md' '!node_modules' '!mcp-server/.venv'"
+    "lint": "markdownlint-cli2 '**/*.md' '!node_modules' '!mcp-server/.venv' '!.graphify-venv' '!graphify-out' '!.understand-anything'",
+    "lint:fix": "markdownlint-cli2 --fix '**/*.md' '!node_modules' '!mcp-server/.venv' '!.graphify-venv' '!graphify-out' '!.understand-anything'"
   },
   "repository": {
     "type": "git",

@@ -47,11 +47,22 @@ def edges_by_source(graph: dict) -> dict[str, list[dict]]:
         dst = edge.get("target") or edge.get("to")
         if not src or not dst:
             continue
+        # graphify v0.5.x emits `confidence` as the EXTRACTED/INFERRED string and
+        # `confidence_score` as the numeric. Older/alt schemas used `provenance`
+        # and `weight`. Tolerate both.
+        prov_raw = edge.get("provenance") or edge.get("kind")
+        if not prov_raw:
+            cval = edge.get("confidence")
+            prov_raw = cval if isinstance(cval, str) else "INFERRED"
+        score = edge.get("confidence_score")
+        if score is None:
+            cval = edge.get("confidence")
+            score = cval if isinstance(cval, (int, float)) else edge.get("weight")
         by_src[str(src)].append(
             {
                 "target": str(dst),
-                "provenance": edge.get("provenance") or edge.get("kind") or "INFERRED",
-                "confidence": edge.get("confidence") or edge.get("weight"),
+                "provenance": str(prov_raw).upper(),
+                "confidence": score,
                 "label": edge.get("label") or edge.get("relation"),
             }
         )

@@ -21,7 +21,7 @@ def generate_index(root_dir: str = ".", output_file: str = "INDEX.md"):
     """Generate markdown index of directory structure."""
 
     # Directories to skip
-    skip_dirs = {'.git', '.claude', '__pycache__', 'node_modules', '.archive'}
+    skip_dirs = {'.git', '.claude', '__pycache__', 'node_modules', '.archive', 'graphify-out'}
 
     # Count files by directory
     dir_counts = {}

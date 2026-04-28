@@ -1,2 +1,5 @@
 node_modules/
 mcp-server/.venv/
+.graphify-venv/
+graphify-out/
+.understand-anything/
