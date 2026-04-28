@@ -20,6 +20,7 @@ Calibrated to the **~500-document single-curator design target**. See [`memory-s
 
 - **At the ~500-doc design target**: **Graphify (write-time topology) → footer-injected into a Karpathy-pattern wiki convention.**
 - **Below ~200 docs**: **Lum1104 alone over a hand-curated wiki with `[[wikilinks]]`.** Lum1104 uses existing wikilinks as ground truth (deterministic on *your* structure) and is strictly downstream — no glue work to maintain, no Pass-2 egress on prose. Promote to graphify+footer when growing past ~200.
+  - **Layout requirement** (verified 2026-04-28 against plugin v2.3.2 `parse-knowledge-base.py`): `/understand-knowledge` gates on `index.md` (lowercase, at root or under `wiki/`) **+ ≥3 markdown files**. `log.md`, `raw/`, and a root schema (`CLAUDE.md`/`AGENTS.md`) are detected but optional. Repos using `INDEX.md` uppercase, or with the schema under `.claude/CLAUDE.md`, fail detection — rename or use Lum1104's general `/understand-anything:understand` skill instead, which doesn't gate on Karpathy layout.
 
 | Layer       | Owner (design-target stack)                                                                                            | Why                                                                                                                              |
 |-------------|------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|

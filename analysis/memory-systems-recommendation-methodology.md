@@ -68,7 +68,7 @@ Projects 12×–40× the design target (6k–20k+ markdown vaults with active in
 
 ---
 
-## Six assumptions worth challenging before adopting
+## Seven assumptions worth challenging before adopting
 
 These are pushbacks on the user-stated constraints and on my own framing — surfaced upfront so a reader can apply judgment rather than treating the recommendations as decided.
 
@@ -101,6 +101,12 @@ Pass 1 (Tree-sitter) is local. Pass 2 (LLM concept extraction) is **not** — co
 ### 6. Archetype purity is a useful frame but a misleading recommendation surface
 
 Most real projects mix archetypes (e.g., A+F, C+E, A+D+F). Recommending one primary stack per archetype is useful for *framing*; real adoption needs to layer two archetypes' stacks selectively. Treat the per-archetype primaries in the companion doc as orthogonal building blocks, not committed package deals.
+
+### 7. Lum1104's "wiki-aware" framing requires Karpathy filename conventions, not just `[[wikilinks]]` (added 2026-04-28)
+
+Verified 2026-04-28 against plugin v2.3.2: `/understand-knowledge`'s detector (`parse-knowledge-base.py`) gates on `index.md` (lowercase, at root or under `wiki/`) + ≥3 markdown files. `log.md`, `raw/`, and a root schema (`CLAUDE.md`/`AGENTS.md`) are detected but not required. Repos using `INDEX.md` uppercase, or routing schema to `.claude/CLAUDE.md` (this repo's case), fail detection.
+
+**Implication**: the archetype-A "Lum1104 alone over a hand-curated wiki" recommendation is conditional on Karpathy filename discipline, not just on having wikilinks. Renaming `INDEX.md` → `index.md` is a small change but breaks tooling that hardcodes the uppercase form (`automation/generate_index.py` here). The general `/understand-anything:understand` skill is the fallback for repos that don't match — but that's a different code path with its own assumptions, not a drop-in. Document the layout requirement at recommend-time, not at adoption-time.
 
 ---
 
