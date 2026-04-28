@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-04-28 13:53*
+*Auto-generated: 2026-04-28 14:09*
 
 ## Summary
 
-**Total documents**: 134
+**Total documents**: 141
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 31 |
+| analysis | 38 |
 | archive | 6 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
@@ -78,6 +78,13 @@
 - [mcp-patterns.md](analysis/mcp-patterns.md)
 - [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md)
 - [memory-system-patterns.md](analysis/memory-system-patterns.md)
+- [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md)
+- [memory-systems-archetype-b-code-monorepo.md](analysis/memory-systems-archetype-b-code-monorepo.md)
+- [memory-systems-archetype-c-personal-second-brain.md](analysis/memory-systems-archetype-c-personal-second-brain.md)
+- [memory-systems-archetype-d-cross-project-portfolio.md](analysis/memory-systems-archetype-d-cross-project-portfolio.md)
+- [memory-systems-archetype-e-work-state-tracker.md](analysis/memory-systems-archetype-e-work-state-tracker.md)
+- [memory-systems-archetype-f-session-archive.md](analysis/memory-systems-archetype-f-session-archive.md)
+- [memory-systems-archetype-g-team-shared-memory.md](analysis/memory-systems-archetype-g-team-shared-memory.md)
 - [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md)
 - [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md)
 - [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md)
