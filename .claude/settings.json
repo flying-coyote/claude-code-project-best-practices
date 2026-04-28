@@ -7,8 +7,7 @@
       "Bash(git branch*)",
       "Bash(git add*)",
       "Bash(git commit*)",
-      "Bash(git push*)",
-      "Bash(git checkout*)",
+      "Bash(git stash*)",
       "Bash(gh pr view*)",
       "Bash(gh pr list*)",
       "Bash(gh pr create*)",
@@ -19,6 +18,18 @@
     ]
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/credential-scan.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "matcher": "",

@@ -24,6 +24,12 @@ Commit prefixes:
 3. Update SOURCES.md with new reference
 4. Focus on evaluation and comparison, not implementation how-to
 
+## Resource Map
+- Analysis documents: `analysis/` (14 evidence-based evaluations)
+- Source database: `SOURCES.md` + `SOURCES-QUICK-REFERENCE.md`
+- Architecture decisions: `DECISIONS.md`
+- v1 archive: `archive/` (patterns, skills, templates — reference only)
+
 ## Known Gotchas
 - Settings schema uses `permissions.allow`, not `allowedTools`
 - Always update cross-references when adding new analysis

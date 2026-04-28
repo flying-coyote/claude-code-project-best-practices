@@ -1,6 +1,16 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(cp /home/jerem/claude-code-project-best-practices/.claude/hooks/credential-scan.sh /home/jerem/genealogy/.claude/hooks/credential-scan.sh)",
+      "Bash(chmod +x /home/jerem/genealogy/.claude/hooks/credential-scan.sh)",
+      "Bash(cp /home/jerem/claude-code-project-best-practices/.claude/hooks/credential-scan.sh /home/jerem/security-architect-mcp-server/.claude/hooks/credential-scan.sh)",
+      "Bash(chmod +x /home/jerem/security-architect-mcp-server/.claude/hooks/credential-scan.sh)",
+      "Bash(cp /home/jerem/claude-code-project-best-practices/.claude/hooks/credential-scan.sh /home/jerem/personal-projects/.claude/hooks/credential-scan.sh)",
+      "Bash(chmod +x /home/jerem/personal-projects/.claude/hooks/credential-scan.sh)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "best-practices"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }
