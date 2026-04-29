@@ -15,7 +15,7 @@ measurement-claims:
     date: "2026-04-28"
     revalidate: "2026-07-28"
 evidence-tier: C
-applies-to-signals: [memory-systems, methodology, evidence-tiering, md-corpus-small, md-corpus-design-target, md-corpus-large, md-corpus-very-large, vault-genealogy, corpus-sensitive]
+applies-to-signals: [memory-systems, methodology, evidence-tiering, md-corpus-small, md-corpus-design-target, md-corpus-large, md-corpus-very-large, corpus-sensitive]
 revalidate-by: 2026-10-28
 ---
 

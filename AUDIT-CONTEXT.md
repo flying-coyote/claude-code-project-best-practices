@@ -44,7 +44,6 @@ find . -name '*.md' -not -path '*/node_modules/*' -not -path '*/.git/*' -not -pa
 ls -d .obsidian/ 2>/dev/null
 ls index.md raw log.md 2>/dev/null                      # Karpathy layout at root (lowercase)
 ls wiki/index.md wiki/raw wiki/log.md 2>/dev/null       # Karpathy layout under wiki/
-find . -maxdepth 3 \( -name '*.ged' -o -name '*.gedcom' \) 2>/dev/null | head -1
 ls -d secrets/ private/ confidential/ 2>/dev/null
 ls -a .env .env.* 2>/dev/null | head -3
 ```
@@ -58,7 +57,6 @@ ls -a .env .env.* 2>/dev/null | head -3
 - **WSL or non-POSIX paths**: commands still work; treat any command failure as "signal not observed."
 - **Any command times out or errors**: treat as signal not observed; do not fail the audit.
 - **Markdown count returns 0**: no `md-corpus-*` signal triggers; the project is not a knowledge corpus.
-- **`find` for `.gedcom` returns nothing**: skip `vault-genealogy` row.
 - **Karpathy layout partially present** (e.g., `index.md` exists but no `raw/`): `vault-karpathy` does NOT match; the Lum1104 `/understand-knowledge` skill requires the full triple. Fall back to `/understand-anything:understand` recommendation in archetype-A.
 
 ---
@@ -143,10 +141,9 @@ The recommendations in archetype A (curated analytical KB) and C (personal secon
 | Markdown count is 200–1500 | `md-corpus-design-target` | `analysis/memory-systems-archetype-a-curated-kb.md` + `analysis/memory-systems-archetype-recommendations.md` + `analysis/memory-systems-graphify-vs-understand-anything.md` | Archetype-A primary stack territory. Sample-verification discipline required: ~25% of graphify EXTRACTED edges hallucinated in this repo's Pass 2 testbed (n=8 spot-check, 2026-04-28). |
 | Markdown count is 1500–6000 | `md-corpus-large` | `analysis/memory-systems-archetype-a-curated-kb.md` + `analysis/memory-systems-recommendation-methodology.md` + `analysis/memory-systems-graphify-vs-understand-anything.md` | Full archetype-A stack + reviewer pass. At this scale 25% hallucinated EXTRACTED edges = thousands of wrong "verified" relations; hallucination-mitigation is load-bearing, not optional. |
 | Markdown count > 6000 | `md-corpus-very-large` | `analysis/memory-systems-recommendation-methodology.md` (read "far-larger projects" section) + `analysis/memory-systems-archetype-g-team-shared-memory.md` | Generic recommendations don't calibrate at 12×–40× the design target. Custom domain-specific stack required (e.g., Postgres + pgvector + MCP shim, or domain-specific extractors). |
-| `.obsidian/` directory present | `vault-obsidian` | `analysis/memory-systems-archetype-c-personal-second-brain.md` + `analysis/memory-systems-archetype-recommendations.md` | Personal cross-domain second brain; archetype-C primary stack. Obsidian's own graph view often replaces what graphify would produce. |
+| `.obsidian/` directory present | `vault-obsidian` | `analysis/memory-systems-archetype-c-personal-second-brain.md` + `analysis/memory-systems-archetype-recommendations.md` | Cross-domain personal-vault layout (archetype-C). The vault's built-in graph view typically substitutes for an external graph-builder; recommendations should bias toward "use what the vault already gives you" before adding tooling. |
 | Lowercase `index.md` + `raw/` directory + `log.md` ALL present at repo root or under `wiki/` | `vault-karpathy` | `analysis/memory-systems-archetype-a-curated-kb.md` | Lum1104 `/understand-knowledge` will pass detection. Without all three, the skill falls back to `/understand-anything:understand` (no Karpathy gate, file-level + tour). |
-| `.ged` or `.gedcom` files present | `vault-genealogy` | `analysis/memory-systems-recommendation-methodology.md` + `analysis/domain-knowledge-architecture.md` | Domain-specific extractor required (GEDCOM-aware tooling). Generic prose-graph tools are wrong fit at any scale; methodology's "far-larger projects" warning applies. |
-| `secrets/`, `private/`, or `confidential/` dirs present, OR `.env`/`.env.*` files at root, OR user explicitly flags corpus as sensitive | `corpus-sensitive` | `analysis/memory-systems-recommendation-methodology.md` (assumption #5 + assumption #8) | LLM egress unacceptable. graphify Pass 2 and understand-anything both ship full document content to the invoking session's LLM — not reversible. Stack collapses to "wikilinks + grep + Obsidian graph view"; no LLM-driven graph layer. |
+| `secrets/`, `private/`, or `confidential/` dirs present, OR `.env`/`.env.*` files at root, OR user explicitly flags corpus as sensitive | `corpus-sensitive` | `analysis/memory-systems-recommendation-methodology.md` (assumption #5 + assumption #8) | LLM egress unacceptable. graphify Pass 2 and understand-anything both ship full document content to the invoking session's LLM — not reversible. Stack collapses to "wikilinks + grep + local graph view"; no LLM-driven graph layer. |
 
 ## Fetch on Revalidation Context
 
