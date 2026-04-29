@@ -1,7 +1,7 @@
 # Plan
 
 **Purpose**: Current priorities, immediate next actions
-**Last Updated**: April 22, 2026
+**Last Updated**: April 28, 2026
 
 ---
 
@@ -16,7 +16,7 @@
 
 | Metric | Status |
 |--------|--------|
-| Analysis documents | 28 |
+| Analysis documents | 38 |
 | Archived v1 patterns | 24 |
 | Source database entries | 85+ |
 | Source attribution | 100% |
@@ -70,6 +70,18 @@
 - Updated README Quick Start with the new prompt and the "4–8 of 28 docs" framing.
 - Added Anthropic Opus 4.7 migration guide (#27, Authority 5), Willison counter-signal (#28, Authority 3), Vertrees operationalization (#29, Authority 2 with Karen note) to `SOURCES-QUICK-REFERENCE.md`. Count bumped 26 → 29.
 - Design rationale: prior prompt was blind to applicability (library projects got federated-query advice because the source was high-authority), blind to model version (no 4.7 migration signal), and lacked audit trail (recommendations did not carry doc+tier citations). Routing via `AUDIT-CONTEXT.md` fixes all three.
+
+### April 28, 2026 — Memory & knowledge stack archetype split + Pass-2 testbed (complete)
+
+- Split `analysis/memory-systems-archetype-recommendations.md` into 7 per-archetype docs (`memory-systems-archetype-{a..g}-*.md`) following the project's one-pattern-per-file convention
+- Added `analysis/memory-systems-recommendation-methodology.md` with the 200/500/6k scale-band math, 8 challengeable assumptions, and applied corrections
+- Added `analysis/memory-systems-graphify-vs-understand-anything.md` — direct A/B comparison after running both LLM-driven graph builders on this repo as testbed
+- Empirical findings folded back into the recommendations:
+  - Graphify Pass 1 (Tree-sitter) indexed 0 of 38 prose docs; Pass 2 (LLM extraction) produced 1187 nodes / 1651 edges / 67 communities / 88% EXTRACTED but with a measured ~25% hallucination rate on EXTRACTED edges (n=8 spot-check)
+  - Lum1104 `/understand-knowledge` skill gates on lowercase `index.md` + `raw/` + `log.md` Karpathy layout — falls back to `/understand-anything:understand` for repos that don't match
+- Wired up the audit's signal vocabulary: added `md-corpus-{small,design-target,large,very-large}`, `vault-obsidian`, `vault-karpathy`, `corpus-sensitive` to `AUDIT-CONTEXT.md`. Without these, the new archetype docs were unreachable from the audit
+- Added helper scripts as documented patterns for downstream consumers: `scripts/graphify_footer_inject.py` (file-level edge aggregation, schema-tolerant), `scripts/graphify_contradiction_lint.py`
+- Doc count: 28 → 38; SOURCES.md changelog updated
 
 ### April 22, 2026 — Opus 4.7 Migration Integration (complete)
 - Added `analysis/model-migration-anti-patterns.md`: cross-version anti-pattern matrix (4.5 → 4.6 → 4.7), six Vertrees anti-patterns mapped to Anthropic migration guide, documented MUST-vs-positive-examples tension

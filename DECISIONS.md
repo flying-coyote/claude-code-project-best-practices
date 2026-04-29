@@ -529,4 +529,49 @@ Each gap had Tier A evidence from direct production observation that was unavail
 
 ---
 
-*Last updated: April 2026*
+## Decision: Memory-Systems Archetype Split + Empirical Pass-2 Testbed (2026-04-28)
+
+### Context
+
+The original `memory-systems-archetype-recommendations.md` was a single ~600-line doc spanning all 7 archetypes (curated KB, code monorepo, second brain, cross-project portfolio, work-state tracker, session archive, team-shared memory). Two problems:
+
+1. The repo's "one pattern per file" convention meant the omnibus doc was structurally inconsistent with everything else in `analysis/`.
+2. The audit's routing layer could only fetch the omnibus or none of it; per-archetype routing was impossible.
+
+In parallel, the recommendations themselves cited two LLM-driven graph builders (graphify, Lum1104 understand-anything) as primary stack components without an empirical run. The recommendations were Tier-C synthesis with no verification.
+
+### Alternatives Considered
+
+| Approach | Pros | Cons |
+|----------|------|------|
+| **Keep omnibus doc** | Minimal churn | Routing layer can't address per-archetype guidance; pattern inconsistency persists |
+| **Split per-archetype + recommend by synthesis only** | Routable, consistent | Recommendations remain unverified; Tier C reads as Tier B |
+| **Split + run empirical testbed on this repo** | Routable, recommendations grounded in observed behavior, surfaces hallucination gap | Higher session cost; empirical findings may invalidate prior synthesis |
+
+### Decision
+
+Split into 7 per-archetype docs + recommendations index + methodology + comparison doc. Run both candidate tools (graphify Pass 1+2, understand-anything `/understand-anything:understand`) on this repo as a testbed. Fold empirical findings back into the recommendations.
+
+### Data Supporting This
+
+- Split: 1 omnibus → 7 archetype docs + 3 supporting docs (recommendations index, methodology, comparison). All addressable by the audit's signal vocabulary.
+- Empirical Pass 1: 243 nodes / 427 edges, all from code; 0 of 38 prose docs received nodes (Tree-sitter is code-only).
+- Empirical Pass 2: 1187 nodes / 1651 edges / 67 communities / 88% EXTRACTED on a corpus the recommendations were calibrated to.
+- Hallucination spot-check (n=8 random EXTRACTED cross-file prose edges): ~25% hallucinated, ~12% mistagged-as-EXTRACTED-when-INFERRED, ~38% verified, ~25% indeterminate. Indicative not definitive at n=8.
+- Lum1104 `/understand-knowledge` Karpathy-gate verified against plugin v2.3.2 source — requires lowercase `index.md` + `raw/` + `log.md`; falls back to `/understand-anything:understand` otherwise.
+
+### Trade-offs Accepted
+
+- 38-doc surface (was 28); larger routing-vocabulary maintenance surface.
+- Recommendations now carry empirical caveats that complicate the surface (Pass-2-or-no-graphify decision, sample-verification discipline) rather than offering a clean prescription.
+- The hallucination finding applies to *both* tools' LLM-driven extraction; means any project adopting these stacks needs verification discipline as a primary design choice, not an afterthought. This is correct guidance but raises the bar for adoption.
+
+### Impact
+
+- AUDIT-CONTEXT.md gains 7 new generic signals (`md-corpus-*`, `vault-obsidian`, `vault-karpathy`, `corpus-sensitive`); all keyed off observable repo facts, not project-specific markers.
+- `applies-to-signals` frontmatter on 7 memory-systems docs declares the new vocabulary; signal vocabulary stays in sync per the AUDIT-CONTEXT invariant.
+- Helper scripts (`graphify_footer_inject.py`, `graphify_contradiction_lint.py`) committed as documented patterns for downstream consumers, schema-tolerant for graphify v0.5.x's `confidence` (string) + `confidence_score` (numeric) format.
+
+---
+
+*Last updated: 2026-04-28*

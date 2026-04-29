@@ -9,13 +9,13 @@ Claude Code best-practice content is scattered across vendor docs, interviews, b
 1. **Trust** — a recommendation from the Claude Code creator and a recommendation from a random blog post both read as "best practice." You cannot tell which to act on without doing the triage yourself.
 2. **Applicability** — advice that is load-bearing for an agent-heavy data pipeline is noise for a static site generator. Generic best-practice lists waste attention; project-specific recommendations do not.
 
-This project solves both by pairing an **evidence-tier system** (every source and claim labelled A/B/C — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 28 analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
+This project solves both by pairing an **evidence-tier system** (every source and claim labelled A/B/C — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 38 analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
 
 ## What You Get
 
 | Capability | Why It Matters | Where Else? |
 |-----------|---------------|-------------|
-| **Adaptive routing audit** (signal → 4–8 docs of 28) | Your project's context determines which advice you get | Nowhere |
+| **Adaptive routing audit** (signal → 4–8 docs of 38) | Your project's context determines which advice you get | Nowhere |
 | **Evidence tier system** (A–D source + 1–5 claim strength) | Know which advice to trust | Nowhere |
 | **Quantified behavioral insights** (80% CLAUDE.md adherence, 60% context threshold) | Calibrate expectations from data, not vibes | Scattered across interviews |
 | **Comparative analysis** (MCP vs Skills economics, orchestration approaches) | Make informed architectural decisions | Nowhere as analysis |
@@ -38,7 +38,7 @@ If you cannot verify a recommendation against the cited doc, the audit failed �
 
 ## Who It Is For
 
-- **Practitioners with a specific repo**: run the one-prompt audit; get 4–8 cited recommendations scoped to your project rather than 28 docs to read.
+- **Practitioners with a specific repo**: run the one-prompt audit; get 4–8 cited recommendations scoped to your project rather than 38 docs to read.
 - **Evaluators weighing claims from any AI tooling source**: the evidence-tier system (A–D source quality + 1–5 claim strength) applies to any claim, not just claims in this repo.
 - **Teams standardizing practice across multiple Claude Code projects**: the audit output is structured and comparable — diff two repos' audits to surface drift.
 
@@ -52,7 +52,7 @@ If you cannot verify a recommendation against the cited doc, the audit failed �
 
 ## Quick Start: Adaptive Routing Audit (one copy-paste)
 
-Copy-paste this into Claude Code in **any project**. It collects signals, fetches the [routing map](AUDIT-CONTEXT.md), and conditionally fetches 4–8 of the 28 analysis docs based on what it observes. One prompt; 6–10 network fetches; 1–5 minutes typical round-trip.
+Copy-paste this into Claude Code in **any project**. It collects signals, fetches the [routing map](AUDIT-CONTEXT.md), and conditionally fetches 4–8 of the 38 analysis docs based on what it observes. One prompt; 6–10 network fetches; 1–5 minutes typical round-trip.
 
 ```
 Audit this project with the adaptive routing protocol at
@@ -79,7 +79,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 
 ---
 
-## Core Analysis (28 documents)
+## Core Analysis (38 documents)
 
 | Document | What It Covers |
 |----------|---------------|
@@ -103,6 +103,16 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | [tool-ecosystem.md](analysis/tool-ecosystem.md) | Claude Code vs alternatives + Specification Gap framework |
 | [domain-knowledge-architecture.md](analysis/domain-knowledge-architecture.md) | Domain knowledge encoding for LLM-assisted development |
 | [memory-system-patterns.md](analysis/memory-system-patterns.md) | Auto-memory sizing by project type, 4 memory types, staleness patterns |
+| [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md) | Index across 7 memory-system archetypes (curated KB, code monorepo, second brain, cross-project portfolio, work-state tracker, session archive, team-shared memory) |
+| [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md) | Methodology + self-critique behind the archetype recommendations: scale thresholds (200/500/6k), 8 challengeable assumptions, evidence discipline |
+| [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md) | Archetype A — curated analytical knowledge bases (Karpathy LLM Wiki paradigm, graphify+footer, Lum1104 alternative) |
+| [memory-systems-archetype-b-code-monorepo.md](analysis/memory-systems-archetype-b-code-monorepo.md) | Archetype B — code-heavy monorepos (Tree-sitter AST + community detection) |
+| [memory-systems-archetype-c-personal-second-brain.md](analysis/memory-systems-archetype-c-personal-second-brain.md) | Archetype C — personal cross-domain second brains |
+| [memory-systems-archetype-d-cross-project-portfolio.md](analysis/memory-systems-archetype-d-cross-project-portfolio.md) | Archetype D — cross-project portfolios with federation |
+| [memory-systems-archetype-e-work-state-tracker.md](analysis/memory-systems-archetype-e-work-state-tracker.md) | Archetype E — work-state trackers with temporal discipline |
+| [memory-systems-archetype-f-session-archive.md](analysis/memory-systems-archetype-f-session-archive.md) | Archetype F — session-history mining and transcript adapters |
+| [memory-systems-archetype-g-team-shared-memory.md](analysis/memory-systems-archetype-g-team-shared-memory.md) | Archetype G — team-shared memory with multi-tool concurrency |
+| [memory-systems-graphify-vs-understand-anything.md](analysis/memory-systems-graphify-vs-understand-anything.md) | A/B comparison of two LLM-driven graph-builders + ~25% EXTRACTED-edge hallucination spot-check finding |
 | [session-quality-tools.md](analysis/session-quality-tools.md) | claude-doctor signal reliability, score interpretation, gap statements |
 | [confidence-scoring.md](analysis/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework |
 | [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md) | Hypothesis confidence tracking, revalidation before demos |
@@ -119,7 +129,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | [AUDIT-CONTEXT.md](AUDIT-CONTEXT.md) | Signal → advisory routing map (the audit's core mechanism) |
 | [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) | Full prompt + output format + edge cases |
 | [SOURCES.md](SOURCES.md) | Comprehensive source database with evidence tiers |
-| [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) | Top 29 authority-weighted sources |
+| [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) | Top 30 authority-weighted sources |
 | [analysis/CANONICAL-DOC-TEMPLATE.md](analysis/CANONICAL-DOC-TEMPLATE.md) | Template for new analysis docs; canonical frontmatter schema |
 | [DECISIONS.md](DECISIONS.md) | Architecture decision records |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guide + integration checklist |
@@ -169,7 +179,7 @@ Full database: [SOURCES.md](SOURCES.md).
 
 ## Project Status
 
-**v2.1** — 28 analysis documents with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, and Opus 4.7 migration readiness.
+**v2.1** — 38 analysis documents with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Opus 4.7 migration readiness, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
 
 **Archive**: Prior v1 patterns (24 docs) live in `archive/patterns-v1/` — preserved for historical comparison, not active guidance. See [ARCHIVE.md](ARCHIVE.md).
 

@@ -10,7 +10,7 @@
 
 ---
 
-## Top 29 Sources (Authority-Weighted)
+## Top 30 Sources (Authority-Weighted)
 
 ### 1. Boris Cherny (Claude Code Creator) — Authority: 5 (Foundational)
 **Role**: Engineering Manager at Anthropic, Claude Code creator
@@ -192,6 +192,13 @@
 **Value**: Operationalizes the Anthropic migration guide into six auditable prompt anti-patterns (vague quality descriptors, edge-case gestures, unanchored triggers, implicit subagent dispatch, missing verbosity directives, references without read-enforcement).
 **Caveat (Karen note)**: Leans heavily on MUST / MUST NOT rules — conflicts with Anthropic's stated preference for positive examples in the same migration guide. Use the six-pattern taxonomy; substitute positive-framing remediation.
 **Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md)
+
+### 30. Andrej Karpathy — LLM Wiki Paradigm — Authority: 4 (Authoritative by author standing)
+**Source**: [Karpathy LLM Wiki gist (April 2026)](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
+**Date**: April 2026 | **Foundational**: No | **Effective Weight**: 0.85 (0.85 x 1.0) — Tier B by author authority
+**Key Insight**: Three-layer write-time wiki (lowercase `index.md` content catalog + `raw/` immutable sources + `log.md` chronological operations log + root schema like `CLAUDE.md`/`AGENTS.md`) calibrated for LLM-driven knowledge work. Distinguishes "write-time wiki" (curator does the bookkeeping; LLM reads) from "read-time wiki" (LLM generates against unstructured corpus).
+**Caveat**: Tool-specific implementations (graphify, Lum1104, Pratiyush, etc.) are independent of the paradigm and remain Tier C until reproduced. Empirical run on this repo's testbed surfaced ~25% hallucination rate on graphify EXTRACTED edges — paradigm is sound; implementation discipline matters.
+**Referenced in**: [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md), [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md), [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md), [memory-systems-graphify-vs-understand-anything.md](analysis/memory-systems-graphify-vs-understand-anything.md)
 
 ---
 
