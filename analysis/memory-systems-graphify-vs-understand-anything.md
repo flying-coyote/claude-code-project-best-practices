@@ -107,11 +107,34 @@ For one-off use, graphify is materially easier to start. For a project that inte
 
 Both tools could run on the same repo if you wanted complementary outputs (graphify's audit, understand-anything's tour), but the maintenance overhead of two graph systems is real — pick one as authoritative.
 
-## Open questions
+## Hallucination spot-check on graphify EXTRACTED edges
 
-- **Does running both produce contradictory edges?** Spot check on `analysis/memory-systems-archetype-a-curated-kb.md` showed disjoint relationships, not contradictory ones. Need a larger sample to confirm.
-- **Does graphify's INFERRED-edge confidence calibrate to reality?** Avg INFERRED confidence on this run was 0.67. We have no ground truth to grade against.
-- **What's the right sampling rate for graphify hallucination spot-checks?** Open. Recommend at least 5% of EXTRACTED edges sampled by hand for any deployment that depends on the graph for decisions.
+Sampled 12 random cross-file prose-to-prose EXTRACTED edges from the graphify Pass 2 output (out of 443 such edges). 8 had specific enough claims to grade by grepping the source files for the claimed reference.
+
+| Edge (abbrev.) | Verdict |
+|---|---|
+| `behavioral-insights → AUDIT-CONTEXT` | **HALLUCINATED** — 0 matches in source |
+| `SOURCES-QUICK → framework-selection-guide` | VERIFIED — explicit "Referenced in: ..." |
+| `PATTERN-LEARNING-PATH → documentation-maintenance` | VERIFIED — multiple explicit links |
+| `COMMUNITY-CONTRIB Playwright → DEPRECATIONS Claude-in-Chrome` | **MISTAGGED** — claim plausible but should be INFERRED, not EXTRACTED |
+| `ONE-LINE-PROMPT → harness-engineering` | VERIFIED |
+| `plugins-and-extensions → INDEX.md` | **HALLUCINATED** — 0 matches |
+| `TROUBLESHOOTING → coding preset` | questionable — no direct evidence found |
+| `TROUBLESHOOTING → Foundation 3 Patterns` | questionable — content lives in PATTERN-LEARNING-PATH, not source file |
+
+Distribution: 3 verified · 2 hallucinated · 1 mistagged · 2 questionable · 4 unscoreable (claim too vague to grade by grep).
+
+Rough rate on the gradeable subset (n=8): **~25% hallucinated**, **~12% mistagged-as-EXTRACTED-when-INFERRED**, **~38% verified**, **~25% indeterminate**. Caveat: n=8 is small; treat as indicative not definitive.
+
+**Implication**: graphify's EXTRACTED tag carries less authority than it implies. The provenance discipline is real *as a self-reported field*, but the underlying classification is LLM-judgment that drifts toward overclaiming. For decisions that depend on the graph, do not trust EXTRACTED at face value — sample-verify, or treat the whole layer as INFERRED. The pipeline-level reviewer phase that understand-anything has would help here; graphify Pass 2 has none.
+
+This is consistent with understand-anything's Phase 2 hallucinating 6 filenames in its run (~9% of nodes that batch produced) — the underlying issue is shared, but understand-anything's design caught some of it in pipeline.
+
+## Open questions (still)
+
+- **Does graphify's INFERRED-edge confidence calibrate to reality?** Avg INFERRED confidence on this run was 0.67. The spot-check above only covered EXTRACTED; INFERRED would need separate sampling.
+- **Does the 25% EXTRACTED hallucination rate hold at scale or is it specific to this corpus?** Unknown. Reproduce on a different prose corpus before generalizing.
+- **What reviewer-pass design would catch most graphify hallucinations?** A second LLM pass over each EXTRACTED edge with the source file, asking "is this claim literally in this file?" might be enough — but that's a project, not a configuration toggle.
 
 ## Related Analysis
 
