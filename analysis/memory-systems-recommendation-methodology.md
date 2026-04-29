@@ -110,9 +110,19 @@ Verified 2026-04-28 against plugin v2.3.2: `/understand-knowledge`'s detector (`
 
 ### 8. Graphify Pass 1 alone is not a topology layer for prose-heavy KBs (added 2026-04-28)
 
-Empirical run, 2026-04-28, this repo at 38 analysis docs + supporting code, graphify v0.5.4: `graphify update .` (Tree-sitter Pass 1, zero LLM calls, 0 tokens shipped) produced 243 nodes / 427 edges / 73% EXTRACTED — but **0 of 38 `analysis/*.md` docs received nodes**. All extracted nodes are functions/classes from `scripts/`, `archive/mcp-server-v1/`, `automation/`, `mcp-server/`. Pass 1's extraction model is code-only (Tree-sitter grammars), so prose markdown is invisible to it.
+Empirical run, 2026-04-28, this repo at 38 analysis docs + supporting code, graphify v0.5.4. **Pass 1** (`graphify update .`, Tree-sitter only, zero LLM calls): 243 nodes / 427 edges / 73% EXTRACTED — but **0 of 38 `analysis/*.md` docs received nodes**. Pass 1's extraction model is code-only.
 
-**Implication**: the archetype-A "Topology = graphify" cell is gated on Pass 2 (LLM extraction over prose), which is the egress-irreversible step. The footer-injection script ran on the same graph and correctly reported "38 files scanned, 0 would change, 38 have no edges" — confirming the pipeline behaves consistently, but also confirming the recommendation's value depends on a step we deliberately defer. For sensitive prose corpora that can't accept LLM egress, the realistic stack collapses to "wikilinks + Lum1104 + grep" with no graphify layer — which is what archetype A's "below ~200 docs" branch already says, but the same constraint applies *at any scale* if Pass 2 is off the table. Update archetype-A's adoption-order step 1 to make Pass-2-or-no-graphify a *primary* decision, not a footnote.
+**Pass 2** run later the same day (8 parallel general-purpose subagents over 162 files, ~22 files/chunk): **1187 nodes / 1651 edges / 67 communities / 88% EXTRACTED / 24 hyperedges**. 251 nodes were anchored to `analysis/*.md` docs (≈6.6 concept nodes per analysis doc). Token-reduction benchmark on the resulting graph: **57.5× vs naive full-corpus** (graphify's marketing claim is 71×; this run hit 57.5× on the real corpus). Footer-injection re-run after Pass 2 found cross-file edges for **33 of 38 analysis docs** (file-level aggregation; node-level lookup returned zero — see implication below).
+
+**Implications**:
+
+1. **Pass-2-or-no-graphify is the primary decision**, not a footnote. Without Pass 2, graphify is a code-only AST tool with no awareness of prose; with it, graphify becomes a topology layer that captures explicit cross-references and surfaces non-obvious semantic similarities (e.g., the 24 hyperedges include a {memory-archetype-b, -d, -e, -f} grouping the prose itself never names as a set). Update archetype-A's adoption-order step 1 to make this decision explicit before any tooling install.
+
+2. **Egress framing was correct**. Pass 2 ships document content to whatever LLM the invoking session uses. The earlier reversibility-except-egress framing applies in full and is the gate that determines whether graphify is even a viable topology layer for sensitive prose corpora.
+
+3. **File-level aggregation matters for prose footers**. Each markdown file produces many concept nodes (mean 6.6, max 28 in this run), not one. Footer-injection scripts that look up edges by *file-path-as-node-id* return zero edges; they have to aggregate node-level edges by `source_file` to produce a "Related" footer. The script in `scripts/graphify_footer_inject.py` was updated 2026-04-28 to do this; the original node-keyed lookup was a code-corpus assumption that doesn't survive contact with prose.
+
+4. **Subagent model selection is a real cost lever**. The 8 Pass 2 subagents each consumed 80k–190k tokens on the parent's Opus 4.7. Subagent extraction is mechanical structured output; pass `model: "sonnet"` to graphify-style fan-outs (or run graphify under a Sonnet-default Claude Code session) and the run is 4–8× cheaper with no quality difference observed.
 
 ---
 

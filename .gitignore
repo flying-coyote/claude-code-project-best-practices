@@ -2,3 +2,4 @@ node_modules/
 .graphify-venv/
 graphify-out/
 .understand-anything/
+__pycache__/

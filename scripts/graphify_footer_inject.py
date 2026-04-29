@@ -38,15 +38,29 @@ def load_graph(path: Path) -> dict:
         return json.load(f)
 
 
-def edges_by_source(graph: dict) -> dict[str, list[dict]]:
-    """Group edges by source node id. Tolerant of graphify schema variations."""
-    by_src: dict[str, list[dict]] = defaultdict(list)
+def edges_by_file(graph: dict) -> dict[str, list[dict]]:
+    """Aggregate cross-file relationships. For each source_file, collect the
+    target *files* of all outbound edges (skipping intra-file edges).
+
+    Prose corpora produce many concept nodes per markdown file, so file-level
+    aggregation is what produces a useful "Related" footer. The earlier
+    node-id-keyed lookup only worked when graphify modelled each doc as a
+    single node, which it doesn't for prose.
+    """
+    nodes = {n.get("id"): n for n in (graph.get("nodes") or [])}
+    by_file: dict[str, dict[str, dict]] = defaultdict(dict)
     edges = graph.get("edges") or graph.get("links") or []
+
     for edge in edges:
         src = edge.get("source") or edge.get("from")
         dst = edge.get("target") or edge.get("to")
         if not src or not dst:
             continue
+        src_file = (nodes.get(src) or {}).get("source_file")
+        dst_file = (nodes.get(dst) or {}).get("source_file")
+        if not src_file or not dst_file or src_file == dst_file:
+            continue
+
         # graphify v0.5.x emits `confidence` as the EXTRACTED/INFERRED string and
         # `confidence_score` as the numeric. Older/alt schemas used `provenance`
         # and `weight`. Tolerate both.
@@ -54,19 +68,32 @@ def edges_by_source(graph: dict) -> dict[str, list[dict]]:
         if not prov_raw:
             cval = edge.get("confidence")
             prov_raw = cval if isinstance(cval, str) else "INFERRED"
+        prov = str(prov_raw).upper()
         score = edge.get("confidence_score")
         if score is None:
             cval = edge.get("confidence")
             score = cval if isinstance(cval, (int, float)) else edge.get("weight")
-        by_src[str(src)].append(
-            {
-                "target": str(dst),
-                "provenance": str(prov_raw).upper(),
+
+        key = dst_file
+        existing = by_file[src_file].get(key)
+        prov_rank = {"EXTRACTED": 0, "INFERRED": 1, "AMBIGUOUS": 2}
+        # Keep the strongest evidence we've seen for this src→dst file pair,
+        # plus a count of how many node-level edges contribute.
+        if existing is None or prov_rank.get(prov, 3) < prov_rank.get(existing["provenance"], 3) or (
+            prov == existing["provenance"]
+            and (score or 0) > (existing["confidence"] or 0)
+        ):
+            by_file[src_file][key] = {
+                "target": dst_file,
+                "provenance": prov,
                 "confidence": score,
                 "label": edge.get("label") or edge.get("relation"),
+                "count": (existing["count"] + 1) if existing else 1,
             }
-        )
-    return by_src
+        else:
+            existing["count"] += 1
+
+    return {src: list(targets.values()) for src, targets in by_file.items()}
 
 
 def render_footer(edges: list[dict]) -> str:
@@ -82,8 +109,9 @@ def render_footer(edges: list[dict]) -> str:
     lines = ["", START_MARKER, "", "## Related (from graph)", ""]
     for e in edges_sorted[:15]:
         conf = f" ({e['confidence']:.2f})" if isinstance(e["confidence"], (int, float)) else ""
+        count = f" ×{e['count']}" if e.get("count", 1) > 1 else ""
         label = f" — {e['label']}" if e["label"] else ""
-        lines.append(f"- `{e['target']}` [{e['provenance']}{conf}]{label}")
+        lines.append(f"- [`{e['target']}`]({e['target']}) [{e['provenance']}{conf}{count}]{label}")
     lines.extend(["", END_MARKER, ""])
     return "\n".join(lines)
 
@@ -100,11 +128,6 @@ def upsert_footer(path: Path, footer: str) -> tuple[bool, str]:
     return new_text != text, new_text
 
 
-def doc_id(path: Path, target: Path) -> str:
-    """Identifier graphify likely used for this doc — try a few forms."""
-    return str(path.relative_to(target.parent)) if target.parent != Path(".") else str(path)
-
-
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--graph", type=Path, default=DEFAULT_GRAPH)
@@ -113,22 +136,19 @@ def main() -> int:
     args = p.parse_args()
 
     graph = load_graph(args.graph)
-    by_src = edges_by_source(graph)
+    by_file = edges_by_file(graph)
 
     files = sorted(args.target.glob("*.md"))
     changed = 0
     no_edges = 0
     for f in files:
-        candidates = [
-            doc_id(f, args.target),
-            str(f),
-            f.name,
-            f.stem,
-        ]
+        # graphify stores source_file as the path relative to the repo root
+        # (or whatever it was invoked on). Try a few keys to match.
+        candidates = [str(f), f.name, str(f.relative_to(Path("."))) if Path(".") in f.parents else str(f)]
         edges: list[dict] = []
         for cid in candidates:
-            if cid in by_src:
-                edges = by_src[cid]
+            if cid in by_file:
+                edges = by_file[cid]
                 break
 
         if not edges:
