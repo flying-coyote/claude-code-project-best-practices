@@ -2,7 +2,7 @@
 status: EMERGING
 last-verified: "2026-04-28"
 evidence-tier: C
-applies-to-signals: [memory-systems, team-shared-memory, multi-tool-concurrency]
+applies-to-signals: [memory-systems, team-shared-memory, multi-tool-concurrency, md-corpus-very-large]
 revalidate-by: 2026-10-28
 ---
 

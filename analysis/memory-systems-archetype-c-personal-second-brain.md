@@ -2,7 +2,7 @@
 status: EMERGING
 last-verified: "2026-04-28"
 evidence-tier: C
-applies-to-signals: [memory-systems, second-brain, knowledge-base, wiki]
+applies-to-signals: [memory-systems, second-brain, knowledge-base, wiki, vault-obsidian, md-corpus-small, md-corpus-design-target]
 revalidate-by: 2026-10-28
 ---
 

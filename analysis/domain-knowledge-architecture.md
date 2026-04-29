@@ -26,7 +26,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-03-30"
 evidence-tier: Mixed
-applies-to-signals: [project-type-domain-heavy]
+applies-to-signals: [project-type-domain-heavy, vault-genealogy]
 revalidate-by: 2026-09-30
 ---
 

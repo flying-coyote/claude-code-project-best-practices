@@ -2,7 +2,7 @@
 status: EMERGING
 last-verified: "2026-04-28"
 evidence-tier: B
-applies-to-signals: [memory-systems, knowledge-base, graph, tool-selection]
+applies-to-signals: [memory-systems, knowledge-base, graph, tool-selection, md-corpus-design-target, md-corpus-large]
 revalidate-by: 2026-10-28
 measurement-claims:
   - claim: "graphify Pass 2 produces ~9× more nodes and ~6× more edges than understand-anything for the same repo"

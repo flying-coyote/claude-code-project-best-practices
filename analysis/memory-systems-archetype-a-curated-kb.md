@@ -2,7 +2,7 @@
 status: EMERGING
 last-verified: "2026-04-28"
 evidence-tier: C
-applies-to-signals: [memory-systems, knowledge-base, wiki, graph]
+applies-to-signals: [memory-systems, knowledge-base, wiki, graph, md-corpus-small, md-corpus-design-target, md-corpus-large, vault-karpathy, project-type-docs]
 revalidate-by: 2026-10-28
 ---
 

@@ -15,7 +15,7 @@ measurement-claims:
     date: "2026-04-28"
     revalidate: "2026-07-28"
 evidence-tier: C
-applies-to-signals: [memory-systems, knowledge-base, second-brain, wiki, graph]
+applies-to-signals: [memory-systems, knowledge-base, second-brain, wiki, graph, md-corpus-small, md-corpus-design-target, md-corpus-large, md-corpus-very-large, vault-obsidian, vault-karpathy, project-type-docs]
 revalidate-by: 2026-10-28
 ---
 

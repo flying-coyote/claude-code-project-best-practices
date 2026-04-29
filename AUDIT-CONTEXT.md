@@ -38,6 +38,15 @@ git log --since="90 days ago" --pretty=format:'%s' 2>/dev/null | grep -cE "(Clau
 
 # Session diagnostics
 npx -y claude-doctor 2>/dev/null
+
+# Memory & knowledge corpus signals
+find . -name '*.md' -not -path '*/node_modules/*' -not -path '*/.git/*' -not -path '*/archive/*' 2>/dev/null | wc -l
+ls -d .obsidian/ 2>/dev/null
+ls index.md raw log.md 2>/dev/null                      # Karpathy layout at root (lowercase)
+ls wiki/index.md wiki/raw wiki/log.md 2>/dev/null       # Karpathy layout under wiki/
+find . -maxdepth 3 \( -name '*.ged' -o -name '*.gedcom' \) 2>/dev/null | head -1
+ls -d secrets/ private/ confidential/ 2>/dev/null
+ls -a .env .env.* 2>/dev/null | head -3
 ```
 
 ### Edge Cases — handle silently, do not fail the audit
@@ -48,6 +57,9 @@ npx -y claude-doctor 2>/dev/null
 - **`claude-doctor` unavailable**: skip session-diagnostic rows; note in output.
 - **WSL or non-POSIX paths**: commands still work; treat any command failure as "signal not observed."
 - **Any command times out or errors**: treat as signal not observed; do not fail the audit.
+- **Markdown count returns 0**: no `md-corpus-*` signal triggers; the project is not a knowledge corpus.
+- **`find` for `.gedcom` returns nothing**: skip `vault-genealogy` row.
+- **Karpathy layout partially present** (e.g., `index.md` exists but no `raw/`): `vault-karpathy` does NOT match; the Lum1104 `/understand-knowledge` skill requires the full triple. Fall back to `/understand-anything:understand` recommendation in archetype-A.
 
 ---
 
@@ -112,7 +124,7 @@ npx -y claude-doctor 2>/dev/null
 
 | Signal (verifiable) | Signal key | Fetch | Why |
 |---|---|---|---|
-| README mentions "documentation," "knowledge base," or "notes" in title/first paragraph | `project-type-docs` | `analysis/memory-system-patterns.md` + `analysis/claude-md-progressive-disclosure.md` | Auto-memory sizing; progressive disclosure for reference-heavy work. |
+| README mentions "documentation," "knowledge base," or "notes" in title/first paragraph | `project-type-docs` | `analysis/memory-system-patterns.md` + `analysis/memory-systems-archetype-recommendations.md` + `analysis/claude-md-progressive-disclosure.md` | Auto-memory sizing; archetype index for picking a stack; progressive disclosure for reference-heavy work. The archetype-recommendations index then routes to the per-archetype doc that fits the corpus. |
 | Repo contains `*.parquet`, `*.iceberg`, Zeek / Suricata configs, OCSF mappings | `project-type-data-pipeline` | `analysis/security-data-pipeline.md` + `analysis/federated-query-architecture.md` | Zeek→OCSF patterns; federated vs centralized cost analysis. |
 | Repo contains MLX, Ollama, or local-model integration alongside cloud API client | `project-type-hybrid-llm` | `analysis/local-cloud-llm-orchestration.md` | Tokenization boundary, hallucination scrubbing, supply-chain hardening. |
 | Repo uses "hypothesis," "H-{label}," or `confidence` tracking in commit messages or files | `project-type-research` | `analysis/evidence-based-revalidation.md` + `analysis/confidence-scoring.md` | Confidence scoring with explicit gap statements; revalidation cadence. |
@@ -120,6 +132,21 @@ npx -y claude-doctor 2>/dev/null
 | Commits reference ≥3 sibling repos in the same workspace | `project-type-multi-repo` | `analysis/cross-project-synchronization.md` + `analysis/agent-driven-development.md` | Cross-repo coordination and infrastructure maturity. |
 | User explicitly asks "which framework should I use" or repo is pre-scaffold | `project-type-framework-selection` | `analysis/framework-selection-guide.md` + `analysis/tool-ecosystem.md` | Decision matrix; Specification Gap framework. |
 | Repo ships its own rule language, DSL, or vendor-specific configs | `project-type-domain-heavy` | `analysis/domain-knowledge-architecture.md` | Making expertise findable without overwhelming context. |
+
+## Fetch on Memory & Knowledge System
+
+The recommendations in archetype A (curated analytical KB) and C (personal second brain) bend sharply with corpus scale and vault layout. These signals route to the right archetype + the methodology's scale-band guidance, and gate Pass-2-LLM-egress recommendations on observed sensitivity markers.
+
+| Signal (verifiable) | Signal key | Fetch | Why |
+|---|---|---|---|
+| Markdown count is 50–200 (excluding `archive/`, `node_modules/`, `.git/`) | `md-corpus-small` | `analysis/memory-systems-archetype-a-curated-kb.md` + `analysis/memory-systems-recommendation-methodology.md` | "Below ~200" branch — manual cross-refs work; Lum1104 over wikilinks if a graph view is wanted; no graphify Pass 2. |
+| Markdown count is 200–1500 | `md-corpus-design-target` | `analysis/memory-systems-archetype-a-curated-kb.md` + `analysis/memory-systems-archetype-recommendations.md` + `analysis/memory-systems-graphify-vs-understand-anything.md` | Archetype-A primary stack territory. Sample-verification discipline required: ~25% of graphify EXTRACTED edges hallucinated in this repo's Pass 2 testbed (n=8 spot-check, 2026-04-28). |
+| Markdown count is 1500–6000 | `md-corpus-large` | `analysis/memory-systems-archetype-a-curated-kb.md` + `analysis/memory-systems-recommendation-methodology.md` + `analysis/memory-systems-graphify-vs-understand-anything.md` | Full archetype-A stack + reviewer pass. At this scale 25% hallucinated EXTRACTED edges = thousands of wrong "verified" relations; hallucination-mitigation is load-bearing, not optional. |
+| Markdown count > 6000 | `md-corpus-very-large` | `analysis/memory-systems-recommendation-methodology.md` (read "far-larger projects" section) + `analysis/memory-systems-archetype-g-team-shared-memory.md` | Generic recommendations don't calibrate at 12×–40× the design target. Custom domain-specific stack required (e.g., Postgres + pgvector + MCP shim, or domain-specific extractors). |
+| `.obsidian/` directory present | `vault-obsidian` | `analysis/memory-systems-archetype-c-personal-second-brain.md` + `analysis/memory-systems-archetype-recommendations.md` | Personal cross-domain second brain; archetype-C primary stack. Obsidian's own graph view often replaces what graphify would produce. |
+| Lowercase `index.md` + `raw/` directory + `log.md` ALL present at repo root or under `wiki/` | `vault-karpathy` | `analysis/memory-systems-archetype-a-curated-kb.md` | Lum1104 `/understand-knowledge` will pass detection. Without all three, the skill falls back to `/understand-anything:understand` (no Karpathy gate, file-level + tour). |
+| `.ged` or `.gedcom` files present | `vault-genealogy` | `analysis/memory-systems-recommendation-methodology.md` + `analysis/domain-knowledge-architecture.md` | Domain-specific extractor required (GEDCOM-aware tooling). Generic prose-graph tools are wrong fit at any scale; methodology's "far-larger projects" warning applies. |
+| `secrets/`, `private/`, or `confidential/` dirs present, OR `.env`/`.env.*` files at root, OR user explicitly flags corpus as sensitive | `corpus-sensitive` | `analysis/memory-systems-recommendation-methodology.md` (assumption #5 + assumption #8) | LLM egress unacceptable. graphify Pass 2 and understand-anything both ship full document content to the invoking session's LLM — not reversible. Stack collapses to "wikilinks + grep + Obsidian graph view"; no LLM-driven graph layer. |
 
 ## Fetch on Revalidation Context
 
@@ -166,4 +193,4 @@ The `evidence-tier` is always extractable from the doc's frontmatter — look fo
 
 ---
 
-*Last updated: 2026-04-22. Signal vocabulary in the Signal key column is authoritative — every `applies-to-signals` value in `analysis/*.md` frontmatter must appear here, and vice versa.*
+*Last updated: 2026-04-28. Signal vocabulary in the Signal key column is authoritative — every `applies-to-signals` value in `analysis/*.md` frontmatter must appear here, and vice versa.*
