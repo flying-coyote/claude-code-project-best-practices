@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-04-28 20:47*
+*Auto-generated: 2026-04-28 20:48*
 
 ## Summary
 
-**Total documents**: 141
+**Total documents**: 142
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 38 |
+| analysis | 39 |
 | archive | 6 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
@@ -86,6 +86,7 @@
 - [memory-systems-archetype-f-session-archive.md](analysis/memory-systems-archetype-f-session-archive.md)
 - [memory-systems-archetype-g-team-shared-memory.md](analysis/memory-systems-archetype-g-team-shared-memory.md)
 - [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md)
+- [memory-systems-graphify-vs-understand-anything.md](analysis/memory-systems-graphify-vs-understand-anything.md)
 - [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md)
 - [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md)
 - [orchestration-comparison.md](analysis/orchestration-comparison.md)
