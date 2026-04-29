@@ -391,3 +391,14 @@ Based on analysis of [everything-claude-code](https://github.com/anthropics-solu
 
 *Merged from: gsd-orchestration.md, cognitive-agent-infrastructure.md, subagent-orchestration.md, recursive-evolution.md*
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/harness-engineering.md`](analysis/harness-engineering.md) [EXTRACTED (1.00) ×2] — references
+- [`analysis/agent-driven-development.md`](analysis/agent-driven-development.md) [EXTRACTED (1.00)] — references
+- [`analysis/framework-selection-guide.md`](analysis/framework-selection-guide.md) [EXTRACTED (1.00) ×5] — references
+- [`analysis/memory-systems-archetype-a-curated-kb.md`](analysis/memory-systems-archetype-a-curated-kb.md) [INFERRED (0.60)] — semantically_similar_to
+
+<!-- graphify-footer:end -->

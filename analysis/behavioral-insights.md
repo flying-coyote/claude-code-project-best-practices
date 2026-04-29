@@ -316,3 +316,12 @@ These gaps do not invalidate the claims — they scope them. Practitioner-observ
 
 *Merged from: johari-window-ambiguity.md, recursive-context-management.md*
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

@@ -231,3 +231,11 @@ This makes the dependency graph explicit in the agent's context — the agent kn
 ---
 
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/local-cloud-llm-orchestration.md`](analysis/local-cloud-llm-orchestration.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

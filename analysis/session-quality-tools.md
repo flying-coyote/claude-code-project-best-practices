@@ -197,3 +197,13 @@ From claude-doctor's 8 suggested rules, filtered by evidence reliability:
 ---
 
 **Tags**: #analysis #session-quality #diagnostic-tools #evidence-assessment
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [INFERRED (0.70)] — conceptually_related_to
+
+<!-- graphify-footer:end -->

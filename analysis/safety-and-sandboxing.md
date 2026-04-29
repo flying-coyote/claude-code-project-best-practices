@@ -394,3 +394,16 @@ Layer 4: Hooks (application-level)    — Custom validation logic
 - Anthropic Managed Agents — Environment scoping and credential management (April 2026)
 
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/mcp-patterns.md`](analysis/mcp-patterns.md) [EXTRACTED (1.00) ×2] — references
+- [`analysis/domain-knowledge-architecture.md`](analysis/domain-knowledge-architecture.md) [EXTRACTED (1.00)] — references
+- [`analysis/tool-ecosystem.md`](analysis/tool-ecosystem.md) [EXTRACTED (1.00)] — references
+- [`analysis/mcp-client-integration.md`](analysis/mcp-client-integration.md) [EXTRACTED (1.00) ×2] — references
+- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

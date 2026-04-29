@@ -250,3 +250,15 @@ These principles manifest in Claude Code patterns:
 - [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) - Opus 4.7 changes to subagent defaults and prompt literalism
 
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
+- [`analysis/confidence-scoring.md`](analysis/confidence-scoring.md) [EXTRACTED (1.00)] — references
+- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/mcp-patterns.md`](analysis/mcp-patterns.md) [EXTRACTED (1.00) ×2] — cites
+
+<!-- graphify-footer:end -->

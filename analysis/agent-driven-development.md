@@ -416,3 +416,17 @@ Both practitioners emphasize that velocity gains came from harness engineering (
 ---
 
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/harness-engineering.md`](analysis/harness-engineering.md) [EXTRACTED (1.00)] — references
+- [`analysis/federated-query-architecture.md`](analysis/federated-query-architecture.md) [EXTRACTED (1.00)] — references
+- [`analysis/security-data-pipeline.md`](analysis/security-data-pipeline.md) [EXTRACTED (1.00)] — references
+- [`analysis/cross-project-synchronization.md`](analysis/cross-project-synchronization.md) [EXTRACTED (1.00) ×2] — references
+- [`analysis/local-cloud-llm-orchestration.md`](analysis/local-cloud-llm-orchestration.md) [EXTRACTED (1.00)] — references
+- [`analysis/claude-md-progressive-disclosure.md`](analysis/claude-md-progressive-disclosure.md) [EXTRACTED (1.00)] — references
+- [`analysis/secure-code-generation.md`](analysis/secure-code-generation.md) [INFERRED (0.85)] — semantically_similar_to
+
+<!-- graphify-footer:end -->

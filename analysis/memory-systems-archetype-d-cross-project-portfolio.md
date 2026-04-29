@@ -56,3 +56,17 @@ All six met when run as per-repo + thin federation. OpenBrain path defers local-
 - [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — framing and self-critique
 - [`federated-query-architecture.md`](federated-query-architecture.md) — federation patterns relevant here
 - [`cross-project-synchronization.md`](cross-project-synchronization.md) — cross-project sync patterns
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/memory-systems-archetype-recommendations.md`](analysis/memory-systems-archetype-recommendations.md) [EXTRACTED (1.00) ×4] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-b-code-monorepo.md`](analysis/memory-systems-archetype-b-code-monorepo.md) [EXTRACTED (1.00) ×2] — references
+- [`research/memory-systems-project-archetypes.md`](research/memory-systems-project-archetypes.md) [EXTRACTED (1.00)] — references
+- [`research/memory-systems-tools-inventory.md`](research/memory-systems-tools-inventory.md) [EXTRACTED (1.00) ×2] — references
+- [`analysis/memory-systems-archetype-f-session-archive.md`](analysis/memory-systems-archetype-f-session-archive.md) [INFERRED (0.75)] — semantically_similar_to
+- [`analysis/memory-systems-archetype-e-work-state-tracker.md`](analysis/memory-systems-archetype-e-work-state-tracker.md) [INFERRED (0.70)] — semantically_similar_to
+
+<!-- graphify-footer:end -->

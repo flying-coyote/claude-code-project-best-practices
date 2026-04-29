@@ -251,3 +251,14 @@ Beyond Claude Code's built-in auto-memory, external memory systems are emerging 
 ---
 
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
+- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/domain-knowledge-architecture.md`](analysis/domain-knowledge-architecture.md) [INFERRED (0.70)] — semantically_similar_to
+
+<!-- graphify-footer:end -->

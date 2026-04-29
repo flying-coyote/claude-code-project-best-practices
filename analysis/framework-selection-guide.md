@@ -488,3 +488,11 @@ Some patterns extracted from these frameworks work with ANY orchestration:
 ---
 
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/harness-engineering.md`](analysis/harness-engineering.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

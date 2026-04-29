@@ -69,3 +69,11 @@ Calibrated to the **~500-document single-curator design target**. See [`memory-s
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections (migration, never-combine, license)
 - [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — framing and self-critique behind these recommendations
 - [`memory-system-patterns.md`](memory-system-patterns.md) — earlier pattern survey
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/memory-systems-archetype-c-personal-second-brain.md`](analysis/memory-systems-archetype-c-personal-second-brain.md) [EXTRACTED (1.00) ×2] — references
+
+<!-- graphify-footer:end -->

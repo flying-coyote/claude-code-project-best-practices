@@ -55,3 +55,12 @@ All met. Provenance per session aligns with the wiki↔graph confidence constrai
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections
 - [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — framing and self-critique
 - [`session-quality-tools.md`](session-quality-tools.md) — adjacent: session-quality assessment
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/session-quality-tools.md`](analysis/session-quality-tools.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

@@ -405,3 +405,13 @@ uv run python main.py output.png "A 3D diagram of microservices architecture"
 - [Writing Effective Tools for Agents](https://www.anthropic.com/engineering/writing-effective-tools-for-agents) (September 2025)
 
 *Last updated: February 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
+- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

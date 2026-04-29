@@ -54,3 +54,17 @@ All met. Local-first holds for the markdown vault; Google services + optional Co
 
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections
 - [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — framing and self-critique
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/memory-systems-archetype-recommendations.md`](analysis/memory-systems-archetype-recommendations.md) [EXTRACTED (1.00) ×2] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-f-session-archive.md`](analysis/memory-systems-archetype-f-session-archive.md) [EXTRACTED (1.00) ×2] — references
+- [`research/memory-systems-project-archetypes.md`](research/memory-systems-project-archetypes.md) [EXTRACTED (1.00)] — references
+- [`research/memory-systems-tools-inventory.md`](research/memory-systems-tools-inventory.md) [EXTRACTED (1.00) ×2] — references
+- [`research/memory-systems-architecture-axes.md`](research/memory-systems-architecture-axes.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-b-code-monorepo.md`](analysis/memory-systems-archetype-b-code-monorepo.md) [INFERRED (0.70)] — semantically_similar_to
+
+<!-- graphify-footer:end -->

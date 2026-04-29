@@ -176,3 +176,13 @@ The companion recommendations doc reflects these corrections from earlier drafts
 - `analysis/evidence-tiers.md` — evidence-tier framework used here
 - `analysis/evidence-based-revalidation.md` — how to keep recommendations current
 - `analysis/confidence-scoring.md` — adjacent practice for tracking claim confidence
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/evidence-tiers.md`](analysis/evidence-tiers.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-a-curated-kb.md`](analysis/memory-systems-archetype-a-curated-kb.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-c-personal-second-brain.md`](analysis/memory-systems-archetype-c-personal-second-brain.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

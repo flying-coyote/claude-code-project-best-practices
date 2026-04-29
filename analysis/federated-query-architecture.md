@@ -229,3 +229,11 @@ Is your data distributed across multiple sites?
 ---
 
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/security-data-pipeline.md`](analysis/security-data-pipeline.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

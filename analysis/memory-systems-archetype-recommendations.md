@@ -125,3 +125,14 @@ Calibrated to **~500-document curated knowledge bases** as the single-curator de
 - [`memory-system-patterns.md`](memory-system-patterns.md) — earlier pattern survey (precedes this archetype-driven view)
 - [`federated-query-architecture.md`](federated-query-architecture.md) — relevant to archetype D
 - [`local-cloud-llm-orchestration.md`](local-cloud-llm-orchestration.md) — relevant to the local-first constraint
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/memory-systems-archetype-b-code-monorepo.md`](analysis/memory-systems-archetype-b-code-monorepo.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-f-session-archive.md`](analysis/memory-systems-archetype-f-session-archive.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-system-patterns.md`](analysis/memory-system-patterns.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

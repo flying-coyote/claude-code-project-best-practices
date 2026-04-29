@@ -486,3 +486,14 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 ---
 
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/model-migration-anti-patterns.md`](analysis/model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
+- [`analysis/federated-query-architecture.md`](analysis/federated-query-architecture.md) [EXTRACTED (1.00)] — references
+- [`analysis/local-cloud-llm-orchestration.md`](analysis/local-cloud-llm-orchestration.md) [EXTRACTED (1.00)] — references
+- [`analysis/claude-md-progressive-disclosure.md`](analysis/claude-md-progressive-disclosure.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

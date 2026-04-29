@@ -60,3 +60,14 @@ Per-archetype recommendation for **code repositories**, especially monorepos and
 
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections
 - [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — framing and self-critique
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+- [`research/memory-systems-project-archetypes.md`](research/memory-systems-project-archetypes.md) [EXTRACTED (1.00)] — references
+- [`research/memory-systems-tools-inventory.md`](research/memory-systems-tools-inventory.md) [EXTRACTED (1.00) ×3] — references
+- [`analysis/memory-systems-archetype-f-session-archive.md`](analysis/memory-systems-archetype-f-session-archive.md) [INFERRED (0.65)] — semantically_similar_to
+
+<!-- graphify-footer:end -->
