@@ -1,6 +1,6 @@
 # Memory & Knowledge System Tools — Inventory
 
-**Date**: 2026-04-27 (license verifications + InfraNodus added 2026-04-28)
+**Date**: 2026-04-27 (license verifications + InfraNodus added 2026-04-28; Tolaria, SiYuan, claude-video added 2026-04-30)
 **Status**: Research notes
 **Purpose**: Factual catalog of memory/knowledge tools for second-brain and KB projects. Read alongside `memory-systems-architecture-axes.md` and `memory-systems-project-archetypes.md`. Driven by `rethink-memory-stack-prompt.md`.
 
@@ -21,6 +21,9 @@
 | OpenBrain (justSteve) | Postgres + pgvector + Supabase | partial (capture + dedup); compilation agent on roadmap | ✅ MCP-driven retrieval | MCP server | FSL-1.1-MIT | [github](https://github.com/justSteve/OpenBrain) |
 | Rowboat (rowboatlabs/rowboat) | Markdown vault + desktop app (Mac/Windows/Linux) | ✅ extracts decisions/commitments/deadlines from Google services | indirect (via background agents) | Desktop app + optional Composio MCP | Apache 2.0 ✅ (verified 2026-04-28) | [github](https://github.com/rowboatlabs/rowboat) |
 | InfraNodus (infranodus.com) | Vendor backend (proprietary SaaS) | ✅ text network analysis (words as nodes, co-occurrence as edges) | ✅ via official MCP server (MIT) + n8n nodes (MIT) | SaaS + browser extensions + Obsidian plugin + MCP | Proprietary (€12–66/mo); MCP/n8n clients are MIT | [github org](https://github.com/infranodus) |
+| Tolaria (refactoringhq) | Markdown vault + git (page-level) | ✅ editor + types-as-lenses + AGENTS file convention | indirect (any agent reads vault) | Desktop app (mac/win/linux) + AGENTS file + bundled MCP | AGPL-3.0 ✅ (verified 2026-04-30) | [github](https://github.com/refactoringhq/tolaria) |
+| SiYuan (siyuan-note) | Markdown + SQLite block index (block-level) | ✅ WYSIWYG editor + bidirectional + transclusion | ✅ HTTP API + community MCP servers | Desktop/server app + community MCP (e.g. xgq18237 MIT) | AGPL-3.0 ✅ (verified 2026-04-30) | [github](https://github.com/siyuan-note/siyuan) |
+| claude-video (bradautomates) | Markdown transcript + frame-summary output | ✅ ingest only — yt-dlp + ffmpeg + Whisper + Claude vision | n/a (output feeds another memory system) | Claude Code skill + claude.ai + Codex skill | n/a (skill repo; deps under their licenses) | [github](https://github.com/bradautomates/claude-video) |
 
 ---
 
@@ -168,3 +171,45 @@
 **Position**: Paradigm alternative to graphify, but doesn't fit local-first + markdown constraints. The MIT MCP server makes an InfraNodus account queryable from Claude Code if the methodology is independently valuable — that's the cleanest integration path.
 **Use when**: Text network analysis is the primary need (gap-finding in a body of writing, topic-cluster visualization) and SaaS is acceptable.
 **Skip when**: Local-first or markdown-substrate is required; or when graphify's AST+Leiden is a better fit for the corpus.
+
+## 10. Tolaria (refactoringhq/tolaria)
+
+**License**: AGPL-3.0 (verified 2026-04-30 via raw LICENSE fetch). **Stars**: ~8.5k as of 2026-04-30. **Stack**: Tauri + React + TypeScript. **Platforms**: macOS Intel/Silicon (.dmg), Windows x64 (.exe), Linux (AppImage + .deb). Repo created 2026-02-14; public launch 2026-04-23.
+**Tier**: **C** for tool-specific claims. Author authority leans toward B (Luca Rossi, [Refactoring](https://refactoring.fm/) newsletter, ~50k+ subscribers, software-architecture publishing since 2019) but doesn't reach Tier B for this specific tool — only days since public launch and no independent reproduction yet.
+**What it is**: Desktop app for managing markdown vaults, designed around files-first + git-first principles. Author runs his own 10k+ note workspace on it. Replaces "Obsidian + plugins" with a single integrated app.
+**Architecture**: Notes are plain markdown + YAML frontmatter on disk. Tolaria provides editor, command palette, "types as lenses" navigation (frontmatter `type:` field as **navigation aid, not enforced schema**), and an `AGENTS` file convention for agent integration. Bundled MCP server spawns system `node` at runtime.
+**Agent integration**: Documented setup paths for **Claude Code, Codex CLI, and Gemini CLI**. Ships an `AGENTS` file in each vault that tells AI tools the structure and conventions — same shape as Karpathy's `CLAUDE.md` paradigm but tool-agnostic by design (Axis 10 — convention, not MCP-locked).
+**Position**: Strong Archetype A/C primary-stack candidate. Files-first + git-first means survives Tolaria's death; AGENTS convention is portable across agents. Page-level granularity (Axis 9), not block-level — use SiYuan if you need block IDs.
+**Egress**: None by default. Local files only. AGENTS-file pattern means whichever agent the user invokes (local or cloud) reads the vault — egress profile is determined by the agent, not Tolaria.
+**Use when**: Single-curator personal or team vault; want portable markdown + native UX + agent integration without Obsidian's plugin ecosystem; comfortable with desktop-only (no mobile yet).
+**Skip when**: Need block-level addressing (use SiYuan/Logseq); need cross-platform mobile; corpus is code (graphify fits better).
+**License caveat**: AGPL-3.0 means modifications offered over a network must release source. Personal use fine; commercial SaaS reuse is restricted.
+
+## 11. SiYuan (siyuan-note/siyuan)
+
+**License**: AGPL-3.0 (verified 2026-04-30 via raw LICENSE fetch). **Stars**: ~43k. **Stack**: TypeScript + Go. **Platforms**: macOS, Windows, Linux, Android, iOS, Docker. Maintained since 2020-08-30 by B3log.
+**Tier**: **C** for tool-specific claims. No Karpathy-equivalent author-authority figure in Claude-Code-aware circles; project is widely deployed but the methodology hasn't been independently endorsed by named thought leaders in the tier-defining sense.
+**What it is**: Privacy-first, self-hosted personal knowledge management with **block-level addressing** — every paragraph, list item, code block has an addressable ID and can be referenced or transcluded. WYSIWYG markdown editor (renders inline rather than split-pane like Obsidian).
+**Architecture**: Block-graph atop markdown files; bidirectional links + block references; SQLite for index; HTTP API on `127.0.0.1:6806`; optional end-to-end encrypted sync (vendor service or self-hosted WebDAV/S3).
+**Agent integration**: **No official MCP server**. Multiple community MCP implementations exist; most popular is `xgq18237/siyuan_mcp_server` (MIT, ~57 stars as of 2026-04-30). Auth via `SIYUAN_TOKEN` env var. Axis 10 — MCP server, not convention.
+**Position**: Block-level alternative to page-level wikis. Different point on Axis 9 from Karpathy/Tolaria/Pratiyush. Useful when knowledge is heavily recombined (atomic notes, Zettelkasten, code snippets stitched into multiple analyses).
+**Egress**: Self-hosted by default; sync is opt-in. PII-compatible if MCP server runs locally and Pass-2 LLM calls stay on local models.
+**Use when**: You want block-level addressability AND markdown-on-disk; need cross-platform including mobile; comfortable with a thicker app vs. plain editor + grep.
+**Skip when**: Page-level argumentation is the primary unit (analyses, longform); MCP server officialness matters (community-built only); want the agent-contract to be a vault file instead of a server.
+**License caveat**: AGPL-3.0; community MCP servers are not vetted; block-IDs can become stale if you migrate away.
+
+## 12. claude-video (bradautomates/claude-video) — ingestion adapter, not memory architecture
+
+**License**: Repo license not yet verified (pending raw LICENSE fetch). Skill format. Bundled deps: yt-dlp, ffmpeg, Whisper API client.
+**Tier**: **B** for the README-documented capabilities (verified directly). **C** for any quality claim about extracted content.
+**What it is**: Skill that converts a video URL or local file into structured markdown context. Pipeline: `yt-dlp` download → `ffmpeg` frame extraction (auto-scaled: ~30 frames for <30s, ~80 for 3–10min, capped at 100) → Whisper transcript via Groq (preferred) or OpenAI → Claude multimodal `Read` tool processes frames + timestamped transcript.
+**Surfaces**: Claude Code (`/plugin marketplace add bradautomates/claude-video`), claude.ai web (download `.skill` to Settings → Capabilities), Codex (`git clone` to `~/.codex/skills/watch`).
+**Inputs**: Public videos via yt-dlp (YouTube, TikTok, Vimeo, X, Instagram, 100+ platforms); local files (.mp4/.mov/.mkv/.webm). No private-platform auth.
+**Position**: **Different category from the other inventory entries**. Not a memory architecture; an **ingestion adapter** that produces markdown that *feeds* an Archetype A or C wiki. Closest analog elsewhere in the inventory is the way Pratiyush ingests `.jsonl` session logs into wiki entries — same shape, different source content.
+**Use when**: You have a "watch later" pile, a backlog of conference talks, screen-recorded tutorials, or podcast episodes that need to become searchable text in your second brain (Archetype C) or curated KB (Archetype A).
+**Skip when**: Source videos contain content the owner does not want egressing (medical recordings, attorney-client material, third-party-private journals) — Whisper goes to Groq/OpenAI by default; frames + transcript egress to Claude. **Cannot be used safely on Archetype C-EC (egress-constrained)** corpora unless you replace Whisper with a local install (faster-whisper or whisper.cpp) and skip the frame-analysis step.
+**Egress**:
+- Audio → Groq or OpenAI (Whisper API) by default.
+- Frames + transcript → Claude (during analysis).
+- Both are at parity with graphify Pass 2 in egress class — fine for public content; not fine for private.
+**Caveat**: Frame budget caps (≤100) mean very long videos (90-min+ talks) lose visual fidelity; transcript-only mode is the fallback. Auto-installs deps via `brew` (mac) or prints commands (linux/windows).

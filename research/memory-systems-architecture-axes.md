@@ -118,6 +118,35 @@ How much of the structure is reproducible?
 
 **Hybrid principle**: Run deterministic passes first (cheap, reliable, source-of-truth). Run LLM passes second (expensive, fallible, augmenting). Tag provenance on every output.
 
+## Axis 9: Block-level vs page-level granularity
+
+How fine-grained is the addressable unit of knowledge?
+
+| | Block-level | Page-level |
+|---|---|---|
+| Atomic unit | Paragraph, list item, code block | File or section |
+| Reference style | `((block-id))` or backlinks to specific blocks | `[[page-name]]` |
+| Refactor cost | Low — move blocks between pages without breaking refs | High — file moves break wikilinks unless renamed atomically |
+| Best for | Knowledge that's frequently recombined (atomic notes, Zettelkasten, code snippets) | Knowledge that lives as cohesive arguments (analyses, methodology, longform) |
+| Examples | SiYuan, Logseq, Roam | Karpathy LLM Wiki, Pratiyush, Tolaria, Obsidian (default) |
+
+**Trade-off**: Block-level enables recombination workflows but creates more dangling references when the underlying app dies — block IDs are app-specific even when files are markdown. Page-level survives any markdown reader but constrains refactoring.
+
+## Axis 10: Agent contract — convention vs MCP server vs CLI
+
+How does an AI agent learn the vault's structure, schema, and rules?
+
+| | Convention file | MCP server | CLI subprocess |
+|---|---|---|---|
+| Where it lives | A file in the vault (`CLAUDE.md`, `AGENTS.md`, `.cursorrules`) | A separate process the agent connects to | Binary the agent shells out to |
+| Who reads | Any LLM-aware tool that loads the file | MCP client (Claude Code, Codex, Cursor) | Any agent that can shell out |
+| Discovery | Filename convention | Tool listing via MCP | `--help` text |
+| Updates propagate by | Editing the file in git | Restarting the server | Patching the binary |
+| Survives the originating tool's death | ✅ — file is plain text | ❌ — server process dies with the tool | ✅ — CLI is reusable |
+| Examples | Karpathy paradigm, Tolaria's `AGENTS` file, Codex `.codex/` convention | SiYuan MCP, Pratiyush MCP, Graphify MCP, OpenBrain | Graphify CLI, claude-context (indirectly via npx) |
+
+**Convention wins on portability** (any agent that respects the convention works), **MCP wins on capability** (typed tools, structured I/O), **CLI wins on simplicity** (no protocol). Tolaria's `AGENTS` file pattern is interesting because it's tool-agnostic by design — same vault, multiple agents, no per-tool fork. MCP locks the integration to MCP-aware clients.
+
 ---
 
 ## Cross-cutting: the contradiction question

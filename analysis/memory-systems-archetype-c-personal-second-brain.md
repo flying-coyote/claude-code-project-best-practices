@@ -34,6 +34,24 @@ Per-archetype recommendation for **personal, single-curator, cross-domain second
 | + OpenBrain (post-compilation-agent ship)           | Cross-tool concurrency                                              | Switching frequently between Claude Code, Cursor, ChatGPT          |
 | + Rowboat sliver                                    | Capturing the temporal layer (deadlines, commitments) without polluting the structural wiki | Wiki accumulating "decided last Tuesday" pages                     |
 | + Lum1104 plugin                                    | Wiki-aware graph view that uses your `[[wikilinks]]`                | Once the wiki has dense cross-refs                                 |
+| + claude-video for "watch later" YouTube ingest     | Converts the dormant YouTube pile (conference talks, tutorials, podcasts) into searchable transcripts + frame summaries that feed `sources/` | Significant fraction of intake is video; "watch later" backlog has effectively become a write-only graveyard |
+| + Tolaria as the editor surface                     | Native UX over the markdown vault without Obsidian plugin sprawl    | You want a desktop app and AGENTS-file convention rather than rolling your own `CLAUDE.md` from scratch |
+| + SiYuan if block-level recombination dominates     | Block IDs and transclusion for atomic-note workflows                | Knowledge is heavily recombined across pages (Zettelkasten style)  |
+
+### C2.1 Watch-later YouTube ingest pattern
+
+The "watch later" YouTube pile is a common Archetype C failure mode: source-rich, intake-zero. Most users accumulate hundreds of unwatched links that contain the very expert interviews, conference talks, and walkthroughs the second brain exists to capture.
+
+**Recommended pattern**:
+1. Maintain a `sources/queue/watchlist.md` with one URL per line (paste from YouTube's "Watch later" export or browser bookmarks).
+2. Process N at a time via `claude-video`: `<url> + "summarize key claims, vendors named, methodology described, contradictions with my existing notes"`.
+3. The skill's output (frames + timestamped transcript + Claude analysis) becomes a new `sources/<slug>.md` file with a `type: video` frontmatter.
+4. Wiki ingest workflow runs as normal — same as for any text source.
+5. Original video URL stays in the source file for re-derivation.
+
+**Egress profile** (Axis 5): Whisper API call goes to Groq or OpenAI; frames + transcript go to Claude during analysis. Both are at parity with graphify Pass 2 in egress class. **Fine for public videos; not fine for private content.** If a video contains private material, drop it from this pipeline — see [`memory-systems-archetype-c-egress-constrained.md`](memory-systems-archetype-c-egress-constrained.md) for the constrained variant.
+
+**Skip when**: Watch-later pile is small enough to actually watch; video content is mostly entertainment (no second-brain value); content is private.
 
 ## C3. Anti-patterns
 
@@ -54,5 +72,7 @@ All six met when graphify Pass 2 stays on a model you accept egress to (or is sk
 
 ## Related Analysis
 
+- [`memory-systems-archetype-c-egress-constrained.md`](memory-systems-archetype-c-egress-constrained.md) — **egress-constrained variant** when owner has decided corpus content cannot egress to vendor LLMs (medical, legal, journals naming third parties); previously titled "C-PII"
+- [`memory-systems-genealogy-baseline.md`](memory-systems-genealogy-baseline.md) — empirical measurement of the unaugmented stack across the 3-project genealogy trio
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections
 - [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — framing and self-critique
