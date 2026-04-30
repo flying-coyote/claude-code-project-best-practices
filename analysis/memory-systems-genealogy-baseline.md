@@ -157,21 +157,21 @@ For *actual* hard-egress-constraint projects (medical, legal, journals naming th
 
 ## Recommended next experiments
 
-### Experiment #1 — Brick-wall memory file authoring — RUN AND VALIDATED 2026-04-29
+### Experiment #1 — Brick-wall memory file authoring — RUN, VALIDATED, AND EXPANDED 2026-04-29
 
-**Hypothesis**: authoring 5 dedicated brick-wall memory files in `/home/jerem/.claude/projects/-home-jerem-genealogy/memory/` (modeled on dry-cross's `project_gen_offset_martin_import.md`) collapses Q2-class synthesis queries from ~6 reads to ~1-2.
+**Hypothesis**: authoring dedicated brick-wall memory files in `/home/jerem/.claude/projects/-home-jerem-genealogy/memory/` (modeled on dry-cross's `project_gen_offset_martin_import.md`) collapses Q2-class synthesis queries from ~6 reads to ~1-2.
 
-**Execution**:
+#### Batch 1 (initial — 5 files, 2026-04-29 morning)
 
 - Sonnet subagent surveyed `RESEARCH_PRIORITY_PLAN.md`, `ONSITE_RESEARCH_BACKLOG.md`, and per-person journals.
-- Selected 5 brick walls with sufficient documentation, applying selection criteria (re-query likelihood, multi-session journal depth, lineage diversity). Rejected 4 candidates with thin journals (Andrew McClurg, Susan McGraw, Robert Griffith Sr., Agnes Crawford) rather than padding.
-- Authored 5 files (51-63 lines each), each containing: canonical facts + IDs + generation + lineage, attached primary sources with tier, what's been tried + dates, what evidence is needed to break the wall, next research targets, cross-refs to the per-person journal.
-- Updated `MEMORY.md` with a new `## Active brick walls` section listing the 5 files in flat-index format with one-line summaries naming the single highest-value next target per wall.
-- Lineage diversity achieved: Parts 5, 8, 10, 10, 11; generations 6-9.
+- Selected 5 brick walls applying selection criteria (re-query likelihood, multi-session journal depth, lineage diversity). Rejected 4 candidates with thin journals rather than padding.
+- Authored 5 files (51-63 lines each), each containing: canonical facts + IDs + generation + lineage, attached primary sources with tier, what's been tried + dates, what evidence is needed, next research targets, cross-refs to journals.
+- Updated `MEMORY.md` with a new `## Active brick walls` section.
+- Lineage diversity: Parts 5, 8, 10, 10, 11; generations 6-9.
 
-**Validation** — fresh Sonnet subagent ran the original Q2 query against the now-augmented memory:
+**Validation** — fresh Sonnet subagent re-ran the original Q2 query against the augmented memory:
 
-| Metric | Original baseline | Post-experiment | Delta |
+| Metric | Original baseline | Post-Batch-1 | Delta |
 |---|---|---|---|
 | Tool calls (Q2) | ~6-9 | **3** (2 bootstrap + 1 spot-check) | **−5 to −6** |
 | Answer-bearing reads | 5+ per-person journals | **1 (`MEMORY.md` alone)** | **−4+** |
@@ -180,11 +180,31 @@ For *actual* hard-egress-constraint projects (medical, legal, journals naming th
 
 **Counter-finding (better than predicted)**: the validation agent answered the full query from the `MEMORY.md` `## Active brick walls` section *alone* — the dedicated brickwall files weren't needed for the synthesis query because the index entries contained the highest-value next target per wall. The dedicated files serve as the "give me details" backstop for deeper queries, not the primary retrieval surface for "list active walls".
 
-**Implications**:
+#### Batch 2 (expansion — 15 files, 2026-04-29 afternoon)
 
-- The architecture insight from the baseline holds and is now Tier B: **`MEMORY.md` as a rich flat index is the load-bearing layer**. Dedicated memory files behind it serve detail queries, not list/synthesis queries.
-- Cost: ~6 minutes per memory file × 5 files + 1 MEMORY.md update = ~35 min of curation work for a measured ~5x reduction in tool calls and a +1 classification tier on the project's hardest query class.
-- The "next batch" decision can be data-driven: prioritize brick walls that surface in real conversation queries (not by topping up the count toward 69).
+After validation, the project owner authorized expanding coverage. Methodology:
+
+- **Survey subagent** classified the remaining 64 brick walls (`tree.json` `brick_wall=True` minus the 5 done) into QUALIFY / DEFER / SKIP using the same quality gate as Batch 1: re-query likelihood, journal depth, plannable evidence, multi-file synthesis pain, lineage diversity.
+- Outcome: **15 QUALIFY / 17 DEFER / 32 SKIP**. The DEFER count tells the user where the research-frontier-vs-memory-curation boundary actually sits — those need real research sessions before memory files would add value (single-bootstrap journals, missing journal files, FS searches still PENDING).
+- 3 parallel authoring subagents each handled 5 files, with the index update deferred to the parent session to avoid `MEMORY.md` write races.
+- Authored 15 files (47-64 lines each) covering Parts 4, 5, 6, 7, 7, 8, 8, 9, 10, 10, 13, 16, 16 + Part 6/8 reinforcement.
+
+**Final state**: 20 dedicated brick-wall memory files in the genealogy auto-memory dir. Coverage spans 10 of 16 lineage parts. ~6 min curation cost per file × 20 = ~2 hours total.
+
+#### Cost-benefit summary
+
+| Investment | Empirical result |
+|---|---|
+| ~2 hours subagent + parent-session curation | 5x → likely larger reduction in synthesis-query tool calls |
+| Zero infrastructure (no graph, no embeddings, no Pass 2) | PARTIAL → DEFINITIVE on Q2 class |
+| All work at the markdown-authoring layer | Coverage of 20 of 69 brick walls; remaining 49 break down 17 DEFER (need research) / 32 SKIP (low ROI) |
+
+**Implications now Tier B from direct measurement at 4x scale**:
+
+- The architecture: **`MEMORY.md` as a rich flat index is the load-bearing layer**. Dedicated memory files behind it serve detail queries.
+- The economic story: a few hours of authoring beats infrastructure for retrieval purposes on this corpus class.
+- Quality gate matters: padding the count to 69 by lowering the gate would dilute the index. The DEFER/SKIP discipline is what keeps the index actionable.
+- The "next batch" decision is data-driven: 17 DEFER candidates can be promoted to QUALIFY only after a real research session adds journal depth. SKIP candidates are unlikely to ever earn dedicated files; they belong in `ONSITE_RESEARCH_BACKLOG.md` summary rows instead.
 
 ### Experiment #2 — Comparative augmented arm (planned, not yet run)
 
