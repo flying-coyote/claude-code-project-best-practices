@@ -152,14 +152,16 @@ The "Lum1104 + local Ollama for egress-constrained corpora" hybrid remains **unt
 3. Compare graph quality (edge precision, missed relationships, node naming consistency) vs. running the same against a non-constrained corpus with Claude/GPT Pass 2.
 4. Document the quality degradation. *This is the missing evidence behind any local-LLM Pass 2 recommendation* — without it the C-EC.2 row is Tier D speculation, not C.
 
-### Gap 2 (resolved 2026-04-29): Is the unaugmented stack sufficient?
+### Gap 2 (resolved + validated 2026-04-29): Is the unaugmented stack sufficient?
 
-**Result: largely yes** — see [`memory-systems-genealogy-baseline.md`](memory-systems-genealogy-baseline.md). 9-query measurement across the 3-project genealogy trio scored 8/9 DEFINITIVE under the unaugmented stack alone. The PARTIAL was traced to a missing dedicated memory file for active brick walls, not to corpus size or augmentation absence.
+**Result: yes, when memory authorship is disciplined** — see [`memory-systems-genealogy-baseline.md`](memory-systems-genealogy-baseline.md). 9-query measurement across the 3-project genealogy trio scored 8/9 DEFINITIVE under the unaugmented stack alone. The PARTIAL was traced to a missing dedicated memory file for active brick walls, not to corpus size or augmentation absence.
 
-Implications:
+**Experiment #1 ran and validated** the architectural claim: authoring 5 dedicated brick-wall memory files (~6 min each) plus a flat-index entry per wall in `MEMORY.md` collapsed the Q2 query from 6-9 tool calls (PARTIAL) to **3 tool calls (DEFINITIVE)**. The validation subagent answered the full query from `MEMORY.md`'s one-line index entries alone — the dedicated files weren't even needed for the list/synthesis query.
 
-- **Disciplined memory authoring** (`CLAUDE.md` routing + dedicated memory files for resolved issues + `MEMORY.md` as flat index) is what makes the unaugmented stack work, not augmentation per se.
-- The cheapest improvement is more dedicated memory files, not graph infrastructure. Estimated cost: ~10 min per file. Estimated tool-call reduction: 5–9 reads → 1–2 reads on synthesis queries.
+Implications (now Tier B from validated experiment):
+
+- **Disciplined memory authoring** is what makes the unaugmented stack work, not augmentation per se. The pattern: `CLAUDE.md` routes; dedicated memory files behind a flat `MEMORY.md` index hold resolved-but-complex knowledge; rich one-line index summaries are answer-sufficient for list/synthesis queries.
+- The cheapest improvement is more dedicated memory files, not graph infrastructure. ~6-10 min per file. Tool-call reduction: 5-9 reads → 1-3 reads on synthesis queries; classification typically upgrades by a tier.
 - For projects with disciplined authoring, the marginal value of vendor-LLM Pass 2 augmentation is small enough that the egress constraint rarely makes augmentation worth fighting for.
 - This shifts the archetype's narrative: **hard egress constraints are less of a recall handicap than originally framed.** The graph augmentation case strengthens specifically when authoring is undisciplined, the corpus is too large for any single curator to maintain memory files for active topics, or there are multiple curators with inconsistent discipline.
 

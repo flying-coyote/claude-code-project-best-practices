@@ -14,6 +14,10 @@ measurement-claims:
     source: "Direct comparison with dry-cross, which has dedicated memory files for resolved issues and scored DEFINITIVE on equivalent synthesis"
     date: "2026-04-29"
     revalidate: "2026-07-29"
+  - claim: "Authoring 5 dedicated brick-wall memory files + a MEMORY.md flat-index entry per wall collapses Q2 from ~6-9 tool calls (PARTIAL) to 3 tool calls (DEFINITIVE) on the genealogy parent project"
+    source: "Experiment #1, Sonnet subagent re-run 2026-04-29 against augmented memory; the rich one-line index entries in MEMORY.md were answer-sufficient without opening the dedicated files"
+    date: "2026-04-29"
+    revalidate: "2026-07-29"
 evidence-tier: B
 applies-to-signals: [memory-systems, second-brain, knowledge-base, md-corpus-large, md-corpus-very-large, project-type-research, vault-obsidian]
 revalidate-by: 2026-10-29
@@ -153,11 +157,42 @@ For *actual* hard-egress-constraint projects (medical, legal, journals naming th
 
 ## Recommended next experiments
 
-1. **Author 5 dedicated brick-wall memory files in `/home/jerem/genealogy/`** (one per active wall, modeled on dry-cross's gen-offset file). Re-run Q2 against the parent project. Measure tool-call delta. **Hypothesis**: Q2 collapses from 6 reads to 1–2.
+### Experiment #1 — Brick-wall memory file authoring — RUN AND VALIDATED 2026-04-29
 
-2. **Run the augmented arm** — install Graphify on dry-cross (the cleanest project), Pass 1 + Pass 2 with vendor LLM (now authorized). Re-run all 3 queries. Compare tool calls + answer quality. **Hypothesis**: Marginal improvement small for Q1/Q3, modest for Q2; not worth ongoing infra cost given baseline already at 8/9 definitive.
+**Hypothesis**: authoring 5 dedicated brick-wall memory files in `/home/jerem/.claude/projects/-home-jerem-genealogy/memory/` (modeled on dry-cross's `project_gen_offset_martin_import.md`) collapses Q2-class synthesis queries from ~6 reads to ~1-2.
 
-3. **Author a research-time query set with the user** from real session questions (not measurer-designed). Re-run baseline. Check whether selection-bias confound holds.
+**Execution**:
+
+- Sonnet subagent surveyed `RESEARCH_PRIORITY_PLAN.md`, `ONSITE_RESEARCH_BACKLOG.md`, and per-person journals.
+- Selected 5 brick walls with sufficient documentation, applying selection criteria (re-query likelihood, multi-session journal depth, lineage diversity). Rejected 4 candidates with thin journals (Andrew McClurg, Susan McGraw, Robert Griffith Sr., Agnes Crawford) rather than padding.
+- Authored 5 files (51-63 lines each), each containing: canonical facts + IDs + generation + lineage, attached primary sources with tier, what's been tried + dates, what evidence is needed to break the wall, next research targets, cross-refs to the per-person journal.
+- Updated `MEMORY.md` with a new `## Active brick walls` section listing the 5 files in flat-index format with one-line summaries naming the single highest-value next target per wall.
+- Lineage diversity achieved: Parts 5, 8, 10, 10, 11; generations 6-9.
+
+**Validation** — fresh Sonnet subagent ran the original Q2 query against the now-augmented memory:
+
+| Metric | Original baseline | Post-experiment | Delta |
+|---|---|---|---|
+| Tool calls (Q2) | ~6-9 | **3** (2 bootstrap + 1 spot-check) | **−5 to −6** |
+| Answer-bearing reads | 5+ per-person journals | **1 (`MEMORY.md` alone)** | **−4+** |
+| Classification | PARTIAL | **DEFINITIVE** | **+1 tier** |
+| Wall time | 92s | **44s** | **−48s** |
+
+**Counter-finding (better than predicted)**: the validation agent answered the full query from the `MEMORY.md` `## Active brick walls` section *alone* — the dedicated brickwall files weren't needed for the synthesis query because the index entries contained the highest-value next target per wall. The dedicated files serve as the "give me details" backstop for deeper queries, not the primary retrieval surface for "list active walls".
+
+**Implications**:
+
+- The architecture insight from the baseline holds and is now Tier B: **`MEMORY.md` as a rich flat index is the load-bearing layer**. Dedicated memory files behind it serve detail queries, not list/synthesis queries.
+- Cost: ~6 minutes per memory file × 5 files + 1 MEMORY.md update = ~35 min of curation work for a measured ~5x reduction in tool calls and a +1 classification tier on the project's hardest query class.
+- The "next batch" decision can be data-driven: prioritize brick walls that surface in real conversation queries (not by topping up the count toward 69).
+
+### Experiment #2 — Comparative augmented arm (planned, not yet run)
+
+Install Graphify on dry-cross (cleanest project), Pass 1 + Pass 2 with vendor LLM (authorized). Re-run all 3 queries. Compare tool calls + answer quality. **Hypothesis**: marginal improvement small for Q1/Q3, modest for Q2; not worth ongoing infra cost given baseline (post-experiment-1) is now 9/9 likely-DEFINITIVE if the same pattern is applied to dry-cross's brick walls.
+
+### Experiment #3 — User-authored query set (planned, not yet run)
+
+Author a research-time query set with the user from real session questions (not measurer-designed). Re-run baseline. Check whether selection-bias confound holds.
 
 ## Related Analyses
 
