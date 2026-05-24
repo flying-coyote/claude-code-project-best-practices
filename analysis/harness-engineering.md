@@ -20,21 +20,25 @@ measurement-claims:
     date: "2026-03-30"
     revalidate: "2026-09-30"
   - claim: "NLH representation: 30.4% to 47.2% performance, 1200 to 34 LLM calls"
-    source: "Tingua NLH papers"
-    date: "2026-03-01"
-    revalidate: "2026-09-01"
+    source: "Pan et al. (Tsinghua + Harbin IT), arXiv:2603.25723"
+    date: "2026-03-26"
+    revalidate: "2026-09-26"
   - claim: "Verifiers hurt performance: -0.8 SWE-bench, -8.4 OS World"
-    source: "Tingua NLH ablation study"
-    date: "2026-03-01"
-    revalidate: "2026-09-01"
-  - claim: "Meta-Harness: Rank 1 TerminalBench 2 with Haiku via harness optimization"
-    source: "Stanford/Omar Khattab DSPy team"
-    date: "2026-03-01"
-    revalidate: "2026-09-01"
-  - claim: "6x performance difference from orchestration code alone"
-    source: "Stanford researchers via synthesis transcript"
-    date: "2026-03-01"
-    revalidate: "2026-09-01"
+    source: "Pan et al. (Tsinghua + Harbin IT), arXiv:2603.25723"
+    date: "2026-03-26"
+    revalidate: "2026-09-26"
+  - claim: "Meta-Harness: Rank 1 TerminalBench 2 with Haiku 4.5 via harness optimization"
+    source: "Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT), arXiv:2603.28052"
+    date: "2026-03-30"
+    revalidate: "2026-09-30"
+  - claim: "6x performance gap from harness changes alone on the same benchmark"
+    source: "Lee et al., Meta-Harness, arXiv:2603.28052 (paper's headline quote)"
+    date: "2026-03-30"
+    revalidate: "2026-09-30"
+  - claim: "Independent 6x corroboration: Opus 4.5 scores 12% on Cursor vs 2% on OpenCode"
+    source: "Tian et al., SWE-Bench Mobile, arXiv:2602.09540"
+    date: "2026-02-10"
+    revalidate: "2026-08-10"
   - claim: "v2 DAW built in 4 hours for $125 after harness simplification"
     source: "Anthropic engineering blog"
     date: "2026-04-01"
@@ -140,11 +144,11 @@ Migrating OS Symfony's native code harness into a Natural Language Harness repre
 
 The harness did the same thing in both cases — the representation changed. This suggests that expressing harness logic in natural language (closer to the model's native reasoning) is a distinct optimization axis from harness design itself.
 
-Source: Tingua NLH papers, March 2026. Authority 3/5.
+Source: Pan, Zou, Guo, Ni, Zheng (Tsinghua University + Harbin Institute of Technology), ["Natural-Language Agent Harnesses"](https://arxiv.org/abs/2603.25723), 2026-03-26. *(Previously cited in this doc as "Tingua NLH" — corrected to Tsinghua after locating the underlying paper 2026-05-24.)*
 
 ### Ablation Evidence: Verifiers Hurt, Self-Evolution Helps
 
-Tingua NLH research (March 2026) ran ablation studies on harness modules:
+The same Tsinghua/Harbin paper (Pan et al., arXiv:2603.25723) ran ablation studies on harness modules:
 
 | Module | SWE-bench Impact | OS World Impact | Net Effect |
 |--------|-----------------|-----------------|------------|
@@ -156,30 +160,32 @@ Tingua NLH research (March 2026) ran ablation studies on harness modules:
 
 **Caveat**: This is benchmark evaluation, not production deployment. Production environments with real consequences may benefit from verification that benchmarks don't reward. But the default assumption should be: let the agent self-correct rather than bolting on external verifiers.
 
-Source: Tingua team, March 2026. Authority 3/5.
+Source: Pan et al. (Tsinghua + Harbin IT), arXiv:2603.25723, 2026-03-26.
 
 ### Meta-Harness: Automated Harness Optimization
 
-Stanford researchers (Omar Khattab/DSPy team) treat the harness itself as an optimization target:
+Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT) treat the harness itself as an optimization target:
 
 - An agentic proposer reads failed execution traces
 - It diagnoses breakages and writes a complete new harness
 - Cost: ~10M tokens per iteration, 82 files read per round
-- Result: **Rank 1 on TerminalBench 2 with Haiku** — a smaller, cheaper model outranking larger ones through harness optimization alone
+- Result: **76.4% on TerminalBench-2 with Opus 4.6** (rank 2 among Opus agents) and **37.6% with Haiku 4.5** (rank 1 among Haiku agents, outperforming Goose at 35.5%) — a smaller, cheaper model outranking larger ones through harness optimization alone
 
-**Cross-model transfer**: A harness optimized on one model transferred to five others, improving all of them. This is strong evidence that harness quality is model-independent — good infrastructure helps any model.
+**Cross-model transfer**: A harness optimized on one model transferred to five others, improving all of them (+7.7 points on text classification using 4× fewer context tokens; +4.7 points on IMO-level math across five held-out models). This is strong evidence that harness quality is model-independent — good infrastructure helps any model.
 
-**Convergence note**: Andrej Karpathy (Authority 4/5) independently described the same concept — meta-optimization of program.md — without referencing the Stanford work. Two high-authority sources arriving at the same idea from different directions.
+**Convergence note**: Andrej Karpathy (Authority 4/5) independently described the same concept — meta-optimization of program.md — without referencing the Stanford+MIT work. Two high-authority sources arriving at the same idea from different directions.
 
-Source: Stanford/Omar Khattab, Authority 4/5.
+Source: Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT), ["Meta-Harness: End-to-End Optimization of Model Harnesses"](https://arxiv.org/abs/2603.28052), 2026-03-30.
 
-### 6x Performance Difference from Orchestration Code Alone
+### 6× Performance Gap from Harness Changes Alone
 
-Stanford researchers demonstrated that the same model on the same benchmark produced a **6x performance difference** from harness changes only. No model changes, no prompt changes — purely orchestration code.
+The Meta-Harness paper states it as the headline finding: *"Changing the harness around a fixed large language model (LLM) can produce a 6× performance gap on the same benchmark."* No model changes, no prompt changes — purely orchestration code.
 
-Specific replication: Langchain's terminal-bench-2 submission went from outside the top 30 to rank 5 by changing only the harness code.
+Specific replication: LangChain's terminal-bench-2 submission moved from outside the top 30 to rank 5 by changing only the harness code (LangChain DeepAgents blog, 2026-02-17: deepagents-cli went 52.8% → 66.5% on TerminalBench-2 holding gpt-5.2-codex constant).
 
-Source: Stanford researchers via synthesis transcript. Authority needs primary source verification — treat as directional evidence until confirmed.
+**Independent benchmark corroboration**: Tian et al. *SWE-Bench Mobile* ([arXiv:2602.09540](https://arxiv.org/abs/2602.09540), 2026-02-10) reports the same model (Opus 4.5) scoring **12% on Cursor vs 2% on OpenCode** across 22 agent-model configurations — exactly 6×, in a separate venue, on a separate benchmark, from scaffold differences alone. The figure is now replicated, not just cited.
+
+Source: Lee et al., Meta-Harness, arXiv:2603.28052 (primary); Tian et al., SWE-Bench Mobile, arXiv:2602.09540 (independent corroboration).
 
 ---
 
@@ -352,9 +358,10 @@ START: What is your task complexity?
 | Removing features was the primary optimization (Manus) | Manus context engineering (5 rebuilds) | B |
 | Same harness works across Claude Code, Cursor, OpenCode, Codex | everything-claude-code cross-platform support | B |
 | Boris Cherny's success depends on parallel sessions, hooks, permissions — all harness | Boris Cherny interviews (March 2026) | A |
-| NLH representation: same harness logic, 55% perf gain + 97% fewer LLM calls | Tingua NLH papers (March 2026) | B |
-| Meta-Harness: Haiku outranks larger models via harness optimization alone | Stanford/Omar Khattab (March 2026) | B |
-| 6x perf difference from orchestration code alone (same model, same benchmark) | Stanford researchers (March 2026) | B* |
+| NLH representation: same harness logic, 30.4% → 47.2% perf + 1200 → 34 LLM calls | Pan et al. (Tsinghua + Harbin IT), [arXiv:2603.25723](https://arxiv.org/abs/2603.25723) (March 2026) | B |
+| Meta-Harness: Haiku 4.5 ranks #1 among Haiku agents on TerminalBench-2 via harness optimization alone | Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT), [arXiv:2603.28052](https://arxiv.org/abs/2603.28052) (March 2026) | B |
+| **"Changing the harness around a fixed LLM can produce a 6× performance gap on the same benchmark"** (paper's headline quote) | Lee et al., Meta-Harness, [arXiv:2603.28052](https://arxiv.org/abs/2603.28052) (March 2026) | B |
+| Independent corroboration: Opus 4.5 scores 12% on Cursor vs 2% on OpenCode — exactly 6×, scaffold-only | Tian et al., SWE-Bench Mobile, [arXiv:2602.09540](https://arxiv.org/abs/2602.09540) (Feb 2026) | B |
 | v2 harness simplification: removed sprints/negotiation, DAW in 4h/$125 | Anthropic engineering blog (April 2026) | A |
 | **1000+ PRs in 3 weeks** with ~5 manual IDE edits — review-loop development | Nick Schrock, Dagster founder (Dec 2025) | B |
 | **3x velocity** with agents handling commits, changelogs, docs, releases — org transformation | Matthias Vallentin, Tenzir CEO (Dec 2025) | B |
@@ -379,13 +386,13 @@ Two high-credibility practitioners independently validated that agent-driven dev
 | Opus 4.7 literalism pushes *prompt* complexity up while harness simplifies | Anthropic migration guide (April 2026) | A |
 | 1M context window fundamentally changes context management strategies | Anthropic model release | A |
 | Specification gap: model architecture determines task feasibility | Nate B. Jones (2026) | B |
-| Explicit verifier modules hurt benchmark performance (-0.8 SWE, -8.4 OS World) | Tingua ablation study (March 2026) | B |
+| Explicit verifier modules hurt benchmark performance (-0.8 SWE, -8.4 OS World) | Pan et al. (Tsinghua + Harbin IT), [arXiv:2603.25723](https://arxiv.org/abs/2603.25723) (March 2026) | B |
 
 **Practical implication of the nuancing evidence**: The "harness simplifies as models improve" thesis holds, but three specific decisions should be hedged:
 
 1. **Don't strip harness for lower-tier models.** If your project routes some tasks to Haiku for cost reasons, the harness those tasks need is *not* the same as the harness Opus needs. Keep fallback scaffolding for cheaper models rather than optimizing for the top tier only.
 2. **Retune prompts on every model release, even if the harness is unchanged.** Opus 4.6 → 4.7 is the canonical case: the harness did not need to change, but prompt idioms that assumed inferred intent silently regressed. See [model-migration-anti-patterns.md](model-migration-anti-patterns.md).
-3. **Don't add verifier modules prophylactically.** The Tingua ablation is narrow but pointed: explicit verifiers hurt benchmark performance. Reserve verification for where you have evidence the agent is getting it wrong, not as a default safety layer.
+3. **Don't add verifier modules prophylactically.** The Pan et al. ablation (arXiv:2603.25723) is narrow but pointed: explicit verifiers hurt benchmark performance. Reserve verification for where you have evidence the agent is getting it wrong, not as a default safety layer.
 
 ### Verdict
 
@@ -405,7 +412,7 @@ This document's thesis is tracked across repositories as **H-HARNESS-01: Harness
 
 > Investing in agent harness architecture (orchestration, memory, verification, state management) yields larger, faster, and more reliable performance gains than waiting for the next model upgrade.
 
-**Current evidence-tier**: B+ leaning A. Stanford and Tingua results are consistently directional but the primary Stanford harness-ablation paper URL is still outstanding (see "Authority needs primary source verification" note above and in the Sources section). Karpathy's independent convergence on the same meta-optimization concept (Authority 4/5) and Anthropic's v2 simplification with Opus 4.6 (Authority 5/5, Tier A) are the strongest corroborating signals.
+**Current evidence-tier**: B+ leaning A. The Meta-Harness primary source ([arXiv:2603.28052](https://arxiv.org/abs/2603.28052), Lee/Nair/Zhang/Lee/Khattab/Finn, Stanford+MIT, 2026-03-30) and the Tsinghua NLH paper ([arXiv:2603.25723](https://arxiv.org/abs/2603.25723), Pan et al., 2026-03-26) are now both located and registered (resolution: 2026-05-24). The 6× orchestration-only figure is the Meta-Harness paper's headline quote and is independently corroborated by SWE-Bench Mobile ([arXiv:2602.09540](https://arxiv.org/abs/2602.09540), Opus 4.5: 12% Cursor / 2% OpenCode). Karpathy's independent convergence on meta-optimization (Authority 4/5) and Anthropic's v2 simplification with Opus 4.6 (Authority 5/5, Tier A) remain the strongest practitioner corroboration.
 
 ### Falsifiability
 
@@ -415,11 +422,15 @@ The claim is falsifiable in a single test:
 
 Such a result would invalidate the "harness is the multiplier" framing — if a pure model swap can match the Stanford-reported 6× orchestration-only delta, then the harness-vs-model trade-off collapses to a routine optimization rather than a structural shift. As of 2026-05-24, no such benchmark has surfaced; the dominant cross-model deltas reported in 2026 (TerminalBench 2, SWE-bench, OSWorld) sit well below 6× even across major version jumps.
 
-### Outstanding Provenance Gaps
+### Outstanding Provenance Gaps — Resolved 2026-05-24
 
-- **Stanford 6×-orchestration figure** — cited via synthesis transcript (March 2026); the underlying paper has not been located and is not yet on arXiv under a verified author. Treat as Tier B directional evidence until the primary source surfaces.
-- **Meta-Harness paper** — Stanford / Omar Khattab (DSPy). Result documented (Rank 1 TerminalBench 2 with Haiku); the formal paper is in tracking.
-- **Tingua NLH ablation** — March 2026 papers; cited at Authority 3/5 pending peer review.
+All three previously-tracked provenance gaps were closed by an academic-source sweep on 2026-05-24:
+
+- **~~Stanford 6×-orchestration figure~~** — **RESOLVED**. The figure originates from the Meta-Harness paper itself (Lee et al., [arXiv:2603.28052](https://arxiv.org/abs/2603.28052), 2026-03-30) where it appears verbatim: *"Changing the harness around a fixed large language model (LLM) can produce a 6× performance gap on the same benchmark."* The earlier "Stanford researchers via synthesis transcript" attribution and the "Meta-Harness paper" tracking item resolve to the same single source. The figure is independently corroborated by SWE-Bench Mobile (Tian et al., [arXiv:2602.09540](https://arxiv.org/abs/2602.09540), 2026-02-10), which reports Opus 4.5 scoring 12% on Cursor vs 2% on OpenCode — exactly 6×, scaffold-only.
+- **~~Meta-Harness paper~~** — **RESOLVED**. Full citation: Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT). "Meta-Harness: End-to-End Optimization of Model Harnesses." [arXiv:2603.28052](https://arxiv.org/abs/2603.28052), 2026-03-30. Result quantification corrected: 76.4% with Opus 4.6 (rank 2 among Opus agents) and 37.6% with Haiku 4.5 (rank 1 among Haiku agents, beating Goose at 35.5%).
+- **~~Tingua NLH ablation~~** — **RESOLVED with attribution correction**. "Tingua" was a misspelling of Tsinghua. Full citation: Pan, Zou, Guo, Ni, Zheng (Tsinghua University, Shenzhen International Graduate School + Harbin Institute of Technology). "Natural-Language Agent Harnesses." [arXiv:2603.25723](https://arxiv.org/abs/2603.25723), 2026-03-26. All ablation numbers in this doc (verifiers -0.8 SWE / -8.4 OSWorld; multi-candidate search -2.4 / -5.6; self-evolution +4.8 / +2.7) match the paper exactly.
+
+**Net effect on hypothesis strength**: H-HARNESS-01 moves from "B+ with three outstanding gaps" to "B+ with primary sources verified." The headline 6× figure is no longer transcript-only; it is the paper's published claim, independently replicated.
 
 ### Cross-Repository Tracking
 
@@ -496,9 +507,9 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - Prompt Engineering: ["The AI Model Doesn't Matter Anymore"](https://www.youtube.com/watch?v=1Ohf2aeSPFA) (February 2026) — Full transcript analyzed. Middleware era thesis, three harness properties, Vercel experiment, Manus analysis, Bitter Lesson application
 - Vercel: Text-to-SQL experiment (as cited in video) — Removing specialized tools improved all metrics
 - Manus: Context engineering lessons (as cited in video, acquired by Meta) — 5 rebuilds, file system as memory
-- Tingua NLH team: Natural Language Harness representation research + ablation studies (March 2026) — NLH representation gains, verifier/multi-candidate ablation, self-evolution as only consistently helpful module. Authority 3/5.
-- Stanford/Omar Khattab (DSPy): Meta-Harness automated optimization (March 2026) — Agentic proposer reads failed traces, writes new harness. Rank 1 TerminalBench 2 with Haiku. Cross-model harness transfer. Authority 4/5.
-- Stanford researchers: 6x performance difference from orchestration code alone (March 2026) — Same model, same benchmark, harness-only changes. Authority needs primary source verification.
+- Pan, Zou, Guo, Ni, Zheng (Tsinghua University + Harbin Institute of Technology): ["Natural-Language Agent Harnesses"](https://arxiv.org/abs/2603.25723) — arXiv:2603.25723, 2026-03-26. NLH representation gains (30.4% → 47.2%, 1,200 → 34 LLM calls), verifier/multi-candidate ablation, self-evolution as only consistently helpful module. *(Previously cited as "Tingua NLH" — attribution corrected 2026-05-24.)*
+- Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT): ["Meta-Harness: End-to-End Optimization of Model Harnesses"](https://arxiv.org/abs/2603.28052) — arXiv:2603.28052, 2026-03-30. Agentic proposer reads failed traces, writes new harness. 76.4% Opus 4.6 / 37.6% Haiku 4.5 on TerminalBench-2 (rank 1 among Haiku agents). Cross-model harness transfer (+7.7 text-classification, +4.7 IMO math across five held-out models). **Source for "6× performance gap from harness changes alone" headline figure.**
+- Tian, Wang, Yang et al.: ["SWE-Bench Mobile: Can LLM Agents Develop Industry-Level Mobile Apps?"](https://arxiv.org/abs/2602.09540) — arXiv:2602.09540, 2026-02-10. Independent corroboration: same Opus 4.5 model scores 12% on Cursor vs 2% on OpenCode (exactly 6×, scaffold-only) across 22 agent-model configurations.
 - Sen, Kasturi, Lumer, Gulati, Subbiah (PwC US): ["Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"](https://arxiv.org/abs/2605.15184) — arXiv:2605.15184, May 2026. 116-question LongMemEval study across Chronos, Claude Code, Codex, Gemini CLI. Two findings cited here: (1) grep generally yields higher accuracy than vector retrieval; (2) "overall scores still depend strongly on which harness and tool-calling style is used, even when the underlying conversation data are the same" — direct empirical support for harness-as-multiplier across retrieval strategies. Tier B preprint, not yet peer-reviewed.
 - Andrej Karpathy: Meta-optimization of program.md (March 2026, No Priors podcast) — Independent convergence with Stanford meta-harness concept. Authority 4/5.
 - [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — 119K+ stars, Anthropic hackathon winner, maximal harness approach

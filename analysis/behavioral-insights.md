@@ -244,6 +244,24 @@ This aligns with Boris Cherny's Writer/Reviewer pattern: the review session catc
 
 Source: Anthropic engineering blog, Authority 5/5.
 
+### Principle-Teaching Reduces Agentic Misalignment (Anthropic Research, May 2026)
+
+Anthropic published research on a training-data design choice: teaching models the *principles* behind ethical behavior — not just labeled examples of compliant vs. non-compliant outputs — substantially changes how models behave in agentic-misalignment scenarios.
+
+| Training data approach | Blackmail-scenario rate | Token efficiency |
+|---|---|---|
+| Synthetic honeypot dataset (labeled examples) | 22% | Baseline |
+| "Difficult advice" dataset (reasoning about *why*) | ~3% | ~28× more efficient |
+
+**Implication for harness designers**: As alignment training pushes the model toward internalizing *why* certain actions are problematic — rather than pattern-matching labeled don'ts — heavy `MUST NOT do X` scaffolding in CLAUDE.md becomes less load-bearing per unit of safety. The training-time effect is the more reliable lever; the CLAUDE.md prohibition is a backstop, not a substitute.
+
+**Caveats**:
+- This is a single Anthropic publication; "MUST NOT" rules in CLAUDE.md should not be removed on the basis of this research alone.
+- The 22% → 3% figure is for a specific blackmail-scenario evaluation, not a general agentic-safety metric. Don't extrapolate to "principle-teaching reduces all misalignment 7×."
+- The "28× token efficiency" is a training-data efficiency claim, not an inference-time efficiency claim. It does not mean prompts get shorter.
+
+Source: Anthropic Research, ["Teaching Claude why"](https://www.anthropic.com/research/teaching-claude-why), 2026-05-08. Authority 5/5 for the alignment-training claim; Authority 4/5 when extrapolating to harness-design implications.
+
 ---
 
 ## Auto Mode Behavior (v2.1.84+)
@@ -301,6 +319,7 @@ These gaps do not invalidate the claims — they scope them. Practitioner-observ
 - CAII (skribblez2718): Johari Window methodology
 - RLM paper (Zhang, Kraska, Khattab): Context rot research
 - Anthropic Engineering Blog: Auto mode, agent skills (March 2026), self-evaluation failure mode, Monitor tool (April 2026)
+- Anthropic Research: ["Teaching Claude why"](https://www.anthropic.com/research/teaching-claude-why) (May 8, 2026) — Principle-teaching reduces blackmail-scenario rate 22% → 3% at 28× token efficiency vs. honeypot datasets. Authority 5/5 for the training-data claim. Tier A.
 - Anthropic Migration Guide (April 2026): Opus 4.7 literal interpretation, fewer default subagents, adaptive verbosity
 - Simon Willison (April 18, 2026): Opus 4.7 system-prompt analysis — selective literalism
 - Hacker News 47793411, 47814832: Community observation of 4.7 thinking-calibration and system-reminder over-application

@@ -97,6 +97,18 @@ All analysis documents in this repository are derived from authoritative sources
   - Recommendation: treat evaluation integrity as ongoing adversarial problem, not design-time concern
 - **Pattern**: [Agent Evaluation](analysis/agent-evaluation.md)
 
+#### Teaching Claude Why (Alignment Research)
+- **Title**: "Teaching Claude why"
+- **Source**: Anthropic Research
+- **Date**: May 8, 2026
+- **URL**: https://www.anthropic.com/research/teaching-claude-why
+- **Key Insights**:
+  - Teaching models the *principles* behind ethical behavior reduces agentic-misalignment (blackmail-scenario) rates from 22% to ~3%
+  - "Difficult advice" training data achieves comparable alignment results at ~28× token efficiency vs synthetic-honeypot datasets
+  - Implication for harness design: as models internalize *why* certain actions are problematic, heavy MUST-NOT scaffolding in CLAUDE.md may become less load-bearing — but is also no substitute for the alignment-training effect itself
+- **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md) (alignment-training implications for harness designers)
+- **Evidence Tier**: A (Anthropic-authored research, with caveat that this is alignment research applied to harness design, not a harness-engineering guide)
+
 ### Claude Code Documentation (Canonical)
 - **Source**: Anthropic Official Documentation
 - **URL**: https://code.claude.com/docs/en/best-practices (Canonical - January 2026, continuously updated)
@@ -113,6 +125,12 @@ All analysis documents in this repository are derived from authoritative sources
   - Auto mode (`--permission-mode auto`) — AI classifier reviews commands, 0.4% FPR, replaces `--dangerously-skip-permissions`
   - `/btw` for side questions without growing context (dismissible overlay)
   - "Summarize from here" via `/rewind` — selective partial compaction
+  - **Agent view** (`claude agents`, research preview, v2.1.139+): unified TUI dashboard for all background sessions — `https://code.claude.com/docs/en/agent-view`
+  - **Ultrareview** (cloud bug-hunting agent fleet, v2.1.118+; CI subcommand `claude ultrareview <target>`): `https://code.claude.com/docs/en/ultrareview`
+  - **`/goal` command** (completion-condition loop, fast-model checker after each turn): `https://code.claude.com/docs/en/goal`
+  - **Hooks invoke MCP tools directly** via `type: "mcp_tool"` (v2.1.118+) — no process spawn needed
+  - **`hard_deny` auto-mode rules** (v2.1.128+) — unconditional blocks, take precedence over allow rules
+  - **`continueOnBlock` PostToolUse hook option** (v2.1.136+) — feeds rejection reason back to Claude and continues the turn
 - **Topics Used**:
   - CLAUDE.md file format
   - Settings and hooks configuration
@@ -122,6 +140,7 @@ All analysis documents in this repository are derived from authoritative sources
   - Plugin marketplace and installation
   - Auto mode permission handling
   - Context management (`/btw`, `/rewind` summarize)
+  - Agent-view session orchestration, Ultrareview cloud fleet, `/goal` completion loops
 
 ### Claude Code Changelog
 - **Source**: Anthropic GitHub Repository
@@ -684,6 +703,61 @@ Track these for production readiness:
 - **How discovered**: Elvis S. LinkedIn post (2026-05-16, 673 reactions) acted as pointer; only the underlying paper is cited here. The LinkedIn post itself is not registered — it adds no claim beyond the paper.
 - **Pattern**: [Harness Engineering](analysis/harness-engineering.md), [Memory Systems Archetype A — Curated KB](analysis/memory-systems-archetype-a-curated-kb.md) (anti-pattern: claude-context Milvus + embeddings against a small analytical KB)
 - **Evidence Tier**: B (Preprint with reproducible methodology against public LongMemEval benchmark; not yet peer-reviewed; practitioner-research affiliation)
+
+### "Meta-Harness: End-to-End Optimization of Model Harnesses" (arXiv:2603.28052)
+- **Authors**: Yoonho Lee, Roshen Nair, Qizheng Zhang, Kangwook Lee, Omar Khattab, Chelsea Finn (Stanford + MIT)
+- **Source**: [arXiv:2603.28052](https://arxiv.org/abs/2603.28052)
+- **Date**: 2026-03-30 (verified 2026-05-24)
+- **Description**: Agentic outer-loop autonomously rewrites the harness by reading failed execution traces. On TerminalBench-2: 76.4% with Opus 4.6 (rank 2 among Opus agents), 37.6% with Haiku 4.5 (rank 1 among Haiku agents, outperforming Goose at 35.5%). Also produced +7.7 points on text classification using 4× fewer context tokens, and +4.7 points on IMO-level math across five held-out models.
+- **Key Finding**: Paper's headline quote — "Changing the harness around a fixed large language model (LLM) can produce a 6× performance gap on the same benchmark." This is the primary source for the "Stanford 6× orchestration figure" previously cited in `harness-engineering.md` via a synthesis transcript without a verified paper URL. Both "Stanford 6×" and "Meta-Harness paper" outstanding-provenance gaps resolve to this single entry.
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md) — H-HARNESS-01 hypothesis primary source.
+- **Evidence Tier**: B (Preprint from established authors at top institutions; Khattab is the DSPy lead, Finn runs the Stanford Auto-Iterative Reasoning lab; not yet peer-reviewed)
+
+### "Natural-Language Agent Harnesses" (arXiv:2603.25723)
+- **Authors**: Linyue Pan, Lexiao Zou, Shuo Guo, Jingchen Ni, Hai-Tao Zheng (Tsinghua University, Shenzhen International Graduate School + Harbin Institute of Technology)
+- **Source**: [arXiv:2603.25723](https://arxiv.org/abs/2603.25723)
+- **Date**: 2026-03-26 (verified 2026-05-24)
+- **Attribution correction**: This paper was previously cited in the repo as "Tingua NLH" — a garbled spelling of Tsinghua. Ablation numbers and the NLH vs. native-code table (30.4% → 47.2%, 1,200 → 34 LLM calls) match the citations exactly; same paper, corrected attribution.
+- **Key Findings**: Verifier ablation -0.8 SWE-bench / -8.4 OSWorld; multi-candidate search -2.4 SWE-bench / -5.6 OSWorld; self-evolution +4.8 / +2.7. NLH (expressing harness logic in natural language vs. native code) lifts 30.4% → 47.2% and cuts LLM calls from 1,200 to 34. Self-evolution is the only consistently helpful ablated module.
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md) — verifier-modules anti-pattern, NLH as orthogonal optimization axis.
+- **Evidence Tier**: B (Preprint with reproducible ablations on public benchmarks; not yet peer-reviewed)
+
+### "Agentic Context Engineering: Evolving Contexts for Self-Improving LMs" (arXiv:2510.04618)
+- **Authors**: Zhang, Hu, Upasani et al.
+- **Source**: [arXiv:2510.04618](https://arxiv.org/abs/2510.04618)
+- **Venue**: ICLR 2026 (submitted October 2025, accepted for the 2026 conference)
+- **Date**: Verified 2026-05-24
+- **Description**: Treats agent contexts as evolving playbooks that accumulate and refine strategies across tasks; not a fixed prompt but a structured memory that compounds learnings.
+- **Key Findings**: +10.6% on agent tasks and +8.6% on finance benchmarks while reducing adaptation cost. Frames context-as-evolving-artifact as a distinct optimization axis from prompt engineering, retrieval, or fine-tuning.
+- **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md) (Document & Clear pattern refinement), [Memory System Patterns](analysis/memory-system-patterns.md) (context as accumulating playbook).
+- **Evidence Tier**: A (Peer-reviewed at ICLR 2026 — first top-venue paper explicitly validating context management as a measurable performance multiplier)
+
+### "SWE-Bench Mobile: Can LLM Agents Develop Industry-Level Mobile Apps?" (arXiv:2602.09540)
+- **Authors**: Tian, Wang, Yang et al.
+- **Source**: [arXiv:2602.09540](https://arxiv.org/abs/2602.09540)
+- **Date**: 2026-02-10 (verified 2026-05-24)
+- **Description**: Mobile-app benchmark covering 22 agent-model configurations.
+- **Key Finding**: Same model (Opus 4.5) achieves 12% on Cursor vs. 2% on OpenCode — exactly 6× — purely from scaffold differences. Independent corroboration of the Meta-Harness "6× from harness alone" claim on a separate benchmark.
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md) — independent benchmark replication of H-HARNESS-01's headline figure.
+- **Evidence Tier**: B (Preprint with reproducible benchmark; not yet peer-reviewed)
+
+### "Memanto: Typed Semantic Memory with Information-Theoretic Retrieval" (arXiv:2604.22085)
+- **Authors**: Abtahi, Rahnema, H. Patel, N. Patel, Fekri, Khani
+- **Source**: [arXiv:2604.22085](https://arxiv.org/abs/2604.22085)
+- **Date**: 2026-04-23 (verified 2026-05-24)
+- **Description**: Vector-only retrieval with information-theoretic selection (not graph augmentation, not LLM-mediated ingestion) at long-horizon agent benchmark scale.
+- **Key Finding**: SOTA 89.8% / 87.1% on long-horizon agent benchmarks without graph infrastructure. **Counter-signal to arXiv:2605.15184 ("grep > embeddings")**: at long-horizon scale, vector-only approaches can dominate. Scope distinction matters — the grep paper tests short-task / small-KB regimes; Memanto tests long-horizon scale where embedding cost amortizes.
+- **Pattern**: [Memory Systems Archetype A — Curated KB](analysis/memory-systems-archetype-a-curated-kb.md) (scope boundary for "grep beats embeddings" claim — registered as counter-signal, not retraction).
+- **Evidence Tier**: B (Preprint with reproducible methodology; not yet peer-reviewed)
+
+### "LongMemEval-V2: Evaluating Long-Term Agent Memory" (arXiv:2605.12493)
+- **Authors**: Wu, Ji, Kawatkar, Kwan, Gu, Peng, Chang
+- **Source**: [arXiv:2605.12493](https://arxiv.org/abs/2605.12493)
+- **Date**: 2026-05-12 (verified 2026-05-24)
+- **Description**: Successor benchmark to LongMemEval ("toward experienced colleagues"); tests memory strategies under longer, more diverse agent interactions.
+- **Key Finding**: "AgentRunbook-C" (store trajectories as files; use a coding agent to grep / read at query time) reaches 72.5% on environment-specific tasks, substantially outperforming retrieval-augmented baselines. Complements arXiv:2605.15184 — same direction (file-as-memory + agentic search > fixed RAG pipeline), updated benchmark.
+- **Pattern**: [Memory Systems Archetype A — Curated KB](analysis/memory-systems-archetype-a-curated-kb.md), [Memory System Patterns](analysis/memory-system-patterns.md).
+- **Evidence Tier**: B (Preprint with public benchmark; not yet peer-reviewed)
 
 ### Tenzir Blog: MCP vs Skills Economics
 - **Author**: Matthias Vallentin
@@ -1788,6 +1862,7 @@ This sources document is updated when:
 
 | Date | Action | Result |
 |------|--------|--------|
+| 2026-05-24 | Tier A sweep + academic provenance closure | Completed biweekly Tier A sweep (gap from 2026-04-22 → 2026-05-24, ~4 weeks). Anthropic changelog: registered new doc URLs for `agent-view`, `ultrareview`, `/goal` (33 versions v2.1.117 → v2.1.150 in window; biggest architectural additions = agent-view supervisor process + git-worktree session isolation, ultrareview cloud bug-hunting fleet, hooks invoking MCP tools directly via `type: "mcp_tool"`, `hard_deny` auto-mode rules, `continueOnBlock` PostToolUse). Anthropic Research: registered "Teaching Claude why" (2026-05-08) — principle-teaching reduces agentic-misalignment blackmail rate 22% → 3% at 28× token efficiency vs honeypot data. **Academic sweep closed 3 outstanding-provenance gaps**: Stanford 6× orchestration figure = Meta-Harness paper (arXiv:2603.28052, Lee/Nair/Zhang/Lee/Khattab/Finn, Stanford+MIT, 2026-03-30); "Tingua NLH ablation" was misspelled — corrected to Tsinghua (arXiv:2603.25723, Pan/Zou/Guo/Ni/Zheng, 2026-03-26); Meta-Harness paper itself now has formal SOURCES.md entry with arXiv ID. Independent corroboration of the 6× figure registered as SWE-Bench Mobile (arXiv:2602.09540, Opus 4.5: 12% on Cursor vs 2% on OpenCode). New Tier A peer-reviewed paper: Agentic Context Engineering (arXiv:2510.04618, ICLR 2026) — first top-venue paper validating context-as-multiplier (+10.6% agent tasks). Counter-signal registered: Memanto (arXiv:2604.22085) reaches SOTA 89.8% with vector-only retrieval at long-horizon scale, scoping the "grep > embeddings" claim to small-KB regime. LongMemEval-V2 (arXiv:2605.12493) registered as successor benchmark with AgentRunbook-C file-as-memory pattern. One unverified Anthropic Engineering Blog post (claude-code-quality-reports, 2026-04-23) returned 404 on three URL variants — flagged, not registered. |
 | 2026-05-24 | "Is Grep All You Need?" preprint added (arXiv:2605.15184) | Added Sen/Kasturi/Lumer/Gulati/Subbiah (PwC US, 2026-05-14) as Tier B preprint. 116-question LongMemEval study across 4 harnesses (Chronos, Claude Code, Codex, Gemini CLI) finds grep generally yields higher accuracy than vector retrieval, with harness choice having measurable effect independent of retrieval strategy. Cross-referenced into [`harness-engineering.md`](analysis/harness-engineering.md) supporting-evidence table and Sources section, and into [`memory-systems-archetype-a-curated-kb.md`](analysis/memory-systems-archetype-a-curated-kb.md) as empirical backing for the "claude-context against a small analytical KB is anti-pattern" claim. Discovered via Elvis S. LinkedIn post (2026-05-16) which acted as pointer; the LinkedIn post itself is not registered separately — only the underlying paper carries citable evidence. |
 | 2026-05-24 | Cross-brain integration: Vallentin CLI+Skill recipe + H-HARNESS-01 tracking | Added Matthias Vallentin LinkedIn (2026-03-17) "CLI + Skill > MCP" as Tier B source with vendor-incentive caveat — extends existing Vallentin/Tenzir presence with concrete 4-step CLI-ification recipe (OpenAPI → @hey-api/openapi-ts → commander → skill) and `mavam/clattio` reference implementation. Added "The CLI + Skill Pattern" section to [`mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) covering when to apply, decision flow, and which parts of the categorical claim to discount. Added "Hypothesis Status and Falsifiability" section to [`harness-engineering.md`](analysis/harness-engineering.md) consolidating H-HARNESS-01 evidence with explicit falsifiability criterion (>6× from model-only swap would invalidate the thesis) and outstanding-provenance gap log (Stanford 6× orchestration figure, Meta-Harness paper, Tingua NLH ablation). Cross-repository tracker pointer to project1 hypothesis ledger added without duplicating tangential cross-brain evidence. |
 | 2026-05-24 | Quality refresh + consumer-trust pass | URL canonicalization to `code.claude.com` (3 entries: sub-agents, hooks reference, verification guidance). Added 4 verified Tier B sources: Builder.io 50 Tips (Gopinath, 2026-03-20), Morph 2026 Best Practices Guide (2026-02-15), Shipyard Multi-Agent Orchestration (2026-03-18), VoltAgent awesome-claude-code-subagents (20.4k stars). Consumer-trust pass on analysis docs: backfilled `## Sources` footers across 16 docs that previously relied on inline YAML attribution only; surfaced vendor-reported caveats inline on Tier C performance claims (Graphify 71.5×, claude-context ~40%); cross-linked 7-repo portfolio evidence into `framework-selection-guide.md`, `orchestration-comparison.md`, and `memory-systems-archetype-recommendations.md`. Added "Last curated" header to top of this file. |
