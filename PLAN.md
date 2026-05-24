@@ -18,7 +18,7 @@
 |--------|--------|
 | Analysis documents | 41 |
 | Archived v1 patterns | 24 |
-| Source database entries | 130+ |
+| Source database entries | 132+ (Vallentin CLI+Skill LinkedIn + arXiv:2605.15184 added 2026-05-24) |
 | Source attribution | 100% (16 docs backfilled with `## Sources` footers on 2026-05-24) |
 
 ---
@@ -63,6 +63,14 @@
 ---
 
 ## Recent Activity
+
+### May 24, 2026 — Cross-brain integration from project1 ingest (complete)
+
+- Surveyed project1 (6k-doc second brain) for cross-pollination candidates; 2 of 9 reviewed items passed the evidence-tier and scope filters.
+- **Vallentin CLI+Skill LinkedIn (2026-03-17)** added as Tier B source with vendor-incentive caveat. New "CLI + Skill Pattern" section in [`mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) documents the 4-step recipe (`OpenAPI → @hey-api/openapi-ts → commander → skill`), decision flow for when to apply, and which parts of the categorical "MCP is a solution in search of a problem" framing to discount.
+- **H-HARNESS-01 cross-brain tracking** added to [`harness-engineering.md`](analysis/harness-engineering.md): new "Hypothesis Status and Falsifiability" section consolidating the existing scattered Stanford/Tingua/Karpathy evidence under a single hypothesis claim with explicit falsifiability criterion (`>6× from model-only swap would invalidate`) and an outstanding-provenance log (Stanford 6× orchestration figure, Meta-Harness paper, Tingua NLH ablation — all still need primary-source verification). Cross-repo pointer to project1's hypothesis tracker without duplicating its tangential cross-brain evidence (Splunk benchmark, CAII Johari Window).
+- **arXiv:2605.15184 "Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"** (Sen/Kasturi/Lumer/Gulati/Subbiah, PwC US, 2026-05-14) added as Tier B preprint. 116-question LongMemEval study across Chronos, Claude Code, Codex, Gemini CLI finds grep generally beats vector retrieval with harness having measurable effect independent of retrieval choice. Cross-referenced in `harness-engineering.md` supporting-evidence table + Sources, and in `memory-systems-archetype-a-curated-kb.md` as empirical backing for the claude-context-against-small-KB anti-pattern. Discovered via Elvis S. LinkedIn pointer; only the paper is registered (the LinkedIn post adds no claim beyond the paper).
+- 6 other project1 candidates deferred with documented reasons: H-CONTEXT-ROT-01 (already covered in 5 docs), H-CONTEXT-FILE-SYSTEM-01 (single-source 2/5 confidence), H-BOUNDED-AGENCY-01 (governance scope), H-FASTMCP-01 (MCP-server-developer audience, wrong consumer), Lindenberg LinkedIn (derivative pointer with provenance issues), Hoyt Emerson LinkedIn (single-practitioner observation pending corroboration). Elvis post moved from "defer" to "complete" once the underlying paper was located.
 
 ### May 24, 2026 — Sources quality refresh + consumer-trust pass (complete)
 

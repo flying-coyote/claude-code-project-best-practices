@@ -13,6 +13,7 @@
 - **Egress-constrained archetype reframe + genealogy baseline** (April 29, 2026): renamed Archetype C-PII → C-Egress-Constrained after reframing genealogy projects' egress posture. New empirical doc `memory-systems-genealogy-baseline.md` — 3 subagents × 3 queries × 3 projects, 8/9 DEFINITIVE on the unaugmented stack.
 - **Memory testbed experiments** (May 2026): Experiment #1 expanded to 20 brick-wall memory files; dedicated brick-wall files collapsed Q2 from 6–9 reads to 3.
 - **Quality refresh + consumer-trust pass** (May 24, 2026): URL canonicalization to `code.claude.com`; +4 verified Tier B sources (Builder.io, Morph, Shipyard, VoltAgent); backfilled `## Sources` footers across 16 analysis docs; inlined vendor-reported caveats on Tier C metrics; cross-linked 7-repo portfolio evidence into framework-selection and orchestration-comparison docs.
+- **Cross-brain integration from project1 ingest** (May 24, 2026): Surveyed 6k-doc second brain for cross-pollination; 2 of 9 reviewed items passed evidence-tier + scope filters. Added Vallentin CLI+Skill LinkedIn (Tier B with vendor-incentive caveat) — new "CLI + Skill Pattern" section in `mcp-vs-skills-economics.md` documenting the 4-step OpenAPI → typed SDK → CLI → skill recipe. Added H-HARNESS-01 "Hypothesis Status and Falsifiability" section in `harness-engineering.md` with explicit `>6× from model-only swap would invalidate` criterion and outstanding-provenance log. Added arXiv:2605.15184 "Is Grep All You Need? How Agent Harnesses Reshape Agentic Search" (Sen/Kasturi/Lumer/Gulati/Subbiah, PwC US) as Tier B preprint backing the grep-vs-embeddings anti-pattern in `archetype-a-curated-kb.md`. 6 other candidates deferred with documented reasons.
 
 ### v2.0 - Adaptive Routing + Opus 4.7 Integration (April 2026)
 
@@ -86,7 +87,7 @@
 |--------|-----------|-------------|---------------|
 | Analysis documents | — | — | **41** |
 | Patterns documented (v1) | 10+ | **17** | (archived to `archive/patterns-v1/`) |
-| Source database entries | — | — | **130+** |
+| Source database entries | — | — | **132+** |
 | Source attribution | 100% | **100%** | **100%** (Sources footers across all 41 docs) |
 | Self-compliance | 100% | **100%** | **100%** |
 | Total documents (repo-wide) | — | **48** | tracked in INDEX.md |
