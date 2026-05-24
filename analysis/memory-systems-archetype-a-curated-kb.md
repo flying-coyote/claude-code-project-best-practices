@@ -29,7 +29,7 @@ Calibrated to the **~500-document single-curator design target**. See [`memory-s
 | Synthesis   | Hand-edited prose, augmented by graph footer                                                                            | Axis 2 — augments-wiki; prose carries argumentation graph can't represent                                                        |
 | Lint        | Local script reading `graph.json` + each `analysis/*.md`, flagging wiki claims that conflict with EXTRACTED edges       | Axis 8 — bridges deterministic vs LLM-derived                                                                                    |
 
-**Driving axes**: 1 (write-time dominant), 2 (augments-wiki), 7 (markdown), 8 (provenance discipline). **Evidence tier**: B for the Karpathy paradigm, C for graphify's specific 71.5× token claim ([safishamsi/graphify](https://github.com/safishamsi/graphify)).
+**Driving axes**: 1 (write-time dominant), 2 (augments-wiki), 7 (markdown), 8 (provenance discipline). **Evidence tier**: B for the Karpathy paradigm; **C — vendor-reported, not independently benchmarked** — for graphify's specific 71.5× token claim ([safishamsi/graphify](https://github.com/safishamsi/graphify)).
 
 ## A2. Hybrid alternatives
 
@@ -63,6 +63,21 @@ Calibrated to the **~500-document single-curator design target**. See [`memory-s
 | Augments not generates       | ✅ prose stays hand-edited                                                                                 |
 | Local-first                  | ⚠️ graphify Pass 2 ships content to the Claude Code session's LLM. Bound the egress by skipping Pass 2 on sensitive content. |
 | Markdown substrate           | ✅                                                                                                         |
+
+## Sources
+
+Inherits source rubric and tier methodology from [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md).
+
+### Tier B
+
+- Andrej Karpathy: LLM Wiki paradigm — author authority lifts the paradigm claim to B; tool-specific quantitative claims from tools built on this pattern stay Tier C.
+
+### Tier C
+
+- [safishamsi/graphify](https://github.com/safishamsi/graphify) — graphify v0.5.4, 2026-04-28. 71.5× token-savings claim for topology-first retrieval. **Vendor-reported — not independently benchmarked.**
+- Lum1104/understand-anything plugin — wiki-aware graph using `[[wikilinks]]` as ground truth; layout requirements verified 2026-04-28 against plugin v2.3.2 `parse-knowledge-base.py`. **Community-reported — not independently benchmarked.**
+- MehmetGoekce L1/L2 split — context-budget management at scale; named in hybrid alternatives without an independent benchmark. **Community-reported — not independently benchmarked.**
+- Pratiyush/llm-wiki adapters — session-to-wiki ingestion for Claude Code, Codex, Cursor, Gemini; cited as hybrid alternative for session-archive promotion. **Community-reported — not independently benchmarked.**
 
 ## Related Analysis
 

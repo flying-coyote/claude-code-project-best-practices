@@ -462,6 +462,38 @@ Some patterns extracted from these frameworks work with ANY orchestration:
 
 ---
 
+## Production Evidence
+
+Framework-selection guidance in this document is corroborated by the 7-repo portfolio evidence aggregated in [`agent-driven-development.md`](agent-driven-development.md) and the cross-repo orchestration findings in [`cross-project-synchronization.md`](cross-project-synchronization.md). Notable signals:
+
+- **Native subagents handled the dominant share of orchestration** across the 7 portfolio repos; GSD/CAII-style external frameworks were not adopted in any of them. This supports the "Native is the default for ~80% of use cases" rule.
+- **Multi-session continuity needs** (the GSD differentiator) appeared in the genealogy portfolio's 3-project subset, where memory-system patterns ([`memory-systems-genealogy-baseline.md`](memory-systems-genealogy-baseline.md)) — not orchestrator state — carried the load.
+- **CRISPY-style phase decomposition** maps to the agent-driven workflow lifecycle phases observed in the portfolio (planning → research → implementation → verification); the portfolio evidence is consistent with the "split mega-prompts into <40-instruction phases" prescription.
+
+Limitation: portfolio is one practitioner; treat these as Tier A direct-observation evidence at single-practitioner scale, not statistical validation.
+
+---
+
+## Sources
+
+### Tier A
+
+- [Anthropic Claude Code docs](https://docs.anthropic.com/en/docs/claude-code/overview) — Native subagent orchestration (Explore, Plan, general-purpose types), zero-setup default. Validates H-CLAUDE-CODE-01 through H-CLAUDE-CODE-04.
+
+### Tier B
+
+- [glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done) — GSD framework. STATE.md for cross-session memory, fresh context per executor, .planning/ directory structure. README advises "overkill for simple tasks."
+- [skribblez2718/caii](https://github.com/skribblez2718/caii) — Cognitive Agent Infrastructure Infrastructure. 7 fixed agents by cognitive function (Clarification, Research, Analysis, Synthesis, Generation, Validation, Memory); deterministic orchestration.
+- Dexter Horthy / Human Layer — CRISPY framework conference talk, March 2026. Authority 4/5, validated across "thousands of engineers." Source for 7-phase decomposition, design doc pattern, vertical planning, and the "don't use prompts for control flow" principle.
+- [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow) — 60+ specialized agents, vector memory, swarm topologies, ReasoningBank. Enterprise-focused docs only; no production validation data referenced.
+- Zhang / Kraska / Khattab: [arXiv:2512.24601](https://arxiv.org/abs/2512.24601) — Recursive Language Models. CodeQA accuracy 24% → 62% improvement. Status: emerging; all published results use GPT-5/GPT-5-mini, not Claude.
+
+### Tier C
+
+- Claude-Flow cost estimate: $500K+/year compute. **Vendor-reported — not independently benchmarked.**
+
+---
+
 ## Related Patterns
 
 - [Spec-Driven Development](../archive/patterns-v1/spec-driven-development.md) - The foundational methodology (always use)

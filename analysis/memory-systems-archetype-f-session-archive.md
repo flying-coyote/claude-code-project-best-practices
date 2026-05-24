@@ -50,6 +50,15 @@ Per-archetype recommendation for **mining AI-tool session history into durable k
 
 All met. Provenance per session aligns with the wiki↔graph confidence constraint.
 
+## Sources
+
+Inherits source rubric and tier methodology from [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md).
+
+### Tier C
+
+- [pratiyushpathak/llm-wiki](https://github.com/pratiyushpathak/llm-wiki) — MIT license, verified 2026-04-28. Three-layer architecture (`raw/` → `wiki/` → `site/`), adapters for Claude Code, Codex, Cursor, Gemini, Obsidian, Copilot; redaction-by-default for keys/tokens. **Community-reported — not independently benchmarked.**
+- [safishamsi/graphify](https://github.com/safishamsi/graphify) — cited for cross-session topology over the Pratiyush-produced wiki. **Vendor-reported — not independently benchmarked.**
+
 ## Related Analysis
 
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections

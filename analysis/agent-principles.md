@@ -241,6 +241,19 @@ These principles manifest in Claude Code patterns:
 
 ---
 
+## Sources
+
+### Tier B
+
+- [Nate B. Jones — 2025 Agent Build Bible](https://natesnewsletter.substack.com/p/why-your-ai-breaks-in-production) — Expert practitioner, 100+ production AI builds, September 2025. Source for all six foundational principles (persistent memory, inherent unpredictability, monitoring limitations, hybrid architecture, persistent state management, semantic validation).
+
+### Tier A
+
+- [Anthropic Opus 4.7 Migration Guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) — Anthropic, April 2026. Confirms 4.7 spawns "fewer subagents by default" and requires explicit dispatch; source for the Implicit Subagent Dispatch anti-pattern.
+- [agent-driven-development.md](agent-driven-development.md) — Direct portfolio analysis across 7 repos (mndr-review-automation, health-inventory, research prototypes). Source for the exception analysis: which repos operate in the principle-holds regime vs. the edge cases.
+
+---
+
 ## Related Patterns
 - [Long-Running Agent](../archive/patterns-v1/long-running-agent.md) - External artifacts as memory
 - [Context Engineering](./behavioral-insights.md) - Deterministic vs probabilistic context

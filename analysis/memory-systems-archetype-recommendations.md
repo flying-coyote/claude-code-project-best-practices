@@ -115,11 +115,33 @@ Calibrated to **~500-document curated knowledge bases** as the single-curator de
 
 | # | Claim                                                                | Experiment to move to Tier B                                                                                            |
 |---|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| 1 | Graphify's 71.5× token-savings claim                                  | Reproduce on three corpora (pure code, pure prose, mixed); require ≥10× on at least two                                  |
-| 2 | Claude-context ~40% reduction                                          | Reproduce on a real proprietary repo at 5k / 20k / 50k file sizes with a fixed query set                                  |
+| 1 | Graphify's 71.5× token-savings claim *(Tier C — vendor-reported, not independently benchmarked)*  | Reproduce on three corpora (pure code, pure prose, mixed); require ≥10× on at least two                                  |
+| 2 | Claude-context ~40% reduction *(Tier C — vendor-reported, not independently benchmarked)*          | Reproduce on a real proprietary repo at 5k / 20k / 50k file sizes with a fixed query set                                  |
 | 3 | Karpathy paradigm "compounding insight" benefit                        | Run a 6-month retention study on a real ~500-doc KB: does query latency on novel questions actually drop?                |
 | 4 | Lum1104 wiki-aware vs graphify-on-wiki quality                         | A/B on the same vault; have a human rate edge usefulness blind                                                            |
 | 5 | OpenBrain compilation agent (not shipped)                              | Wait for release; until then this is Tier D speculation, not C                                                            |
+
+---
+
+## Sources
+
+### Tier A
+
+- Direct license verification (2026-04-28) — Raw fetch of LICENSE files from raw.githubusercontent.com. Confirms: Pratiyush/llm-wiki = MIT, MehmetGoekce/llm-wiki = MIT, Lum1104/Understand-Anything = MIT, Rowboat = Apache 2.0.
+- Direct read of safishamsi/graphify pyproject.toml (v1 branch, 2026-04-28) — Zero LLM SDK dependencies confirmed; Pass 2 LLM work happens via invoking Claude Code session.
+- [memory-systems-genealogy-baseline.md](memory-systems-genealogy-baseline.md) — Direct measurement across 3 genealogy projects, N=9 queries; Tier B empirical evidence informing archetype C and C-EC recommendations.
+- [memory-systems-recommendation-methodology.md](memory-systems-recommendation-methodology.md) — Methodology, threshold math, assumption challenges, and applied corrections that underpin all per-archetype recommendations.
+
+### Tier B
+
+- Andrej Karpathy — LLM Wiki paradigm (April 2026). Tier B by author authority. Write-time wiki + ingest/query/lint workflows + bookkeeping-not-reading insight. Source for the Karpathy-convention requirements across archetypes C, C-EC, and F.
+
+### Tier C
+
+- Graphify 71.5× token-savings claim. **Vendor-reported — not independently benchmarked.**
+- claude-context ~40% reduction claim. **Vendor-reported — not independently benchmarked.**
+- OpenBrain $0.10–0.30/month cost estimate. **Vendor-reported — not independently benchmarked.**
+- InfraNodus subscription pricing (€12–66/mo) — Proprietory SaaS pricing as listed; not independently verified. **Vendor-reported — not independently benchmarked.**
 
 ---
 

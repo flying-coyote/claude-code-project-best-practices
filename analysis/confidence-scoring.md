@@ -294,6 +294,17 @@ These gaps don't invalidate the framework — they are the framework applied to 
 
 ---
 
+## Sources
+
+This document is a synthesis methodology piece. It has no external citations beyond cross-references to other analysis docs in this repo. Internal cross-references that supply evidence:
+
+### Tier A
+
+- [agent-evaluation.md](agent-evaluation.md) — Documents Anthropic's disclosed "eval awareness" and "self-evaluation rationalization" failure modes, cited in the Gap section to challenge the assumption that Tier A sources are consistently correct.
+- [session-quality-tools.md](session-quality-tools.md) — Cited as an exemplar of the full Gap-statement format this doc defines.
+
+---
+
 ## Related Patterns
 
 - [Evidence Tiers](./evidence-tiers.md) - Classification of source quality and research evidence

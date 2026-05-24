@@ -50,6 +50,15 @@ Per-archetype recommendation for **temporal-dominant work tracking**: deadlines,
 
 All met. Local-first holds for the markdown vault; Google services + optional Composio MCP / Deepgram / ElevenLabs / Exa add egress when enabled.
 
+## Sources
+
+Inherits source rubric and tier methodology from [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md).
+
+### Tier C
+
+- [rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat) — Apache 2.0, 13.1k stars, desktop app for Mac/Windows/Linux, verified 2026-04-28. Typed-entity files, background briefing agents, Composio BYO integrations. **Community-reported star count and capability claims — not independently benchmarked.**
+- Pratiyush/llm-wiki adapters — cited as hybrid for pulling commitments out of meeting transcripts. **Community-reported — not independently benchmarked.**
+
 ## Related Analysis
 
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections

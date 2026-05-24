@@ -170,6 +170,27 @@ The companion recommendations doc reflects these corrections from earlier drafts
 
 ---
 
+## Sources
+
+### Tier A
+
+- Direct read of safishamsi/graphify pyproject.toml (v1 branch, 2026-04-28) — Confirmed zero LLM SDK dependencies. Source for assumption #5 sub-finding and assumption #8 egress framing.
+- Direct license verification (2026-04-28) — Raw fetch of LICENSE files: Pratiyush/llm-wiki = MIT, MehmetGoekce/llm-wiki = MIT, Lum1104/Understand-Anything = MIT, Rowboat/rowboat = Apache 2.0.
+- Lum1104 understand-anything v2.3.2 plugin detector verification (2026-04-28) — `parse-knowledge-base.py` gates on lowercase `index.md` at root or under `wiki/`; uppercase `INDEX.md` fails detection. Source for assumption #7.
+- graphify v0.5.4 empirical run (2026-04-28) — Pass 1: 243 nodes / 427 edges / 0 analysis docs; Pass 2: 1187 nodes / 1651 edges / 67 communities / 251 nodes from analysis docs. Token benchmark: 57.5× vs naive full-corpus. Source for assumption #8 and the Pass-2-or-no-graphify decision.
+
+### Tier B
+
+- Andrej Karpathy — LLM Wiki paradigm (April 2026). Tier B by author authority (on par with Boris Cherny on Claude Code; user-stated criterion 2026-04-28). Source for the write-time wiki + ingest/query/lint + bookkeeping-not-reading insight, calibrated at ~500-doc design target.
+
+### Tier C
+
+- Graphify 71.5× token-savings claim. **Vendor-reported — not independently benchmarked.**
+- claude-context ~40% reduction claim. **Vendor-reported — not independently benchmarked.**
+- OpenBrain $0.10–0.30/month cost estimate (roadmap claim). **Vendor-reported — not independently benchmarked. Treated as Tier D until compilation agent ships.**
+
+---
+
 ## Related analyses
 
 - `analysis/memory-systems-archetype-recommendations.md` — the recommendations themselves

@@ -169,6 +169,22 @@ Implications (now Tier B from validated experiment):
 
 The genealogy baseline is a one-arm measurement. To rigorously claim "augmentation isn't needed" we need a second arm running Graphify Pass 2 + wiki + footer-injection against the same project + same query set, and a delta. The 2026-04-29 reframe of the genealogy projects' egress posture means that arm is now feasible to run (vendor-LLM authorization granted by owner). Recommended next step.
 
+## Sources
+
+Inherits source rubric and tier methodology from [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md).
+
+### Tier B
+
+- Andrej Karpathy: LLM Wiki paradigm — author authority lifts the paradigm claim to B; tool-specific claims built on the paradigm stay Tier C.
+- [`memory-systems-genealogy-baseline.md`](memory-systems-genealogy-baseline.md) — 2026-04-29 project-artifact measurement. Unaugmented stack scored 8/9 DEFINITIVE (89%) on a 9-query measurement across the genealogy trio; promoted to Tier B from validated experiment.
+
+### Tier C
+
+- [safishamsi/graphify](https://github.com/safishamsi/graphify) — graphify v0.5.4 Pass 1 (Tree-sitter only). 2026-04-28 testbed on this repo found Pass 1 indexed 0 of 38 prose docs. **Vendor-reported — not independently benchmarked.**
+- Lum1104/understand-anything + local Ollama — cited as C-EC.2 hybrid for LLM-derived relationships without vendor egress; explicitly labeled **untested in this repo** (Tier D leaning C per doc body).
+- SiYuan — block-level local app (AGPL-3.0); cited as hybrid for atomic-note workflows; community MCP server only. **Community-reported — not independently benchmarked.**
+- Pratiyush/llm-wiki adapters — session ingestion; cited as anti-pattern for PII corpora because sessions may contain quoted PII. **Community-reported — not independently benchmarked.**
+
 ## Related Analysis
 
 - [`memory-systems-archetype-c-personal-second-brain.md`](memory-systems-archetype-c-personal-second-brain.md) — egress-permissive variant

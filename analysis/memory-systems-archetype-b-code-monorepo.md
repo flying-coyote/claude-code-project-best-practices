@@ -56,6 +56,15 @@ Per-archetype recommendation for **code repositories**, especially monorepos and
 - Local-first: ✅ for Pass 1 + Ollama-backed claude-context. ❌ if OpenAI embeddings.
 - Markdown: ✅ for the wiki view.
 
+## Sources
+
+Inherits source rubric and tier methodology from [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md).
+
+### Tier C
+
+- [safishamsi/graphify](https://github.com/safishamsi/graphify) — graphify, 2026-04-28. 71.5× token-savings claim for Tree-sitter AST topology over code repos. **Vendor-reported — not independently benchmarked.**
+- claude-context (BM25 + dense vectors over Milvus) — ~40% context-window reduction claim for semantic recall at scale. **Vendor-reported — not independently benchmarked.**
+
 ## Related Analysis
 
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections

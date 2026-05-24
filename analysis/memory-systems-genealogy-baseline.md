@@ -214,6 +214,16 @@ Install Graphify on dry-cross (cleanest project), Pass 1 + Pass 2 with vendor LL
 
 Author a research-time query set with the user from real session questions (not measurer-designed). Re-run baseline. Check whether selection-bias confound holds.
 
+## Sources
+
+### Tier A
+
+- Direct empirical measurement (2026-04-29) — Sonnet subagent runs with self-classification across 3 genealogy projects (genealogy ~17k md files, genealogy-kindred 396 md, genealogy-dry-cross 3,290 md). N=9 queries. Raw outputs recorded in this doc. Source for all headline claims: 89% DEFINITIVE, tool-call cost inverse to dedicated memory file availability, Q2 PARTIAL attributable to absent brick-wall files.
+- Experiment #1 validation (2026-04-29) — Fresh Sonnet subagent re-ran original Q2 query against augmented memory (5 then 20 dedicated brick-wall files). Source for the 3-call / DEFINITIVE / 44s post-experiment result vs. 6-9 calls / PARTIAL / 92s baseline.
+- [memory-systems-archetype-c-egress-constrained.md](memory-systems-archetype-c-egress-constrained.md) — §C-EC.6 Gap 2 defined the Tier-D speculation this baseline was designed to resolve.
+
+---
+
 ## Related Analyses
 
 - [`memory-systems-archetype-c-personal-second-brain.md`](memory-systems-archetype-c-personal-second-brain.md) — non-PII variant of the second-brain archetype

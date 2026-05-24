@@ -50,6 +50,12 @@ Per-archetype recommendation for managing **multiple knowledge-bearing repos as 
 
 All six met when run as per-repo + thin federation. OpenBrain path defers local-first to self-hosted Postgres setup; FSL terms must be accepted.
 
+## Sources
+
+Inherits source rubric and tier methodology from [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md).
+
+This variant carries no new external sources with independent URLs beyond what the methodology doc and Archetype A already cite. The per-repo layer inherits Karpathy (Tier B paradigm) and graphify (Tier C, [safishamsi/graphify](https://github.com/safishamsi/graphify)) from Archetype A. The OpenBrain compilation-agent path is explicitly labeled **Tier D** (not shipped) in the doc body.
+
 ## Related Analysis
 
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections

@@ -136,6 +136,21 @@ This is consistent with understand-anything's Phase 2 hallucinating 6 filenames 
 - **Does the 25% EXTRACTED hallucination rate hold at scale or is it specific to this corpus?** Unknown. Reproduce on a different prose corpus before generalizing.
 - **What reviewer-pass design would catch most graphify hallucinations?** A second LLM pass over each EXTRACTED edge with the source file, asking "is this claim literally in this file?" might be enough — but that's a project, not a configuration toggle.
 
+## Sources
+
+### Tier A
+
+- Direct empirical run (2026-04-28) — graphify v0.5.4 (Pass 1+2) on 162 files; Lum1104 understand-anything v2.3.2 on 106 files (archive/ excluded). This repo. Source for all top-line numbers: nodes, edges, hyperedges, communities, output sizes. Source for the hallucination spot-check (n=8 EXTRACTED edges, ~25% hallucinated, ~38% verified).
+- Graphify Pass 1 code-only result (2026-04-28) — 243 nodes / 427 edges, 0 of 38 analysis docs received nodes; Tree-sitter is code-only. Confirms "Pass-2-or-no-graphify is the primary decision."
+- Direct read of safishamsi/graphify pyproject.toml (v1 branch, 2026-04-28) — Confirmed zero LLM SDK dependencies; LLM passes happen via invoking Claude Code session.
+- [memory-systems-recommendation-methodology.md](memory-systems-recommendation-methodology.md) — Methodology #7 (Lum1104 Karpathy gate, verified against plugin v2.3.2) and #8 (Pass 1 vs Pass 2 empirical) directly inform this comparison.
+
+### Tier C
+
+- graphify Pass 2 token-reduction: 57.5× on this repo (graphify marketing claim: 71×). **Vendor-reported marketing figure; this run hit 57.5× on the actual corpus — not independently benchmarked against the 71× claim.**
+
+---
+
 ## Related Analysis
 
 - [`memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md) — primary archetype-A recommendation, includes both tools

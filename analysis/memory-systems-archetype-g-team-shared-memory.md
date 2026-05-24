@@ -60,6 +60,16 @@ Per-archetype recommendation for **concurrent-write team shared memory** across 
 - Local-first: ✅ self-hosted; ⚠️ only if BYO model.
 - Markdown: ❌ — DB substrate justified by concurrency. Mitigate with periodic markdown export.
 
+## Sources
+
+Inherits source rubric and tier methodology from [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md).
+
+### Tier C
+
+- OpenBrain (Postgres + pgvector + AI gateway, Postgres RLS) — query-time capability cited as Tier C; compilation-agent half explicitly labeled **Tier D** (not shipped) in the doc body. FSL-1.1-MIT license noted. **Vendor-reported — not independently benchmarked.**
+- claude-context (BM25 + dense vectors over Milvus) — semantic search for code-heavy team workflows; cited with Ollama self-hosted embeddings variant. **Vendor-reported — not independently benchmarked.**
+- Pratiyush/llm-wiki adapters — cited as hybrid for retrospectives over team sessions. **Community-reported — not independently benchmarked.**
+
 ## Related Analysis
 
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections

@@ -186,6 +186,20 @@ From claude-doctor's 8 suggested rules, filtered by evidence reliability:
 
 ---
 
+## Sources
+
+### Tier B
+
+- AFINN-165 sentiment lexicon — Peer-reviewed; 2,477 words scored −5 to +5. Underlying library used by claude-doctor for aggregate session sentiment scoring.
+- Boris Cherny — "Verification = 2–3× quality" finding (Authority 5). Cited in the CLAUDE.md rules section as validation for the "read full file before editing" rule.
+- Anthropic harness guidance — Cited as Authority 5 for the "after 2 consecutive tool failures, change strategy" rule recommendation.
+
+### Tier C
+
+- [claude-doctor](https://github.com/aidenybai/claude-doctor) v0.0.3 (Aiden Bai, April 2026) — Session transcript analysis via AFINN-165 sentiment + heuristic pattern detection. Self-published; thresholds unvalidated. **Vendor-reported — not independently benchmarked.** 9 repos / 222 sessions analyzed by the project author.
+
+---
+
 ## Related Analysis
 
 - [Confidence Scoring](confidence-scoring.md) — the Gap-statement format this doc uses

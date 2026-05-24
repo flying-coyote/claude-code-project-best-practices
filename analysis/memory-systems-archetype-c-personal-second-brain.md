@@ -70,6 +70,24 @@ The "watch later" YouTube pile is a common Archetype C failure mode: source-rich
 
 All six met when graphify Pass 2 stays on a model you accept egress to (or is skipped). Pratiyush has redaction-by-default per inventory.
 
+## Sources
+
+Inherits source rubric and tier methodology from [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md).
+
+### Tier B
+
+- Andrej Karpathy: LLM Wiki paradigm (`sources/`, `wiki/`, `index.md`, `log.md` convention) — author authority lifts the paradigm claim to B; tool-specific claims stay Tier C.
+
+### Tier C
+
+- [safishamsi/graphify](https://github.com/safishamsi/graphify) — graphify with `--watch` for live rebuild; cited as topology layer for heterogeneous content. **Vendor-reported — not independently benchmarked.**
+- Pratiyush/llm-wiki adapters — session ingestion for Claude Code, Codex, Cursor, Gemini, Obsidian, Copilot; redaction-by-default per inventory. **Community-reported — not independently benchmarked.**
+- OpenBrain — cross-tool concurrency hybrid; cited as post-compilation-agent option. **Vendor-reported — not independently benchmarked.**
+- Rowboat — typed-entity temporal layer; cited as hybrid for avoiding "decided last Tuesday" rot in structural wiki. **Community-reported — not independently benchmarked.**
+- Lum1104/understand-anything plugin — wiki-aware graph using `[[wikilinks]]` as ground truth; hybrid option once wiki has dense cross-refs. **Community-reported — not independently benchmarked.**
+- Tolaria — desktop app editor surface with AGENTS-file convention; cited as hybrid alternative to Obsidian plugin sprawl. **Community-reported — not independently benchmarked.**
+- SiYuan — block-level local app (AGPL-3.0) for Zettelkasten atomic-note workflows. **Community-reported — not independently benchmarked.**
+
 ## Related Analysis
 
 - [`memory-systems-archetype-c-egress-constrained.md`](memory-systems-archetype-c-egress-constrained.md) — **egress-constrained variant** when owner has decided corpus content cannot egress to vendor LLMs (medical, legal, journals naming third parties); previously titled "C-PII"
