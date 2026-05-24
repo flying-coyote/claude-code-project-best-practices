@@ -41,7 +41,7 @@ Calibrated to the **~500-document single-curator design target**. See [`memory-s
 
 ## A3. Anti-patterns
 
-- **Claude-context (Milvus + embeddings) against a 30-doc analytical KB**: pays vector-DB ops cost and embedding-provider egress for recall benefit Grep already provides; embedding drift later forces reindex.
+- **Claude-context (Milvus + embeddings) against a 30-doc analytical KB**: pays vector-DB ops cost and embedding-provider egress for recall benefit Grep already provides; embedding drift later forces reindex. **Empirical support (Tier B, 2026-05-14)**: Sen et al., ["Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"](https://arxiv.org/abs/2605.15184) — 116-question LongMemEval study across Chronos, Claude Code, Codex, Gemini CLI found grep generally yields higher accuracy than vector retrieval. Caveat from the same paper: "overall scores still depend strongly on which harness and tool-calling style is used" — the win is harness-conditional, not absolute.
 - **OpenBrain Postgres substrate for ~30 markdown analyses**: flattens per-doc evidence-tier metadata; loses git diff as the audit log; converts a portable artifact into a DB dump.
 - **`graphify --wiki` direct export *alongside* a hand-curated `analysis/`**: produces two parallel "wikis" with no defined source-of-truth — violates the graphify-feeds-wiki constraint.
 
@@ -71,6 +71,7 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 ### Tier B
 
 - Andrej Karpathy: LLM Wiki paradigm — author authority lifts the paradigm claim to B; tool-specific quantitative claims from tools built on this pattern stay Tier C.
+- Sen, Kasturi, Lumer, Gulati, Subbiah (PwC US): ["Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"](https://arxiv.org/abs/2605.15184) — arXiv:2605.15184, 2026-05-14. LongMemEval evidence supporting the "Grep > embeddings" anti-pattern claim for analytical-KB-scale corpora. Preprint, not yet peer-reviewed.
 
 ### Tier C
 

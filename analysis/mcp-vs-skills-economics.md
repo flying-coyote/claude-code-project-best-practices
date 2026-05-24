@@ -212,6 +212,65 @@ For teams with both needs, consider a hybrid approach:
 
 ---
 
+## The CLI + Skill Pattern (When the Vendor MCP Falls Short)
+
+Vallentin's March 2026 [LinkedIn post](https://lnkd.in/dqHjgHc6) extends the original "We Did MCP Wrong" thesis to a concrete situation that recurs across SaaS tools: **the official MCP server is read-only, but the agent needs write access.**
+
+The worked example is Attio (a CRM). Attio's official MCP server lets an agent browse records but not create, update, or annotate them — a fundamental gap for a tool meant to let agents act. Rather than wait for the vendor to ship write endpoints, Vallentin built a CLI for the Attio API and paired it with a skill that teaches the agent when and how to invoke it.
+
+### Four-Step Recipe to CLI-ify Any REST API
+
+| Step | Action | Tool |
+|------|--------|------|
+| 1 | Take the published OpenAPI spec | Vendor docs |
+| 2 | Generate a typed SDK | `@hey-api/openapi-ts` |
+| 3 | Wire the SDK into a CLI | `commander` |
+| 4 | Write a skill that documents *when* and *how* the agent should reach for the CLI | Markdown skill file |
+
+Reference implementation: [`mavam/clattio`](https://lnkd.in/dqHjgHc6) — installable as `npx skills add mavam/clattio`, delivers complete read-write access to Attio without an MCP transport.
+
+### When This Pattern Wins
+
+- The vendor's MCP server is missing write or admin operations you need.
+- The vendor publishes a usable OpenAPI spec (the recipe is mechanical from there).
+- The team is comfortable maintaining a thin CLI wrapper as a Unix-style binary (no transport layer, no server lifecycle).
+- The skill that accompanies the CLI is what minimizes time-to-value for the agent — without it, the agent must discover the CLI by reading `--help`.
+
+### Caveat: Vendor Incentive
+
+Vallentin's company (Tenzir) builds agent-friendly data tooling, so the **categorical** claim that "MCP is a solution in search of a problem Unix solved decades ago" reflects commercial framing. Two parts deserve separate treatment:
+
+| Claim | Status |
+|-------|--------|
+| "Attio's MCP server is read-only" | Verifiable observation about one vendor's implementation |
+| "CLI + Skill > MCP for SaaS tools where OpenAPI exists" | Defensible pattern; reproducible recipe |
+| "MCP is a solution in search of a problem" | Opinion — discount accordingly |
+
+Import the recipe; don't import the categorical conclusion.
+
+### Decision Flow
+
+```
+Need to give agent access to a SaaS tool?
+│
+├─ Vendor MCP exists AND covers the operations you need
+│   → Use the vendor MCP (standard path)
+│
+├─ Vendor MCP exists but is read-only / incomplete
+│   AND vendor publishes OpenAPI spec
+│   → Build CLI + Skill (Vallentin recipe)
+│
+├─ No vendor MCP, no OpenAPI spec
+│   → Either build MCP server (heavy) or wrap the SDK in a thin CLI + skill (light)
+│
+└─ Cross-vendor orchestration with stateful workflows
+    → MCP server (state, transport, persistent connections justify the weight)
+```
+
+This pattern is **complementary to** the MCP-vs-Skills cost comparison above, not a replacement. The cost data (`$10.27` vs `$20.78`) addresses workflows where both options exist; the CLI+Skill recipe addresses the case where the vendor MCP doesn't expose what you need at all.
+
+---
+
 ## Cost Optimization Strategies
 
 ### 1. Audit Tool Call Patterns
@@ -363,10 +422,11 @@ Don't rip out MCP overnight:
 ## Sources
 
 **Primary (Tier B)**:
-- [Tenzir Blog - "We Did MCP Wrong"](https://tenzir.com/blog/we-did-mcp-wrong) - Matthias Vallentin, January 2026
+- [Tenzir Blog - "We Did MCP Wrong"](https://tenzir.com/blog/we-did-mcp-wrong) - Matthias Vallentin, January 2026 — Cost economics (50% cheaper, 38% slower, 55% less cached tokens).
+- [Matthias Vallentin LinkedIn — "CLI + Skill > MCP"](https://lnkd.in/dqHjgHc6) — March 17, 2026. Four-step CLI-ification recipe (`OpenAPI → @hey-api/openapi-ts → commander → skill`); reference implementation `mavam/clattio`. **Vendor-incentive caveat**: Tenzir builds agent-friendly data tooling, so the categorical "MCP is a solution in search of a problem" framing aligns with commercial interest; the four-step recipe and the Attio-MCP-is-read-only observation are reproducible.
 
 **Supporting**:
 - Tenzir Claude Marketplace plugins (10+ production plugins)
 - Internal cost analysis across workflows
 
-*Last updated: January 2026*
+*Last updated: 2026-05-24*

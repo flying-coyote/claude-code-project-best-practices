@@ -358,6 +358,7 @@ START: What is your task complexity?
 | v2 harness simplification: removed sprints/negotiation, DAW in 4h/$125 | Anthropic engineering blog (April 2026) | A |
 | **1000+ PRs in 3 weeks** with ~5 manual IDE edits — review-loop development | Nick Schrock, Dagster founder (Dec 2025) | B |
 | **3x velocity** with agents handling commits, changelogs, docs, releases — org transformation | Matthias Vallentin, Tenzir CEO (Dec 2025) | B |
+| Grep with a good harness ≥ vector retrieval on LongMemEval across 4 harnesses; scores depend strongly on harness regardless of retrieval choice | Sen, Kasturi, Lumer, Gulati, Subbiah (PwC US), [arXiv:2605.15184](https://arxiv.org/abs/2605.15184) (May 2026) | B |
 
 ### Production-Scale Agent-Driven Development (New Evidence, April 2026)
 
@@ -393,6 +394,36 @@ Two high-credibility practitioners independently validated that agent-driven dev
 As models improve, the optimal harness gets simpler — but the *need* for harness engineering increases, not decreases. The smartphone analogy holds: when processors commoditized, the OS and ecosystem became the differentiator, not irrelevant.
 
 **Confidence**: Medium-High. The "Less Is More" evidence is strong and convergent across independent sources. The nuancing evidence is real but addresses edge cases rather than undermining the core thesis.
+
+---
+
+## Hypothesis Status and Falsifiability
+
+This document's thesis is tracked across repositories as **H-HARNESS-01: Harness Engineering Yields Larger Gains Than Model Upgrades**. Consolidating the evidence in one place lets future revalidations check the claim systematically rather than re-deriving it from scattered sources.
+
+### Consolidated Claim
+
+> Investing in agent harness architecture (orchestration, memory, verification, state management) yields larger, faster, and more reliable performance gains than waiting for the next model upgrade.
+
+**Current evidence-tier**: B+ leaning A. Stanford and Tingua results are consistently directional but the primary Stanford harness-ablation paper URL is still outstanding (see "Authority needs primary source verification" note above and in the Sources section). Karpathy's independent convergence on the same meta-optimization concept (Authority 4/5) and Anthropic's v2 simplification with Opus 4.6 (Authority 5/5, Tier A) are the strongest corroborating signals.
+
+### Falsifiability
+
+The claim is falsifiable in a single test:
+
+> **Find a benchmark where a model upgrade (e.g., Sonnet → Opus) holding harness constant provides >6× improvement.**
+
+Such a result would invalidate the "harness is the multiplier" framing — if a pure model swap can match the Stanford-reported 6× orchestration-only delta, then the harness-vs-model trade-off collapses to a routine optimization rather than a structural shift. As of 2026-05-24, no such benchmark has surfaced; the dominant cross-model deltas reported in 2026 (TerminalBench 2, SWE-bench, OSWorld) sit well below 6× even across major version jumps.
+
+### Outstanding Provenance Gaps
+
+- **Stanford 6×-orchestration figure** — cited via synthesis transcript (March 2026); the underlying paper has not been located and is not yet on arXiv under a verified author. Treat as Tier B directional evidence until the primary source surfaces.
+- **Meta-Harness paper** — Stanford / Omar Khattab (DSPy). Result documented (Rank 1 TerminalBench 2 with Haiku); the formal paper is in tracking.
+- **Tingua NLH ablation** — March 2026 papers; cited at Authority 3/5 pending peer review.
+
+### Cross-Repository Tracking
+
+The hypothesis is mirrored in a personal hypothesis tracker (`project1/01-knowledge-base/hypotheses/relocated-out-of-scope.md`) that aggregates evidence across the author's portfolio (security data, MCP prototypes, second-brain). Findings flow into this document; tracker-side updates do not propagate automatically — revalidation should consult both. The tracker also lists adjacent cross-brain evidence (Splunk benchmark, CAII Johari Window) that supports the thesis indirectly via the workflows the harness optimizes for, not the harness mechanics themselves; those references are deliberately not duplicated here.
 
 ---
 
@@ -468,6 +499,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - Tingua NLH team: Natural Language Harness representation research + ablation studies (March 2026) — NLH representation gains, verifier/multi-candidate ablation, self-evolution as only consistently helpful module. Authority 3/5.
 - Stanford/Omar Khattab (DSPy): Meta-Harness automated optimization (March 2026) — Agentic proposer reads failed traces, writes new harness. Rank 1 TerminalBench 2 with Haiku. Cross-model harness transfer. Authority 4/5.
 - Stanford researchers: 6x performance difference from orchestration code alone (March 2026) — Same model, same benchmark, harness-only changes. Authority needs primary source verification.
+- Sen, Kasturi, Lumer, Gulati, Subbiah (PwC US): ["Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"](https://arxiv.org/abs/2605.15184) — arXiv:2605.15184, May 2026. 116-question LongMemEval study across Chronos, Claude Code, Codex, Gemini CLI. Two findings cited here: (1) grep generally yields higher accuracy than vector retrieval; (2) "overall scores still depend strongly on which harness and tool-calling style is used, even when the underlying conversation data are the same" — direct empirical support for harness-as-multiplier across retrieval strategies. Tier B preprint, not yet peer-reviewed.
 - Andrej Karpathy: Meta-optimization of program.md (March 2026, No Priors podcast) — Independent convergence with Stanford meta-harness concept. Authority 4/5.
 - [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — 119K+ stars, Anthropic hackathon winner, maximal harness approach
 - [superpowers](https://github.com/obra/superpowers) — 294K+ installs, disciplined methodology approach
