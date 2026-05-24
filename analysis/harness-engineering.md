@@ -181,7 +181,7 @@ Source: Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT), ["Meta-Harness: E
 
 The Meta-Harness paper states it as the headline finding: *"Changing the harness around a fixed large language model (LLM) can produce a 6× performance gap on the same benchmark."* No model changes, no prompt changes — purely orchestration code.
 
-Specific replication: LangChain's terminal-bench-2 submission moved from outside the top 30 to rank 5 by changing only the harness code (LangChain DeepAgents blog, 2026-02-17: deepagents-cli went 52.8% → 66.5% on TerminalBench-2 holding gpt-5.2-codex constant).
+**Specific replication with full citation**: LangChain's terminal-bench-2 submission moved from outside the top 30 to rank 5 by changing only the harness code. LangChain published the work as ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17): deepagents-cli went **52.8% → 66.5% on TerminalBench-2** (13.7 points) holding gpt-5.2-codex constant. Five specific harness changes were documented: (1) self-verification loop with `PreCompletionChecklistMiddleware`, (2) `LocalContextMiddleware` that maps directory structure and tooling at agent startup, (3) loop-detection middleware tracking per-file edit counts to catch "doom loops," (4) reasoning-budget allocation in a "reasoning sandwich" (xhigh-high-xhigh) across plan/build/verify phases, (5) time-budget warnings injected to encourage completion within timeout. The team published their full TerminalBench traces publicly. Direct quote on what harness engineering is for: *"the purpose of the harness engineer: prepare and deliver context so agents can autonomously complete work."*
 
 **Independent benchmark corroboration**: Tian et al. *SWE-Bench Mobile* ([arXiv:2602.09540](https://arxiv.org/abs/2602.09540), 2026-02-10) reports the same model (Opus 4.5) scoring **12% on Cursor vs 2% on OpenCode** across 22 agent-model configurations — exactly 6×, in a separate venue, on a separate benchmark, from scaffold differences alone. The figure is now replicated, not just cited.
 
@@ -233,7 +233,26 @@ Anthropic's Claude Code v2 with Opus 4.6 provides concrete evidence for "harness
 
 This is a vendor demonstrating the Bitter Lesson on their own product — stripping orchestration complexity because the model no longer needs it. The evaluator-at-the-end pattern also aligns with the ablation evidence above: self-evolution during work, verification only at completion.
 
+**Caveat — vendor-side regression in the same window**: The same vendor shipped a quality regression spanning March 4 – April 20, 2026 ([April 23 postmortem](https://www.anthropic.com/engineering/april-23-postmortem)) — reasoning-effort default flipped to `medium`, an extended-thinking-block caching bug, and a system-prompt verbosity cap that hurt coding quality. None of these invalidate the v2 simplification thesis (the orchestration changes were a separate workstream), but they demonstrate that "trust the vendor's defaults" is the wrong reading. Harness designers should pin effort levels explicitly and treat vendor-side defaults as version-anchored. See [Behavioral Insights — April 2026 Postmortem](behavioral-insights.md#vendor-side-quality-regression-case-study-the-april-2026-postmortem) for the full analysis.
+
 Source: Anthropic engineering blog, April 2026. Authority 5/5.
+
+### Harness Toolkit Additions (Q2 2026)
+
+Concrete harness-layer primitives shipped in Claude Code changelog v2.1.117 → v2.1.150 (verified 2026-05-24) that change what's expressible in the harness without requiring custom code:
+
+| Primitive | Version | What it enables | Pattern impact |
+|---|---|---|---|
+| `/goal` command (research preview) | v2.1.140 | Set a completion condition; a fast-model checker evaluates after every turn, Claude loops until it holds. Works in interactive, `-p`, and Remote Control. | Replaces ad-hoc "did we finish? check it" prompts and external loop scripts with a first-class completion-loop primitive. |
+| Hooks invoke MCP tools directly via `type: "mcp_tool"` | v2.1.118 | A hook can call an MCP tool without spawning a subprocess. | Eliminates the process-spawn overhead that made MCP-from-hook patterns expensive; closes a gap that previously pushed users toward custom subagents. |
+| `continueOnBlock` PostToolUse option | v2.1.136 | When a PostToolUse hook rejects, feed the rejection reason back to Claude and continue the turn (instead of failing the turn). | Hooks become advisory-corrective, not just terminating; aligns with the "self-evolution > verifiers" finding from Pan et al. (arXiv:2603.25723) by letting the agent recover from rejections rather than aborting. |
+| `worktree.bgIsolation` setting | v2.1.143 | Background sessions auto-isolate into git worktrees under `.claude/worktrees/`; `"none"` opts out. | Replaces manual worktree juggling; pairs with the `claude agents` TUI (see [Orchestration Comparison](orchestration-comparison.md)). |
+| Per-category `/usage` breakdown | v2.1.144 | Cost breakdown by category: skills, subagents, plugins, MCP servers. | Makes the MCP-vs-Skills economic comparison ([MCP vs Skills Economics](mcp-vs-skills-economics.md)) measurable in your own project without external instrumentation. |
+| `${CLAUDE_EFFORT}` in skills, `effort.level` in hooks | v2.1.120, v2.1.128 | Skills and hooks can read the current effort level. | Effort becomes a first-class signal; enables conditional skill/hook behavior without parsing `/effort` state externally. |
+
+These are toolkit additions, not architectural shifts. They reduce the gap between "what the harness can express natively" and "what users were patching in with bash scripts and brittle parsing." None of them change the H-HARNESS-01 thesis; all of them lower the marginal cost of building a competent harness.
+
+Source: [Anthropic Claude Code changelog](https://code.claude.com/docs/en/changelog), v2.1.117 → v2.1.150. Tier A.
 
 ### Counter-signal: Opus 4.7 Pushes *Prompt* Complexity Up (April 2026)
 
@@ -512,6 +531,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - Tian, Wang, Yang et al.: ["SWE-Bench Mobile: Can LLM Agents Develop Industry-Level Mobile Apps?"](https://arxiv.org/abs/2602.09540) — arXiv:2602.09540, 2026-02-10. Independent corroboration: same Opus 4.5 model scores 12% on Cursor vs 2% on OpenCode (exactly 6×, scaffold-only) across 22 agent-model configurations.
 - Sen, Kasturi, Lumer, Gulati, Subbiah (PwC US): ["Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"](https://arxiv.org/abs/2605.15184) — arXiv:2605.15184, May 2026. 116-question LongMemEval study across Chronos, Claude Code, Codex, Gemini CLI. Two findings cited here: (1) grep generally yields higher accuracy than vector retrieval; (2) "overall scores still depend strongly on which harness and tool-calling style is used, even when the underlying conversation data are the same" — direct empirical support for harness-as-multiplier across retrieval strategies. Tier B preprint, not yet peer-reviewed.
 - Andrej Karpathy: Meta-optimization of program.md (March 2026, No Priors podcast) — Independent convergence with Stanford meta-harness concept. Authority 4/5.
+- LangChain DeepAgents team: ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17) — deepagents-cli moved 52.8% → 66.5% on TerminalBench-2 (outside Top 30 → Top 5) holding gpt-5.2-codex constant; five specific middleware changes documented; full TerminalBench traces published. Practitioner replication of the harness-as-multiplier effect with a public reproducible artifact. Authority 4/5.
 - [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — 119K+ stars, Anthropic hackathon winner, maximal harness approach
 - [superpowers](https://github.com/obra/superpowers) — 294K+ installs, disciplined methodology approach
 - Richard Sutton: "The Bitter Lesson" — Approaches scaling with compute beat hand-engineered knowledge

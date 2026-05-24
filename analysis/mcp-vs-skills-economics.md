@@ -236,6 +236,23 @@ Reference implementation: [`mavam/clattio`](https://lnkd.in/dqHjgHc6) — instal
 - The team is comfortable maintaining a thin CLI wrapper as a Unix-style binary (no transport layer, no server lifecycle).
 - The skill that accompanies the CLI is what minimizes time-to-value for the agent — without it, the agent must discover the CLI by reading `--help`.
 
+### Convergence: Independent Practitioners Reaching the Same Conclusion (Q1–Q2 2026)
+
+Vallentin's framing isn't a one-off. By Q2 2026 multiple independent practitioners — and at least two database/data-tool vendors — had publicly described the same conclusion: for many integrations, a CLI shipped to the agent beats an MCP server, especially when the agent is already comfortable shelling out.
+
+| Practitioner / vendor | Date | Source | What they shipped or argued |
+|---|---|---|---|
+| Matthias Vallentin (Tenzir) | 2026-03-17 | [LinkedIn post + `mavam/clattio`](https://lnkd.in/dqHjgHc6) | OpenAPI → typed SDK → CLI → skill recipe for Attio |
+| Hoyt Emerson | 2026-04-07 | LinkedIn post about Fletch CLI for ADBC data transfers | "A local CLI tool allows you to simply run commands and functions you normally would in the terminal, with the added support of using your agent to do this... if the CLI already handles auth locally... then why use an MCP server?" |
+| Hex (referenced in Hoyt's post) | April 2026 | Product release | Shipped a CLI **alongside** their existing MCP server — same vendor offering both, with the CLI explicitly aimed at agent use |
+| ClickHouse | 2026 | [Futurum coverage](https://futurumgroup.com/insights/clickhouse-builds-a-cli-to-make-its-databases-agent-native/) | Built a CLI to make ClickHouse databases agent-native — vendor decision, not third-party wrapper |
+| Jannik Reinhard | 2026-02-22 | [Independent blog](https://jannikreinhard.com/2026/02/22/why-cli-tools-are-beating-mcp-for-ai-agents/) | Practitioner essay titled "Why CLI Tools Are Beating MCP for AI Agents" |
+| OSS Insight | 2026-05 | ["Agent-Native CLI Wave"](https://ossinsight.io/blog/agent-native-cli-wave-2026) | Trend piece: counts ≥6 major repos that launched in Q1 2026 with the premise "take existing software, give it a structured CLI for agents" |
+
+**Implication**: The recipe and the underlying observation are not a Tenzir-specific commercial framing — they are reproducible enough that independent practitioners and at least two database/data-tool vendors arrive at the same conclusion. This strengthens the *pattern* claim (CLI + Skill works) without strengthening the *categorical* claim (MCP is bad). Multiple shops shipping the same pattern is evidence the pattern works; it is not evidence the alternative is wrong — note that Hex chose to ship **both** a CLI and an MCP server, treating them as complementary rather than as substitutes.
+
+A second framing from Hoyt's same post — "agents should build their tools for themselves first" (agent self-tooling) — remains a single-practitioner observation with one emerging-tool data point (Browser Harness) and is not yet corroborated. Track separately.
+
 ### Caveat: Vendor Incentive
 
 Vallentin's company (Tenzir) builds agent-friendly data tooling, so the **categorical** claim that "MCP is a solution in search of a problem Unix solved decades ago" reflects commercial framing. Two parts deserve separate treatment:

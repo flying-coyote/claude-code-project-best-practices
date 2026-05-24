@@ -115,6 +115,48 @@ More specific settings override broader ones on conflict.
 
 Use `/permissions` to interactively configure allowed commands during a session. Claude Code detects commonly-used patterns and suggests pre-approvals.
 
+### `hard_deny`: Unconditional Blocks in Auto Mode (v2.1.128+)
+
+Added in the v2.1.128 changelog (verified 2026-05-24 against [Anthropic Claude Code changelog](https://code.claude.com/docs/en/changelog), Tier A): a new `settings.autoMode.hard_deny` array that **takes precedence over all allow rules** — including project, user, and managed settings.
+
+```json
+{
+  "autoMode": {
+    "hard_deny": [
+      "Bash(rm -rf /*)",
+      "Bash(curl * | bash)",
+      "Bash(* > /etc/*)",
+      "Bash(git push --force origin master)"
+    ]
+  }
+}
+```
+
+**What this changes**: Before v2.1.128, a permissive `allow` rule (e.g., `Bash(*)` in a dev environment) could be silently shadowed by overlapping rules but could not be unconditionally overridden. `hard_deny` provides a layer that *cannot* be allow-listed around, even by an auto-mode classifier approval.
+
+**When to use**:
+- Catastrophic-blast-radius commands that should never run regardless of context (`rm -rf /`, force-push to protected branches, secret-file overwrites)
+- Org-mandated denylists that need to survive even broad project-level `allow` grants
+- Environments where the auto-mode classifier itself shouldn't be trusted to refuse specific operations
+
+**When `hard_deny` is the wrong tool**:
+- Conditional restrictions ("block this except during deploys") — use scoped `allow` rules instead
+- Per-user policy — `hard_deny` is global to the settings layer it's defined in, not per-identity
+- Educational tripwires for normal mistakes — overusing `hard_deny` erodes its signal value
+
+The `hard_deny` layer is a backstop, not a primary permission model. The primary defense remains the `allow` list + auto-mode classifier; `hard_deny` covers the failure mode where those fail open.
+
+### Sandbox Path Overrides (v2.1.134+)
+
+Two new settings to handle non-standard sandbox tool locations:
+
+| Setting | What it overrides |
+|---|---|
+| `sandbox.bwrapPath` | Path to `bwrap` (bubblewrap) — for Linux setups where bubblewrap is not on `PATH` |
+| `sandbox.socatPath` | Path to `socat` — for setups where socat is in a non-standard location |
+
+Defaults remain auto-detection. Override only when the auto-detect path fails for your environment.
+
 ---
 
 ## Security Hooks

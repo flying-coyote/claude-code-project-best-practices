@@ -734,4 +734,36 @@ Detects build systems, test frameworks, and code patterns. Provides a solid foun
 
 ---
 
-*Last updated: March 2026*
+## Plugin Dependency & Distribution Updates (v2.1.120+, Q2 2026)
+
+Changelog additions verified 2026-05-24 against [Anthropic Claude Code changelog](https://code.claude.com/docs/en/changelog) (Tier A) that change how plugins are loaded, versioned, and shared.
+
+### Plugin Loading from URLs and Zip Archives (v2.1.128+)
+
+Two new loading paths beyond `~/.claude/plugins/`:
+
+| Mechanism | Use case | Trust posture |
+|---|---|---|
+| `--plugin-dir <path.zip>` | Distribute a plugin as a single archive (email, internal share, GitHub release asset) | Same as local file — the user is opting in by passing the path |
+| `--plugin-url <url>` | Fetch a plugin from a URL for the session | Higher risk surface: a URL points to mutable infrastructure. Treat unknown URLs the same way you would `curl \| bash` |
+
+These supplement, not replace, the existing marketplace flow. The marketplace remains the recommended distribution channel for plugins intended for general use.
+
+### Plugin Dependency Enforcement (v2.1.120+)
+
+| Command | What it does |
+|---|---|
+| `claude plugin prune` | Removes orphaned plugin dependencies that no installed plugin still requires |
+| `claude plugin tag` | Marks a plugin release with a version tag; consumers can pin to a tagged release |
+
+**Why this matters**: Prior to v2.1.120, plugin dependencies accumulated indefinitely with no GC; version pinning required out-of-band conventions. Plugins now have the dependency-management primitives expected of a real package ecosystem. See also `code.claude.com/docs/en/plugin-dependencies`.
+
+### Enterprise: `allowAllClaudeAiMcps` Managed Setting (v2.1.143+)
+
+Single managed setting that allows all MCP servers approved at the Anthropic-org level. Removes the need for per-server allow-listing for orgs that have already gated MCP approval centrally. Pairs with the existing managed-settings hierarchy documented under "Permission Configuration" above.
+
+**Decision rule**: If your org has central MCP governance, use `allowAllClaudeAiMcps` instead of maintaining a per-project allow list. If MCP server approval is per-team, keep the project-level allow list.
+
+---
+
+*Last updated: 2026-05-24*

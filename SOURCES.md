@@ -97,6 +97,23 @@ All analysis documents in this repository are derived from authoritative sources
   - Recommendation: treat evaluation integrity as ongoing adversarial problem, not design-time concern
 - **Pattern**: [Agent Evaluation](analysis/agent-evaluation.md)
 
+#### April 23 Postmortem — Claude Code Quality Regression
+- **Title**: "An update on recent Claude Code quality reports" / "April 23 Postmortem"
+- **Source**: Anthropic Engineering Blog
+- **Date**: April 23, 2026
+- **URL**: https://www.anthropic.com/engineering/april-23-postmortem
+- **Key Insights**:
+  - Three independent bugs cumulatively degraded Claude Code intelligence March 4 – April 20, 2026 across Sonnet 4.6, Opus 4.6, and Opus 4.7
+  - Bug 1 (March 4): Reasoning-effort default switched `high` → `medium` to fix UI freezing; reverted April 7 after user complaints
+  - Bug 2 (March 26): Prompt-caching optimization continuously cleared extended thinking blocks from sessions idle >1 hour, instead of clearing once — Claude lost mid-session reasoning context across turns
+  - Bug 3 (April 16): System prompt instruction capping text-between-tool-calls to ≤25 words and final responses to ≤100 words "hurt coding quality" when combined with other changes
+  - All reverted by April 20 (v2.1.116); usage limits reset April 23
+  - Anthropic remediation: broader per-model evaluations for system-prompt changes, stricter code review, soak periods and gradual rollouts for intelligence-affecting changes, expanded repository context for code reviews
+  - API itself was unaffected — only Claude Code, Claude Agent SDK, Claude Cowork
+- **Implication for harness designers**: Vendor-side defaults sit upstream of all practitioner-observed quality thresholds; date-anchor claims to specific Claude Code versions. Effort-level defaults are load-bearing (not cosmetic). Caching layers can silently amputate context the harness assumed was retained. Brevity constraints at the system-prompt layer can degrade output even when they're harmless at the user-prompt layer.
+- **Pattern**: [Behavioral Insights — Vendor-Side Quality Regression Case Study](analysis/behavioral-insights.md), [Harness Engineering — v2 Harness Simplification caveat](analysis/harness-engineering.md)
+- **Evidence Tier**: A (vendor self-disclosure with specific dates, version numbers, and remediation steps)
+
 #### Teaching Claude Why (Alignment Research)
 - **Title**: "Teaching Claude why"
 - **Source**: Anthropic Research
@@ -703,6 +720,33 @@ Track these for production readiness:
 - **How discovered**: Elvis S. LinkedIn post (2026-05-16, 673 reactions) acted as pointer; only the underlying paper is cited here. The LinkedIn post itself is not registered — it adds no claim beyond the paper.
 - **Pattern**: [Harness Engineering](analysis/harness-engineering.md), [Memory Systems Archetype A — Curated KB](analysis/memory-systems-archetype-a-curated-kb.md) (anti-pattern: claude-context Milvus + embeddings against a small analytical KB)
 - **Evidence Tier**: B (Preprint with reproducible methodology against public LongMemEval benchmark; not yet peer-reviewed; practitioner-research affiliation)
+
+### LangChain DeepAgents — Harness Engineering Practitioner Replication
+- **Title**: "Improving Deep Agents with Harness Engineering"
+- **Source**: LangChain Engineering Blog
+- **Date**: February 17, 2026
+- **URL**: https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering
+- **Key Data**:
+  - deepagents-cli moved **52.8% → 66.5%** on TerminalBench-2 (+13.7 points)
+  - Ranking moved from "just outside the Top 30" to **Top 5**
+  - Model held constant: **gpt-5.2-codex** (no model swap, no prompt-base change)
+  - Five middleware changes documented: `PreCompletionChecklistMiddleware` (self-verification loop), `LocalContextMiddleware` (directory/tooling map at startup), loop-detection middleware (per-file edit counts to catch doom loops), reasoning-budget allocation in a "reasoning sandwich" (xhigh-high-xhigh across plan/build/verify), time-budget warnings
+  - Full TerminalBench traces published publicly
+- **Direct quote on harness purpose**: *"the purpose of the harness engineer: prepare and deliver context so agents can autonomously complete work."*
+- **Relevance**: Independent practitioner replication of the harness-as-multiplier effect with a reproducible artifact (traces). Sits alongside Meta-Harness (arXiv:2603.28052) and SWE-Bench Mobile (arXiv:2602.09540) as the third independent corroboration of H-HARNESS-01's headline class of result.
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md) — H-HARNESS-01 practitioner replication.
+- **Evidence Tier**: B (Authoritative practitioner blog from an organization with deep agent-harness expertise; reproducible via public traces)
+
+### Hoyt Emerson — CLI-over-MCP Convergence Data Point
+- **Title**: "Why I built Fletch (a CLI for ADBC data transfers)"
+- **Source**: LinkedIn post
+- **Date**: April 7, 2026
+- **URL**: Linked from [`mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) "Convergence" table; original LinkedIn post (registered alongside Vallentin, Hex, ClickHouse, Reinhard, OSS Insight as a multi-source convergence)
+- **Direct quote**: *"A local CLI tool allows you to simply run commands and functions you normally would in the terminal, with the added support of using your agent to do this... if the CLI already handles auth locally... then why use an MCP server?"*
+- **Why registered**: Not the strongest single source on its own. Registered because the combination — Vallentin + Hoyt + Hex shipping CLI alongside its own MCP + ClickHouse building an agent-native CLI + Reinhard + OSS Insight counting ≥6 major repos in Q1 2026 — promotes "CLI-over-MCP for many integrations" from single-practitioner observation to documented multi-source pattern.
+- **Hoyt's second claim** ("agents build their tools for themselves first" — agent self-tooling): Single-practitioner observation with one emerging-tool data point (Browser Harness); **not** yet corroborated; tracked separately, not registered as a pattern claim.
+- **Pattern**: [MCP vs Skills Economics — CLI + Skill Pattern Convergence](analysis/mcp-vs-skills-economics.md)
+- **Evidence Tier**: B (one of multiple converging practitioner sources; pattern strength comes from convergence, not from this source alone)
 
 ### "Meta-Harness: End-to-End Optimization of Model Harnesses" (arXiv:2603.28052)
 - **Authors**: Yoonho Lee, Roshen Nair, Qizheng Zhang, Kangwook Lee, Omar Khattab, Chelsea Finn (Stanford + MIT)
@@ -1862,6 +1906,7 @@ This sources document is updated when:
 
 | Date | Action | Result |
 |------|--------|--------|
+| 2026-05-24 | Anthropic changelog → analysis-doc integration + April 23 postmortem + Hoyt convergence + LangChain DeepAgents | Folded Q2 2026 Anthropic changelog (v2.1.117 → v2.1.150) into the relevant analysis docs as bounded subsections: agent-view + Ultrareview added to [`orchestration-comparison.md`](analysis/orchestration-comparison.md) as new sections; `/goal`, `mcp_tool` hooks, `continueOnBlock`, `worktree.bgIsolation`, per-category `/usage` added to [`harness-engineering.md`](analysis/harness-engineering.md) as "Harness Toolkit Additions (Q2 2026)"; plugin URL/zip loading, `claude plugin prune/tag`, `allowAllClaudeAiMcps` added to [`plugins-and-extensions.md`](analysis/plugins-and-extensions.md) as "Plugin Dependency & Distribution Updates"; `hard_deny` + sandbox path overrides added to [`safety-and-sandboxing.md`](analysis/safety-and-sandboxing.md) under Permission Model Design. **Unverified post resolved**: the previously-flagged "claude-code-quality-reports" 404 turned out to be at `/engineering/april-23-postmortem` — three independent bugs (March 4 reasoning-effort default high→medium, March 26 caching bug clearing extended thinking blocks, April 16 system-prompt verbosity cap) cumulatively degraded Claude Code intelligence across Sonnet 4.6/Opus 4.6/4.7 from early March through v2.1.116 on April 20. Added as Tier A vendor self-disclosure; integrated into [`behavioral-insights.md`](analysis/behavioral-insights.md) as "Vendor-Side Quality Regression Case Study" with implications for harness designers (effort-level defaults are load-bearing; brevity constraints at system-prompt layer can degrade output) and cross-referenced from `harness-engineering.md` v2-simplification section as a caveat to "trust vendor defaults." **Hoyt Emerson CLI-over-MCP** added as convergence data point to the "CLI + Skill Pattern" section in [`mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) — section expanded with a multi-source convergence table (Vallentin + Hoyt + Hex + ClickHouse + Reinhard + OSS Insight ≥6 major repos in Q1 2026). The second Hoyt claim (agents-build-tools-for-themselves) remains single-practitioner, not registered. **LangChain DeepAgents** (2026-02-17) added as the third independent practitioner replication of the harness-as-multiplier finding (52.8% → 66.5% on TerminalBench-2, gpt-5.2-codex held constant; "outside Top 30 → Top 5"; five middleware changes; public traces). Sits alongside Meta-Harness (arXiv:2603.28052) and SWE-Bench Mobile (arXiv:2602.09540) as the third independent corroboration of H-HARNESS-01's headline class of result. |
 | 2026-05-24 | Tier A sweep + academic provenance closure | Completed biweekly Tier A sweep (gap from 2026-04-22 → 2026-05-24, ~4 weeks). Anthropic changelog: registered new doc URLs for `agent-view`, `ultrareview`, `/goal` (33 versions v2.1.117 → v2.1.150 in window; biggest architectural additions = agent-view supervisor process + git-worktree session isolation, ultrareview cloud bug-hunting fleet, hooks invoking MCP tools directly via `type: "mcp_tool"`, `hard_deny` auto-mode rules, `continueOnBlock` PostToolUse). Anthropic Research: registered "Teaching Claude why" (2026-05-08) — principle-teaching reduces agentic-misalignment blackmail rate 22% → 3% at 28× token efficiency vs honeypot data. **Academic sweep closed 3 outstanding-provenance gaps**: Stanford 6× orchestration figure = Meta-Harness paper (arXiv:2603.28052, Lee/Nair/Zhang/Lee/Khattab/Finn, Stanford+MIT, 2026-03-30); "Tingua NLH ablation" was misspelled — corrected to Tsinghua (arXiv:2603.25723, Pan/Zou/Guo/Ni/Zheng, 2026-03-26); Meta-Harness paper itself now has formal SOURCES.md entry with arXiv ID. Independent corroboration of the 6× figure registered as SWE-Bench Mobile (arXiv:2602.09540, Opus 4.5: 12% on Cursor vs 2% on OpenCode). New Tier A peer-reviewed paper: Agentic Context Engineering (arXiv:2510.04618, ICLR 2026) — first top-venue paper validating context-as-multiplier (+10.6% agent tasks). Counter-signal registered: Memanto (arXiv:2604.22085) reaches SOTA 89.8% with vector-only retrieval at long-horizon scale, scoping the "grep > embeddings" claim to small-KB regime. LongMemEval-V2 (arXiv:2605.12493) registered as successor benchmark with AgentRunbook-C file-as-memory pattern. One unverified Anthropic Engineering Blog post (claude-code-quality-reports, 2026-04-23) returned 404 on three URL variants — flagged, not registered. |
 | 2026-05-24 | "Is Grep All You Need?" preprint added (arXiv:2605.15184) | Added Sen/Kasturi/Lumer/Gulati/Subbiah (PwC US, 2026-05-14) as Tier B preprint. 116-question LongMemEval study across 4 harnesses (Chronos, Claude Code, Codex, Gemini CLI) finds grep generally yields higher accuracy than vector retrieval, with harness choice having measurable effect independent of retrieval strategy. Cross-referenced into [`harness-engineering.md`](analysis/harness-engineering.md) supporting-evidence table and Sources section, and into [`memory-systems-archetype-a-curated-kb.md`](analysis/memory-systems-archetype-a-curated-kb.md) as empirical backing for the "claude-context against a small analytical KB is anti-pattern" claim. Discovered via Elvis S. LinkedIn post (2026-05-16) which acted as pointer; the LinkedIn post itself is not registered separately — only the underlying paper carries citable evidence. |
 | 2026-05-24 | Cross-brain integration: Vallentin CLI+Skill recipe + H-HARNESS-01 tracking | Added Matthias Vallentin LinkedIn (2026-03-17) "CLI + Skill > MCP" as Tier B source with vendor-incentive caveat — extends existing Vallentin/Tenzir presence with concrete 4-step CLI-ification recipe (OpenAPI → @hey-api/openapi-ts → commander → skill) and `mavam/clattio` reference implementation. Added "The CLI + Skill Pattern" section to [`mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) covering when to apply, decision flow, and which parts of the categorical claim to discount. Added "Hypothesis Status and Falsifiability" section to [`harness-engineering.md`](analysis/harness-engineering.md) consolidating H-HARNESS-01 evidence with explicit falsifiability criterion (>6× from model-only swap would invalidate the thesis) and outstanding-provenance gap log (Stanford 6× orchestration figure, Meta-Harness paper, Tingua NLH ablation). Cross-repository tracker pointer to project1 hypothesis ledger added without duplicating tangential cross-brain evidence. |

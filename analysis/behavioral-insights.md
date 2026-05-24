@@ -244,6 +244,22 @@ This aligns with Boris Cherny's Writer/Reviewer pattern: the review session catc
 
 Source: Anthropic engineering blog, Authority 5/5.
 
+### Vendor-Side Quality Regression Case Study: The April 2026 Postmortem
+
+Anthropic published a postmortem ([engineering blog, 2026-04-23](https://www.anthropic.com/engineering/april-23-postmortem)) acknowledging that Claude Code, Claude Agent SDK, and Claude Cowork users were experiencing real intelligence degradation starting in early March 2026 — across Sonnet 4.6, Opus 4.6, and Opus 4.7. The API itself was unaffected; only the Claude Code surface and adjacent products. Three independent bugs were identified and all reverted by April 20 (v2.1.116).
+
+| Bug | Date introduced | What happened | What it teaches harness designers |
+|---|---|---|---|
+| Reasoning-effort default change | March 4 | Default switched from `high` to `medium` to address UI freezing; sacrificed intelligence. Reverted April 7 after user complaints. | Effort-level defaults are a load-bearing harness setting, not a cosmetic one. Surface `${CLAUDE_EFFORT}` in your skills (v2.1.120+) so degradations like this are detectable from inside the harness, not just from output quality. |
+| Caching bug with extended thinking blocks | March 26 | A prompt-caching optimization continuously cleared extended thinking blocks from sessions idle over one hour, rather than clearing once. Claude effectively lost mid-session reasoning context across turns. | Caching layers can silently amputate context the harness assumed was retained. Any "trust the cache to hold reasoning" assumption is fragile against vendor-side cache behavior changes. |
+| System prompt verbosity instruction | April 16 | Instruction limiting text-between-tool-calls to ≤25 words and final responses to ≤100 words "hurt coding quality" when combined with other prompt changes. | **Counter-evidence** to a naive "less is more" reading of harness/prompt minimalism. Brevity constraints applied at the wrong layer (system prompt for code work) can degrade output even when the same brevity is harmless or helpful at the user-prompt layer. |
+
+**Anthropic's own remediation list** (announced in the postmortem): broader per-model evaluations for system-prompt changes, stricter code-review process using the improved Code Review tool, soak periods and gradual rollouts for intelligence-affecting changes, expanded repository context for code reviews.
+
+**What this changes about the rest of this doc**: the practitioner-observed quality thresholds elsewhere in this document (60% context decline, ~80% CLAUDE.md adherence, ~150 instruction cap) were collected by users observing aggregate behavior — but vendor-side defaults sit *upstream* of all of those observations. A revalidation against a degraded default measures the degraded default, not the underlying behavior. Date-anchor practitioner-observed claims to a specific Claude Code version, and re-run them after major vendor-side changes.
+
+Source: [Anthropic Engineering — April 23 Postmortem](https://www.anthropic.com/engineering/april-23-postmortem) (2026-04-23). Tier A. Confirmed via WebFetch 2026-05-24.
+
 ### Principle-Teaching Reduces Agentic Misalignment (Anthropic Research, May 2026)
 
 Anthropic published research on a training-data design choice: teaching models the *principles* behind ethical behavior — not just labeled examples of compliant vs. non-compliant outputs — substantially changes how models behave in agentic-misalignment scenarios.
@@ -319,6 +335,7 @@ These gaps do not invalidate the claims — they scope them. Practitioner-observ
 - CAII (skribblez2718): Johari Window methodology
 - RLM paper (Zhang, Kraska, Khattab): Context rot research
 - Anthropic Engineering Blog: Auto mode, agent skills (March 2026), self-evaluation failure mode, Monitor tool (April 2026)
+- Anthropic Engineering Blog: ["April 23 Postmortem"](https://www.anthropic.com/engineering/april-23-postmortem) (2026-04-23) — Three bugs cumulatively degraded Claude Code intelligence March 4 – April 20: reasoning-effort default high→medium, caching bug clearing extended thinking blocks every check, system prompt verbosity cap hurting code quality. All reverted by v2.1.116. Affects Sonnet 4.6, Opus 4.6, Opus 4.7 on Claude Code / Agent SDK / Cowork; API unaffected. Authority 5/5 vendor self-disclosure. Tier A.
 - Anthropic Research: ["Teaching Claude why"](https://www.anthropic.com/research/teaching-claude-why) (May 8, 2026) — Principle-teaching reduces blackmail-scenario rate 22% → 3% at 28× token efficiency vs. honeypot datasets. Authority 5/5 for the training-data claim. Tier A.
 - Anthropic Migration Guide (April 2026): Opus 4.7 literal interpretation, fewer default subagents, adaptive verbosity
 - Simon Willison (April 18, 2026): Opus 4.7 system-prompt analysis — selective literalism
