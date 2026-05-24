@@ -4,6 +4,8 @@ All analysis documents in this repository are derived from authoritative sources
 
 **Quick Lookup**: For the top 20 most-referenced sources, see [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (100 lines vs 1,612 here)
 
+**Last curated**: 2026-05-24. Anthropic doc URLs are canonical at `code.claude.com`; older `docs.anthropic.com` paths still redirect but are not used here. See refresh log at the bottom.
+
 ## Primary Sources (Tier A)
 
 ### Boris Cherny (Claude Code Creator)
@@ -370,7 +372,7 @@ All analysis documents in this repository are derived from authoritative sources
 
 #### Claude Code Sub-agents
 - **Source**: Anthropic Official Documentation
-- **URL**: https://docs.anthropic.com/en/docs/claude-code/sub-agents
+- **URL**: https://code.claude.com/docs/en/sub-agents
 - **Key Insights**:
   - Specialized subagent types (Explore, Plan, general-purpose)
   - Parallel execution patterns
@@ -404,7 +406,7 @@ All analysis documents in this repository are derived from authoritative sources
 
 #### Claude Code Hooks Reference
 - **Source**: Anthropic Official Documentation
-- **URL**: https://docs.anthropic.com/en/docs/claude-code/hooks
+- **URL**: https://code.claude.com/docs/hooks-reference
 - **Key Insights**:
   - PreToolUse input modification (v2.0.10+)
   - PostToolUse output formatting
@@ -504,6 +506,32 @@ All analysis documents in this repository are derived from authoritative sources
 - **Pattern**: [GSD Orchestration](analysis/orchestration-comparison.md)
 - **Evidence Tier**: B (Open source, production-validated)
 
+### Builder.io: 50 Claude Code Tips and Best Practices
+- **Author**: Vishwas Gopinath (Builder.io staff engineer)
+- **URL**: https://www.builder.io/blog/claude-code-tips-best-practices
+- **Date**: 2026-03-20 (verified 2026-05-24)
+- **Description**: 50 practical Claude Code techniques covering aliases, bash commands, context management, team workflows, agent teams, and custom hooks
+- **Key Contributions**:
+  - Daily-use shortcuts and aliasing patterns (complements Boris Cherny's high-level workflow guidance with team-scale daily mechanics)
+  - Agent Teams + hook recipes for development automation
+  - Bridges individual practitioner patterns (Boris) to team practices
+- **Relevance**: Fills the "team daily practice" gap between vendor docs and individual workflow posts
+- **Evidence Tier**: B (Engineering publication, staff-level author, broad coverage of practitioner patterns)
+- **Patterns**: [Harness Engineering](analysis/harness-engineering.md), [Orchestration Comparison](analysis/orchestration-comparison.md)
+
+### Morph: Claude Code Best Practices — 2026 Guide
+- **Author**: Morph (developer-tools vendor; practitioner-authored guide)
+- **URL**: https://www.morphllm.com/claude-code-best-practices
+- **Date**: 2026-02-15 (verified 2026-05-24)
+- **Description**: Workflow guide covering project setup through implementation; emphasizes context engineering via CLAUDE.md, task scoping, Plan Mode, subagents for code search, and verification strategies
+- **Key Contributions**:
+  - Q1 2026 model-routing patterns (Opus/Sonnet/Haiku selection)
+  - Verification strategies cross-referenceable with the Writer/Reviewer pattern in this repo
+  - Cost-aware workflow scoping
+- **Relevance**: Adds vendor-neutral cost-optimization patterns that complement the Tenzir MCP-vs-Skills economics (January 2026) — useful for build-vs-borrow decisions
+- **Evidence Tier**: B (Practitioner vendor blog; corroborates patterns already in Tier A sources rather than introducing novel methodology)
+- **Patterns**: [Framework Selection Guide](analysis/framework-selection-guide.md), [Harness Engineering](analysis/harness-engineering.md)
+
 ### shanraisshan/claude-code-best-practice
 - **URL**: https://github.com/shanraisshan/claude-code-best-practice
 - **Stars**: 5.6k+ (as of Feb 2026)
@@ -531,6 +559,19 @@ All analysis documents in this repository are derived from authoritative sources
 - **Key Quote**: "Even well-written and well-structured prompts have ambiguity, which stems from the fact 'we don't know what we don't know.'"
 - **Patterns**: [Johari Window](analysis/orchestration-comparison.md), [Cognitive Agent Infrastructure](analysis/orchestration-comparison.md)
 - **Evidence Tier**: B (Production implementation, documented methodology)
+
+### Shipyard: Multi-Agent Orchestration for Claude Code (2026)
+- **Author**: Shipyard Team
+- **URL**: https://shipyard.build/blog/claude-code-multi-agent/
+- **Date**: 2026-03-18 (verified 2026-05-24)
+- **Description**: Comparative analysis of three multi-agent orchestrators for Claude Code — Agent Teams, Gas Town, and Multiclaude — including coordination patterns, cost considerations, and implementation tradeoffs
+- **Key Contributions**:
+  - Cross-orchestrator comparison post-April 2026 redesign
+  - Failure recovery and message-passing patterns at enterprise scale
+  - Cost framing for multi-agent topologies
+- **Relevance**: Direct comparator for `analysis/orchestration-comparison.md`; provides external validation of orchestrator-choice tradeoffs
+- **Evidence Tier**: B (Infrastructure platform with production users; one author, but covers three independently developed systems)
+- **Patterns**: [Orchestration Comparison](analysis/orchestration-comparison.md), [Framework Selection Guide](analysis/framework-selection-guide.md)
 
 ### Claude-Flow Enterprise Orchestration
 - **Author**: ruvnet
@@ -746,6 +787,19 @@ Track these for production readiness:
   - Skill organization patterns
   - Hook implementation strategies
   - Cross-project consistency approaches
+
+### VoltAgent/awesome-claude-code-subagents
+- **Author**: VoltAgent community
+- **URL**: https://github.com/VoltAgent/awesome-claude-code-subagents
+- **Stars**: 20.4k (verified 2026-05-24); active commits May 2026
+- **Description**: Curated collection of 131+ specialized Claude Code subagents organized across 10 categories — core development, language specialists, infrastructure, quality & security, data & AI, developer experience, specialized domains, business & product, meta-orchestration, research & analysis
+- **Key Contributions**:
+  - Ecosystem-scale validation of the subagent pattern (community curation, not vendor catalog)
+  - Reference implementations for category-specific subagent design
+  - Active maintenance signal (commits in the current month)
+- **Relevance**: Validates real-world adoption of the subagent architecture documented by Anthropic; useful comparator for `analysis/orchestration-comparison.md` claims about subagent ROI
+- **Evidence Tier**: B (community curation at scale; 20k+ stars indicates production adoption)
+- **Patterns**: [Orchestration Comparison](analysis/orchestration-comparison.md), [Plugins and Extensions](analysis/plugins-and-extensions.md)
 
 ### Agent Skills Open Standard
 - **Title**: "Equipping agents for the real world with Agent Skills"
@@ -1683,7 +1737,7 @@ This repository uses a tiered evidence system:
 All URLs in this document are publicly accessible. To verify:
 
 1. **Anthropic Blog Posts**: Visit the URL directly
-2. **Documentation**: Check docs.anthropic.com
+2. **Documentation**: Check code.claude.com (canonical; older docs.anthropic.com paths still redirect)
 3. **Production Validation**: Patterns derived from private repositories, methodology documented
 
 ---
@@ -1711,6 +1765,7 @@ This sources document is updated when:
 
 | Date | Action | Result |
 |------|--------|--------|
+| 2026-05-24 | Quality refresh + consumer-trust pass | URL canonicalization to `code.claude.com` (3 entries: sub-agents, hooks reference, verification guidance). Added 4 verified Tier B sources: Builder.io 50 Tips (Gopinath, 2026-03-20), Morph 2026 Best Practices Guide (2026-02-15), Shipyard Multi-Agent Orchestration (2026-03-18), VoltAgent awesome-claude-code-subagents (20.4k stars). Consumer-trust pass on analysis docs: backfilled `## Sources` footers across 16 docs that previously relied on inline YAML attribution only; surfaced vendor-reported caveats inline on Tier C performance claims (Graphify 71.5×, claude-context ~40%); cross-linked 7-repo portfolio evidence into `framework-selection-guide.md`, `orchestration-comparison.md`, and `memory-systems-archetype-recommendations.md`. Added "Last curated" header to top of this file. |
 | 2026-04-29 | C-PII renamed to C-Egress-Constrained + genealogy baseline measurement | Renamed `analysis/memory-systems-archetype-c-pii.md` → `memory-systems-archetype-c-egress-constrained.md` after user reframed Wiley genealogy projects' egress posture (placeholder discipline + public-source data → vendor-LLM egress authorized at owner's choice). Genealogy moves out of canonical-example slot; replaced with medical/legal/journals-with-third-parties. **New empirical doc**: [`memory-systems-genealogy-baseline.md`](analysis/memory-systems-genealogy-baseline.md) — 3 Sonnet subagents ran 3 queries each across the 3 sister projects, scored 8/9 DEFINITIVE (89%) on the unaugmented stack alone. Counter-intuitive finding: tool-call cost correlates with *availability of dedicated memory files*, not corpus size — dry-cross (3.3k md, 5 calls) cheaper than kindred (396 md, 14 calls). Architectural takeaway: CLAUDE.md routing + dedicated memory files for resolved issues + MEMORY.md as flat index is the load-bearing pattern, not graph augmentation. Updated archetype-c primary doc, recommendations index, migration paths (C ↔ C-EC), build-vs-borrow gaps. |
 | 2026-04-30 | Tolaria + SiYuan + claude-video added; Archetype C-PII variant introduced; 2 architecture axes added | Verified Tolaria + SiYuan licenses via raw LICENSE fetch (both AGPL-3.0; my earlier "Tolaria is macOS-only" claim was wrong — releases ship .deb + AppImage + .exe + .dmg). Added entries #10, #11, #12 to `research/memory-systems-tools-inventory.md`. Created [`memory-systems-archetype-c-pii.md`](analysis/memory-systems-archetype-c-pii.md) for the genealogy-style PII-constrained second-brain case (5,311-doc uninstrumented corpus is the canonical example). Added Axis 9 (block-level vs page-level granularity) and Axis 10 (agent contract: convention vs MCP vs CLI) to `memory-systems-architecture-axes.md`. Added watch-later YouTube ingest hybrid (claude-video) to Archetype C primary doc with explicit egress profile. Updated `memory-systems-archetype-recommendations.md` index, migration paths (C ↔ C-PII), and build-vs-borrow gaps. Doc count 142 → 143. |
 | 2026-04-28 | Memory & knowledge archetype split + empirical Pass-2 testbed | Split omnibus recommendations into 7 per-archetype docs (`memory-systems-archetype-{a..g}-*.md`); added `memory-systems-graphify-vs-understand-anything.md` A/B comparison after running both LLM-driven graph builders on this repo. **New empirical evidence**: graphify Pass 1 (Tree-sitter) indexed 0 of 38 prose docs; Pass 2 produced 1187 nodes / 1651 edges / 67 communities / 88% EXTRACTED. Hallucination spot-check (n=8): ~25% of EXTRACTED cross-file prose edges hallucinated. Added 7 generic signals to AUDIT-CONTEXT.md (`md-corpus-*`, `vault-obsidian`, `vault-karpathy`, `corpus-sensitive`) so the new docs are reachable from the audit. Doc count 28 → 38. |

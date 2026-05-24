@@ -267,4 +267,6 @@
 
 **For detailed citations, methodology, and complete source database**: See [SOURCES.md](SOURCES.md)
 
-**Last Updated**: April 22, 2026 — added Anthropic Opus 4.7 migration guide (#27, Authority 5), Willison counter-signal (#28, Authority 3), Vertrees operationalization (#29, Authority 2 with Karen note). Count bumped 26 → 29.
+**Last Updated**: May 24, 2026 — quality refresh: URL canonicalization to `code.claude.com`; added 4 Tier B sources (Builder.io 50 Tips, Morph 2026 Guide, Shipyard multi-agent, VoltAgent awesome-claude-code-subagents). Consumer-trust pass on 16 analysis docs (Sources footers, vendor-reported caveats, production-evidence cross-links). Count: 29 → 33.
+
+Prior: April 22, 2026 — added Anthropic Opus 4.7 migration guide (#27, Authority 5), Willison counter-signal (#28, Authority 3), Vertrees operationalization (#29, Authority 2 with Karen note). Count 26 → 29.
