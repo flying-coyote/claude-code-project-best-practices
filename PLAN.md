@@ -1,7 +1,7 @@
 # Plan
 
 **Purpose**: Current priorities, immediate next actions
-**Last Updated**: April 28, 2026
+**Last Updated**: May 24, 2026
 
 ---
 
@@ -16,10 +16,10 @@
 
 | Metric | Status |
 |--------|--------|
-| Analysis documents | 38 |
+| Analysis documents | 41 |
 | Archived v1 patterns | 24 |
-| Source database entries | 85+ |
-| Source attribution | 100% |
+| Source database entries | 130+ |
+| Source attribution | 100% (16 docs backfilled with `## Sources` footers on 2026-05-24) |
 
 ---
 
@@ -63,6 +63,14 @@
 ---
 
 ## Recent Activity
+
+### May 24, 2026 — Sources quality refresh + consumer-trust pass (complete)
+
+- SOURCES.md: URL canonicalization to `code.claude.com` (3 entries); added "Last curated" header
+- Added 4 verified Tier B sources: Builder.io 50 Tips (Gopinath, 2026-03-20), Morph 2026 Guide (2026-02-15), Shipyard Multi-Agent Orchestration (2026-03-18), VoltAgent awesome-claude-code-subagents (20.4k stars). All WebFetch-verified 2026-05-24.
+- Backfilled `## Sources` footers across 16 analysis docs that previously relied on inline YAML attribution only. No sources invented; tier subsections populated from existing inline citations and YAML `measurement-claims`.
+- Inlined "vendor-reported — not independently benchmarked" caveats on Graphify 71.5× and claude-context ~40% claims at the spots that lacked them (archetype-recommendations evidence-gap table; archetype-a driving-axes line).
+- Threaded 7-repo portfolio evidence into `framework-selection-guide.md` and `orchestration-comparison.md` via "Production Evidence" subsections that cross-link the existing portfolio docs.
 
 ### April 22, 2026 — One-Prompt Realignment: Routing-Based Advisory Fetch (complete)
 - Added `AUDIT-CONTEXT.md`: routing map from observed project signals (CLAUDE.md state, harness layout, commit patterns, session diagnostics, model version, project type) to the specific analysis docs that apply. Typical audit now fetches 4–8 docs, not 28, and not the source index alone.
