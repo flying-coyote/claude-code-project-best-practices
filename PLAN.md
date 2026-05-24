@@ -18,7 +18,7 @@
 |--------|--------|
 | Analysis documents | 41 |
 | Archived v1 patterns | 24 |
-| Source database entries | 132+ (Vallentin CLI+Skill LinkedIn + arXiv:2605.15184 added 2026-05-24) |
+| Source database entries | 141+ (Tier A sweep 2026-05-24 added: Meta-Harness arXiv:2603.28052, Pan et al./Tsinghua arXiv:2603.25723 — attribution corrected from "Tingua", Agentic Context Engineering arXiv:2510.04618 ICLR 2026, SWE-Bench Mobile arXiv:2602.09540, Memanto arXiv:2604.22085, LongMemEval-V2 arXiv:2605.12493, Teaching Claude why, agent-view/ultrareview/`/goal` Anthropic docs) |
 | Source attribution | 100% (16 docs backfilled with `## Sources` footers on 2026-05-24) |
 
 ---
@@ -62,80 +62,11 @@
 
 ---
 
-## Recent Activity
+## Completed Work
 
-### May 24, 2026 — Cross-brain integration from project1 ingest (complete)
-
-- Surveyed project1 (6k-doc second brain) for cross-pollination candidates; 2 of 9 reviewed items passed the evidence-tier and scope filters.
-- **Vallentin CLI+Skill LinkedIn (2026-03-17)** added as Tier B source with vendor-incentive caveat. New "CLI + Skill Pattern" section in [`mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) documents the 4-step recipe (`OpenAPI → @hey-api/openapi-ts → commander → skill`), decision flow for when to apply, and which parts of the categorical "MCP is a solution in search of a problem" framing to discount.
-- **H-HARNESS-01 cross-brain tracking** added to [`harness-engineering.md`](analysis/harness-engineering.md): new "Hypothesis Status and Falsifiability" section consolidating the existing scattered Stanford/Tingua/Karpathy evidence under a single hypothesis claim with explicit falsifiability criterion (`>6× from model-only swap would invalidate`) and an outstanding-provenance log (Stanford 6× orchestration figure, Meta-Harness paper, Tingua NLH ablation — all still need primary-source verification). Cross-repo pointer to project1's hypothesis tracker without duplicating its tangential cross-brain evidence (Splunk benchmark, CAII Johari Window).
-- **arXiv:2605.15184 "Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"** (Sen/Kasturi/Lumer/Gulati/Subbiah, PwC US, 2026-05-14) added as Tier B preprint. 116-question LongMemEval study across Chronos, Claude Code, Codex, Gemini CLI finds grep generally beats vector retrieval with harness having measurable effect independent of retrieval choice. Cross-referenced in `harness-engineering.md` supporting-evidence table + Sources, and in `memory-systems-archetype-a-curated-kb.md` as empirical backing for the claude-context-against-small-KB anti-pattern. Discovered via Elvis S. LinkedIn pointer; only the paper is registered (the LinkedIn post adds no claim beyond the paper).
-- 6 other project1 candidates deferred with documented reasons: H-CONTEXT-ROT-01 (already covered in 5 docs), H-CONTEXT-FILE-SYSTEM-01 (single-source 2/5 confidence), H-BOUNDED-AGENCY-01 (governance scope), H-FASTMCP-01 (MCP-server-developer audience, wrong consumer), Lindenberg LinkedIn (derivative pointer with provenance issues), Hoyt Emerson LinkedIn (single-practitioner observation pending corroboration). Elvis post moved from "defer" to "complete" once the underlying paper was located.
-
-### May 24, 2026 — Sources quality refresh + consumer-trust pass (complete)
-
-- SOURCES.md: URL canonicalization to `code.claude.com` (3 entries); added "Last curated" header
-- Added 4 verified Tier B sources: Builder.io 50 Tips (Gopinath, 2026-03-20), Morph 2026 Guide (2026-02-15), Shipyard Multi-Agent Orchestration (2026-03-18), VoltAgent awesome-claude-code-subagents (20.4k stars). All WebFetch-verified 2026-05-24.
-- Backfilled `## Sources` footers across 16 analysis docs that previously relied on inline YAML attribution only. No sources invented; tier subsections populated from existing inline citations and YAML `measurement-claims`.
-- Inlined "vendor-reported — not independently benchmarked" caveats on Graphify 71.5× and claude-context ~40% claims at the spots that lacked them (archetype-recommendations evidence-gap table; archetype-a driving-axes line).
-- Threaded 7-repo portfolio evidence into `framework-selection-guide.md` and `orchestration-comparison.md` via "Production Evidence" subsections that cross-link the existing portfolio docs.
-
-### April 22, 2026 — One-Prompt Realignment: Routing-Based Advisory Fetch (complete)
-- Added `AUDIT-CONTEXT.md`: routing map from observed project signals (CLAUDE.md state, harness layout, commit patterns, session diagnostics, model version, project type) to the specific analysis docs that apply. Typical audit now fetches 4–8 docs, not 28, and not the source index alone.
-- Rewrote `ONE-LINE-PROMPT.md` as a 4-step flow (collect signals → fetch routing map → conditionally fetch advisories → produce audit). Every recommendation in the structured output must cite the analysis doc and its evidence tier.
-- Updated README Quick Start with the new prompt and the "4–8 of 28 docs" framing.
-- Added Anthropic Opus 4.7 migration guide (#27, Authority 5), Willison counter-signal (#28, Authority 3), Vertrees operationalization (#29, Authority 2 with Karen note) to `SOURCES-QUICK-REFERENCE.md`. Count bumped 26 → 29.
-- Design rationale: prior prompt was blind to applicability (library projects got federated-query advice because the source was high-authority), blind to model version (no 4.7 migration signal), and lacked audit trail (recommendations did not carry doc+tier citations). Routing via `AUDIT-CONTEXT.md` fixes all three.
-
-### April 28, 2026 — Memory & knowledge stack archetype split + Pass-2 testbed (complete)
-
-- Split `analysis/memory-systems-archetype-recommendations.md` into 7 per-archetype docs (`memory-systems-archetype-{a..g}-*.md`) following the project's one-pattern-per-file convention
-- Added `analysis/memory-systems-recommendation-methodology.md` with the 200/500/6k scale-band math, 8 challengeable assumptions, and applied corrections
-- Added `analysis/memory-systems-graphify-vs-understand-anything.md` — direct A/B comparison after running both LLM-driven graph builders on this repo as testbed
-- Empirical findings folded back into the recommendations:
-  - Graphify Pass 1 (Tree-sitter) indexed 0 of 38 prose docs; Pass 2 (LLM extraction) produced 1187 nodes / 1651 edges / 67 communities / 88% EXTRACTED but with a measured ~25% hallucination rate on EXTRACTED edges (n=8 spot-check)
-  - Lum1104 `/understand-knowledge` skill gates on lowercase `index.md` + `raw/` + `log.md` Karpathy layout — falls back to `/understand-anything:understand` for repos that don't match
-- Wired up the audit's signal vocabulary: added `md-corpus-{small,design-target,large,very-large}`, `vault-obsidian`, `vault-karpathy`, `corpus-sensitive` to `AUDIT-CONTEXT.md`. Without these, the new archetype docs were unreachable from the audit
-- Added helper scripts as documented patterns for downstream consumers: `scripts/graphify_footer_inject.py` (file-level edge aggregation, schema-tolerant), `scripts/graphify_contradiction_lint.py`
-- Doc count: 28 → 38; SOURCES.md changelog updated
-
-### April 22, 2026 — Opus 4.7 Migration Integration (complete)
-- Added `analysis/model-migration-anti-patterns.md`: cross-version anti-pattern matrix (4.5 → 4.6 → 4.7), six Vertrees anti-patterns mapped to Anthropic migration guide, documented MUST-vs-positive-examples tension
-- Updated `behavioral-insights.md`: prompt sensitivity table across model versions; Willison and HN counter-signals
-- Updated `harness-engineering.md`: 4.7 counter-signal — harness simplifies while prompts need more explicit wording
-- Updated `claude-md-progressive-disclosure.md`: references-without-read-enforcement is a 4.7 failure mode; enforcement options (PreToolUse hook, explicit Read, required-reading block)
-- Updated `agent-evaluation.md` + `agent-principles.md`: implicit subagent dispatch anti-pattern, single-model eval baselines
-- Updated `evidence-based-revalidation.md`: 4.6 → 4.7 as canonical revalidation trigger case study
-- Updated SOURCES.md: registered Anthropic migration guide, What's New 4.7, Best Practices 4.7 blog (Tier A); Vertrees, Willison (Tier B); HN 47793411/47814832 (Tier C)
-- Internal consistency fixes: added evidence-tier declaration to `evidence-tiers.md` meta-doc; updated `evidence-tiers.md` pedagogical examples to reference 4.7 shift; added explicit "Gap:" statements to `session-quality-tools.md`
-- Bumped doc count 27 → 28 across README, PLAN, CLAUDE.md
-
-### April 2026 Review (complete)
-- Added production-scale agent-driven development evidence to `analysis/harness-engineering.md`:
-  - Nick Schrock (Dagster): 1,000+ PRs merged in 3 weeks with Claude Code
-  - Matthias Vallentin (Tenzir): 3x development velocity claim
-- Updated SOURCES.md with Schrock and Vallentin agent-driven development entries
-- Cross-referenced from third-brain concept imports (agent-driven-development-patterns)
-- Added `analysis/agent-driven-development.md`: Agent-driven development patterns with quantified evidence from 7 production repos (infrastructure maturity model, cross-repo coordination, security boundaries, velocity data)
-- Updated cross-references in 5 existing analysis docs
-- Updated SOURCES.md with 7-repo portfolio analysis evidence (Tier A)
-- Added 9 additional analysis documents covering all 10 identified gaps:
-  - `local-cloud-llm-orchestration.md`: Hybrid MLX+Claude architecture from mndr-review-automation
-  - `mcp-client-integration.md`: MCP client patterns from InspectorClient + TmePlaybookClient
-  - `federated-query-architecture.md`: 15/15 benchmarks, 86-99% cost savings, TCO calculator
-  - `automated-config-assessment.md`: Baseline-deviation-remediation, 3,816+ sensors, 100% detection
-  - `claude-md-progressive-disclosure.md`: 3-tier CLAUDE.md evolution across 6 repos
-  - `memory-system-patterns.md`: Auto-memory sizing by project type across 5 projects
-  - `evidence-based-revalidation.md`: Hypothesis confidence tracking and demo prep
-  - `security-data-pipeline.md`: Zeek → OCSF → Parquet → Iceberg pipeline case study
-  - `cross-project-synchronization.md`: Dependency cascading across 7 repos
-- Synced SOURCES.md: added Internal Methodology section for 3 meta-framework docs (behavioral-insights, confidence-scoring, evidence-tiers)
-- Fixed stale line count references in SOURCES.md and SOURCES-QUICK-REFERENCE.md (1,278 → 1,579)
-- Committed auto-regenerated INDEX.md (115 → 123 documents, added templates section)
-
----
+Dated activity log for all completed work has moved to [ARCHIVE.md](ARCHIVE.md) — see "Detailed Activity Log" section.
 
 ## Next Review
 
-**When**: May 2026
-**Focus**: Complete April review cycle, monitor for new Tier A sources, check SDD framework updates (quarterly)
+**When**: Mid-June 2026 (next biweekly cadence, ~3 weeks from 2026-05-24)
+**Focus**: Biweekly Tier A sweep (Anthropic Engineering Blog, Claude Code changelog, NIST/standards); revisit the unverified 2026-04-23 "claude-code-quality-reports" post if a working URL surfaces; track ICLR 2026 / ICML 2026 papers building on Agentic Context Engineering and Meta-Harness; watch for primary peer-reviewed publication of the four 2026 arXiv preprints now registered.
