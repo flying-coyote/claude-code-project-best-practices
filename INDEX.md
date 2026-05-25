@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-05-24 13:57*
+*Auto-generated: 2026-05-25 06:18*
 
 ## Summary
 
-**Total documents**: 144
+**Total documents**: 145
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 41 |
+| analysis | 42 |
 | archive | 6 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
@@ -66,6 +66,7 @@
 - [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md)
 - [confidence-scoring.md](analysis/confidence-scoring.md)
 - [cross-project-synchronization.md](analysis/cross-project-synchronization.md)
+- [dapr-durable-agents.md](analysis/dapr-durable-agents.md)
 - [domain-knowledge-architecture.md](analysis/domain-knowledge-architecture.md)
 - [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md)
 - [evidence-tiers.md](analysis/evidence-tiers.md)
