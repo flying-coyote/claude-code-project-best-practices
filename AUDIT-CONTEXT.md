@@ -30,7 +30,7 @@ grep -nEi "\b(where applicable|as needed|if relevant|consider edge cases)\b" CLA
 grep -nE "see (rules/|\.claude/|[A-Z])" CLAUDE.md .claude/CLAUDE.md 2>/dev/null
 
 # Model version detection
-grep -REi "opus-4-?[567]|sonnet-4-?[567]|claude-[0-9]" .claude/settings.json .github/workflows/ 2>/dev/null
+grep -REi "opus-4-?[5678]|sonnet-4-?[5678]|claude-[0-9]" .claude/settings.json .github/workflows/ 2>/dev/null
 
 # Commit patterns (assumes git repo)
 git log --since="90 days ago" --oneline 2>/dev/null | wc -l
@@ -73,8 +73,9 @@ ls -a .env .env.* 2>/dev/null | head -3
 
 | Signal (verifiable) | Signal key | Fetch | Why |
 |---|---|---|---|
+| `settings.json` or recent config references `opus-4-8` or `claude-opus-4-8` (incl. the `[1m]` 1M-context variant) | `model-version-4-8` | `analysis/model-migration-anti-patterns.md` + `analysis/safety-and-sandboxing.md` | 4.8 (2026-05-28) keeps 4.7's literal-interpretation posture (prompt anti-patterns still apply) and recovers the 4.7 harness-stressing failure modes — but it **regressed on prompt-injection robustness** (system card §5.2) and any harness passing `thinking: {budget_tokens: N}` now hard-fails with a 400. Audit for: extended-thinking-budget usage, injection exposure on tool-use/computer-use agents, and the carried-forward prompt anti-patterns. |
 | `settings.json` or recent config references `opus-4-7` or `claude-opus-4-7` | `model-version-4-7` | `analysis/model-migration-anti-patterns.md` | Six prompt anti-patterns that silently no-op on 4.7. Audit CLAUDE.md/skills for vague descriptors, edge-case gestures, unanchored triggers, implicit subagent dispatch, missing verbosity directives, references without read-enforcement. |
-| References `opus-4-6` with no 4.7 reference | `model-version-4-6` | `analysis/model-migration-anti-patterns.md` | Open revalidation trigger before upgrade. |
+| References `opus-4-6` with no 4.7/4.8 reference | `model-version-4-6` | `analysis/model-migration-anti-patterns.md` | Open revalidation trigger before upgrade. |
 | References `opus-4-5` with no 4.6/4.7 reference | `model-version-4-5` | `analysis/model-migration-anti-patterns.md` | Two-version gap; compound revalidation risk. |
 | Mixed versions across agents / settings / CI | `model-version-migration` | `analysis/model-migration-anti-patterns.md` + `analysis/evidence-based-revalidation.md` | Cross-version matrix; revalidation trigger. |
 | No model field found anywhere | `model-version-unknown` | `analysis/model-migration-anti-patterns.md` | Default-model behavior shifts across releases; doc surfaces latest defaults. |
@@ -86,7 +87,8 @@ ls -a .env .env.* 2>/dev/null | head -3
 | `wc -l` of CLAUDE.md > 150 | `claude-md-size` | `analysis/claude-md-progressive-disclosure.md` | ~150 instruction budget is a convergent behavioral boundary; progressive disclosure is the remediation. |
 | `grep -nE "see (rules/\|\\.claude/\|[A-Z])"` returns matches in CLAUDE.md | `claude-md-references` | `analysis/claude-md-progressive-disclosure.md` | 4.7 no longer infers that referenced files should be read. Mechanical enforcement (PreToolUse hook, explicit Read step, inline block) required. |
 | No CLAUDE.md found at root or in `.claude/` | `claude-md-missing` | `analysis/claude-md-progressive-disclosure.md` | 3-tier evolution model provides a calibrated starting point. |
-| `grep -nEi "\b(best practices\|idiomatic\|robust\|proper\|clean code)\b"` matches in CLAUDE.md | `claude-md-vague-descriptors` | `analysis/model-migration-anti-patterns.md` | Anti-pattern #1 — silent no-ops on 4.7. |
+| `grep -nEi "\b(best practices\|idiomatic\|robust\|proper\|clean code)\b"` matches in CLAUDE.md | `claude-md-vague-descriptors` | `analysis/model-migration-anti-patterns.md` | Anti-pattern #1 — silent no-ops on 4.7 (carries to 4.8). |
+| `grep -nE "MUST\|NEVER\|ALWAYS\|\bmax\b\|cap (at\|of)"` matches on *advisory* (non-safety) guidance in CLAUDE.md | `claude-md-emphatic-constraints` | `analysis/model-migration-anti-patterns.md` | Soft-guideline literalization (first-class anti-pattern): 4.7/4.8 hard-cap emphatic syntax on guidance the author meant as a heuristic. Reserve MUST/NEVER/hard caps for genuine invariants; write heuristics in advisory syntax. |
 
 ## Fetch on Harness Layout
 
@@ -190,4 +192,4 @@ The `evidence-tier` is always extractable from the doc's frontmatter — look fo
 
 ---
 
-*Last updated: 2026-04-28. Signal vocabulary in the Signal key column is authoritative — every `applies-to-signals` value in `analysis/*.md` frontmatter must appear here, and vice versa.*
+*Last updated: 2026-05-30 (added `model-version-4-8` and `claude-md-emphatic-constraints` signals for the Opus 4.8 release; model-version grep extended to `4-8`). Signal vocabulary in the Signal key column is authoritative — every `applies-to-signals` value in `analysis/*.md` frontmatter must appear here, and vice versa.*

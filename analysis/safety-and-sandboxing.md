@@ -1,8 +1,8 @@
 ---
 evidence-tier: A
-applies-to-signals: [harness-hooks, commit-security-paths]
-last-verified: 2026-04-15
-revalidate-by: 2026-10-15
+applies-to-signals: [harness-hooks, commit-security-paths, model-version-4-8]
+last-verified: 2026-05-30
+revalidate-by: 2026-11-30
 status: PRODUCTION
 ---
 
@@ -243,6 +243,33 @@ MCP servers introduce additional attack surfaces. Key risks from [OWASP MCP Top 
 
 ---
 
+## Model-Level Prompt-Injection Robustness: Opus 4.8 Regressed vs 4.7 (system card §5.2)
+
+**Source**: [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) §5.2 (Evidence Tier A). Released 2026-05-28; model ID `claude-opus-4-8`.
+
+Opus 4.8 is an alignment *improvement* over 4.7 on most measures — but **prompt-injection robustness is the exception: 4.8 regressed vs 4.7**. This matters because injection robustness is a model property the sandboxing/permission/hook stack above does *not* replace — those layers constrain what a compromised agent can *do*; injection robustness governs how easily the agent is compromised in the first place.
+
+The numbers below are easy to mis-cite. **Always state the safeguard / attempt-count / thinking conditions** — an unqualified headline percentage is meaningless here.
+
+| Evaluation | Conditions | Opus 4.7 | Opus 4.8 |
+|---|---|---|---|
+| Gray Swan ART, tool-use | k=100 attempts, with thinking | 6.0% | **9.6%** |
+| Shade adaptive attacker — coding / text injection | single attempt, **no safeguards**, with thinking | 2.34% | **7.03%** |
+| Shade adaptive attacker — computer-use | single attempt, **no safeguards**, with thinking | 0.46% | **7.14%** |
+| Shade adaptive attacker — computer-use | single attempt, **with safeguards**, with thinking | — | **5.11%** |
+
+Reading the table: these are attack *success* rates (lower is better), so every 4.7→4.8 movement here is a regression. The computer-use single-attempt rate is the sharpest: 0.46% → 7.14% with no safeguards. **Safeguards materially reduce it** — the same computer-use single-attempt rate drops from 7.14% to 5.11% with safeguards enabled — but does not return it to the 4.7 level.
+
+**What this does and does not mean:**
+
+- It does **not** mean 4.8 is broadly less safe — Anthropic reports 4.8 as an improvement over 4.7 on most alignment measures (honesty in agentic settings "markedly improved"; Petri 3.0 "best-aligned publicly accessible model by nearly all these metrics"). Injection robustness is a specific, named exception.
+- The widely-circulated **"0.07% → 0.26%" pair is wrong** — those are error-bar margins, not injection rates. Do not cite them.
+- The single-attempt / k=100 distinction is load-bearing: a 7% single-attempt success rate compounds badly under repeated adversarial attempts (the Gray Swan k=100 column shows the multi-attempt regime).
+
+**Defensive implication**: on 4.8, lean harder on the layers that don't depend on model injection-robustness — OS-level sandboxing (Layer 1), `hard_deny` for catastrophic-blast-radius commands (see above), and least-privilege networking — especially for **computer-use and tool-use agents handling untrusted content**, where the regression is largest. Enable injection safeguards where available; the system-card figures show they cut the computer-use single-attempt rate by roughly a third.
+
+---
+
 ## Agent-Specific Attack Surface
 
 **Source**: H-AGENT-SECURITY-01 hypothesis (4.8/5 confidence, settled)
@@ -434,5 +461,6 @@ Layer 4: Hooks (application-level)    — Custom validation logic
 - H-AI-SHADOW-01 — Shadow AI usage in enterprises (4.5/5 confidence)
 - [OWASP AI Vulnerability Scoring System (AIVSS)](https://owasp.org/) (February 2026)
 - Anthropic Managed Agents — Environment scoping and credential management (April 2026)
+- [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) §5.2 (Tier A, released 2026-05-28) — prompt-injection robustness regressed 4.7→4.8: Gray Swan ART tool-use (k=100, thinking) 6.0%→9.6%; Shade coding/text injection (single attempt, no safeguards, thinking) 2.34%→7.03%; computer-use (single attempt, no safeguards, thinking) 0.46%→7.14%, dropping to 5.11% with safeguards. The "0.07%→0.26%" figure circulating elsewhere is error-bar margins, not injection rates — not used here.
 
-*Last updated: April 2026*
+*Last updated: May 2026 (Opus 4.8 prompt-injection regression, §5.2). Prior: April 2026.*

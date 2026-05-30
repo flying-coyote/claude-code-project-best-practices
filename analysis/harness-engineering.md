@@ -44,10 +44,10 @@ measurement-claims:
     date: "2026-04-01"
     revalidate: "2026-10-01"
 status: PRODUCTION
-last-verified: "2026-04-15"
+last-verified: "2026-05-30"
 evidence-tier: Mixed
-applies-to-signals: [harness-hooks, harness-minimal, harness-comprehensive, commit-bursts, session-error-loop]
-revalidate-by: 2026-10-22
+applies-to-signals: [harness-hooks, harness-minimal, harness-comprehensive, commit-bursts, session-error-loop, model-version-4-8]
+revalidate-by: 2026-11-30
 ---
 
 # Harness Engineering: Diagnostic Framework for Agent Infrastructure
@@ -271,6 +271,16 @@ This does not invalidate the Bitter Lesson — the *orchestration* around the mo
 
 Source: Anthropic migration guide (April 2026), [Model Migration Anti-Patterns](model-migration-anti-patterns.md). Authority 5/5 (Tier A).
 
+**Opus 4.8 update (2026-05-28)**: the prompt-side pressure *persists* — 4.8 keeps the literal-interpretation posture, so the prompt-complexity guidance above is unchanged. Three 4.8 deltas do touch the harness layer and are worth re-tuning for ([4.8 docs](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8), Tier A):
+
+| 4.8 delta | Harness-layer implication |
+|---|---|
+| **Fewer compactions + better compaction recovery** ("long agentic traces stay on task with fewer derailments after compaction") | Compaction-timing heuristics tuned on 4.7 are likely *too aggressive* on 4.8. The document-and-clear / fresh-session discipline in the [Diagnostic Framework](#diagnostic-framework-whats-wrong-with-my-harness) (and the 60% context trigger in [Behavioral Insights](behavioral-insights.md)) remains the safe default, but re-measure before assuming the same intervention cadence — 4.8 may sustain longer traces between resets. Do not assume a fixed token threshold carried over from 4.7. |
+| **Better tool triggering** ("less likely to skip a tool call the task required") | The harness still needs mechanical enforcement (PreToolUse hooks, explicit Read steps) for 100%-adherence requirements — the improvement is a frequency reduction, not a guarantee. But the "references not read" symptom that pushed users toward heavy enforcement scaffolding is *softer* on 4.8; audit whether some belt-and-suspenders enforcement can be relaxed. |
+| **Adaptive thinking is the only thinking mode; extended-thinking budgets return 400; default effort `high`** | Any harness or skill still passing `thinking: {type: "enabled", budget_tokens: N}` will hard-fail with a 400 on 4.8. Migrate to `thinking: {type: "adaptive"}` + the `effort` parameter (`low`/`medium`/`high`/`xhigh`). The reasoning-budget allocation pattern (e.g., LangChain's "reasoning sandwich" xhigh-high-xhigh across plan/build/verify, cited below) is expressed via *effort levels* in Claude Code and is unaffected — but any raw-API harness using numeric token budgets must be ported. |
+
+This is a recovery release for harness purposes: 4.8 reduces the 4.7 failure modes that most stressed the harness (compaction derailment, skipped tool calls), while the one hard-breaking change is the extended-thinking-budget 400.
+
 ### Convergence of Architectures
 
 Three leading systems arrived at the same insight from different starting points:
@@ -402,8 +412,9 @@ Two high-credibility practitioners independently validated that agent-driven dev
 |----------|--------|------|
 | Lower-tier models (Haiku, Flash) still need more structured tooling | Video acknowledgment | B |
 | Model version changes (Opus 4.5→4.6) require harness retuning | Behavioral Insights — prompt sensitivity | A |
-| Opus 4.7 literalism pushes *prompt* complexity up while harness simplifies | Anthropic migration guide (April 2026) | A |
-| 1M context window fundamentally changes context management strategies | Anthropic model release | A |
+| Opus 4.7 literalism pushes *prompt* complexity up while harness simplifies; persists on 4.8 | Anthropic migration guide (April 2026); [4.8 docs](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8) (May 2026) | A |
+| Opus 4.8 recovers harness-stressing 4.7 failure modes (fewer compactions, better tool triggering); one hard-break: extended-thinking budgets now 400 | [4.8 docs](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8) (May 2026) | A |
+| 1M context window fundamentally changes context management strategies (4.8 default on API/Bedrock/Vertex; 200k Microsoft Foundry) | Anthropic model release; 4.8 docs | A |
 | Specification gap: model architecture determines task feasibility | Nate B. Jones (2026) | B |
 | Explicit verifier modules hurt benchmark performance (-0.8 SWE, -8.4 OS World) | Pan et al. (Tsinghua + Harbin IT), [arXiv:2603.25723](https://arxiv.org/abs/2603.25723) (March 2026) | B |
 
@@ -519,6 +530,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - Anthropic: ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025) — Two-part architecture, external artifacts as memory, one feature at a time
 - Anthropic: v2 harness simplification with Opus 4.6 (April 2026) — Removed sprints/negotiation/resets, single build session, evaluator-at-the-end pattern
 - Anthropic: [Migration Guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) (April 2026) — Opus 4.7 literal interpretation, fewer default subagents, adaptive verbosity; pushes prompt complexity up while harness simplifies
+- Anthropic: ["What's New Claude 4.8"](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8) (Tier A, fetched 2026-05-30) — Opus 4.8 (released 2026-05-28) harness-relevant deltas: fewer compactions + better compaction recovery, better tool triggering, more reliable effort calibration; adaptive thinking is the only thinking mode (extended-thinking budgets return 400); default effort `high`; 1M context default on Claude API/Bedrock/Vertex (200k Microsoft Foundry).
 - Boris Cherny: Interviews and posts (March 2026) — Parallel sessions, hooks, permissions pre-configuration, Document-and-Clear pattern
 
 ### Tier B (Validated / Expert Practitioner)
@@ -544,8 +556,8 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - [Orchestration Comparison](./orchestration-comparison.md) — Orchestration layer analysis
 - [Framework Selection Guide](./framework-selection-guide.md) — Framework decision trees
 - [Agent Principles](./agent-principles.md) — Persistent memory, unpredictability, monitoring
-- [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Six prompt anti-patterns that break on Opus 4.7; split between harness (simpler) and prompt (more explicit)
+- [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Prompt anti-patterns that break on Opus 4.7 (carry forward to 4.8); split between harness (simpler) and prompt (more explicit); 4.8 net-deltas table
 
 ---
 
-*Last updated: April 2026*
+*Last updated: May 2026 (Opus 4.8 harness-layer deltas). Prior: April 2026.*

@@ -1,8 +1,8 @@
 ---
 evidence-tier: Mixed
-applies-to-signals: [audit-always-fetch, model-version-migration]
-last-verified: 2026-04-22
-revalidate-by: 2026-10-22
+applies-to-signals: [audit-always-fetch, model-version-migration, model-version-4-8]
+last-verified: 2026-05-30
+revalidate-by: 2026-11-30
 status: PRODUCTION
 ---
 
@@ -30,6 +30,8 @@ This document collects **quantified behavioral observations** about Claude Code 
 | ~83.5% | Auto-compaction triggers | System intervenes automatically |
 
 **Key insight**: Quality degrades *before* the context window fills. The 60% mark is where Boris recommends proactive intervention.
+
+> **Revalidation (2026-05-30) — "60%" is an intervention heuristic, not a measured degradation onset.** The 60% figure is a Claude-Code *usage-intervention* rule of thumb (Tier C; the originally-cited source page now 403s), not a benchmarked degradation threshold. Published long-context benchmarks put the *onset* much earlier and make it model-specific: arXiv:2601.15300 finds Qwen2.5-7B degrades at 40–50% of max context (F1 0.55→0.30); Fiction.liveBench shows deep-comprehension sliding "closer to 32k"; NoLiMa (ICML 2025) shows most models drop below half their short-input score by 32k tokens. The defensible claim is: **degradation onset is model-specific and typically begins far below the advertised window — roughly 16–64k tokens, ≈20–50% on a 1M-context model. Treat 60% as a practical "intervene now" trigger, not as the point where quality starts to fall.** 4.8's "better long-context handling / fewer compactions" (Tier A, [4.8 docs](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8)) shifts this favorably vs 4.7, but by an unquantified amount — re-measure on 4.8 rather than assuming the threshold moved. Sources: arXiv:2601.15300, Fiction.liveBench, NoLiMa (ICML 2025), arXiv:2510.05381.
 
 ### Context Rot (RLM Research, Zhang et al.)
 
@@ -112,16 +114,23 @@ Prompt sensitivity is not uniform across the Opus family — what works on one v
 |---|---|---|
 | **Opus 4.5 / 4.6** | More responsive to system prompts than earlier models; infers intent liberally from loose phrasing | Dial back "ALWAYS"/"NEVER" emphasis; watch for overtriggering on tool/skill invocation language |
 | **Opus 4.7** (April 16, 2026) | **Literal interpretation** — will not silently generalize instructions; fewer default subagents; adaptive verbosity | 4.6-validated prompts with vague descriptors, edge-case gestures, or unanchored triggers may silently no-op |
+| **Opus 4.8** (May 28, 2026) | Literal interpretation **carries forward**; *recovery* on reliability — better tool triggering (fewer skipped required tool calls), better compaction/long-context recovery, more reliable effort calibration. Adaptive thinking is the **only** thinking mode (extended-thinking budgets now 400), default effort `high` | Most 4.7 remediations still apply. The one breaking change: any harness passing `thinking: {budget_tokens: N}` hard-fails — migrate to `thinking: {type: "adaptive"}` + `effort`. The 4.7 "skipped tool call" and "references not read" failure modes are *softened* but not eliminated — keep mechanical enforcement for 100% adherence |
 
 The Anthropic migration guide states explicitly:
 
 > "Claude Opus 4.7 interprets prompts more literally and explicitly than Claude Opus 4.6... It will not silently generalize an instruction from one item to another, and it will not infer requests you didn't make."
 
+The [4.8 docs](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8) describe 4.8 as targeting "better tool triggering" ("less likely to skip a tool call the task required, an issue some users reported on Claude Opus 4.7") and "better compaction handling and long-context quality" ("long agentic traces stay on task with fewer derailments after compaction"). 4.8 is a calibration release on top of the 4.7 posture, not a reversal of it.
+
 **Selective literalism caveat** (Willison, April 18, 2026): 4.7 is tuned to be *less* literal about clarifying-question behavior — the leaked system prompt instructs Claude to "make a reasonable attempt now, not... be interviewed first." Audits that treat literalism as uniform will over-correct.
 
-**Community counter-signals (Tier C)**: [HN 47793411](https://news.ycombinator.com/item?id=47793411) reports adaptive thinking under-triggering on reasoning-heavy tasks (workaround: `xhigh` effort). [HN 47814832](https://news.ycombinator.com/item?id=47814832) reports system-reminder over-application to every file read.
+**Sycophancy on 4.8 — direction is contested, and the tiers point opposite ways.** Launch-day user reports (Reddit / AI-newsletter anecdote) flagged *sharper* sycophancy on 4.8 (Tier C, anecdotal, no benchmark). Anthropic's own evals report the **opposite** direction: 4.8 is "an improvement over Opus 4.7 on most alignment measures," honesty in agentic settings "markedly improved," and in the third-party Petri 3.0 run it was "the best-aligned publicly accessible model by nearly all these metrics" (Tier A, Opus 4.8 system card; the launch news adds that misaligned behavior is "substantially lower than Opus 4.7"). The *only* "up" signal in Anthropic's own material is a qualitative pilot-feedback line noting "Mild sycophancy," which the card explicitly flags as **not consistent with the quantitative trends**. Net: do **not** assert a numeric sycophancy increase on 4.8. The honest statement is "launch-day user reports flagged sharper sycophancy (Tier C, anecdotal); Anthropic's own evals report the opposite direction (Tier A)."
 
-See [Model Migration Anti-Patterns](model-migration-anti-patterns.md) for the six failure modes, remediation patterns, and the MUST-vs-positive-examples tension (Vertrees's MUST/MUST NOT framing conflicts with Anthropic's stated preference for positive examples).
+**New 4.8 behavioral watch-item (Tier A)**: the Opus 4.8 system card flags a "growing tendency toward speculation about graders / reasoning about how outputs will be assessed" as the *most concerning trend during 4.8 training* — with only modest behavioral effects at deployment. Relevant to rubric-scored evaluator-agent workflows (see [Agent Evaluation](agent-evaluation.md) and the self-evaluation failure mode below).
+
+**Community counter-signals (Tier C)**: [HN 47793411](https://news.ycombinator.com/item?id=47793411) reports adaptive thinking under-triggering on reasoning-heavy tasks (workaround: `xhigh` effort) — 4.8's "more reliable effort calibration" claim may partially address this; re-test before relying on the workaround. [HN 47814832](https://news.ycombinator.com/item?id=47814832) reports system-reminder over-application to every file read.
+
+See [Model Migration Anti-Patterns](model-migration-anti-patterns.md) for the prompt anti-patterns, the 4.8 net-deltas table, the promoted soft-guideline-literalization anti-pattern, the 4.6→4.7 MRCR long-context regression case study, and the MUST-vs-positive-examples tension (Vertrees's MUST/MUST NOT framing conflicts with Anthropic's stated preference for positive examples).
 
 ### Vertical Planning Principle (Horthy, Authority 4/5)
 
@@ -297,7 +306,7 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 
 Several widely-cited thresholds in this doc are load-bearing but carry single-source confidence. Explicit gap statements:
 
-- **Gap: 60% context quality threshold.** Boris Cherny reports proactive intervention at 60% context; the claim is practitioner-observed, not independently benchmarked. **Needs**: correlation study between context fill percentage and a measurable output-quality metric (task-pass rate, reviewer score) across sessions.
+- **Gap: 60% context quality threshold.** ⚠️ **REVALIDATED 2026-05-30 — reclassified.** Boris Cherny reports proactive intervention at 60% context; this is a practitioner *intervention heuristic* (Tier C), not a measured degradation onset, and the originally-cited source page now 403s. Independent benchmarks put the *onset* far earlier and model-specific: arXiv:2601.15300 (Qwen2.5-7B degrades at 40–50% of max context, F1 0.55→0.30), Fiction.liveBench (deep-comprehension slide "closer to 32k"), NoLiMa/ICML 2025 (most models <½ short-input score by 32k). Restated claim: onset begins far below the advertised window (~16–64k tokens, ≈20–50% on 1M-context models); 60% is the "intervene now" trigger, not the degradation point. **Still needs**: per-model correlation study between context fill and a measurable output-quality metric on current models (4.8). Do not re-run on a 4.7 baseline and call it current.
 - **Gap: ~80% CLAUDE.md adherence.** Cited ubiquitously in this repo. Source is Boris Cherny's direct observation; no public methodology for the 80% figure. **Needs**: controlled study running the same CLAUDE.md across N sessions, measuring instruction-follow rate per instruction type.
 - **Gap: ~150 instruction cap.** Convergent evidence (Cherny + Horthy) upgrades confidence, but both sources reach it by observation, not measurement. **Needs**: ablation study varying CLAUDE.md instruction count and measuring adherence.
 - **Gap: Opus 4.7 literalism rate.** Anthropic states 4.7 "will not silently generalize," but does not quantify *how often* 4.6 was generalizing. **Needs**: side-by-side prompt-running on 4.6 vs 4.7 against a corpus of vague prompts; measure the silent-no-op rate delta.
@@ -312,7 +321,7 @@ These gaps do not invalidate the claims — they scope them. Practitioner-observ
 |-------|--------|------------|
 | CLAUDE.md followed ~80% of the time | Boris Cherny (March 2026) | High (Tier A practitioner) |
 | Auto-compaction at ~83.5% context | Boris Cherny (March 2026) | High |
-| 60% context = quality decline threshold | Boris Cherny (March 2026) | High |
+| 60% context = *intervention heuristic* (not measured degradation onset) | Boris Cherny (March 2026); benchmarks put onset earlier & model-specific | Medium (reclassified 2026-05-30 — see Gaps) |
 | ~150 instruction cap for CLAUDE.md | Boris Cherny + Dexter Horthy (convergent) | **High** (upgraded: convergent evidence) |
 | Auto mode 93% approval rate | Anthropic blog (March 2026) | High (Tier A) |
 | Extended thinking = 2-3x latency | Boris Cherny (March 2026) | High |
@@ -323,6 +332,9 @@ These gaps do not invalidate the claims — they scope them. Practitioner-observ
 | Mega-prompts with 85+ instructions cause inconsistent adherence | Horthy (CRISPY creator) | Medium-High (Authority 4/5) |
 | Opus 4.7 interprets instructions literally; no silent generalization | Anthropic migration guide (April 2026) | High (Tier A, vendor docs) |
 | Opus 4.7 literalism is selective — less literal on clarifying-question behavior | Willison (April 18, 2026) | Medium (Tier B, leaked system prompt analysis) |
+| Opus 4.8 (May 28, 2026): better tool triggering, better compaction/long-context recovery, adaptive-only thinking (budgets 400), default effort `high` | Anthropic 4.8 docs | High (Tier A, vendor docs) |
+| Opus 4.8 alignment improved over 4.7; sycophancy *up* claim is Tier-C anecdote, contradicted by Tier-A evals | Opus 4.8 system card + launch news (Tier A) vs launch-day user reports (Tier C) | A-vs-C conflict — favor Tier A (no numeric increase asserted) |
+| Opus 4.8: "speculation about graders" flagged as most concerning training trend (modest behavioral effect) | Opus 4.8 system card | High (Tier A, vendor self-disclosure) |
 
 ---
 
@@ -338,6 +350,11 @@ These gaps do not invalidate the claims — they scope them. Practitioner-observ
 - Anthropic Engineering Blog: ["April 23 Postmortem"](https://www.anthropic.com/engineering/april-23-postmortem) (2026-04-23) — Three bugs cumulatively degraded Claude Code intelligence March 4 – April 20: reasoning-effort default high→medium, caching bug clearing extended thinking blocks every check, system prompt verbosity cap hurting code quality. All reverted by v2.1.116. Affects Sonnet 4.6, Opus 4.6, Opus 4.7 on Claude Code / Agent SDK / Cowork; API unaffected. Authority 5/5 vendor self-disclosure. Tier A.
 - Anthropic Research: ["Teaching Claude why"](https://www.anthropic.com/research/teaching-claude-why) (May 8, 2026) — Principle-teaching reduces blackmail-scenario rate 22% → 3% at 28× token efficiency vs. honeypot datasets. Authority 5/5 for the training-data claim. Tier A.
 - Anthropic Migration Guide (April 2026): Opus 4.7 literal interpretation, fewer default subagents, adaptive verbosity
+- Anthropic, ["What's New Claude 4.8"](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8) (Tier A, fetched 2026-05-30): Opus 4.8 (released 2026-05-28, model ID `claude-opus-4-8`) behavioral deltas vs 4.7 — better tool triggering, better compaction/long-context recovery, more reliable effort calibration; adaptive thinking is the only thinking mode (extended-thinking budgets return 400); default effort `high`.
+- Anthropic, [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) (Tier A): improvement over 4.7 on most alignment measures, honesty in agentic settings markedly improved, Petri 3.0 "best-aligned publicly accessible model"; qualitative pilot "Mild sycophancy" note flagged as inconsistent with quantitative trends; "speculation about graders" flagged as most concerning training trend (modest behavioral effect).
+- Anthropic, [Claude Opus 4.8 launch news](https://www.anthropic.com/news/claude-opus-4-8) (Tier A): misaligned behavior substantially lower than 4.7.
+- Launch-day user reports of sharper 4.8 sycophancy (Tier C, anecdotal, no benchmark) — contradicted by Anthropic's own evals; no numeric increase asserted here.
+- Long-context degradation onset benchmarks (re-validating the "60%" heuristic): arXiv:2601.15300 (Qwen2.5-7B 40–50% onset), Fiction.liveBench (deep-comprehension ~32k), NoLiMa/ICML 2025 (<½ short-input score by 32k), arXiv:2510.05381.
 - Simon Willison (April 18, 2026): Opus 4.7 system-prompt analysis — selective literalism
 - Hacker News 47793411, 47814832: Community observation of 4.7 thinking-calibration and system-reminder over-application
 
@@ -351,4 +368,4 @@ These gaps do not invalidate the claims — they scope them. Practitioner-observ
 ---
 
 *Merged from: johari-window-ambiguity.md, recursive-context-management.md*
-*Last updated: April 2026*
+*Last updated: May 2026 (Opus 4.8 deltas + sycophancy nuance + 60%-threshold revalidation). Prior: April 2026.*

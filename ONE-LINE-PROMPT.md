@@ -40,14 +40,14 @@ signals-triggered: [signal-key-1, signal-key-2, ...]
 | Commits in period | {N} |
 | AI co-authoring rate | {X%} |
 | Primary language | {lang} |
-| Model version(s) detected | {e.g., Opus 4.7; or "unknown"} |
+| Model version(s) detected | {e.g., Opus 4.8; or "unknown"} |
 | Harness components | {count — which of: CLAUDE.md, hooks, rules, skills, agents, commands, settings.json} |
 
 ## Signals Observed
 
 Bulleted list of what triggered each fetch. Example:
 - `claude-md-size`: CLAUDE.md is 187 lines → fetched claude-md-progressive-disclosure.md
-- `model-version-4-7`: settings.json references claude-opus-4-7 → fetched model-migration-anti-patterns.md
+- `model-version-4-8`: settings.json references claude-opus-4-8 → fetched model-migration-anti-patterns.md, safety-and-sandboxing.md
 - `harness-hooks`: .claude/hooks/ present → fetched harness-engineering.md, safety-and-sandboxing.md
 
 ## Harness Inventory
@@ -124,10 +124,10 @@ This is the exact citation format required:
 
 ```markdown
 **Migrate implicit subagent dispatch in `.claude/agents/builder.md:14`**
-- Signal: `model-version-4-7` (settings.json references `claude-opus-4-7`)
+- Signal: `model-version-4-8` (settings.json references `claude-opus-4-8`)
   AND `harness-custom-agents` (.claude/agents/builder.md exists)
 - Source: `analysis/model-migration-anti-patterns.md` (evidence-tier: Mixed)
-- Action: Replace the line "Dispatch the work to available subagents" with an explicit mechanism, e.g., "Use the Explore subagent to scan src/, then the Plan subagent to design the change." This matches Opus 4.7's explicit-dispatch default and aligns with Anthropic's preference for positive examples over MUST NOT rules.
+- Action: Replace the line "Dispatch the work to available subagents" with an explicit mechanism, e.g., "Use the Explore subagent to scan src/, then the Plan subagent to design the change." The explicit-dispatch default carries forward from 4.7 to 4.8, and this aligns with Anthropic's preference for positive examples over MUST NOT rules. (Separately, if any skill/harness passes `thinking: {budget_tokens: N}`, that now returns a 400 on 4.8 — migrate to `thinking: {type: "adaptive"}` + `effort`.)
 ```
 
 Three things make this compliant:
@@ -152,7 +152,7 @@ Append one of these to narrow the audit:
 
 - `...focus on security patterns` — bias routing toward `safety-and-sandboxing.md`, `secure-code-generation.md`, `mcp-patterns.md`.
 - `...focus on agent architecture` — bias routing toward `harness-engineering.md`, `orchestration-comparison.md`, `agent-principles.md`.
-- `...focus on Opus 4.7 migration readiness` — force-fetch `model-migration-anti-patterns.md` regardless of model-version detection. Useful for pre-upgrade audits.
+- `...focus on Opus 4.8 migration readiness` — force-fetch `model-migration-anti-patterns.md` and `safety-and-sandboxing.md` regardless of model-version detection. Useful for pre-upgrade audits (4.8 keeps 4.7's literal-interpretation anti-patterns, adds an extended-thinking-budget 400 break, and regressed on prompt-injection robustness).
 - `...compare against {other repo path}` — runs the audit twice and produces a diff.
 - `...skip session diagnostics` — omits claude-doctor. Use when `~/.claude/projects/` is empty or transcripts are irrelevant.
 
