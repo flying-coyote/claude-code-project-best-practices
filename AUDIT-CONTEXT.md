@@ -22,6 +22,8 @@ The audit prompt collects these signals. Each routing row below is phrased to ma
 ls -la .claude/ 2>/dev/null
 ls -la .claude/hooks/ .claude/rules/ .claude/skills/ .claude/agents/ .claude/commands/ 2>/dev/null
 cat .claude/settings.json 2>/dev/null
+cat .claude/mcp.json .mcp.json 2>/dev/null              # MCP servers commonly live here, not only in settings.json
+ls .claude/agents/*.md 2>/dev/null | grep -vi readme    # custom-agent definitions only (a README-only agents/ dir is not a custom agent)
 
 # CLAUDE.md state
 wc -l CLAUDE.md .claude/CLAUDE.md 2>/dev/null
@@ -96,8 +98,8 @@ ls -a .env .env.* 2>/dev/null | head -3
 |---|---|---|---|
 | `.claude/hooks/` directory present | `harness-hooks` | `analysis/harness-engineering.md` + `analysis/safety-and-sandboxing.md` | Hook-based enforcement is the 100%-adherence boundary; sandboxing is the defense-in-depth layer. |
 | `ls .claude/skills/ \| wc -l` returns >5 | `harness-skills` | `analysis/plugins-and-extensions.md` + `analysis/mcp-vs-skills-economics.md` | Skills use ~2% context each; economics comparison applies at this scale. |
-| `.claude/agents/` contains one or more `.md` files | `harness-custom-agents` | `analysis/agent-principles.md` + `analysis/orchestration-comparison.md` + `analysis/agent-evaluation.md` | Custom-subagent gatekeeping is a documented anti-pattern; 4.7 spawns fewer subagents by default. |
-| `settings.json` has `mcpServers` key with ≥1 entry | `harness-mcp` | `analysis/mcp-patterns.md` + `analysis/mcp-daily-essentials.md` + `analysis/mcp-client-integration.md` | MCP context budget, OWASP failure modes, 4-plugin + 2-MCP sweet spot. |
+| `.claude/agents/` contains one or more agent-definition `.md` files (a README-only `agents/` dir does NOT match — exclude `README.md`) | `harness-custom-agents` | `analysis/agent-principles.md` + `analysis/orchestration-comparison.md` + `analysis/agent-evaluation.md` | Custom-subagent gatekeeping is a documented anti-pattern; 4.7 spawns fewer subagents by default. |
+| an `mcpServers` key with ≥1 entry in `settings.json`, `.claude/mcp.json`, or root `.mcp.json` | `harness-mcp` | `analysis/mcp-patterns.md` + `analysis/mcp-daily-essentials.md` + `analysis/mcp-client-integration.md` | MCP context budget, OWASP failure modes, 4-plugin + 2-MCP sweet spot. |
 | Only CLAUDE.md exists; no hooks/skills/agents/rules/commands | `harness-minimal` | `analysis/harness-engineering.md` | Start-minimal decision tree; when to add each mechanism. |
 | ≥4 of {hooks, skills, agents, rules, commands} directories present | `harness-comprehensive` | `analysis/harness-engineering.md` + `analysis/framework-selection-guide.md` | Bitter Lesson diagnostic — is the harness buying you anything, or accreting complexity? |
 
@@ -195,4 +197,4 @@ The `evidence-tier` is always extractable from the doc's frontmatter — look fo
 
 ---
 
-*Last updated: 2026-06-04 (added `project-type-agent-infra` routing for `dapr-durable-agents.md` so it is reachable; deferred the session-diagnostic rows to first-party `/insights` as `session-quality-tools.md` enters the RETIRING lane; corrected the routable-corpus count 28 → 41). Prior: 2026-05-30 (added `model-version-4-8` and `claude-md-emphatic-constraints` signals for the Opus 4.8 release; model-version grep extended to `4-8`). Signal vocabulary in the Signal key column is authoritative — every `applies-to-signals` value in `analysis/*.md` frontmatter must appear here, and vice versa.*
+*Last updated: 2026-06-04 (added `project-type-agent-infra` routing for `dapr-durable-agents.md` so it is reachable; deferred the session-diagnostic rows to first-party `/insights` as `session-quality-tools.md` enters the RETIRING lane; corrected the routable-corpus count 28 → 41; broadened the `harness-mcp` signal to also detect `mcpServers` in `.claude/mcp.json` or root `.mcp.json` (not only `settings.json`), with the `cat` added to Signal Collection; tightened `harness-custom-agents` to require an agent-definition `.md` beyond `README.md`). Prior: 2026-05-30 (added `model-version-4-8` and `claude-md-emphatic-constraints` signals for the Opus 4.8 release; model-version grep extended to `4-8`). Signal vocabulary in the Signal key column is authoritative — every `applies-to-signals` value in `analysis/*.md` frontmatter must appear here, and vice versa.*

@@ -81,6 +81,8 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 
 ## Core Analysis (41 documents)
 
+_The `analysis/` directory contains 42 `.md` files: these 41 routable analysis docs plus `CANONICAL-DOC-TEMPLATE.md`, a non-routable template excluded from the count._
+
 | Document | What It Covers |
 |----------|---------------|
 | [evidence-tiers.md](analysis/evidence-tiers.md) | Dual-tier classification system for evaluating claims |
