@@ -4,7 +4,7 @@ All analysis documents in this repository are derived from authoritative sources
 
 **Quick Lookup**: For the top 20 most-referenced sources, see [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (100 lines vs 1,612 here)
 
-**Last curated**: 2026-05-24. Anthropic doc URLs are canonical at `code.claude.com`; older `docs.anthropic.com` paths still redirect but are not used here. See refresh log at the bottom.
+**Last curated**: 2026-05-30 (Opus 4.8 re-validation). Anthropic doc URLs are canonical at `code.claude.com`; older `docs.anthropic.com` paths still redirect but are not used here. See refresh log at the bottom.
 
 ## Primary Sources (Tier A)
 
@@ -23,7 +23,7 @@ All analysis documents in this repository are derived from authoritative sources
 
 **Key Workflow Insights**:
 1. **Parallel Sessions**: Run 5 terminal instances + 5-10 web sessions simultaneously
-2. **Opus 4.6 (latest)**: Use for all tasks—agent teams, 1M context, adaptive thinking
+2. **Use the latest Opus** (4.6 at the time of Boris's interviews; Opus 4.8 is the current model as of 2026-05-28): all tasks—agent teams, 1M context, adaptive thinking
 3. **CLAUDE.md as Team Memory**: Update multi-weekly, capture mistakes as they happen; CLAUDE.md is advisory (~80% adherence)—use hooks for 100% enforcement
 4. **Plan Mode First**: Always for non-trivial work; have one Claude draft the plan, another review it as "staff engineer"
 5. **Natural Language Git**: "commit and push" works without custom commands (per official guidance, avoid complex slash command lists)
@@ -187,6 +187,7 @@ All analysis documents in this repository are derived from authoritative sources
   - v2.0.76: LSP tool (go-to-definition, find references, hover)
   - v2.0.60: Background agent support
 - **Model Updates**:
+  - Opus 4.8 (May 28, 2026; model ID `claude-opus-4-8`): recovery/calibration release over 4.7 — better tool triggering, better compaction/long-context recovery, more reliable effort calibration; adaptive thinking is the only mode (extended-thinking `budget_tokens` returns HTTP 400 — migrate to `adaptive` + `effort`), default effort `high`; 1M context default on Claude API/Bedrock/Vertex, 200k on Microsoft Foundry — see Opus 4.8 Re-Validation section below
   - Opus 4.7 (April 16, 2026): Literal instruction following, fewer silent generalizations, fewer default subagents, adaptive response-length calibration — see Opus 4.7 Migration Guidance section below
   - Opus 4.6 (February 5, 2026): 1M token context, agent teams, adaptive reasoning, data residency controls
   - Opus 4.5 (November 24, 2025): 67% price reduction to $5/$25 per million tokens
@@ -238,6 +239,40 @@ All analysis documents in this repository are derived from authoritative sources
   - **HN 47793411** (1,955 points): "adaptive thinking chooses to not think when it should"; workaround = `xhigh` effort + explicit thinking-summary config
   - **HN 47814832**: 4.7 over-literally applies system-reminder instructions (e.g., malware check) to every file read — red-teamers describe as "close to unusable" for certain workflows
   - **Evidence Tier**: C (Community observation, unvalidated)
+  - **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md)
+
+#### Opus 4.8 Re-Validation (May 2026)
+
+Opus 4.8 shipped 2026-05-28 (model ID `claude-opus-4-8`; the `[1m]` suffix is the 1M-context variant). It is largely a *recovery and calibration* release relative to the 4.7 regressions — the literal-interpretation posture carries forward, so the Opus 4.7 migration guidance above still applies for 4.7→4.8. The four model-coupled analysis docs (`model-migration-anti-patterns.md`, `behavioral-insights.md`, `safety-and-sandboxing.md`, `harness-engineering.md`) and the audit routing in `AUDIT-CONTEXT.md` were re-validated against 4.8 primary sources fetched 2026-05-30.
+
+- **Primary — What's New Claude 4.8**
+  - **URL**: https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8
+  - **Evidence Tier**: A (Primary vendor documentation)
+  - **Key points**: Better tool triggering (fewer skipped required tool calls), better compaction/long-context recovery, more reliable effort calibration; adaptive thinking is the only thinking mode (extended-thinking `budget_tokens` returns HTTP 400 — migrate to `thinking: {type: "adaptive"}` + `effort`); default effort `high`; "better long-context handling" and "fewer compactions" vs 4.7 (directional, not quantified against the 4.6/4.7 MRCR figures).
+  - **Pattern**: [Model Migration Anti-Patterns](analysis/model-migration-anti-patterns.md), [Behavioral Insights](analysis/behavioral-insights.md), [Harness Engineering](analysis/harness-engineering.md)
+
+- **Primary — Opus 4.8 System Card**
+  - **URL**: https://www.anthropic.com/claude-opus-4-8-system-card
+  - **Evidence Tier**: A (Anthropic system card)
+  - **Key points**: Improvement over 4.7 on most alignment measures; honesty in agentic settings "markedly improved"; best-aligned publicly accessible model on the third-party Petri 3.0 run. Two flagged caveats carried into the analysis docs: a qualitative pilot "Mild sycophancy" note the card itself flags as *inconsistent* with the quantitative trends (so no numeric sycophancy increase is asserted — the "up" signal is a Tier-C launch-day anecdote, contradicted by these Tier-A evals); and a "growing tendency toward speculation about graders / reasoning about how outputs will be assessed" flagged as the *most concerning training trend* (modest behavioral effect at deployment) — a watch-item for rubric-scored evaluator-agent workflows. The §5.2 prompt-injection regression figures from this card are registered with the safety analysis.
+  - **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md), [Model Migration Anti-Patterns](analysis/model-migration-anti-patterns.md), [Safety and Sandboxing](analysis/safety-and-sandboxing.md)
+
+- **Primary — Claude Opus 4.8 Launch News**
+  - **URL**: https://www.anthropic.com/news/claude-opus-4-8
+  - **Date**: 2026-05-28 (fetched 2026-05-30)
+  - **Evidence Tier**: A
+  - **Key points**: Misaligned behavior "substantially lower than Opus 4.7"; 1M context default on Claude API, Bedrock, and Vertex; 200k on Microsoft Foundry.
+  - **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md)
+
+- **Supporting — 4.6→4.7 long-context regression case study (MRCR-v2)**
+  - **Sources**: OpenAI MRCR v2 (Multi-Round Co-Reference Resolution, 8-needle) benchmark; Opus 4.7 system card *chart images* (Tier A, image — the figures live in the card's charts, not its body text); [Context Arena](https://contextarena.ai) + the dev.to write-up "I read all 232 pages [of the Opus 4.7 system card]" (Tier B, third-party transcription of the same chart figures)
+  - **Figures**: 1M tokens 78.3% → 32.2%; 256k tokens 91.9% → 59.2% (4.6 → 4.7, 8-needle). Cite as *card chart (Tier A, image) + third-party transcription (Tier B)*, not as a quotable card sentence. The tokenizer-as-cause explanation is a single Tier-C blog conjecture, not adopted here. No public MRCR-v2 figure for 4.8 has been transcribed yet — re-benchmark multi-needle retrieval on 4.8 before relying on it.
+  - **Pattern**: [Model Migration Anti-Patterns](analysis/model-migration-anti-patterns.md)
+
+- **Supporting — Long-context degradation-onset benchmarks (revalidating the "60%" heuristic)**
+  - **Sources**: arXiv:2601.15300 (Qwen2.5-7B degrades at 40–50% of max context, F1 0.55 → 0.30); Fiction.liveBench (deep-comprehension slide "closer to 32k"); NoLiMa (ICML 2025 — most models drop below half their short-input score by 32k tokens); arXiv:2510.05381
+  - **Evidence Tier**: B (academic / benchmark; no Claude-specific validation)
+  - **Contribution**: Reclassifies Boris Cherny's "60% context threshold" from a measured degradation onset to a practitioner *intervention heuristic* (Tier C; the originally-cited source page now 403s). Degradation onset is model-specific and typically begins far below the advertised window (~16–64k tokens, ≈20–50% on a 1M-context model). Treat 60% as an "intervene now" trigger, not the point where quality starts to fall. Re-measure on 4.8 rather than assuming the threshold moved.
   - **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md)
 
 #### Context Engineering for AI Agents
@@ -452,6 +487,15 @@ All analysis documents in this repository are derived from authoritative sources
   - New hook handler types: `http` (POST to endpoint), `prompt` (single LLM call), `agent` (subagent with 50 tool turns, 60s timeout)
 - **Pattern**: [Advanced Hooks](analysis/harness-engineering.md)
 
+### Claude Code First-Party Introspection Commands (`/insights`, `/usage`, `/doctor`)
+- **Source**: Anthropic Claude Code (first-party commands)
+- **Evidence Tier**: A (Primary vendor feature)
+- **`/insights`** (announced by Thariq Shihipar, Anthropic, February 2026; maintained — `/insights` crash fix shipped in v2.1.149): analyzes local session history (~30 days / 50 sessions, Haiku) and produces an HTML report of recurring patterns and friction points, including copy-paste-ready CLAUDE.md rules auto-generated from instructions repeated across sessions. **Boundary**: session-history-only — does not read CLAUDE.md/hooks/agents/settings, does not detect model versions or migration anti-patterns, cites no evidence sources, and its suggestions are personalized to local habits (not portable to other projects).
+- **`/usage`** (per-category breakdown, v2.1.149, May 2026): shows what is driving limit usage by skills, subagents, plugins, and per-MCP-server cost. Supplies the live numbers the build-vs-borrow framework in `mcp-vs-skills-economics.md` / `mcp-daily-essentials.md` reasons about — the measurement, not the decision framework.
+- **`/doctor`** (environment diagnostic; "last update attempt" status added v2.1.153): checks installation status, config consistency, ripgrep, and MCP config errors. Install/config health — a slice this project never claimed.
+- **Relevance to this project**: These are the first-party features converging on the *edges* of the audit's scope. `/insights` is the cited replacement for the session-diagnostics slice — [`session-quality-tools.md`](analysis/session-quality-tools.md) is now `RETIRING` and defers to it (see [CONTRIBUTING.md](CONTRIBUTING.md) § Retiring a doc). `/usage` and `/doctor` are cited complements, not replacements for the static, evidence-tiered, model-migration-aware routing core, which has no first-party equivalent as of June 2026.
+- **Pattern**: [Session Quality Tools](analysis/session-quality-tools.md), [MCP vs Skills Economics](analysis/mcp-vs-skills-economics.md), [MCP Daily Essentials](analysis/mcp-daily-essentials.md)
+
 ### Coalition for Secure AI (CoSAI) - Project CodeGuard
 - **Source**: https://github.com/cosai-oasis/project-codeguard
 - **Blog**: https://blogs.cisco.com/ai/cisco-donates-project-codeguard-to-the-coalition-for-secure-ai
@@ -622,6 +666,18 @@ All analysis documents in this repository are derived from authoritative sources
 - **Performance Claims**: 250% Claude Code usage extension
 - **Pattern**: Reference architecture only (see [Framework Selection Guide](analysis/framework-selection-guide.md#claude-flow-reference-only))
 - **Evidence Tier**: B (Enterprise-focused documentation)
+
+### Dapr — Distributed Application Runtime (Infrastructure-as-Runtime for Agents)
+- **Author**: Dapr (CNCF graduated project); 10-LOC durable-agent demonstration by Bilgin Ibryam (Principal Product Manager, Diagrid — Dapr's commercial backer; CNCF contributor; author of *Kubernetes Patterns*)
+- **URLs**:
+  - https://docs.dapr.io/ (Dapr documentation — Tier A, CNCF graduated project: graduated 2024, first released 2019)
+  - https://github.com/dapr/dapr-agents (Dapr Agents)
+  - https://spiffe.io/ (SPIFFE workload identity — Tier A)
+  - Ibryam 10-LOC durable-agent demonstration shared via LinkedIn, January 2026 (Tier B)
+- **Description**: Dapr as agent infrastructure-as-runtime — durability (Workflow building block with automatic checkpointing/resume), state persistence (~30 backend options), secrets, SPIFFE-based cryptographic workload identity, OTel observability, and a Conversation API LLM abstraction (10+ providers) provided as a sidecar runtime so agent code carries only prompt/decision logic. Positions as complementary to MCP rather than competing: Dapr is the infrastructure plumbing (durability, identity, secrets), MCP is tool exposure, Skills/prompts are domain knowledge.
+- **Evidence Tier**: B (CNCF graduated project with production deployments + high-credibility author; the "production durable agent in ~10 lines" figure is a single-author LinkedIn demonstration → Tier B; the ~30-backend / 10+-LLM-provider capability counts are from Dapr docs → Tier A)
+- **Pattern**: [Dapr Durable Agents](analysis/dapr-durable-agents.md); complements [MCP vs Skills Economics](analysis/mcp-vs-skills-economics.md) (tool-exposure layer)
+- **Provenance**: Imported + adapted into this repo (2026-05-25) from the security-data-commons-blog archive (`AGENT-03-dapr-durable-agents.md`); SDC Substack framing stripped, repo-format frontmatter added.
 
 ### MCP Context Budget Analysis
 - **Author**: valgard
@@ -1906,6 +1962,9 @@ This sources document is updated when:
 
 | Date | Action | Result |
 |------|--------|--------|
+| 2026-06-04 | First-party introspection registered + first doc enters retirement lane | Registered **Claude Code First-Party Introspection Commands** (`/insights`, `/usage`, `/doctor`) as Tier A after an obsolescence sweep found Anthropic converging on the edges of the audit's scope. `/insights` (GA Feb 2026 — native session-history analysis + auto-generated CLAUDE.md rules) is the cited **replacement** for the session-diagnostics slice: [`session-quality-tools.md`](analysis/session-quality-tools.md) moved `PRODUCTION → RETIRING` with a `replacement-by` frontmatter field and a tombstone banner, and the audit's session-diagnostic routing now defers to `/insights` (keeping only the static committed-CLAUDE.md check + the uncalibrated-score caveat that `/insights` does not cover). `/usage` and `/doctor` registered as cited complements (cost-measurement and install-health), not replacements for the static evidence-tiered routing core. This is the first application of the project's new `RETIRING/RETIRED` retirement lane (per [planned-obsolescence intent](CONTRIBUTING.md) — prune as robust replacements mature). |
+| 2026-05-30 | Opus 4.8 re-validation → SOURCES sync | Registered the Opus 4.8 release (2026-05-28, model ID `claude-opus-4-8`) across the source database after the four model-coupled docs and the audit routing were re-validated against 4.8 primary sources. New **Opus 4.8 Re-Validation (May 2026)** subsection with the 4.8 trio (Tier A — [What's New 4.8](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8), [system card](https://www.anthropic.com/claude-opus-4-8-system-card), [launch news](https://www.anthropic.com/news/claude-opus-4-8)); the 4.6→4.7 MRCR-v2 long-context regression case-study sources (OpenAI MRCR v2 + 4.7 card chart images Tier A + Context Arena/dev.to "232 pages" Tier B transcription); and the long-context degradation-onset benchmarks revalidating the "60%" heuristic (arXiv:2601.15300, Fiction.liveBench, NoLiMa/ICML 2025, arXiv:2510.05381). De-staled the Boris Cherny "(latest)" model reference and the Model Updates list to lead with Opus 4.8; bumped "Last curated" to 2026-05-30. The four harness arXiv papers cited in the 4.8 commit (2603.25723, 2603.28052, 2602.09540, 2605.15184) were already registered in the 2026-05-24 sweep — not re-added. Quick-reference: added entry #31 (Opus 4.8 trio) and corrected the stale #25 "Tingua" → "Tsinghua". |
+| 2026-05-25 | Dapr durable-agents doc registered (Tier B) | Added **Dapr — Distributed Application Runtime** to Tier B for the imported [`dapr-durable-agents.md`](analysis/dapr-durable-agents.md): Dapr docs (docs.dapr.io, Tier A CNCF graduated project), Dapr Agents repo, SPIFFE (spiffe.io, Tier A), and Bilgin Ibryam's "production durable agent in ~10 lines" LinkedIn demonstration (Tier B). Infrastructure-as-runtime pattern, complementary to `mcp-vs-skills-economics.md` (tool-exposure layer). Doc adapted from the security-data-commons-blog archive (SDC framing stripped, repo-format frontmatter added). |
 | 2026-05-24 | Anthropic changelog → analysis-doc integration + April 23 postmortem + Hoyt convergence + LangChain DeepAgents | Folded Q2 2026 Anthropic changelog (v2.1.117 → v2.1.150) into the relevant analysis docs as bounded subsections: agent-view + Ultrareview added to [`orchestration-comparison.md`](analysis/orchestration-comparison.md) as new sections; `/goal`, `mcp_tool` hooks, `continueOnBlock`, `worktree.bgIsolation`, per-category `/usage` added to [`harness-engineering.md`](analysis/harness-engineering.md) as "Harness Toolkit Additions (Q2 2026)"; plugin URL/zip loading, `claude plugin prune/tag`, `allowAllClaudeAiMcps` added to [`plugins-and-extensions.md`](analysis/plugins-and-extensions.md) as "Plugin Dependency & Distribution Updates"; `hard_deny` + sandbox path overrides added to [`safety-and-sandboxing.md`](analysis/safety-and-sandboxing.md) under Permission Model Design. **Unverified post resolved**: the previously-flagged "claude-code-quality-reports" 404 turned out to be at `/engineering/april-23-postmortem` — three independent bugs (March 4 reasoning-effort default high→medium, March 26 caching bug clearing extended thinking blocks, April 16 system-prompt verbosity cap) cumulatively degraded Claude Code intelligence across Sonnet 4.6/Opus 4.6/4.7 from early March through v2.1.116 on April 20. Added as Tier A vendor self-disclosure; integrated into [`behavioral-insights.md`](analysis/behavioral-insights.md) as "Vendor-Side Quality Regression Case Study" with implications for harness designers (effort-level defaults are load-bearing; brevity constraints at system-prompt layer can degrade output) and cross-referenced from `harness-engineering.md` v2-simplification section as a caveat to "trust vendor defaults." **Hoyt Emerson CLI-over-MCP** added as convergence data point to the "CLI + Skill Pattern" section in [`mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) — section expanded with a multi-source convergence table (Vallentin + Hoyt + Hex + ClickHouse + Reinhard + OSS Insight ≥6 major repos in Q1 2026). The second Hoyt claim (agents-build-tools-for-themselves) remains single-practitioner, not registered. **LangChain DeepAgents** (2026-02-17) added as the third independent practitioner replication of the harness-as-multiplier finding (52.8% → 66.5% on TerminalBench-2, gpt-5.2-codex held constant; "outside Top 30 → Top 5"; five middleware changes; public traces). Sits alongside Meta-Harness (arXiv:2603.28052) and SWE-Bench Mobile (arXiv:2602.09540) as the third independent corroboration of H-HARNESS-01's headline class of result. |
 | 2026-05-24 | Tier A sweep + academic provenance closure | Completed biweekly Tier A sweep (gap from 2026-04-22 → 2026-05-24, ~4 weeks). Anthropic changelog: registered new doc URLs for `agent-view`, `ultrareview`, `/goal` (33 versions v2.1.117 → v2.1.150 in window; biggest architectural additions = agent-view supervisor process + git-worktree session isolation, ultrareview cloud bug-hunting fleet, hooks invoking MCP tools directly via `type: "mcp_tool"`, `hard_deny` auto-mode rules, `continueOnBlock` PostToolUse). Anthropic Research: registered "Teaching Claude why" (2026-05-08) — principle-teaching reduces agentic-misalignment blackmail rate 22% → 3% at 28× token efficiency vs honeypot data. **Academic sweep closed 3 outstanding-provenance gaps**: Stanford 6× orchestration figure = Meta-Harness paper (arXiv:2603.28052, Lee/Nair/Zhang/Lee/Khattab/Finn, Stanford+MIT, 2026-03-30); "Tingua NLH ablation" was misspelled — corrected to Tsinghua (arXiv:2603.25723, Pan/Zou/Guo/Ni/Zheng, 2026-03-26); Meta-Harness paper itself now has formal SOURCES.md entry with arXiv ID. Independent corroboration of the 6× figure registered as SWE-Bench Mobile (arXiv:2602.09540, Opus 4.5: 12% on Cursor vs 2% on OpenCode). New Tier A peer-reviewed paper: Agentic Context Engineering (arXiv:2510.04618, ICLR 2026) — first top-venue paper validating context-as-multiplier (+10.6% agent tasks). Counter-signal registered: Memanto (arXiv:2604.22085) reaches SOTA 89.8% with vector-only retrieval at long-horizon scale, scoping the "grep > embeddings" claim to small-KB regime. LongMemEval-V2 (arXiv:2605.12493) registered as successor benchmark with AgentRunbook-C file-as-memory pattern. One unverified Anthropic Engineering Blog post (claude-code-quality-reports, 2026-04-23) returned 404 on three URL variants — flagged, not registered. |
 | 2026-05-24 | "Is Grep All You Need?" preprint added (arXiv:2605.15184) | Added Sen/Kasturi/Lumer/Gulati/Subbiah (PwC US, 2026-05-14) as Tier B preprint. 116-question LongMemEval study across 4 harnesses (Chronos, Claude Code, Codex, Gemini CLI) finds grep generally yields higher accuracy than vector retrieval, with harness choice having measurable effect independent of retrieval strategy. Cross-referenced into [`harness-engineering.md`](analysis/harness-engineering.md) supporting-evidence table and Sources section, and into [`memory-systems-archetype-a-curated-kb.md`](analysis/memory-systems-archetype-a-curated-kb.md) as empirical backing for the "claude-context against a small analytical KB is anti-pattern" claim. Discovered via Elvis S. LinkedIn post (2026-05-16) which acted as pointer; the LinkedIn post itself is not registered separately — only the underlying paper carries citable evidence. |
@@ -1919,4 +1978,4 @@ This sources document is updated when:
 | 2026-04-20 | Advisory-triggered refresh | Verified current — no new releases (latest v2.1.114), no new Anthropic blog posts since April 18. 90 sections, all sources valid. |
 | 2026-04-18 | Sources refresh | Added v2.1.112-114 changelog, Opus 4.7 signal, expanded best-practices coverage |
 
-*Last updated: April 2026*
+*Last updated: June 2026 (first-party introspection commands registered; session-quality-tools.md entered the RETIRING lane → /insights). Prior: May 2026 (Opus 4.8 re-validation + Dapr registration).*

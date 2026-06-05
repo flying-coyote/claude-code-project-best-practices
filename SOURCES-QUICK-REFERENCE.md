@@ -162,11 +162,11 @@
 **Key Insights**: Specific benchmark results — Rank 1 on TerminalBench 2 with Haiku via harness optimization alone. Demonstrates that harness engineering can compensate for model capability gaps. Needs paper link for full citation.
 **Referenced in**: Harness engineering, agent evaluation
 
-### 25. Tingua NLH Papers — Authority: 3 (Practitioner)
-**Source**: Two March 2026 papers
+### 25. Tsinghua NLH Papers (Pan et al.) — Authority: 3 (Practitioner)
+**Source**: Pan, Zou, Guo, Ni, Zheng (Tsinghua University + Harbin Institute of Technology), "Natural-Language Agent Harnesses" — [arXiv:2603.25723](https://arxiv.org/abs/2603.25723) (2026-03-26)
 **Date**: March 2026 | **Foundational**: No | **Effective Weight**: 0.59 (0.65 x 0.9)
-**Key Insights**: Ablation data on verifiers (actively hurt performance in some configurations) and NLH representation gains. Challenges assumptions about verification-always-helps. Needs paper links for full citations.
-**Referenced in**: Agent evaluation, harness engineering
+**Key Insights**: Ablation data on verifiers (explicit verifier modules actively hurt benchmark performance: −0.8 SWE, −8.4 OSWorld) and NLH-representation gains (same harness logic 30.4% → 47.2% at 1200 → 34 LLM calls). Challenges verification-always-helps. (Earlier "Tingua" was a misspelling of Tsinghua; paper located and registered 2026-05-24.)
+**Referenced in**: [agent-evaluation.md](analysis/agent-evaluation.md), [harness-engineering.md](analysis/harness-engineering.md)
 
 ### 26. Anthropic Harness v2 Blog Update — Authority: 5 (Foundational)
 **Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (March 2026 update to November 2025 blog)
@@ -199,6 +199,12 @@
 **Key Insight**: Three-layer write-time wiki (lowercase `index.md` content catalog + `raw/` immutable sources + `log.md` chronological operations log + root schema like `CLAUDE.md`/`AGENTS.md`) calibrated for LLM-driven knowledge work. Distinguishes "write-time wiki" (curator does the bookkeeping; LLM reads) from "read-time wiki" (LLM generates against unstructured corpus).
 **Caveat**: Tool-specific implementations (graphify, Lum1104, Pratiyush, etc.) are independent of the paradigm and remain Tier C until reproduced. Empirical run on this repo's testbed surfaced ~25% hallucination rate on graphify EXTRACTED edges — paradigm is sound; implementation discipline matters.
 **Referenced in**: [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md), [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md), [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md), [memory-systems-graphify-vs-understand-anything.md](analysis/memory-systems-graphify-vs-understand-anything.md)
+
+### 31. Anthropic Opus 4.8 Re-Validation — Authority: 5 (Foundational)
+**Source**: [What's New 4.8](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8) + [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) + [launch news](https://www.anthropic.com/news/claude-opus-4-8)
+**Date**: May 28, 2026 (fetched 2026-05-30) | **Foundational**: Yes | **Effective Weight**: 1.0 — Tier A
+**Key Claims**: Opus 4.8 (model ID `claude-opus-4-8`) is a *recovery/calibration* release over 4.7 — better tool triggering, better compaction/long-context recovery, more reliable effort calibration; adaptive thinking is the only mode (extended-thinking `budget_tokens` → HTTP 400; migrate to `adaptive` + `effort`); default effort `high`; 1M context default on Claude API/Bedrock/Vertex, 200k on Microsoft Foundry. Alignment "improved over 4.7 on most measures"; no numeric sycophancy increase asserted (launch-day Tier-C anecdote contradicted by Tier-A evals). Watch-item: the system card flags "speculation about graders" as the most concerning training trend (modest behavioral effect). The literal-interpretation posture carries forward from 4.7, so #27's migration guidance extends to 4.7→4.8.
+**Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md), [behavioral-insights.md](analysis/behavioral-insights.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md), [harness-engineering.md](analysis/harness-engineering.md)
 
 ---
 
@@ -267,6 +273,8 @@
 
 **For detailed citations, methodology, and complete source database**: See [SOURCES.md](SOURCES.md)
 
-**Last Updated**: May 24, 2026 — quality refresh: URL canonicalization to `code.claude.com`; added 4 Tier B sources (Builder.io 50 Tips, Morph 2026 Guide, Shipyard multi-agent, VoltAgent awesome-claude-code-subagents). Consumer-trust pass on 16 analysis docs (Sources footers, vendor-reported caveats, production-evidence cross-links). Count: 29 → 33.
+**Last Updated**: May 30, 2026 — Opus 4.8 re-validation: added #31 (Anthropic Opus 4.8 trio — What's New 4.8 + system card + launch news, Tier A); corrected stale #25 "Tingua" → "Tsinghua" (paper now located: arXiv:2603.25723). The 4.6→4.7 MRCR-v2 regression sources and long-context degradation-onset benchmarks are registered in the full [SOURCES.md](SOURCES.md). Count: 33 → 34.
+
+Prior: May 24, 2026 — quality refresh: URL canonicalization to `code.claude.com`; added 4 Tier B sources (Builder.io 50 Tips, Morph 2026 Guide, Shipyard multi-agent, VoltAgent awesome-claude-code-subagents). Consumer-trust pass on 16 analysis docs (Sources footers, vendor-reported caveats, production-evidence cross-links). Count: 29 → 33.
 
 Prior: April 22, 2026 — added Anthropic Opus 4.7 migration guide (#27, Authority 5), Willison counter-signal (#28, Authority 3), Vertrees operationalization (#29, Authority 2 with Karen note). Count 26 → 29.
