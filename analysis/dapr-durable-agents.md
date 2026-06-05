@@ -15,7 +15,7 @@ measurement-claims:
 status: REFERENCE
 last-verified: "2026-05-25"
 evidence-tier: B
-applies-to-signals: [agent-infrastructure, harness-orchestration, agent-durability]
+applies-to-signals: [project-type-agent-infra]
 revalidate-by: 2026-11-25
 source-provenance: imported from ~/security-data-commons-blog/drafted/AGENT-03-dapr-durable-agents.md (SDC archive, 2026-05-25); SDC framing stripped, repo-format frontmatter added.
 ---

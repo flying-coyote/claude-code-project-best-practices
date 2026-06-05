@@ -90,6 +90,43 @@ Same coordination burden, reversed:
 - [ ] `grep -rn "{old-filename}" analysis/ *.md` — fix every cross-reference.
 - [ ] `INDEX.md` — regenerate.
 
+### Retiring a Doc (Replacement Readiness)
+
+This project is a *temporary analytical layer*: it exists to cover what the ecosystem hasn't yet covered robustly, so a component that a robust community/vendor element now carries should be **handed off, not maintained in parallel**. Shrinking coverage is success, not decay. Retirement is lighter than removal — the doc stays as a tombstone that points readers at the replacement.
+
+**Status lifecycle** (the `status:` frontmatter field):
+
+`EMERGING` → `PRODUCTION` → `RETIRING` → `RETIRED`  (with `REFERENCE` as a side-category for imported reference docs)
+
+- **RETIRING** — a replacement has cleared the robustness bar; the doc now defers to it for the superseded slice and keeps only what the replacement does not cover. Add a `replacement-by:` frontmatter field and a Replacement-status banner at the top of the body.
+- **RETIRED** — the replacement fully carries the load; the doc is kept only as a tombstone pointer (or moved to `archive/` if it has historical value).
+
+**Robustness bar — retire only when all four clear** (don't retire on a preview-feature rumor):
+
+1. **Supported** — the replacement is first-party (Anthropic) or robustly community-maintained (active, 1.0+, real adoption).
+2. **GA, not preview** — generally available, not a research preview or beta.
+3. **Covers the slice's substance** — it does the actual work the doc covered, not a superficial overlap.
+4. **Citeable** — there is a stable source to cite (vendor doc, changelog, named feature).
+
+**Frontmatter:**
+
+```yaml
+status: RETIRING
+replacement-by: "<replacement> (<support tier>, <GA date>) — <what it covers>. Bar cleared: supported + GA + covers-slice + citeable. Retained here: <what the replacement does NOT do>."
+```
+
+**Steps to retire:**
+
+- [ ] Set `status: RETIRING` (or `RETIRED`) and add `replacement-by:` in the doc frontmatter.
+- [ ] Add a **Replacement-status banner** at the top of the body: name the replacement, tell the reader to use it, and state precisely what (if anything) the doc still uniquely provides.
+- [ ] Register the replacement in `SOURCES.md` with its evidence tier and an explicit boundary (what it does / does not do versus this project).
+- [ ] Update `AUDIT-CONTEXT.md` routing so the relevant signals **defer to the replacement** and fetch the doc only for the retained slice.
+- [ ] Note the retirement in the `SOURCES.md` refresh log and in `PLAN.md`.
+
+**First application**: `analysis/session-quality-tools.md` (2026-06-04) → first-party `/insights`. See its frontmatter and banner for the pattern.
+
+The mechanical reference-cleanup (grep for stale recommendations, update decision matrices) follows the same discipline as the **Deprecation Process** below — retirement is the doc-level case, deprecation the recommendation-level case.
+
 ### 4. Submit a Pull Request
 
 #### For Analysis Contributions

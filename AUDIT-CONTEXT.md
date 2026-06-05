@@ -1,6 +1,6 @@
 # Audit Context: Signal → Advisory Routing Map
 
-**Purpose**: This file is fetched by the [adaptive routing audit prompt](ONE-LINE-PROMPT.md) to route other projects to the analysis docs that apply to what they actually have, not all 28 at once. Each row states a verifiable signal, the docs to fetch, and the reason for the fetch.
+**Purpose**: This file is fetched by the [adaptive routing audit prompt](ONE-LINE-PROMPT.md) to route other projects to the analysis docs that apply to what they actually have, not all 41 at once. Each row states a verifiable signal, the docs to fetch, and the reason for the fetch.
 
 **Design principles**:
 
@@ -111,14 +111,16 @@ ls -a .env .env.* 2>/dev/null | head -3
 | Files matching `customer-data/\|secrets/\|credentials/\|.env` touched | `commit-security-paths` | `analysis/safety-and-sandboxing.md` + `analysis/secure-code-generation.md` | OWASP-aware enforcement, PreToolUse blocking for customer data. |
 | Total commits in period < 10 | `commit-low-activity` | Extend window to 365 days before routing. No fetch. | Signal collection retry, not a fetch trigger. |
 
-## Fetch on Session Diagnostic Signal (claude-doctor)
+## Fetch on Session Diagnostic Signal
+
+**First-party deference (2026-06-04):** Anthropic's `/insights` command (GA Feb 2026) natively analyzes session history and auto-generates CLAUDE.md rules from repeated instructions — it supersedes the session-pattern analysis `claude-doctor` was used for. For session diagnostics, **recommend the audited project run `/insights` first**; `session-quality-tools.md` is now `RETIRING` (status in its frontmatter) and is fetched only for what `/insights` does not do: the static check that a repeated instruction is actually committed to CLAUDE.md, and the evidence-assessment of why composite friction scores are uncalibrated. `claude-doctor` remains an optional fallback when `/insights` is unavailable.
 
 | Signal (verifiable) | Signal key | Fetch | Why |
 |---|---|---|---|
-| `claude-doctor` produced any output | `session-diagnostics-run` | `analysis/session-quality-tools.md` | Signal reliability hierarchy — act on edit-thrashing and error-loop; treat sentiment as directional only. |
+| `claude-doctor` produced any output, OR `/insights` is available | `session-diagnostics-run` | `analysis/session-quality-tools.md` | Prefer `/insights` (first-party) for session-pattern analysis; use this doc for the signal-reliability hierarchy and the uncalibrated-score caveat. |
 | `edit-thrashing` count > 5 | `session-edit-thrashing` | `analysis/session-quality-tools.md` + `analysis/claude-md-progressive-disclosure.md` | Missing file-pattern knowledge; CLAUDE.md or rules file gap. |
 | `error-loop` count > 3 | `session-error-loop` | `analysis/session-quality-tools.md` + `analysis/harness-engineering.md` | No error recovery; harness-level remediation. |
-| `repeated-instructions` count > 2 | `session-repeated-instructions` | `analysis/claude-md-progressive-disclosure.md` | The repeated thing belongs in CLAUDE.md. |
+| `repeated-instructions` count > 2 | `session-repeated-instructions` | `analysis/claude-md-progressive-disclosure.md` | The repeated thing belongs in CLAUDE.md — `/insights` will auto-draft the rule; verify it is committed, not just suggested. |
 
 ## Fetch on Project Type
 
@@ -132,6 +134,7 @@ ls -a .env .env.* 2>/dev/null | head -3
 | Commits reference ≥3 sibling repos in the same workspace | `project-type-multi-repo` | `analysis/cross-project-synchronization.md` + `analysis/agent-driven-development.md` | Cross-repo coordination and infrastructure maturity. |
 | User explicitly asks "which framework should I use" or repo is pre-scaffold | `project-type-framework-selection` | `analysis/framework-selection-guide.md` + `analysis/tool-ecosystem.md` | Decision matrix; Specification Gap framework. |
 | Repo ships its own rule language, DSL, or vendor-specific configs | `project-type-domain-heavy` | `analysis/domain-knowledge-architecture.md` | Making expertise findable without overwhelming context. |
+| Repo uses an agent-infrastructure runtime — Dapr (`dapr.yaml`/`dapr.yml`, `components/`, `dapr_agents`/`dapr` imports, `dapr init`/`dapr run`), or hand-rolled durability/identity/secrets/observability wrapped around agent code | `project-type-agent-infra` | `analysis/dapr-durable-agents.md` | Infrastructure-as-runtime question: is agent durability, SPIFFE identity, secrets, and OTel observability custom-coded, or delegated to a runtime? Complementary to MCP (tool-exposure layer), not a substitute. |
 
 ## Fetch on Memory & Knowledge System
 
@@ -192,4 +195,4 @@ The `evidence-tier` is always extractable from the doc's frontmatter — look fo
 
 ---
 
-*Last updated: 2026-05-30 (added `model-version-4-8` and `claude-md-emphatic-constraints` signals for the Opus 4.8 release; model-version grep extended to `4-8`). Signal vocabulary in the Signal key column is authoritative — every `applies-to-signals` value in `analysis/*.md` frontmatter must appear here, and vice versa.*
+*Last updated: 2026-06-04 (added `project-type-agent-infra` routing for `dapr-durable-agents.md` so it is reachable; deferred the session-diagnostic rows to first-party `/insights` as `session-quality-tools.md` enters the RETIRING lane; corrected the routable-corpus count 28 → 41). Prior: 2026-05-30 (added `model-version-4-8` and `claude-md-emphatic-constraints` signals for the Opus 4.8 release; model-version grep extended to `4-8`). Signal vocabulary in the Signal key column is authoritative — every `applies-to-signals` value in `analysis/*.md` frontmatter must appear here, and vice versa.*

@@ -1,12 +1,15 @@
 ---
 name: emerging-pattern-monitor
-version: 2.0.0
-description: Monitors EMERGING analysis topics and evaluates for PRODUCTION promotion
+version: 2.1.0
+description: Monitors analysis-doc lifecycle both ways — EMERGING→PRODUCTION promotion and PRODUCTION→RETIRING/RETIRED retirement (replacement-readiness as robust community/vendor elements mature)
 triggers:
   - "review emerging patterns"
   - "check pattern promotion"
   - "evaluate emerging"
   - "promote pattern"
+  - "review retirement candidates"
+  - "replacement readiness"
+  - "what can we retire"
 auto_load: false
 ---
 
@@ -151,6 +154,37 @@ EMERGING Topics Found:
 
 ---
 
+## Retirement Monitoring (PRODUCTION → RETIRING → RETIRED)
+
+The inverse lane. This project is designed to prune itself as the ecosystem matures (see [CONTRIBUTING.md](../../CONTRIBUTING.md) § Retiring a doc) — coverage shrinking is success, not decay — so PRODUCTION docs are also monitored for whether a robust community/vendor element has caught up enough to take over a slice.
+
+### Phase R1: Scan PRODUCTION docs for replacement candidates
+
+Triggers to check:
+- A new Anthropic first-party feature/command that overlaps a doc's slice (changelog, engineering blog, a new `/`-command)
+- A community tool reaching GA + real adoption that covers a doc's slice
+- A periodic obsolescence sweep — "what did the market just ship that we no longer need to carry?"
+
+### Phase R2: Apply the robustness bar (retire only when ALL four clear)
+
+1. **Supported** — first-party (Anthropic) or robustly community-maintained (active, 1.0+, real adoption)
+2. **GA, not preview** — generally available, not a research preview/beta
+3. **Covers the slice's substance** — does the actual work the doc covered, not a superficial overlap
+4. **Citeable** — a stable source to cite (vendor doc, changelog, named feature)
+
+All four clear → recommend `RETIRING` (defer the slice; keep only what the replacement does not cover). Replacement fully carries the load → `RETIRED` (tombstone pointer).
+
+### Phase R3: Take action (per CONTRIBUTING.md § Retiring a doc)
+
+1. Set `status: RETIRING/RETIRED` + `replacement-by:` frontmatter
+2. Add the Replacement-status banner; register the replacement in SOURCES.md with its boundary (what it does / does not do)
+3. Update AUDIT-CONTEXT.md routing to defer to the replacement
+4. Log the retirement in the SOURCES.md refresh log + PLAN.md
+
+**Current RETIRING docs**: `session-quality-tools.md` → first-party `/insights` (2026-06-04, the first application of this lane). **Watch list** (converging, not yet cleared): MCP/skills cost-economics ← `/usage` per-category breakdown; install-health ← `/doctor` (a slice this project never claimed).
+
+---
+
 ## Related Analysis
 
 - [Evidence Tiers](../../analysis/evidence-tiers.md) - Tier A source criteria
@@ -165,5 +199,5 @@ EMERGING Topics Found:
 - New evidence tier definitions added
 - Anthropic guidance on pattern validation changes
 
-**Last Updated**: April 2026
-**Skill Version**: 2.0.0
+**Last Updated**: June 2026 (added the PRODUCTION→RETIRING/RETIRED retirement lane + robustness bar)
+**Skill Version**: 2.1.0

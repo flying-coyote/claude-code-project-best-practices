@@ -60,16 +60,18 @@ Bulleted list of what triggered each fetch. Example:
 - [ ] .claude/agents/ — {count}
 - [ ] .claude/commands/ — {count}
 
-## Session Quality (claude-doctor)
+## Session Quality (`/insights` first; claude-doctor fallback)
+
+Recommend the audited project run Anthropic's first-party `/insights` for session-pattern analysis and auto-generated CLAUDE.md rules — it supersedes `claude-doctor` for this slice (`analysis/session-quality-tools.md` is RETIRING). If `/insights` is unavailable, `claude-doctor`'s signals below still apply:
 
 | Signal | Count | Action |
 |--------|-------|--------|
 | edit-thrashing | {N} | {if >5: missing file-pattern knowledge — add rule or CLAUDE.md content} |
 | error-loop | {N} | {if >3: no error recovery — add harness-level remediation} |
 | negative-sentiment | {N} | {directional only — do not act on this alone} |
-| repeated-instructions | {N} | {if >2: the repeated thing belongs in CLAUDE.md} |
+| repeated-instructions | {N} | {if >2: the repeated thing belongs in CLAUDE.md — `/insights` will auto-draft the rule; verify it is committed, not just suggested} |
 
-**Note**: composite health percentage uses arbitrary severity weights. Interpret signals individually — see `analysis/session-quality-tools.md` § Gaps.
+**Note**: composite health percentage uses arbitrary severity weights, and the session-pattern analysis is now better served by first-party `/insights`. Interpret signals individually — see `analysis/session-quality-tools.md` § Gaps and its Replacement-status banner.
 
 ## Commit Patterns
 

@@ -1,7 +1,7 @@
 # Plan
 
 **Purpose**: Current priorities, immediate next actions
-**Last Updated**: May 30, 2026 (Opus 4.8 release re-validation)
+**Last Updated**: June 4, 2026 (first-party introspection registered; session-quality-tools.md → RETIRING via /insights; Dapr routing + count reconciliation)
 
 ---
 
@@ -36,6 +36,8 @@
 | Benchmark multi-needle long-context retrieval (MRCR-v2) on Opus 4.8 | Medium | Open — no public 4.8 MRCR transcription yet; "better long-context" 4.8 claim is directional (Tier A), not quantified |
 | Revalidate 4.7-era claims on Opus 4.8 (side-by-side output diff) | Medium | Open — see [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md) |
 | CI regression tests for prompt anti-patterns (Vertrees proposal) | Medium | Deferred — out of scope until Anthropic publishes guidance |
+| Monitor first-party feature convergence for retirement (replacement-readiness) | Low | **Ongoing** — obsolescence sweep 2026-06-04 registered `/insights`, `/usage`, `/doctor` (Tier A). `session-quality-tools.md` → RETIRING (defers to `/insights`). Watch list: MCP/skills economics ← `/usage` per-category; install-health ← `/doctor`. Tracked via `emerging-pattern-monitor` retirement lane + CONTRIBUTING § Retiring a doc |
+| Obsolescence sweep + routing/count hygiene | Low | **Done 2026-06-04** — core (static evidence-tiered routing, model-migration detection, memory archetypes) has no first-party equivalent as of June 2026; only session-diagnostics commoditized (→ `/insights`). Wired previously-unreachable `dapr-durable-agents.md` into routing (`project-type-agent-infra`); reconciled stale doc counts (28/38 → 41) and backfilled 3 missing docs in the README Core Analysis table |
 
 ### Medium Priority
 

@@ -1,12 +1,15 @@
 ---
 evidence-tier: Mixed
 applies-to-signals: [session-diagnostics-run, session-edit-thrashing, session-error-loop, session-repeated-instructions]
-last-verified: 2026-04-22
+last-verified: 2026-06-04
 revalidate-by: 2026-10-22
-status: PRODUCTION
+status: RETIRING
+replacement-by: "Anthropic /insights (first-party, GA Feb 2026) — native session-history analysis + auto-generated CLAUDE.md rules from repeated instructions. Robustness bar cleared: first-party + GA + covers the session-pattern slice + citeable. Retained here: the static check that a repeated instruction is actually in the committed CLAUDE.md (session-history-only /insights can't see repo artifacts), and the evidence-assessment of claude-doctor's uncalibrated composite score."
 ---
 
 # Session Quality Diagnostic Tools
+
+> **Replacement status: RETIRING (2026-06-04).** The session-pattern half of this doc is superseded by Anthropic's first-party `/insights` command (GA since February 2026), which reads your real session history and *auto-generates CLAUDE.md rules from instructions you repeat* — exactly what the `repeated-instructions` signal was gesturing at, done natively with no setup. **For session-pattern analysis and CLAUDE.md-rule generation, run `/insights` rather than `claude-doctor`.** What stays useful here, and is *not* covered by `/insights`: (1) the *static* check that a repeated instruction is actually committed to your CLAUDE.md — `/insights` reads session history, not repo artifacts; and (2) the evidence-assessment of why `claude-doctor`'s composite score is uncalibrated (Tier C), which generalizes to any friction-scoring tool. The audit's `session-*` signals route here for those two things and defer to `/insights` for the rest. This is the first doc to enter the project's retirement lane — see [CONTRIBUTING.md](../CONTRIBUTING.md) § Retiring a doc.
 
 **Sources**:
 - [claude-doctor](https://github.com/aidenybai/claude-doctor) v0.0.3 (Aiden Bai, April 2026) — Session transcript analysis via AFINN-165 sentiment + heuristic pattern detection
@@ -156,6 +159,8 @@ From 4-repo analysis (9 repos, 222 sessions total):
 
 ## Recommended CLAUDE.md Rules (Evidence-Filtered)
 
+> **Post-`/insights` note (2026-06-04):** `/insights` now auto-generates candidate CLAUDE.md rules from *your own* repeated instructions — so you no longer need `claude-doctor` to surface them. What `/insights` does **not** do is tell you which candidates are worth adopting versus cargo-culting. That filter is the part of this doc that survives retirement: apply the worth-adding / context-dependent / skip judgment below to whatever `/insights` proposes, rather than adopting its output verbatim.
+
 From claude-doctor's 8 suggested rules, filtered by evidence reliability:
 
 ### Worth Adding (address real root causes)
@@ -187,6 +192,10 @@ From claude-doctor's 8 suggested rules, filtered by evidence reliability:
 ---
 
 ## Sources
+
+### Tier A
+
+- Anthropic `/insights` (first-party Claude Code command, announced by Thariq Shihipar, February 2026; maintained — e.g., `/insights` crash fix in v2.1.149). Analyzes local session history (last ~30 days / 50 sessions, Haiku) and produces an HTML report of recurring patterns + friction points, including **copy-paste-ready CLAUDE.md rules generated from instructions you repeat across sessions**. This is the first-party replacement for the session-pattern slice this doc originally covered; see the Replacement-status banner above. Boundary: session-history-only — does not read CLAUDE.md/hooks/agents/settings, does not detect model versions, does not cite evidence sources, and its suggestions are personalized to local habits (not portable).
 
 ### Tier B
 

@@ -28,7 +28,8 @@ evidence-tier: A | B | C | Mixed
 applies-to-signals: [list matching AUDIT-CONTEXT.md signal vocabulary]
 last-verified: YYYY-MM-DD
 revalidate-by: YYYY-MM-DD
-status: PRODUCTION | EMERGING | ARCHIVED
+status: PRODUCTION | EMERGING | RETIRING | RETIRED | REFERENCE | ARCHIVED
+replacement-by: "..."   # OPTIONAL — required when status is RETIRING/RETIRED (the cleared-bar replacement; see CONTRIBUTING.md § Retiring a doc)
 measurement-claims:      # OPTIONAL — only if doc makes dated quantitative claims
   - claim: "..."
     source: "..."
@@ -45,7 +46,8 @@ measurement-claims:      # OPTIONAL — only if doc makes dated quantitative cla
 | `applies-to-signals` | Which audit signals should route an agent to this doc. Must use vocabulary from `AUDIT-CONTEXT.md`. | e.g., `[claude-md-progressive-disclosure, model-version-4-7]` |
 | `last-verified` | When the doc's core claims were last reviewed for current accuracy. | `YYYY-MM-DD` |
 | `revalidate-by` | Expiry date after which claims need re-testing. Typically `last-verified + 6 months`. | `YYYY-MM-DD` |
-| `status` | Lifecycle state. | `PRODUCTION` (validated, active), `EMERGING` (not yet validated), `ARCHIVED` (superseded, kept for history) |
+| `status` | Lifecycle state. | `PRODUCTION` (validated, active), `EMERGING` (not yet validated), `RETIRING` (a robust replacement cleared the bar; doc defers to it, keeps only the uncovered slice), `RETIRED` (replacement fully carries the load; tombstone pointer only), `REFERENCE` (imported reference doc), `ARCHIVED` (superseded, kept for history) |
+| `replacement-by` | The replacement a RETIRING/RETIRED doc defers to, with the cleared robustness bar (supported + GA + covers-slice + citeable) and what the doc still uniquely retains. Required when `status` is RETIRING/RETIRED. | String — see [`session-quality-tools.md`](session-quality-tools.md) for the first real example, and CONTRIBUTING.md § Retiring a doc |
 | `measurement-claims` | Dated quantitative claims with their own revalidation cycles. Only include if doc makes such claims. | Array of objects |
 
 **Rationale for split**: 19 of 28 existing docs include `measurement-claims` (production claims needing revalidation); 9 omit it (foundational methodology docs whose claims don't age the same way). The split is intentional — don't force `measurement-claims` onto methodology docs.
