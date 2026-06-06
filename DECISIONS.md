@@ -574,4 +574,58 @@ Split into 7 per-archetype docs + recommendations index + methodology + comparis
 
 ---
 
-*Last updated: 2026-04-28*
+## Decision 9: Curate-references pass — point to living sources instead of mirroring them
+
+**Date**: 2026-06-06.
+
+### The principle
+
+A best-practices artifact that *restates* upstream content (a feature list, a settings table, a
+slash-command enumeration) is a decaying snapshot that forces the weekly chase-to-stay-current. One that
+*points to* the living authoritative source is current by construction and cheaper to keep honest. So the
+rule is: keep the durable synthesis (the audit method, the evidence-tier framing, the one-liner-works tests,
+the comparative analysis, the opinions about what matters); convert the dated upstream mirror (feature / hook
+/ slash-command / settings enumerations, "as of version X" behavior) to a pointer at the official Claude Code
+docs + changelog + Agent SDK/API docs, framed "consult current at use time." This complements, rather than
+replaces, the existing date-revalidation cadence: the parts that become pure pointers drop out of the
+revalidation burden entirely, leaving the cadence to carry only the synthesis and the measurement-claims,
+which is what actually deserves periodic re-checking.
+
+### The honest finding (this is the decision)
+
+Auditing the five review-first docs (the ones carrying `version-requirements` and the heaviest
+feature-enumeration lean — `tool-ecosystem`, `plugins-and-extensions`, `mcp-daily-essentials`,
+`mcp-client-integration`, `session-quality-tools`), the conclusion is that **a wholesale reshaping is not
+warranted**, because these docs are already substantially citation-based rather than upstream mirrors. They
+cite Tier-A Anthropic sources inline (the hooks reference, the Claude Code docs, the Agent SDK docs) and
+state the durable judgment around them, so the genuinely convertible material is a small number of *hard
+enumerations* per doc, not the bulk of the prose. The right scope is a **light pointer-pass on those few
+enumerations**, plus leaving the dated model/version specifics (Opus 4.x, Ollama v0.19, exact star counts) on
+the existing `revalidate-by` cadence where they already live. Over-converting well-built analysis into bare
+pointers would lose the synthesis that is the repo's whole value.
+
+### What was changed in this pass
+
+- **`tool-ecosystem.md`** — the "Claude Code Deployment Options" form-factor table now carries a
+  consult-current pointer to the official docs/changelog and is explicitly framed as illustrative of the
+  categories (the durable *best-for* column kept) rather than a maintained inventory.
+- **`plugins-and-extensions.md`** — the "Hook Events" table now points to the official hooks documentation
+  as the authoritative current list, and states the durable point (which kind of work belongs at which hook)
+  while keeping the common events as an illustration.
+
+### Per-doc disposition (for extension)
+
+- `tool-ecosystem`, `plugins-and-extensions` — converted (above); both are otherwise durable synthesis +
+  inline Tier-A citations, so no further conversion needed.
+- `mcp-daily-essentials` — already citation-based (cites the valgard analysis) with `revalidate` dates on its
+  measurement-claims; the specific-server/version details are snapshot-by-design and handled by the cadence.
+  No conversion applied; none needed beyond the cadence.
+- `mcp-client-integration`, `session-quality-tools` — same shape (synthesis + citations); if any hard
+  feature/settings enumeration is found on the next `source-update` pass, apply the same pointer treatment.
+
+The bigger structural reshaping is therefore **not recommended** — the docs are in good shape, and the
+honest curate-references move here is the light touch above plus this recorded conclusion.
+
+---
+
+*Last updated: 2026-06-06*

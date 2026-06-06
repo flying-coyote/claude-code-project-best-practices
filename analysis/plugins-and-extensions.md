@@ -229,6 +229,13 @@ Hooks are shell scripts that intercept Claude Code operations.
 
 ### Hook Events
 
+The authoritative, current list of hook events and their payload schemas lives in the
+[official Claude Code hooks documentation](https://docs.anthropic.com/en/docs/claude-code) — consult it at
+use time rather than treating the table below as complete, since the event set grows between releases. The
+durable point this section makes is *where each kind of work belongs* (an approval gate is a `PreToolUse`
+hook, verification or logging is `PostToolUse`, environment setup is `SessionStart`), and the rows below are
+the common events that illustrate it, not a maintained enumeration.
+
 | Event | Trigger | Use Case |
 |-------|---------|----------|
 | `UserPromptSubmit` | Message sent | Validation, preprocessing |
