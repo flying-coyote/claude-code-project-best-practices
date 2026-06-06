@@ -509,3 +509,13 @@ Example:
 **Evidence Tier**: B (Adapted from peer-reviewed methodology frameworks)
 
 *Last updated: January 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/model-migration-anti-patterns.md`](analysis/model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
+- [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md) [EXTRACTED (1.00)] — references
+- [`analysis/agent-evaluation.md`](analysis/agent-evaluation.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

@@ -217,3 +217,11 @@ Boris Cherny's guidance (March 2026): Keep CLAUDE.md under ~150 instructions. Be
 ---
 
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/model-migration-anti-patterns.md`](analysis/model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

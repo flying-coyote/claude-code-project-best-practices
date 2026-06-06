@@ -421,3 +421,15 @@ This pattern is based on community validation and production measurements, but M
 **Revalidation date**: 2027-01-01
 
 *Pattern created: February 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/mcp-patterns.md`](analysis/mcp-patterns.md) [EXTRACTED (1.00)] — references
+- [`analysis/mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) [EXTRACTED (1.00)] — references
+- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
+- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

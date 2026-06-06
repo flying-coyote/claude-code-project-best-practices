@@ -319,3 +319,14 @@ This document is a synthesis methodology piece. It has no external citations bey
 **Applies to**: Research projects, technical analysis, hypothesis-driven work
 
 *Last updated: January 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/session-quality-tools.md`](analysis/session-quality-tools.md) [EXTRACTED (1.00)] — references
+- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
+- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

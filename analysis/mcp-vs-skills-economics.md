@@ -447,3 +447,13 @@ Don't rip out MCP overnight:
 - Internal cost analysis across workflows
 
 *Last updated: 2026-05-24*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
+- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

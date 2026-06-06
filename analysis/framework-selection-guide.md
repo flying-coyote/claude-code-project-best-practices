@@ -520,3 +520,11 @@ Limitation: portfolio is one practitioner; treat these as Tier A direct-observat
 ---
 
 *Last updated: April 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/harness-engineering.md`](analysis/harness-engineering.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

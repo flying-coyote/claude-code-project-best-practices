@@ -331,3 +331,11 @@ Claude Opus 4.6 independently hypothesized it was undergoing evaluation, identif
 - [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (January 2026) - Skill success metrics framework
 
 *Last updated: March 2026*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/model-migration-anti-patterns.md`](analysis/model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

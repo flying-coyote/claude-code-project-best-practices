@@ -74,3 +74,12 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections
 - [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — framing and self-critique
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/memory-systems-recommendation-methodology.md`](analysis/memory-systems-recommendation-methodology.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-c-personal-second-brain.md`](analysis/memory-systems-archetype-c-personal-second-brain.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->

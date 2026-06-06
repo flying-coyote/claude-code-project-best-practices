@@ -464,3 +464,16 @@ Layer 4: Hooks (application-level)    — Custom validation logic
 - [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) §5.2 (Tier A, released 2026-05-28) — prompt-injection robustness regressed 4.7→4.8: Gray Swan ART tool-use (k=100, thinking) 6.0%→9.6%; Shade coding/text injection (single attempt, no safeguards, thinking) 2.34%→7.03%; computer-use (single attempt, no safeguards, thinking) 0.46%→7.14%, dropping to 5.11% with safeguards. The "0.07%→0.26%" figure circulating elsewhere is error-bar margins, not injection rates — not used here.
 
 *Last updated: May 2026 (Opus 4.8 prompt-injection regression, §5.2). Prior: April 2026.*
+
+<!-- graphify-footer:start -->
+
+## Related (from graph)
+
+- [`analysis/mcp-patterns.md`](analysis/mcp-patterns.md) [EXTRACTED (1.00) ×2] — references
+- [`analysis/domain-knowledge-architecture.md`](analysis/domain-knowledge-architecture.md) [EXTRACTED (1.00)] — references
+- [`analysis/tool-ecosystem.md`](analysis/tool-ecosystem.md) [EXTRACTED (1.00)] — references
+- [`analysis/mcp-client-integration.md`](analysis/mcp-client-integration.md) [EXTRACTED (1.00) ×2] — references
+- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+
+<!-- graphify-footer:end -->
