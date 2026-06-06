@@ -239,7 +239,11 @@ Some developers use multiple tools strategically:
 
 ## Claude Code Deployment Options
 
-Claude Code is available in multiple form factors:
+Claude Code is available in multiple form factors. The current, authoritative list of form factors and their
+capabilities lives in the [official Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code)
+and [changelog](https://docs.anthropic.com/en/docs/claude-code) — consult those at use time rather than
+trusting this table as a live inventory. The table below is kept for the *best-for* judgment in the third
+column (the durable part); the set of rows is illustrative of the categories, not a maintained enumeration.
 
 | Deployment | Interface | Best For |
 |-----------|-----------|----------|
