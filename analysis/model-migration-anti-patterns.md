@@ -1,6 +1,6 @@
 ---
 evidence-tier: Mixed
-applies-to-signals: [model-version-4-8, model-version-4-7, model-version-4-6, model-version-4-5, model-version-migration, model-version-unknown, claude-md-vague-descriptors, claude-md-emphatic-constraints]
+applies-to-signals: [model-version-fable-mythos, model-version-4-8, model-version-4-7, model-version-4-6, model-version-4-5, model-version-migration, model-version-unknown, claude-md-vague-descriptors, claude-md-emphatic-constraints]
 last-verified: 2026-05-30
 revalidate-by: 2026-11-30
 status: PRODUCTION
@@ -17,6 +17,8 @@ This document is a **diagnostic checklist**, not a migration how-to. When a new 
 The framing answers: *"Which of my existing prompts are likely to break, and why?"*
 
 > **Currency note (2026-05-30)**: Opus 4.8 shipped 2026-05-28 (model ID `claude-opus-4-8`; the `[1m]` suffix is the 1M-context variant — 1M context is default on the Claude API, Bedrock, and Vertex, 200k on Microsoft Foundry). 4.8 is largely a *recovery* release relative to the 4.7 regressions catalogued below: better tool-triggering, better compaction/long-context recovery. The literal-interpretation posture from 4.7 carries forward — the six prompt anti-patterns below still apply — so this doc remains the migration checklist for 4.7→4.8 as well. See the [4.8 row in the matrix](#cross-version-anti-pattern-matrix) and the [4.8 behavioral deltas](#opus-48-net-deltas-vs-47-tier-a) section. Source: [What's New Claude 4.8](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8), [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) (Tier A, fetched 2026-05-30).
+
+> **Currency note (2026-06-15, volatile)**: A model tier above Opus briefly existed — Claude Fable 5 / Mythos 5 (Mythos-class), released 2026-06-09 (model ID `claude-fable-5`). It was **suspended worldwide on 2026-06-12** by a US export-control directive: Anthropic could not filter access by nationality, so it disabled the model for everyone, with queries falling back to "our next-most-capable model, Claude Opus 4.8." Other Claude models are unaffected. For this checklist that means **Opus 4.8 remains the current migration target**, and a project pinning a `fable` model ID is broken until access is restored. The situation is fast-moving — re-verify before acting. Source: [Claude Fable 5 / Mythos 5](https://www.anthropic.com/news/claude-fable-5-mythos-5) (Tier A; re-verified 2026-06-15, still suspended).
 
 ---
 
@@ -215,4 +217,4 @@ This doc is cited by (inbound) and cites (outbound) the following. Use the bidir
 
 ---
 
-*Last updated: May 2026 (4.8 release). Prior: April 2026.*
+*Last updated: 2026-06-15 (volatile Fable 5 / Mythos 5 currency note + `model-version-fable-mythos` signal). Prior: May 2026 (4.8 release).*

@@ -9,13 +9,13 @@ Claude Code best-practice content is scattered across vendor docs, interviews, b
 1. **Trust** — a recommendation from the Claude Code creator and a recommendation from a random blog post both read as "best practice." You cannot tell which to act on without doing the triage yourself.
 2. **Applicability** — advice that is load-bearing for an agent-heavy data pipeline is noise for a static site generator. Generic best-practice lists waste attention; project-specific recommendations do not.
 
-This project solves both by pairing an **evidence-tier system** (every source and claim labelled A/B/C — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 41 analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
+This project solves both by pairing an **evidence-tier system** (every source and claim labelled A/B/C — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 42 analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
 
 ## What You Get
 
 | Capability | Why It Matters | Where Else? |
 |-----------|---------------|-------------|
-| **Adaptive routing audit** (signal → 4–8 docs of 41) | Your project's context determines which advice you get | Nowhere |
+| **Adaptive routing audit** (signal → 4–8 docs of 42) | Your project's context determines which advice you get | Nowhere |
 | **Evidence tier system** (A–D source + 1–5 claim strength) | Know which advice to trust | Nowhere |
 | **Quantified behavioral insights** (80% CLAUDE.md adherence, 60% context threshold) | Calibrate expectations from data, not vibes | Scattered across interviews |
 | **Comparative analysis** (MCP vs Skills economics, orchestration approaches) | Make informed architectural decisions | Nowhere as analysis |
@@ -38,7 +38,7 @@ If you cannot verify a recommendation against the cited doc, the audit failed �
 
 ## Who It Is For
 
-- **Practitioners with a specific repo**: run the one-prompt audit; get 4–8 cited recommendations scoped to your project rather than 41 docs to read.
+- **Practitioners with a specific repo**: run the one-prompt audit; get 4–8 cited recommendations scoped to your project rather than 42 docs to read.
 - **Evaluators weighing claims from any AI tooling source**: the evidence-tier system (A–D source quality + 1–5 claim strength) applies to any claim, not just claims in this repo.
 - **Teams standardizing practice across multiple Claude Code projects**: the audit output is structured and comparable — diff two repos' audits to surface drift.
 
@@ -52,7 +52,7 @@ If you cannot verify a recommendation against the cited doc, the audit failed �
 
 ## Quick Start: Adaptive Routing Audit (one copy-paste)
 
-Copy-paste this into Claude Code in **any project**. It collects signals, fetches the [routing map](AUDIT-CONTEXT.md), and conditionally fetches 4–8 of the 41 analysis docs based on what it observes. One prompt; 6–10 network fetches; 1–5 minutes typical round-trip.
+Copy-paste this into Claude Code in **any project**. It collects signals, fetches the [routing map](AUDIT-CONTEXT.md), and conditionally fetches 4–8 of the 42 analysis docs based on what it observes. One prompt; 6–10 network fetches; 1–5 minutes typical round-trip.
 
 ```
 Audit this project with the adaptive routing protocol at
@@ -79,9 +79,9 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 
 ---
 
-## Core Analysis (41 documents)
+## Core Analysis (42 documents)
 
-_The `analysis/` directory contains 42 `.md` files: these 41 routable analysis docs plus `CANONICAL-DOC-TEMPLATE.md`, a non-routable template excluded from the count._
+_The `analysis/` directory contains 43 `.md` files: these 42 routable analysis docs plus `CANONICAL-DOC-TEMPLATE.md`, a non-routable template excluded from the count._
 
 | Document | What It Covers |
 |----------|---------------|
@@ -89,6 +89,7 @@ _The `analysis/` directory contains 42 `.md` files: these 41 routable analysis d
 | [behavioral-insights.md](analysis/behavioral-insights.md) | Quantified Claude Code behavior: context thresholds, instruction adherence, prompt sensitivity across model versions |
 | [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md) | Six prompt anti-patterns that break on Opus 4.7; cross-version diagnostic matrix |
 | [harness-engineering.md](analysis/harness-engineering.md) | Harness philosophy, diagnostic framework, infrastructure patterns |
+| [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md) | Unattended execution: `/loop`, `/goal`, Routines, Desktop scheduled tasks, the Ralph lineage, and the "loop engineering" framing (EMERGING) |
 | [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md) | 3-tier CLAUDE.md evolution across 6 repos, ~150 instruction budget |
 | [agent-driven-development.md](analysis/agent-driven-development.md) | Agent-driven methodology with 7-repo quantified evidence |
 | [agent-principles.md](analysis/agent-principles.md) | 6 production reliability principles |
@@ -154,6 +155,7 @@ _The `analysis/` directory contains 42 `.md` files: these 41 routable analysis d
 - **PreToolUse hooks enforce ~100% vs ~80% for CLAUDE.md alone** — hooks are the security boundary, not instructions.
 - **Federated query saves 86–99% vs centralized** — zeek-iceberg-demo: 0.19s vs 27.52s for equivalent queries.
 - **CLAUDE.md follows 3-tier progressive disclosure** — 42–57 lines (minimal) → 99–112 (resource map) → 166–209 (rules + security) across 6 repos.
+- **"Loop engineering" is the orchestration face of harness engineering, not a new paradigm** — Boris Cherny's "I write loops" (WorkOS, June 2026) productized as `/loop`/`/goal`/Routines; the term was coined by Addy Osmani, not Cherny. Delegation is still narrow — developers fully delegate only 0–20% of tasks (Anthropic 2026 Agentic Coding Trends Report).
 
 ---
 
@@ -184,7 +186,7 @@ Full database: [SOURCES.md](SOURCES.md).
 
 ## Project Status
 
-**v2.1** — 41 analysis documents with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Opus 4.7 migration readiness, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
+**v2.1** — 42 analysis documents with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Opus 4.8 migration readiness (with a volatile Fable 5 / Mythos 5 currency note), unattended-execution primitives (`/loop`, `/goal`, Routines, scheduled tasks) plus the "loop engineering" framing, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
 
 **Archive**: Prior v1 patterns (24 docs) live in `archive/patterns-v1/` — preserved for historical comparison, not active guidance. See [ARCHIVE.md](ARCHIVE.md).
 

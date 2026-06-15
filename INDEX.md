@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-06-06 01:36*
+*Auto-generated: 2026-06-15 17:11*
 
 ## Summary
 
-**Total documents**: 145
+**Total documents**: 146
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 42 |
+| analysis | 43 |
 | archive | 6 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
@@ -95,6 +95,7 @@
 - [orchestration-comparison.md](analysis/orchestration-comparison.md)
 - [plugins-and-extensions.md](analysis/plugins-and-extensions.md)
 - [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)
+- [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md)
 - [secure-code-generation.md](analysis/secure-code-generation.md)
 - [security-data-pipeline.md](analysis/security-data-pipeline.md)
 - [session-quality-tools.md](analysis/session-quality-tools.md)

@@ -144,7 +144,7 @@ All analysis documents in this repository are derived from authoritative sources
   - "Summarize from here" via `/rewind` — selective partial compaction
   - **Agent view** (`claude agents`, research preview, v2.1.139+): unified TUI dashboard for all background sessions — `https://code.claude.com/docs/en/agent-view`
   - **Ultrareview** (cloud bug-hunting agent fleet, v2.1.118+; CI subcommand `claude ultrareview <target>`): `https://code.claude.com/docs/en/ultrareview`
-  - **`/goal` command** (completion-condition loop, fast-model checker after each turn): `https://code.claude.com/docs/en/goal`
+  - **`/goal` command** (completion-condition loop; the changelog does not specify the per-turn checker mechanism): `https://code.claude.com/docs/en/goal`
   - **Hooks invoke MCP tools directly** via `type: "mcp_tool"` (v2.1.118+) — no process spawn needed
   - **`hard_deny` auto-mode rules** (v2.1.128+) — unconditional blocks, take precedence over allow rules
   - **`continueOnBlock` PostToolUse hook option** (v2.1.136+) — feeds rejection reason back to Claude and continues the turn
@@ -1900,6 +1900,66 @@ These analysis documents define the evidence and scoring frameworks used through
 
 ---
 
+## Loop Engineering & Unattended Execution Sources (Mixed Tiers)
+
+Added 2026-06-15. The "loop engineering" label is roughly two weeks old as of mid-June 2026 and mostly Tier C; the underlying commands and a few primary sources are Tier A/B. **Attribution discipline**: the *term* was coined by Addy Osmani, not Boris Cherny — several aggregators conflate them. Supports [`scheduled-and-looping-primitives.md`](analysis/scheduled-and-looping-primitives.md), [`harness-engineering.md`](analysis/harness-engineering.md), and [`safety-and-sandboxing.md`](analysis/safety-and-sandboxing.md).
+
+### Anthropic — Claude Code scheduling & workflow docs
+
+- **Source**: ["Run prompts on a schedule"](https://code.claude.com/docs/en/scheduled-tasks) and ["Orchestrate subagents at scale with dynamic workflows"](https://code.claude.com/docs/en/workflows) (Claude Code docs); [changelog](https://code.claude.com/docs/en/changelog).
+- **Role**: Canonical spec for `/loop` (interval/self-paced, `.claude/loop.md`, 7-day expiry, `CLAUDE_CODE_DISABLE_CRON`, v2.1.72+), the three-way Cloud/Desktop/loop comparison, Desktop scheduled tasks, `/goal` (v2.1.139, 2026-05-11), dynamic workflows (`.claude/workflows/`, `disableWorkflows`, v2.1.154), and subagents spawning subagents 5 levels deep (v2.1.172, 2026-06-10).
+- **Pattern References**: [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md), [orchestration-comparison.md](analysis/orchestration-comparison.md).
+- **Evidence Tier**: A (first-party product documentation, authoritative for product behavior). Version numbers are fast-moving — re-verify before quoting.
+
+### Anthropic Engineering — Long-running agent harness & managed agents
+
+- **Source**: Prithvi Rajasekaran, ["Designing a harness for long-running application development"](https://www.anthropic.com/engineering/harness-design-long-running-apps) (2026-03-24); Lance Martin, Gabe Cemaj, Michael Cohen, ["Scaling Managed Agents: Decoupling the brain from the hands"](https://www.anthropic.com/engineering/managed-agents) (2026-04-08); ["Effective context engineering for AI agents"](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (2025-09-29).
+- **Role**: Rajasekaran is the primary generator/evaluator harness source (planner/generator/evaluator, Playwright-driven evaluator, 5–15 iterations, ~$200/6hr vs ~$9/20min, self-praise-bias caution). Scaling Managed Agents gives the durable-Session / stateless-Harness / isolated-Sandbox architecture and vault-isolated credentials. Effective context engineering is Anthropic's published prompt→context progression — and notably does *not* use the term "loop engineering."
+- **Pattern References**: [harness-engineering.md](analysis/harness-engineering.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md), [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md).
+- **Evidence Tier**: A (Anthropic engineering blog — first-party, per this repo's tier convention).
+
+### Anthropic — 2026 Agentic Coding Trends Report
+
+- **Source**: ["2026 Agentic Coding Trends Report"](https://resources.anthropic.com/2026-agentic-coding-trends-report) (~2026-01-20).
+- **Role**: Vendor framing for long-running agents (Trend 3, "Long-running agents build complete systems"). Carries the intellectual-honesty counterweight to loop hype: developers use AI in ~60% of work but *fully delegate* only 0–20% of tasks. Published just before the Mar–Jun window; the delegation figure may have moved.
+- **Pattern References**: [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md).
+- **Evidence Tier**: A (vendor primary), with a recency caveat on the delegation stat.
+
+### Boris Cherny — "I write loops" (WorkOS Acquired Unplugged)
+
+- **Source**: WorkOS-hosted *Acquired Unplugged* event, 2026-06-02 (recording exists; quotes also carried by The New Stack and OfficeChai).
+- **Role**: Primary anchor for the loop-engineering wave: "I don't prompt Claude anymore. I have loops that are running... My job is to write loops." Runs loops on cron for routine jobs (babysit PRs, fix CI, rebase). Verbatim phrasing varies across secondaries — verify against the recording.
+- **Pattern References**: [harness-engineering.md](analysis/harness-engineering.md), [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md).
+- **Evidence Tier**: A for the quote (named Claude Code creator, dated event), consistent with this repo treating Cherny as Tier A. The "loop engineering" *label* is press-coined (Tier C) — do not attribute the term to Cherny.
+
+### Andrej Karpathy — Sequoia Ascent 2026 (self-improvement loop)
+
+- **Source**: ["Sequoia Ascent 2026"](https://karpathy.bearblog.dev/sequoia-ascent-2026/) (2026-04-30); AutoResearch demo (~March 2026).
+- **Role**: The loop-engineering steelman — coding's built-in verification (tests pass/fail, diffs inspectable) makes it the ideal self-improvement loop; the human stays the harness. AutoResearch (~630-line script + one markdown prompt, ~700 experiments in 2 days, ~20 optimizations) as a concrete overnight self-improving loop.
+- **Pattern References**: [harness-engineering.md](analysis/harness-engineering.md), [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md).
+- **Evidence Tier**: B by author authority; demo quant figures C-to-B (his report, not independently reproduced).
+
+### Geoffrey Huntley — Ralph Wiggum loop (+ official Anthropic plugin)
+
+- **Source**: ["Ralph Wiggum as a software engineer"](https://ghuntley.com/ralph/) (2025-07); official Anthropic Ralph Wiggum plugin in `anthropics/claude-code`.
+- **Role**: Origin of the fixed-prompt `while`-loop technique the productized commands descend from; state survives via files + git. Anthropic packaged it (a `Stop` hook re-feeding the prompt) and credits Huntley. Correction to common write-ups: the official plugin keeps state *across* iterations, not fresh-context-per-iteration.
+- **Pattern References**: [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md).
+- **Evidence Tier**: B by author authority (Huntley); A for the official Anthropic plugin packaging.
+
+### "Loop engineering" commentary cloud (Tier C — bias-flagged)
+
+- **Sources**: Addy Osmani, ["Loop Engineering"](https://addyosmani.com/blog/loop-engineering/) (2026-06-07) — credited by The New Stack as the coiner of the term; The New Stack, "Loop engineering" (2026-06); Filip Verloy (Rubrik), ["From Prompt Engineering to Loop Engineering"](https://medium.com/@filipv_74515/from-prompt-engineering-to-loop-engineering-why-the-agent-era-demands-a-new-security-paradigm-816385040e3d) (2026-06-07, vendor-adjacent security framing); Data Science Dojo, MindStudio, Louis Bouchard (2026-06).
+- **Role**: The June-2026 amplification layer keyed off the Cherny clip. Useful for the ReAct / Reflexion / Plan-and-Execute lineage and the security framing; thin on primary sourcing and production metrics. The Neuron misattributes Osmani's "building blocks" framework to Cherny — do not repeat.
+- **Evidence Tier**: C (community / journalism / vendor marketing; flag bias).
+
+### Attribution note — Bilgin Ibryam "12 Agentic Harness Patterns"
+
+- **Source**: Bilgin Ibryam, ["12 Agentic Harness Patterns from Claude Code"](https://generativeprogrammer.com/p/12-agentic-harness-patterns-from) (2026-04-05).
+- **Role**: Patterns from the Claude Code source-map leak (Explore-Plan-Act Loop, Dream Consolidation, Tiered Memory, etc.). Recorded for an attribution fix: aggregators conflate this with Nate B. Jones — it is Ibryam, already a SOURCES author via the Dapr material.
+- **Evidence Tier**: C (community analysis of a leaked artifact).
+
+---
+
 ## Evidence Tier Definitions
 
 This repository uses a tiered evidence system:
@@ -1962,6 +2022,7 @@ This sources document is updated when:
 
 | Date | Action | Result |
 |------|--------|--------|
+| 2026-06-15 | Loop-engineering research + unattended-execution audit signals + new EMERGING doc | Added [`scheduled-and-looping-primitives.md`](analysis/scheduled-and-looping-primitives.md) (EMERGING) for the genuinely-new product surface (`/loop`, `/goal`, cloud Routines, Desktop scheduled tasks, the Ralph lineage). Wired seven routing signals into [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) under a new **Unattended / Long-Running Execution** section (`harness-loop-config`, `harness-scheduled-agent`, `ci-scheduled-agent`, `harness-background-tasks`, `harness-dynamic-workflows`, `harness-goal-completion-loop`, `cron-disabled` guard) + matching `applies-to-signals` frontmatter, plus an **Unattended Execution Exposure** output section in [`ONE-LINE-PROMPT.md`](ONE-LINE-PROMPT.md). New themed **Loop Engineering & Unattended Execution Sources** section (Tier A: scheduling/workflow docs, Rajasekaran harness-design 2026-03-24, Scaling Managed Agents 2026-04-08, 2026 Agentic Coding Trends Report; Tier B: Cherny WorkOS 2026-06-02 quote, Karpathy Sequoia Ascent 2026-04-30, Huntley Ralph; Tier C bias-flagged commentary cloud). **Attribution fixes**: "loop engineering" was coined by Addy Osmani, not Cherny; "12 Agentic Harness Patterns" is Bilgin Ibryam, not Nate B. Jones. **Fixes folded in**: `/goal` version corrected v2.1.140 → v2.1.139 and the unsupported "fast-model checker" clause hedged in `harness-engineering.md`; cited the previously-uncited Rajasekaran primary source. **Routing-invariant fix**: documented the two-level memory-index sub-route so the six archetype docs reached through it (B/D/E/F, C-EC, genealogy-baseline) are no longer orphan-signal docs, and softened the footer's bidirectional-sync claim. **Volatile model note**: Fable 5 / Mythos 5 released 2026-06-09, suspended worldwide 2026-06-12 (US export-control directive), Opus 4.8 the fallback — added a `model-version-fable-mythos` row + currency note. Doc count 41 → 42 routable. |
 | 2026-06-04 | First-party introspection registered + first doc enters retirement lane | Registered **Claude Code First-Party Introspection Commands** (`/insights`, `/usage`, `/doctor`) as Tier A after an obsolescence sweep found Anthropic converging on the edges of the audit's scope. `/insights` (GA Feb 2026 — native session-history analysis + auto-generated CLAUDE.md rules) is the cited **replacement** for the session-diagnostics slice: [`session-quality-tools.md`](analysis/session-quality-tools.md) moved `PRODUCTION → RETIRING` with a `replacement-by` frontmatter field and a tombstone banner, and the audit's session-diagnostic routing now defers to `/insights` (keeping only the static committed-CLAUDE.md check + the uncalibrated-score caveat that `/insights` does not cover). `/usage` and `/doctor` registered as cited complements (cost-measurement and install-health), not replacements for the static evidence-tiered routing core. This is the first application of the project's new `RETIRING/RETIRED` retirement lane (per [planned-obsolescence intent](CONTRIBUTING.md) — prune as robust replacements mature). |
 | 2026-05-30 | Opus 4.8 re-validation → SOURCES sync | Registered the Opus 4.8 release (2026-05-28, model ID `claude-opus-4-8`) across the source database after the four model-coupled docs and the audit routing were re-validated against 4.8 primary sources. New **Opus 4.8 Re-Validation (May 2026)** subsection with the 4.8 trio (Tier A — [What's New 4.8](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8), [system card](https://www.anthropic.com/claude-opus-4-8-system-card), [launch news](https://www.anthropic.com/news/claude-opus-4-8)); the 4.6→4.7 MRCR-v2 long-context regression case-study sources (OpenAI MRCR v2 + 4.7 card chart images Tier A + Context Arena/dev.to "232 pages" Tier B transcription); and the long-context degradation-onset benchmarks revalidating the "60%" heuristic (arXiv:2601.15300, Fiction.liveBench, NoLiMa/ICML 2025, arXiv:2510.05381). De-staled the Boris Cherny "(latest)" model reference and the Model Updates list to lead with Opus 4.8; bumped "Last curated" to 2026-05-30. The four harness arXiv papers cited in the 4.8 commit (2603.25723, 2603.28052, 2602.09540, 2605.15184) were already registered in the 2026-05-24 sweep — not re-added. Quick-reference: added entry #31 (Opus 4.8 trio) and corrected the stale #25 "Tingua" → "Tsinghua". |
 | 2026-05-25 | Dapr durable-agents doc registered (Tier B) | Added **Dapr — Distributed Application Runtime** to Tier B for the imported [`dapr-durable-agents.md`](analysis/dapr-durable-agents.md): Dapr docs (docs.dapr.io, Tier A CNCF graduated project), Dapr Agents repo, SPIFFE (spiffe.io, Tier A), and Bilgin Ibryam's "production durable agent in ~10 lines" LinkedIn demonstration (Tier B). Infrastructure-as-runtime pattern, complementary to `mcp-vs-skills-economics.md` (tool-exposure layer). Doc adapted from the security-data-commons-blog archive (SDC framing stripped, repo-format frontmatter added). |
@@ -1978,4 +2039,4 @@ This sources document is updated when:
 | 2026-04-20 | Advisory-triggered refresh | Verified current — no new releases (latest v2.1.114), no new Anthropic blog posts since April 18. 90 sections, all sources valid. |
 | 2026-04-18 | Sources refresh | Added v2.1.112-114 changelog, Opus 4.7 signal, expanded best-practices coverage |
 
-*Last updated: June 2026 (first-party introspection commands registered; session-quality-tools.md entered the RETIRING lane → /insights). Prior: May 2026 (Opus 4.8 re-validation + Dapr registration).*
+*Last updated: 2026-06-15 (loop-engineering & unattended-execution sources + new EMERGING doc + seven audit signals; attribution fixes; volatile Fable 5 / Mythos 5 note). Prior: June 2026 (first-party introspection commands; session-quality-tools.md → RETIRING via /insights).*

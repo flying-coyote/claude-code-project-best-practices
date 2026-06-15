@@ -628,4 +628,32 @@ honest curate-references move here is the light touch above plus this recorded c
 
 ---
 
-*Last updated: 2026-06-06*
+## Decision 10: Loop engineering enters as an EMERGING companion doc, not a new paradigm (2026-06-15)
+
+### Context
+
+In June 2026 the term "loop engineering" spread fast after Boris Cherny (Claude Code creator) said at the WorkOS-hosted *Acquired Unplugged* event (2026-06-02) that he no longer prompts Claude directly — "My job is to write loops." A two-week press cloud (The New Stack, Addy Osmani, Data Science Dojo, MindStudio, Verloy/Rubrik, Louis Bouchard) framed it as a third paradigm after prompt and context engineering. Separately, Claude Code had shipped first-class looping/scheduling primitives the audit could not detect (`/loop`, `/goal`, cloud Routines, Desktop scheduled tasks, dynamic workflows), and a pre-existing routing-invariant violation left six memory-archetype docs unreachable by their declared signals.
+
+### Alternatives Considered
+
+1. **New standalone "loop-engineering.md" paradigm doc.** Rejected: stripped of the press cloud, the term reduces to one Cherny quote plus a productized command surface. Anthropic's own published progression stops at prompt → context engineering; this repo already owns the third rung as *harness engineering* with stronger research backing (Meta-Harness, NLH). A paradigm doc would duplicate `harness-engineering.md` and violate the no-redundancy / planned-obsolescence posture.
+2. **Fold everything into harness-engineering.md.** Rejected as the sole move: the genuinely-new scheduling/looping *product surface* and its operational risk are distinct enough to warrant a routable, EMERGING doc, and folding it all in would bloat the harness doc.
+3. **Targeted fold-in + one EMERGING doc + clustered audit signals (chosen).**
+
+### Decision
+
+Created `analysis/scheduled-and-looping-primitives.md` (status: EMERGING) for the new product surface; folded a short "loop engineering is the orchestration face of harness engineering" framing into `harness-engineering.md`, attributing the term to Osmani and the practice to Cherny; and added a clustered **Unattended / Long-Running Execution** signal group to the audit. Honored the repo's own tier convention (Anthropic engineering-blog/docs = Tier A) rather than importing a peer-reviewed-only rubric. Fixed the pre-existing routing-invariant violation by documenting the two-level memory-index sub-route rather than minting 22 top-level signal keys.
+
+### Trade-offs Accepted
+
+- "Loop engineering" enters as an attributed, EMERGING workflow framing — not the repo asserting a paradigm in its own voice. If production evidence accumulates, the doc can graduate to PRODUCTION; if first-party tooling absorbs the audit value, it follows the retirement lane.
+- Seven new signals risk proliferation. Mitigated by clustering (they dedupe to ≤4 docs) and the `cron-disabled` negative guard, keeping within the anti-bloat budget.
+- The doc carries volatile facts (version numbers, the suspended Fable 5 / Mythos 5 tier) with explicit revalidate dates and "volatile" flags.
+
+### Impact
+
+Doc count 41 → 42 routable. The audit gains an unattended-execution detection surface it was blind to; six archetype docs are no longer orphan-signal docs; the footer's bidirectional invariant now describes the two-level routing honestly.
+
+---
+
+*Last updated: 2026-06-15*

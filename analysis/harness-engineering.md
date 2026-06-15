@@ -46,7 +46,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-05-30"
 evidence-tier: Mixed
-applies-to-signals: [harness-hooks, harness-minimal, harness-comprehensive, commit-bursts, session-error-loop, model-version-4-8]
+applies-to-signals: [harness-hooks, harness-minimal, harness-comprehensive, commit-bursts, session-error-loop, model-version-4-8, harness-goal-completion-loop, harness-dynamic-workflows]
 revalidate-by: 2026-11-30
 ---
 
@@ -233,6 +233,8 @@ Anthropic's Claude Code v2 with Opus 4.6 provides concrete evidence for "harness
 
 This is a vendor demonstrating the Bitter Lesson on their own product — stripping orchestration complexity because the model no longer needs it. The evaluator-at-the-end pattern also aligns with the ablation evidence above: self-evolution during work, verification only at completion.
 
+The generator/evaluator pattern this simplifies traces to Anthropic's primary write-up, which the repo had discussed but not cited: Prithvi Rajasekaran, ["Designing a harness for long-running application development"](https://www.anthropic.com/engineering/harness-design-long-running-apps) (2026-03-24, Tier A). It describes three agents (planner/generator/evaluator), the evaluator driving a Playwright browser to score design quality, originality, craft, and functionality across 5–15 iterations per generation, running up to ~4 hours at roughly $200/6hr versus ~$9/20min for a single-agent pass on the same task. It is also the source of the self-evaluation caution this repo leans on: agents asked to grade their own work "tend to respond by confidently praising the work — even when... the quality is obviously mediocre," which is why verification belongs in a separate evaluator rather than the generator's own self-report.
+
 **Caveat — vendor-side regression in the same window**: The same vendor shipped a quality regression spanning March 4 – April 20, 2026 ([April 23 postmortem](https://www.anthropic.com/engineering/april-23-postmortem)) — reasoning-effort default flipped to `medium`, an extended-thinking-block caching bug, and a system-prompt verbosity cap that hurt coding quality. None of these invalidate the v2 simplification thesis (the orchestration changes were a separate workstream), but they demonstrate that "trust the vendor's defaults" is the wrong reading. Harness designers should pin effort levels explicitly and treat vendor-side defaults as version-anchored. See [Behavioral Insights — April 2026 Postmortem](behavioral-insights.md#vendor-side-quality-regression-case-study-the-april-2026-postmortem) for the full analysis.
 
 Source: Anthropic engineering blog, April 2026. Authority 5/5.
@@ -243,7 +245,7 @@ Concrete harness-layer primitives shipped in Claude Code changelog v2.1.117 → 
 
 | Primitive | Version | What it enables | Pattern impact |
 |---|---|---|---|
-| `/goal` command (research preview) | v2.1.140 | Set a completion condition; a fast-model checker evaluates after every turn, Claude loops until it holds. Works in interactive, `-p`, and Remote Control. | Replaces ad-hoc "did we finish? check it" prompts and external loop scripts with a first-class completion-loop primitive. |
+| `/goal` command | v2.1.139 (2026-05-11) | Set a completion condition; Claude keeps working across turns until it holds, with a live overlay of elapsed/turns/tokens. Works in interactive, `-p`, and Remote Control. | Replaces ad-hoc "did we finish? check it" prompts and external loop scripts with a first-class completion-loop primitive. (The changelog states the behavior above; it does not specify the internal checker mechanism, so no claim is made here about *how* the condition is evaluated.) |
 | Hooks invoke MCP tools directly via `type: "mcp_tool"` | v2.1.118 | A hook can call an MCP tool without spawning a subprocess. | Eliminates the process-spawn overhead that made MCP-from-hook patterns expensive; closes a gap that previously pushed users toward custom subagents. |
 | `continueOnBlock` PostToolUse option | v2.1.136 | When a PostToolUse hook rejects, feed the rejection reason back to Claude and continue the turn (instead of failing the turn). | Hooks become advisory-corrective, not just terminating; aligns with the "self-evolution > verifiers" finding from Pan et al. (arXiv:2603.25723) by letting the agent recover from rejections rather than aborting. |
 | `worktree.bgIsolation` setting | v2.1.143 | Background sessions auto-isolate into git worktrees under `.claude/worktrees/`; `"none"` opts out. | Replaces manual worktree juggling; pairs with the `claude agents` TUI (see [Orchestration Comparison](orchestration-comparison.md)). |
@@ -253,6 +255,12 @@ Concrete harness-layer primitives shipped in Claude Code changelog v2.1.117 → 
 These are toolkit additions, not architectural shifts. They reduce the gap between "what the harness can express natively" and "what users were patching in with bash scripts and brittle parsing." None of them change the H-HARNESS-01 thesis; all of them lower the marginal cost of building a competent harness.
 
 Source: [Anthropic Claude Code changelog](https://code.claude.com/docs/en/changelog), v2.1.117 → v2.1.150. Tier A.
+
+### Loop Engineering: The Orchestration Face of the Harness
+
+In June 2026 a popular label — *loop engineering* — attached itself to the orchestration and iteration-cadence layer this document already analyzes. The practice is Boris Cherny's (Claude Code creator), from the WorkOS-hosted *Acquired Unplugged* event on 2026-06-02: "I don't prompt Claude anymore. I have loops that are running... My job is to write loops" (Tier A — named creator, dated event; verify the recording for verbatim phrasing). The *term* was coined by Addy Osmani (Google), not Cherny — aggregators that attribute Osmani's "building blocks of a loop" enumeration to Cherny have it wrong. Anthropic's own published progression stops at prompt → context engineering ("we view context engineering as the natural progression of prompt engineering," 2025-09-29), so the third rung is supplied by commentators, and this repo named that rung *harness engineering* with research backing (Meta-Harness, NLH) the loop-engineering commentary cloud lacks.
+
+So "loop engineering" competes with, rather than supersedes, the harness-engineering framing: it stresses the iteration cadence and the scheduling of unattended work, where harness engineering is the whole infrastructure stack. Karpathy's framing is the useful part — coding is the ideal self-improvement loop because it has built-in verification ("tests pass or fail, programs run or crash, diffs can be inspected") (Tier B — Karpathy, [Sequoia Ascent 2026](https://karpathy.bearblog.dev/sequoia-ascent-2026/), 2026-04-30). The infrastructure behind these long-running managed agents — a durable append-only Session log kept outside the container, a stateless Harness "brain", and an isolated Sandbox for the "hands" — is documented in Anthropic's [Scaling Managed Agents](https://www.anthropic.com/engineering/managed-agents) (2026-04-08, Tier A), whose stable-interface design corroborates this repo's "external artifacts become memory" claim. The productized scheduling/looping primitives (`/loop`, `/goal`, Routines, Desktop scheduled tasks, the Ralph plugin) and their operational risk — the credential isolation, the unbounded-loop blast radius — get their own treatment in [Scheduled & Looping Primitives](scheduled-and-looping-primitives.md) and [Safety & Sandboxing](safety-and-sandboxing.md); this section only fixes the framing so the term is attributed correctly and `harness-engineering` stays the researched anchor.
 
 ### Counter-signal: Opus 4.7 Pushes *Prompt* Complexity Up (April 2026)
 
@@ -528,6 +536,8 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 ### Tier A (Primary Vendor)
 
 - Anthropic: ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025) — Two-part architecture, external artifacts as memory, one feature at a time
+- Anthropic: Prithvi Rajasekaran, ["Designing a harness for long-running application development"](https://www.anthropic.com/engineering/harness-design-long-running-apps) (2026-03-24) — Primary source for the generator/evaluator (GAN-inspired) harness: planner/generator/evaluator, Playwright-driven evaluator scoring quality/originality/craft/functionality, 5–15 iterations, ~4hr, ~$200/6hr vs ~$9/20min single-agent, self-praise-bias caution on self-evaluation. The v2 simplification above is the derivative.
+- Anthropic: Lance Martin, Gabe Cemaj, Michael Cohen, ["Scaling Managed Agents: Decoupling the brain from the hands"](https://www.anthropic.com/engineering/managed-agents) (2026-04-08) — Long-running managed-agent architecture: durable append-only Session log outside the container, stateless Harness "brain", isolated Sandbox "hands"; stable interfaces survive harness churn; vault-isolated credentials vs prompt injection; ~60% p50 / >90% p95 time-to-first-token reduction from on-demand provisioning.
 - Anthropic: v2 harness simplification with Opus 4.6 (April 2026) — Removed sprints/negotiation/resets, single build session, evaluator-at-the-end pattern
 - Anthropic: [Migration Guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) (April 2026) — Opus 4.7 literal interpretation, fewer default subagents, adaptive verbosity; pushes prompt complexity up while harness simplifies
 - Anthropic: ["What's New Claude 4.8"](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8) (Tier A, fetched 2026-05-30) — Opus 4.8 (released 2026-05-28) harness-relevant deltas: fewer compactions + better compaction recovery, better tool triggering, more reliable effort calibration; adaptive thinking is the only thinking mode (extended-thinking budgets return 400); default effort `high`; 1M context default on Claude API/Bedrock/Vertex (200k Microsoft Foundry).
@@ -543,6 +553,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - Tian, Wang, Yang et al.: ["SWE-Bench Mobile: Can LLM Agents Develop Industry-Level Mobile Apps?"](https://arxiv.org/abs/2602.09540) — arXiv:2602.09540, 2026-02-10. Independent corroboration: same Opus 4.5 model scores 12% on Cursor vs 2% on OpenCode (exactly 6×, scaffold-only) across 22 agent-model configurations.
 - Sen, Kasturi, Lumer, Gulati, Subbiah (PwC US): ["Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"](https://arxiv.org/abs/2605.15184) — arXiv:2605.15184, May 2026. 116-question LongMemEval study across Chronos, Claude Code, Codex, Gemini CLI. Two findings cited here: (1) grep generally yields higher accuracy than vector retrieval; (2) "overall scores still depend strongly on which harness and tool-calling style is used, even when the underlying conversation data are the same" — direct empirical support for harness-as-multiplier across retrieval strategies. Tier B preprint, not yet peer-reviewed.
 - Andrej Karpathy: Meta-optimization of program.md (March 2026, No Priors podcast) — Independent convergence with Stanford meta-harness concept. Authority 4/5.
+- Andrej Karpathy: ["Sequoia Ascent 2026"](https://karpathy.bearblog.dev/sequoia-ascent-2026/) (2026-04-30) — Coding's built-in verification (tests pass/fail, diffs inspectable) makes it the ideal self-improvement loop; the human stays the harness, responsible for the software. The "loop engineering" steelman. Authority 4/5.
 - LangChain DeepAgents team: ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17) — deepagents-cli moved 52.8% → 66.5% on TerminalBench-2 (outside Top 30 → Top 5) holding gpt-5.2-codex constant; five specific middleware changes documented; full TerminalBench traces published. Practitioner replication of the harness-as-multiplier effect with a public reproducible artifact. Authority 4/5.
 - [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — 119K+ stars, Anthropic hackathon winner, maximal harness approach
 - [superpowers](https://github.com/obra/superpowers) — 294K+ installs, disciplined methodology approach
@@ -557,10 +568,11 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - [Framework Selection Guide](./framework-selection-guide.md) — Framework decision trees
 - [Agent Principles](./agent-principles.md) — Persistent memory, unpredictability, monitoring
 - [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Prompt anti-patterns that break on Opus 4.7 (carry forward to 4.8); split between harness (simpler) and prompt (more explicit); 4.8 net-deltas table
+- [Scheduled & Looping Primitives](./scheduled-and-looping-primitives.md) — the scheduling-facing companion: `/loop`, `/goal`, Routines, Desktop scheduled tasks, the Ralph lineage, and the "loop engineering" framing operationalized as audit signals
 
 ---
 
-*Last updated: May 2026 (Opus 4.8 harness-layer deltas). Prior: April 2026.*
+*Last updated: 2026-06-15 (loop-engineering framing + `/goal` version/claim fix + Rajasekaran and Scaling Managed Agents primary citations + Karpathy Sequoia Ascent). Prior: May 2026 (Opus 4.8 harness-layer deltas).*
 
 <!-- graphify-footer:start -->
 
