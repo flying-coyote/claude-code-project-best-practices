@@ -1,8 +1,8 @@
 ---
 evidence-tier: Mixed
-applies-to-signals: [harness-custom-agents]
-last-verified: 2026-03-30
-revalidate-by: 2026-09-30
+applies-to-signals: [harness-custom-agents, harness-background-tasks, harness-dynamic-workflows]
+last-verified: 2026-06-15
+revalidate-by: 2026-12-15
 status: PRODUCTION
 ---
 
@@ -108,6 +108,8 @@ Native subagents handle ~80% of orchestration needs with zero setup. Four built-
 | Background Agent | `run_in_background: true` for long tasks | Tests, builds, large analysis |
 | Worktree Isolation | `isolation: worktree` for safe parallel writes | Multiple agents modifying code |
 | Tiered Models | Opus for critical, Sonnet default, Haiku for volume | Cost optimization |
+
+**Recursion depth**: subagents can now spawn their own subagents up to **5 levels deep** (Claude Code v2.1.172, 2026-06-10, Tier A — changelog). This raises the fan-out ceiling but also the cost/coordination surface — a depth-5 tree of agents is easy to launch and expensive to reason about, so the "do you need orchestration at all" question below applies recursively.
 
 ---
 
@@ -252,6 +254,23 @@ Cloud-hosted workflows triggered by schedule, API call, or event. Think cron for
 - Recurring agent tasks (nightly code reviews, scheduled report generation)
 - Event-driven automation (PR opened -> agent runs analysis)
 - Workflows where local machine availability is a constraint
+
+For the scheduling/looping primitives that run on *your* machine or in-session (`/loop`, `/goal`, Desktop scheduled tasks, the Ralph plugin) and the operational risk of unattended execution, see [Scheduled & Looping Primitives](scheduled-and-looping-primitives.md).
+
+---
+
+## Dynamic Workflows: Scripted Subagent Orchestration (v2.1.154+)
+
+**Source**: Anthropic Claude Code docs ([workflows](https://code.claude.com/docs/en/workflows)) + changelog v2.1.154 (2026-05-28); the `ultracode` trigger keyword landed v2.1.160. Tier A.
+
+A dynamic workflow is a JavaScript orchestration script Claude *writes* and the runtime executes in the background, fanning out subagents with deterministic control flow (loops, conditionals, pipelines) rather than model-driven dispatch. It differs from native subagents, skills, and agent teams on one axis: **the plan lives in re-runnable code on disk**, not in Claude's context. Saved scripts persist under `.claude/workflows/` (project) or `~/.claude/workflows/` (user), and the feature is disabled by `disableWorkflows` (settings) or `CLAUDE_CODE_DISABLE_WORKFLOWS` (env). Runs are concurrency- and total-agent-capped per run (the docs page carries the current caps; re-verify before quoting a specific number).
+
+**When this becomes relevant**:
+- Comprehensive sweeps and migrations where the work-list is large and the control flow should be deterministic
+- Review/research pipelines that benefit from fan-out plus an adversarial verification stage
+- Any orchestration you want to re-run or resume rather than re-prompt
+
+**Audit footprint**: `.claude/workflows/*.js` or a `disableWorkflows` setting is a concrete, repo-local fact that a project orchestrates at scale — routed by the `harness-dynamic-workflows` signal (see [AUDIT-CONTEXT.md](../AUDIT-CONTEXT.md)).
 
 ---
 
@@ -461,11 +480,12 @@ Based on analysis of [everything-claude-code](https://github.com/anthropics-solu
 
 - [Harness Engineering](./harness-engineering.md) — Orchestration is one layer of the broader harness stack; see the 6-layer model and diagnostic framework
 - [Agent-Driven Development](./agent-driven-development.md) — Parallel agent strategies and specialized agent design (finding-reviewer case study) from production repos
+- [Scheduled & Looping Primitives](./scheduled-and-looping-primitives.md) — the unattended/scheduled face: `/loop`, `/goal`, Routines, Desktop scheduled tasks, and the audit signals for each
 
 ---
 
 *Merged from: gsd-orchestration.md, cognitive-agent-infrastructure.md, subagent-orchestration.md, recursive-evolution.md*
-*Last updated: April 2026*
+*Last updated: 2026-06-15 (dynamic workflows section; subagent 5-levels-deep recursion; `harness-dynamic-workflows`/`harness-background-tasks` signals). Prior: April 2026.*
 
 <!-- graphify-footer:start -->
 

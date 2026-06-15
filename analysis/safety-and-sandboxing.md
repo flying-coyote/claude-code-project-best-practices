@@ -1,6 +1,6 @@
 ---
 evidence-tier: A
-applies-to-signals: [harness-hooks, commit-security-paths, model-version-4-8]
+applies-to-signals: [harness-hooks, commit-security-paths, model-version-4-8, harness-loop-config, harness-scheduled-agent, ci-scheduled-agent]
 last-verified: 2026-05-30
 revalidate-by: 2026-11-30
 status: PRODUCTION
@@ -293,6 +293,22 @@ Multi-agent architectures introduce amplification risks not present in single-ag
 - Infinite reply loops between agents can burn 60K+ tokens in 9 days without human intervention
 - Compromised agents can propagate malicious instructions laterally to other agents in an orchestration chain
 
+### Unbounded & Unattended Loops
+
+Scheduling and looping primitives (`/loop`, cloud Routines, Desktop scheduled tasks) move the blast radius from "what one approved tool call can do" to "what an autonomous loop can do before anyone looks." Filip Verloy (Rubrik, 2026-06-07, Tier C — vendor-adjacent, flag bias) names the failure modes even if the source is promotional: agentic overreach (the agent broadens its own permissions to fix a local problem), infinite hallucination loops that hammer APIs, and prompt injection executed at machine speed — "if a security engine discovers a violation after an agent has recursively run 500 loops, the damage is already done."
+
+The defensible response leans on the concrete, auditable controls the primitives already ship rather than on the framing:
+
+| Risk | Control (Tier A — Claude Code docs) |
+|---|---|
+| Forgotten recurring loop runs for a week | `/loop` recurring tasks auto-expire 7 days after creation |
+| Scheduler running at all | `CLAUDE_CODE_DISABLE_CRON=1` disables `/loop`, the cron tools, and scheduled tasks |
+| Cloud Routine acts with no approval | Cloud Routines run with **no permission prompts** — scope them deliberately and confirm with the operator; they may leave no on-disk footprint to audit |
+| Desktop task touches uncommitted work | Runs against the working dir *including uncommitted changes* unless worktree isolation is on |
+| Autonomous CI agent commits/PRs | Scope `GITHUB_TOKEN`/workflow permissions; require human review on agent-authored PRs |
+
+See [Scheduled & Looping Primitives](scheduled-and-looping-primitives.md) for the full primitive surface and the audit signals that detect each.
+
 ### Attack Taxonomy
 
 | Category | Description | Mitigation Layer |
@@ -316,6 +332,8 @@ Anthropic's Managed Agents introduce a structured security model for agent deplo
 - **Environment scoping** with explicit permission grants per agent instance
 - **Vault-based OAuth credential management** -- agents never see raw credentials
 - **Limited networking** -- agents can only access pre-approved endpoints
+
+The architecture is documented in Lance Martin, Gabe Cemaj, Michael Cohen, ["Scaling Managed Agents: Decoupling the brain from the hands"](https://www.anthropic.com/engineering/managed-agents) (2026-04-08, Tier A): a durable Session log kept outside the container, a stateless Harness "brain", and an isolated Sandbox for the "hands", with credentials held in an external vault specifically so a prompt-injected agent cannot exfiltrate them — directly relevant to the unbounded-loop risks above.
 
 ### OWASP AI Vulnerability Scoring System (AIVSS)
 
@@ -463,7 +481,7 @@ Layer 4: Hooks (application-level)    — Custom validation logic
 - Anthropic Managed Agents — Environment scoping and credential management (April 2026)
 - [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) §5.2 (Tier A, released 2026-05-28) — prompt-injection robustness regressed 4.7→4.8: Gray Swan ART tool-use (k=100, thinking) 6.0%→9.6%; Shade coding/text injection (single attempt, no safeguards, thinking) 2.34%→7.03%; computer-use (single attempt, no safeguards, thinking) 0.46%→7.14%, dropping to 5.11% with safeguards. The "0.07%→0.26%" figure circulating elsewhere is error-bar margins, not injection rates — not used here.
 
-*Last updated: May 2026 (Opus 4.8 prompt-injection regression, §5.2). Prior: April 2026.*
+*Last updated: 2026-06-15 (unbounded/unattended-loop blast radius + controls; Scaling Managed Agents citation; loop/schedule audit signals). Prior: May 2026 (Opus 4.8 prompt-injection regression, §5.2).*
 
 <!-- graphify-footer:start -->
 

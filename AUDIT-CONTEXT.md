@@ -1,6 +1,6 @@
 # Audit Context: Signal → Advisory Routing Map
 
-**Purpose**: This file is fetched by the [adaptive routing audit prompt](ONE-LINE-PROMPT.md) to route other projects to the analysis docs that apply to what they actually have, not all 41 at once. Each row states a verifiable signal, the docs to fetch, and the reason for the fetch.
+**Purpose**: This file is fetched by the [adaptive routing audit prompt](ONE-LINE-PROMPT.md) to route other projects to the analysis docs that apply to what they actually have, not all 42 at once. Each row states a verifiable signal, the docs to fetch, and the reason for the fetch.
 
 **Design principles**:
 
@@ -32,7 +32,8 @@ grep -nEi "\b(where applicable|as needed|if relevant|consider edge cases)\b" CLA
 grep -nE "see (rules/|\.claude/|[A-Z])" CLAUDE.md .claude/CLAUDE.md 2>/dev/null
 
 # Model version detection
-grep -REi "opus-4-?[5678]|sonnet-4-?[5678]|claude-[0-9]" .claude/settings.json .github/workflows/ 2>/dev/null
+grep -REi "opus-4-?[5678]|sonnet-4-?[5678]|fable-?5|mythos|claude-(opus|sonnet|haiku|fable)-?[0-9]" .claude/settings.json .github/workflows/ 2>/dev/null
+claude --version 2>/dev/null              # several routing rows now depend on the CLI version (e.g. v2.1.72+ for scheduled tasks, v2.1.139 for /goal)
 
 # Commit patterns (assumes git repo)
 git log --since="90 days ago" --oneline 2>/dev/null | wc -l
@@ -40,6 +41,16 @@ git log --since="90 days ago" --pretty=format:'%s' 2>/dev/null | grep -cE "(Clau
 
 # Session diagnostics
 npx -y claude-doctor 2>/dev/null
+
+# Unattended / scheduled execution (requires Claude Code v2.1.72+ for /loop & scheduled tasks)
+ls .claude/loop.md ~/.claude/loop.md 2>/dev/null                       # in-session /loop default prompt
+find ~/.claude/scheduled-tasks -name SKILL.md 2>/dev/null              # Desktop scheduled tasks (host-level, optional)
+ls -d .claude/worktrees/ 2>/dev/null; grep -n "bgIsolation" .claude/settings.json 2>/dev/null   # background-session isolation
+ls .claude/workflows/*.js 2>/dev/null                                  # saved dynamic-workflow scripts
+grep -rlE "schedule:|cron:" .github/workflows/ 2>/dev/null             # cron-triggered CI — intersect with a claude invocation:
+grep -rliE "claude-code-action|anthropics/claude|claude " .github/workflows/ 2>/dev/null
+grep -rn "CLAUDE_CODE_DISABLE_CRON|disableWorkflows|CLAUDE_CODE_DISABLE_WORKFLOWS" .claude/settings.json .claude/settings.local.json 2>/dev/null   # kill-switches / negative guards
+grep -rl "/goal" ~/.claude/projects/ 2>/dev/null                       # /goal completion-loop usage in transcripts (lower-reliability)
 
 # Memory & knowledge corpus signals
 find . -name '*.md' -not -path '*/node_modules/*' -not -path '*/.git/*' -not -path '*/archive/*' 2>/dev/null | wc -l
@@ -60,6 +71,10 @@ ls -a .env .env.* 2>/dev/null | head -3
 - **Any command times out or errors**: treat as signal not observed; do not fail the audit.
 - **Markdown count returns 0**: no `md-corpus-*` signal triggers; the project is not a knowledge corpus.
 - **Karpathy layout partially present** (e.g., `index.md` exists but no `raw/`): `vault-karpathy` does NOT match; the Lum1104 `/understand-knowledge` skill requires the full triple. Fall back to `/understand-anything:understand` recommendation in archetype-A.
+- **`CLAUDE_CODE_DISABLE_CRON=1` observed**: signal = `cron-disabled`. Suppress `harness-loop-config`, `harness-scheduled-agent`, and `harness-goal-completion-loop` — the scheduler is off, so loop-hardening advice would be noise.
+- **Host-level signals** (`~/.claude/scheduled-tasks/`, `/goal` in `~/.claude/projects/` transcripts): user-home, not repo-local. Treat absence as "not observed," like session diagnostics — never fail the audit on them.
+- **Cloud Routines leave no on-disk footprint**: absence of the unattended-execution signals does NOT prove the project runs nothing unattended. A pure-cloud Routine on Anthropic infrastructure is invisible to a repo-local audit — note this rather than asserting full coverage.
+- **CLI older than v2.1.72** (from `claude --version`): scheduled tasks and `/loop` are unavailable; skip the unattended-execution rows.
 
 ---
 
@@ -75,6 +90,7 @@ ls -a .env .env.* 2>/dev/null | head -3
 
 | Signal (verifiable) | Signal key | Fetch | Why |
 |---|---|---|---|
+| `settings.json` or recent config references `fable-5`, `claude-fable-5`, or a Mythos-class model | `model-version-fable-mythos` | `analysis/model-migration-anti-patterns.md` | **Volatile.** Fable 5 / Mythos 5 (released 2026-06-09) was suspended worldwide 2026-06-12 by a US export-control directive; Opus 4.8 is the named fallback. A project pinning a `fable` model ID is broken until access is restored — see the doc's currency note. Re-verify status before acting. |
 | `settings.json` or recent config references `opus-4-8` or `claude-opus-4-8` (incl. the `[1m]` 1M-context variant) | `model-version-4-8` | `analysis/model-migration-anti-patterns.md` + `analysis/safety-and-sandboxing.md` | 4.8 (2026-05-28) keeps 4.7's literal-interpretation posture (prompt anti-patterns still apply) and recovers the 4.7 harness-stressing failure modes — but it **regressed on prompt-injection robustness** (system card §5.2) and any harness passing `thinking: {budget_tokens: N}` now hard-fails with a 400. Audit for: extended-thinking-budget usage, injection exposure on tool-use/computer-use agents, and the carried-forward prompt anti-patterns. |
 | `settings.json` or recent config references `opus-4-7` or `claude-opus-4-7` | `model-version-4-7` | `analysis/model-migration-anti-patterns.md` | Six prompt anti-patterns that silently no-op on 4.7. Audit CLAUDE.md/skills for vague descriptors, edge-case gestures, unanchored triggers, implicit subagent dispatch, missing verbosity directives, references without read-enforcement. |
 | References `opus-4-6` with no 4.7/4.8 reference | `model-version-4-6` | `analysis/model-migration-anti-patterns.md` | Open revalidation trigger before upgrade. |
@@ -102,6 +118,20 @@ ls -a .env .env.* 2>/dev/null | head -3
 | an `mcpServers` key with ≥1 entry in `settings.json`, `.claude/mcp.json`, or root `.mcp.json` | `harness-mcp` | `analysis/mcp-patterns.md` + `analysis/mcp-daily-essentials.md` + `analysis/mcp-client-integration.md` | MCP context budget, OWASP failure modes, 4-plugin + 2-MCP sweet spot. |
 | Only CLAUDE.md exists; no hooks/skills/agents/rules/commands | `harness-minimal` | `analysis/harness-engineering.md` | Start-minimal decision tree; when to add each mechanism. |
 | ≥4 of {hooks, skills, agents, rules, commands} directories present | `harness-comprehensive` | `analysis/harness-engineering.md` + `analysis/framework-selection-guide.md` | Bitter Lesson diagnostic — is the harness buying you anything, or accreting complexity? |
+
+## Fetch on Unattended / Long-Running Execution
+
+Claude Code's scheduling and looping primitives (v2.1.72+) let a project run unattended, recurring, or until-done — a risk surface the audit was previously blind to. These signals **cluster**: even when several trip, they deduplicate to `scheduled-and-looping-primitives.md` + `safety-and-sandboxing.md` (plus at most `orchestration-comparison.md` / `harness-engineering.md`), so the cluster stays within the Anti-Bloat budget rather than firehosing. Suppress the whole group if `cron-disabled` is observed.
+
+| Signal (verifiable) | Signal key | Fetch | Why |
+|---|---|---|---|
+| `.claude/loop.md` or `~/.claude/loop.md` present | `harness-loop-config` | `analysis/scheduled-and-looping-primitives.md` + `analysis/safety-and-sandboxing.md` | A `loop.md` defines what a bare `/loop` runs unattended; recurring loops auto-expire only after 7 days, so a forgotten loop runs for a week. Requires v2.1.72+. |
+| `~/.claude/scheduled-tasks/<name>/SKILL.md` present | `harness-scheduled-agent` | `analysis/scheduled-and-looping-primitives.md` + `analysis/safety-and-sandboxing.md` | Desktop scheduled tasks start fresh sessions that can edit/commit/PR against the working dir *including uncommitted changes*, and fire one catch-up run on wake. Host-level (user-home) signal — optional, like session diagnostics. |
+| `.github/workflows` has a `schedule:`/`cron:` trigger **and** a `claude`/`claude-code-action` invocation | `ci-scheduled-agent` | `analysis/safety-and-sandboxing.md` + `analysis/scheduled-and-looping-primitives.md` | A cron-triggered agent that commits or opens PRs autonomously in CI — higher-stakes unattended pattern than `/loop`. The model-string grep on `.github/workflows/` does not catch this; the `schedule:`/`cron:` intersect does. |
+| `.claude/worktrees/` present or `worktree.bgIsolation` set | `harness-background-tasks` | `analysis/orchestration-comparison.md` + `analysis/scheduled-and-looping-primitives.md` | Background sessions auto-isolate into worktrees; confirms reliance on long-running background work. Also reaches `orchestration-comparison.md` for projects that run background/scheduled agents *without* custom `.claude/agents/*.md` (otherwise only `harness-custom-agents` reaches it). |
+| `.claude/workflows/*.js` present or `disableWorkflows` set | `harness-dynamic-workflows` | `analysis/orchestration-comparison.md` + `analysis/harness-engineering.md` | Dynamic workflows put the orchestration plan in a re-runnable JS script on disk (distinct from subagents/skills); concurrency- and total-agent-capped per run. |
+| `/goal` appears in `~/.claude/projects/` transcripts | `harness-goal-completion-loop` | `analysis/harness-engineering.md` + `analysis/scheduled-and-looping-primitives.md` | Run-until-condition (`/goal`, v2.1.139) has a distinct failure surface (cost runaway, premature "done", self-verification gaps) from interval `/loop`. Transcript-derived — lower reliability. |
+| `CLAUDE_CODE_DISABLE_CRON=1` observed | `cron-disabled` | **Negative guard — no fetch.** Suppress the loop/schedule rows above. | Scheduler is off; loop-hardening advice would be noise. Whitelisted as a non-fetch key like `commit-low-activity`. |
 
 ## Fetch on Commit Pattern
 
@@ -141,6 +171,8 @@ ls -a .env .env.* 2>/dev/null | head -3
 ## Fetch on Memory & Knowledge System
 
 The recommendations in archetype A (curated analytical KB) and C (personal second brain) bend sharply with corpus scale and vault layout. These signals route to the right archetype + the methodology's scale-band guidance, and gate Pass-2-LLM-egress recommendations on observed sensitivity markers.
+
+**Two-level routing (read this before chasing "missing" signals).** The corpus signals below fetch `memory-systems-archetype-recommendations.md` — the *index* — which then forwards to the per-archetype doc (A / B / C / C-EC / D / E / F / G + `memory-systems-genealogy-baseline.md`) through its own per-archetype table. The archetype docs B, D, E, F, C-EC, and genealogy-baseline are reached **only** through that index sub-route, not by a top-level row. Their distinctive `applies-to-signals` tokens (`monorepo`, `code-search`, `work-tracker`, `session-history`, `transcript-mining`, `federation`, `temporal`, `second-brain`, `team-shared-memory`, `multi-tool-concurrency`, and the fine-grained sensitivity tags `pii` / `healthcare-data` / `legal-data` / `sensitive-content` / `journal-third-parties`) are **index-internal sub-routing vocabulary** — the audit reaches those docs via the index, and does not emit those tokens as top-level signal keys. The coarse `corpus-sensitive` row remains the top-level gate for the LLM-egress decision; the fine-grained sensitivity tags refine it *within* the C-EC doc.
 
 | Signal (verifiable) | Signal key | Fetch | Why |
 |---|---|---|---|
@@ -197,4 +229,6 @@ The `evidence-tier` is always extractable from the doc's frontmatter — look fo
 
 ---
 
-*Last updated: 2026-06-04 (added `project-type-agent-infra` routing for `dapr-durable-agents.md` so it is reachable; deferred the session-diagnostic rows to first-party `/insights` as `session-quality-tools.md` enters the RETIRING lane; corrected the routable-corpus count 28 → 41; broadened the `harness-mcp` signal to also detect `mcpServers` in `.claude/mcp.json` or root `.mcp.json` (not only `settings.json`), with the `cat` added to Signal Collection; tightened `harness-custom-agents` to require an agent-definition `.md` beyond `README.md`). Prior: 2026-05-30 (added `model-version-4-8` and `claude-md-emphatic-constraints` signals for the Opus 4.8 release; model-version grep extended to `4-8`). Signal vocabulary in the Signal key column is authoritative — every `applies-to-signals` value in `analysis/*.md` frontmatter must appear here, and vice versa.*
+*Last updated: 2026-06-15 (added the **Unattended / Long-Running Execution** section — `harness-loop-config`, `harness-scheduled-agent`, `ci-scheduled-agent`, `harness-background-tasks`, `harness-dynamic-workflows`, `harness-goal-completion-loop`, and the `cron-disabled` negative guard — routing to the new `scheduled-and-looping-primitives.md`; extended Signal Collection with the scheduling/loop greps and `claude --version`; broadened the model-version grep to catch `fable`/`mythos` and added a volatile `model-version-fable-mythos` row; documented the two-level memory-index sub-route so the six archetype docs reached through it are no longer "orphans." Prior: 2026-06-04 (added `project-type-agent-infra` routing for `dapr-durable-agents.md`; deferred session-diagnostic rows to first-party `/insights`; corrected the routable-corpus count 28 → 41; broadened `harness-mcp`; tightened `harness-custom-agents`). 2026-05-30 (added `model-version-4-8` and `claude-md-emphatic-constraints`).*
+
+*Signal-vocabulary invariant (revised): every **top-level** Signal key in the routing tables above is authoritative for routing, and every routable doc must be reachable. Per-archetype memory-system docs (B, D, E, F, C-EC, genealogy-baseline) are reached through the two-level index sub-route via `memory-systems-archetype-recommendations.md` (see that section) — their distinctive `applies-to-signals` tokens are index-internal sub-routing vocabulary and are intentionally **not** top-level Signal keys. `commit-low-activity`, `cron-disabled`, `audit-always-fetch`, and `contributing-new-analysis` are special non-fetch keys. A sync linter must whitelist these classes rather than flag them.*

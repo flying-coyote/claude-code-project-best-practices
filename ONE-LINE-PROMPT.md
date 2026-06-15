@@ -41,6 +41,7 @@ signals-triggered: [signal-key-1, signal-key-2, ...]
 | AI co-authoring rate | {X%} |
 | Primary language | {lang} |
 | Model version(s) detected | {e.g., Opus 4.8; or "unknown"} |
+| Claude Code CLI version | {from `claude --version`, or "unknown" — gates v2.1.72+ scheduling, v2.1.139 /goal} |
 | Harness components | {count — which of: CLAUDE.md, hooks, rules, skills, agents, commands, settings.json} |
 
 ## Signals Observed
@@ -59,6 +60,10 @@ Bulleted list of what triggered each fetch. Example:
 - [ ] .claude/skills/ — {count}
 - [ ] .claude/agents/ — {count}
 - [ ] .claude/commands/ — {count}
+- [ ] .claude/loop.md — {yes/no — default `/loop` prompt}
+- [ ] ~/.claude/scheduled-tasks/ — {count — Desktop scheduled tasks, host-level}
+- [ ] .claude/worktrees/ or worktree.bgIsolation — {yes/no — background-session isolation}
+- [ ] .claude/workflows/*.js — {count — saved dynamic-workflow scripts}
 
 ## Session Quality (`/insights` first; claude-doctor fallback)
 
@@ -84,6 +89,20 @@ Only fill this section if model version signals triggered a fetch of `model-migr
 - **Found / Not found**
 - **Locations** (file:line) if found
 - **Recommended positive-framed fix** per the doc's remediation table
+
+## Unattended Execution Exposure
+
+Only fill this if an unattended-execution signal triggered a fetch of `scheduled-and-looping-primitives.md` (or `cron-disabled` was observed). For each detected primitive, report the operational risk and the concrete control:
+
+| Primitive | Detected | Risk surface | Control |
+|---|---|---|---|
+| `/loop` + `.claude/loop.md` | {yes/no} | Forgotten recurring loop runs unattended up to 7 days | 7-day auto-expiry; `CLAUDE_CODE_DISABLE_CRON=1` kill-switch |
+| Desktop scheduled task | {yes/no} | Fresh session edits/commits/PRs against uncommitted state; catch-up run on wake | Worktree isolation; scope the working tree |
+| CI cron agent | {yes/no} | Autonomous commit/PR in CI, no human in the loop | Scope `GITHUB_TOKEN`/permissions; require review on agent PRs |
+| `/goal` completion loop | {yes/no} | Cost runaway; premature "done"; self-verification gap | Bound turns/tokens; verify the completion condition holds |
+| Cloud Routine | {ask operator — may leave no on-disk footprint} | Runs on Anthropic infra with **no permission prompts** | Confirm the routine's scope with the operator |
+
+If `cron-disabled` was observed, state that the scheduler is off and skip loop-hardening recommendations. Source: `analysis/scheduled-and-looping-primitives.md` (evidence-tier: Mixed) + `analysis/safety-and-sandboxing.md`.
 
 ## Recommendations
 
