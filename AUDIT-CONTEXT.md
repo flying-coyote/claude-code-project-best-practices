@@ -71,7 +71,7 @@ ls -a .env .env.* 2>/dev/null | head -3
 - **Any command times out or errors**: treat as signal not observed; do not fail the audit.
 - **Markdown count returns 0**: no `md-corpus-*` signal triggers; the project is not a knowledge corpus.
 - **Karpathy layout partially present** (e.g., `index.md` exists but no `raw/`): `vault-karpathy` does NOT match; the Lum1104 `/understand-knowledge` skill requires the full triple. Fall back to `/understand-anything:understand` recommendation in archetype-A.
-- **`CLAUDE_CODE_DISABLE_CRON=1` observed**: signal = `cron-disabled`. Suppress `harness-loop-config`, `harness-scheduled-agent`, and `harness-goal-completion-loop` — the scheduler is off, so loop-hardening advice would be noise.
+- **`CLAUDE_CODE_DISABLE_CRON=1` observed**: signal = `cron-disabled`. Suppress `harness-loop-config`, `harness-scheduled-agent`, and `harness-goal-completion-loop` — the **local** scheduler is off, so loop-hardening advice would be noise. This does **not** bound cloud Routines (server-side, configured via `/schedule`): a local env var doesn't disable them, so still emit the cloud-Routine operator question.
 - **Host-level signals** (`~/.claude/scheduled-tasks/`, `/goal` in `~/.claude/projects/` transcripts): user-home, not repo-local. Treat absence as "not observed," like session diagnostics — never fail the audit on them.
 - **Cloud Routines leave no on-disk footprint**: absence of the unattended-execution signals does NOT prove the project runs nothing unattended. A pure-cloud Routine on Anthropic infrastructure is invisible to a repo-local audit — note this rather than asserting full coverage.
 - **CLI older than v2.1.72** (from `claude --version`): scheduled tasks and `/loop` are unavailable; skip the unattended-execution rows.
