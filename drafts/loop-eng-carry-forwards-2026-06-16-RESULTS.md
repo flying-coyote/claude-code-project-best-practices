@@ -1,7 +1,13 @@
 # Loop-eng carry-forwards — results (2026-06-16)
 
-Status: **DRAFT — owner reviews + applies.** Results of running the #73 carry-forwards. Two are
-measured/confirmed and ready to apply; two need you (an external fetch and a real billed run).
+Status: **APPLIED 2026-06-19.** CF2a (anchored `/goal` regex → graduated to triggering), CF3 (`CronList`
+confirmed-no cloud caveat), and F (Tier-D runaway-cost estimate) folded into the live docs
+(`AUDIT-CONTEXT.md`, `analysis/scheduled-and-looping-primitives.md`) on branch
+`loop-engineering-unattended-execution-20260615`. Follow-up **A** (Fable/Mythos-suspended model note) was
+already applied 2026-06-15 (`model-migration-anti-patterns.md` currency note + `AUDIT-CONTEXT.md` row); **D**
+(workflow caps) needed no edit (the wrong values were never committed). **Carry-forward (owner / external
+action):** CF1/B (Cherny verbatim quote + timestamp — YouTube transcript not autonomously fetchable) and
+CF2b (`harness-scheduled-agent` `SKILL.md` leaf — needs a real Desktop scheduled task to confirm on this host).
 
 ---
 
@@ -72,8 +78,8 @@ bounded `/loop` with cost telemetry on, capture actual $/hr, upgrade this to Tie
 ---
 
 ### Apply checklist
-- [ ] CF2a: graduate `harness-goal-completion-loop` to the anchored regex; update the line-107 gap note (measured).
-- [ ] CF3: extend the line-102 cloud caveat to name `CronList`'s blind spot.
-- [ ] CF2b: leave `harness-scheduled-agent` doc-derived; (optional) create a scheduled task to confirm the leaf.
-- [ ] CF1: fetch the Cherny verbatim quote + timestamp; replace the secondary in DECISIONS.md L635.
-- [ ] F: (optional) add the Tier-D estimate to the line-106 gap note; keep the gap open for a measured run.
+- [x] CF2a: graduated `harness-goal-completion-loop` to the anchored regex (AUDIT-CONTEXT Signal Collection + row, scheduled-and-looping-primitives signal table + gap note) — measured, applied 2026-06-19.
+- [x] CF3: extended the cloud caveat + cloud-Routine gap to record `CronList`'s blind spot (confirmed-no) — applied 2026-06-19.
+- [x] F: added the Tier-D triangulated estimate to the runaway-loop-economics gap; gap stays open for a measured run — applied 2026-06-19.
+- [~] CF2b: `harness-scheduled-agent` left doc-derived (no `~/.claude/scheduled-tasks/` on this host to confirm the leaf) — carry-forward: create a Desktop scheduled task and inspect the artifact path/leaf.
+- [ ] CF1: fetch the Cherny verbatim quote + timestamp; replace the secondary in DECISIONS.md L635 — **owner action** (YouTube transcript not autonomously fetchable).
