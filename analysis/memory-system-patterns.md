@@ -71,6 +71,8 @@ Content here — for feedback/project types, structure as:
 rule/fact, then **Why:** and **How to apply:** lines.
 ```
 
+> **The typed-frontmatter pattern now has an external spec.** Google Cloud's [Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) (Apache-2.0, 2026-06-12) formalizes exactly this — a directory of markdown files whose one required frontmatter field is `type:`. For keeping that `type:` vocabulary canonical at scale (a single parsed registry plus a pre-commit drift guard), see [archetype-A](memory-systems-archetype-a-curated-kb.md) §A1b.
+
 ---
 
 ## Memory Sizing by Project Type

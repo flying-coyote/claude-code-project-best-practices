@@ -291,6 +291,20 @@ Add to CLAUDE.md:
 - Verify package names exist before adding (avoid hallucinated packages)
 ```
 
+### Necessity before custom logic (the over-generation failure mode)
+
+Coding agents default to writing custom logic even when the standard library, a native runtime feature, or an already-installed dependency does the job, and they re-implement utilities the codebase already has (see [Domain Knowledge Architecture](domain-knowledge-architecture.md), "reinvents solutions instead of reusing"). The dependency rules above are the security-framed slice of a wider discipline: before accepting agent-written code, walk a necessity ladder — does this need to exist at all → standard library → native platform feature → existing project dependency → a clean one-liner → custom logic only as a last resort, kept minimal. Generalizing the supply-chain rules to *over-generation* closes a quieter cost than typosquatting: dead custom code that has to be read, tested, and maintained forever.
+
+Put it in CLAUDE.md as **advisory** guidance, not as `MUST`/`NEVER` — emphatic syntax on advisory rules gets literalized into hard caps on Opus 4.7/4.8 (see [Model Migration Anti-Patterns](model-migration-anti-patterns.md)):
+
+```markdown
+## Implementation discipline
+- Before writing custom logic, check: stdlib -> native platform -> existing dependency -> one-liner. Custom code is the last resort, kept minimal.
+- Prefer a single source of truth over duplicated maps/config/styles.
+```
+
+**Evidence tier**: C — practitioner heuristic, attached to the Tier-A/B claims it rests on (Sutton's Bitter Lesson "built for deletion" and the tool-ablation results in [Harness Engineering](harness-engineering.md); the "reinvents instead of reusing" symptom documented at Tier B in [Domain Knowledge Architecture](domain-knowledge-architecture.md)). There is no clean filesystem signal for over-generation — it is a discipline applied during generation, not an artifact on disk — so it lives as guidance under an existing signal, not as its own audit row.
+
 ---
 
 ## Hook-Based Credential Scanning

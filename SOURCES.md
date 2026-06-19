@@ -551,6 +551,20 @@ Opus 4.8 shipped 2026-05-28 (model ID `claude-opus-4-8`; the `[1m]` suffix is th
   - Progressive disclosure via directory structure
 - **Pattern**: [SKILL-TEMPLATE](analysis/domain-knowledge-architecture.md)
 
+### Open Knowledge Format (OKF) Open Standard
+- **Title**: "Open Knowledge Format (OKF) v0.1"
+- **Source**: Google Cloud (open standard, Apache-2.0)
+- **URL**: https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing/
+- **Repository**: https://github.com/GoogleCloudPlatform/knowledge-catalog (`okf/SPEC.md`)
+- **Published**: 2026-06-12
+- **Key Insights**:
+  - Vendor-neutral markdown-wiki format for giving AI agents curated context — formalizes the Karpathy "LLM Wiki" pattern
+  - A directory of markdown files, each a YAML frontmatter block + free-form body
+  - The only required field is `type:`; optional `title`, `description`, `resource`, `tags`, `timestamp`
+  - No SDK, no account, no platform lock-in; renders on GitHub, ships as a tarball, mounts on any filesystem
+- **Evidence Tier**: C (vendor-published open standard)
+- **Pattern**: [Typed-frontmatter hygiene](analysis/memory-systems-archetype-a-curated-kb.md) §A1b; [Memory System Patterns](analysis/memory-system-patterns.md)
+
 ### Claude Code Plugins Directory
 - **Source**: Anthropic Official Plugin Marketplace
 - **URL**: https://claude.com/plugins

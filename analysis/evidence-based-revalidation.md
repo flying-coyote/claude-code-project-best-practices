@@ -14,7 +14,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-04-06"
 evidence-tier: A
-applies-to-signals: [revalidation-trigger, model-version-migration, audit-always-fetch]
+applies-to-signals: [revalidation-trigger, model-version-migration, audit-always-fetch, generated-docs-no-drift-gate]
 revalidate-by: 2026-10-22
 ---
 
@@ -112,6 +112,24 @@ This is **continuous revalidation** — not triggered by milestones, but by the 
 
 ---
 
+## Pre-Commit Drift Gates: Revalidation as a Commit Hook
+
+Both patterns above — `revalidate` dates and scheduled cron checks — trust a human to act later. A **drift gate** moves the check to commit time and *fails the commit* when a generated or derived value no longer matches its cited source. It closes the "stale claim cited in a presentation" failure this document already names, mechanically rather than by discipline.
+
+One production instance (a research knowledge base) runs three modes off a single generator:
+
+1. **A `--check-staged` gate** comparing each generated claim to its source, deadband 0, blocking the commit on any divergence.
+2. **A `--divergence` report** (not a gate) flagging a *retired* value still presented as current on reader-facing "product" surfaces.
+3. **A `--worklist <CLAIM_ID>` feedforward** listing every doc that cites a claim, so a source change propagates — the intra-repo complement to the cross-repo cascade in [Cross-Project Synchronization](./cross-project-synchronization.md).
+
+The detail that matters for Claude Code specifically: git does not version `.git/hooks/`, so the gate needs a **tracked hook source plus an `install-hooks.sh`** — the same coordination problem [Harness Engineering](./harness-engineering.md) raises for hooks-as-enforcement (re-run the installer after editing the hook).
+
+One finding from validating this gate against a gold set: keep the **deterministic oracle above any LLM "gate skill" verdict**, and adding more skill rounds did not help. That is a Tier-B production confirmation of the ablation evidence in [Harness Engineering](./harness-engineering.md) ("verifiers hurt, self-evolution helps") and the self-evaluation-rationalization caveat in [Confidence Scoring](./confidence-scoring.md) — let the deterministic check decide, not a stacked panel of model judges.
+
+**Evidence tier**: B — single production project. Karpathy's "coding is the ideal self-improvement loop because verification is built-in" is the nearest external anchor, but it is about the agent's own loop, not the project-as-loop framing, so don't stretch it. The scored work-selection surface this same project runs (ranking a backlog by a weighting formula) is deliberately **not** generalized here — it is project-specific prioritization that dates with the project, not a portable Claude Code discipline.
+
+---
+
 ## Case Study: Model Migration as Revalidation Trigger (Opus 4.6 → 4.7, April 2026)
 
 The Opus 4.7 release on 2026-04-16 is a canonical revalidation trigger that does **not** fit the usual milestone pattern. No code changed; no benchmark ran; the only change was the underlying model's prompt-interpretation behavior. Yet claims validated on 4.6 can no longer be cited without re-verification.
@@ -167,6 +185,7 @@ The `measurement-claims` frontmatter in each analysis document includes `revalid
 | Confidence without remaining gaps | "4.7/5 confidence" with no mention of what's unvalidated | Every confidence score must state what remains |
 | Demo without revalidation | Presenter discovers failures live | Revalidation step in demo prep checklist |
 | One-time validation | "It worked in March" as permanent proof | Scheduled revalidation or `revalidate` dates in frontmatter |
+| Revalidation as honor-system | `revalidate-by` dates pass silently; stale generated values ship | Pre-commit drift gate comparing generated docs to source; feedforward worklist so a source edit propagates |
 | Model version drift | Claim validated on 4.6 cited after 4.7 release | Re-verify on new model; prompt behavior changes silently |
 
 ---

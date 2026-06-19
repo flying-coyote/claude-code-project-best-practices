@@ -27,6 +27,8 @@ Per-archetype recommendation for **personal, single-curator, cross-domain second
 
 **Driving axes**: 5 (local strongly preferred), 2 (augments-wiki), 6 (mostly structural with temporal islands). **Tier**: C overall (paradigm B; tools C).
 
+> If your vault types its notes (`type:` frontmatter), keep the type vocabulary canonical with a single parsed registry plus a pre-commit guard — see [archetype-A](memory-systems-archetype-a-curated-kb.md) §A1b (the OKF hygiene pattern). A cross-domain personal vault drifts into type sprawl faster than a single-curator analytical KB.
+
 ## C2. Hybrid alternatives
 
 | Hybrid                                              | Optimizes                                                          | Pick when                                                          |

@@ -510,6 +510,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 | Configuration drift | Anthropic minimal | Team members get inconsistent results | Hooks for enforcement + shared settings.json |
 | Swimming against the current | Bitter Lesson | Harness complexity grows with each model upgrade | Build every component for deletion |
 | Harness-as-specification neglect | Video thesis | Building agent first, retrofitting tests later | Define harness (behavioral tests) before agent logic |
+| Accretion without pruning | Practitioner heuristic | Repo accumulates custom code and raw captures the model must re-read each session | Necessity ladder before writing code (see [Secure Code Generation](./secure-code-generation.md)); archive or delete superseded material |
 
 ---
 

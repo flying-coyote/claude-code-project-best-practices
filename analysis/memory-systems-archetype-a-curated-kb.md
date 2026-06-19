@@ -2,7 +2,7 @@
 status: EMERGING
 last-verified: "2026-04-28"
 evidence-tier: C
-applies-to-signals: [memory-systems, knowledge-base, wiki, graph, md-corpus-small, md-corpus-design-target, md-corpus-large, vault-karpathy, project-type-docs]
+applies-to-signals: [memory-systems, knowledge-base, wiki, graph, md-corpus-small, md-corpus-design-target, md-corpus-large, vault-karpathy, project-type-docs, typed-memory-no-registry]
 revalidate-by: 2026-10-28
 ---
 
@@ -30,6 +30,23 @@ Calibrated to the **~500-document single-curator design target**. See [`memory-s
 | Lint        | Local script reading `graph.json` + each `analysis/*.md`, flagging wiki claims that conflict with EXTRACTED edges       | Axis 8 — bridges deterministic vs LLM-derived                                                                                    |
 
 **Driving axes**: 1 (write-time dominant), 2 (augments-wiki), 7 (markdown), 8 (provenance discipline). **Evidence tier**: B for the Karpathy paradigm; **C — vendor-reported, not independently benchmarked** — for graphify's specific 71.5× token claim ([safishamsi/graphify](https://github.com/safishamsi/graphify)).
+
+## A1b. Typed-frontmatter hygiene (the OKF pattern)
+
+A curated KB whose notes carry a `type:` in frontmatter only stays *retrievable-by-type* if the vocabulary stays small and canonical. Left ungoverned it drifts: one production second-brain reached **127 distinct `type:` values, 86 of them used exactly once**, which made type-based retrieval (a Tolaria MCP, generated indexes, queries) close to useless until the vocabulary was consolidated back to ~30 canonical types. The transferable discipline has four parts:
+
+1. **Every note carries a `type:`** in YAML frontmatter — the one field [Google's Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) also makes its sole requirement.
+2. **A single canonical type-registry doc is the source of truth** — ~30 canonical types plus a few intentional singletons, with a merge-map that keeps retired type names greppable in git history.
+3. **A pre-commit guard that *parses* the registry** (does not hard-code the list) and blocks any commit whose `type:` is non-canonical — so the guard can never disagree with the human-readable registry.
+4. **A coverage/drift health check** — an untyped-node gap report (nav/status/front-door files excluded by a stem regex) plus a distinct-type count that catches fragmentation before it makes retrieval useless.
+
+Federation: have the registry loader take multiple repo roots, so the same coverage/drift checks run across a hub plus its spokes (see [archetype-D](memory-systems-archetype-d-cross-project-portfolio.md)).
+
+**Anti-pattern**: hard-coding the type list inside the guard (it drifts from the human registry the moment someone edits one and not the other); or adding a `type:` field with no registry and no guard at all (you get the 127-types / 86-singletons sprawl, and typed retrieval degrades to plain grep).
+
+**Scale**: like the lint in A1, this earns its keep at the ~500-doc / multi-spoke design target. Below ~100 docs a fixed handful of types needs neither a registry nor a guard.
+
+**Evidence tier**: B for the pattern — a single production deployment (a personal second-brain running a parsed-registry pre-commit guard, with the measured 127→~30 consolidation). The external OKF spec it conforms to (Google Cloud, Apache-2.0, published 2026-06-12) is a Tier-C vendor-published standard; cite the *pattern* from production, not the spec.
 
 ## A2. Hybrid alternatives
 
@@ -76,8 +93,13 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 - Wu, Ji, Kawatkar, Kwan, Gu, Peng, Chang: ["LongMemEval-V2: Evaluating Long-Term Agent Memory"](https://arxiv.org/abs/2605.12493) — arXiv:2605.12493, 2026-05-12. AgentRunbook-C pattern (file-as-memory + coding agent retrieval) hits 72.5% on environment tasks, beating RAG baselines. Successor to LongMemEval; complementary to Sen et al. above. Preprint, not yet peer-reviewed.
 - Abtahi, Rahnema, H. Patel, N. Patel, Fekri, Khani: ["Memanto: Typed Semantic Memory with Information-Theoretic Retrieval"](https://arxiv.org/abs/2604.22085) — arXiv:2604.22085, 2026-04-23. **Counter-signal**, registered as a scope boundary: vector-only retrieval reaches SOTA 89.8% / 87.1% at long-horizon scale. Used in this archetype's anti-pattern section to prevent over-extrapolation of "grep beats embeddings" outside the small-KB / short-task regime. Preprint, not yet peer-reviewed.
 
+### Tier B (added)
+
+- Typed-frontmatter hygiene pattern (§A1b) — single production second-brain: a `type:` registry doc as single source of truth, parsed by an `automation/lib/okf.py` pre-commit guard, with a measured 127-distinct-types/86-singletons → ~30-canonical consolidation. Expert-practitioner, production-validated on one project (Tier B by this repo's definition).
+
 ### Tier C
 
+- [Google Cloud — Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) — Apache-2.0, published 2026-06-12. Vendor-neutral markdown-wiki spec for agent context; its sole required frontmatter field is `type:`. The §A1b registry+guard is a conformance/hygiene layer on top of that one required field. **Vendor-published open standard — cite the pattern from production, not the spec.**
 - [safishamsi/graphify](https://github.com/safishamsi/graphify) — graphify v0.5.4, 2026-04-28. 71.5× token-savings claim for topology-first retrieval. **Vendor-reported — not independently benchmarked.**
 - Lum1104/understand-anything plugin — wiki-aware graph using `[[wikilinks]]` as ground truth; layout requirements verified 2026-04-28 against plugin v2.3.2 `parse-knowledge-base.py`. **Community-reported — not independently benchmarked.**
 - MehmetGoekce L1/L2 split — context-budget management at scale; named in hybrid alternatives without an independent benchmark. **Community-reported — not independently benchmarked.**
