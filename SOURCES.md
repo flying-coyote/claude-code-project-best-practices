@@ -1928,7 +1928,7 @@ Added 2026-06-15. The "loop engineering" label is roughly two weeks old as of mi
 ### Boris Cherny — "I write loops" (WorkOS Acquired Unplugged)
 
 - **Source**: WorkOS-hosted *Acquired Unplugged* event, 2026-06-02 (recording exists; quotes also carried by The New Stack and OfficeChai).
-- **Role**: Primary anchor for the loop-engineering wave: "I don't prompt Claude anymore. I have loops that are running... My job is to write loops." Runs loops on cron for routine jobs (babysit PRs, fix CI, rebase). Verbatim phrasing varies across secondaries — verify against the recording.
+- **Role**: Primary anchor for the loop-engineering wave: "I don't prompt Claude anymore. I have loops that are running... My job is to write loops." Runs loops on cron for routine jobs (babysit PRs, fix CI, rebase). The fuller passage is now corroborated across multiple independent published accounts (The New Stack "loop engineering"; note.com near-verbatim share 2026-06-09; Njuguna and Flor, Medium, both 2026-06-08), all converging on the same wording; video-derived, no published timestamp.
 - **Pattern References**: [harness-engineering.md](analysis/harness-engineering.md), [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md).
 - **Evidence Tier**: A for the quote (named Claude Code creator, dated event), consistent with this repo treating Cherny as Tier A. The "loop engineering" *label* is press-coined (Tier C) — do not attribute the term to Cherny.
 
