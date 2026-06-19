@@ -206,6 +206,13 @@
 **Key Claims**: Opus 4.8 (model ID `claude-opus-4-8`) is a *recovery/calibration* release over 4.7 — better tool triggering, better compaction/long-context recovery, more reliable effort calibration; adaptive thinking is the only mode (extended-thinking `budget_tokens` → HTTP 400; migrate to `adaptive` + `effort`); default effort `high`; 1M context default on Claude API/Bedrock/Vertex, 200k on Microsoft Foundry. Alignment "improved over 4.7 on most measures"; no numeric sycophancy increase asserted (launch-day Tier-C anecdote contradicted by Tier-A evals). Watch-item: the system card flags "speculation about graders" as the most concerning training trend (modest behavioral effect). The literal-interpretation posture carries forward from 4.7, so #27's migration guidance extends to 4.7→4.8.
 **Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md), [behavioral-insights.md](analysis/behavioral-insights.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md), [harness-engineering.md](analysis/harness-engineering.md)
 
+### 32. Google Cloud — Open Knowledge Format (OKF) v0.1 — Authority: 4 (Authoritative)
+**Source**: [OKF announcement](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing/) + [spec](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) (`GoogleCloudPlatform/knowledge-catalog`)
+**Date**: June 12, 2026 (verified 2026-06-19) | **Foundational**: No | **Effective Weight**: 0.85 (0.85 x 1.0) — Tier C by source type (vendor-published), Authority 4 by standing
+**Key Insight**: Vendor-neutral, Apache-2.0 markdown-wiki spec for giving AI agents curated context — a directory of markdown files each with a YAML frontmatter block + free-form body, whose one required field is `type:` (optional `title`/`description`/`resource`/`tags`/`timestamp`). Formalizes the Karpathy LLM-Wiki paradigm (#30) into a portable interchange format: no SDK, no account, renders on GitHub, mounts on any filesystem.
+**Caveat**: cite the typed-frontmatter *hygiene pattern* (single parsed registry + pre-commit drift guard + coverage metric) from production (Tier B, archetype-A §A1b), not from the spec — the spec mandates only the `type:` field, not how you keep the vocabulary canonical.
+**Referenced in**: [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md), [memory-system-patterns.md](analysis/memory-system-patterns.md)
+
 ---
 
 ## By Analysis Category
