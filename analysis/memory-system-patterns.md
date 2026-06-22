@@ -18,7 +18,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-04-06"
 evidence-tier: A
-applies-to-signals: [project-type-docs, project-type-research]
+applies-to-signals: [project-type-docs, project-type-research, typed-memory-no-registry]
 revalidate-by: 2026-10-06
 ---
 
@@ -71,7 +71,36 @@ Content here — for feedback/project types, structure as:
 rule/fact, then **Why:** and **How to apply:** lines.
 ```
 
-> **The typed-frontmatter pattern now has an external spec.** Google Cloud's [Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) (Apache-2.0, 2026-06-12) formalizes exactly this — a directory of markdown files whose one required frontmatter field is `type:`. For keeping that `type:` vocabulary canonical at scale (a single parsed registry plus a pre-commit drift guard), see [archetype-A](memory-systems-archetype-a-curated-kb.md) §A1b.
+---
+
+## Typed Memory as a KM-Leverage Pattern (OKF)
+
+The `type:` field in that frontmatter is doing more work than it looks. It is the difference between a folder of markdown an agent can only grep and a *typed knowledge graph* an agent (or a script, or an MCP) can query — "give me every `Assumption` whose review is overdue," "every `MDR` still `Proposed`," "every `contradiction` with no resolution." Once the type vocabulary is canonical and machine-readable, the memory stops being a passive store and becomes something a harness can ask questions of. That is the leverage, and it is worth treating typed-frontmatter as a named pattern rather than a formatting convention.
+
+The external spec for this is Google Cloud's **Open Knowledge Format (OKF) v0.1** ([SPEC.md](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md), Apache-2.0; announced [2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing) — both verified against primary sources). OKF formalizes the LLM-wiki pattern as a directory of UTF-8 markdown files with YAML frontmatter, and it requires *exactly one* field of every concept: `type`. The spec's own words: "OKF requires exactly one thing of every concept: a `type` field. Everything else … is left to the producer." Reserved-but-optional fields are `title`, `description`, `resource`, `tags`, and `timestamp`; consumers MUST NOT reject a bundle for unknown type values or missing optional fields. Claude Code's auto-memory frontmatter (`type: user | project | reference | feedback`) is already a conformant instance of this — the same one-required-field design, predating the public spec.
+
+### OKF stores what we know; RETHINK re-asks whether it is still the right thing to know
+
+A typed store answers *what do we know* well, and answers *is what we know still true* not at all on its own — a memory file is a point-in-time snapshot (see [The Staleness Problem](#the-staleness-problem) above), and a `type:` does not expire just because the claim under it did. So the typed store pairs naturally with the **RETHINK** limb of the loop-engineering / harness-engineering loop (the intent-alignment "why" dimension — see [harness-engineering.md](./harness-engineering.md) and [scheduled-and-looping-primitives.md](./scheduled-and-looping-primitives.md)): OKF stores what we know; RETHINK re-asks, on a cadence, whether it is still the right thing to know. The two are complementary halves, and a typed memory is what makes the RETHINK pass *cheap* — because the types let the loop find the things most likely to have gone stale without re-reading the whole corpus. A worked example of that exact pairing is below in the case study: a typed graph plus a script that re-derives next-work from the types themselves (overdue assumptions, undecided decisions, unresolved contradictions).
+
+### Case study: project1 "Second Brain" (Tier B, single practitioner — FLAGGED)
+
+This is a firsthand worked implementation, and it should be read with its limit stated up front: **significant value seen recently; one practitioner, one project, not independently corroborated.** Treat the *mechanism* as transferable and the *magnitude* as a single data point.
+
+project1 is a ~500-doc cross-repo cybersecurity-research vault that types every live note and governs the type vocabulary with parsed-registry tooling. The pieces, with their real files:
+
+| Piece | File | What it does |
+|---|---|---|
+| Type registry (source of truth) | [`01-knowledge-base/_type-registry.md`](file:///home/jerem/project1/01-knowledge-base/_type-registry.md) | 30 canonical types + 9 intentional singletons + a merge map. Records two consolidations: 127 distinct live types (86 used once) → ~30 on 2026-06-09, then a 51-value drift → canonical on 2026-06-18. The rule is "pick a type from the registry; if none fits, add it *here* first." |
+| Vault conventions | [`AGENTS.md`](file:///home/jerem/project1/AGENTS.md) | The Tolaria-loaded conventions file; owns the per-type frontmatter field conventions (the registry owns the *list*). |
+| Shared OKF helpers | [`automation/lib/okf.py`](file:///home/jerem/project1/automation/lib/okf.py) | One module answers three questions consistently: what is an OKF note, which `type:` values are canonical, how complete/clean is the graph. `load_canonical_types()` *parses* the registry doc (single source of truth — never hard-codes the list, so the guard can't disagree with the human-readable registry). `load_notes()` takes a **list of roots** — federation-ready, so the same checks run across the hub and its spokes. |
+| Per-commit drift guard | [`automation/orchestrator/quality_gates.py`](file:///home/jerem/project1/automation/orchestrator/quality_gates.py) (`validate_okf_type`) | Wired into the pre-commit hook. Loads the canonical set from the registry once, and warns (deliberately does not block) on any non-canonical `type:` — "pick a canonical type or register it in `_type-registry.md` first." Warn-not-block is the calibrated choice: a loud warning on every commit is what keeps the vocabulary from drifting back to the 51-value sprawl, without making the registry rule a hard gate. |
+| Graph health (coverage / drift / gaps) | [`automation/okf_health.py`](file:///home/jerem/project1/automation/okf_health.py) | A health *signal*, not a gate. Reports typed-coverage %, type-drift count, and untyped knowledge-candidate gaps (nav/status/front-door files excluded by a stem regex). `--federated` adds the spoke repos (which read ~0% today — that is the gap the federation work closes, and this is how it watches it close). `--brief` emits a one-liner into the daily brief. |
+| Next-work from the graph (the RETHINK operationalization) | [`automation/okf_signals.py`](file:///home/jerem/project1/automation/okf_signals.py) | Reads the typed graph and derives a ranked next-work list *from the structure that is already there* — no separate backlog to keep in sync: `Assumption` notes past `last_reviewed + review_cadence_months`, `MDR` notes still `Proposed`, `contradiction` notes with no resolution framing, low-confidence/stale `hypothesis` notes, and Matrix-tracked components with thin note coverage. This is RETHINK made mechanical: the types tell the loop what is most likely to have gone stale. |
+
+The leverage claim, stated honestly: typing the corpus turned the memory from a grep target into something the daily loop interrogates — `okf_health --brief` and `okf_signals --brief` both feed the brief, so the graph's own debts (an overdue assumption, an undecided MDR) surface on cadence instead of being rediscovered by hand. The discipline that makes it hold is the four-part hygiene loop: every note carries a `type:`; one parsed registry is the source of truth; a pre-commit guard reads that registry; and a health check watches coverage and drift. The fuller treatment of that hygiene loop, with its anti-patterns, is in [archetype-A](memory-systems-archetype-a-curated-kb.md) §A1b.
+
+> **Adopt OKF typing when** your memory/KB has crossed roughly a hundred typed notes and `type:`-based retrieval has started to rot (the `typed-memory-no-registry` signal). Below that, a fixed handful of types needs neither a registry nor a guard — see the scale caveat in archetype-A §A1b.
 
 ---
 
@@ -243,6 +272,11 @@ Beyond Claude Code's built-in auto-memory, external memory systems are emerging 
 
 - Anthropic Claude Code auto-memory documentation — Type taxonomy, frontmatter format, MEMORY.md index
 - Boris Cherny (March 2026) — "CLAUDE.md is advisory (~80% adherence)" applies to memory instructions equally
+- **OKF typed-memory case study (§Typed Memory as a KM-Leverage Pattern)** — single production second-brain (project1), firsthand. Real implementation: `01-knowledge-base/_type-registry.md` (30 canonical types + merge map, measured 127→~30 then 51→canonical consolidations), `automation/lib/okf.py` (parsed-registry helpers, federation-ready), `quality_gates.py:validate_okf_type` (pre-commit drift guard), `okf_health.py` (coverage/drift/gap signal), `okf_signals.py` (graph-derived next-work — the RETHINK operationalization). **One practitioner, one project, not independently corroborated — value seen recently, magnitude is a single data point.**
+
+### Tier C (Vendor-Published Standard)
+
+- [Google Cloud — Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) — Apache-2.0; [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing). v0.1 marked "Draft"; sole required frontmatter field is `type`. Date, license, and the single-required-field claim verified against the primary spec + blog (2026-06-21). Cite the *pattern* from production; the spec is a vendor-published open standard.
 
 ### Related Analysis
 

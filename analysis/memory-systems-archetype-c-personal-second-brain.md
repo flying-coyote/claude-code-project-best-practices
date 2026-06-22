@@ -2,7 +2,7 @@
 status: EMERGING
 last-verified: "2026-04-28"
 evidence-tier: C
-applies-to-signals: [memory-systems, second-brain, knowledge-base, wiki, vault-obsidian, md-corpus-small, md-corpus-design-target]
+applies-to-signals: [memory-systems, second-brain, knowledge-base, wiki, vault-obsidian, md-corpus-small, md-corpus-design-target, typed-memory-no-registry]
 revalidate-by: 2026-10-28
 ---
 
@@ -27,7 +27,11 @@ Per-archetype recommendation for **personal, single-curator, cross-domain second
 
 **Driving axes**: 5 (local strongly preferred), 2 (augments-wiki), 6 (mostly structural with temporal islands). **Tier**: C overall (paradigm B; tools C).
 
-> If your vault types its notes (`type:` frontmatter), keep the type vocabulary canonical with a single parsed registry plus a pre-commit guard — see [archetype-A](memory-systems-archetype-a-curated-kb.md) §A1b (the OKF hygiene pattern). A cross-domain personal vault drifts into type sprawl faster than a single-curator analytical KB.
+### C1b. Type your vault (OKF) — a personal vault sprawls fastest
+
+A cross-domain personal vault drifts into `type:` sprawl faster than a single-curator analytical KB, because there is no editorial reviewer between "I'll just call this one `idea-fragment`" and a graph with 86 single-use types. So if your vault types its notes — and it should, since a `type:` is what turns a personal pile into something a [Tolaria](memory-systems-archetype-c-personal-second-brain.md#c2-hybrid-alternatives)-style MCP or a generated index can query by kind — govern the vocabulary the same way [archetype-A §A1b](memory-systems-archetype-a-curated-kb.md#a1b-typed-frontmatter-hygiene--okf-as-the-km-leverage-pattern) does: one canonical type-registry doc as the source of truth, a pre-commit guard that *parses* that registry (so it can't disagree with it), and a coverage/drift health check. This is the Google **OKF** pattern (one required field, `type:`; [spec](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md), Apache-2.0, [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing) — verified against primary sources). The exact deployment this is drawn from — the registry, the parsed guard, and the graph-derived next-work signal — is a real production second-brain ([project1](file:///home/jerem/project1): `01-knowledge-base/_type-registry.md`, `automation/lib/okf.py`, `automation/orchestrator/quality_gates.py`, `automation/okf_health.py`, `automation/okf_signals.py`); **Tier B, one practitioner, not independently corroborated.**
+
+The pairing worth carrying over to a personal vault: **OKF stores what you know; the RETHINK limb re-asks whether it is still worth keeping.** A second brain accretes — half-finished ideas, links you meant to read, "decided last Tuesday" notes — and a typed graph lets a periodic re-examination filter by type to what is most likely dead weight (stale captures, never-resolved threads) instead of re-reading the whole vault. project1's [`okf_signals.py`](file:///home/jerem/project1/automation/okf_signals.py) is that re-examination made mechanical; for a personal vault the lighter version is a scheduled pass that lists, by type, the notes most overdue for a look. **The signal that should route you here is `typed-memory-no-registry`** — a vault that types its notes but has no registry and no guard, which is exactly the sprawl trap above.
 
 ## C2. Hybrid alternatives
 
@@ -79,9 +83,11 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 ### Tier B
 
 - Andrej Karpathy: LLM Wiki paradigm (`sources/`, `wiki/`, `index.md`, `log.md` convention) — author authority lifts the paradigm claim to B; tool-specific claims stay Tier C.
+- **OKF typed-vault hygiene (§C1b)** — single production second-brain (project1), firsthand: `01-knowledge-base/_type-registry.md`, `automation/lib/okf.py`, `automation/orchestrator/quality_gates.py:validate_okf_type`, `automation/okf_health.py`, `automation/okf_signals.py`. Full pattern + anti-patterns in [archetype-A §A1b]. **One practitioner, one project, not independently corroborated.**
 
 ### Tier C
 
+- [Google Cloud — Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) — Apache-2.0; [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing). Sole required frontmatter field is `type:`. Date/license/required-field verified against primary spec + blog (2026-06-21). The C1b registry+guard is a hygiene layer on this one required field.
 - [safishamsi/graphify](https://github.com/safishamsi/graphify) — graphify with `--watch` for live rebuild; cited as topology layer for heterogeneous content. **Vendor-reported — not independently benchmarked.**
 - Pratiyush/llm-wiki adapters — session ingestion for Claude Code, Codex, Cursor, Gemini, Obsidian, Copilot; redaction-by-default per inventory. **Community-reported — not independently benchmarked.**
 - OpenBrain — cross-tool concurrency hybrid; cited as post-compilation-agent option. **Vendor-reported — not independently benchmarked.**

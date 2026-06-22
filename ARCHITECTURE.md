@@ -9,10 +9,13 @@
 
 This repository provides an **evidence-based analytical layer** for Claude Code. It evaluates claims, compares approaches, and surfaces quantified behavioral insights — the "Consumer Reports" for Claude Code tooling.
 
+The audit engine has two passes that work together. The **INSPECT** pass is the presence/absence and count routing in `AUDIT-CONTEXT.md` — it asks what a project *has* and fetches the docs that match those signals, so it is strong at finding missing conventions and blind to whether the conventions a project already has still serve their purpose. The **RETHINK** pass is the intent-alignment layer that closes that blind spot: for each central mechanism the project already has, it asks what the mechanism is *for* and checks it against that stated intent, which is what catches intent-mechanism drift (a glob still pointing at a moved directory, a doc count the structure has outgrown, a write permission nobody decided to keep). RETHINK is first-class in the engine, not a follow-on, because this repo's own self-audit found that exact drift in itself; the per-mechanism intent checks live in [`analysis/intent-alignment-audit.md`](analysis/intent-alignment-audit.md) alongside the routing map in `AUDIT-CONTEXT.md`.
+
 **What we are**:
 - Evidence assessor (dual-tier system for claims)
 - Comparative analyst (tools, frameworks, approaches)
 - Behavioral insight aggregator (quantified observations from expert practitioners)
+- Intent-alignment auditor (RETHINK: each mechanism checked against its stated *why*, not only its presence)
 
 **What we are NOT**:
 - Implementation guide (see [everything-claude-code](https://github.com/anthropics-solutions/everything-claude-code))
@@ -45,6 +48,7 @@ claude-code-project-best-practices/
 │
 ├── analysis/                   # Core content (26 documents)
 │   ├── evidence-tiers.md      # Dual tier system (A-D + 1-5)
+│   ├── intent-alignment-audit.md # RETHINK pass: each mechanism vs its stated intent (drift detection)
 │   ├── behavioral-insights.md # Quantified Claude Code behavior
 │   ├── orchestration-comparison.md  # Orchestration approach comparison
 │   ├── mcp-vs-skills-economics.md   # Cost/performance analysis

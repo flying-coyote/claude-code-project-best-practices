@@ -2,7 +2,7 @@
 
 **Purpose**: Fast lookup for the most commonly referenced sources with authority + recency weighting
 
-**For complete source database**: See [SOURCES.md](SOURCES.md) (1,612 lines, comprehensive)
+**For complete source database**: See [SOURCES.md](SOURCES.md) (comprehensive; last curated 2026-06-21 — includes a dedicated **Unverified / pending revalidation** section at the end)
 
 **Authority Scale (0-5)**: 5=Foundational (built it), 4=Authoritative (core team/peer-reviewed), 3=Practitioner (production metrics), 2=Commentator (blog/YouTube), 1=Unverified, 0=Rejected
 
@@ -10,7 +10,7 @@
 
 ---
 
-## Top 30 Sources (Authority-Weighted)
+## Top 36 Sources (Authority-Weighted)
 
 ### 1. Boris Cherny (Claude Code Creator) — Authority: 5 (Foundational)
 **Role**: Engineering Manager at Anthropic, Claude Code creator
@@ -206,12 +206,40 @@
 **Key Claims**: Opus 4.8 (model ID `claude-opus-4-8`) is a *recovery/calibration* release over 4.7 — better tool triggering, better compaction/long-context recovery, more reliable effort calibration; adaptive thinking is the only mode (extended-thinking `budget_tokens` → HTTP 400; migrate to `adaptive` + `effort`); default effort `high`; 1M context default on Claude API/Bedrock/Vertex, 200k on Microsoft Foundry. Alignment "improved over 4.7 on most measures"; no numeric sycophancy increase asserted (launch-day Tier-C anecdote contradicted by Tier-A evals). Watch-item: the system card flags "speculation about graders" as the most concerning training trend (modest behavioral effect). The literal-interpretation posture carries forward from 4.7, so #27's migration guidance extends to 4.7→4.8.
 **Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md), [behavioral-insights.md](analysis/behavioral-insights.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md), [harness-engineering.md](analysis/harness-engineering.md)
 
-### 32. Google Cloud — Open Knowledge Format (OKF) v0.1 — Authority: 4 (Authoritative)
+### 32. Google Cloud — Open Knowledge Format (OKF) v0.1 — Authority: 4 ⭐ KM-LEVERAGE
 **Source**: [OKF announcement](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing/) + [spec](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) (`GoogleCloudPlatform/knowledge-catalog`)
-**Date**: June 12, 2026 (verified 2026-06-19) | **Foundational**: No | **Effective Weight**: 0.85 (0.85 x 1.0) — Tier C by source type (vendor-published), Authority 4 by standing
-**Key Insight**: Vendor-neutral, Apache-2.0 markdown-wiki spec for giving AI agents curated context — a directory of markdown files each with a YAML frontmatter block + free-form body, whose one required field is `type:` (optional `title`/`description`/`resource`/`tags`/`timestamp`). Formalizes the Karpathy LLM-Wiki paradigm (#30) into a portable interchange format: no SDK, no account, renders on GitHub, mounts on any filesystem.
-**Caveat**: cite the typed-frontmatter *hygiene pattern* (single parsed registry + pre-commit drift guard + coverage metric) from production (Tier B, archetype-A §A1b), not from the spec — the spec mandates only the `type:` field, not how you keep the vocabulary canonical.
+**Date**: June 12, 2026 (re-verified 2026-06-21) | **Foundational**: No | **Effective Weight**: 0.85 (0.85 x 1.0) — Tier C by source type (vendor-published), Authority 4 by standing
+**Why elevated**: one of two KM-leverage sources the maintainer values from recent firsthand use — a portable, filesystem-native typed-frontmatter interchange format that maps onto this repo's vault/OKF discipline. Significant value seen firsthand; spec itself is Tier C draft, single-vendor, adoption early — the production hygiene pattern is the load-bearing part.
+**Key Insight**: vendor-neutral markdown-wiki spec — a directory of markdown files each with a YAML frontmatter block + free-form body, one required field `type:` (optional `title`/`description`/`resource`/`tags`/`timestamp`). Formalizes the Karpathy LLM-Wiki paradigm (#30) into a portable format: no SDK, no account, renders on GitHub, mounts on any filesystem.
+**Corrections (2026-06-21)**: **Apache-2.0 is on the REPO, not the blog**; the spec **does not register types centrally** ("Type values are not registered centrally … consumers MUST tolerate unknown types gracefully"); cite the single-registry + pre-commit drift-guard *hygiene pattern* from production (Tier B, archetype-A §A1b), NOT from the spec.
 **Referenced in**: [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md), [memory-system-patterns.md](analysis/memory-system-patterns.md)
+
+### 33. Loop-Engineering Lineage (Cherny / Steinberger / Osmani) — Authority: mixed ⭐ KM-LEVERAGE
+**Sources**: Boris Cherny "I write loops" ([WorkOS Acquired Unplugged, YouTube `RkQQ7WEor7w`](https://www.youtube.com/watch?v=RkQQ7WEor7w) + WorkOS blog, 2026-06-02); Peter Steinberger "stop prompting, build loops" ([X status 2063697162748260627](https://x.com/steipete/status/2063697162748260627), 2026-06-07, **primary unfetched**); Addy Osmani ["Loop Engineering"](https://addyosmani.com/blog/loop-engineering/) five-component anatomy (2026-06-07)
+**Date**: June 2026 (re-verified/re-attributed 2026-06-21) | **Foundational**: No | **Effective Weight**: ~0.55 blended — Cherny B, Osmani/Steinberger C
+**Why elevated**: the second KM-leverage thread the maintainer values — shifting from prompting an agent to designing the loop that prompts it, with state externalized to files + git. Practice anchors are A/B (Cherny on a dated stage; Anthropic harness docs; Karpathy self-improvement loop); the "loop engineering" label layer is mostly Tier C, weeks old — promising, not yet corroborated.
+**Attribution correction (2026-06-21)**: do NOT say Osmani coined "loop engineering" — his own post attributes the concept to Steinberger + Cherny. Distinct roles: Cherny described the practice, Steinberger issued the call-to-discipline, Osmani named the five-block anatomy (Automations / Worktrees / Skills / Plugins-Connectors / Sub-agents + external on-disk memory).
+**Referenced in**: [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md), [harness-engineering.md](analysis/harness-engineering.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)
+
+### 34. Claude Fable 5 / Mythos 5 / Sonnet 4.6 — Authority: 5 (Foundational)
+**Source**: [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview) + [Fable 5 / Mythos 5 launch doc](https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5) + [Sonnet 4.6 announcement](https://www.anthropic.com/news/claude-sonnet-4-6)
+**Date**: Fable 5 GA June 9 2026; Sonnet 4.6 Feb 17 2026 (verified 2026-06-21) | **Foundational**: Yes | **Effective Weight**: 1.0 — Tier A
+**Key Claims**: **Fable 5** (`claude-fable-5`) = most capable widely released model; $10/$50 per MTok, 1M/128k, adaptive thinking always on; refusals as `stop_reason:"refusal"` (HTTP 200); server-side `fallbacks` (beta). **Mythos 5** (`claude-mythos-5`) = Fable-5 capabilities WITHOUT classifiers, Project Glasswing, not GA. Fable/Mythos use the Opus-4.7 tokenizer (~30% more tokens). **Sonnet 4.6** = $3/$15, 1M beta, 64k output (per overview), preferred over Sonnet 4.5 ~70% / over Opus 4.5 59% in Claude Code. Opus 4.1 retires Aug 5 2026.
+**⚠️ UNVERIFIED**: all Fable 5 benchmark numbers — the `/news/claude-fable-5` page 404'd on 2026-06-21. Do not assert Fable 5 benchmark specifics. See SOURCES.md Unverified section.
+**Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md), [behavioral-insights.md](analysis/behavioral-insights.md)
+
+### 35. Memory-Systems Leaders (Packer/Letta, Singh/mem0) — Authority: 4 (Authoritative)
+**Source**: [MemGPT arXiv:2310.08560](https://arxiv.org/abs/2310.08560) → [Letta v0.16.8](https://github.com/letta-ai/letta) (Packer); [mem0 v0.2.0](https://github.com/mem0ai/mem0) (Singh); [Anthropic memory tool `memory_20250818`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool); [LangMem](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/)
+**Date**: 2023-2026 (verified 2026-06-21) | **Foundational**: No | **Effective Weight**: 0.85 — MemGPT/Anthropic A, Letta/mem0 B, blog C
+**Key Insight**: MemGPT's OS-style virtual context management (main vs external, RAM-disk analog); Letta Context Repositories = git-backed versioned memory + per-subagent worktrees; mem0 multi-level User/Session/Agent memory + single-pass extraction (60-70% write-call cut); Anthropic memory tool = client-side `/memories` filesystem with "ASSUME INTERRUPTION" prompt; LangMem = semantic/episodic/procedural typed memory.
+**⚠️ Vendor-claimed-unverified**: mem0 retrieval-quality deltas + LoCoMo/LongMemEval scores (see Unverified). Letta Core/Recall/Archival naming is docs-only, not the README.
+**Referenced in**: [memory-system-patterns.md](analysis/memory-system-patterns.md), [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md)
+
+### 36. Evals Leaders (Husain, Shankar, Schmid, Chase) — Authority: 4 (Authoritative)
+**Source**: [Husain LLM Evals FAQ](https://hamel.dev/blog/posts/evals-faq/) (+ Shankar) + [Evals Skills](https://hamel.dev/blog/posts/evals-skills/); [Shankar papers](https://www.sh-reya.com/papers/); [Schmid Agent Harness 2026](https://www.philschmid.de/agent-harness-2026); [Chase "Your harness, your memory"](https://www.langchain.com/blog/your-harness-your-memory)
+**Date**: 2026 (verified 2026-06-21) | **Foundational**: No | **Effective Weight**: 0.85
+**Key Insight**: Husain/Shankar — error analysis before infrastructure, binary pass/fail over Likert, custom annotation tool = highest-leverage investment, 60-80% of dev time on evals, six eval-skill toolkit. Shankar — CHI/CIDR/VLDB/SIGMOD 2026 agent-first data-systems papers + O'Reilly "Evals for AI Engineers." Schmid — durability over single-turn scores ("Manus refactored 5× in 6 months"). Chase — "managing context, and therefore memory, is a core … responsibility of the agent harness"; open vs closed harness lock-in; "Claude Code … 512k lines of code. That code is the harness." Plus harness-effect papers (Fudan 2604.25850 Terminal-Bench 2 69.7→77.0%; SJTU 2604.08224 four-component externalization taxonomy; Yao 2605.27922 Harness-Bench).
+**Referenced in**: [agent-evaluation.md](analysis/agent-evaluation.md), [harness-engineering.md](analysis/harness-engineering.md)
 
 ---
 
@@ -280,7 +308,9 @@
 
 **For detailed citations, methodology, and complete source database**: See [SOURCES.md](SOURCES.md)
 
-**Last Updated**: May 30, 2026 — Opus 4.8 re-validation: added #31 (Anthropic Opus 4.8 trio — What's New 4.8 + system card + launch news, Tier A); corrected stale #25 "Tingua" → "Tsinghua" (paper now located: arXiv:2603.25723). The 4.6→4.7 MRCR-v2 regression sources and long-context degradation-onset benchmarks are registered in the full [SOURCES.md](SOURCES.md). Count: 33 → 34.
+**Last Updated**: June 21, 2026 — verified cluster refresh: added #33 (loop-engineering lineage ⭐ KM-leverage, with the Osmani-coiner attribution correction + Steinberger as new leader), #34 (Claude Fable 5 / Mythos 5 / Sonnet 4.6 — Fable benchmark numbers UNVERIFIED), #35 (memory-systems leaders Packer/Letta + Singh/mem0 + Anthropic memory tool + LangMem), #36 (evals leaders Husain/Shankar/Schmid/Chase + harness papers). Elevated #32 (OKF) as a KM-leverage source with the Apache-on-repo + no-central-type-registry corrections. New thought leaders registered: Peter Steinberger, Charles Packer, Taranjeet Singh, Hamel Husain, Shreya Shankar, Philipp Schmid, Harrison Chase, Sébastien Dubois (TypedMark). Full unverified-claims inventory lives in the **Unverified / pending revalidation** section of [SOURCES.md](SOURCES.md). Count: 32 → 36.
+
+Prior: May 30, 2026 — Opus 4.8 re-validation: added #31 (Anthropic Opus 4.8 trio — What's New 4.8 + system card + launch news, Tier A); corrected stale #25 "Tingua" → "Tsinghua" (paper now located: arXiv:2603.25723). The 4.6→4.7 MRCR-v2 regression sources and long-context degradation-onset benchmarks are registered in the full [SOURCES.md](SOURCES.md). Count: 33 → 34.
 
 Prior: May 24, 2026 — quality refresh: URL canonicalization to `code.claude.com`; added 4 Tier B sources (Builder.io 50 Tips, Morph 2026 Guide, Shipyard multi-agent, VoltAgent awesome-claude-code-subagents). Consumer-trust pass on 16 analysis docs (Sources footers, vendor-reported caveats, production-evidence cross-links). Count: 29 → 33.
 

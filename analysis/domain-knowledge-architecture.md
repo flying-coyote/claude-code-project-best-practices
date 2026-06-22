@@ -26,7 +26,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-03-30"
 evidence-tier: Mixed
-applies-to-signals: [project-type-domain-heavy]
+applies-to-signals: [project-type-domain-heavy, typed-memory-no-registry]
 revalidate-by: 2026-09-30
 ---
 
@@ -150,6 +150,26 @@ Instead of loading domain knowledge into CLAUDE.md or skills, maintain a **resou
 | Inline in CLAUDE.md | Small projects, <10 resource categories |
 | Referenced file (`@docs/resource-map.md`) | Medium projects, resource map would bloat CLAUDE.md |
 | SessionStart hook that generates map | Dynamic projects where resources change frequently |
+
+---
+
+## Typed Knowledge as the Queryable Substrate (OKF)
+
+A resource map points the LLM at *where* knowledge lives; typed frontmatter changes *how* it can be retrieved once it gets there. The external-memory layer in the progressive-disclosure stack (the "File system / Per-read" row) defaults to grep — fine for "find the string," weak for "find every decision that is still open." Give each knowledge file a `type:` in YAML frontmatter and the same directory becomes a typed graph an agent or a script can query by kind: every `Assumption`, every `MDR`, every `contradiction`. For a domain-heavy project this is the difference between an external memory the agent re-reads and one the agent (or a cron) interrogates.
+
+The vendor-neutral spec for this is Google Cloud's **Open Knowledge Format (OKF) v0.1** ([SPEC.md](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md), Apache-2.0; [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing) — date/license verified against primary sources). OKF is a directory of markdown files whose one required frontmatter field is `type:`; everything else is left to the producer. It formalizes the LLM-wiki / file-as-external-memory pattern this document already builds on, and adds the one field that makes the corpus queryable.
+
+The pairing that matters for domain knowledge: **OKF stores what we know; the RETHINK limb of the loop re-asks whether it is still the right thing to know.** Domain expertise rots — a "current detection coverage" note, a "validated approach," a regulatory-control mapping all age — and a presence-based resource map cannot tell you *which* of its targets has gone stale. A typed graph can, because the loop's RETHINK pass (the intent-alignment "why" dimension; see [harness-engineering.md](./harness-engineering.md)) can filter by type to the things most likely to need re-validation instead of re-reading everything. Typed memory is what makes that re-asking cheap.
+
+### Worked case study (Tier B, single practitioner — FLAGGED)
+
+A firsthand implementation in a ~500-doc cross-repo security-research vault (project1, "Second Brain"). **Value seen recently; one practitioner, one project, not independently corroborated** — treat the mechanism as transferable, the magnitude as one data point.
+
+- A canonical type registry as a resource-map-class artifact: [`01-knowledge-base/_type-registry.md`](file:///home/jerem/project1/01-knowledge-base/_type-registry.md) holds 30 canonical types + 9 singletons + a merge map, and records two real consolidations (127 distinct types, 86 used once → ~30 on 2026-06-09; then a 51-value drift → canonical on 2026-06-18). The vault conventions file [`AGENTS.md`](file:///home/jerem/project1/AGENTS.md) owns the per-type field conventions; the registry owns the list.
+- A pre-commit drift guard, [`automation/orchestrator/quality_gates.py`](file:///home/jerem/project1/automation/orchestrator/quality_gates.py) (`validate_okf_type`), that *parses* the registry (via [`automation/lib/okf.py`](file:///home/jerem/project1/automation/lib/okf.py)'s `load_canonical_types()`) rather than hard-coding the list, so the gate can never disagree with the human-readable registry — the domain-knowledge analog of "encode in the harness, don't keep it in people's heads."
+- The RETHINK operationalization, [`automation/okf_signals.py`](file:///home/jerem/project1/automation/okf_signals.py): it reads the typed graph and emits next-work derived from the types themselves — overdue `Assumption` reviews, undecided `Proposed` MDRs, unresolved `contradiction`s, weak `hypothesis` notes, thin-coverage components — *with no separate backlog to keep in sync*. The graph is the backlog. [`automation/okf_health.py`](file:///home/jerem/project1/automation/okf_health.py) tracks coverage/drift and is federation-ready (`--federated` runs the same checks across the hub's spoke repos).
+
+The transferable lesson for any domain-heavy project: a resource map tells the agent where to look, and a `type:` plus a parsed registry tells the *loop* what to re-examine — the second is what lets RETHINK run on a cadence without re-loading the domain. The hygiene loop behind it (registry + parsed guard + health check) is detailed in [archetype-A](./memory-systems-archetype-a-curated-kb.md) §A1b.
 
 ---
 
@@ -417,6 +437,11 @@ The pattern is always:
 - Manus: File system as external memory pattern — context engineering lessons (2025-2026)
 - Vercel: Text-to-SQL experiment — general-purpose tools outperform specialized tools
 - Prompt Engineering: ["The AI Model Doesn't Matter Anymore"](https://www.youtube.com/watch?v=1Ohf2aeSPFA) (February 2026)
+- **OKF typed-substrate case study (§Typed Knowledge as the Queryable Substrate)** — single production vault (project1), firsthand: `01-knowledge-base/_type-registry.md`, `automation/lib/okf.py`, `quality_gates.py:validate_okf_type`, `okf_health.py`, `okf_signals.py`. **One practitioner, one project, not independently corroborated.**
+
+### Tier C (Vendor-Published Standard)
+
+- [Google Cloud — Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) — Apache-2.0; [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing). Sole required frontmatter field is `type:`. Date/license/required-field verified against the primary spec + blog (2026-06-21).
 
 ### Related Analysis
 

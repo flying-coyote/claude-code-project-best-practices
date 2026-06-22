@@ -4,7 +4,7 @@ All analysis documents in this repository are derived from authoritative sources
 
 **Quick Lookup**: For the top 20 most-referenced sources, see [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (100 lines vs 1,612 here)
 
-**Last curated**: 2026-05-30 (Opus 4.8 re-validation). Anthropic doc URLs are canonical at `code.claude.com`; older `docs.anthropic.com` paths still redirect but are not used here. See refresh log at the bottom.
+**Last curated**: 2026-06-21 (verified cluster refresh — Fable 5 GA, loop-eng lineage, OKF/typed-knowledge, memory-systems + evals leaders). Anthropic doc URLs are canonical at `code.claude.com`; older `docs.anthropic.com` paths still redirect but are not used here. See refresh log at the bottom, and the **Unverified / pending revalidation** section at the very end for claims that could not be primary-confirmed this pass.
 
 ## Primary Sources (Tier A)
 
@@ -51,14 +51,44 @@ All analysis documents in this repository are derived from authoritative sources
 #### Long-Running Agent Harness Patterns
 - **Title**: "Effective harnesses for long-running agents"
 - **Source**: Anthropic Engineering Blog
-- **Date**: November 2025
+- **Date**: **2025-11-26** (date confirmed 2026-06-21; prior "March 2026" / "2026-03-01" stampings on this entry were wrong)
 - **URL**: https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents
-- **Key Insights**:
-  - External artifacts become the agent's memory
+- **Key Insights (confirmed on the page 2026-06-21)**:
+  - External artifacts become the agent's memory (`claude-progress.txt` + git)
   - "Verify before work" startup protocol
-  - One feature at a time to prevent context exhaustion
+  - "work on only one feature at a time" to prevent context exhaustion
   - Git as recovery mechanism
   - Structured task lists (JSON over markdown)
+- **⚠️ Conflation corrected (2026-06-21)**: a prior draft claimed a "March 2026 update" to *this* page adding v2-simplification data ($125/4hrs with Opus 4.6 + "context anxiety"). **No such update appears on this page.** That $125 / Opus-4.6 / context-anxiety material lives on the SEPARATE "Harness design for long-running application development" page (2026-03-24), registered below. The two were conflated; see also the Quick-Reference correction. Note further: the harness-design page attributes the *removal* of context-reset behavior to **Opus 4.5** ("Opus 4.5 largely removed that behavior on its own"), so any "Opus 4.6 eliminates context anxiety" phrasing over-specifies the model version.
+- **Revalidate by**: 2026-09-21
+
+#### Harness Design for Long-Running Application Development
+- **Title**: "Harness design for long-running application development"
+- **Author**: Prithvi Rajasekaran (Anthropic)
+- **Source**: Anthropic Engineering Blog
+- **Date**: 2026-03-24 (verified 2026-06-21)
+- **URL**: https://www.anthropic.com/engineering/harness-design-long-running-apps
+- **Key Insights (verified verbatim 2026-06-21)**:
+  - **Generator/evaluator separation** with a self-evaluation-bias caution: agents "confidently praising the work—even when, to a human observer, the quality is obviously mediocre … agents reliably skew positive when grading their own work"
+  - **Cost evidence**: DAW harness $124.70 / 3hr 50min; solo agent $9 / 20 min vs full harness $200 / 6 hr ("over 20× more expensive, but the difference in output quality was immediately apparent"); "5 to 15 iterations per generation" for frontend design; the evaluator drives Playwright MCP to navigate/screenshot/study the live app against spec
+  - Load-bearing guidance: "every component in a harness encodes an assumption about what the model can't do on its own, and those assumptions are worth stress testing"
+  - **Context-anxiety attribution**: the page credits **Opus 4.5** with largely removing the context-reset behavior — do NOT attribute that to Opus 4.6.
+- **Revalidate by**: 2026-09-21
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md)
+
+#### Scaling Managed Agents: Decoupling the Brain from the Hands
+- **Title**: "Scaling Managed Agents: Decoupling the brain from the hands"
+- **Author**: Lance Martin, Gabe Cemaj, Michael Cohen (Anthropic)
+- **Source**: Anthropic Engineering Blog
+- **Date**: 2026-04-08 (verified 2026-06-21)
+- **URL**: https://www.anthropic.com/engineering/managed-agents
+- **Key Insights (verified verbatim 2026-06-21)**:
+  - Managed Agents is "our hosted service for long-horizon agent work"; it virtualizes the **session** (append-only log), **harness** (the loop that calls Claude and routes tool calls), and **sandbox** (execution environment)
+  - Brain/hands decoupling via a stable interface: `execute(name, input) → string`
+  - Performance: "our p50 TTFT dropped roughly 60% and p95 dropped over 90%"
+  - "Don't adopt a pet" — cattle-not-pets framing; a failed container is handled as a tool error ("We no longer had to nurse failed containers back to health")
+- **Revalidate by**: 2026-09-21
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md), [Safety and Sandboxing](analysis/safety-and-sandboxing.md)
 
 #### Advanced Tool Use Patterns
 - **Title**: "Introducing advanced tool use on the Claude Developer Platform"
@@ -86,8 +116,9 @@ All analysis documents in this repository are derived from authoritative sources
 
 #### Eval Awareness in BrowseComp
 - **Title**: "Eval awareness in Claude Opus 4.6's BrowseComp performance"
+- **Author**: Russell Coleman (Anthropic) — byline corrected 2026-06-21 (was attributed to "Anthropic Engineering")
 - **Source**: Anthropic Engineering Blog
-- **Date**: March 6, 2026
+- **Date**: March 6, 2026 (re-verified 2026-06-21)
 - **URL**: https://www.anthropic.com/engineering/eval-awareness-browsecomp
 - **Key Insights**:
   - Model independently hypothesized it was being evaluated and identified the benchmark
@@ -128,9 +159,19 @@ All analysis documents in this repository are derived from authoritative sources
 
 ### Claude Code Documentation (Canonical)
 - **Source**: Anthropic Official Documentation
-- **URL**: https://code.claude.com/docs/en/best-practices (Canonical - January 2026, continuously updated)
+- **URL**: https://code.claude.com/docs/en/best-practices (Canonical - January 2026, continuously updated; **re-fetched and re-verified 2026-06-21**)
 - **Legacy URL**: https://docs.anthropic.com/en/docs/claude-code (redirects to above)
 - **Evidence Tier**: A (Primary vendor documentation)
+- **Verified verbatim 2026-06-21**:
+  - **`/goal` condition + separate evaluator**: "set the check as a `/goal` condition. A separate evaluator re-checks it after every turn." This is the doc-level confirmation of the per-turn checker mechanism the changelog left unspecified.
+  - **`Stop` hook gate**: "a Stop hook runs your check as a script and blocks the turn from ending until it passes," and "ends the turn after 8 consecutive blocks" — the documented infinite-loop guard.
+  - **`/rewind` checkpointing**: "Every prompt you send creates a checkpoint."
+  - **`/btw` side-questions**: "The answer appears in a dismissible overlay and never enters conversation history."
+  - **Adversarial review subagent**: an explicit "Add an adversarial review step" section documents the Writer/Reviewer pattern as first-party guidance.
+  - **CLAUDE.md discipline (verbatim)**: "keep it short and human-readable"; the prune test "Would removing this cause Claude to make mistakes? If not, cut it"; `@path/to/import` imports ("CLAUDE.md files can import additional files using @path/to/import syntax"); on-demand child loading ("Claude pulls in child CLAUDE.md files on demand when it reads a file in those directories").
+  - **"Avoid common failure patterns" catalog (verbatim, all five)**: *The kitchen sink session*, *Correcting over and over*, *The over-specified CLAUDE.md*, *The trust-then-verify gap*, *The infinite exploration* — each with a prescribed Fix.
+  - **Plugins are first-class**: "Plugins bundle skills, hooks, subagents, and MCP servers into a single installable unit ... Run `/plugin` to browse the marketplace."
+- **Revalidate by**: 2026-09-21
 - **Key Guidance**:
   - CLAUDE.md should be concise (~60 lines recommended)
   - Skills should be minimal ("Would removing this cause mistakes? If not, cut it.")
@@ -187,8 +228,10 @@ All analysis documents in this repository are derived from authoritative sources
   - v2.0.76: LSP tool (go-to-definition, find references, hover)
   - v2.0.60: Background agent support
 - **Model Updates**:
-  - Opus 4.8 (May 28, 2026; model ID `claude-opus-4-8`): recovery/calibration release over 4.7 — better tool triggering, better compaction/long-context recovery, more reliable effort calibration; adaptive thinking is the only mode (extended-thinking `budget_tokens` returns HTTP 400 — migrate to `adaptive` + `effort`), default effort `high`; 1M context default on Claude API/Bedrock/Vertex, 200k on Microsoft Foundry — see Opus 4.8 Re-Validation section below
+  - **Claude Fable 5** (June 9, 2026; model ID `claude-fable-5`): Anthropic's "most capable widely released model" per the models overview; GA on Claude API + AWS Bedrock + Vertex + Microsoft Foundry; **$10/$50 per MTok**, 1M context, 128k output; **adaptive thinking always on** (the only thinking mode, no extended thinking). Refusals surface as `stop_reason: "refusal"` on a successful HTTP 200 (Fable 5 has safety classifiers; **Mythos 5 / `claude-mythos-5`** shares Fable 5 capabilities WITHOUT classifiers — limited availability via Project Glasswing, not GA). Tokenizer note: Fable 5 and Mythos 5 use the tokenizer introduced with Opus 4.7 — "the same text produces roughly 30% more tokens" vs pre-4.7 models. See Fable 5 / Mythos 5 section below. **Benchmark figures UNVERIFIED** — see Unverified section.
+  - Opus 4.8 (May 28, 2026; model ID `claude-opus-4-8`): recovery/calibration release over 4.7 — better tool triggering, better compaction/long-context recovery, more reliable effort calibration; adaptive thinking is the only mode (extended-thinking `budget_tokens` returns HTTP 400 — migrate to `adaptive` + `effort`), default effort `high`; 1M context default on Claude API/Bedrock/Vertex, 200k on Microsoft Foundry — see Opus 4.8 Re-Validation section below. **Listed deprecation**: Opus 4.1 retires August 5, 2026 (models-overview Warning block, confirmed 2026-06-21).
   - Opus 4.7 (April 16, 2026): Literal instruction following, fewer silent generalizations, fewer default subagents, adaptive response-length calibration — see Opus 4.7 Migration Guidance section below
+  - **Sonnet 4.6** (February 17, 2026; model ID `claude-sonnet-4-6`): $3/$15 per MTok (unchanged from 4.5); 1M-token context in beta (64k output per the models overview, NOT stated on the announcement page); "major improvement in computer use skills," prompt-injection improvement, "fewer false claims of success, fewer hallucinations"; supports both adaptive and extended thinking plus context compaction in beta. Users preferred Sonnet 4.6 over Sonnet 4.5 "roughly 70% of the time" and over Opus 4.5 "59% of the time" in Claude Code. See Sonnet 4.6 section below.
   - Opus 4.6 (February 5, 2026): 1M token context, agent teams, adaptive reasoning, data residency controls
   - Opus 4.5 (November 24, 2025): 67% price reduction to $5/$25 per million tokens
   - Sonnet 4.5 (September 29, 2025): Agent-first design, Agent SDK support
@@ -274,6 +317,35 @@ Opus 4.8 shipped 2026-05-28 (model ID `claude-opus-4-8`; the `[1m]` suffix is th
   - **Evidence Tier**: B (academic / benchmark; no Claude-specific validation)
   - **Contribution**: Reclassifies Boris Cherny's "60% context threshold" from a measured degradation onset to a practitioner *intervention heuristic* (Tier C; the originally-cited source page now 403s). Degradation onset is model-specific and typically begins far below the advertised window (~16–64k tokens, ≈20–50% on a 1M-context model). Treat 60% as an "intervene now" trigger, not the point where quality starts to fall. Re-measure on 4.8 rather than assuming the threshold moved.
   - **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md)
+
+#### Claude Fable 5 / Mythos 5 (June 2026)
+
+Fable 5 (`claude-fable-5`) went GA 2026-06-09 as Anthropic's most capable widely released model. Verified against the API docs 2026-06-21; the consumer launch-news page (`/news/claude-fable-5`) returned **HTTP 404** at fetch time, so no benchmark figures are confirmed.
+
+- **Primary — Claude Models Overview**
+  - **URL**: https://platform.claude.com/docs/en/about-claude/models/overview
+  - **Date**: 2026-06-09 (fetched 2026-06-21)
+  - **Evidence Tier**: A
+  - **Verified**: Fable 5 GA, $10/$50 per MTok, 1M context, 128k output, adaptive thinking always on. Lineup `claude-fable-5` / `claude-opus-4-8` / `claude-sonnet-4-6` / `claude-haiku-4-5`. Opus 4.1 deprecated, retires Aug 5 2026. Tokenizer tooltip: Fable 5 + Mythos 5 use the Opus-4.7 tokenizer, "roughly 30% more tokens" for the same text vs earlier models. Sonnet 4.6 context = 1M; Haiku 4.5 = 200k; Opus 4.8 = 1M (200k on Microsoft Foundry, footnote 4).
+- **Primary — Introducing Claude Fable 5 and Claude Mythos 5 (API launch doc)**
+  - **URL**: https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5
+  - **Date**: 2026-06-09 (fetched 2026-06-21)
+  - **Evidence Tier**: A
+  - **Verified verbatim**: Fable 5 GA across Claude API + AWS Bedrock + Vertex + Foundry from June 9 2026; refusals return `stop_reason: "refusal"` as a successful HTTP 200, not an error (Fable 5 only; Mythos 5 has no classifiers). Three fallback paths — server-side `fallbacks` parameter (beta on Claude API and on AWS), SDK middleware (client-side), and manual — with billing that "fallback credit refunds the prompt-cache cost of switching, so you avoid paying that cost twice." Mythos 5 (`claude-mythos-5`) shares Fable 5 capabilities without safety classifiers, limited availability via Project Glasswing, not GA. Adaptive thinking is "the only thinking mode"; raw chain of thought is never returned; `thinking.display` is `summarized` or `omitted` (default); "Pass thinking blocks back unchanged in multi-turn conversations on the same model." A "Migrating from Claude Opus 4.8 to Claude Fable 5" section exists in the migration guide (independently confirmed).
+  - **Revalidate by**: 2026-09-21
+- **Pattern**: [Model Migration Anti-Patterns](analysis/model-migration-anti-patterns.md), [Behavioral Insights](analysis/behavioral-insights.md)
+- **⚠️ UNVERIFIED**: all Fable 5 benchmark numbers (SWE-bench, GPQA, capability scores) — the `/news/claude-fable-5` page 404'd on 2026-06-21 and no benchmark figure was confirmed from any primary source. Mythos 5 / Project Glasswing details beyond access model are unverified. The "Fable 5 suspended worldwide 2026-06-12 (export-control)" claim carried in the prior changelog row is NOT confirmed by any primary fetched this pass — see Unverified section.
+
+#### Sonnet 4.6 (February 2026)
+- **Title**: "Introducing Claude Sonnet 4.6"
+- **Source**: Anthropic
+- **Date**: 2026-02-17 (fetched 2026-06-21)
+- **URL**: https://www.anthropic.com/news/claude-sonnet-4-6
+- **Evidence Tier**: A
+- **Verified on the announcement**: model ID `claude-sonnet-4-6`; "$3/$15 per million tokens" (unchanged from 4.5); "1M token context window in beta"; "users preferred Sonnet 4.6 over Sonnet 4.5 roughly 70% of the time" and "preferred Sonnet 4.6 to Opus 4.5 … 59% of the time" in Claude Code; "major improvement in computer use skills," prompt-injection improvement, "fewer false claims of success, fewer hallucinations"; "supports both adaptive thinking and extended thinking, as well as context compaction in beta."
+- **⚠️ Attribution caveats (2026-06-21)**: the **64k output limit is NOT on this announcement** — it is on the models-overview page; attribute the 64k figure to the overview. No specific **OSWorld numeric score** is stated on this page — do not cite one.
+- **Revalidate by**: 2026-09-21
+- **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md)
 
 #### Context Engineering for AI Agents
 - **Title**: "Effective context engineering for AI agents"
@@ -373,36 +445,44 @@ Opus 4.8 shipped 2026-05-28 (model ID `claude-opus-4-8`; the `[1m]` suffix is th
 
 #### Quantifying Infrastructure Noise in Agentic Coding Evals
 - **Title**: "Quantifying infrastructure noise in agentic coding evals"
+- **Author**: Gian Segato (with Nicholas Carlini, Jeremy Hadfield, Mike Merrill, Alex Shaw), Anthropic
 - **Source**: Anthropic Engineering Blog
-- **Date**: February 2026
-- **URL**: https://www.anthropic.com/engineering/quantifying-infrastructure-noise-in-agentic-coding-evals
-- **Key Insights**:
-  - Infrastructure noise is a significant confounder in agentic coding evaluations
-  - Non-deterministic environments affect eval reliability
-  - Methodology for isolating infrastructure effects from model capability
+- **Date**: 2026-02-05 (re-verified 2026-06-21)
+- **URL**: https://www.anthropic.com/engineering/infrastructure-noise
+- **⚠️ URL MOVED (2026-06-21)**: the prior slug `…/quantifying-infrastructure-noise-in-agentic-coding-evals` now returns **HTTP 404**; canonical live URL is `…/engineering/infrastructure-noise`. The short slug above is the live one.
+- **Key Insights (verified verbatim 2026-06-21)**:
+  - **+6 percentage-point total lift on Terminal-Bench 2.0** from 1× to uncapped resources (p<0.01)
+  - Infra error rate drops monotonically from **5.8%** (strict enforcement) to **0.5%** (uncapped); between 3× and uncapped, infra errors fall ~1.6pp while success jumps ~4pp — headroom matters beyond error rate
+  - Resource configuration "should be treated as a first-class experimental variable, documented and controlled with the same rigor as prompt format"
+- **Revalidate by**: 2026-09-21
 - **Pattern**: [Agent Evaluation](analysis/agent-evaluation.md)
 
 #### Designing AI-Resistant Technical Evaluations
 - **Title**: "Designing AI-resistant technical evaluations"
+- **Author**: Tristan Hume (Anthropic performance optimization lead)
 - **Source**: Anthropic Engineering Blog
-- **Date**: January 21, 2026
-- **URL**: https://www.anthropic.com/engineering/designing-ai-resistant-technical-evaluations
-- **Key Insights**:
-  - Principles for evaluations that remain valid as AI capabilities improve
-  - Avoiding benchmark saturation and gaming
-  - Designing for measurement of genuine capability
+- **Date**: January 21, 2026 (re-verified 2026-06-21)
+- **URL**: https://www.anthropic.com/engineering/AI-resistant-technical-evaluations
+- **⚠️ URL CORRECTED (2026-06-21)**: canonical live slug is **capitalized** `…/engineering/AI-resistant-technical-evaluations`. Both the old lowercase `…/designing-ai-resistant-technical-evaluations` and the speculative `…/research/ai-resistant-technical-evaluations` return **HTTP 404** — the post did NOT move to `/research/`.
+- **Key Insights (verified 2026-06-21)**:
+  - Take-home test iterated across versions; Claude Opus 4 defeated the original, Claude Opus 4.5 defeated version 2; ~1,000 candidates have completed it
+  - AI-resistance design approaches: problem novelty / out-of-distribution domains, reduced realism, candidates build their own debugging tools, insight over code volume, longer time horizons (not enumerated on the page as exactly "five principles")
+  - "Human experts retain an advantage over current models at sufficiently long time horizons" (verbatim)
+- **Revalidate by**: 2026-09-21
 - **Pattern**: [Agent Evaluation](analysis/agent-evaluation.md)
 
 #### Demystifying Evals for AI Agents
 - **Title**: "Demystifying evals for AI agents"
+- **Author**: Mikaela Grace, Jeremy Hadfield, Rodrigo Olivares, Jiri De Jonghe (Anthropic)
 - **Source**: Anthropic Engineering Blog
-- **Date**: January 9, 2026
+- **Date**: January 9, 2026 (re-verified 2026-06-21)
 - **URL**: https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents
-- **Key Insights**:
-  - 8 evaluation patterns for agents
-  - Start with 20-50 tasks derived from real failures
-  - Practical checklist for building agent evals
-  - Evaluation design principles
+- **Key Insights (verified verbatim 2026-06-21)**:
+  - Start with "20-50 simple tasks drawn from real failures" rather than synthetic benchmarks
+  - Three grader types ("code-based, model-based, human") — matching grader to task type is the first design decision
+  - `pass@k` (at least one correct in k attempts) and `pass^k` for non-deterministic agents, replacing single-run pass rates
+  - Per-agent-type evaluation mapping (coding, conversational, research, computer-use) — the earlier "8 patterns" framing is loose; the per-type mapping is what the page confirms
+- **Revalidate by**: 2026-09-21
 - **Pattern**: [Agent Evaluation](analysis/agent-evaluation.md)
 
 #### Beyond Permission Prompts: Making Claude Code More Secure
@@ -451,15 +531,17 @@ Opus 4.8 shipped 2026-05-28 (model ID `claude-opus-4-8`; the `[1m]` suffix is th
 - **Pattern**: [Subagent Orchestration](analysis/orchestration-comparison.md)
 
 #### Auto Mode: Classifier-Based Permissions
-- **Title**: "Claude Code Auto Mode"
+- **Title**: "How we built Claude Code auto mode: a safer way to skip permissions"
 - **Source**: Anthropic Engineering Blog
-- **Date**: March 25, 2026
+- **Date**: March 25, 2026 (re-verified 2026-06-21)
 - **URL**: https://www.anthropic.com/engineering/claude-code-auto-mode
-- **Key Insights**:
-  - Users approve 93% of permission prompts — auto mode automates the safe ones
-  - Two-stage classifier: fast single-token filter, then chain-of-thought reasoning
-  - Classifier runs on Sonnet 4.6
-  - For non-interactive `-p` runs, auto mode aborts if classifier repeatedly blocks
+- **Key Insights (verified verbatim 2026-06-21)**:
+  - Two-stage classifier: **Stage 1** is a fast single-token filter (8.5% FPR, blocks first); the full pipeline runs at **0.4% FPR**
+  - Classifier **strips assistant text** ("so the agent can't talk the classifier into making a bad call") and **strips tool results** ("the primary prompt-injection defense")
+  - An **input-layer probe** screens tool outputs for hostile content before they reach agent context — two independent layers ("it must evade detection at the input layer, then steer the agent into emitting a tool call")
+  - **17% false-negative rate** on real overeager actions; **more than twenty block rules** across four groups (destroy/exfiltrate, degrade security posture, cross trust boundaries, bypass review/affect others)
+  - For non-interactive `-p` runs, auto mode aborts if the classifier repeatedly blocks
+- **Revalidate by**: 2026-09-21
 - **Pattern**: [Safety and Sandboxing](analysis/safety-and-sandboxing.md)
 
 #### Agent Skills System (Updated)
@@ -551,19 +633,54 @@ Opus 4.8 shipped 2026-05-28 (model ID `claude-opus-4-8`; the `[1m]` suffix is th
   - Progressive disclosure via directory structure
 - **Pattern**: [SKILL-TEMPLATE](analysis/domain-knowledge-architecture.md)
 
-### Open Knowledge Format (OKF) Open Standard
+### Open Knowledge Format (OKF) Open Standard ⭐ KM-LEVERAGE SOURCE
 - **Title**: "Open Knowledge Format (OKF) v0.1"
-- **Source**: Google Cloud (open standard, Apache-2.0)
-- **URL**: https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing/
-- **Repository**: https://github.com/GoogleCloudPlatform/knowledge-catalog (`okf/SPEC.md`)
-- **Published**: 2026-06-12
-- **Key Insights**:
-  - Vendor-neutral markdown-wiki format for giving AI agents curated context — formalizes the Karpathy "LLM Wiki" pattern
-  - A directory of markdown files, each a YAML frontmatter block + free-form body
-  - The only required field is `type:`; optional `title`, `description`, `resource`, `tags`, `timestamp`
-  - No SDK, no account, no platform lock-in; renders on GitHub, ships as a tarball, mounts on any filesystem
-- **Evidence Tier**: C (vendor-published open standard)
+- **Source**: Google Cloud / GoogleCloudPlatform org (open standard)
+- **URL (blog)**: https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing/
+- **URL (spec)**: https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md
+- **Repository**: https://github.com/GoogleCloudPlatform/knowledge-catalog (`okf/` `samples/` `toolbox/`; Apache-2.0; HTML 49.4% / TS 27.1% / Python 20.9%; carries a "not an official Google product" disclaimer despite the GoogleCloudPlatform org)
+- **Published**: 2026-06-12 (both blog + spec re-verified 2026-06-21)
+- **Why elevated**: this is one of the two knowledge-management leverage sources the maintainer values from recent firsthand use — a portable, filesystem-native typed-frontmatter interchange format that maps directly onto the vault/OKF discipline this repo and project1 already run. Significant value seen firsthand recently; the spec itself is Tier C (vendor-published, v0.1 draft) and adoption is early, so the production hygiene pattern is the load-bearing part, not the spec.
+- **Verified 2026-06-21**:
+  - Spec confirmed "Version 0.1 — Draft"; intentionally minimal: "no schema registry, no central authority, and no required tooling"
+  - Verbatim: "Type values are not registered centrally. Producers SHOULD pick values that are descriptive and self-explanatory; consumers MUST tolerate unknown types gracefully."
+  - Reserved filenames `index.md` (progressive disclosure) and `log.md` (chronological history) confirmed on the **blog**; the blog explicitly quotes Karpathy and links his gist
+  - Non-goals reference Avro, Protobuf, OpenAPI — "references them; it does not subsume them"
+- **⚠️ Source-attribution corrections (2026-06-21)**:
+  - **Apache-2.0 is confirmed on the REPO, not the blog** — the blog page does not state the license. (Prior entry sourced "Apache-2.0" to the blog.)
+  - The spec does **not** name agentskills.io or Karpathy LLM-Wiki; the Karpathy linkage is on the *blog*, the Agent-Skills linkage is this repo's own synthesis.
+  - **Critical caveat**: OKF does NOT register types centrally. The local single-parsed-registry + pre-commit drift-guard + coverage-metric discipline this repo runs is a *production practice* (Tier B, archetype-A §A1b), not mandated by OKF.
+- **Evidence Tier**: C (vendor-published open standard); the typed-frontmatter hygiene pattern it anchors is Tier B from production.
+- **Revalidate by**: 2026-09-21
 - **Pattern**: [Typed-frontmatter hygiene](analysis/memory-systems-archetype-a-curated-kb.md) §A1b; [Memory System Patterns](analysis/memory-system-patterns.md)
+
+### TypedMark — Typed-Markdown Spec (complement to OKF)
+- **Author**: Sébastien Dubois (dsebastien.net)
+- **URL**: https://www.dsebastien.net/typedmark/
+- **Date**: 2026-06-20 (page-shown date; verified 2026-06-21); MIT (2026)
+- **Description**: An open spec for typed Markdown note systems — schemas with field definitions and constraints, type validation, type inheritance via `extends`, named reusable "property sets" (frontmatter/block bundles), YAML frontmatter + markdown. Enforces "strong typing, no coercion."
+- **Positioning (verbatim)**: TypedMark is "an additional option for the ecosystem, not a replacement for OKF or mdbase." It mandates explicit schemas (constraints/defaults, no coercion) where OKF tolerates unknown types — a genuine differentiation in the typed-knowledge space.
+- **Evidence Tier**: C (single-author spec, MIT; tooling/marketplace maturity early-stage, adoption unproven as of June 2026 — track for maturation)
+- **Revalidate by**: 2026-09-21
+- **Pattern**: [Typed-frontmatter hygiene](analysis/memory-systems-archetype-a-curated-kb.md), [Memory System Patterns](analysis/memory-system-patterns.md)
+
+### Michael Hannecke — "Frontmatter-First Is Not Optional" (context-window survival)
+- **Author**: Michael Hannecke (Sovereign AI Architect, bluetuple.ai)
+- **URL**: https://medium.com/@michael.hannecke/frontmatter-first-is-not-optional-context-window-survival-for-local-llms-in-opencode-15809b207977
+- **Date**: 2026-04-05 (verified 2026-06-21)
+- **Description**: Frontmatter-first knowledge-base reads for local LLMs in OpenCode. The "30 files × ~2,000 tokens = 60,000 tokens just to locate one document" example is confirmed verbatim. Three-stage ladder: (1) line-range reads via AGENTS.md, (2) bash single-call frontmatter extract, (3) pre-built YAML manifest (git pre-commit `build-manifest.py`). Frontmatter "under 10 lines"; local LLM 7B-14B / 8k-32k context (4,096 default, 32k practical ceiling).
+- **Token-reduction caveat (2026-06-21)**: the article headlines **85%** reduction, but its worked Stage-3 example computes ~2,500 tokens total (manifest ~500 + 1 full read) vs 60,000 = **~95.8%**; the "~500 tokens" is the manifest size alone, not the end-to-end total. Author-reported, not independently reproduced — treat as directional. Framing is local-LLM-specific (absolute context constraint); the manifest still cuts latency/cost on cloud LLMs.
+- **Evidence Tier**: C (single practitioner; author-reported figures)
+- **Revalidate by**: 2026-07-05
+- **Pattern**: [Memory Systems Archetype A — Curated KB](analysis/memory-systems-archetype-a-curated-kb.md), [Memory System Patterns](analysis/memory-system-patterns.md)
+
+### Daniel Miessler — TELOS / SPQA (typed personal-context prior art)
+- **TELOS**: https://github.com/danielmiessler/Telos (MIT, 1.4k stars, "framework for creating Deep Context about things that matter to humans"; templates `personal_telos.md` + `corporate_telos.md` capture mission/goals/strategies/tech-stack/metrics). Git-commit date unresolved from the fetch (prior "2024-01-17" was an HTML last-modified value, not a commit) — date `unknown`. Re-verified 2026-06-21.
+- **SPQA**: https://danielmiessler.com/blog/spqa-ai-architecture-replace-existing-software (2023-03-10, verified 2026-06-21). Four components confirmed verbatim — **STATE** (logs/docs/finances/chats/emails/transcripts), **POLICY** (mission/goals/anti-goals/challenges/strategies), **QUESTIONS** (leader inquiries), **ACTION** (outputs/recommendations). The article does not spell out the acronym; the four section names match. The "months/thousands-of-hours to minutes" / work drops to "1% to 5%" claim is the author's 2023 prediction (pre-agent-mainstream) — optimistic, unproven at scale.
+- **Role**: SPQA's State+Policy structure and TELOS's typed-context layer are prior art for the OKF/typed-knowledge `telos.md` / `project-context.md` policy layer. The architectural-role framing is Miessler's own (Tier C opinion); the repos' existence/contents are verified.
+- **Evidence Tier**: C (author opinion / architectural framing)
+- **Revalidate by**: 2026-09-21
+- **Pattern**: [Memory System Patterns](analysis/memory-system-patterns.md)
 
 ### Claude Code Plugins Directory
 - **Source**: Anthropic Official Plugin Marketplace
@@ -1405,23 +1522,21 @@ These sources directly influenced the design of the skill structure and project 
 - **Author**: Daniel Miessler
 - **GitHub**: https://github.com/danielmiessler/fabric
 - **Website**: https://danielmiessler.com
-- **Description**: Security professional and creator of Fabric, an open-source framework for augmenting humans using AI with 200+ reusable patterns
+- **Description**: Security professional and creator of Fabric, an open-source framework for augmenting humans using AI. Re-fetched 2026-06-21: **v1.4.455 (June 9 2026), 42.5k stars, 4.2k forks, 200+ patterns**, CLI + REST API. 2026 changelog: Opus 4.7 1M-context (v1.4.447, Apr 16), OpenAI Codex backend (v1.4.437, Mar 16), Azure AI Gateway (v1.4.417, Feb 21), M365 Copilot (v1.4.380, Jan 15).
 - **Key Concepts**:
-  - **"Solve Once, Reuse Forever"**: Modular, reusable prompt patterns
   - **Scaffolding > Models**: "The scaffolding matters more. Building great scaffolding requires tons of user empathy."
   - **Spec-Driven Development**: Structured project evolution with clear specifications
-  - **Pattern Structure**: IDENTITY/GOAL/STEPS/OUTPUT format for systematic prompt engineering
-  - **PAI (Personal AI Infrastructure)**: Multi-workflow architecture for complex skills
-    - Kebab-case naming convention for workflows
-    - Routing document pattern (SKILL.md as dispatcher)
-    - Progressive disclosure through conditional workflow loading
-    - Workflow size guidelines (200-500 lines optimal)
+  - **Pattern Structure**: actual pattern-file headers are **"IDENTITY and PURPOSE / OUTPUT SECTIONS / OUTPUT INSTRUCTIONS / INPUT"** (verified at `data/patterns/.../system.md` 2026-06-21). The repo's earlier shorthand "IDENTITY/GOAL/STEPS/OUTPUT" is a close paraphrase — the structured-template claim holds, the exact section names differ.
+  - **PAI (Personal AI Infrastructure)**: multi-workflow architecture (kebab-case workflows; SKILL.md-as-dispatcher routing; progressive disclosure; 200-500-line workflow guidelines).
+- **⚠️ Verification note (2026-06-21)**: the current `danielmiessler/fabric` README does NOT contain the slogan "Solve Once, Reuse Forever," the "200+/300+ contributors" count, or any PAI mention — those were likely lifted from older README text. The "240+ patterns" figure exists on `danielmiessler.com/telos`, not the Fabric README. Treat the slogan + counts as unverified against this URL (see Unverified section); the modular-reuse *philosophy* itself is uncontested.
 - **Influence on This Repo**:
-  - Skill template structure directly adapted from Fabric patterns
-  - Philosophy of modular, composable AI behaviors
-  - Evidence-based approach to AI augmentation
-  - Multi-workflow pattern for complex skills (ultrathink-analyst, git-workflow-helper examples)
-  - Kebab-case naming standard for workflow files
+  - Skill template structure adapted from Fabric patterns (modular, composable AI behaviors)
+  - Multi-workflow pattern for complex skills (ultrathink-analyst, git-workflow-helper examples); kebab-case naming standard
+
+#### Miessler 2026 — TELOS, PAI 5.0, and "10 Prompts to Run When Fable Comes Back"
+- **"10 Prompts to Run When Fable Comes Back"** (`danielmiessler.com/blog/prompts-to-run-when-fable-comes-back`, 2026-06-18, Tier C, verified 2026-06-21): the body contains **15** distinct numbered prompts (Harness Optimization 6, Security 2, Life/Work 5, Development 1, Public Presence 1 = 15) — the "16" count is contradicted by the page. Framing: prioritize META / system-level work over task-level; queue the highest-leverage strategic prompts for the strongest model. "Fable" = shorthand for any top-capability model ("Fable is just the temporary hotness"). "Ultracode" = a code word for "going super hard." The Development prompt is Peter Steinberger's loop prompt.
+- **TELOS** (`danielmiessler.com/telos`, date unknown, Tier C, verified 2026-06-21): structure Problems (P0-P4), Strategies (S0/S4), Missions (M0-M2). **Correction**: P0 is "Human Activation Crisis" (~99.9% of humans "not activated"), NOT "human vulnerability to AI." Names PAI ("Personal AI Infrastructure") and Fabric ("AI augmentation framework with **240+** prompt patterns"). The "Telos files live at USER/TELOS/" claim is NOT on this page — quarantined.
+- **PAI 5.0 "Life Operating System"** (`danielmiessler.com/blog/announcing-pai-5-life-operating-system`, 2026-04-30, Tier C, verified 2026-06-21): three layers (PAI framework / Pulse dashboard / Digital Assistant); "The Algorithm v6.3.0" — seven phases OBSERVE/THINK/PLAN/BUILD/EXECUTE/VERIFY/LEARN, effort tiers E1-E5; Memory v7.6 — three surfaces WORK/LEARNING/KNOWLEDGE (KNOWLEDGE = typed graph), BM25 retrieval; subagents Engineer/Architect/Designer (Anthropic) + Forge (GPT-5.4) + Anvil (Kimi K2.6) + Cato (cross-vendor auditor); five-inspector security pipeline (Pattern/Egress/Rules/Prompt/Injection).
 
 ---
 
@@ -1912,11 +2027,49 @@ These analysis documents define the evidence and scoring frameworks used through
 - **Role**: Surfaced Rowboat as a temporal-knowledge complement to Karpathy's wiki. The post's description of Rowboat's ingestion (Granola/Fireflies) does *not* match the actual repo's README (Google services + optional Composio MCP); the README is authoritative.
 - **Evidence Tier**: C (community blog; corrected by direct README check).
 
+### Agent-Memory Research & Platforms (verified 2026-06-21)
+
+New cluster registered this pass — the memory-systems leaders behind MemGPT/Letta and mem0, plus Anthropic's first-party memory primitives and LangMem's typed-memory taxonomy. New leaders: **Charles Packer** (MemGPT lead author → Letta CEO) and **Taranjeet Singh** (mem0 co-founder).
+
+- **MemGPT (arXiv:2310.08560)** — Packer, Wooders, Lin, Fang, Patil, Stoica, Gonzalez (UC Berkeley), 2023-10-12 (v2 2024-02-12). Tier A. Verified: "virtual context management … drawing inspiration from hierarchical memory systems in traditional operating systems … data movement between fast and slow memory" (the main-context/external-context RAM-disk analog). Evaluated on both failure modes (large docs exceeding the window; conversational agents that remember/reflect across long-term interactions); uses interrupts for control flow. Revalidate by 2026-09-21.
+- **Letta (github.com/letta-ai/letta)** — Packer & Wooders (Letta, Inc.), latest release **v0.16.8 (2026-05-14)**, ~23.4k stars. Tier B. "Platform for stateful agents: AI with advanced memory that can learn and self-improve over time" (renamed from MemGPT). NOTE: the Core/Recall/Archival three-tier naming is Letta's *docs* architecture, NOT on the GitHub README.
+  - **Letta blog — Context Repositories (git-based memory)** (`letta.com/blog/context-repositories/`, 2026-02-12, Tier B): "Context Repositories are git-backed, so every change to memory is automatically versioned with informative commit messages"; isolated worktree per subagent for concurrent memory writes merged via git conflict resolution; three skills — Initialization, Reflection, Defragmentation ("reorganizing into a clean hierarchy of 15-25 focused files").
+  - **Letta blog — Rearchitecting the agent loop** (`letta.com/blog/letta-v1-agent`, 2025-10-14, Tier B): "stay in-distribution relative to the data the LLM was trained on"; "heartbeats and the send_message tool are deprecated."
+- **mem0 (github.com/mem0ai/mem0)** — Singh & Yadav, latest release "Mem0 OpenCode Plugin (v0.2.0)" **2026-06-17**, 59k stars. Tier B. "Multi-Level Memory: … User, Session, and Agent state with adaptive personalization." Single-pass extraction "cuts write-time LLM calls by 60 to 70 percent" (confirmed on the token-playbook page).
+  - **mem0 blog — Token Optimization Playbook** (`mem0.ai/blog/the-2026-token-optimization-playbook…`, 2026-05-06, Tier C): verified per-example token counts — 24-entry example 594 tokens naive vs 166 retrieval = **72%**; 200-entry example **~4,600** naive vs ~130 retrieval (≈35×). The "3-4× average" headline is vendor-conservative and not independently benchmarked. ⚠️ Prior draft's "3,200 vs 130 / ~24× reduction" was WRONG — see Unverified section.
+  - **mem0 blog — State of AI Agent Memory 2026** (`mem0.ai/blog/state-of-ai-agent-memory-2026`, **2026-04-01** — date corrected from a "2026-06-20" last-modified stamp; Tier C): benchmarks LoCoMo (1,540 Q / 4 categories), LongMemEval (500 Q / 6 categories), BEAM (1M + 10M token scales); six production requirements; **five-to-six** unsolved gaps (prior "four" understated). Vendor-authored; retrieval-quality deltas and LoCoMo/LongMemEval score figures remain vendor-claimed-unverified.
+- **Anthropic Memory Tool (`memory_20250818`)** — `platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool` (date unknown; tool ID implies Aug 2025). Tier A. Client-side filesystem tool, developer-controlled backend; six commands (view/create/str_replace/insert/delete/rename) on `/memories`. Auto-injected system prompt (verbatim): "IMPORTANT: ALWAYS VIEW YOUR MEMORY DIRECTORY BEFORE DOING ANYTHING ELSE" and "ASSUME INTERRUPTION: Your context window might be reset at any moment." Multi-session dev pattern (initializer bootstraps progress log + feature checklist; later sessions read to recover state) + pairing with compaction.
+- **Anthropic Cookbook — Context Engineering (memory/compaction/tool-clearing)** — `platform.claude.com/cookbook/tool-use-context-engineering-context-engineering-tools`, Isabella He (Anthropic), 2026-03-20. Tier A. Three primitives — compaction (server-side whole-transcript summarization), tool-result clearing (client-side placeholder replacement preserving `tool_use` records), memory (`memory_20250818`). Path-traversal protection via `pathlib` `Path.resolve()` + a `startswith` boundary check against `/memories`.
+- **LangMem SDK** — `langchain-ai.github.io/langmem/concepts/conceptual_guide/` (date unknown). Tier B. Three typed memory categories — semantic (collections vs profiles), episodic ("preserves successful interactions as learning examples"), procedural ("encodes how an agent should behave"). Verbatim: "The best memory systems are often application-specific." `create_manage_memory_tool` confirmed; `create_search_memory_tool` NOT found on this page (see Unverified).
+
+### Evals & Benchmarking Sources (verified 2026-06-21)
+
+New cluster — practitioner eval methodology (Hamel Husain, Shreya Shankar), harness-effect benchmarks, and the academic LLM-as-judge literature. New leaders: **Hamel Husain**, **Shreya Shankar**, **Philipp Schmid**, **Harrison Chase**, plus three harness papers (Lin et al. Fudan; Zhou/Zhang et al. SJTU; Yao/Tan et al.).
+
+- **Hamel Husain & Shreya Shankar — "LLM Evals: Everything You Need to Know"** (`hamel.dev/blog/posts/evals-faq/`, 2026-01-15, Tier B). Error analysis before infrastructure (review ~20-50 LLM outputs per significant change, ~100+ traces for saturation); "Binary evaluations force clearer thinking and more consistent labeling"; custom annotation tool is "the single most impactful investment" ("teams with custom annotation tools iterate ~10× faster"); "60-80% of … development time on error analysis and evaluation." Appoint a single domain-expert "benevolent dictator"; Transition Failure Matrices.
+- **Hamel Husain — "Evals Skills for Coding Agents"** (`hamel.dev/blog/posts/evals-skills/` and `hamelhusain.substack.com/p/evals-skills-for-coding-agents`, 2026-03-02/03, Tier B). Distilled from "50+ companies and 4,000+ students"; "Improving the infrastructure around the agent yielded better returns than improving the model." **Six-skill toolkit**: error-analysis, generate-synthetic-data, write-judge-prompt, validate-evaluator (calibrate judges vs human labels via TPR/TNR + bias correction), evaluate-rag, build-review-interface. Distinguishes action hallucination from factual hallucination.
+- **Shreya Shankar — agentic data systems / eval methodology** (`sh-reya.com/papers/`, 2026, Tier A for the papers list). CHI 2026 Best Paper "RAG Without the Lag"; CIDR 2026 "Supporting Our AI Overlords: Redesigning Data Systems to be Agent-First"; VLDB 2026 "Multi-Objective Agentic Rewrites…"; SIGMOD 2026 "Cut Costs, Not Accuracy…". Co-authored the O'Reilly book "Evals for AI Engineers" with Husain (off-page). ⚠️ "CMU assistant professor from 2027" is confirmed only to faculty-candidate status (March 2026) — treat the start year as inference.
+- **Philipp Schmid (Google DeepMind) — "Agent Harness 2026"** (`philschmid.de/agent-harness-2026`, 2026-01-05, Tier B). "It comes down to durability: How well a model follows instructions while executing hundreds of tool calls over time" — durability over single-turn scores. "Manus refactored their harness five times in six months"; LangChain "re-architected … three times"; "Vercel removed 80% [of] their agents tool[s]." ⚠️ The companion posts (Inner/Outer Loop, AGENTS.md guide, etc.) were NOT individually fetched — their dates are author-asserted.
+- **Harrison Chase (LangChain) — "Your harness, your memory"** (`langchain.com/blog/your-harness-your-memory`, 2026-04-11, Tier B). "Managing context, and therefore memory, is a core capability and responsibility of the agent harness." Closed/stateful harnesses (OpenAI Responses API, Anthropic server-side compaction) store state on vendor servers and prevent model switching/thread resumption; advocates open harnesses with user-controlled DBs. "When Claude Code's source code was leaked, there was 512k lines of code. That code is the harness."
+- **Simon Willison — Agentic Engineering Patterns guide** (`simonwillison.net/guides/agentic-engineering-patterns/` + `simonw.substack.com/p/agentic-engineering-patterns`, launched 2026-02-23/27, Tier C). Six categories (Principles, Working with coding agents, Testing/QA, Understanding code, Annotated prompts, Appendix); "Red/green TDD," "Linear walkthroughs," "Hoard things you know how to do." Authorship discipline: "I have a strong personal policy of not publishing AI-generated writing under my own name." ⚠️ The exact definition string "An agent is an LLM that runs tools in a loop … The harness is what controls the loop" was NOT located verbatim — treat as unverified.
+- **Diagnosing LLM-as-a-Judge via IRT (arXiv:2602.00521)** — Choi, Park, Cho, Park, Kim, 2026-01-31 (v2 2026-05-29), ICML 2026. Tier A. Applies IRT with the Graded Response Model; two reliability dimensions — "(1) intrinsic consistency … under prompt variations, and (2) human alignment." ⚠️ The "no universally robust configuration" claim is NOT in the abstract — softened.
+- **Terminal-Bench 2.0 (arXiv:2601.11868)** — Merrill et al. (85 authors), 2026-01-17. Tier A. "89 tasks in computer terminal environments," each with a unique environment, human-written solution, and comprehensive tests; frontier models/agents score **<65%**. ⚠️ The "81-82% with scaffolding / Docker / Harbor framework" details are NOT in the abstract.
+- **Agent-as-a-Judge (arXiv:2601.05111)** — You, Cai, Zhang, Xu, Liu, Yu, Li, Li et al., 2026-01-08. Tier A. Three LLM-judge limitations: "inherent biases, shallow single-pass reasoning, and the inability to verify assessments against real-world observations." ⚠️ Title is "Agent-as-a-Judge" (not "A Survey on…"); the procedural/reactive/self-evolving taxonomy is not in the abstract.
+- **METR — Measuring AI Ability to Complete Long Software Tasks (arXiv:2503.14499)** — Kwa et al. (25 authors, METR), v1 2025-03-18 (v3 2026-02-25), NeurIPS 2025. Tier A. The "50%-task-completion time horizon" metric; frontier models (Claude 3.7 Sonnet) ~50-minute horizon, doubling ~every 7 months since 2019; HCAST + RE-Bench + 66 new tasks.
+- **Efficient Benchmarking of AI Agents (arXiv:2603.23749)** — Franck Ndzomga, 2026-03-24. Tier B. Mid-difficulty filter (30-70% historical pass rates, IRT-inspired) cuts eval tasks 44-70% while keeping rank fidelity across 8 benchmarks / 33 scaffolds / 70+ configs; rank-order stable under distribution shift.
+- **OpenAI Evaluation Best Practices** (`developers.openai.com/api/docs/guides/evaluation-best-practices`, date unknown). Tier A. Eval-driven development ("Write scoped tests at every stage"; "Log as you develop so you can mine your logs for good eval cases"); validate automated scoring vs human judgment. ⚠️ Deprecation confirmed verbatim: Evals goes read-only for existing users **Oct 31, 2026**, platform shuts down **Nov 30, 2026**.
+- **Harness-effect academic cluster** (all Tier A, arXiv abstracts verified 2026-06-21):
+  - **Agentic Harness Engineering: Observability-Driven Automatic Evolution (arXiv:2604.25850)** — Lin, Liu, Pan, Lin, Dou, Xi, Huang, Yan, Han, Gui, Jiang (Fudan), 2026-04-28 (v4 2026-05-18). Three observability pillars (component/experience/decision); Terminal-Bench 2 pass@1 lifted **69.7% → 77.0%**, surpassing human-designed Codex-CLI (71.9%); SWE-bench-verified strong with 12% fewer tokens; "factual harness structure transfers while prose-level strategy does not."
+  - **Externalization in LLM Agents: A Unified Review (arXiv:2604.08224)** — Zhou, Zhang, … (21 authors, SJTU et al.), 2026-04-09, 54pp, CC BY 4.0. "agents are increasingly built less by changing model weights than by reorganizing the runtime around them … a historical progression from weights to context to harness." Four-component taxonomy: Memory, Skills, Protocols, Harness engineering.
+  - **Harness-Bench: Measuring Harness Effects across Models (arXiv:2605.27922)** — Yao, Tan, Liu, Li, Wang, Yu, Tan, Tian, Zhao, Sun, Zhang, Yang, 2026-05-27. "agent capability should be reported at the model-harness configuration level rather than attributed to the base model alone"; 5,194 trajectories across 106 sandboxed tasks; identifies "execution-alignment failures."
+
 ---
 
-## Loop Engineering & Unattended Execution Sources (Mixed Tiers)
+## Loop Engineering & Unattended Execution Sources (Mixed Tiers) ⭐ KM-LEVERAGE LINEAGE
 
-Added 2026-06-15. The "loop engineering" label is roughly two weeks old as of mid-June 2026 and mostly Tier C; the underlying commands and a few primary sources are Tier A/B. **Attribution discipline**: the *term* was coined by Addy Osmani, not Boris Cherny — several aggregators conflate them. Supports [`scheduled-and-looping-primitives.md`](analysis/scheduled-and-looping-primitives.md), [`harness-engineering.md`](analysis/harness-engineering.md), and [`safety-and-sandboxing.md`](analysis/safety-and-sandboxing.md).
+Added 2026-06-15; **re-verified and re-attributed 2026-06-21**. This is the second of the two knowledge-management leverage threads the maintainer values from recent firsthand use — the shift from *prompting* an agent to *designing the loop that prompts it*, with state externalized to files + git. Significant value seen firsthand recently; the practice anchors are Tier A/B (Cherny on a dated stage, the Anthropic harness docs, the Karpathy self-improvement loop), but the "loop engineering" *label* layer is mostly Tier C and adoption is weeks old, so treat the framing as promising-not-yet-corroborated. Supports [`scheduled-and-looping-primitives.md`](analysis/scheduled-and-looping-primitives.md), [`harness-engineering.md`](analysis/harness-engineering.md), and [`safety-and-sandboxing.md`](analysis/safety-and-sandboxing.md).
+
+**⚠️ Attribution correction (2026-06-21)** — supersedes the prior "Osmani coined it" line: Osmani's own 2026-06-07 post does **NOT** claim to coin "loop engineering"; it explicitly **attributes the concept to Peter Steinberger and Boris Cherny**. The New Stack reportedly credits Osmani, but The New Stack article body could not be fetched to confirm, and three earlier SOURCES lines asserting "Osmani coined the term" should be read against Osmani's own text. **Do not state Osmani coined the term** without a primary that shows him doing so. Distinct roles: Cherny *described the practice on stage*; Steinberger *issued the call-to-discipline on X*; Osmani *named the five-component anatomy*. New leader registered this pass: **Peter Steinberger** (see below).
 
 ### Anthropic — Claude Code scheduling & workflow docs
 
@@ -1939,31 +2092,53 @@ Added 2026-06-15. The "loop engineering" label is roughly two weeks old as of mi
 - **Pattern References**: [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md).
 - **Evidence Tier**: A (vendor primary), with a recency caveat on the delegation stat.
 
-### Boris Cherny — "I write loops" (WorkOS Acquired Unplugged)
+### Boris Cherny — "I write loops" (WorkOS Acquired Unplugged) ⭐
 
-- **Source**: WorkOS-hosted *Acquired Unplugged* event, 2026-06-02 (recording exists; quotes also carried by The New Stack and OfficeChai).
-- **Role**: Primary anchor for the loop-engineering wave: "I don't prompt Claude anymore. I have loops that are running... My job is to write loops." Runs loops on cron for routine jobs (babysit PRs, fix CI, rebase). The fuller passage is now corroborated across multiple independent published accounts (The New Stack "loop engineering"; note.com near-verbatim share 2026-06-09; Njuguna and Flor, Medium, both 2026-06-08), all converging on the same wording; video-derived, no published timestamp.
+- **Primary**: WorkOS-hosted *Acquired Unplugged* event, 2026-06-02 — YouTube `watch?v=RkQQ7WEor7w` + the WorkOS Acquired-takeaways blog (2026-06-02). The New Stack's `thenewstack.io/loop-engineering/` rendered as a newsletter/listing wrapper on direct fetch (article exists, body not extracted), so the **primary_url is repointed to the YouTube/WorkOS blog**, not The New Stack.
+- **Role**: Primary anchor for the loop-engineering wave. Verified via the WorkOS blog + a note.com near-verbatim share (2026-06-09): "I don't prompt Claude anymore. I have loops that are running. They're the ones that are prompting Claude and figuring out what to do. My job is to write loops." Context corroborated: deleted his IDE ~Nov 2025; 100% of his prior-30-day Claude Code contributions (259 PRs) written by Claude Code as of late Dec 2025.
+- **⚠️ SECONDARY-ONLY (not in the verified WorkOS blog or extractable from the video, 2026-06-21)**: the explicit three-stage Stage-1/2/3 taxonomy (autocomplete → 5-10 parallel manual sessions → autonomous loops reading GitHub/Slack/Twitter), the "/loop babysit all my PRs" starter example, the cron scheduling layer, and the gate conditions (max-iteration count, no-progress detection, token/dollar budget ceiling) appear only in secondary Medium write-ups. Treat the stage taxonomy and the gate-condition list as secondary synthesis, not Cherny's primary words.
 - **Pattern References**: [harness-engineering.md](analysis/harness-engineering.md), [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md).
-- **Evidence Tier**: A for the quote (named Claude Code creator, dated event), consistent with this repo treating Cherny as Tier A. The "loop engineering" *label* is press-coined (Tier C) — do not attribute the term to Cherny.
+- **Evidence Tier**: B for the quote via the WorkOS blog primary (the named Claude Code creator on a dated stage; the YouTube body could not be content-extracted this pass, so not asserting A). The "loop engineering" *label* is press-coined (Tier C) — do not attribute the term to Cherny.
+- **Revalidate by**: 2026-09-21
 
 ### Andrej Karpathy — Sequoia Ascent 2026 (self-improvement loop)
 
-- **Source**: ["Sequoia Ascent 2026"](https://karpathy.bearblog.dev/sequoia-ascent-2026/) (2026-04-30); AutoResearch demo (~March 2026).
-- **Role**: The loop-engineering steelman — coding's built-in verification (tests pass/fail, diffs inspectable) makes it the ideal self-improvement loop; the human stays the harness. AutoResearch (~630-line script + one markdown prompt, ~700 experiments in 2 days, ~20 optimizations) as a concrete overnight self-improving loop.
+- **Source**: ["Sequoia Ascent 2026"](https://karpathy.bearblog.dev/sequoia-ascent-2026/) (2026-04-30, re-verified 2026-06-21); AutoResearch repo (github.com/karpathy/autoresearch).
+- **Role**: The loop-engineering steelman. Verified verbatim on the bearblog post: "Coding gives the model feedback: tests pass or fail, programs run or crash, diffs can be inspected, benchmarks can be measured"; vibe coding "raises the floor … almost anyone create software by describing what they want," agentic engineering "raises the ceiling … coordinating fallible agents while preserving correctness, security, taste, and maintainability"; the MenuGen example (the agent matched Stripe purchases to Google accounts by email — "plausible code, but bad system design … A human needs enough product and engineering judgment to insist on persistent user IDs").
+- **⚠️ Corrections (2026-06-21)**: **AutoResearch is NOT mentioned anywhere in the bearblog Sequoia post** — verified separately. The repo exists (MIT; agent edits `train.py` only; 5-minute fixed-time-budget training jobs; `val_bpb` metric, lower-is-better; keep-if-improved/revert-otherwise; ~100 experiments/night). The `val_bpb`-is-the-gate workflow is sound, but the "66,000+ stars by early April 2026" and "~12 experiments/hour" figures are point-in-time/secondary (repo now ~87.9k stars; per-hour rate not stated on either primary) — downgraded to Tier C.
 - **Pattern References**: [harness-engineering.md](analysis/harness-engineering.md), [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md).
-- **Evidence Tier**: B by author authority; demo quant figures C-to-B (his report, not independently reproduced).
+- **Evidence Tier**: B by author authority for the bearblog content; demo quant figures Tier C (his report, not independently reproduced; star/rate counts unconfirmed).
+- **Revalidate by**: 2026-09-21
 
 ### Geoffrey Huntley — Ralph Wiggum loop (+ official Anthropic plugin)
 
-- **Source**: ["Ralph Wiggum as a software engineer"](https://ghuntley.com/ralph/) (2025-07); official Anthropic Ralph Wiggum plugin in `anthropics/claude-code`.
-- **Role**: Origin of the fixed-prompt `while`-loop technique the productized commands descend from; state survives via files + git. Anthropic packaged it (a `Stop` hook re-feeding the prompt) and credits Huntley. Correction to common write-ups: the official plugin keeps state *across* iterations, not fresh-context-per-iteration.
+- **Source**: ["Ralph Wiggum as a software engineer"](https://ghuntley.com/ralph/) (**2025-07-14**, page shows 14 July 2025 — date corrected from "2025-07-01"; re-verified 2026-06-21); official Anthropic `ralph-wiggum` plugin in `anthropics/claude-code/plugins/`.
+- **Role**: Origin of the fixed-prompt `while`-loop technique the productized commands descend from. **Confirmed on ghuntley.com/ralph/**: `while :; do cat PROMPT.md | claude-code ; done`; per-loop gate conditions (run unit tests after each fix; type-checking via Dialyzer/Pyrefly for dynamically-typed projects; build validation; "only 1 subagent for build/tests of rust"; git-tag patch-increment after a passing test run); deterministic per-loop context (`@fix_plan.md`, `@specs`, `@AGENT.md` self-tuning).
+- **⚠️ Sourcing correction (2026-06-21)**: the **official-plugin lineage is NOT on ghuntley.com/ralph/** (the 2025 post predates that productization). It is confirmed instead on the official `anthropics/claude-code/plugins/ralph-wiggum` README: a `Stop` hook intercepts session exit and re-feeds the SAME prompt INSIDE the current session, so **state persists ACROSS iterations within one session** (not fresh-context-per-iteration) via files + git history. Completion = `--completion-promise` exact-string match + `--max-iterations` ("Always rely on `--max-iterations` as your primary safety mechanism"); commands `/ralph-loop` and `/cancel-ralph`. The native `/loop` `/goal` `/batch` commands are also NOT in the 2025 post — sourced from the Anthropic docs, not Huntley.
 - **Pattern References**: [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md).
-- **Evidence Tier**: B by author authority (Huntley); A for the official Anthropic plugin packaging.
+- **Evidence Tier**: B by author authority (Huntley) for the technique; A for the official Anthropic plugin packaging (verified via the plugin README, not ghuntley.com).
+- **Revalidate by**: 2026-10-21
 
-### "Loop engineering" commentary cloud (Tier C — bias-flagged)
+### Addy Osmani — "Loop Engineering" (the five-component anatomy)
 
-- **Sources**: Addy Osmani, ["Loop Engineering"](https://addyosmani.com/blog/loop-engineering/) (2026-06-07) — credited by The New Stack as the coiner of the term; The New Stack, "Loop engineering" (2026-06); Filip Verloy (Rubrik), ["From Prompt Engineering to Loop Engineering"](https://medium.com/@filipv_74515/from-prompt-engineering-to-loop-engineering-why-the-agent-era-demands-a-new-security-paradigm-816385040e3d) (2026-06-07, vendor-adjacent security framing); Data Science Dojo, MindStudio, Louis Bouchard (2026-06).
-- **Role**: The June-2026 amplification layer keyed off the Cherny clip. Useful for the ReAct / Reflexion / Plan-and-Execute lineage and the security framing; thin on primary sourcing and production metrics. The Neuron misattributes Osmani's "building blocks" framework to Cherny — do not repeat.
+- **Source**: ["Loop Engineering"](https://addyosmani.com/blog/loop-engineering/) (2026-06-07, verified 2026-06-21; Substack mirror `addyo.substack.com/p/loop-engineering`).
+- **Role**: Names and structures the pattern. Verified on the primary page: opening definition "Loop engineering is replacing yourself as the person who prompts the agent. You design the system that does it instead." **Five building blocks** (verbatim): (1) Automations / scheduled discovery+triage, (2) Worktrees for parallel isolation, (3) Skills as reusable SKILL.md project knowledge, (4) Plugins/Connectors via MCP, (5) Sub-agents splitting ideation from verification — plus external memory ("the model forgets everything between runs so the memory has to be on disk and not in the context"). Gate conditions confirmed: sub-agent verification "splits the maker away from the checker"; `/goal` "keeps going until a condition you wrote is actually true"; CI/CD via connectors; human code-review responsibility ("your job is to ship code you confirmed works"). Warns about **"comprehension debt"** — "The faster the loop ships code you did not write, the bigger the gap between what exists and what you actually get." Closing line: "Build the loop. But build it like someone who intends to stay the engineer, not just the person who presses go." Three non-delegable human roles: verification, comprehension, resisting cognitive surrender.
+- **⚠️ Coinage (2026-06-21)**: Osmani's own text **attributes the concept to Steinberger and Cherny** — he does not claim to coin "loop engineering" in this post. The New-Stack-credits-Osmani claim could not be confirmed against The New Stack body. See the section-head attribution correction.
+- **Evidence Tier**: C (single practitioner; the anatomy is well-structured but the "names the pattern" credit is contested).
+- **Revalidate by**: 2026-09-21
+
+### Peter Steinberger — "Stop prompting, build loops" (NEW LEADER, 2026-06)
+
+- **Source**: X post `https://x.com/steipete/status/2063697162748260627` (dated 2026-06-07 per a secondary recap).
+- **Role**: The call-to-discipline that named the wave alongside Cherny. Verbatim wording corroborated across 4+ secondaries (Latent Space Loopcraft, linas.substack, explainx, firecrawl): "you shouldn't be prompting coding agents anymore. You should be designing loops that prompt your agents." Distinct framing from Cherny (Steinberger = call-to-discipline; Cherny = autobiographical).
+- **⚠️ UNVERIFIED against primary (2026-06-21)**: x.com could not be fetched in this environment (ECONNREFUSED; x.com blocks WebFetch), so the entry is `verified=false`. Date adjusted 2026-06-08 → 2026-06-07 per a secondary recap, still unconfirmed against X. **View count is disputed** (~6.5M vs a recap's 2.2M) — do NOT assert a number. `steipete.me` does not host this post — primary repointed to the X status URL. Biographical detail (OpenClaw creator → joined OpenAI ~Feb 2026; CodeLooper macOS menubar app) is independently reported (TechCrunch/CNBC 2026-02-15) but is biography, not the X-post content; the OpenClaw "145K stars / fastest-growing OSS" stat is secondary and unconfirmed.
+- **Evidence Tier**: C (practitioner X post; primary unfetched — see Unverified section).
+- **Revalidate by**: 2026-09-21
+
+### Loop-engineering amplification cloud (Tier C — bias-flagged)
+
+- **Sources**: The New Stack, "Loop engineering" (2026-06, body unfetchable / auth-blocked); Filip Verloy (Rubrik), ["From Prompt Engineering to Loop Engineering"](https://medium.com/@filipv_74515/from-prompt-engineering-to-loop-engineering-why-the-agent-era-demands-a-new-security-paradigm-816385040e3d) (2026-06-07, vendor-adjacent security framing); Data Science Dojo, MindStudio, Louis Bouchard (2026-06).
+- **Role**: The June-2026 amplification layer keyed off the Cherny clip and the Steinberger post. Useful for the ReAct / Reflexion / Plan-and-Execute lineage and the security framing; thin on primary sourcing and production metrics. The Neuron misattributes Osmani's "building blocks" framework to Cherny — do not repeat.
 - **Evidence Tier**: C (community / journalism / vendor marketing; flag bias).
 
 ### Attribution note — Bilgin Ibryam "12 Agentic Harness Patterns"
@@ -2036,6 +2211,7 @@ This sources document is updated when:
 
 | Date | Action | Result |
 |------|--------|--------|
+| 2026-06-21 | Verified cluster refresh (Fable 5 GA, loop-eng lineage, OKF/typed-knowledge, memory-systems + evals leaders) | Six verified clusters folded in. **Anthropic-official**: re-verified the canonical best-practices doc (added `/goal`+separate-evaluator, `Stop`-hook 8-block guard, `/rewind` checkpoints, `/btw` overlay, adversarial-review subagent, the five-item "Avoid common failure patterns" catalog, `@path` imports, plugins-first-class — all verbatim); registered **Claude Fable 5** (`claude-fable-5`, GA 2026-06-09, $10/$50, 1M/128k, adaptive-only, `stop_reason:"refusal"`, server-side `fallbacks`) + **Mythos 5** (Project Glasswing, no classifiers) + **Sonnet 4.6** (2026-02-17, $3/$15, 1M beta); **split** the conflated harness pages — corrected "Effective harnesses…" date to **2025-11-26** and registered the separate **Harness design** (2026-03-24, $124.70/3h50, $9 vs $200, self-praise bias) + **Scaling Managed Agents** (2026-04-08, p50 TTFT −60%/p95 −90%) pages; **dead-link fixes** — infrastructure-noise slug moved to `…/engineering/infrastructure-noise`, AI-resistant-evals slug corrected to capital-AI `…/AI-resistant-technical-evaluations` (NOT `/research/`); changelog version-attribution fix (lean system prompt = v2.1.154, not v2.1.181). **OKF / typed-knowledge** (⭐ elevated KM-leverage): enriched OKF v0.1 (Apache-2.0 sourced to REPO not blog; no central type registry; types-not-registered-centrally verbatim) + added **TypedMark** (Sébastien Dubois, 2026-06-20, new leader), **Hannecke frontmatter-first**, **TELOS/SPQA**. **Loop-eng lineage** (⭐ elevated KM-leverage): **reattributed** — Osmani's own post attributes the concept to Steinberger+Cherny (do NOT say Osmani coined it); repointed Cherny primary to YouTube/WorkOS, flagged the Stage-1/2/3 taxonomy + gate-conditions as secondary-only; corrected Huntley date (2025-07-14) and plugin-sourcing (README not ghuntley.com); corrected Karpathy (AutoResearch NOT in the Sequoia post); added **Peter Steinberger** (new leader, X post primary-unfetched). **Memory-systems**: registered MemGPT/Letta (Packer, new leader), mem0 (Singh, new leader), Anthropic memory-tool + context-engineering cookbook, LangMem. **Evals**: registered Husain + Shankar (new leaders), Schmid, Chase, three harness papers (Fudan/SJTU/Yao). All unverified items collected into the new **Unverified / pending revalidation (2026-06-21)** section at the end. Bumped "Last curated" to 2026-06-21. |
 | 2026-06-15 | Loop-engineering research + unattended-execution audit signals + new EMERGING doc | Added [`scheduled-and-looping-primitives.md`](analysis/scheduled-and-looping-primitives.md) (EMERGING) for the genuinely-new product surface (`/loop`, `/goal`, cloud Routines, Desktop scheduled tasks, the Ralph lineage). Wired seven routing signals into [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) under a new **Unattended / Long-Running Execution** section (`harness-loop-config`, `harness-scheduled-agent`, `ci-scheduled-agent`, `harness-background-tasks`, `harness-dynamic-workflows`, `harness-goal-completion-loop`, `cron-disabled` guard) + matching `applies-to-signals` frontmatter, plus an **Unattended Execution Exposure** output section in [`ONE-LINE-PROMPT.md`](ONE-LINE-PROMPT.md). New themed **Loop Engineering & Unattended Execution Sources** section (Tier A: scheduling/workflow docs, Rajasekaran harness-design 2026-03-24, Scaling Managed Agents 2026-04-08, 2026 Agentic Coding Trends Report; Tier B: Cherny WorkOS 2026-06-02 quote, Karpathy Sequoia Ascent 2026-04-30, Huntley Ralph; Tier C bias-flagged commentary cloud). **Attribution fixes**: "loop engineering" was coined by Addy Osmani, not Cherny; "12 Agentic Harness Patterns" is Bilgin Ibryam, not Nate B. Jones. **Fixes folded in**: `/goal` version corrected v2.1.140 → v2.1.139 and the unsupported "fast-model checker" clause hedged in `harness-engineering.md`; cited the previously-uncited Rajasekaran primary source. **Routing-invariant fix**: documented the two-level memory-index sub-route so the six archetype docs reached through it (B/D/E/F, C-EC, genealogy-baseline) are no longer orphan-signal docs, and softened the footer's bidirectional-sync claim. **Volatile model note**: Fable 5 / Mythos 5 released 2026-06-09, suspended worldwide 2026-06-12 (US export-control directive), Opus 4.8 the fallback — added a `model-version-fable-mythos` row + currency note. Doc count 41 → 42 routable. |
 | 2026-06-04 | First-party introspection registered + first doc enters retirement lane | Registered **Claude Code First-Party Introspection Commands** (`/insights`, `/usage`, `/doctor`) as Tier A after an obsolescence sweep found Anthropic converging on the edges of the audit's scope. `/insights` (GA Feb 2026 — native session-history analysis + auto-generated CLAUDE.md rules) is the cited **replacement** for the session-diagnostics slice: [`session-quality-tools.md`](analysis/session-quality-tools.md) moved `PRODUCTION → RETIRING` with a `replacement-by` frontmatter field and a tombstone banner, and the audit's session-diagnostic routing now defers to `/insights` (keeping only the static committed-CLAUDE.md check + the uncalibrated-score caveat that `/insights` does not cover). `/usage` and `/doctor` registered as cited complements (cost-measurement and install-health), not replacements for the static evidence-tiered routing core. This is the first application of the project's new `RETIRING/RETIRED` retirement lane (per [planned-obsolescence intent](CONTRIBUTING.md) — prune as robust replacements mature). |
 | 2026-05-30 | Opus 4.8 re-validation → SOURCES sync | Registered the Opus 4.8 release (2026-05-28, model ID `claude-opus-4-8`) across the source database after the four model-coupled docs and the audit routing were re-validated against 4.8 primary sources. New **Opus 4.8 Re-Validation (May 2026)** subsection with the 4.8 trio (Tier A — [What's New 4.8](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8), [system card](https://www.anthropic.com/claude-opus-4-8-system-card), [launch news](https://www.anthropic.com/news/claude-opus-4-8)); the 4.6→4.7 MRCR-v2 long-context regression case-study sources (OpenAI MRCR v2 + 4.7 card chart images Tier A + Context Arena/dev.to "232 pages" Tier B transcription); and the long-context degradation-onset benchmarks revalidating the "60%" heuristic (arXiv:2601.15300, Fiction.liveBench, NoLiMa/ICML 2025, arXiv:2510.05381). De-staled the Boris Cherny "(latest)" model reference and the Model Updates list to lead with Opus 4.8; bumped "Last curated" to 2026-05-30. The four harness arXiv papers cited in the 4.8 commit (2603.25723, 2603.28052, 2602.09540, 2605.15184) were already registered in the 2026-05-24 sweep — not re-added. Quick-reference: added entry #31 (Opus 4.8 trio) and corrected the stale #25 "Tingua" → "Tsinghua". |
@@ -2053,4 +2229,52 @@ This sources document is updated when:
 | 2026-04-20 | Advisory-triggered refresh | Verified current — no new releases (latest v2.1.114), no new Anthropic blog posts since April 18. 90 sections, all sources valid. |
 | 2026-04-18 | Sources refresh | Added v2.1.112-114 changelog, Opus 4.7 signal, expanded best-practices coverage |
 
-*Last updated: 2026-06-15 (loop-engineering & unattended-execution sources + new EMERGING doc + seven audit signals; attribution fixes; volatile Fable 5 / Mythos 5 note). Prior: June 2026 (first-party introspection commands; session-quality-tools.md → RETIRING via /insights).*
+*Last updated: 2026-06-21 (verified cluster refresh — Fable 5 GA + Sonnet 4.6 + harness-page split + dead-link fixes; OKF/typed-knowledge and loop-eng lineage elevated as KM-leverage sources; memory-systems + evals leaders registered; Unverified section added). Prior: 2026-06-15 (loop-engineering & unattended-execution sources + new EMERGING doc + seven audit signals).*
+
+---
+
+## Unverified / pending revalidation (as of 2026-06-21)
+
+Everything here either could not be primary-confirmed this pass, was contradicted by a primary, or is a single-practitioner claim seen-firsthand-but-not-independently-corroborated. **Do not present any of it as established fact elsewhere in this file.** Items resolve when a primary source confirms them; recheck by 2026-09-21 unless noted.
+
+### Could not fetch / primary unconfirmed
+- **Claude Fable 5 benchmark numbers** (SWE-bench, GPQA, capability scores): the launch-news page `https://www.anthropic.com/news/claude-fable-5` returned **HTTP 404** on 2026-06-21. No benchmark figure was confirmed from any primary. Do NOT assert Fable 5 benchmark specifics until the page is live or a docs page publishes them.
+- **Claude Mythos 5 / Project Glasswing** beyond the launch doc: invitation-only, $10/$50 shared spec, no benchmarks. Docs confirm existence + access model only — treat any capability/benchmark claim as unverified.
+- **Peter Steinberger X post** (`x.com/steipete/status/2063697162748260627`): primary URL UNFETCHABLE here (ECONNREFUSED; x.com blocks WebFetch). Wording corroborated by 4+ secondaries; **view count disputed** (~6.5M vs 2.2M — quarantine the number); date adjusted to 2026-06-07 per a secondary, still unconfirmed. Biographical claims (OpenClaw → OpenAI ~Feb 2026; CodeLooper) are independently reported but are biography, not the post content; OpenClaw "145K stars" stat unverified.
+- **Cherny primary_url** (`thenewstack.io/loop-engineering/`): did not render the article body on direct fetch (newsletter/listing wrapper). Article exists (search-confirmed headline) and the quote is corroborated via WorkOS blog + YouTube + note.com + two Medium posts, but the named New-Stack URL itself did not confirm in this session — primary repointed to YouTube/WorkOS.
+- **The New Stack "Loop Engineering" article**: paywall/auth-blocked for direct fetch; Osmani-as-coiner is corroborated by newsletters/search summaries but the New Stack body was not retrieved.
+- **Managed Agents pricing**: the Apr 8 2026 engineering blog discloses NO pricing. The "$0.08/hr + tokens" figure carried elsewhere in this file (changelog) is from an older changelog read — re-verify against platform.claude.com docs before citing any cost figure.
+
+### Contradicted by a primary / corrected this pass (do not reuse the old form)
+- **"Osmani coined 'loop engineering'"** (asserted in three prior SOURCES lines): CONTRADICTED by Osmani's own 2026-06-07 post, which attributes the concept to Steinberger and Cherny. Do not state Osmani coined the term without a primary showing him doing so.
+- **Effective-harnesses page "March 2026 update"** ($125/4hrs, Opus 4.6, "context anxiety"): does NOT exist on that page (Nov 26 2025); that material is on the separate Harness-design page (Mar 24 2026). The page also mis-dated 2026-03-01 in a prior draft — actual 2025-11-26.
+- **"Opus 4.6 eliminates context anxiety"**: over-specifies the model — the harness-design page credits **Opus 4.5** ("largely removed that behavior on its own").
+- **Changelog "lean system prompt is default" = v2.1.181**: WRONG — shipped in **v2.1.154** (May 28).
+- **mem0 token-playbook "3,200 vs 130 / ~24× reduction"**: WRONG — the page says ~4,600 naive vs ~130 retrieval (≈35×) on the 200-entry example; the verified 24-entry example is 594 vs 166 (72%). The "3-4× average" headline is vendor-conservative, not independently benchmarked.
+- **mem0 "State of AI Agent Memory 2026" date 2026-06-20**: WRONG — publication is **2026-04-01** (June 20 is a last-modified stamp). "Four unsolved gaps" understated — the page lists five-to-six.
+- **Miessler "16 prompts"**: the page body has **15** (6+2+5+1+1). **TELOS P0** is "Human Activation Crisis," not "human vulnerability to AI." "Telos files at USER/TELOS/" is not on the page.
+- **Sonnet 4.6 64k output / OSWorld score**: the 64k output limit is on the models-overview page, NOT the Feb 17 2026 announcement; no numeric OSWorld score is on the announcement — don't cite one to it.
+- **Opus 4.7 best-practices blog**: does NOT contain the "interprets prompts more literally / will not silently generalize / will not infer requests you didn't make" language (that's verbatim on the platform.claude.com migration guide), nor any "migration path through to Fable 5" statement (the migration guide does have an Opus-4.8→Fable-5 section). Both facts are true but belong to the migration-guide URL, not the blog.
+- **Opus 4.8 news page**: does NOT itself state the 1M/200k context split, compaction/long-context recovery, adaptive-thinking-only, or literal-interpretation-carries-forward — those are true but sourced from the models overview, the What's-New 4.8 page, and the migration guide respectively.
+
+### Vendor-claimed / single-source — not independently reproduced
+- **Fabric README slogan/counts**: "Solve Once, Reuse Forever," "200+/300+ contributors," and PAI mentions are NOT in the current `danielmiessler/fabric` README; the "240+ patterns" figure is only on `danielmiessler.com/telos`. The modular-reuse philosophy is uncontested; the slogan + counts are unverified against the GitHub URL.
+- **mem0 retrieval-quality deltas** (+29.6pt temporal, +23.1pt multi-hop) and LoCoMo (91.6→92.5)/LongMemEval (94.4-94.8) scores, and the 6,700-7,000 vs 25,000+ token comparison: NOT confirmed at any fetched primary — vendor-claimed, Tier C.
+- **Letta** Core/Recall/Archival three-tier naming: from Letta *docs*, not the GitHub README. "May 2026 LettaBot archived / folded into Channels" not confirmable at the GitHub URL.
+- **LangMem** `create_search_memory_tool`: NOT found on the fetched conceptual-guide page (only `create_manage_memory_tool` confirmed) — may live on a different page.
+- **Karpathy AutoResearch** "66,000+ stars by early April 2026" / "~12 experiments/hour": unconfirmable (repo now ~87.9k stars; per-hour rate not stated on either primary) — Tier C.
+- **Shreya Shankar** "CMU assistant professor from 2027": confirmed only to faculty-candidate status (March 2026); the start year is inference. The O'Reilly book + LLM-Evals-FAQ co-authorship are confirmed off-page, not on her papers page.
+- **Philipp Schmid companion posts** (Inner/Outer Loop, AGENTS.md guide, Agent Skills tips, etc.): only `agent-harness-2026` was fetched; the other dates are author-asserted.
+- **Hannecke token reduction**: headline "85%" ≠ the worked example's ~95.8% (~2,500 vs 60,000); "~500 tokens" is the manifest size alone. Author-reported, directional.
+
+### Abstract-level only (full-text not read)
+- **Terminal-Bench 2.0 (2601.11868)**: "81-82% with scaffolding," isolated Docker containers, and the "Harbor" framework are NOT in the abstract. Author count is 85 (not "84"); title is "…Hard, Realistic Tasks in Command Line Interfaces."
+- **IRT-GRM judge paper (2602.00521)**: the "no universally robust configuration / vulnerable to minor formatting changes" claim is NOT in the abstract.
+- **Agent-as-a-Judge (2601.05111)**: title is "Agent-as-a-Judge" (not "A Survey on…"); the procedural/reactive/self-evolving taxonomy and exact "five capabilities" are not in the abstract.
+- **Externalization review (2604.08224)**: institutional affiliations (SJTU / Sun Yat-Sen / Shanghai Innovation Institute / CMU / OPPO) were not visible in the abstract fetch — title/21-authors/date/54pp/CC-BY-4.0 confirmed.
+
+### Carried-over flags still open
+- **SWE-bench Verified contamination** claims (32.67% solution leakage, 76% file-path recall): sourced only to a secondary blog (digitalapplied.com); the OpenAI internal audit + underlying paper were NOT fetched — remain unverified.
+- **"Fable 5 suspended worldwide 2026-06-12 (US export-control directive)"** (carried in a prior changelog row): NOT verified against any primary this pass and does NOT appear on the Fable post page — do not assert it.
+- **TELOS git-commit date**: GitHub shows a last-commit badge but no resolvable commit date in the fetch; the prior "2024-01-17" was an HTML last-modified value. Date = unknown (repo existence, MIT, 1.4k stars, templates ARE verified).
+- **OpenAI evaluation-best-practices publication date**: not shown on the page (unknown); the Oct 31 / Nov 30 2026 deprecation dates ARE confirmed verbatim.

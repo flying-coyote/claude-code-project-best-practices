@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-06-15 17:11*
+*Auto-generated: 2026-06-21 20:01*
 
 ## Summary
 
-**Total documents**: 146
+**Total documents**: 156
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 43 |
+| analysis | 44 |
 | archive | 6 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
@@ -34,7 +34,9 @@
 | archive/skills-v1/examples/ultrathink-analyst/workflows | 3 |
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
+| drafts | 2 |
 | research | 6 |
+| research/self-audit-2026-06 | 7 |
 | root | 12 |
 | templates | 4 |
 | templates/rules | 3 |
@@ -73,6 +75,7 @@
 - [federated-query-architecture.md](analysis/federated-query-architecture.md)
 - [framework-selection-guide.md](analysis/framework-selection-guide.md)
 - [harness-engineering.md](analysis/harness-engineering.md)
+- [intent-alignment-audit.md](analysis/intent-alignment-audit.md)
 - [local-cloud-llm-orchestration.md](analysis/local-cloud-llm-orchestration.md)
 - [mcp-client-integration.md](analysis/mcp-client-integration.md)
 - [mcp-daily-essentials.md](analysis/mcp-daily-essentials.md)
@@ -108,6 +111,15 @@
 - [memory-systems-project-archetypes.md](research/memory-systems-project-archetypes.md)
 - [memory-systems-tools-inventory.md](research/memory-systems-tools-inventory.md)
 - [rethink-memory-stack-prompt.md](research/rethink-memory-stack-prompt.md)
+## Research / Self-Audit-2026-06
+
+- [AUDIT-FINDINGS.md](research/self-audit-2026-06/AUDIT-FINDINGS.md)
+- [lens-1-intent-and-goal.md](research/self-audit-2026-06/lens-1-intent-and-goal.md)
+- [lens-2-bitter-lesson-and-better.md](research/self-audit-2026-06/lens-2-bitter-lesson-and-better.md)
+- [lens-3-memory-autonomy-policy.md](research/self-audit-2026-06/lens-3-memory-autonomy-policy.md)
+- [lens-4-security.md](research/self-audit-2026-06/lens-4-security.md)
+- [lens-5-wrong-tenx-busfactor.md](research/self-audit-2026-06/lens-5-wrong-tenx-busfactor.md)
+- [lens-6-devloop-and-public.md](research/self-audit-2026-06/lens-6-devloop-and-public.md)
 ## Templates
 
 - [GETTING-STARTED.md](templates/GETTING-STARTED.md)
@@ -247,6 +259,10 @@
 ## Archive / Examples-V1 / Writing-Project
 
 - [README.md](archive/examples-v1/writing-project/README.md)
+## Drafts
+
+- [loop-eng-BCDE-2026-06-16-DRAFT.md](drafts/loop-eng-BCDE-2026-06-16-DRAFT.md)
+- [loop-eng-carry-forwards-2026-06-16-RESULTS.md](drafts/loop-eng-carry-forwards-2026-06-16-RESULTS.md)
 
 ---
 

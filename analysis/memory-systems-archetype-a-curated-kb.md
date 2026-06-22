@@ -31,22 +31,41 @@ Calibrated to the **~500-document single-curator design target**. See [`memory-s
 
 **Driving axes**: 1 (write-time dominant), 2 (augments-wiki), 7 (markdown), 8 (provenance discipline). **Evidence tier**: B for the Karpathy paradigm; **C — vendor-reported, not independently benchmarked** — for graphify's specific 71.5× token claim ([safishamsi/graphify](https://github.com/safishamsi/graphify)).
 
-## A1b. Typed-frontmatter hygiene (the OKF pattern)
+## A1b. Typed-frontmatter hygiene — OKF as the KM-leverage pattern
 
-A curated KB whose notes carry a `type:` in frontmatter only stays *retrievable-by-type* if the vocabulary stays small and canonical. Left ungoverned it drifts: one production second-brain reached **127 distinct `type:` values, 86 of them used exactly once**, which made type-based retrieval (a Tolaria MCP, generated indexes, queries) close to useless until the vocabulary was consolidated back to ~30 canonical types. The transferable discipline has four parts:
+This is the highest-leverage hygiene layer in the whole archetype, so treat it as a named pattern, not a footnote. A curated KB whose notes carry a `type:` in frontmatter is no longer just grep-able prose — it is a *typed knowledge graph* an agent, a generated index, or an MCP can query by kind ("every `Assumption` due for review," "every `MDR` still `Proposed`"). That queryability is the leverage. It only holds, though, while the type vocabulary stays small and canonical. Left ungoverned it drifts: one production second-brain reached **127 distinct `type:` values, 86 of them used exactly once**, which made type-based retrieval (a Tolaria MCP, generated indexes, queries) close to useless until the vocabulary was consolidated back to ~30 canonical types. The transferable discipline has four parts:
 
-1. **Every note carries a `type:`** in YAML frontmatter — the one field [Google's Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) also makes its sole requirement.
+1. **Every note carries a `type:`** in YAML frontmatter — the one field [Google's Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) also makes its *sole* requirement. The spec's own words: "OKF requires exactly one thing of every concept: a `type` field. Everything else … is left to the producer."
 2. **A single canonical type-registry doc is the source of truth** — ~30 canonical types plus a few intentional singletons, with a merge-map that keeps retired type names greppable in git history.
-3. **A pre-commit guard that *parses* the registry** (does not hard-code the list) and blocks any commit whose `type:` is non-canonical — so the guard can never disagree with the human-readable registry.
+3. **A pre-commit guard that *parses* the registry** (does not hard-code the list) and flags any commit whose `type:` is non-canonical — so the guard can never disagree with the human-readable registry.
 4. **A coverage/drift health check** — an untyped-node gap report (nav/status/front-door files excluded by a stem regex) plus a distinct-type count that catches fragmentation before it makes retrieval useless.
 
 Federation: have the registry loader take multiple repo roots, so the same coverage/drift checks run across a hub plus its spokes (see [archetype-D](memory-systems-archetype-d-cross-project-portfolio.md)).
 
-**Anti-pattern**: hard-coding the type list inside the guard (it drifts from the human registry the moment someone edits one and not the other); or adding a `type:` field with no registry and no guard at all (you get the 127-types / 86-singletons sprawl, and typed retrieval degrades to plain grep).
+### OKF stores what we know; RETHINK re-asks whether it is still right
+
+The four-part hygiene above keeps the typed store *clean*, but a clean store still only answers *what do we know*. It says nothing about whether what we know is still true — a hand-cited analytical note ages, an assumption's review comes due, a contradiction stays unresolved. So the typed substrate pairs with the **RETHINK** limb of the loop (the intent-alignment "why" pass — see [harness-engineering.md](harness-engineering.md)): OKF stores what we know; RETHINK re-asks, on a cadence, whether it is still the right thing to know. The types are what make that re-asking cheap — the loop filters to the kinds most likely to have gone stale rather than re-reading the corpus. In the worked deployment this is a real script ([`okf_signals.py`](file:///home/jerem/project1/automation/okf_signals.py), below) that derives next-work *from the types themselves*, so the graph is the backlog and there is nothing separate to keep in sync.
+
+### The worked deployment (the §A1b source, with real files)
+
+The single production second-brain this pattern is drawn from is project1, a ~500-doc cross-repo security-research vault. The four parts above map to real files — cite these, not a paraphrase:
+
+| Part | File |
+|---|---|
+| Registry (source of truth) + merge map | [`01-knowledge-base/_type-registry.md`](file:///home/jerem/project1/01-knowledge-base/_type-registry.md) — 30 canonical + 9 singletons; records the 127→~30 (2026-06-09) and 51→canonical (2026-06-18) consolidations |
+| Per-type field conventions | [`AGENTS.md`](file:///home/jerem/project1/AGENTS.md) — the Tolaria-loaded conventions file (registry owns the *list*; AGENTS.md owns the *fields per type*) |
+| Parsed-registry helpers (single source of truth, federation-ready) | [`automation/lib/okf.py`](file:///home/jerem/project1/automation/lib/okf.py) — `load_canonical_types()` parses the registry region; `load_notes()` takes a list of roots |
+| Pre-commit drift guard | [`automation/orchestrator/quality_gates.py`](file:///home/jerem/project1/automation/orchestrator/quality_gates.py) `validate_okf_type` — **warns, does not hard-block** (a loud per-commit warning is what keeps the set from re-drifting; the registry rule is "register the new type first") |
+| Coverage / drift / gap health check | [`automation/okf_health.py`](file:///home/jerem/project1/automation/okf_health.py) — signal not gate; `--federated` adds spokes (reading ~0% today by design), `--brief` feeds the daily brief |
+| Next-work from the graph (RETHINK) | [`automation/okf_signals.py`](file:///home/jerem/project1/automation/okf_signals.py) — overdue assumptions, undecided MDRs, unresolved contradictions, weak hypotheses, thin components |
+
+One honest note on the guard: the live deployment makes the canonical-type check a **warning, not a blocking gate**, which is softer than this section's part 3 ("flags any commit") implies and deliberately so — the hard blocks in that pre-commit hook are reserved for invariants (matrix-decision validity, retired-claim drift), while type-drift is a loud warning so the registry-first rule stays a discipline rather than a wall. Adopt blocking or warning per how much you trust contributors to register types first.
+
+**Anti-pattern**: hard-coding the type list inside the guard (it drifts from the human registry the moment someone edits one and not the other); or adding a `type:` field with no registry and no guard at all (you get the 127-types / 86-singletons sprawl, and typed retrieval degrades to plain grep). This second anti-pattern is exactly the `typed-memory-no-registry` signal that routes a project to adopt OKF.
 
 **Scale**: like the lint in A1, this earns its keep at the ~500-doc / multi-spoke design target. Below ~100 docs a fixed handful of types needs neither a registry nor a guard.
 
-**Evidence tier**: B for the pattern — a single production deployment (a personal second-brain running a parsed-registry pre-commit guard, with the measured 127→~30 consolidation). The external OKF spec it conforms to (Google Cloud, Apache-2.0, published 2026-06-12) is a Tier-C vendor-published standard; cite the *pattern* from production, not the spec.
+**Evidence tier**: B for the pattern — a single production deployment (project1, running the parsed-registry pre-commit guard, with the measured 127→~30 then 51→canonical consolidations and the graph-derived next-work signal). **Flagged: significant value seen recently, but one practitioner, one project, not independently corroborated.** The external OKF spec it conforms to (Google Cloud, Apache-2.0, [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing), v0.1 "Draft") is a Tier-C vendor-published standard — date, license, and the single-required-`type`-field claim verified against the primary spec + blog on 2026-06-21. Cite the *pattern* from production, the *spec* as the conformance target.
 
 ## A2. Hybrid alternatives
 
@@ -95,11 +114,11 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 
 ### Tier B (added)
 
-- Typed-frontmatter hygiene pattern (§A1b) — single production second-brain: a `type:` registry doc as single source of truth, parsed by an `automation/lib/okf.py` pre-commit guard, with a measured 127-distinct-types/86-singletons → ~30-canonical consolidation. Expert-practitioner, production-validated on one project (Tier B by this repo's definition).
+- Typed-frontmatter hygiene pattern (§A1b) — single production second-brain (project1), firsthand. Real implementation: `01-knowledge-base/_type-registry.md` (the registry + merge map, 30 canonical types), `automation/lib/okf.py` (parses the registry — single source of truth — and is federation-ready via a roots list), `automation/orchestrator/quality_gates.py:validate_okf_type` (the pre-commit drift guard, warn-not-block), `automation/okf_health.py` (coverage/drift/gap health signal), and `automation/okf_signals.py` (graph-derived next-work — the RETHINK operationalization). Measured 127-distinct-types/86-singletons → ~30 (2026-06-09), then 51 → canonical (2026-06-18). **Expert-practitioner, production-validated on one project, not independently corroborated (Tier B by this repo's definition).**
 
 ### Tier C
 
-- [Google Cloud — Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) — Apache-2.0, published 2026-06-12. Vendor-neutral markdown-wiki spec for agent context; its sole required frontmatter field is `type:`. The §A1b registry+guard is a conformance/hygiene layer on top of that one required field. **Vendor-published open standard — cite the pattern from production, not the spec.**
+- [Google Cloud — Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) — Apache-2.0; [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing) (Google Cloud blog). v0.1 marked "Draft." Vendor-neutral markdown-wiki spec for agent context; its sole required frontmatter field is `type:` (recommended-but-optional: `title`, `description`, `resource`, `tags`, `timestamp`; consumers MUST NOT reject a bundle for unknown types or missing optional fields). Version, license, date, and the single-required-field claim verified against the primary spec + blog on 2026-06-21. The §A1b registry+guard is a conformance/hygiene layer on top of that one required field. **Vendor-published open standard — cite the pattern from production, not the spec.**
 - [safishamsi/graphify](https://github.com/safishamsi/graphify) — graphify v0.5.4, 2026-04-28. 71.5× token-savings claim for topology-first retrieval. **Vendor-reported — not independently benchmarked.**
 - Lum1104/understand-anything plugin — wiki-aware graph using `[[wikilinks]]` as ground truth; layout requirements verified 2026-04-28 against plugin v2.3.2 `parse-knowledge-base.py`. **Community-reported — not independently benchmarked.**
 - MehmetGoekce L1/L2 split — context-budget management at scale; named in hybrid alternatives without an independent benchmark. **Community-reported — not independently benchmarked.**
