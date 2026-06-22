@@ -3,6 +3,8 @@ paths:
   - "**/*.md"
 ---
 
+# Markdown conventions
+
 When working with Markdown files:
 - Use ATX headings (# not underline style)
 - One blank line before headings
