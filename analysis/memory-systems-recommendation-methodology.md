@@ -14,6 +14,10 @@ measurement-claims:
     source: "Direct read of safishamsi/graphify pyproject.toml v1 branch"
     date: "2026-04-28"
     revalidate: "2026-07-28"
+  - claim: "Owner-authorized egress is the deciding constraint, not data category — public-source genealogy data with placeholder discipline can be opted-in (Wiley projects, 2026-04-29); same data without owner authorization or with un-anonymized living persons cannot"
+    source: "User's reframe 2026-04-29; saved in feedback_genealogy_data_classification memory"
+    date: "2026-04-29"
+    revalidate: "2026-10-29"
 evidence-tier: C
 applies-to-signals: [memory-systems, methodology, evidence-tiering, md-corpus-small, md-corpus-design-target, md-corpus-large, md-corpus-very-large, corpus-sensitive]
 revalidate-by: 2026-10-28
@@ -65,6 +69,14 @@ Projects 12×–40× the design target (6k–20k+ markdown vaults with active in
 | Verified factual claims (e.g., licenses) | **A** when directly verified | Pratiyush MIT, MehmetGoekce MIT, Lum1104 MIT, Rowboat Apache 2.0 (all dated 2026-04-28) |
 
 **Important**: this corrects an earlier draft that downgraded Karpathy's paradigm to Tier C purely on recency. Recency does not auto-downgrade an author-authority source. The paradigm claim ("write-time wiki + ingest/query/lint workflows + bookkeeping-not-reading insight") is Tier B from publication; only the tool-specific implementations need independent reproduction to move from C to B.
+
+---
+
+## The egress deciding rule (owner authorization, not data category)
+
+The constraint that routes a project to the C-EC archetype is **whether the owner has authorized vendor-LLM egress of the corpus**, not what category the data falls in. The proof case: the Wiley genealogy projects were originally framed as PII-constrained (the archetype was even named C-PII), but the owner reframed them on 2026-04-29 — living-person names use anonymized placeholders, the remaining content is public-source (FamilySearch, Ancestry, WikiTree, Find a Grave), so vendor-LLM egress is acceptable *at the owner's choice*. The same data without that authorization, or with un-anonymized living persons, cannot egress. Data category predicts where the constraint is likely; owner authorization is what actually decides it, so ask for the ruling rather than inferring it from content type.
+
+The fine-grained sensitivity tags (`pii`, `sensitive-content`, `healthcare-data`, `legal-data`, `journal-third-parties`) refine the coarse `corpus-sensitive` signal *within* the C-EC section of [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md); the coarse row remains the top-level routing gate for the LLM-egress decision.
 
 ---
 
@@ -204,6 +216,6 @@ The companion recommendations doc reflects these corrections from earlier drafts
 
 - [`analysis/evidence-tiers.md`](analysis/evidence-tiers.md) [EXTRACTED (1.00)] — references
 - [`analysis/memory-systems-archetype-a-curated-kb.md`](analysis/memory-systems-archetype-a-curated-kb.md) [EXTRACTED (1.00)] — references
-- [`analysis/memory-systems-archetype-c-personal-second-brain.md`](analysis/memory-systems-archetype-c-personal-second-brain.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-recommendations.md`](analysis/memory-systems-archetype-recommendations.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

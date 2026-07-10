@@ -1,15 +1,15 @@
 # Index
 
-*Auto-generated: 2026-07-10 16:55*
+*Auto-generated: 2026-07-10 17:29*
 
 ## Summary
 
-**Total documents**: 154
+**Total documents**: 147
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 39 |
-| archive | 8 |
+| analysis | 31 |
+| archive | 9 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
 | archive/examples-v1/coding-project | 1 |
@@ -80,15 +80,7 @@
 - [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md)
 - [memory-system-patterns.md](analysis/memory-system-patterns.md)
 - [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md)
-- [memory-systems-archetype-b-code-monorepo.md](analysis/memory-systems-archetype-b-code-monorepo.md)
-- [memory-systems-archetype-c-egress-constrained.md](analysis/memory-systems-archetype-c-egress-constrained.md)
-- [memory-systems-archetype-c-personal-second-brain.md](analysis/memory-systems-archetype-c-personal-second-brain.md)
-- [memory-systems-archetype-d-cross-project-portfolio.md](analysis/memory-systems-archetype-d-cross-project-portfolio.md)
-- [memory-systems-archetype-e-work-state-tracker.md](analysis/memory-systems-archetype-e-work-state-tracker.md)
-- [memory-systems-archetype-f-session-archive.md](analysis/memory-systems-archetype-f-session-archive.md)
-- [memory-systems-archetype-g-team-shared-memory.md](analysis/memory-systems-archetype-g-team-shared-memory.md)
 - [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md)
-- [memory-systems-genealogy-baseline.md](analysis/memory-systems-genealogy-baseline.md)
 - [memory-systems-graphify-vs-understand-anything.md](analysis/memory-systems-graphify-vs-understand-anything.md)
 - [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md)
 - [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md)
@@ -135,6 +127,7 @@
 - [WORKFLOWS-ISSUES-2026-02-13-FIXED.md](archive/WORKFLOWS-ISSUES-2026-02-13-FIXED.md)
 - [WORKFLOWS-SETUP-2026-02-13-REFERENCE.md](archive/WORKFLOWS-SETUP-2026-02-13-REFERENCE.md)
 - [WORKFLOWS-SUMMARY.md](archive/WORKFLOWS-SUMMARY.md)
+- [memory-systems-genealogy-baseline.md](archive/memory-systems-genealogy-baseline.md)
 - [session-quality-tools.md](archive/session-quality-tools.md)
 ## Archive / Docs-V1
 

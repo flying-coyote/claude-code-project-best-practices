@@ -7,6 +7,13 @@
 
 ## Completed Milestones
 
+### Reduction 2026-07, Phase 3 — memory-cluster fold, 12 docs → 5 (July 10, 2026)
+
+- Folded the seven index-internal archetype docs (B code-monorepo, C personal-second-brain, C-EC egress-constrained, D cross-project-portfolio, E work-state-tracker, F session-archive, G team-shared-memory) into `analysis/memory-systems-archetype-recommendations.md` as in-document sections; archetype A keeps its own file as the heavily-routed primary. All substantive content survived the fold (stack tables, hybrids, anti-patterns, adoption orders, constraint checks, the C-EC safety content nearly whole); what dropped was per-file boilerplate, duplicated source blocks, and stale graphify footers.
+- The owner-authorized-egress deciding rule (the C-EC constraint is policy, not data category; user reframe 2026-04-29) moved into `analysis/memory-systems-recommendation-methodology.md` with its measurement claim and the sensitivity-tag vocabulary.
+- Archived `memory-systems-genealogy-baseline.md` → `archive/` as a dated measurement (claims stamped 2026-04-29, revalidate ~2026-07-29); the 8/9-DEFINITIVE finding and its implications survive in the consolidated doc's §C-EC.6.
+- Routing rows `vault-obsidian` and `md-corpus-very-large` repointed at the consolidated doc in the same commit; AUDIT-CONTEXT's two-level-routing note and signal-vocabulary invariant rewritten to match. Analysis corpus 39 → 31; fleet-audit raw-URL regression re-run after push.
+
 ### Reduction 2026-07, Phase 0 — husk removal (July 10, 2026)
 
 - Deleted untracked residue: `mcp-server/` (73 MB of .venv/pycache left behind after the server's source was archived to `archive/mcp-server-v1/`), `examples/` (archived at `archive/examples-v1/`), `.graphify-venv/`, `graphify-out/`, `.understand-anything/` (graphify measurements are recorded in `analysis/memory-systems-graphify-vs-understand-anything.md`).

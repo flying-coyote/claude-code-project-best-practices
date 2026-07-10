@@ -389,7 +389,7 @@ The overhead numbers are real, but the scenarios where orchestration tools claim
 The orchestration-choice guidance here is corroborated by the 7-repo portfolio evidence aggregated in [`agent-driven-development.md`](agent-driven-development.md) and the cross-repo coordination patterns documented in [`cross-project-synchronization.md`](cross-project-synchronization.md). Notable signals:
 
 - **Native subagents (Explore, Plan, general-purpose) handled the dominant share** of orchestration across all 7 portfolio repos; no repo adopted GSD, CAII, Claude-Flow, or RLM as a primary orchestrator. This supports the "Native is the default" recommendation.
-- **Cross-session continuity** — the scenario where GSD's STATE.md and CAII's Memory agent claim differentiation — was solved in the portfolio via dedicated memory files + CLAUDE.md routing (see [`memory-systems-genealogy-baseline.md`](memory-systems-genealogy-baseline.md)), not via orchestrator-managed state.
+- **Cross-session continuity** — the scenario where GSD's STATE.md and CAII's Memory agent claim differentiation — was solved in the portfolio via dedicated memory files + CLAUDE.md routing (see [`memory-systems-genealogy-baseline.md`](../archive/memory-systems-genealogy-baseline.md), archived 2026-07-10), not via orchestrator-managed state.
 - **Agent Teams and Routines** (the two newer Anthropic-hosted patterns) had not yet been adopted in the portfolio as of the April 2026 audit; absence here is a coverage gap, not a verdict.
 
 Limitation: this is single-practitioner direct-observation evidence (Tier A by observation type, not Tier A by statistical scale). Do not generalize to "no team has ever needed GSD" — only to "GSD's claimed differentiation was not load-bearing in this portfolio."

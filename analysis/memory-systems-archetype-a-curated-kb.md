@@ -40,7 +40,7 @@ This is the highest-leverage hygiene layer in the whole archetype, so treat it a
 3. **A pre-commit guard that *parses* the registry** (does not hard-code the list) and flags any commit whose `type:` is non-canonical — so the guard can never disagree with the human-readable registry.
 4. **A coverage/drift health check** — an untyped-node gap report (nav/status/front-door files excluded by a stem regex) plus a distinct-type count that catches fragmentation before it makes retrieval useless.
 
-Federation: have the registry loader take multiple repo roots, so the same coverage/drift checks run across a hub plus its spokes (see [archetype-D](memory-systems-archetype-d-cross-project-portfolio.md)).
+Federation: have the registry loader take multiple repo roots, so the same coverage/drift checks run across a hub plus its spokes (see [archetype-D](memory-systems-archetype-recommendations.md#archetype-d-cross-project-portfolio)).
 
 ### OKF stores what we know; RETHINK re-asks whether it is still right
 
@@ -134,6 +134,6 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 
 ## Related (from graph)
 
-- [`analysis/memory-systems-archetype-c-personal-second-brain.md`](analysis/memory-systems-archetype-c-personal-second-brain.md) [EXTRACTED (1.00) ×2] — references
+- [`analysis/memory-systems-archetype-recommendations.md`](analysis/memory-systems-archetype-recommendations.md) [EXTRACTED (1.00) ×2] — references
 
 <!-- graphify-footer:end -->

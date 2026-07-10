@@ -467,7 +467,7 @@ Some patterns extracted from these frameworks work with ANY orchestration:
 Framework-selection guidance in this document is corroborated by the 7-repo portfolio evidence aggregated in [`agent-driven-development.md`](agent-driven-development.md) and the cross-repo orchestration findings in [`cross-project-synchronization.md`](cross-project-synchronization.md). Notable signals:
 
 - **Native subagents handled the dominant share of orchestration** across the 7 portfolio repos; GSD/CAII-style external frameworks were not adopted in any of them. This supports the "Native is the default for ~80% of use cases" rule.
-- **Multi-session continuity needs** (the GSD differentiator) appeared in the genealogy portfolio's 3-project subset, where memory-system patterns ([`memory-systems-genealogy-baseline.md`](memory-systems-genealogy-baseline.md)) — not orchestrator state — carried the load.
+- **Multi-session continuity needs** (the GSD differentiator) appeared in the genealogy portfolio's 3-project subset, where memory-system patterns ([`memory-systems-genealogy-baseline.md`](../archive/memory-systems-genealogy-baseline.md), archived 2026-07-10) — not orchestrator state — carried the load.
 - **CRISPY-style phase decomposition** maps to the agent-driven workflow lifecycle phases observed in the portfolio (planning → research → implementation → verification); the portfolio evidence is consistent with the "split mega-prompts into <40-instruction phases" prescription.
 
 Limitation: portfolio is one practitioner; treat these as Tier A direct-observation evidence at single-practitioner scale, not statistical validation.

@@ -9,7 +9,7 @@ Claude Code best-practice content is scattered across vendor docs, interviews, b
 1. **Trust** — a recommendation from the Claude Code creator and a recommendation from a random blog post both read as "best practice." You cannot tell which to act on without doing the triage yourself.
 2. **Applicability** — advice that is load-bearing for an agent-heavy data pipeline is noise for a static site generator. Generic best-practice lists waste attention; project-specific recommendations do not.
 
-This project solves both by pairing an **evidence-tier system** (every source and claim labelled A/B/C — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 39 analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
+This project solves both by pairing an **evidence-tier system** (every source and claim labelled A/B/C — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 31 analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
 
 The audit runs in two passes that complement each other. The first is the **INSPECT** pass — the presence/absence and count checks that ask what a project *has* (does a `CLAUDE.md` exist, is `.mcp.json` present, which model version is pinned), and it routes those signals to the matching docs. That pass is good at telling you which conventions you are missing and weak at telling you whether the conventions you already have are the right ones, because a presence check passes the moment a mechanism exists regardless of whether it still serves its purpose. The second pass — **RETHINK** — is the intent-alignment layer that closes that gap: for each central mechanism the project already has, it asks what the mechanism is *for* and checks the mechanism against that stated intent, so the audit catches intent-mechanism drift, the case where what a project has (a glob still pointing at a moved directory, an ARCHITECTURE.md frozen at an outgrown doc count, a write-scoped permission nobody decided to keep) has come apart from why it has it. This repo's own self-audit surfaced exactly this drift in itself, which is why the RETHINK pass is first-class rather than an afterthought; the routing and per-mechanism intent checks live in [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) and [`analysis/intent-alignment-audit.md`](analysis/intent-alignment-audit.md).
 
@@ -17,7 +17,7 @@ The audit runs in two passes that complement each other. The first is the **INSP
 
 | Capability | Why It Matters | Where Else? |
 |-----------|---------------|-------------|
-| **Adaptive routing audit** (signal → 4–8 docs of 39) | Your project's context determines which advice you get | Nowhere |
+| **Adaptive routing audit** (signal → 4–8 docs of 31) | Your project's context determines which advice you get | Nowhere |
 | **Intent-alignment pass** (RETHINK: each mechanism vs its stated *why*) | Catches intent-mechanism drift the presence checks miss — a stale glob, an outgrown doc count, an unintended permission | Nowhere |
 | **Evidence tier system** (A–D source + 1–5 claim strength) | Know which advice to trust | Nowhere |
 | **Quantified behavioral insights** (80% CLAUDE.md adherence, 60% context threshold) | Calibrate expectations from data, not vibes | Scattered across interviews |
@@ -41,7 +41,7 @@ If you cannot verify a recommendation against the cited doc, the audit failed �
 
 ## Who It Is For
 
-- **Practitioners with a specific repo**: run the one-prompt audit; get 4–8 cited recommendations scoped to your project rather than 39 docs to read.
+- **Practitioners with a specific repo**: run the one-prompt audit; get 4–8 cited recommendations scoped to your project rather than 31 docs to read.
 - **Evaluators weighing claims from any AI tooling source**: the evidence-tier system (A–D source quality + 1–5 claim strength) applies to any claim, not just claims in this repo.
 - **Teams standardizing practice across multiple Claude Code projects**: the audit output is structured and comparable — diff two repos' audits to surface drift.
 
@@ -55,7 +55,7 @@ If you cannot verify a recommendation against the cited doc, the audit failed �
 
 ## Quick Start: Adaptive Routing Audit (one copy-paste)
 
-Copy-paste this into Claude Code in **any project**. It collects signals, fetches the [routing map](AUDIT-CONTEXT.md), and conditionally fetches 4–8 of the 39 analysis docs based on what it observes. One prompt; 6–10 network fetches; 1–5 minutes typical round-trip.
+Copy-paste this into Claude Code in **any project**. It collects signals, fetches the [routing map](AUDIT-CONTEXT.md), and conditionally fetches 4–8 of the 31 analysis docs based on what it observes. One prompt; 6–10 network fetches; 1–5 minutes typical round-trip.
 
 ```
 Audit this project with the adaptive routing protocol at
@@ -106,18 +106,10 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | [secure-code-generation.md](analysis/secure-code-generation.md) | OWASP-aware code generation patterns |
 | [domain-knowledge-architecture.md](analysis/domain-knowledge-architecture.md) | Domain knowledge encoding for LLM-assisted development |
 | [memory-system-patterns.md](analysis/memory-system-patterns.md) | Auto-memory sizing by project type, 4 memory types, staleness patterns |
-| [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md) | Index across 7 memory-system archetypes (curated KB, code monorepo, second brain, cross-project portfolio, work-state tracker, session archive, team-shared memory) |
+| [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md) | Consolidated recommendations across 7 memory-system archetypes (code monorepo, second brain, egress-constrained, cross-project portfolio, work-state tracker, session archive, team-shared memory as in-doc sections; curated KB in its own file) + cross-cutting migration/never-combine/license tables |
 | [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md) | Methodology + self-critique behind the archetype recommendations: scale thresholds (200/500/6k), 8 challengeable assumptions, evidence discipline |
 | [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md) | Archetype A — curated analytical knowledge bases (Karpathy LLM Wiki paradigm, graphify+footer, Lum1104 alternative) |
-| [memory-systems-archetype-b-code-monorepo.md](analysis/memory-systems-archetype-b-code-monorepo.md) | Archetype B — code-heavy monorepos (Tree-sitter AST + community detection) |
-| [memory-systems-archetype-c-personal-second-brain.md](analysis/memory-systems-archetype-c-personal-second-brain.md) | Archetype C — personal cross-domain second brains |
-| [memory-systems-archetype-c-egress-constrained.md](analysis/memory-systems-archetype-c-egress-constrained.md) | Archetype C-EC — egress-constrained corpora (no LLM egress; wikilinks + grep + local graph) |
-| [memory-systems-archetype-d-cross-project-portfolio.md](analysis/memory-systems-archetype-d-cross-project-portfolio.md) | Archetype D — cross-project portfolios with federation |
-| [memory-systems-archetype-e-work-state-tracker.md](analysis/memory-systems-archetype-e-work-state-tracker.md) | Archetype E — work-state trackers with temporal discipline |
-| [memory-systems-archetype-f-session-archive.md](analysis/memory-systems-archetype-f-session-archive.md) | Archetype F — session-history mining and transcript adapters |
-| [memory-systems-archetype-g-team-shared-memory.md](analysis/memory-systems-archetype-g-team-shared-memory.md) | Archetype G — team-shared memory with multi-tool concurrency |
 | [memory-systems-graphify-vs-understand-anything.md](analysis/memory-systems-graphify-vs-understand-anything.md) | A/B comparison of two LLM-driven graph-builders + ~25% EXTRACTED-edge hallucination spot-check finding |
-| [memory-systems-genealogy-baseline.md](analysis/memory-systems-genealogy-baseline.md) | Empirical 3-corpus baseline — unaugmented stack scored 8/9 DEFINITIVE; routing + dedicated memory files outweigh graph augmentation |
 | [confidence-scoring.md](analysis/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework |
 | [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md) | Hypothesis confidence tracking, revalidation before demos |
 | [local-cloud-llm-orchestration.md](analysis/local-cloud-llm-orchestration.md) | Hybrid MLX+Claude architecture, tokenization boundary, hallucination scrubbing |

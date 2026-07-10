@@ -1,5 +1,5 @@
 ---
-status: EMERGING
+status: ARCHIVED
 last-verified: "2026-04-29"
 measurement-claims:
   - claim: "8 of 9 baseline queries (89%) returned DEFINITIVE answers using only CLAUDE.md + auto-memory + raw file navigation across the 3-project genealogy portfolio"
@@ -25,11 +25,13 @@ revalidate-by: 2026-10-29
 
 # Memory-System Baseline — Genealogy Trio
 
+> **ARCHIVED (2026-07-10, C1 Phase 3 memory-cluster fold).** Dated measurement — the claims are stamped 2026-04-29 with revalidate windows around 2026-07-29, and rather than re-run them the corpus keeps the raw record here and carries the *finding* forward: the headline result (8/9 DEFINITIVE on the unaugmented stack; disciplined memory authoring, not graph augmentation, is what retrieval quality rests on) lives on in `analysis/memory-systems-archetype-recommendations.md` §C-EC.6. This doc is out of the routed corpus; its `applies-to-signals` frontmatter is historical. Re-running the measurement (including the missing comparative arm, Gap 3) would supersede this snapshot.
+
 **Evidence Tier**: B (project-artifact based, direct measurement; N=9 query runs across 3 projects). Tool-specific quantitative claims about *augmented* stacks remain Tier C — this measurement covers baseline only.
 
 ## Purpose
 
-Empirical baseline measurement of the unaugmented memory stack (`CLAUDE.md` + Claude Code auto-memory + raw file navigation, no knowledge graph, no wiki layer, no embeddings) against the three Wiley-genealogy sister projects. Resolves the Tier-D speculation in [`memory-systems-archetype-c-egress-constrained.md`](memory-systems-archetype-c-egress-constrained.md) §C-EC.6 Gap 2 about whether augmentation is needed.
+Empirical baseline measurement of the unaugmented memory stack (`CLAUDE.md` + Claude Code auto-memory + raw file navigation, no knowledge graph, no wiki layer, no embeddings) against the three Wiley-genealogy sister projects. Resolves the Tier-D speculation in the C-EC archetype (now `analysis/memory-systems-archetype-recommendations.md` §C-EC.6) Gap 2 about whether augmentation is needed.
 
 The headline answer: **the unaugmented stack performs strongly when memory authorship is disciplined**. The bottleneck isn't graph augmentation — it's whether dedicated memory files exist for the questions being asked.
 
@@ -220,14 +222,14 @@ Author a research-time query set with the user from real session questions (not 
 
 - Direct empirical measurement (2026-04-29) — Sonnet subagent runs with self-classification across 3 genealogy projects (genealogy ~17k md files, genealogy-kindred 396 md, genealogy-dry-cross 3,290 md). N=9 queries. Raw outputs recorded in this doc. Source for all headline claims: 89% DEFINITIVE, tool-call cost inverse to dedicated memory file availability, Q2 PARTIAL attributable to absent brick-wall files.
 - Experiment #1 validation (2026-04-29) — Fresh Sonnet subagent re-ran original Q2 query against augmented memory (5 then 20 dedicated brick-wall files). Source for the 3-call / DEFINITIVE / 44s post-experiment result vs. 6-9 calls / PARTIAL / 92s baseline.
-- [memory-systems-archetype-c-egress-constrained.md](memory-systems-archetype-c-egress-constrained.md) — §C-EC.6 Gap 2 defined the Tier-D speculation this baseline was designed to resolve.
+- [`memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md) §C-EC.6 Gap 2 — defined the Tier-D speculation this baseline was designed to resolve (the C-EC archetype folded into the consolidated doc 2026-07-10).
 
 ---
 
 ## Related Analyses
 
-- [`memory-systems-archetype-c-personal-second-brain.md`](memory-systems-archetype-c-personal-second-brain.md) — non-PII variant of the second-brain archetype
-- [`memory-systems-archetype-c-egress-constrained.md`](memory-systems-archetype-c-egress-constrained.md) — egress-constrained variant (renamed from C-PII; the genealogy-as-canonical-example framing was retired in the 2026-04-29 reframe)
+- [`memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md) Archetype C section — non-PII variant of the second-brain archetype (folded 2026-07-10)
+- [`memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md) Archetype C-EC section — egress-constrained variant (renamed from C-PII; the genealogy-as-canonical-example framing was retired in the 2026-04-29 reframe; folded 2026-07-10)
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across archetypes
 - [`memory-system-patterns.md`](memory-system-patterns.md) — earlier pattern survey
 - [`memory-systems-graphify-vs-understand-anything.md`](memory-systems-graphify-vs-understand-anything.md) — A/B comparison of LLM graph builders on the docs in *this* repo (not genealogy)
