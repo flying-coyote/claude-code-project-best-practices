@@ -1,12 +1,14 @@
 ---
 evidence-tier: A
 applies-to-signals: [commit-security-paths]
-last-verified: 2026-04-15
+last-verified: 2026-07-10
 revalidate-by: 2026-10-15
 status: PRODUCTION
 ---
 
 # Secure Code Generation
+
+> **Collapsed 2026-07-10 (Reduction Phase 4).** The review workflow went native (bundled security-review skill; official security-guidance plugin v2.1.144+). Kept delta: the CodeGuard rule-import guidance and the commit-security-paths remediation specifics.
 
 **Sources**:
 - [CoSAI Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) (Evidence Tier A)
@@ -15,68 +17,13 @@ status: PRODUCTION
 
 **Evidence Tier**: A (Industry consortium — Anthropic, Google, OpenAI, Microsoft, NVIDIA are CoSAI members)
 
-**SDD Phase**: Cross-phase (security applies to all phases)
+## Why This Still Matters
 
-## The Core Problem
-
-AI coding agents generate vulnerable code at machine speed. Hardcoded secrets, weak cryptography, missing input validation, SQL injection — all produced as effortlessly as correct code. Traditional post-hoc security review can't keep pace with AI-generated output volume.
-
-**The gap**: Most Claude Code security guidance (sandboxing, permissions, hooks) focuses on securing *the agent itself*. This pattern addresses securing *the code the agent generates*.
-
----
-
-## Scale of the Problem
-
-**Sources**: H-AI-ASYMMETRY-01 (4.5/5 confidence), H-AI-REFACTOR-01 (4/5 confidence)
-
-AI-generated code is now a substantial fraction of all new code, and the security implications are compounding:
-
-| Metric | Finding | Source |
-|--------|---------|--------|
-| AI-generated code share | 41% of all code is now AI-generated (256 billion lines in 2024) | Industry surveys |
-| Vulnerability rate | 45% of AI-generated code introduces OWASP Top 10 vulnerabilities | Security research |
-| Startup adoption | 25% of Y Combinator Winter 2025 startups have 95%+ AI-generated codebases | Y Combinator |
-| Code duplication | 8x increase in duplicated code blocks (2020-2024) | GitClear |
-| Code churn | 2x increase in code churn (2020-2024) | GitClear |
-| Privilege escalation | 322% increase in privilege escalation paths | Apiiro |
-| Architectural flaws | 153% spike in architectural-level security flaws | Apiiro |
-
-**Georgetown CSET finding**: Models are getting better at coding but are NOT improving at security. Code generation capability and security awareness are diverging -- more code is generated faster, but the vulnerability rate per line is not decreasing.
-
-### 22-Minute Weaponization Window
-
-Cloudflare reported in 2024 that the time from CVE publication to proof-of-concept weaponization has collapsed to 22 minutes. AI-generated code with security flaws is not just a future risk -- vulnerabilities can be exploited within minutes of the code being deployed.
-
-### The "Almost Problem"
-
-Vibe-coded applications present a deceptive risk profile. They look production-ready: the happy path works, the UI is polished, and demos are convincing. But they fail under production pressure -- at scale, under adversarial input, or when edge cases appear. Code that appears correct but has never been stress-tested creates a false sense of security that delays vulnerability discovery until production.
-
----
+AI coding agents generate vulnerable code at machine speed — hardcoded secrets, weak cryptography, missing input validation, SQL injection — as easily as correct code. Most Claude Code security guidance addresses securing *the agent itself* (sandboxing, permissions, hooks); this pattern addresses securing *the code the agent generates*. The review workflow itself — when a security pass runs, how it fits Specify/Plan/Tasks/Implement, MCP-specific review coverage — now lives in the bundled security-review skill and the security-guidance plugin. What's left here is what that workflow doesn't replace: which rules to import from Project CodeGuard, and the commit-security-paths remediation.
 
 ## The CodeGuard Approach
 
-[Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) is an open-source, model-agnostic framework from the Coalition for Secure AI (CoSAI) that embeds security rules directly into AI coding workflows. Rather than catching vulnerabilities after code is written, security rules guide the AI to generate secure code from the start.
-
-### How It Works
-
-```
-┌─────────────────────────────────────────────────┐
-│ Pre-Generation (Specify/Plan)                   │
-│ Security rules loaded as persistent context     │
-│ → Agent understands security constraints        │
-├─────────────────────────────────────────────────┤
-│ During Generation (Implement)                   │
-│ Rules actively guide code generation            │
-│ → Parameterized queries, not string concat      │
-│ → Env vars, not hardcoded secrets               │
-│ → Modern crypto, not deprecated algorithms      │
-├─────────────────────────────────────────────────┤
-│ Post-Generation (Verification)                  │
-│ Rules enable security-aware review              │
-│ → Hook-based credential scanning                │
-│ → Automated security checks                     │
-└─────────────────────────────────────────────────┘
-```
+[Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) is an open-source, model-agnostic framework from the Coalition for Secure AI (CoSAI) that embeds security rules directly into AI coding workflows, so the AI generates secure code from the start rather than being caught after the fact. CoSAI's members include Anthropic, Google, OpenAI, Microsoft, and NVIDIA (Evidence Tier A); Cisco donated the original CodeGuard project to CoSAI in February 2026.
 
 ### Coverage: 23 Rules Across 8 Domains
 
@@ -95,33 +42,13 @@ Plus specialized rules for MCP security, DevOps/CI/CD, file handling, XML/serial
 
 ---
 
-## Integration with Claude Code
+## Importing CodeGuard Rules into a Project
+
+Three ways to bring CodeGuard rules into Claude Code, in order of setup cost.
 
 ### Option A: CLAUDE.md Rules (Simplest)
 
-Add the 3 mandatory rules directly to your project's CLAUDE.md:
-
-```markdown
-## Security Rules (Always Active)
-
-### Never Hardcode Credentials
-- Never embed secrets, API keys, tokens, or passwords in source code
-- Use environment variables, secrets managers, or config files excluded from git
-- Detect patterns: AKIA* (AWS), sk_live_* (Stripe), ghp_* (GitHub), eyJ* (JWT)
-
-### Use Modern Cryptography Only
-- AES-256-GCM or ChaCha20-Poly1305 for symmetric encryption
-- RSA-OAEP (2048+ bit) or ECDSA (P-256+) for asymmetric
-- Argon2id, scrypt, or bcrypt (cost 10+) for password hashing
-- Never: MD5, SHA1, DES, 3DES, RC4, ECB mode
-
-### Input Validation at Trust Boundaries
-- Use parameterized queries for all database access (never concatenate)
-- Validate with allow-lists, not deny-lists
-- Escape output context-specifically (HTML, SQL, shell)
-```
-
-**Tradeoff**: Minimal setup, but limited coverage. Good for small projects.
+Paste the 3 mandatory rules (credentials, cryptography, input validation — full text under "commit-security-paths Remediation" below) directly into your project's CLAUDE.md under a `## Security Rules (Always Active)` heading. Minimal setup, but limited coverage. Good for small projects.
 
 ### Option B: Skills Directory (Recommended)
 
@@ -136,65 +63,24 @@ Create a security skill that Claude Code loads automatically:
     └── validation.md     # Input validation patterns
 ```
 
-**SKILL.md**:
-```yaml
----
-name: secure-coding
-description: >
-  Enforce secure coding practices for all generated code.
-  Prevents hardcoded credentials, weak cryptography, and
-  injection vulnerabilities.
----
-```
-
-```markdown
-# Secure Coding Standards
-
-Apply these rules to ALL generated code. These are non-negotiable.
-
-## Mandatory Rules (Always Apply)
-
-1. **Credentials**: See rules/credentials.md
-2. **Cryptography**: See rules/crypto.md
-3. **Input Validation**: See rules/validation.md
-
-## When Generating Database Code
-- Always use parameterized queries
-- Never concatenate user input into SQL strings
-- Grant least-privilege database access
-
-## When Generating Authentication Code
-- Use slow, memory-hard password hashing (Argon2id preferred)
-- Return generic error messages ("Invalid credentials")
-- Enforce TLS for all auth endpoints
-
-## When Generating API Endpoints
-- Validate all inputs at trust boundaries
-- Apply rate limiting
-- Use allow-list validation, not deny-list
-```
-
-**Tradeoff**: Balanced coverage with progressive disclosure. Recommended for most projects.
+SKILL.md needs only a `name` and a `description` (what it prevents: hardcoded credentials, weak cryptography, injection) — Claude Code loads the routing, the `rules/` files carry the detail. Balanced coverage with progressive disclosure. Recommended for most projects.
 
 ### Option C: Full CodeGuard Plugin (Comprehensive)
 
-Install the CodeGuard plugin which bundles all 23 rules:
+Install the CodeGuard plugin, which bundles all 23 rules and ships a `.claude-plugin/` directory that converts to Claude Code's skill format automatically:
 
 ```bash
-# Clone CodeGuard and symlink as a plugin
 git clone https://github.com/cosai-oasis/project-codeguard.git
 # Follow CodeGuard's Claude Code integration instructions
 ```
 
-CodeGuard includes a `.claude-plugin/` directory with pre-configured rules that convert to Claude Code's skill format automatically.
-
-**Tradeoff**: Maximum coverage but higher context token cost. Best for security-sensitive projects.
+Maximum coverage but higher context token cost. Best for security-sensitive projects.
 
 ---
 
-## 3 Mandatory Rules (Always Active)
+## commit-security-paths Remediation: 3 Mandatory Rules
 
-These rules apply to every project regardless of integration method.
+These rules apply regardless of which import option above is in use.
 
 ### Rule 1: Never Hardcode Credentials
 
@@ -204,17 +90,16 @@ These rules apply to every project regardless of integration method.
 
 | Service | Pattern | Example |
 |---------|---------|---------|
-| AWS | `AKIA*`, `ASIA*` | `AKIAIOSFODNN7EXAMPLE` |
+| AWS | `AKIA*`, `ASIA*` | `AKIAIOSFODNN7...` (AWS's own example format) |
 | Stripe | `sk_live_*`, `pk_live_*` | `sk_live_51J...` |
 | GitHub | `ghp_*`, `gho_*`, `ghs_*` | `ghp_xxxxxxxxxxxx` |
 | JWT | `eyJ*` (3 base64 segments) | `eyJhbGciOiJIUzI1...` |
 | Private Keys | `-----BEGIN * PRIVATE KEY-----` | RSA/EC private keys |
-| Generic | Variable names with `password`, `secret`, `token`, `key` | `API_SECRET = "..."` |
+| Generic | Variable names with `password`, `secret`, `token`, `key` | fake value assigned in quotes |
 
-**Correct Pattern**:
 ```python
 # WRONG - hardcoded credential
-API_KEY = "sk_live_EXAMPLE_PLACEHOLDER_NOT_A_REAL_KEY"
+API_KEY = "sk_live_FAKE_EXAMPLE_NOT_REAL"
 
 # RIGHT - environment variable
 API_KEY = os.environ["STRIPE_API_KEY"]
@@ -224,8 +109,6 @@ API_KEY = secrets_client.get_secret("stripe-api-key")
 ```
 
 ### Rule 2: Use Modern Cryptography Only
-
-**Secure Choices**:
 
 | Purpose | Use | Never Use |
 |---------|-----|-----------|
@@ -238,7 +121,7 @@ API_KEY = secrets_client.get_secret("stripe-api-key")
 
 ### Rule 3: Validate Input at Trust Boundaries
 
-**Core Principle**: Treat all untrusted input as data, never code.
+Treat all untrusted input as data, never code.
 
 ```python
 # WRONG - SQL injection
@@ -272,15 +155,11 @@ if not path.startswith(os.path.realpath(base_dir)):
 
 When Claude Code generates dependency files (`package.json`, `requirements.txt`, `Cargo.toml`, `go.mod`), additional risks emerge:
 
-### Rules
-
 1. **Use lockfiles** — Generate `package-lock.json`, `Pipfile.lock`, `Cargo.lock` alongside dependency files
 2. **Use deterministic installs** — `npm ci` not `npm install` in CI/CD
 3. **Pin versions** — Exact versions, not ranges, for production
 4. **Minimize dependencies** — Prefer standard library solutions over third-party packages
 5. **Verify packages exist** — AI can hallucinate package names (typosquatting risk)
-
-### Configuration
 
 Add to CLAUDE.md:
 ```markdown
@@ -339,7 +218,7 @@ PATTERNS=(
 
 for PATTERN in "${PATTERNS[@]}"; do
     if echo "$CONTENT" | grep -qP "$PATTERN"; then
-        echo "🛑 Potential hardcoded credential detected (pattern: $PATTERN)"
+        echo "Potential hardcoded credential detected (pattern: $PATTERN)"
         echo "Use environment variables or a secrets manager instead."
         exit 2  # Block the operation
     fi
@@ -369,79 +248,10 @@ exit 0  # Allow
 
 ---
 
-## SDD Phase Mapping
-
-| SDD Phase | Security Application | CodeGuard Alignment |
-|-----------|---------------------|---------------------|
-| **Specify** | Define security requirements in specs; list allowed crypto, auth patterns | Pre-generation rules |
-| **Plan** | Include security constraints in architecture; threat model | Pre-generation rules |
-| **Tasks** | Add security verification steps to task breakdowns | Post-generation review |
-| **Implement** | CodeGuard rules active during code generation; hook-based scanning | During-generation rules |
-
----
-
-## MCP Security Extensions
-
-CodeGuard includes an MCP-specific security rule that complements our existing [MCP Patterns](./mcp-patterns.md):
-
-| CodeGuard MCP Addition | Our Existing Coverage |
-|------------------------|----------------------|
-| SPIFFE/SPIRE workload identity | Not covered — new |
-| Transport security (stdio vs HTTP SSE) | Partially covered |
-| Tool design (single-purpose, two-stage commits) | Covered in 7 failure modes |
-| LLM-generated code sandboxing (gVisor, SELinux) | Covered in safety-and-sandboxing |
-| Cryptographic signatures + SBOM for servers | Not covered — new |
-| OpenTelemetry observability | Not covered — new |
-
----
-
-## Anti-Patterns
-
-### 1. Security Rules as Afterthought
-
-**Problem**: Adding security review only after code is generated
-**Symptom**: Catch-and-fix cycles, vulnerabilities in production
-**Solution**: Embed rules as persistent context so the AI generates secure code by default
-
-### 2. Over-Relying on AI Security Knowledge
-
-**Problem**: Assuming the AI knows current best practices without explicit rules
-**Symptom**: Outdated algorithms (MD5, SHA-1), deprecated patterns
-**Solution**: Provide explicit rules with approved algorithms and patterns
-
-### 3. Broad Permission Grants to Skip Security
-
-**Problem**: Disabling credential scanning hooks because they "slow things down"
-**Symptom**: Secrets in git history, credential exposure
-**Solution**: Tune hook patterns to reduce false positives rather than disabling
-
-### 4. Ignoring Supply Chain in Generated Dependencies
-
-**Problem**: Accepting AI-generated `package.json` without verifying packages exist
-**Symptom**: Typosquatting attacks, hallucinated package names
-**Solution**: Verify packages before installing; pin exact versions; use lockfiles
-
-### 5. One-Size-Fits-All Security Rules
-
-**Problem**: Loading all 23 CodeGuard rules for every project
-**Symptom**: Excessive context consumption, irrelevant warnings
-**Solution**: Start with the 3 mandatory rules; add domain-specific rules as needed
-
-### 6. Code-Level Security Rules Without Architectural Coverage
-
-**Problem**: Current CodeGuard rules focus on code-level security (injection, crypto, credentials) but evidence shows privilege escalation paths (322% increase) and architectural flaws (153% spike) are growing faster than code-level issues
-**Symptom**: Clean code-level scans but systemic vulnerabilities in access control, service boundaries, and data flow architecture
-**Solution**: Security rules need to operate at the architectural level too -- validate service boundaries, least-privilege access patterns, and data flow integrity, not just individual code patterns. Source: H-AI-REFACTOR-01
-
----
-
 ## Related Patterns
 
 - [Safety and Sandboxing](./safety-and-sandboxing.md) — OS-level agent security (complements output-level security)
 - [MCP Patterns](./mcp-patterns.md) — MCP-specific security including OWASP Top 10
-- [Advanced Hooks](../archive/patterns-v1/advanced-hooks.md) — Hook patterns for credential scanning and security gates
-- [Plugins and Extensions](./plugins-and-extensions.md) — CodeGuard as a recommended security plugin
-- [Skills Domain Knowledge](./plugins-and-extensions.md) — Embedding security expertise as a skill
 
 ---
 
@@ -451,10 +261,5 @@ CodeGuard includes an MCP-specific security rule that complements our existing [
 - [Cisco Donates Project CodeGuard to CoSAI](https://blogs.cisco.com/ai/cisco-donates-project-codeguard-to-the-coalition-for-secure-ai) (February 2026)
 - [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)
 - [Coalition for Secure AI](https://www.coalitionforsecureai.org/)
-- H-AI-ASYMMETRY-01 — AI code volume vs. security gap analysis (4.5/5 confidence)
-- H-AI-REFACTOR-01 — Architectural-level security flaws in AI-generated code (4/5 confidence)
-- Cloudflare 2024 — 22-minute CVE-to-weaponization window
-- GitClear — Code duplication and churn metrics (2020-2024)
-- Apiiro — Privilege escalation and architectural flaw trends
 
-*Last updated: April 2026*
+*Last updated: July 2026*

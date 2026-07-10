@@ -1,12 +1,14 @@
 ---
 evidence-tier: Mixed
 applies-to-signals: [harness-custom-agents, harness-background-tasks, harness-dynamic-workflows]
-last-verified: 2026-06-15
+last-verified: 2026-07-10
 revalidate-by: 2026-12-15
 status: PRODUCTION
 ---
 
 # Orchestration Approaches: Comparative Analysis
+
+> **Collapsed 2026-07-10 (Reduction Phase 4).** The native-orchestration half is now first-party (workflows/`ultracode` v2.1.154, agent teams v2 v2.1.178, nested subagents v2.1.172, background-by-default v2.1.198 — see the official docs). Kept delta: the external-framework comparison (now including cross-model-family review), when-NOT-to-orchestrate, and the portfolio's measured evidence.
 
 **Evidence Tier**: Mixed (A-B) — Vendor documentation + production-validated community patterns
 
@@ -16,52 +18,22 @@ This document provides an **evidence-based comparison** of agent orchestration a
 
 ---
 
-## The Five-Layer Architecture (Boris Cherny, March 2026)
+## When Not to Orchestrate
 
-Before comparing orchestration approaches, understand the Claude Code stack:
-
-```
-Layer 5: Agent Teams    <- Multi-agent coordination with shared task lists
-Layer 4: Subagents      <- Parallel independent workers, report to parent
-Layer 3: Agent          <- Primary worker (the main Claude session)
-Layer 2: Skills         <- Task-specific knowledge and workflows
-Layer 1: MCP            <- Connectivity to external tools and services
-```
-
-**Key principle**: Most work should start at Layer 3 and only escalate when needed. Premature orchestration adds complexity without benefit.
-
----
-
-## Approach Comparison Matrix
-
-| Factor | Native Subagents | GSD | CAII | Agent Teams | Advisor | Domain-Specific |
-|--------|-----------------|-----|------|-------------|---------|-----------------|
-| **Agent count** | 1 + ad hoc | ~5 workflow | 7 fixed cognitive | N (lead + teammates) | 1 + 1 advisor | N (grows with scope) |
-| **Context strategy** | Fresh per subagent | Fresh per executor | On-the-fly injection | Independent windows | Shared | Specialized |
-| **State management** | Conversation | STATE.md + .planning/ | Task-specific memories | Shared task lists | Conversation | Varies |
-| **Orchestration** | Parent delegates | Human checkpoints | Deterministic state machine | Self-coordinating | Executor-driven escalation | Varies |
-| **Setup cost** | Zero | Low (directory structure) | Medium (Python orchestration) | Low (env var) | Low (API config) | High |
-| **Maintenance** | None | Low | Low (7 constant agents) | Low | None | High (grows) |
-| **Evidence tier** | A (Anthropic docs) | B (community) | B (community) | A (Anthropic, experimental) | A (Anthropic) | C (varies) |
-
----
-
-## Decision Framework
-
-### Start Here: Do You Need Orchestration?
+Most work should start with the main agent and escalate only when needed — premature orchestration adds complexity without benefit (Boris Cherny, March 2026).
 
 ```
 Single task, single session?
-  -> NO orchestration needed. Use Layer 3 (main agent).
+  -> NO orchestration needed. Use the main agent directly.
 
 Task needs parallel research?
-  -> Native subagents (Layer 4). Zero setup.
+  -> Native subagents. Zero setup — see the official sub-agents docs.
 
 Multi-session project with state continuity?
   -> GSD pattern (STATE.md externalization).
 
-Agents need to talk to each other?
-  -> Agent Teams (Layer 5). Experimental.
+Agents need to talk to each other or coordinate on a shared task list?
+  -> Agent teams — see the official agent-teams docs.
 
 Building reusable multi-agent system?
   -> CAII cognitive agents or custom .claude/agents/.
@@ -70,50 +42,25 @@ Building reusable multi-agent system?
   -> External tools (Claude-Flow, Auto-Claude).
 ```
 
-### Detailed Selection Guide
-
-| If you need... | Use | Why |
-|----------------|-----|-----|
-| Quick parallel searches | Native subagents | Zero setup, built-in, production-ready |
-| Fresh context for each task | Native subagents or GSD | Both isolate context; GSD adds state persistence |
-| Multi-session continuity | GSD | STATE.md survives session boundaries |
-| Scalable agent architecture | CAII | Fixed 7 agents regardless of domain growth |
-| Agents that collaborate | Agent Teams | Direct inter-agent communication |
-| Domain-deep specialization | Custom agents (.claude/agents/) | Dedicated prompts, tools, model per role |
-| Complex research synthesis | Self-Evolution (diversity sampling) | Multiple perspectives, iterative refinement |
-
 ---
 
-## Native Subagents: The Default
+## External Framework Comparison
 
-**Source**: Anthropic documentation (Tier A)
+The patterns below are external to Claude Code and keep independent value now that the native mechanism half — subagents, agent teams, workflows — is documented first-party in the official docs. Quick mapping: multi-session continuity favors GSD (STATE.md survives session boundaries); a scalable agent architecture that doesn't grow with domain count favors CAII (fixed 7 agents regardless of scope); domain-deep specialization favors custom agents under `.claude/agents/` (dedicated prompts, tools, and model per role); complex research synthesis favors Self-Evolution's diversity sampling (multiple perspectives, iterative refinement).
 
-Native subagents handle ~80% of orchestration needs with zero setup. Four built-in types:
+### Approach Comparison Matrix
 
-| Type | Purpose | Use When |
-|------|---------|----------|
-| `Explore` | Fast codebase search | Finding files, answering architecture questions |
-| `Plan` | Design implementation strategy | Architecture decisions, trade-off analysis |
-| `general-purpose` | Multi-step autonomous tasks | Complex research, code generation |
-| `claude-code-guide` | Documentation lookup | Claude Code feature questions |
+| Factor | GSD | CAII | Domain-Specific |
+|--------|-----|------|-----------------|
+| **Agent count** | ~5 workflow | 7 fixed cognitive | N (grows with scope) |
+| **Context strategy** | Fresh per executor | On-the-fly injection | Specialized |
+| **State management** | STATE.md + .planning/ | Task-specific memories | Varies |
+| **Orchestration** | Human checkpoints | Deterministic state machine | Varies |
+| **Setup cost** | Low (directory structure) | Medium (Python orchestration) | High |
+| **Maintenance** | Low | Low (7 constant agents) | High (grows) |
+| **Evidence tier** | B (community) | B (community) | C (varies) |
 
-**Anti-pattern warning** (Boris Cherny): Custom subagents can "gatekeep context" and force rigid workflows. Prefer native delegation unless you need truly specialized roles.
-
-### Key Patterns
-
-| Pattern | What It Does | When |
-|---------|-------------|------|
-| Parallel Research | Multiple Explore agents simultaneously | Gathering info from multiple areas |
-| Context Window Recovery | Delegate to fresh subagent when parent context fills | 60%+ context usage |
-| Background Agent | `run_in_background: true` for long tasks | Tests, builds, large analysis |
-| Worktree Isolation | `isolation: worktree` for safe parallel writes | Multiple agents modifying code |
-| Tiered Models | Opus for critical, Sonnet default, Haiku for volume | Cost optimization |
-
-**Recursion depth**: subagents can now spawn their own subagents up to **5 levels deep** (Claude Code v2.1.172, 2026-06-10, Tier A — changelog). This raises the fan-out ceiling but also the cost/coordination surface — a depth-5 tree of agents is easy to launch and expensive to reason about, so the "do you need orchestration at all" question below applies recursively.
-
----
-
-## GSD: Multi-Session State Continuity
+### GSD: Multi-Session State Continuity
 
 **Source**: glittercowboy/get-shit-done (Tier B)
 
@@ -136,9 +83,7 @@ GSD's unique contribution is **state externalization** — all project state per
 - Quick fixes
 - Exploratory work (structure premature)
 
----
-
-## CAII: Cognitive Function Architecture
+### CAII: Cognitive Function Architecture
 
 **Source**: skribblez2718/caii (Tier B)
 
@@ -165,179 +110,32 @@ CAII's unique insight: organize agents by *how they think*, not *what they work 
 - Time-critical work (multi-phase adds latency)
 - Already have working domain agents
 
----
+### CRISPY: Structured Phase Decomposition (RPI Evolution)
 
-## Agent Teams: Collaborative Agents
+**Source**: Dexter Horthy / Human Layer (Tier B, Authority 4/5)
 
-**Source**: Anthropic documentation (Tier A, experimental)
+CRISPY is the evolution of Research-Plan-Implement (RPI). Where RPI used 3 phases with 85+ instruction mega-prompts, CRISPY splits into 7 phases with each phase under 40 instructions.
 
-Agent teams are fundamentally different — agents communicate with each other directly, not just report to a parent.
+**The 7 Phases**:
+1. **Questions** — Surface unknowns before committing to a direction
+2. **Research** — Gather codebase context and domain knowledge
+3. **Design** — Produce a 200-line design doc (the key alignment artifact)
+4. **Structure** — Define component boundaries and interfaces
+5. **Plan** — Generate implementation steps (vertical slices, not horizontal layers)
+6. **Work** — Execute implementation
+7. **Implement + PR** — Finalize and submit
 
-**Case study**: 16 parallel agents, ~2,000 sessions, produced a 100K-line C compiler capable of compiling the Linux kernel. Cost: ~$20,000 API.
+**Key principles**:
+- "Don't use prompts for control flow; use control flow for control flow" — each phase is a discrete step, not a section within a mega-prompt
+- Design doc (200 lines) replaces plan review (1000 lines) as the human-agent alignment artifact
+- Vertical planning enforced: models default to horizontal (all DB, then all services, then all API), which produces untestable 1200+ line plans; vertical slicing creates testable checkpoints
 
-**When to use teams over subagents**:
-- Agents need to challenge each other's findings
-- Work requires cross-component coordination
-- Task spans hours to days (not minutes)
-- Quality justifies higher token cost
+**Relationship to other patterns**:
+- Replaces RPI's monolithic approach with discrete, manageable phases
+- Compatible with any orchestration layer (native subagents, GSD, CAII)
+- The design doc pattern is independently useful regardless of phase adoption
 
-**Current limitations** (as of March 2026):
-- Experimental (disabled by default, `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`)
-- One team per lead agent (no nesting)
-- Session resumption can be unreliable
-- No deterministic control over coordination
-
----
-
-## Advisor Strategy: Tiered Collaboration Without Sub-Agent Overhead
-
-**Source**: Anthropic API feature (Tier A), April 2026
-
-A distinct pattern that sits between tiered model usage and full sub-agent orchestration. Opus serves as an advisor paired with a Sonnet/Haiku executor. The executor drives implementation and escalates to the advisor via tool call. Context is shared, but the advisor never writes code directly.
-
-**Performance claims** (Anthropic's own benchmarks — treat with appropriate skepticism):
-- 2% higher on multilingual SWE-bench vs non-advisor baselines
-- 11% lower cost
-
-**When to use over alternatives**:
-- Need expert-level reasoning guidance without the overhead of full sub-agent decomposition
-- Want cost optimization: executor runs on cheaper model, advisor consulted only when needed
-- Tasks where architectural guidance matters more than parallel execution
-
-**How it differs from other patterns**:
-- Not tiered model usage (advisor is an active participant via tool call, not just a model tier switch)
-- Not sub-agent decomposition (single executor, single advisor — no task splitting)
-- Not Agent Teams (no peer-to-peer communication, strictly hierarchical escalation)
-
----
-
-## Managed Agents: Anthropic-Hosted Agent Infrastructure
-
-**Source**: Anthropic (Tier A), April 2026
-
-A deployment layer rather than an orchestration pattern. Anthropic hosts and runs agents with secure sandboxing, removing the need for local execution infrastructure.
-
-**Capabilities**:
-- Secure sandboxed execution environment
-- OAuth vaults for credential management
-- Environment scoping with explicit permission grants
-- Long-running sessions (hours, not minutes)
-- Multi-agent coordination
-
-**Pricing**: Standard token costs + $0.08/session-hour
-
-**Operational gotchas**:
-- Environments and agents have separate lifecycles (environment can outlive or be recycled independently of agent state)
-- Currently locked to Sonnet 4.6 (no model selection)
-
-**When to consider**:
-- Need long-running agent sessions without keeping a local machine alive
-- Security requirements demand sandboxed execution with managed credentials
-- Multi-agent coordination where Anthropic handles the infrastructure layer
-
----
-
-## Routines: Event-Driven Agent Execution
-
-**Source**: Anthropic (Tier A, research preview), April 2026
-
-Cloud-hosted workflows triggered by schedule, API call, or event. Think cron for agents — runs on Anthropic infrastructure without requiring a local machine.
-
-**Trigger types**:
-- Scheduled (time-based)
-- API call (programmatic)
-- Event-driven (webhook, external trigger)
-
-**Current status**: Research preview. Not production-ready.
-
-**When this becomes relevant**:
-- Recurring agent tasks (nightly code reviews, scheduled report generation)
-- Event-driven automation (PR opened -> agent runs analysis)
-- Workflows where local machine availability is a constraint
-
-For the scheduling/looping primitives that run on *your* machine or in-session (`/loop`, `/goal`, Desktop scheduled tasks, the Ralph plugin) and the operational risk of unattended execution, see [Scheduled & Looping Primitives](scheduled-and-looping-primitives.md).
-
----
-
-## Dynamic Workflows: Scripted Subagent Orchestration (v2.1.154+)
-
-**Source**: Anthropic Claude Code docs ([workflows](https://code.claude.com/docs/en/workflows)) + changelog v2.1.154 (2026-05-28); the `ultracode` trigger keyword landed v2.1.160. Tier A.
-
-A dynamic workflow is a JavaScript orchestration script Claude *writes* and the runtime executes in the background, fanning out subagents with deterministic control flow (loops, conditionals, pipelines) rather than model-driven dispatch. It differs from native subagents, skills, and agent teams on one axis: **the plan lives in re-runnable code on disk**, not in Claude's context. Saved scripts persist under `.claude/workflows/` (project) or `~/.claude/workflows/` (user), and the feature is disabled by `disableWorkflows` (settings) or `CLAUDE_CODE_DISABLE_WORKFLOWS` (env). Runs are concurrency- and total-agent-capped per run (the docs page carries the current caps; re-verify before quoting a specific number).
-
-**When this becomes relevant**:
-- Comprehensive sweeps and migrations where the work-list is large and the control flow should be deterministic
-- Review/research pipelines that benefit from fan-out plus an adversarial verification stage
-- Any orchestration you want to re-run or resume rather than re-prompt
-
-**Audit footprint**: `.claude/workflows/*.js` or a `disableWorkflows` setting is a concrete, repo-local fact that a project orchestrates at scale — routed by the `harness-dynamic-workflows` signal (see [AUDIT-CONTEXT.md](../AUDIT-CONTEXT.md)).
-
----
-
-## Agent View: First-Class Session Orchestration (v2.1.139+, Research Preview)
-
-**Source**: [Anthropic Claude Code docs — Agent view](https://code.claude.com/docs/en/agent-view) (Tier A, May 2026)
-
-A unified TUI dashboard (`claude agents`) for managing all background sessions in one place. Supersedes ad-hoc patterns where developers managed parallel work across many terminal windows.
-
-| Capability | What it changes |
-|---|---|
-| Supervisor process | Background sessions survive terminal close — previously losing the terminal lost the session |
-| Status surface | Sessions show running/blocked/done state at a glance; row summaries auto-generated by a Haiku-class model |
-| Peek/reply without attaching | Inspect or message a session without context-switching into it |
-| Automatic git worktree isolation | Background sessions get isolated worktrees under `.claude/worktrees/` by default — `worktree.bgIsolation: "none"` to opt out |
-| `claude agents --json` | Scripting interface for session management; enables external dashboards/tooling |
-| `claude respawn [--all]` | Restart sessions onto an updated binary without losing state |
-
-**What this displaces in this doc**: Boris Cherny's "5 terminal instances + 5–10 web sessions" pattern (cited under [Boris Cherny in SOURCES.md](../SOURCES.md)) was a workaround for missing session orchestration. Agent view provides the dedicated surface that pattern was approximating. The pattern is not invalidated, but the implementation moves from terminal-window-juggling to a first-class TUI.
-
-**When to use**:
-- Multiple long-running background sessions (research, refactors, builds) that the terminal can't keep open
-- Team workflows where dispatching new sessions programmatically is needed
-- Any setup where the git-worktree-per-session pattern was being manually scripted
-
-**When not to use**:
-- Single foreground session work — overhead without benefit
-- Setups already heavily invested in `tmux` / terminal-multiplexer orchestration that doesn't need to outlive the terminal
-
-**Current status**: Research preview as of v2.1.139 (May 2026). API surface may evolve.
-
----
-
-## Ultrareview: Cloud-Hosted Multi-Agent Verification (v2.1.118+, Research Preview)
-
-**Source**: [Anthropic Claude Code docs — Ultrareview](https://code.claude.com/docs/en/ultrareview) (Tier A, April 2026)
-
-Fleet of bug-hunting agents that run against a branch or PR on Anthropic's Claude-Code-on-the-web infrastructure. Each finding is independently verified by a separate agent before being reported back.
-
-**Trigger modes**:
-- Interactive: `/ultrareview` inside a session, returns findings to the CLI or Desktop
-- Non-interactive: `claude ultrareview <target>` for CI — blocks until done, `--json` flag for structured output
-
-**Billing**: $5–$20 per run via usage credits after 3 free runs (research-preview pricing as of April 2026; subject to change).
-
-**Architectural distinction from existing patterns in this doc**:
-
-| Pattern in this doc | Ultrareview's contrast |
-|---|---|
-| Writer/Reviewer (single review agent, local) | Multi-agent fleet, cloud-hosted, with finding-by-finding independent verification |
-| Self-Evolution (multiple candidates, local synthesis) | Multiple *reviewers*, not multiple *writers*; orthogonal axis |
-| Agent Teams (collaborative agents, local) | Disposable verification fleet, no shared state with the development session |
-| Routines (event-driven, scheduled) | On-demand verification triggered per branch/PR, not on a schedule |
-
-**When this becomes relevant**:
-- CI integration where blocking on review quality matters more than blocking time
-- Branches large enough that a single reviewer can't realistically cover the surface
-- Teams that have hit the ceiling of single-agent Writer/Reviewer and want independent multi-agent verification
-
-**When it doesn't**:
-- Small diffs where local Writer/Reviewer is sufficient
-- Cost-sensitive environments — $5–$20/run is meaningful for high-throughput PR queues
-- Air-gapped workflows — Ultrareview runs on Anthropic infrastructure (Claude Code on the web)
-
----
-
-## Self-Evolution: Quality Through Diversity
+### Self-Evolution: Quality Through Diversity
 
 **Source**: Google TTD-DR Paper + OptILLM (Tier B)
 
@@ -359,6 +157,12 @@ Not a full orchestration framework, but a pattern applicable within any framewor
 - Simple factual lookups
 - Time-critical responses
 - Token-constrained environments
+
+### Cross-Model-Family Review (Errorta / Jon Wiggins)
+
+**Source**: Jon Wiggins, Medium (~2026-07; reviewed 2026-07-10) + [errorta.app](https://errorta.app/) — Tier C, author-promotes-own-tool bias flagged; Errorta itself is a macOS-only alpha, not adoptable on this fleet (full entry: [SOURCES.md](../SOURCES.md)).
+
+Wiggins' loop-engineering harness restates several practices already anchored elsewhere in this comparison — fresh context per role, deterministic verification, fail-closed checkpoints — but it adds one dimension the corpus didn't carry as a named practice: **cross-model-family review** — "shared weights share failure modes," so the reviewing checkpoint should run a different model family than the drafting one, on the reasoning that a reviewer built on the same weights as the writer inherits the writer's blind spots along with its competence. This fleet already practices it in both directions: Gemini Deep Research drafts are verified by Claude locally, and a 2026-06 D-audit found roughly 60% of a Gemini-drafted analysis's claims failed verification against primary sources — a cross-family check catching same-family blind spots, running the opposite direction from Wiggins' own example (Gemini drafts checked by Claude, not the reverse). The addition here is the name, not the mechanism: the practice was already running and already verified before the article gave it a label.
 
 ---
 
@@ -394,53 +198,7 @@ The orchestration-choice guidance here is corroborated by the 7-repo portfolio e
 
 Limitation: this is single-practitioner direct-observation evidence (Tier A by observation type, not Tier A by statistical scale). Do not generalize to "no team has ever needed GSD" — only to "GSD's claimed differentiation was not load-bearing in this portfolio."
 
----
-
-## CRISPY: Structured Phase Decomposition (RPI Evolution)
-
-**Source**: Dexter Horthy / Human Layer (Tier B, Authority 4/5)
-
-CRISPY is the evolution of Research-Plan-Implement (RPI). Where RPI used 3 phases with 85+ instruction mega-prompts, CRISPY splits into 7 phases with each phase under 40 instructions.
-
-**The 7 Phases**:
-1. **Questions** — Surface unknowns before committing to a direction
-2. **Research** — Gather codebase context and domain knowledge
-3. **Design** — Produce a 200-line design doc (the key alignment artifact)
-4. **Structure** — Define component boundaries and interfaces
-5. **Plan** — Generate implementation steps (vertical slices, not horizontal layers)
-6. **Work** — Execute implementation
-7. **Implement + PR** — Finalize and submit
-
-**Key principles**:
-- "Don't use prompts for control flow; use control flow for control flow" — each phase is a discrete step, not a section within a mega-prompt
-- Design doc (200 lines) replaces plan review (1000 lines) as the human-agent alignment artifact
-- Vertical planning enforced: models default to horizontal (all DB, then all services, then all API), which produces untestable 1200+ line plans; vertical slicing creates testable checkpoints
-
-**Relationship to other patterns**:
-- Replaces RPI's monolithic approach with discrete, manageable phases
-- Compatible with any orchestration layer (native subagents, GSD, CAII)
-- The design doc pattern is independently useful regardless of phase adoption
-
----
-
-## Coverage Analysis: What ECC Covers vs. Unique Value
-
-Based on analysis of [everything-claude-code](https://github.com/anthropics-solutions/everything-claude-code) (110K stars):
-
-| Topic | ECC Coverage | This Document's Unique Value |
-|-------|-------------|------------------------------|
-| Native subagent API | IMPLEMENTED (125+ skills) | None — defer to ECC |
-| GSD pattern | MENTIONED (reference) | Comparative analysis, when-to-use framework |
-| CAII pattern | ABSENT | Only comparative documentation available |
-| Agent teams | MENTIONED | Decision framework for teams vs subagents |
-| Advisor strategy | ABSENT | Comparative positioning vs sub-agents and tiered models |
-| Managed Agents | ABSENT | Deployment layer analysis, operational gotchas |
-| Routines | ABSENT | Event-driven execution pattern documentation |
-| CRISPY / RPI evolution | ABSENT | Phase decomposition comparison, design doc pattern |
-| Measured overhead | ABSENT | Empirical cost data with caveats |
-| Self-evolution | ABSENT | Only Claude Code adaptation documented |
-| Boris Cherny warnings | ABSENT | Gatekeeping anti-pattern, five-layer model |
-| Decision framework | ABSENT | Cross-approach comparison matrix |
+Two data points survive from the now-superseded native-mechanism sections for scale calibration: agent teams' own case study (16 parallel agents, ~2,000 sessions, a 100K-line C compiler compiling the Linux kernel, ~$20,000 API cost) and the advisor pattern's benchmark claims (2% higher multilingual SWE-bench, 11% lower cost vs. non-advisor baselines). Both Tier A by source, neither independently reproduced.
 
 ---
 
@@ -450,7 +208,6 @@ Based on analysis of [everything-claude-code](https://github.com/anthropics-solu
 |-------------|-----------|---------|
 | Orchestrator does implementation | GSD, CAII | Orchestrator coordinates only |
 | Accumulated context across tasks | All | Fresh context per executor |
-| Custom agents gatekeeping context | Native | Let main agent use native delegation |
 | Parallel write operations | All | Only parallelize reads; sequence writes |
 | Domain agent proliferation | Domain-specific | Use CAII cognitive functions or native subagents |
 | Skipping state externalization | GSD | Always update STATE.md after significant actions |
@@ -464,8 +221,8 @@ Based on analysis of [everything-claude-code](https://github.com/anthropics-solu
 - [Claude Code Sub-agents Documentation](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
 - [Agent Teams Documentation](https://code.claude.com/docs/en/agent-teams)
 - [Building a C Compiler with Parallel Claudes](https://www.anthropic.com/engineering/building-a-c-compiler-with-parallel-claudes)
-- Boris Cherny: Five-layer architecture, subagent gatekeeping warning (March 2026)
-- Anthropic: Advisor strategy, Managed Agents, Routines (April 2026)
+- Boris Cherny: premature-orchestration principle (March 2026)
+- Anthropic: Advisor strategy benchmark claims (April 2026)
 
 **Tier B (Validated)**:
 - [glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done) — GSD orchestration
@@ -475,6 +232,7 @@ Based on analysis of [everything-claude-code](https://github.com/anthropics-solu
 
 **Tier C (Low Confidence)**:
 - Chase AI: Measured orchestration overhead benchmarks (Authority 2/5, single task type only)
+- Jon Wiggins — Loop-engineering harness / Errorta (author-promotes-own-tool bias flagged; macOS-only alpha, not adoptable on this fleet; full entry in [SOURCES.md](../SOURCES.md))
 
 ## Related Analysis
 
@@ -484,8 +242,7 @@ Based on analysis of [everything-claude-code](https://github.com/anthropics-solu
 
 ---
 
-*Merged from: gsd-orchestration.md, cognitive-agent-infrastructure.md, subagent-orchestration.md, recursive-evolution.md*
-*Last updated: 2026-06-15 (dynamic workflows section; subagent 5-levels-deep recursion; `harness-dynamic-workflows`/`harness-background-tasks` signals). Prior: April 2026.*
+*Last updated: 2026-07-10 (Reduction Phase 4 — native-mechanism half collapsed to the official docs; added the Errorta/Jon Wiggins cross-model-family-review paragraph; measured numbers and portfolio evidence preserved). Prior: 2026-06-15 (dynamic workflows; subagent 5-levels-deep recursion; `harness-dynamic-workflows`/`harness-background-tasks` signals). Prior: April 2026.*
 
 <!-- graphify-footer:start -->
 

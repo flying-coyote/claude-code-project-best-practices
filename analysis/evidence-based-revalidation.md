@@ -203,7 +203,7 @@ The `measurement-claims` frontmatter in each analysis document includes `revalid
 - [Evidence Tiers](./evidence-tiers.md) — Dual-tier classification system for claims
 - [Confidence Scoring](./confidence-scoring.md) — Assessment framework for research hypotheses
 - [Automated Config Assessment](./automated-config-assessment.md) — H-CONFIG-01 as primary revalidation case study
-- [Federated Query Architecture](./federated-query-architecture.md) — H-NDR-FEDERATION-01 as milestone revalidation case study
+- [Federated Query Architecture](../archive/federated-query-architecture.md) — H-NDR-FEDERATION-01 as milestone revalidation case study (evicted to archive 2026-07-10)
 - [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Opus 4.6 → 4.7 as a revalidation trigger; six prompt anti-patterns to audit on each release
 
 ---

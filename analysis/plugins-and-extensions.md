@@ -3,12 +3,12 @@ version-requirements:
   claude-code: "v2.1.0+"  # Skills auto-reload feature
 version-last-verified: "2026-03-23"
 measurement-claims:
-  - claim: "Skills are 4x more token-efficient than MCP for methodology"
+  - claim: "Skills are 4x more token-efficient than MCP for methodology (stale-pending-remeasure: tool search v2.1.121)"
     source: "Simon Willison analysis"
     date: "2025-10-16"
     revalidate: "2026-10-16"
 status: PRODUCTION
-last-verified: "2026-02-16"
+last-verified: "2026-07-10"
 evidence-tier: B
 applies-to-signals: [harness-skills, harness-mcp]
 revalidate-by: 2026-09-30
@@ -16,358 +16,17 @@ revalidate-by: 2026-09-30
 
 # Claude Code Plugins and Extension Mechanisms
 
-📚 **Primary Sources**:
-- [Claude.com Official Plugin Directory](https://claude.com/plugins) (Official registry)
-- [Anthropic Claude Code Documentation](https://code.claude.com/docs/en/plugins) (Vendor docs)
-- [Simon Willison Analysis](https://simonwillison.net/2025/Oct/16/claude-skills/) (Expert practitioner)
+> **Collapsed 2026-07-10 (Reduction Phase 4).** Mechanism documentation is now first-party (official plugins/skills docs, /plugin marketplace, nested skills v2.1.157). Kept delta: marketplace evaluation and the measured token economics.
 
-**Evidence Tier**: B (Validated secondary - community + expert practitioner)
+**Evidence Tier**: B (Validated secondary — community + expert practitioner)
 
-> **Meta-Guide Note**: This pattern provides **decision matrices and economics analysis** (Skills 50% cheaper than MCP) to help you choose between extension mechanisms. For plugin discovery and installation, see [claude.com/plugins](https://claude.com/plugins) (official directory). For vendor documentation, see [Claude Code docs](https://code.claude.com/docs/en/plugins). For decision frameworks and trade-off analysis, continue here.
+## Purpose
 
-## Overview
+This document used to cover the full extension landscape: plugin structure, skills vs. MCP vs. hooks vs. slash commands, subagents, agent teams, permission configuration, the `.claude/rules/` directory, channels, and skill hot-reload mechanics. All of that is now native — the [official plugins docs](https://code.claude.com/docs/en/plugins), the `/plugin` marketplace, and nested skills (v2.1.157) document the mechanisms directly and stay current with the harness in a way a static analysis doc can't. What survives here is the two things those docs don't cover: how to evaluate a third-party plugin or skill before adopting it, and the measured token/context cost of each extension mechanism. The full walkthrough of each mechanism — plugin YAML structure, the skill/MCP/hook/command decision matrix, subagent design, the extended skill-frontmatter field table — is cut; a reader who needs that gets more accurate, more current information straight from the vendor than a snapshot analysis doc could offer.
 
-Claude Code provides multiple extension mechanisms, each designed for different use cases. Understanding when to use each is critical for maintainable, effective Claude Code projects.
+## Evaluating Third-Party Plugins and Skills
 
----
-
-## The Extension Landscape
-
-### Quick Decision Matrix
-
-| Mechanism | Invocation | Scope | Best For |
-|-----------|-----------|-------|----------|
-| **Plugins** | `/plugin` command | Distribution | Team standardization, bundled configurations |
-| **Skills** | Auto-detected or `/name` | Context-aware | Repeatable methodologies, workflows |
-| **MCP Servers** | Configured | External access | Database, API, third-party integrations |
-| **Subagents** | Delegated | Parallel | Context isolation, deep dives |
-| **Agent Teams** | Multi-session | Coordination | Complex parallel work requiring discussion |
-| **Hooks** | Automatic | Events | Quality gates, enforcement (24 event types) |
-| **Rules** (`.claude/rules/`) | Path-scoped | File-specific | Language or directory-specific guidelines |
-| **Channels** | Push events | Real-time | Telegram, Discord, webhook integration |
-
----
-
-## Plugins
-
-### What Are Plugins?
-
-Plugins are lightweight packages that bundle any combination of:
-- Slash commands
-- Subagents
-- MCP servers
-- Hooks
-- Skills
-
-They install with a single command and can be toggled on/off as needed.
-
-### Plugin Structure
-
-```
-my-plugin/
-├── .claude-plugin/
-│   └── plugin.json        # Only plugin.json goes here
-├── commands/              # Slash commands
-├── agents/                # Subagents
-├── skills/                # Claude skills
-└── hooks/                 # Event hooks
-```
-
-**Common Mistake**: Don't put `commands/`, `agents/`, `skills/`, or `hooks/` inside `.claude-plugin/`. Only `plugin.json` goes there.
-
-### When to Use Plugins
-
-**Use plugins when:**
-- Distributing configurations across a team
-- Standardizing workflows across projects
-- Bundling multiple related customizations
-- Sharing opinionated setups publicly
-
-**Don't use plugins when:**
-- Single-use project configurations (use `.claude/` directly)
-- Personal customizations (use `~/.claude/`)
-- Simple one-file commands (use slash commands)
-
-### Best Practices
-
-1. **Version your plugins** - Pin versions to prevent drift
-2. **Treat as dependencies** - Subject to same change control as code
-3. **Start minimal** - Add capabilities gradually
-4. **Document clearly** - Include README with usage examples
-
----
-
-## Skills vs MCP: The Core Distinction
-
-> "MCP provides connectivity; Skills provide methodology."
-> — [IntuitionLabs Technical Comparison](https://intuitionlabs.ai/articles/claude-skills-vs-mcp)
-
-### MCP Servers
-
-**Purpose**: Connect Claude TO external systems
-
-**Use when you need:**
-- Access to databases (PostgreSQL, MongoDB)
-- API integrations (GitHub, Slack, Stripe)
-- External data sources (Google Drive, file systems)
-- Business tool connections (CRM, project management)
-
-**Characteristics:**
-- Open protocol adopted by all major model providers
-- Higher complexity (protocol specification, transports)
-- Can consume thousands of tokens per server
-- 300-800ms baseline latency (unsuitable for transaction paths)
-
-### Skills
-
-**Purpose**: Teach Claude HOW to perform tasks
-
-**Use when you need:**
-- Repeatable workflows (debugging, TDD, code review)
-- Domain-specific methodologies
-- Structured output patterns
-- Team coding standards
-
-**Characteristics:**
-- Markdown files with YAML frontmatter
-- Token-efficient (metadata loads first, ~dozens of tokens)
-- Claude-specific (not portable to other models)
-- Easy to create (if you can write docs, you can write skills)
-
-### Expert Perspective: Simon Willison
-
-> "Almost everything achievable with an MCP can be handled by a CLI tool instead. LLMs know how to call `cli-tool --help`... Skills have exactly the same advantage, only now you don't even need to implement a new CLI tool—you can just drop a Markdown file describing how to do a task instead."
-> — [Simon Willison](https://simonwillison.net/2025/Oct/16/claude-skills/)
-
-This principle is validated by measured data: Microsoft's Playwright CLI achieves 4x token reduction (114K → 27K) over the equivalent MCP server by saving data to disk instead of streaming it into context. See [MCP Patterns - CLI vs MCP](./mcp-patterns.md#cli-vs-mcp-the-token-efficiency-case).
-
-### Complementary Use
-
-Skills and MCP are partners, not competitors:
-
-```
-┌─────────────────────────────────────────────────┐
-│                    SKILL                         │
-│  "How to analyze repository activity"            │
-│                     │                            │
-│         Uses multiple MCP servers:               │
-│    ┌────────────────┼────────────────┐          │
-│    ▼                ▼                ▼          │
-│ [GitHub MCP]   [Database MCP]   [Slack MCP]     │
-│                                                  │
-│  Result: Coordinated analysis + notification    │
-└─────────────────────────────────────────────────┘
-```
-
----
-
-## Skills via API
-
-**Source**: [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (January 2026)
-
-For programmatic use cases — building applications, agents, or automated workflows — the API provides direct control over skill management and execution.
-
-### Key Capabilities
-
-| Capability | Detail |
-|------------|--------|
-| `/v1/skills` endpoint | List and manage skills programmatically |
-| `container.skills` parameter | Add skills to Messages API requests |
-| Version control | Manage through Claude Console |
-| Agent SDK integration | Works with Claude Agent SDK for custom agents |
-| Code Execution Tool | Required for API-based skills (beta) |
-
-### When to Use API vs. Claude.ai/Claude Code
-
-| Use Case | Best Surface |
-|----------|-------------|
-| End users interacting with skills directly | Claude.ai / Claude Code |
-| Manual testing and iteration | Claude.ai / Claude Code |
-| Individual, ad-hoc workflows | Claude.ai / Claude Code |
-| Applications using skills programmatically | API |
-| Production deployments at scale | API |
-| Automated pipelines and agent systems | API |
-
----
-
-## Slash Commands vs Skills
-
-| Aspect | Slash Commands | Skills |
-|--------|---------------|--------|
-| **Trigger** | Explicit (`/command`) | Auto-detected by context |
-| **Discovery** | Terminal autocomplete | Claude decides relevance |
-| **Packaging** | Single file | Directory with supporting files |
-| **Best for** | User-initiated actions | AI-initiated methodologies |
-
-**Use slash commands for:** Explicit, repeatable terminal entry points
-**Use skills for:** Context-aware methodologies Claude applies automatically
-
----
-
-## Subagents
-
-Custom subagents are specialized AI assistants with:
-- Task-specific system prompts
-- Customized tool access
-- Separate context windows
-
-### When to Use Subagents
-
-1. **Parallel execution** - Multiple independent investigations
-2. **Context isolation** - Prevent pollution of main context
-3. **Deep dives** - Specialized analysis without losing main thread
-4. **Early investigation** - Verify details before committing main context
-
-> "Telling Claude to use subagents to verify details or investigate particular questions, especially early in a conversation, tends to preserve context availability without much downside."
-> — [Anthropic Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
-
----
-
-## Hooks
-
-Hooks are shell scripts that intercept Claude Code operations.
-
-### Hook Events
-
-The authoritative, current list of hook events and their payload schemas lives in the
-[official Claude Code hooks documentation](https://docs.anthropic.com/en/docs/claude-code) — consult it at
-use time rather than treating the table below as complete, since the event set grows between releases. The
-durable point this section makes is *where each kind of work belongs* (an approval gate is a `PreToolUse`
-hook, verification or logging is `PostToolUse`, environment setup is `SessionStart`), and the rows below are
-the common events that illustrate it, not a maintained enumeration.
-
-| Event | Trigger | Use Case |
-|-------|---------|----------|
-| `UserPromptSubmit` | Message sent | Validation, preprocessing |
-| `PreToolUse` | Before tool runs | Approval gates, blocking |
-| `PostToolUse` | After tool runs | Verification, logging |
-| `SessionStart` | Claude Code starts | Environment setup |
-| `Stop` | Session ends | Cleanup, summarization |
-
-### Hooks + Subagents Pattern
-
-```
-Hook (deterministic) ──triggers──▶ Subagent (intelligent)
-     │                                    │
-     │ "File edited"                      │ "Analyze for security issues"
-     │                                    │
-     ▼                                    ▼
-[Intercept operation]            [AI-powered response]
-```
-
----
-
-## Skill Hot-Reload (v2.1.0+)
-
-**Source**: [Claude Code Release Notes - January 2026](https://releasebot.io/updates/anthropic/claude-code)
-
-### The Feature
-
-Skills now reload automatically without session restart:
-
-```
-Before v2.1.0:
-Edit SKILL.md → Restart Claude Code → Changes take effect
-
-After v2.1.0:
-Edit SKILL.md → Changes take effect immediately
-```
-
-### How It Works
-
-```
-┌─────────────────────────────────────────────────┐
-│  Claude Code Session (running)                  │
-│                                                 │
-│  ~/.claude/skills/                              │
-│  └── my-skill/                                  │
-│      └── SKILL.md  ←── File watcher detects    │
-│                        edit, reloads skill     │
-│                                                 │
-│  Result: Updated methodology available         │
-│          within seconds, no restart            │
-└─────────────────────────────────────────────────┘
-```
-
-### Development Workflow
-
-**Iterative skill development** is now practical:
-
-1. Start Claude Code session
-2. Test skill behavior
-3. Edit SKILL.md to fix issues
-4. Test again immediately
-5. Repeat until correct
-
-**No more "restart-test-restart" cycles.**
-
-### Hooks in Skill Frontmatter
-
-v2.1.0 also supports defining hooks directly in skill YAML frontmatter:
-
-```yaml
----
-name: my-skill
-description: Skill with embedded hooks
-hooks:
-  PostToolUse:
-    - matcher: "Edit"
-      script: "./validate-edit.sh"
----
-```
-
-**Benefit**: Skill + hooks packaged together, hot-reloaded together.
-
-### Skill Context Forking
-
-Related feature: Skills can now fork isolated sub-agent contexts:
-
-```yaml
----
-name: research-skill
-context: fork  # Each invocation gets fresh context
-agent: general-purpose  # Specify subagent type
----
-```
-
-**Use case**: Research skills that shouldn't pollute main conversation context.
-
-### Extended Frontmatter Fields (v2.1.69-84)
-
-**Source**: [Agent Skills Engineering Blog](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) (March 19, 2026)
-
-| Field | Purpose | Version |
-|-------|---------|---------|
-| `effort` | Override model effort level (low/medium/high/max) | v2.1.78+ |
-| `paths` | YAML list of globs for conditional activation | v2.1.69+ |
-| `shell` | Specify `bash` or `powershell` for `` !`command` `` syntax | v2.1.69+ |
-| `hooks` | Skill-scoped hooks (additive to global) | v2.1.0+ |
-| `agent` | Specify subagent type when using `context: fork` | v2.1.78+ |
-| `user-invocable` | Set to `false` to hide from `/` menu | v2.1.78+ |
-| `disable-model-invocation` | Set to `true` to prevent auto-triggering | v2.1.69+ |
-| `maxTurns` | Limit agent turns for forked context | v2.1.78+ |
-| `disallowedTools` | Restrict tool access for skill | v2.1.78+ |
-
-**Key guidance**:
-- `${CLAUDE_SKILL_DIR}` variable lets skills reference their own directory
-- Skill description budget scales dynamically at **2% of context window** (fallback 16KB)
-- Keep SKILL.md under **500 lines**; move reference material to supporting files
-- Dynamic context injection: `` !`command` `` syntax runs shell commands and injects output before skill content is sent to Claude
-
-### Best Practices
-
-1. **Develop skills iteratively** - Edit and test in same session
-2. **Use frontmatter hooks** - Keep related configuration together
-3. **Test before committing** - Hot-reload makes this fast
-4. **Consider context forking** - For skills that accumulate context
-5. **Use `paths` for conditional activation** - Only load skill when working with matching files
-6. **Keep SKILL.md under 500 lines** - Move detailed docs to `references/` subdirectory
-
----
-
-## Finding High-Quality Plugins
-
-### Official Sources
+### Official sources
 
 1. **Claude Plugins Directory** ([claude.com/plugins](https://claude.com/plugins))
    - Official Anthropic plugin marketplace
@@ -379,15 +38,11 @@ agent: general-purpose  # Specify subagent type
 2. **Anthropic Official Marketplace** (`claude-plugins-official`)
    - Automatically available in Claude Code
    - Run `/plugin` → Discover tab
-   - **Keep updated**: Run `/plugin marketplace update claude-plugins-official` periodically
+   - **Keep updated**: run `/plugin marketplace update claude-plugins-official` periodically — the official marketplace receives new plugins and updates regularly, and running the update is what surfaces them when browsing
 
 3. **Anthropic Demo Plugins** (`claude-code-plugins`)
-   - Example plugins showing capabilities
-   - Must add manually
-
-### Marketplace Maintenance
-
-Keep your plugin sources current:
+   - Example plugins showing platform capabilities
+   - Not auto-included; must add manually
 
 ```bash
 # Update the official marketplace (recommended: weekly or before searching for new plugins)
@@ -397,235 +52,53 @@ Keep your plugin sources current:
 /plugin marketplace list
 ```
 
-**Why this matters**: The official marketplace receives new plugins and updates regularly. Running the update ensures you see the latest vetted plugins when browsing.
+### Community marketplaces
 
-### Community Marketplaces
+Curated, but not Anthropic-vetted — apply the checklist below before installing from any of these:
 
 | Source | Description | Link |
 |--------|-------------|------|
-| **awesome-claude-code-plugins** | Curated list + tools | [GitHub](https://github.com/ccplugins/awesome-claude-code-plugins) |
-| **Claude Code Plugins Hub** | 243 plugins, Skills-compliant | [GitHub](https://github.com/jeremylongshore/claude-code-plugins-plus-skills) |
-| **claude-plugins.dev** | CLI manager | [Website](https://claude-plugins.dev/) |
-| **claudecodemarketplace.com** | AI-curated marketplace | [Website](https://claudecodemarketplace.com/) |
-| **shanraisshan/claude-code-best-practice** | Community workflow tips, top 4 MCP servers | [GitHub](https://github.com/shanraisshan/claude-code-best-practice) |
+| awesome-claude-code-plugins | Curated list + tools | [GitHub](https://github.com/ccplugins/awesome-claude-code-plugins) |
+| Claude Code Plugins Hub | 243 plugins, Skills-compliant | [GitHub](https://github.com/jeremylongshore/claude-code-plugins-plus-skills) |
+| claude-plugins.dev | CLI manager | [Website](https://claude-plugins.dev/) |
+| claudecodemarketplace.com | AI-curated marketplace | [Website](https://claudecodemarketplace.com/) |
+| shanraisshan/claude-code-best-practice | Community workflow tips, top 4 MCP servers | [GitHub](https://github.com/shanraisshan/claude-code-best-practice) |
 
-### Quality Checklist
+### Before installing
 
-Before installing a plugin:
-
-- [ ] **Source reputation** - Known author or organization?
-- [ ] **Active maintenance** - Recent commits?
-- [ ] **Documentation** - Clear README with usage examples?
-- [ ] **Security review** - No overly permissive capabilities?
-- [ ] **Minimal scope** - Does one thing well?
-- [ ] **Version pinned** - Can you lock to specific version?
-
-### Security Warning
+- [ ] Source reputation — known author or organization?
+- [ ] Active maintenance — recent commits?
+- [ ] Documentation — clear README with usage examples?
+- [ ] Security review — no overly permissive capabilities?
+- [ ] Minimal scope — does one thing well?
+- [ ] Version pinned — can you lock to a specific version?
 
 > "~43% of MCP servers have command injection vulnerabilities. Only ~10 of 5,960+ available servers are genuinely trustworthy."
-> — [Nate B. Jones MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving)
+> — [Nate B. Jones, MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving)
 
-**Apply this skepticism to plugins too.** Review before trusting.
+Apply the same skepticism to plugins: an unvetted community source can bundle arbitrary hooks, MCP servers, and shell access alongside whatever it's actually marketed for, so the checklist above is a gate, not a formality — run it before installing, not after something looks wrong.
 
----
+### A worked example: Project CodeGuard
 
-## Decision Framework
+[CoSAI Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) is an open-source security framework that embeds secure coding rules into AI agent workflows, with a `.claude-plugin/` directory for direct Claude Code integration. It provides 23 security rules covering cryptography, input validation, authentication, authorization, supply chain, cloud security, platform security, and data protection — worth naming here as a concrete pass against the checklist above (known author/organization, active maintenance, documented rules, minimal scope) rather than leaving that checklist abstract. Three integration depths, in increasing order of commitment: add 3 mandatory rules directly to CLAUDE.md (5 min), build a security skill with progressive disclosure (15 min), or install the full plugin (30 min). See [Secure Code Generation](./secure-code-generation.md) for the detailed integration instructions.
 
-```
-Need to extend Claude Code?
-│
-├─► Need external data/API access?
-│   └─► Use MCP Server
-│
-├─► Need repeatable methodology?
-│   ├─► User-initiated? → Slash Command
-│   └─► Context-aware? → Skill
-│
-├─► Need parallel/isolated work?
-│   └─► Use Subagent
-│
-├─► Need automatic enforcement?
-│   └─► Use Hook
-│
-└─► Need to distribute/share?
-    └─► Package as Plugin
-```
+### Adoption anti-patterns
 
----
+| Anti-Pattern | Problem | Fix |
+|---|---|---|
+| Plugin sprawl | Installing more plugins than you use, bloating context | Enable only what you need; disable when done |
+| Kitchen sink plugin | One plugin trying to do everything | Prefer small, focused plugins that compose |
+| Skipping security review | Trusting community plugins blindly | Run the checklist above before installing, every time |
+| Version drift | Different team members on different plugin versions | Pin versions in shared `settings.json`; review plugin updates like any other dependency |
 
-## Permission Configuration
+### Team governance
 
-### Settings Hierarchy
+Once a plugin clears the checklist and is adopted, treat it as a dependency, not a one-time install:
 
-Claude Code settings follow a specific precedence order:
-
-```
-CLI Arguments (highest priority)
-    ↓
-Project Settings (.claude/settings.json)
-    ↓
-Global Settings (~/.claude/settings.json, lowest priority)
-```
-
-**Implication**: Project settings override global, CLI overrides both.
-
-### Wildcard Permissions (v2.1.0+)
-
-Permission rules now support wildcard patterns for flexible tool access control.
-
-#### Bash Wildcards
-
-```json
-{
-  "allowedTools": [
-    "Bash(npm *)",           // Any npm command
-    "Bash(* install)",       // Any install command
-    "Bash(git * main)",      // Git commands targeting main
-    "Bash(*-h)",             // Any help flag
-    "Bash(* --help)",        // Any help command
-    "Bash(python -m *)"      // Any Python module
-  ]
-}
-```
-
-#### Pattern Syntax
-
-| Pattern | Matches | Example |
-|---------|---------|---------|
-| `Bash(npm *)` | npm followed by anything | `npm install`, `npm run build` |
-| `Bash(* install)` | Anything ending in install | `pip install`, `brew install` |
-| `Bash(git * main)` | Git commands with main | `git push origin main` |
-| `Bash(*-h)` | Short help flags | `python -h`, `docker -h` |
-
-#### MCP Server Wildcards
-
-```json
-{
-  "allowedTools": [
-    "mcp__github__*",        // All tools from GitHub MCP server
-    "mcp__postgres__*",      // All tools from Postgres MCP server
-    "mcp__*__read*"          // All read operations from any MCP
-  ]
-}
-```
-
-#### Disabling Specific Agents
-
-```json
-{
-  "disallowedTools": [
-    "Task(general-purpose)", // Disable general-purpose subagent
-    "Task(Explore)"          // Disable Explore subagent
-  ]
-}
-```
-
-### Permission Detection (/doctor)
-
-As of v2.1.3, the `/doctor` command detects and warns about:
-- Unreachable permission rules (e.g., rules shadowed by broader patterns)
-- Source tracking for each permission rule
-- Conflicting allow/disallow entries
-
-Run `/doctor` periodically to validate your permission configuration.
-
-### Best Practices
-
-1. **Start restrictive** - Allow specific commands, not `Bash(*)`
-2. **Use wildcards for families** - `npm *` instead of listing every npm command
-3. **Document intent** - Add comments explaining why permissions exist
-4. **Review with /doctor** - Check for shadowed or conflicting rules
-
----
-
-## /permissions Workflow
-
-### Boris Cherny's Pre-Allow Pattern
-
-> "I use /permissions to pre-allow common commands like `bun run build:*` and `bun run test:*` so Claude doesn't have to ask every time."
-> — Boris Cherny, Claude Code Creator
-
-### Setting Up Pre-Approved Commands
-
-Use the `/permissions` command to configure commonly-used commands that shouldn't require approval:
-
-```bash
-# Interactive permission management
-/permissions
-
-# This opens the permission configuration UI
-```
-
-### Recommended Pre-Allow List
-
-For typical development workflows:
-
-```json
-{
-  "allowedTools": [
-    "Bash(npm run build*)",
-    "Bash(npm run test*)",
-    "Bash(npm run lint*)",
-    "Bash(bun run build*)",
-    "Bash(bun run test*)",
-    "Bash(git status)",
-    "Bash(git diff*)",
-    "Bash(git log*)",
-    "Bash(git branch*)",
-    "Bash(gh pr view*)",
-    "Bash(gh pr list*)"
-  ]
-}
-```
-
-### Team Permission Sharing
-
-Share pre-approved commands via `.claude/settings.json`:
-
-```json
-{
-  "allowedTools": [
-    "Bash(npm run *)",
-    "Bash(npx vitest*)",
-    "Bash(npx tsc*)",
-    "Bash(gh pr *)",
-    "Bash(docker compose *)"
-  ],
-  "disallowedTools": [
-    "Bash(rm -rf /)",
-    "Bash(git push --force)",
-    "Bash(docker system prune -a)"
-  ]
-}
-```
-
-### Permission Workflow Best Practices
-
-1. **Start with read-only** - Pre-allow `git status`, `git log`, `gh pr list`
-2. **Add build/test commands** - Most common friction point
-3. **Avoid broad write permissions** - Don't pre-allow `rm *` or `git push *`
-4. **Use wildcards strategically** - `npm run test:*` covers test:unit, test:e2e, etc.
-5. **Review periodically** - `/doctor` shows unreachable rules
-
-### Per-Project vs Global
-
-| Location | Scope | Use For |
-|----------|-------|---------|
-| `.claude/settings.json` | This project only | Project-specific tooling (bun, pnpm, etc.) |
-| `~/.claude/settings.json` | All projects | Universal commands (git status, gh pr) |
-
----
-
-## Team Standardization
-
-### Plugin Governance
-
-1. **Pin versions** in `settings.json`
-2. **Review changes** like any dependency
-3. **Test in staging** before team rollout
-4. **Document exceptions** for custom configurations
-
-### Recommended Team Setup
+1. **Pin versions** in `settings.json`, subject to the same change control as code.
+2. **Review changes** before upgrading, the same way you'd review a library bump.
+3. **Test in staging** before a team-wide rollout.
+4. **Document exceptions** for configurations that diverge from the team default.
 
 ```json
 {
@@ -639,141 +112,38 @@ Share pre-approved commands via `.claude/settings.json`:
 }
 ```
 
----
+## Token Economics
 
-## Anti-Patterns
+The choice between MCP and Skills is a cost decision as much as a capability one: whichever mechanism reaches the same outcome with fewer tokens per call compounds across a session, especially for agents that make many tool calls in a row. Measured context costs of the extension mechanisms follow (Evidence Tier B). Two of the numbers below predate tool search (v2.1.121), which changed how tool schemas load into context — treat those as directional until re-measured against the new baseline, not as current fact:
 
-### 1. Plugin Sprawl
-**Problem**: Installing too many plugins, bloating context
-**Fix**: Enable only what you need; disable when done
+- **MCP servers** are an open protocol adopted by every major model provider, which is exactly why they carry more overhead than a Claude-specific mechanism: they can consume thousands of tokens per server just loading tool-schema definitions — the protocol transmits a JSON schema for every registered tool up front, whether that call gets used in the session or not *(stale-pending-remeasure: tool search v2.1.121)* — plus a 300-800ms baseline latency that makes them unsuitable for transaction paths.
+- **Skills** are token-efficient by design: metadata loads first, at roughly dozens of tokens, with the full SKILL.md body loading only on invocation. Skill description budget scales dynamically at 2% of the context window, with a 16KB fallback; keep SKILL.md itself under 500 lines and move reference material into a `references/` subdirectory. — [Agent Skills Engineering Blog](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) (March 19, 2026)
+- **Measured comparison**: Microsoft's Playwright CLI achieves a 4x token reduction (114K → 27K) over the equivalent MCP server by saving data to disk instead of streaming it into context *(stale-pending-remeasure: tool search v2.1.121)*. See [MCP Patterns — CLI vs MCP](./mcp-patterns.md#cli-vs-mcp-the-token-efficiency-case) for the full comparison.
+- Simon Willison draws the same conclusion from the CLI-tool angle: "Almost everything achievable with an MCP can be handled by a CLI tool instead. LLMs know how to call `cli-tool --help`... Skills have exactly the same advantage, only now you don't even need to implement a new CLI tool — you can just drop a Markdown file describing how to do a task instead." — [Simon Willison](https://simonwillison.net/2025/Oct/16/claude-skills/), also the source behind this doc's frontmatter measurement-claim.
 
-### 2. Kitchen Sink Plugin
-**Problem**: One plugin trying to do everything
-**Fix**: Small, focused plugins that compose
-
-### 3. Skipping Security Review
-**Problem**: Trusting community plugins blindly
-**Fix**: Review capabilities before installing
-
-### 4. Version Drift
-**Problem**: Different team members on different versions
-**Fix**: Pin versions in shared configuration
-
----
-
-## Recommended Security Plugin: Project CodeGuard
-
-[CoSAI Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) is an open-source security framework that embeds secure coding rules into AI agent workflows. It includes a `.claude-plugin/` directory for direct Claude Code integration.
-
-**What it provides**: 23 security rules covering cryptography, input validation, authentication, authorization, supply chain, cloud security, platform security, and data protection.
-
-**Integration options**:
-1. **CLAUDE.md rules** — Add 3 mandatory rules directly (5 min)
-2. **Skills directory** — Create a security skill with progressive disclosure (15 min)
-3. **Full plugin** — Install the complete CodeGuard plugin (30 min)
-
-**See**: [Secure Code Generation](./secure-code-generation.md) for detailed integration instructions.
-
----
+For the fuller MCP-vs-Skills cost comparison — Tenzir's production numbers ($10.27 vs $20.78 per task, 50% cheaper, 38% slower, 55% less cached tokens) — see [MCP vs Skills Economics](./mcp-vs-skills-economics.md); that's a dedicated measurement doc, not duplicated here. Both documents converge on the same directional finding from independent evidence (Willison's practitioner analysis here, Tenzir's production telemetry there): Skills win on token cost, MCP sometimes wins on wall-clock speed, and the right choice depends on which one you're optimizing for.
 
 ## Related Patterns
 
-- [MCP Patterns](./mcp-patterns.md) - Failure modes + positive patterns + security
-- [Secure Code Generation](./secure-code-generation.md) - CodeGuard integration for secure AI-generated code
-- [Harness Engineering](./harness-engineering.md) - The extension landscape documented here IS the harness toolkit; see diagnostic framework for choosing the right mechanism
-- [Domain Knowledge Architecture](./domain-knowledge-architecture.md) - How to structure domain knowledge using these extension mechanisms without overwhelming context
+For the mechanism documentation itself, start with the official docs linked in Purpose above. These are the companion analysis docs for what isn't first-party yet:
 
----
+- [MCP Patterns](./mcp-patterns.md) — Failure modes + positive patterns + security
+- [MCP vs Skills Economics](./mcp-vs-skills-economics.md) — The fuller measured cost comparison referenced above
+- [Secure Code Generation](./secure-code-generation.md) — CodeGuard integration for secure AI-generated code
+- [Harness Engineering](./harness-engineering.md) — Diagnostic framework for choosing the right extension mechanism
+- [Domain Knowledge Architecture](./domain-knowledge-architecture.md) — How to structure domain knowledge using these extension mechanisms without overwhelming context
 
 ## Sources
 
-- [Claude Plugins Directory](https://claude.com/plugins) - Official Anthropic plugin marketplace
-- [Anthropic Claude Code Plugins Documentation](https://code.claude.com/docs/en/plugins)
-- [Simon Willison: Claude Skills are awesome, maybe a bigger deal than MCP](https://simonwillison.net/2025/Oct/16/claude-skills/)
-- [IntuitionLabs: Claude Skills vs MCP Technical Comparison](https://intuitionlabs.ai/articles/claude-skills-vs-mcp)
-- [alexop.dev: Understanding Claude Code's Full Stack](https://alexop.dev/posts/understanding-claude-code-full-stack/)
-- [Composio: Improving your coding workflow with Claude Code Plugins](https://composio.dev/blog/claude-code-plugin)
-- [awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins)
-- [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) - Community-driven best practices (5.6k+ stars)
-- [obra/superpowers](https://github.com/obra/superpowers) - Framework plugin with structured workflows (TDD, debugging, subagent coordination)
-- [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (January 2026) - Skills API, distribution model, skill positioning
-
-## Rules Directory (`.claude/rules/`) — New in 2026
-
-An alternative to CLAUDE.md for file-scoped guidelines. Rules with `paths` frontmatter only load when Claude works with matching files, saving context:
-
-```markdown
-<!-- .claude/rules/python-style.md -->
----
-paths:
-  - "**/*.py"
----
-Use type hints for all function signatures.
-Prefer dataclasses over plain dicts for structured data.
-```
-
-**When to use rules vs CLAUDE.md**:
-- **CLAUDE.md**: Core conventions and build commands (every session)
-- **Rules**: Language-specific or directory-specific guidelines (only when relevant)
-- **Skills**: Reference material and repeatable workflows (on demand)
-
-## Channels (Research Preview, v2.1.80+)
-
-Push events from external systems into a running Claude Code session:
-
-| Channel | Status | Use Case |
-|---------|--------|----------|
-| **Telegram** | Research preview | Chat with Claude from your phone |
-| **Discord** | Research preview | Chat bridge for team interactions |
-| **Webhooks** | Build your own | CI results, monitoring alerts, deploy notifications |
-
-Channels require `--channels` flag at session start and sender allowlists for security. Events only arrive while the session is open.
-
-## `/init` Command
-
-Auto-generates a starter CLAUDE.md by analyzing your project structure:
-```bash
-claude
-/init
-```
-
-Detects build systems, test frameworks, and code patterns. Provides a solid foundation to refine.
+- [Claude Plugins Directory](https://claude.com/plugins) — Official Anthropic plugin marketplace
+- [Anthropic Claude Code Plugins Documentation](https://code.claude.com/docs/en/plugins) — Official mechanism docs (plugin structure, skills, MCP, hooks, commands)
+- [Simon Willison: Claude Skills are awesome, maybe a bigger deal than MCP](https://simonwillison.net/2025/Oct/16/claude-skills/) — Token-economics source
+- [awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins) — Community marketplace
+- [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) — Community-driven best practices (5.6k+ stars)
 
 ---
 
-## Plugin Dependency & Distribution Updates (v2.1.120+, Q2 2026)
-
-Changelog additions verified 2026-05-24 against [Anthropic Claude Code changelog](https://code.claude.com/docs/en/changelog) (Tier A) that change how plugins are loaded, versioned, and shared.
-
-### Plugin Loading from URLs and Zip Archives (v2.1.128+)
-
-Two new loading paths beyond `~/.claude/plugins/`:
-
-| Mechanism | Use case | Trust posture |
-|---|---|---|
-| `--plugin-dir <path.zip>` | Distribute a plugin as a single archive (email, internal share, GitHub release asset) | Same as local file — the user is opting in by passing the path |
-| `--plugin-url <url>` | Fetch a plugin from a URL for the session | Higher risk surface: a URL points to mutable infrastructure. Treat unknown URLs the same way you would `curl \| bash` |
-
-These supplement, not replace, the existing marketplace flow. The marketplace remains the recommended distribution channel for plugins intended for general use.
-
-### Plugin Dependency Enforcement (v2.1.120+)
-
-| Command | What it does |
-|---|---|
-| `claude plugin prune` | Removes orphaned plugin dependencies that no installed plugin still requires |
-| `claude plugin tag` | Marks a plugin release with a version tag; consumers can pin to a tagged release |
-
-**Why this matters**: Prior to v2.1.120, plugin dependencies accumulated indefinitely with no GC; version pinning required out-of-band conventions. Plugins now have the dependency-management primitives expected of a real package ecosystem. See also `code.claude.com/docs/en/plugin-dependencies`.
-
-### Enterprise: `allowAllClaudeAiMcps` Managed Setting (v2.1.143+)
-
-Single managed setting that allows all MCP servers approved at the Anthropic-org level. Removes the need for per-server allow-listing for orgs that have already gated MCP approval centrally. Pairs with the existing managed-settings hierarchy documented under "Permission Configuration" above.
-
-**Decision rule**: If your org has central MCP governance, use `allowAllClaudeAiMcps` instead of maintaining a per-project allow list. If MCP server approval is per-team, keep the project-level allow list.
-
----
-
-*Last updated: 2026-05-24*
+*Last updated: 2026-07-10*
 
 <!-- graphify-footer:start -->
 
@@ -781,7 +151,6 @@ Single managed setting that allows all MCP servers approved at the Anthropic-org
 
 - [`analysis/mcp-patterns.md`](analysis/mcp-patterns.md) [EXTRACTED (1.00)] — references
 - [`analysis/domain-knowledge-architecture.md`](analysis/domain-knowledge-architecture.md) [EXTRACTED (1.00)] — references
-- [`analysis/mcp-daily-essentials.md`](analysis/mcp-daily-essentials.md) [EXTRACTED (1.00)] — references
 - [`analysis/mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) [EXTRACTED (1.00) ×2] — references
 - [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
 - [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references

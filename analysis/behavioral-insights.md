@@ -8,6 +8,8 @@ status: PRODUCTION
 
 # Behavioral Insights: How Claude Code Actually Works
 
+> **Re-measure flag (2026-07-10)**: the quantified thresholds below (80% CLAUDE.md adherence, the 60% context-quality boundary, the capacity bands) were measured in the Opus 4.x era. Fable 5 is now in production and its context handling may move these numbers — re-measure on Fable before the next `revalidate-by` and treat the current figures as Opus-4.x-calibrated until then.
+
 **Evidence Tier**: Mixed (A-B) — Quantified claims from Boris Cherny, Anthropic engineering blog, and practitioner observation
 
 ## Purpose

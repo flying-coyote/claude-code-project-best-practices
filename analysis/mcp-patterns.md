@@ -7,14 +7,14 @@ measurement-claims:
     source: "Nate B. Jones"
     date: "2025-10-15"
     revalidate: "2026-10-15"
-  - claim: "~43% of MCP servers have command injection vulnerabilities"
+  - claim: "~43% of MCP servers have command injection vulnerabilities (stale-pending-reverify: dated third-party security survey; revalidate window lapsed 2026-03-20, ecosystem has grown since)"
     source: "OWASP security audit"
     date: "2025-09-20"
-    revalidate: "2026-03-20"
-  - claim: "Only ~10 of 5,960+ MCP servers are genuinely trustworthy"
+    revalidate: "2026-10-10"
+  - claim: "Only ~10 of 5,960+ MCP servers are genuinely trustworthy (stale-pending-reverify: dated third-party security survey; revalidate window lapsed 2026-03-20, ecosystem has grown since)"
     source: "OWASP security analysis"
     date: "2025-09-20"
-    revalidate: "2026-03-20"
+    revalidate: "2026-10-10"
   - claim: "Tool Search achieves 89% token reduction (77K to 8.7K tokens)"
     source: "H-MCP-CONTEXT-01 hypothesis"
     date: "2026-04-15"
@@ -23,8 +23,16 @@ measurement-claims:
     source: "Jenova Research"
     date: "2026-03-01"
     revalidate: "2026-09-01"
+  - claim: "MCP tool definitions consumed 81,986 tokens at startup (41% of a 200K context window) (stale-pending-remeasure: MCP tool search v2.1.121 changed token economics)"
+    source: "valgard production analysis"
+    date: "2026-01"
+    revalidate: "2026-10-10"
+  - claim: "Sweet spot: 4 plugins + 2 MCPs for optimal context usage (fallback config for non-Tool-Search setups; superseded as default guidance by deferred tool loading)"
+    source: "valgard production analysis"
+    date: "2026-01"
+    revalidate: "2027-01-01"
 status: PRODUCTION
-last-verified: "2026-04-15"
+last-verified: "2026-07-10"
 evidence-tier: A
 applies-to-signals: [harness-mcp, commit-security-paths]
 revalidate-by: 2026-10-15
@@ -32,406 +40,119 @@ revalidate-by: 2026-10-15
 
 # MCP Patterns and Security
 
+> **Collapsed 2026-07-10 (Reduction Phase 4).** Mechanism documentation is now first-party (official MCP docs; tool search with deferred definitions default-on since v2.1.121). This is now the single MCP doc — it absorbed the still-true residue of mcp-daily-essentials.md (retired this pass). Kept delta: the OWASP MCP Top 10 mapping, the 4-plugin + 2-MCP sweet-spot evidence, and the token-economics measurements (flagged stale-pending-remeasure post-tool-search).
+
 **Sources**:
-- [Nate B. Jones - MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving) (Evidence Tier B)
-- [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) (Evidence Tier A)
-- [OWASP Guide for Securely Using Third-Party MCP Servers](https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/) (Evidence Tier A)
+- [Nate B. Jones - MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving) (Tier B)
+- [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) (Tier A)
+- [OWASP Guide for Securely Using Third-Party MCP Servers](https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/) (Tier A)
+- [valgard MCP Context Budget Analysis](https://dev.to/valgard/claude-code-must-haves-january-2026-kem) (Tier B, absorbed via mcp-daily-essentials.md)
 
-**Evidence Tier**: A (Industry standard - OWASP security framework)
-
-> **Retired sibling (2026-07-10)**: `mcp-client-integration.md` (client-side JSON-RPC session lifecycle, typed-wrapper and retry patterns from two server architectures) was deleted in the 2026-07 reduction — the official MCP docs now carry connection mechanics first-party; the doc remains in git history if the worked examples are wanted.
-
-> ⚠️ **Revalidation Required**: Security claims (43% vulnerability rate, ~10 trustworthy servers) expire **2026-03-20** (21 days). These statistics underpin defense-in-depth recommendations. Schedule OWASP source review before expiration to confirm current landscape.
+**Evidence Tier**: A (anchored by the OWASP security framework; component claims carry their own tier — see Sources)
 
 ## The Core Problem
 
-Teams are connecting MCP wrong. The Model Context Protocol is powerful, but its **300-800ms baseline latency** destroys user experience when placed in the wrong locations.
-
-**MCP belongs in**: Decision support, development assistance, background analysis
-**MCP does NOT belong in**: Checkout flows, real-time trading, transaction paths
+MCP is powerful, but its 300-800ms baseline latency destroys user experience when placed in the wrong location. MCP belongs in decision support, development assistance, and background analysis. It does not belong in checkout flows, real-time trading, or other transaction paths.
 
 ---
 
 ## The 7 Failure Modes
 
-### 1. Universal Router Trap
+Seven anti-patterns account for most production MCP failures:
 
-**Mistake**: Routing all requests through MCP
-**Symptom**: Everything gets slower
-**Impact**: 300-800ms added to every operation
+| # | Failure Mode | Mistake | Symptom / Impact | Fix |
+|---|---|---|---|---|
+| 1 | Universal Router Trap | Routing all requests through MCP | Everything gets slower — 300-800ms added to every operation | Route selectively; only send requests that need AI analysis |
+| 2 | Kitchen Sink Server Pattern | Overly permissive servers with too many capabilities | Command injection vulnerabilities, data exposure — ~43% of servers affected, only ~10 of 5,960+ genuinely trustworthy (OWASP audit; stale-pending-reverify — dated survey, see frontmatter) | Minimal capabilities per server, explicit permission boundaries, security audit before deployment |
+| 3 | Real-Time Context Delusion | Using MCP in latency-sensitive paths | Destroyed conversion rates in checkout flows, search results, form submissions, real-time pricing | Keep MCP out of user-facing transaction paths |
+| 4 | Permission Overexposure | Granting broad permissions "to make it work" | Data leakage, compliance violations | Principle of least privilege, scoped tokens per context, regular permission audits |
+| 5 | Transaction Path Integration | Placing MCP in critical business workflows | Transaction failures cascade when MCP has issues | MCP for analysis, not execution — keep transactions on traditional rails |
+| 6 | Hot Path Placement | MCP on frequently-accessed endpoints | Scale issues, cascading failures under load | Background processing, caching, async patterns |
+| 7 | Deployment Timeline Mismatch | Expecting MCP to be production-ready immediately | Reliability issues, rollbacks, lost confidence | Staged deployment, shadow-mode testing, gradual rollout |
 
-**Reality Check**:
-- Not every request needs AI analysis
-- Simple operations should stay simple
-- MCP is for intelligence, not routing
-
-**Fix**: Route selectively. Only send requests that need AI analysis.
-
-### 2. Kitchen Sink Server Pattern
-
-**Mistake**: Creating overly permissive MCP servers with too many capabilities
-**Symptom**: Security nightmares, confused AI behavior
-**Impact**: Command injection vulnerabilities, data exposure
-
-**Security Reality**: ~43% of MCP servers have command injection vulnerabilities. Only ~10 of 5,960+ available servers are genuinely trustworthy.
-
-**Fix**:
-- Minimal capabilities per server
-- Explicit permission boundaries
-- Security audit before deployment
-
-### 3. Real-Time Context Delusion
-
-**Mistake**: Using MCP in latency-sensitive paths
-**Symptom**: Destroyed conversion rates, frustrated users
-**Impact**: E-commerce abandonment, failed transactions
-
-**Where It Kills**:
-- Checkout flows
-- Search results
-- Form submissions
-- Real-time pricing
-
-**Fix**: Keep MCP out of user-facing transaction paths.
-
-### 4. Permission Overexposure
-
-**Mistake**: Granting broad permissions "to make it work"
-**Symptom**: AI accessing data it shouldn't
-**Impact**: Data leakage, compliance violations
-
-**Fix**:
-- Principle of least privilege
-- Scoped tokens per context
-- Regular permission audits
-
-### 5. Transaction Path Integration
-
-**Mistake**: Placing MCP in critical business workflows
-**Symptom**: Transaction failures when MCP has issues
-**Impact**: Revenue loss, customer trust erosion
-
-**Fix**: MCP for analysis, not execution. Keep transactions on traditional rails.
-
-### 6. Hot Path Placement
-
-**Mistake**: MCP on frequently-accessed endpoints
-**Symptom**: Scale issues, cascading failures
-**Impact**: System-wide degradation under load
-
-**Fix**: Background processing, caching, async patterns.
-
-### 7. Deployment Timeline Mismatch
-
-**Mistake**: Expecting MCP to be production-ready immediately
-**Symptom**: Rushing immature integrations to production
-**Impact**: Reliability issues, rollbacks, lost confidence
-
-**Fix**: Staged deployment, shadow mode testing, gradual rollout.
 
 ---
 
 ## Production-Proven Patterns
 
-### Intelligence Layer Pattern (Block)
+**Intelligence Layer** (Block): background analysis without touching production systems — MCP runs fraud-pattern analysis on millions of transactions via batch export from the traditional system, never the transaction path itself.
 
-**Approach**: Background analysis without touching production systems
-**Example**: Block analyzes millions of transactions for fraud patterns—MCP runs analysis, not transactions
+**Sidecar** (Zapier): the user completes an action normally; a sidecar process triggers AI enhancement asynchronously, and results appear without user-perceived latency. Reported 89% AI adoption through this non-blocking integration.
 
-**Architecture**:
-```
-[Transactions] → [Traditional System] → [Database]
-                         ↓
-                  [Batch Export]
-                         ↓
-                   [MCP Analysis]
-                         ↓
-                [Intelligence Dashboard]
-```
-
-**Key**: MCP never touches the transaction path.
-
-### Sidecar Pattern (Zapier)
-
-**Approach**: Enhance workflows without blocking users
-**Result**: 89% AI adoption through non-blocking integration
-
-**How It Works**:
-- User completes action normally
-- Sidecar process triggers AI enhancement
-- Results appear asynchronously
-- No user-perceived latency
-
-**Best For**: Workflow enhancement, content enrichment, smart suggestions
-
-### Batch Pattern
-
-**Approach**: Process overnight, consume in morning
-**Example**: Analyze day's data → Generate morning report
-
-**Benefits**:
-- Zero real-time impact
-- Full dataset analysis
-- Cost-efficient (off-peak compute)
-- Predictable delivery
-
-**Architecture**:
-```
-[Day's Data] → [Overnight Batch] → [MCP Processing] → [Morning Report]
-```
+**Batch**: process overnight, consume in the morning — analyze the day's data, generate a morning report. Zero real-time impact, full-dataset analysis, cost-efficient off-peak compute, predictable delivery.
 
 ---
 
-## When MCP IS the Right Choice
+## When MCP Is the Right Choice
 
-While the failure modes above highlight what to avoid, MCP excels in specific development scenarios. For Claude Code specifically:
-
-### Ideal MCP Use Cases
+### Ideal Use Cases
 
 | Use Case | Why MCP Works | Example Servers |
-|----------|---------------|-----------------|
-| **Database Inspection** | Read-only analysis, no transaction impact | Postgres, SQLite, MongoDB |
-| **Knowledge Search** | Background retrieval, user controls timing | Obsidian, Notion, memory servers |
-| **External APIs** | Development assistance, not production paths | GitHub, Linear, Jira |
-| **File System Access** | Controlled scope, sandboxed operations | filesystem (with constraints) |
-| **Development Tools** | Analysis during development, not runtime | Security scanners, linters |
-| **Knowledge Extraction** | Transcript/content retrieval, learning workflows | YouTube transcript, podcast servers |
+|---|---|---|
+| Database inspection | Read-only analysis, no transaction impact | Postgres, SQLite, MongoDB |
+| Knowledge search | Background retrieval, user controls timing | Obsidian, Notion, memory servers |
+| External APIs | Development assistance, not production paths | GitHub, Linear, Jira |
+| File system access | Controlled scope, sandboxed operations | filesystem (with constraints) |
+| Development tools | Analysis during development, not runtime | Security scanners, linters |
+| Knowledge extraction | Transcript/content retrieval, learning workflows | YouTube transcript, podcast servers |
 
-### Database Inspection Pattern
+Across all of these: connect to development or read-replica databases, never production write paths; prefer read-only operations, and require explicit user confirmation for anything that writes.
 
-**Best Use Case**: Understanding data structure and querying during development.
-
-```
-Claude Code → MCP (Postgres) → Read Schema/Query Data
-                ↓
-        Development Insights (not production transactions)
-```
-
-**Implementation**:
-```json
-{
-  "mcpServers": {
-    "postgres": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-postgres",
-               "postgresql://user:pass@localhost/dev_db"]
-    }
-  }
-}
-```
-
-**Key Constraint**: Connect to development/read-replica databases, never production write paths.
-
-### Knowledge Base Pattern
-
-**Best Use Case**: Searching documentation, notes, and project context.
-
-```
-Claude Code → MCP (Obsidian/Notion) → Search Knowledge Base
-                ↓
-        Relevant Context for Current Task
-```
-
-**Why It Works**:
-- User controls when to invoke (not in hot paths)
-- Latency acceptable for research operations
-- Enhances context without blocking workflow
-
-### External Service Integration Pattern
-
-**Best Use Case**: Fetching project context from external tools during development.
-
-```
-Claude Code → MCP (GitHub/Linear) → Fetch Issues/PRs
-                ↓
-        Context for Implementation Decisions
-```
-
-**Implementation Guidance**:
-- Read-only operations preferred
-- Write operations require explicit user confirmation
-- Never automate without human-in-the-loop
-
-### Knowledge Extraction Pattern (YouTube, Podcasts)
-
-**Best Use Case**: Extracting transcripts and content from video/audio platforms for knowledge management.
-
-```
-Claude Code → MCP (YouTube Transcript) → Fetch Transcript
-                ↓
-        Structured Knowledge for Research/Learning
-```
-
-**Recommended Server**: `@kimtaeyoon83/mcp-server-youtube-transcript` (449+ stars, actively maintained)
-
-**Configuration**:
-```json
-{
-  "mcpServers": {
-    "youtube-transcript": {
-      "command": "npx",
-      "args": ["-y", "@kimtaeyoon83/mcp-server-youtube-transcript"]
-    }
-  }
-}
-```
-
-**Why It Works**:
-- Zero-setup (remote hosted or npx)
-- Read-only (fetches public transcripts only)
-- User controls when to invoke
-- Ideal for learning workflows and content synthesis
-
-**Two-Part Pattern for Personal Playlists**:
-
-MCP servers only access public YouTube content. For personal playlists (Liked, Watch Later, Favorites), combine with a local extraction tool:
-
-```
-Part 1: Personal Playlist Export (local tool)
-┌─────────────────────────────────────────────────┐
-│ yt-playlist-export (browser cookies)            │
-│ - Likes (LL), Watch Later (WL), Favorites       │
-│ - Outputs: video_id, title, channel, url        │
-└─────────────────────────────────────────────────┘
-                    ↓
-Part 2: Transcript Extraction (MCP server)
-┌─────────────────────────────────────────────────┐
-│ youtube-transcript MCP server                   │
-│ - Accepts video_id from Part 1                  │
-│ - Returns full transcript with timestamps       │
-└─────────────────────────────────────────────────┘
-                    ↓
-           Knowledge Base Integration
-```
-
-**Implementation**:
-```bash
-# Part 1: Install playlist export tool
-pip install yt-playlist-export
-
-# Export liked videos (requires browser cookies)
-yt-playlist-export --playlist LL --output liked-videos.json
-
-# Part 2: MCP server provides get_transcript tool
-# Claude Code can then fetch transcripts for each video_id
-```
-
-**Security Notes**:
-- yt-playlist-export reads browser cookies (run locally only)
-- MCP transcript servers are read-only and safe
-- No OAuth tokens stored—uses existing browser session
-
-**Alternative: Direct Python API**:
-
-For batch processing or when MCP setup is impractical, use `youtube-transcript-api` directly:
-
-```bash
-pip install youtube-transcript-api
-```
-
-```python
-from youtube_transcript_api import YouTubeTranscriptApi
-
-api = YouTubeTranscriptApi()
-entries = api.fetch("VIDEO_ID", languages=['en'])
-
-for entry in entries:
-    print(f"[{int(entry.start)//60}:{int(entry.start)%60:02d}] {entry.text}")
-```
-
-**Note**: YouTube may rate-limit or block cloud IPs. Use browser cookies or proxy for production workflows.
-
-**Best For**: Content creators tracking inspiration, researchers aggregating expert content, learning from curated video lists.
-
-### Quick-Start MCP Configuration
-
-For development workflows, start with high-value, low-risk servers:
-
-```json
-{
-  "mcpServers": {
-    "filesystem": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem",
-               "/path/to/allowed/directory"]
-    },
-    "memory": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"]
-    }
-  }
-}
-```
-
-**Selection Criteria**:
-1. **Official servers first** - Anthropic-maintained servers are most trustworthy
-2. **Read-only when possible** - Reduces risk surface
-3. **Scoped access** - Limit filesystem to specific directories
-4. **Development databases only** - Never connect to production
-
-### Dynamic Tool Updates (v2.1.0+)
-
-MCP servers now support `list_changed` notifications, enabling dynamic updates without reconnection:
-
-**How it works**:
-- Server notifies Claude Code when tools/prompts/resources change
-- Claude Code refreshes available tools automatically
-- No session restart required
-
-**Use cases**:
-- Development servers that add tools at runtime
-- Context-sensitive tool availability
-- Feature flags controlling tool exposure
-
-**Implementation** (server-side):
-```typescript
-// Server sends notification when tools change
-server.notification({
-  method: "notifications/tools/list_changed"
-});
-```
-
-**Benefit**: Hot-swappable MCP capabilities during active sessions.
-
-### MCP vs Alternatives Decision
-
-Before adding MCP, consider if alternatives suffice:
+### MCP vs. Native Alternatives
 
 | Need | MCP Required? | Alternative |
-|------|--------------|-------------|
+|---|---|---|
 | Database queries | Yes, for rich interaction | Direct CLI with Bash tool |
 | File reading | No | Native Read tool |
 | Git operations | No | Native Bash with git |
 | API calls | Maybe | WebFetch for simple GET |
 | Knowledge search | Yes, for integrated experience | Manual file reading |
 
-**Rule of Thumb**: Use MCP when you need persistent, stateful connections or rich protocol interactions that native tools can't provide.
+Rule of thumb: reach for MCP when you need a persistent, stateful connection or a rich protocol interaction that native tools can't provide — not as the default first move.
 
-### CLI vs MCP: The Token Efficiency Case
+### Server Selection Criteria
 
-The Playwright team's `@playwright/cli` (February 2026) provides measured evidence for preferring CLI over MCP in coding agent workflows:
+1. Official servers first — Anthropic-maintained servers are the most trustworthy.
+2. Read-only when possible — reduces the risk surface.
+3. Scoped access — limit filesystem servers to specific directories.
+4. Development databases only — never connect to production.
 
-| Approach | Tokens per Task | Data Flow |
-|----------|----------------|-----------|
-| Playwright MCP | ~114,000 | Streams accessibility trees + screenshots into context |
-| Playwright CLI | ~27,000 | Saves to disk, returns file paths |
+### Which Specialized MCPs Are Worth the Context Cost
 
-**4x token reduction** by keeping data on disk instead of in context.
+Absorbed from mcp-daily-essentials.md (retired 2026-07-10), which tracked the "top 4 daily MCP servers" question:
 
-The architectural difference: MCP streams full page data into the LLM context window. CLI saves snapshots and screenshots to disk, returning only file paths. The agent reads what it needs.
+| Server | Pre-Tool-Search Context Cost | When to Enable | When to Skip |
+|---|---|---|---|
+| Context7 | ~15K tokens | Framework/library work, fast-moving APIs | Rarely — near-universal value |
+| Sequential Thinking | ~10K tokens | Algorithm design, complex business logic, debugging logic errors | Simple CRUD operations only |
+| Playwright (MCP) | ~20K tokens | Frontend/E2E testing, visual regression | Backend-only, no UI testing — or prefer the Playwright CLI (below) |
+| DeepWiki | ~18K tokens (varies by repo size) | Exploring unfamiliar codebases, open-source contribution | Single, familiar codebase |
+
+Context-cost figures above predate Tool Search's deferred loading (stale-pending-remeasure: MCP tool search v2.1.121 changed token economics) — treat as static-loading upper bounds, not current per-session costs; see MCP Context Budget: Then and Now, below.
+
+---
+
+## CLI vs MCP: The Token Efficiency Case
+
+The Playwright team's `@playwright/cli` (February 2026) provides measured evidence for preferring CLI over MCP in coding-agent workflows; mcp-daily-essentials.md's community estimates extend the pattern to two more capabilities:
+
+| Capability | MCP Token Cost | CLI Token Cost | Reduction |
+|---|---|---|---|
+| Browser automation (Playwright) | ~114,000 | ~27,000 | ~76% (4x) — measured, [microsoft/playwright-cli](https://github.com/microsoft/playwright-cli), Tier B |
+| GitHub operations | ~20,000 (GitHub MCP) | ~5,000 (`gh` CLI) | ~75% — community estimate, Tier B |
+| File operations | ~15,000 (Filesystem MCP) | ~2,000 (native tools) | ~87% — community estimate, Tier B |
+
+The architectural difference: MCP streams full page/response data (accessibility trees, screenshots, query results) into the LLM context window. CLI tools save that output to disk and return a file path or a compact reference; the agent reads only what it needs.
 
 ```bash
-# CLI workflow: compact element references, not full DOM trees
 playwright-cli snapshot          # → compact YAML with refs (e21, e35)
 playwright-cli click e21         # → minimal response
 playwright-cli screenshot        # → file path, not image bytes
 ```
 
-**When to prefer CLI over MCP**: When your agent has filesystem access (Claude Code, Copilot, Cursor) and the tool's output is large (DOM trees, screenshots, log files, query results).
+This is a different token-economics lever than Tool Search: Tool Search defers the cost of loading tool *definitions* at startup, while CLI-vs-MCP cuts the cost of tool *output* per call. The two are complementary, so none of the figures above carry the stale-pending-remeasure flag.
 
-**When MCP is still better**: When agents are sandboxed without filesystem access, or when you need persistent stateful connections (database sessions, streaming APIs).
-
-**Source**: [microsoft/playwright-cli](https://github.com/microsoft/playwright-cli) (Evidence Tier B)
+**Prefer CLI** when the agent has filesystem access (Claude Code, Copilot, Cursor) and the tool's output is large. **MCP is still better** when agents are sandboxed without filesystem access, or when you need persistent stateful connections (database sessions, streaming APIs).
 
 ---
 
@@ -439,8 +160,7 @@ playwright-cli screenshot        # → file path, not image bytes
 
 ```
 Is this request time-sensitive?
-├── YES → Keep MCP out
-│   └── Use traditional processing
+├── YES → Keep MCP out; use traditional processing
 └── NO → Consider MCP
     └── Is this analysis or execution?
         ├── Analysis → Good MCP fit
@@ -451,44 +171,46 @@ Is this request time-sensitive?
 
 ## OWASP MCP Security Framework
 
-The [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) identifies critical security risks in MCP deployments. Key attack patterns:
+The [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) identifies critical security risks in MCP deployments.
 
 ### Attack Patterns
 
 | Attack | Description | Impact |
-|--------|-------------|--------|
-| **Tool Poisoning** | Malicious commands embedded in tool descriptions | LLM executes hidden instructions, unauthorized data access |
-| **Rug Pull** | Legitimate tool replaced with malicious version | Complete compromise of trusted workflow |
-| **Schema Poisoning** | Corrupted interface definitions mislead the model | Model takes unintended actions |
-| **Tool Shadowing** | Fake/duplicate tools intercept interactions | Data interception, altered responses |
-| **Memory Poisoning** | Agent's memory corrupted with false information | Persistent manipulation of agent behavior |
-| **Cross-Server Interference** | Multiple MCP servers create unintended execution chains | Privilege escalation, data leakage |
-| **Supply Chain Attacks** | Compromised dependencies in MCP packages | Execution-level backdoors |
+|---|---|---|
+| Tool Poisoning | Malicious commands embedded in tool descriptions | LLM executes hidden instructions, unauthorized data access |
+| Rug Pull | Legitimate tool replaced with malicious version | Complete compromise of trusted workflow |
+| Schema Poisoning | Corrupted interface definitions mislead the model | Model takes unintended actions |
+| Tool Shadowing | Fake/duplicate tools intercept interactions | Data interception, altered responses |
+| Memory Poisoning | Agent's memory corrupted with false information | Persistent manipulation of agent behavior |
+| Cross-Server Interference | Multiple MCP servers create unintended execution chains | Privilege escalation, data leakage |
+| Supply Chain Attacks | Compromised dependencies in MCP packages | Execution-level backdoors |
 
 ### Defense-in-Depth Checklist
 
 Based on [OWASP's Practical Guide](https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/):
 
-**Server Verification**:
+**Server Verification**
 - [ ] Pin MCP server version at approval time
 - [ ] Use hash/checksum to verify tool descriptions unchanged
-- [ ] Verify server source is from trusted registry
+- [ ] Verify server source is from a trusted registry
 - [ ] Check for known vulnerabilities before deployment
 
-**Authorization & Access**:
+**Authorization & Access**
 - [ ] Enforce OAuth 2.1/OIDC authentication
 - [ ] Apply least-privilege per server
 - [ ] Implement human-in-the-loop for sensitive operations
 - [ ] Use scoped tokens per context (no broad permissions)
 
-**Runtime Protection**:
+**Runtime Protection**
 - [ ] Sandbox MCP servers (container isolation)
 - [ ] Implement behavioral monitoring for anomalies
 - [ ] Content security policies for tool descriptions
 - [ ] Rate limiting and circuit breakers
+- [ ] Audit logging enabled for all tool invocations
+- [ ] Graceful degradation path when a server is unavailable
 
-**Governance**:
-- [ ] Maintain trusted MCP registry
+**Governance**
+- [ ] Maintain a trusted MCP registry
 - [ ] Require dual sign-off (security + domain owners)
 - [ ] Staged deployment with monitoring
 - [ ] Periodic re-validation of approved servers
@@ -497,11 +219,11 @@ Based on [OWASP's Practical Guide](https://genai.owasp.org/resource/cheatsheet-a
 
 **Source**: H-AGENT-SECURITY-01 hypothesis
 
-The supply chain risk extends beyond MCP servers to skills specifically. Jenova Research (March 2026) found that **15% of OpenClaw skills contain harmful instructions**. In a single week, 230 malicious plugins were published on ClawHub using the ClickFix technique — embedding malicious instructions that appear benign during casual review.
+The supply chain risk extends beyond MCP servers to skills specifically. Jenova Research (March 2026) found that 15% of OpenClaw skills contain harmful instructions. In a single week, 230 malicious plugins were published on ClawHub using the ClickFix technique — embedding malicious instructions that appear benign during casual review.
 
-This is distinct from the ~43% MCP server command injection vulnerability rate (OWASP, above). MCP vulnerabilities are implementation flaws in server code; skill supply chain attacks are intentional hostile instructions embedded in skill definitions that the model follows faithfully.
+This is distinct from the MCP server command injection rate documented under Kitchen Sink Server Pattern above: MCP vulnerabilities are implementation flaws in server code, while skill supply chain attacks are intentional hostile instructions embedded in skill definitions that the model follows faithfully.
 
-> **Implication**: The 4-question Quick Security Assessment below was designed for MCP servers. Skill vetting requires additional scrutiny of instruction content, not just permission scope — a malicious skill can cause harm using only the permissions you explicitly grant it.
+> **Implication**: the Quick Security Assessment below was designed for MCP servers. Skill vetting requires additional scrutiny of instruction content, not just permission scope — a malicious skill can cause harm using only the permissions you explicitly grant it.
 
 ### Quick Security Assessment
 
@@ -527,404 +249,51 @@ Before adding any MCP server or skill, answer:
 
 ---
 
-## Security Checklist (Consolidated)
+## CodeGuard MCP Security Extensions
 
-Before deploying any MCP server:
+[CoSAI Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) provides MCP-specific security rules that extend the OWASP guidance above:
 
-**Implementation Security**:
-- [ ] Minimal capabilities (no kitchen sink)
-- [ ] Scoped permissions per context
-- [ ] Audit logging enabled
-- [ ] Command injection review
-- [ ] Data exposure assessment
-- [ ] Rate limiting configured
-- [ ] Graceful degradation path
+| Control | Description |
+|---|---|
+| SPIFFE/SPIRE | Cryptographic workload identities for MCP server authentication |
+| Transport Security | Stdio recommended for local; HTTP SSE requires mutual TLS, CORS/CSRF, payload limits |
+| Cryptographic Attestation | Signatures + SBOM for all server code; client-side verification |
+| OpenTelemetry | Immutable audit logging of tool usage, parameters, and originating prompts |
+| Two-Stage Commits | High-impact tools require draft/preview then explicit confirmation with rollback |
 
-**OWASP Compliance**:
-- [ ] Server version pinned and checksummed
-- [ ] OAuth 2.1/OIDC authentication enforced
-- [ ] Sandboxing implemented
-- [ ] Human-in-the-loop for sensitive operations
-- [ ] Listed in trusted internal registry
-- [ ] Periodic re-validation scheduled
+See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard integration guide.
 
 ---
 
-## MCP Context Budget Management
+## MCP Context Budget: Then and Now
 
-**Source**: [January 2026 Production Experience](https://dev.to/valgard/claude-code-must-haves-january-2026-kem)
-
-> "MCP tools can consume 40%+ context. Example: 81,986 tokens just for MCP tools at startup (41% of the 200k context window!)—almost half the available context before even a single line of code was loaded."
-
-### The Hidden Cost of MCP
-
-Each MCP server adds tool definitions to your context. With multiple servers enabled, you can lose significant context capacity before doing any actual work.
-
-**Measured impact from production**:
+**The pre-Tool-Search problem** (stale-pending-remeasure: MCP tool search v2.1.121 changed token economics). Production measurements from January 2026 (valgard) found MCP tool definitions consuming 81,986 tokens at startup — 41% of a 200K context window — before a single line of code was loaded. Static-loading configurations scaled roughly:
 
 | Configuration | MCP Tool Tokens | Remaining Context |
-|--------------|-----------------|-------------------|
+|---|---|---|
 | 0 MCP servers | 0 | 200K (100%) |
 | 2-3 servers | ~20K | 180K (90%) |
 | 5-6 servers | ~50K | 150K (75%) |
 | 10+ servers | ~82K+ | 118K (59%) |
 
-### The Sweet Spot
+**The sweet-spot heuristic** (absorbed from mcp-daily-essentials.md, retired 2026-07-10). valgard's production analysis settled on 4 plugins + 2 MCPs — Context7 + Sequential Thinking as the universal core, ~25K tokens combined — with database, git, and domain-specific servers activated on demand via `disabledMcpServers` in project-level `.claude/settings.json`. This was a single-workload measurement, never validated across project types, and mcp-daily-essentials.md documented several cases where "4 + 2" undershot or overshot: heavy documentation work did better on Context7 alone (more budget left for reading), security/data-pipeline work often justified 3+ specialized servers, and pure-reasoning exploration sometimes wanted zero MCPs.
 
-Based on production experience, the recommended configuration:
+**What changed**: Claude Code's Tool Search achieves an 89% token reduction (77K → 8.7K tokens; H-MCP-CONTEXT-01 hypothesis, 5/5 confidence, validated April 2026) by deferring tool schema loading until a tool is actually needed, gated on a 10K-token threshold rather than loading every definition at session start. Input schema overhead ran 60-80% of MCP tool token budgets (Speakeasy Dynamic Toolsets finding); lazy schema loading removes that cost until invocation. Workflow consolidation — 4-5 high-level tools outperforming 50+ granular ones — is now independently confirmed across 5 implementations.
 
-```
-4 plugins + 2 MCPs = optimal balance
-```
-
-**Recommended core MCPs**:
-- Context7 (documentation search)
-- Sequential Thinking (complex reasoning)
-
-**Activate on-demand**:
-- Database servers (when debugging data)
-- Git servers (when complex git operations needed)
-- Specialized domain servers (project-specific)
-
-### Configuration Strategy
-
-Use `disabledMcpServers` in project config to disable unused servers per project:
-
-```json
-// .mcp.json
-{
-  "mcpServers": {
-    "postgres": { "command": "..." },
-    "memory": { "command": "..." },
-    "youtube": { "command": "..." }
-  }
-}
-
-// .claude/settings.json (project-level)
-{
-  "disabledMcpServers": ["youtube", "memory"]
-}
-```
-
-**Result**: Only `postgres` loads for this project, saving ~30K tokens.
-
-### Monitoring Context Usage
-
-Check your MCP context consumption:
-
-```bash
-# Launch with debug flag
-claude --mcp-debug
-
-# Look for tool registration messages
-# Count tools registered per server
-```
-
-**Rule of thumb**: If you have >15 MCP tools registered, you're likely over-budget.
-
-### Dynamic Loading Pattern (v2.1.0+)
-
-With `list_changed` notifications, servers can register tools dynamically:
-
-```
-Session start:
-├── Core tools only (~5 tools)
-├── User requests specific capability
-├── Server registers additional tools
-└── Context grows incrementally
-```
-
-**Benefit**: Start lean, expand as needed—not all tools at once.
-
-### Dynamic Tool Loading: The Context Budget Solution (Validated)
-
-**Source**: H-MCP-CONTEXT-01 hypothesis (5/5 confidence, validated April 2026)
-
-Claude Code's Tool Search achieves **89% token reduction** (77K to 8.7K tokens) by deferring tool schema loading until needed. This fundamentally changes the MCP context budget economics documented above.
-
-**Key findings**:
-
-| Mechanism | Impact |
-|-----------|--------|
-| Tool Search deferred loading | 89% reduction (77K → 8.7K tokens) |
-| 10K token threshold | Tools loaded on demand, not all at startup |
-| Input schema overhead | 60-80% of MCP tool token budgets (Speakeasy Dynamic Toolsets finding) |
-| Lazy schema loading | Fix for schema bloat — load schemas only when tool is invoked |
-
-**Workflow consolidation**: 4-5 high-level workflow tools outperform 50+ granular tools — now backed by 5 independent implementations confirming this pattern.
-
-**Impact on the "4 plugins + 2 MCPs" sweet spot**: The static "4 plugins + 2 MCPs" recommendation above (from valgard, Tier B) pre-dates Tool Search. It remains valid as a fallback for users not using Tool Search, but dynamic loading fundamentally changes the economics. With deferred loading, the constraint shifts from "how many tools fit in context" to "how many tools can be discovered efficiently" — a much higher ceiling.
-
-> **Rule of thumb update**: The ">15 MCP tools = over-budget" heuristic above applies to static loading only. With Tool Search enabled, the practical limit is the 10K token threshold per deferred batch, not total tool count.
-
----
-
-## Building MCP Servers for Claude Code
-
-When building custom MCP servers for your project, follow these implementation lessons learned from production deployments.
-
-### Start with a Specification
-
-**Write a spec before coding**. Define:
-1. **Tools** (2-4 max) - What actions can be performed
-2. **Resources** (1-3) - What data can be read
-3. **Input/Output schemas** - Exact JSON structure
-
-```markdown
-## Tool: validate_patterns
-Purpose: Check pattern files for issues
-Input: { action: "validate_all" | "validate_single", pattern_id?: string }
-Output: { summary: { valid: int, broken: int }, results: [...] }
-```
-
-**Lesson learned**: The original spec had 4 workflows; we simplified to 2. Spec first lets you evaluate scope before investing in code.
-
-### Simplify Ruthlessly
-
-**Start with 2 workflows, not 4**. You can always add more.
-
-| Original Spec | Simplified | Rationale |
-|---------------|------------|-----------|
-| extraction_workflow | Removed | Manual updates sufficient for docs repo |
-| changelog_workflow | Folded into sync | Same data sources |
-| validation_workflow | validate_patterns | Core value |
-| synthesis_workflow | sync_documentation | Core value |
-
-**Lesson learned**: A documentation repo doesn't need automated thought-leader monitoring. Match complexity to actual project needs.
-
-### Directory Structure
-
-Organize for maintainability:
-
-```
-mcp-server/
-├── pyproject.toml              # Dependencies (mcp>=1.0, pydantic, httpx)
-├── .gitignore                  # Exclude .venv/, __pycache__/
-├── README.md                   # Usage examples
-├── src/your_mcp_server/
-│   ├── __init__.py
-│   ├── server.py               # Entry point with @server decorators
-│   ├── tools/                  # One file per tool
-│   │   ├── __init__.py
-│   │   └── your_tool.py
-│   ├── resources/              # Resource registries
-│   │   └── your_registry.py
-│   └── parsers/                # File parsing logic
-│       └── your_parser.py
-└── tests/
-    └── test_your_tool.py
-```
-
-### Configuration via .mcp.json
-
-Use `.mcp.json` in project root:
-
-```json
-{
-  "mcpServers": {
-    "your-server": {
-      "command": "./mcp-server/.venv/bin/python",
-      "args": ["-m", "your_mcp_server.server"],
-      "cwd": "./mcp-server/src",
-      "env": {
-        "REPO_ROOT": "../.."
-      }
-    }
-  }
-}
-```
-
-**Key points**:
-- Use virtual environment path for `command` (not system Python)
-- Set `cwd` to source directory
-- Pass project paths via `env` variables
-
-### Parser Pitfalls
-
-**Strip code blocks before link extraction**. Markdown examples contain fake links that cause false validation errors.
-
-```python
-def _strip_code_blocks(self, content: str) -> str:
-    """Remove code blocks to avoid false link detection."""
-    content = re.sub(r'```[\s\S]*?```', '', content)
-    content = re.sub(r'`[^`]+`', '', content)
-    return content
-```
-
-**Lesson learned**: Pattern files contained example links inside code blocks. The naive parser flagged these as broken.
-
-### Handle Multiple Link Formats
-
-Different files use different link formats:
-
-```python
-# Must handle: patterns/xxx.md, ./xxx.md, /xxx.md
-RELATED_PATTERN = re.compile(r'(?:patterns/|\./|/)([a-z0-9-]+)\.md')
-```
-
-**Lesson learned**: Initial regex only matched `patterns/xxx.md` but actual files used `./xxx.md`.
-
-### Async Tool Functions
-
-MCP tools should be async for network operations:
-
-```python
-async def validate_patterns(
-    action: str,
-    pattern_registry: PatternRegistry,
-) -> dict[str, Any]:
-    # External link validation needs async HTTP
-    async with httpx.AsyncClient() as client:
-        response = await client.head(url, timeout=5.0)
-```
-
-### Test Before Integration
-
-Run the server directly before Claude Code integration:
-
-```bash
-# Install in venv
-cd mcp-server && pip install -e .
-
-# Test module loads
-PYTHONPATH=src python -c "from your_server.server import server; print('OK')"
-
-# Verify with claude mcp list
-claude mcp list  # Should show: your-server: ... - ✓ Connected
-```
-
-### Virtual Environment Management
-
-**Always use a project-local venv**:
-
-```bash
-cd mcp-server
-python3 -m venv .venv
-.venv/bin/pip install -e .
-```
-
-**Add to .gitignore immediately**:
-```
-.venv/
-__pycache__/
-*.egg-info/
-.pytest_cache/
-```
-
-**Lesson learned**: Accidentally committed `.venv/` (600K+ files) on first attempt. Create `.gitignore` before any `git add`.
-
-### Incremental Validation
-
-Build validation in layers:
-
-1. **Structure** - Required sections present
-2. **Internal links** - Referenced files exist
-3. **External links** - URLs reachable (with timeout, sampling)
-4. **Evidence** - Tier claims match sources
-5. **Cross-refs** - Bidirectional references complete
-
-**Lesson learned**: Running all validations at once makes debugging hard. Build and test incrementally.
-
----
-
-## Application to Claude Code
-
-Claude Code's MCP integration should follow these patterns:
-
-| Pattern | Claude Code Application |
-|---------|------------------------|
-| Intelligence Layer | Code analysis tools (linting, security scan) |
-| Sidecar | Background documentation updates |
-| Batch | Repository analysis overnight |
-
-**Never** put MCP servers in:
-- File save operations (use native filesystem)
-- Git commits (use native git)
-- Interactive typing (latency kills UX)
-
----
-
-## SDD Phase Alignment
-
-**Phase**: Cross-phase (security applies to all phases)
-
-| SDD Phase | MCP Security Application |
-|-----------|-------------------------|
-| **Specify** | Define MCP requirements and security constraints |
-| **Plan** | Design MCP architecture with security controls |
-| **Tasks** | Include security verification in task breakdown |
-| **Implement** | Apply defense-in-depth, verify compliance |
-
----
-
-## Anti-Patterns
-
-The 7 Failure Modes documented above represent the primary anti-patterns. Additionally:
-
-### ❌ MCP as First Solution
-**Problem**: Reaching for MCP when simpler alternatives exist
-**Symptom**: Complex MCP setup for tasks native tools handle
-**Solution**: Check if WebFetch, Bash, or native file tools suffice before adding MCP
-
-### ❌ Trusting Community Servers Blindly
-**Problem**: Installing MCP servers without security review
-**Symptom**: ~43% of servers have command injection vulnerabilities
-**Solution**: Apply OWASP MCP checklist, prefer official servers, review before trusting
-
-### ❌ MCP for Real-Time Operations
-**Problem**: Placing MCP in latency-sensitive paths
-**Symptom**: 300-800ms baseline destroys user experience
-**Solution**: Use Intelligence Layer/Sidecar/Batch patterns instead
-
-### ❌ Over-Permissioned Servers
-**Problem**: Granting broad permissions "to make it work"
-**Symptom**: Data leakage, compliance violations, AI accessing unintended data
-**Solution**: Principle of least privilege, scoped tokens, regular audits
-
----
-
-## CodeGuard MCP Security Extensions
-
-[CoSAI Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) provides an MCP-specific security rule that extends the OWASP guidance above with additional controls:
-
-| Control | Description |
-|---------|-------------|
-| **SPIFFE/SPIRE** | Cryptographic workload identities for MCP server authentication |
-| **Transport Security** | Stdio recommended for local; HTTP SSE requires mutual TLS, CORS/CSRF, payload limits |
-| **Cryptographic Attestation** | Signatures + SBOM for all server code; client-side verification |
-| **OpenTelemetry** | Immutable audit logging of tool usage, parameters, and originating prompts |
-| **Two-Stage Commits** | High-impact tools require draft/preview then explicit confirmation with rollback |
-
-These complement our existing OWASP MCP Top 10 checklist and defense-in-depth strategy. See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard integration guide.
+**Rule of thumb, updated**: "4 plugins + 2 MCPs" and ">15 tools = over-budget" apply to static loading only, and remain a reasonable fallback for setups not running Tool Search. With Tool Search enabled (default since v2.1.121), the binding constraint shifts from "how many tools fit in context" to "how many tools can be discovered efficiently" — a materially higher ceiling this doc has not yet re-measured, hence the stale-pending-remeasure flags throughout this section.
 
 ---
 
 ## Related Patterns
 
-- [Advanced Tool Use](../archive/patterns-v1/advanced-tool-use.md) - Tool Search for token efficiency
-- [Context Engineering](./behavioral-insights.md) - Security in context design
-- [Plugins and Extensions](./plugins-and-extensions.md) - When to use MCP vs alternatives
-- [Spec-Driven Development](../archive/patterns-v1/spec-driven-development.md) - Write spec before MCP implementation
-- [Safety and Sandboxing](./safety-and-sandboxing.md) - OS-level security for MCP servers
-- [Secure Code Generation](./secure-code-generation.md) - CodeGuard framework for secure AI-generated code
+- [Advanced Tool Use](../archive/patterns-v1/advanced-tool-use.md) — Tool Search for token efficiency
+- [Context Engineering](./behavioral-insights.md) — security in context design
+- [Plugins and Extensions](./plugins-and-extensions.md) — when to use MCP vs alternatives
+- [Safety and Sandboxing](./safety-and-sandboxing.md) — OS-level security for MCP servers
+- [Secure Code Generation](./secure-code-generation.md) — CodeGuard framework for secure AI-generated code
+- [MCP vs Skills Economics](./mcp-vs-skills-economics.md) — token efficiency comparison across MCP and skills
 
-## Reference Implementation
-
-This repository includes a working MCP server example:
-
-```
-mcp-server/                      # Best Practices MCP Server
-├── src/best_practices_mcp/
-│   ├── server.py               # 2 tools: validate_patterns, sync_documentation
-│   ├── tools/                  # Tool implementations
-│   ├── resources/              # Pattern and source registries
-│   └── parsers/                # Markdown parsing with code block handling
-└── tests/                      # 9 passing tests
-```
-
-**Usage**: `claude mcp list` should show `best-practices: ... - ✓ Connected`
-
----
+`mcp-daily-essentials.md` is retired — its still-true content is absorbed here 2026-07-10. `mcp-client-integration.md` (client-side JSON-RPC session lifecycle, retry patterns) was deleted in an earlier 2026-07 reduction pass; the official MCP docs now cover connection mechanics.
 
 ## Sources
 
@@ -935,8 +304,12 @@ mcp-server/                      # Best Practices MCP Server
 - H-AGENT-SECURITY-01 hypothesis (skill supply chain risk)
 - Jenova Research: OpenClaw skill security analysis (March 2026)
 - Speakeasy Dynamic Toolsets: input schema token overhead analysis
+- [microsoft/playwright-cli](https://github.com/microsoft/playwright-cli) (Tier B)
+- [valgard MCP Context Budget Analysis](https://dev.to/valgard/claude-code-must-haves-january-2026-kem) (Tier B, absorbed via mcp-daily-essentials.md)
+- [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) (community MCP recommendations, absorbed via mcp-daily-essentials.md)
+- [CoSAI Project CodeGuard](https://github.com/cosai-oasis/project-codeguard)
 
-*Last updated: April 2026*
+*Last updated: 2026-07-10 (collapsed; absorbed mcp-daily-essentials.md).*
 
 <!-- graphify-footer:start -->
 

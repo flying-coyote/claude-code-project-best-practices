@@ -98,9 +98,8 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | [agent-evaluation.md](analysis/agent-evaluation.md) | Eval methodology from Anthropic engineering |
 | [orchestration-comparison.md](analysis/orchestration-comparison.md) | When to use native subagents vs GSD vs CAII vs agent teams |
 | [framework-selection-guide.md](analysis/framework-selection-guide.md) | Orchestration framework decision matrix |
-| [mcp-patterns.md](analysis/mcp-patterns.md) | 7 failure modes + OWASP security mapping |
+| [mcp-patterns.md](analysis/mcp-patterns.md) | The single MCP doc: OWASP security mapping + 4-plugin/2-MCP sweet-spot evidence (absorbed mcp-daily-essentials 2026-07-10) |
 | [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md) | Cost/performance analysis: Skills 50% cheaper than MCP |
-| [mcp-daily-essentials.md](analysis/mcp-daily-essentials.md) | Optimal plugin/MCP configuration (4 plugins + 2 MCPs) |
 | [plugins-and-extensions.md](analysis/plugins-and-extensions.md) | Skills vs MCP vs Hooks vs Commands decision framework |
 | [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md) | 4-layer security stack, auto mode analysis, sandbox architecture |
 | [secure-code-generation.md](analysis/secure-code-generation.md) | OWASP-aware code generation patterns |
@@ -112,10 +111,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | [memory-systems-graphify-vs-understand-anything.md](analysis/memory-systems-graphify-vs-understand-anything.md) | A/B comparison of two LLM-driven graph-builders + ~25% EXTRACTED-edge hallucination spot-check finding |
 | [confidence-scoring.md](analysis/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework |
 | [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md) | Hypothesis confidence tracking, revalidation before demos |
-| [local-cloud-llm-orchestration.md](analysis/local-cloud-llm-orchestration.md) | Hybrid MLX+Claude architecture, tokenization boundary, hallucination scrubbing |
-| [federated-query-architecture.md](analysis/federated-query-architecture.md) | 15/15 benchmark queries, 86–99% cost savings, TCO calculator |
-| [automated-config-assessment.md](analysis/automated-config-assessment.md) | Baseline-deviation-remediation pattern, 3,816+ sensors, 100% detection |
-| [security-data-pipeline.md](analysis/security-data-pipeline.md) | Zeek → OCSF → Parquet → Iceberg pipeline, 30K records/sec |
+| [automated-config-assessment.md](analysis/automated-config-assessment.md) | Baseline-deviation-remediation pattern + Hoosier 12/12 ground-truth measurement |
 | [cross-project-synchronization.md](analysis/cross-project-synchronization.md) | Cross-repo dependency cascading, 4-phase enrichment cascade |
 
 ### Meta and Source Files

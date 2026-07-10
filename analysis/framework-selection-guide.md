@@ -3,7 +3,7 @@ version-requirements:
   claude-code: "v2.0.0+"
 version-last-verified: "2026-02-27"
 status: PRODUCTION
-last-verified: "2026-02-16"
+last-verified: "2026-07-10"
 notes: "Comparative guide - native subagents handle ~80% of use cases"
 evidence-tier: B
 applies-to-signals: [project-type-framework-selection, harness-comprehensive]
@@ -12,77 +12,9 @@ revalidate-by: 2026-10-22
 
 # Framework Selection Guide
 
-**Purpose**: Help users choose the right orchestration approach for their Claude Code projects
-**Evidence Tier**: A/B (Synthesized from validated patterns and production implementations)
+> **Collapsed 2026-07-10 (Reduction Phase 4).** Native-mechanism selection is now a first-party decision table (official features overview, "Match features to your goal"). Kept delta: the external-framework comparison.
 
-## The Key Insight
-
-The frameworks documented in this repository aren't competing—they operate at **different levels**:
-
-| Level | Question | Options |
-|-------|----------|---------|
-| **Methodology** | WHAT phases to follow? | SDD (Spec-Driven Development) |
-| **Orchestration** | HOW to coordinate agents? | Native Subagent, GSD, CAII |
-| **Execution** | WITH WHAT tools? | Skills, Hooks, MCP |
-
-**SDD is always foundational.** The orchestration choice depends on project characteristics.
-
----
-
-## Quick Decision Tree
-
-```
-START
-  │
-  ▼
-Is this a simple, single-session task?
-  │
-  ├─YES──► Use NATIVE SUBAGENT ORCHESTRATION (Default)
-  │        • Explore, Plan, general-purpose subagent types
-  │        • Built into Claude Code, zero setup
-  │        • See: analysis/orchestration-comparison.md
-  │
-  ▼
-  NO
-  │
-  ▼
-Do you need state persistence across sessions?
-  │
-  ├─YES──► Use GSD ORCHESTRATION
-  │        • STATE.md for cross-session memory
-  │        • Fresh context per executor (prevents rot)
-  │        • .planning/ directory structure
-  │        • See: analysis/orchestration-comparison.md
-  │
-  ▼
-  NO
-  │
-  ▼
-Are you building a reusable agent architecture?
-  │
-  ├─YES──► Use CAII COGNITIVE AGENTS
-  │        • 7 fixed agents (constant complexity)
-  │        • Deterministic orchestration
-  │        • Learning & memory capture
-  │        • See: analysis/orchestration-comparison.md
-  │
-  ▼
-  NO
-  │
-  ▼
-Do you need 60+ specialized agents at enterprise scale?
-  │
-  ├─YES──► REFERENCE Claude-Flow (don't implement directly)
-  │        • Vector memory, swarm topologies
-  │        • Enterprise complexity—overkill for most
-  │        • See: SOURCES.md (reference only)
-  │
-  ▼
-  NO
-  │
-  ▼
-Use NATIVE SUBAGENT ORCHESTRATION (Default)
-```
+**Purpose**: Compare external orchestration frameworks (GSD, CAII, CRISPY, Claude-Flow, RLM) for projects that outgrow native subagents. **Evidence Tier**: B (synthesized from validated patterns and production implementations).
 
 ---
 
@@ -92,7 +24,6 @@ Use NATIVE SUBAGENT ORCHESTRATION (Default)
 
 | Framework | Agent Model | Context Strategy | State Management | Evidence | Primary source |
 |-----------|-------------|------------------|------------------|----------|---|
-| **Native Subagent** | 1 parent + N subagents | Accumulating | Conversation history | Tier A | Anthropic Claude Code docs |
 | **GSD** | ~5 workflow agents | Fresh per subagent | STATE.md + .planning/ | Tier B | glittercowboy/get-shit-done |
 | **CAII** | 7 cognitive agents | On-the-fly injection | Task-specific memories | Tier B | skribblez2718/caii |
 | **CRISPY** | Single agent, 7 phases | Phase-scoped | Design doc + vertical plans | Tier B | Dexter Horthy conference talk (March 2026) |
@@ -103,225 +34,27 @@ Use NATIVE SUBAGENT ORCHESTRATION (Default)
 
 ## Detailed Guidance
 
-### Native Subagent Orchestration (DEFAULT)
-
-**When to use**: Most Claude Code work
-
-**Characteristics**:
-- Built-in subagent types: `Explore`, `Plan`, `general-purpose`
-- Zero infrastructure required
-- Works with standard Claude Code features
-
-**Best for**:
-- Single-session development tasks
-- Code exploration and understanding
-- Standard feature implementation
-- Bug fixes and refactoring
-
-**Validated by**: H-CLAUDE-CODE-01 through H-CLAUDE-CODE-04 (all validated)
-
-**Documentation**: [Subagent Orchestration](./orchestration-comparison.md)
-
----
-
 ### GSD Orchestration
 
-**When to use**: Complex, multi-session projects requiring continuity
-
-**Key Innovation**: Fresh context per executor prevents quality degradation
-
-```
-Traditional: Context accumulates → Quality degrades
-GSD: Each executor gets fresh 200K → Consistent quality
-```
-
-**Best for**:
-- Multi-day features spanning sessions
-- Team handoffs (STATE.md provides complete context)
-- Projects with complex dependencies
-- When you notice quality degrading in long sessions
-
-**Key Artifacts**:
-- `STATE.md` - Current position, decisions, blockers
-- `.planning/` - Research, plans, summaries
-- XML task specifications with embedded verification
-
-**Documentation**: [GSD Orchestration](./orchestration-comparison.md)
-
----
+GSD suits complex, multi-session projects needing continuity. Key innovation: each executor gets a fresh 200K context instead of accumulating context across a session, while `STATE.md` carries continuity forward. Best for multi-day features, team handoffs, complex dependencies, and sessions where quality visibly degrades. Key artifacts: `STATE.md` (position, decisions, blockers), `.planning/` (research, plans, summaries), XML task specs with embedded verification. Documentation: [GSD Orchestration](./orchestration-comparison.md).
 
 ### CAII Cognitive Agents
 
-**When to use**: Building scalable, maintainable agent architectures
-
-**Key Innovation**: 7 fixed agents by cognitive function, not domain
-
-```
-Domain-specific: N agents (grows with scope) → Maintenance nightmare
-CAII: 7 agents (constant) → Sustainable architecture
-```
-
-**The 7 Cognitive Agents**:
-1. **Clarification** - Transforms ambiguity into specs
-2. **Research** - Gathers domain knowledge
-3. **Analysis** - Decomposes problems
-4. **Synthesis** - Integrates findings
-5. **Generation** - Creates artifacts (TDD)
-6. **Validation** - Verifies quality
-7. **Memory** - Monitors progress, captures learnings
-
-**Best for**:
-- Teams building reusable agent systems
-- Projects requiring deterministic orchestration
-- Long-term systems that need to improve over time
-
-**Bonus**: The [Johari Window](./behavioral-insights.md) methodology (from CAII) is valuable for ANY framework
-
-**Documentation**: [Cognitive Agent Infrastructure](./orchestration-comparison.md)
-
----
+CAII suits teams building scalable, maintainable agent architectures: 7 fixed agents by cognitive function — Clarification, Research, Analysis, Synthesis, Generation (TDD), Validation, Memory — keep agent count constant instead of growing with scope. Best for reusable agent systems, deterministic orchestration, and long-term systems that need to improve over time. The [Johari Window](./behavioral-insights.md) methodology, borrowed from CAII, is valuable with any framework. Documentation: [Cognitive Agent Infrastructure](./orchestration-comparison.md).
 
 ### Claude-Flow (Reference Only)
 
-**When to use**: Almost never directly—reference for enterprise patterns
+Claude-Flow is reference-only — almost never implement directly. 60+ agents is extreme complexity, the 250% extension claim is unverified, vector memory and swarm topologies assume infrastructure most projects lack, and there's no production validation data. Reference it for enterprise-scale design ideas, advanced orchestration patterns, and swarm topology options. Documentation: SOURCES.md (no dedicated pattern file — intentionally).
 
-**Why reference only**:
-- 60+ agents is extreme complexity
-- Performance claims unverified (250% extension)
-- Vector memory and swarm topologies are advanced
-- No production validation data
+### RLM — Recursive Language Models (Emerging)
 
-**When to reference**:
-- Designing enterprise-scale agent systems
-- Researching advanced orchestration patterns
-- Evaluating swarm topology options
-
-**Documentation**: SOURCES.md (no dedicated pattern file—intentionally)
-
----
-
-### RLM - Recursive Language Models (EMERGING)
-
-**When to use**: Monitor for future adoption; apply principles now through prompting
-
-**Status**: Emerging paradigm with strong academic results but no Claude-specific validation
-
-**Key Innovation**: Model manages its own context through REPL variable access
-
-```
-Traditional: [Full Context] → [Single Pass] → [Answer] (context rot)
-RLM: [Context as Variable] → [Model decides: peek, grep, partition] → [Recursive sub-calls] → [Answer]
-```
-
-**Why it matters**:
-- Explains theoretically WHY GSD's fresh context works
-- Addresses "context rot" (performance degradation as window fills)
-- CodeQA accuracy: 24% → 62% improvement
-
-**Current limitations**:
-- Requires RL training (not available for Claude)
-- All published results use GPT-5/GPT-5-mini
-- Implementation complexity (REPL environment)
-
-**What you can do NOW** (without full RLM):
-- Encourage recursive exploration prompts
-- Explicit context partitioning ("process in batches of 3")
-- Programmatic filtering ("search for X first, then examine only those")
-
-**Documentation**: [Recursive Context Management](./behavioral-insights.md)
-
----
+RLM is emerging: monitor for future adoption, apply its principles now through prompting, treat it as unvalidated for Claude. Innovation: the model manages context through REPL variable access — peek, grep, partition, and recurse into sub-calls instead of a single pass over the full context (context rot). Offered as a theoretical explanation for why GSD's fresh-context approach works; the paper reports CodeQA accuracy improving 24% → 62%. Limitations: needs RL training unavailable for Claude, published results use GPT-5/GPT-5-mini only, REPL adds implementation complexity. Short of full RLM, the technique still transfers: recursive exploration prompts, explicit context partitioning, programmatic filtering. Documentation: [Recursive Context Management](./behavioral-insights.md).
 
 ### CRISPY: Structured Phase Decomposition (RPI Successor)
 
-**When to use**: Complex implementation tasks where mega-prompts produce poor plans
+CRISPY (the RPI successor) suits complex implementation tasks where mega-prompts produce poor plans. Status: production-validated. Source: Dexter Horthy / Human Layer (Authority 4/5), confirmed across "thousands of engineers." It splits RPI's 3 monolithic phases (85+ instructions, hard to debug) into 7 phases of under 40 instructions each with discrete control flow — "don't use prompts for control flow; use control flow for control flow." The 7 phases: Questions, Research, Design (200-line design doc), Structure, Plan (vertical slices), Work, Implement + PR. Best for features where a single planning pass produces 1000+ line plans and plan-to-implementation divergence wastes review effort.
 
-**Status**: Production-validated. Evolved from Research-Plan-Implement (RPI). Source: Dexter Horthy / Human Layer (Authority 4/5), confirmed across "thousands of engineers."
-
-**Key Innovation**: RPI's 3 phases with 85+ instruction mega-prompts split into 7 phases with <40 instructions each. Core principle: "don't use prompts for control flow; use control flow for control flow."
-
-```
-RPI:     [Research 85+ instructions] → [Plan] → [Implement]  (monolithic, hard to debug)
-CRISPY:  [Questions] → [Research] → [Design] → [Structure] → [Plan] → [Work] → [Implement + PR]
-         (each phase <40 instructions, discrete control flow)
-```
-
-**The 7 Phases**:
-1. Questions — Surface unknowns
-2. Research — Gather context
-3. Design — 200-line design doc (alignment artifact)
-4. Structure — Component boundaries
-5. Plan — Vertical implementation slices
-6. Work — Execute
-7. Implement + PR — Finalize
-
-**Best for**:
-- Complex features where a single planning pass produces 1000+ line plans
-- Projects where plan-to-implementation divergence wastes review effort
-- Teams that need a lightweight alignment checkpoint before deep implementation
-
-#### The Design Doc Pattern
-
-The central alignment artifact in CRISPY. A ~200-line document capturing:
-- Where we're going (target state)
-- Patterns to follow (architectural decisions)
-- Resolved decisions (no longer open)
-- Open questions (still need answers)
-
-This is described as "brain surgery on the agent before you proceed downstream." Instead of reviewing a 1000-line generated plan, align on a 200-line design doc and invest review time in the resulting code.
-
-**Why this matters**: Plans have "surprises" — implementation frequently diverges from plan. Reviewing a plan AND then reviewing divergent code is double work. A 200-line design doc is small enough to actually read and validate. Skip plan review, invest in code review.
-
-**Applicability note**: This guidance targets very long plans (1000+ lines). Short plans for simple tasks don't have the divergence problem.
-
-#### Vertical Planning (vs. Horizontal Default)
-
-Models default to horizontal planning: all database schema, then all service layer, then all API endpoints. This produces untestable 1200+ line plans where nothing works until everything is done.
-
-Vertical slicing enforces testable checkpoints: one complete feature slice (DB + service + API + test) at a time. Each slice is independently verifiable.
-
-**Documentation**: [Orchestration Comparison — CRISPY](./orchestration-comparison.md)
-
----
-
-## How Frameworks Map to SDD Phases
-
-All orchestration frameworks implement the SDD 4-phase model differently:
-
-| SDD Phase | Native Subagent | GSD | CAII |
-|-----------|-----------------|-----|------|
-| **Specify** | CLAUDE.md, skills | STATE.md, .planning/ | Clarification agent |
-| **Plan** | Plan subagent | Research + PLAN.md | Research + Analysis agents |
-| **Tasks** | TodoWrite, JSON files | XML task specs | Synthesis agent |
-| **Implement** | Explore/general-purpose | Fresh executors | Generation + Validation agents |
-
----
-
-## Common Mistakes
-
-### ❌ Choosing Framework Before Understanding Problem
-
-**Mistake**: "I'll use GSD because it sounds powerful"
-**Reality**: Native subagents handle 80% of work; GSD adds overhead
-**Fix**: Start with native; upgrade when you hit specific friction
-
-### ❌ Implementing Claude-Flow Patterns Directly
-
-**Mistake**: "Let me build 60 specialized agents"
-**Reality**: Enterprise complexity for most projects is overkill
-**Fix**: Reference Claude-Flow for ideas; implement simpler frameworks
-
-### ❌ Mixing Frameworks Arbitrarily
-
-**Mistake**: Using CAII's 7 agents inside GSD's workflow phases
-**Reality**: Frameworks have internal consistency; mixing creates confusion
-**Fix**: Choose one orchestration approach; extract universally useful patterns (like Johari Window)
-
-### ❌ Ignoring the Default
-
-**Mistake**: Always reaching for complex orchestration
-**Reality**: Native subagent + good CLAUDE.md handles most needs
-**Fix**: Prove you need more before adding complexity
+The design doc is the central alignment artifact — Horthy calls it "brain surgery on the agent before you proceed downstream": align on a 200-line doc (target state, patterns, resolved decisions, open questions) instead of reviewing a 1000-line plan and then the code that diverges from it; this targets long plans only. CRISPY also replaces horizontal planning (all schema, then all service layer, then all API endpoints — untestable until everything is done) with vertical slicing: one complete feature slice (DB + service + API + test) at a time, independently verifiable. Documentation: [Orchestration Comparison — CRISPY](./orchestration-comparison.md).
 
 ---
 
@@ -332,141 +65,25 @@ Some patterns extracted from these frameworks work with ANY orchestration:
 | Pattern | Origin | Universal Value |
 |---------|--------|-----------------|
 | [Johari Window](./behavioral-insights.md) | CAII | Surface unknowns before implementation |
-| [STATE.md](./gsd-orchestration.md#the-statemd-pattern) | GSD | Cross-session memory (even without full GSD) |
+| STATE.md | GSD | Cross-session memory (even without full GSD) |
 | [Design Doc](./orchestration-comparison.md) | CRISPY | 200-line alignment artifact before plan generation |
 | [Vertical Planning](./orchestration-comparison.md) | CRISPY | Testable slices vs. untestable horizontal layers |
-| [Progressive Disclosure](./plugins-and-extensions.md) | Production | Token efficiency for all frameworks |
-| [Atomic Commits](./gsd-orchestration.md#atomic-commits-pattern) | GSD | One task = one commit (good practice anyway) |
-
----
-
-## Framework Selection by Project Type
-
-| Project Type | Recommended | Why |
-|--------------|-------------|-----|
-| **Bug fix** | Native Subagent | Simple, low overhead |
-| **Small feature (<1 day)** | Native Subagent | No session continuity needed |
-| **Medium feature (1-3 days)** | Native or GSD | GSD if quality degradation noticed |
-| **Large feature (1+ week)** | GSD | STATE.md essential for continuity |
-| **Complex feature (1000+ line plans)** | CRISPY | Design doc alignment, vertical slicing |
-| **Building agent tools** | CAII | Scalable architecture matters |
-| **Research project** | Native + Johari | Johari for ambiguity; native for execution |
-| **Team collaboration** | GSD | STATE.md enables handoffs |
+| Atomic Commits | GSD | One task = one commit (good practice anyway) |
 
 ---
 
 ## Anti-Patterns
 
-### ❌ Framework Before Problem
-**Anti-pattern**: "I'll use GSD because it sounds advanced/powerful"
-
-**Why it fails**:
-- Adds setup overhead (STATE.md, .planning/ directory)
-- Fresh executor spawning has latency cost
-- Native subagents handle 80% of work effectively
-
-**Instead**: Start with native subagents. Upgrade to GSD when you observe:
-- Quality degradation across sessions
-- Lost context between work days
-- Team handoffs failing due to missing state
-
-**Evidence**: GSD's own README advises "overkill for simple tasks"
-
----
-
-### ❌ Mixing Frameworks Without Architecture
-**Anti-pattern**: Arbitrarily combining CAII's 7 agents inside GSD's workflow phases
-
-**Why it fails**:
-- Frameworks have incompatible assumptions (CAII = deterministic, GSD = stateless executors)
-- Debugging complexity exponentially increases
-- No validated patterns for hybrid approaches
-
-**Instead**: Pick ONE orchestration framework. Borrow specific patterns:
-- ✅ Use Johari Window (from CAII) with native subagents
-- ✅ Use STATE.md (from GSD) without full GSD workflow
-- ❌ Don't try to run CAII agents as GSD executors
-
-**Evidence**: All production implementations use single framework, borrow patterns
-
----
-
-### ❌ Implementing Claude-Flow Directly
-**Anti-pattern**: "Let me build 60 specialized agents like Claude-Flow"
-
-**Why it fails**:
-- Enterprise-scale architecture designed for 100+ simultaneous users
-- Vector memory, swarm topologies require infrastructure
-- Cost: $500K+/year compute (per Claude-Flow estimates)
-- Maintenance burden: 60 agents = 60 failure modes
-
-**Instead**: Reference Claude-Flow for ideas:
-- Learn the principles (specialized agents, vector memory concepts)
-- Implement simpler: CAII gives you 7 cognitive agents (vs 60 domain agents)
-- Start native, grow to CAII if needed, consider Claude-Flow patterns at enterprise scale
-
-**Reality check**: If you're reading this repository, you're not at Claude-Flow scale yet
-
----
-
-### ❌ Choosing Based on Novelty
-**Anti-pattern**: "RLM sounds cutting-edge, I'll base my architecture on it"
-
-**Why it fails**:
-- RLM (Recursive Language Models) requires RL training not available for Claude
-- All published results use GPT-5/GPT-5-mini only
-- Implementation requires REPL environment setup
-- **Status**: Emerging pattern (monitor, don't adopt yet)
-
-**Instead**:
-- Use RLM-inspired techniques NOW: recursive exploration prompts, context partitioning
-- Base architecture on validated patterns (Native, GSD, CAII)
-- Monitor RLM developments, adopt when Claude-validated
-
-**Timeline**: RLM may be production-ready 2027+ (speculation)
-
----
-
-### ❌ Premature Optimization
-**Anti-pattern**: Starting new project with GSD + CAII + custom hooks + MCP servers
-
-**Why it fails**:
-- Setup time > actual work time for first 2 weeks
-- Complexity without validated need
-- Makes debugging initial issues harder
-
-**Instead** - Progressive adoption:
-1. **Week 1**: Native subagents + minimal CLAUDE.md
-2. **Week 2**: Add hooks if needed (formatting, linting)
-3. **Week 3**: Add GSD if session continuity problems observed
-4. **Week 4+**: Add CAII if building reusable agent architecture
-
-**Evidence**: This repository itself started native, added complexity as friction emerged
-
----
-
-### ❌ Ignoring SDD Foundation
-**Anti-pattern**: "GSD looks good, I'll skip the planning methodology and just use executors"
-
-**Why it fails**:
-- GSD assumes you're following Specify → Plan → Tasks → Implement
-- Without specs, STATE.md becomes ad-hoc notes (context rot returns)
-- Executors need well-defined tasks (from planning phase)
-
-**Instead**: SDD is non-negotiable:
-- All frameworks (Native, GSD, CAII) implement SDD's 4 phases
-- Framework = HOW to orchestrate, SDD = WHAT phases to follow
-- No framework solves poor planning
-
-**Rule**: If you're not using /plan for non-trivial work, framework choice won't help
+- **Mixing frameworks without architecture**: combining CAII's 7 agents inside GSD's workflow phases fails — the two carry incompatible assumptions (CAII deterministic, GSD stateless executors) and no hybrid pattern is validated. Borrow specific patterns (Johari Window, STATE.md) rather than running one framework's agents as another's executors.
+- **Implementing Claude-Flow directly**: 60 specialized agents assumes 100+ simultaneous users and a vendor-reported $500K+/year compute cost; reference the principles and implement CAII's 7 agents instead.
+- **Choosing based on novelty**: RLM requires RL training unavailable for Claude and all published results are GPT-5/GPT-5-mini; use RLM-inspired prompting now, adopt directly once it's Claude-validated.
 
 ---
 
 ## Production Evidence
 
-Framework-selection guidance in this document is corroborated by the 7-repo portfolio evidence aggregated in [`agent-driven-development.md`](agent-driven-development.md) and the cross-repo orchestration findings in [`cross-project-synchronization.md`](cross-project-synchronization.md). Notable signals:
+This guidance is corroborated by the 7-repo portfolio evidence in [`agent-driven-development.md`](agent-driven-development.md) and [`cross-project-synchronization.md`](cross-project-synchronization.md). Notable signals:
 
-- **Native subagents handled the dominant share of orchestration** across the 7 portfolio repos; GSD/CAII-style external frameworks were not adopted in any of them. This supports the "Native is the default for ~80% of use cases" rule.
 - **Multi-session continuity needs** (the GSD differentiator) appeared in the genealogy portfolio's 3-project subset, where memory-system patterns ([`memory-systems-genealogy-baseline.md`](../archive/memory-systems-genealogy-baseline.md), archived 2026-07-10) — not orchestrator state — carried the load.
 - **CRISPY-style phase decomposition** maps to the agent-driven workflow lifecycle phases observed in the portfolio (planning → research → implementation → verification); the portfolio evidence is consistent with the "split mega-prompts into <40-instruction phases" prescription.
 
@@ -476,15 +93,11 @@ Limitation: portfolio is one practitioner; treat these as Tier A direct-observat
 
 ## Sources
 
-### Tier A
-
-- [Anthropic Claude Code docs](https://docs.anthropic.com/en/docs/claude-code/overview) — Native subagent orchestration (Explore, Plan, general-purpose types), zero-setup default. Validates H-CLAUDE-CODE-01 through H-CLAUDE-CODE-04.
-
 ### Tier B
 
 - [glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done) — GSD framework. STATE.md for cross-session memory, fresh context per executor, .planning/ directory structure. README advises "overkill for simple tasks."
-- [skribblez2718/caii](https://github.com/skribblez2718/caii) — Cognitive Agent Infrastructure Infrastructure. 7 fixed agents by cognitive function (Clarification, Research, Analysis, Synthesis, Generation, Validation, Memory); deterministic orchestration.
-- Dexter Horthy / Human Layer — CRISPY framework conference talk, March 2026. Authority 4/5, validated across "thousands of engineers." Source for 7-phase decomposition, design doc pattern, vertical planning, and the "don't use prompts for control flow" principle.
+- [skribblez2718/caii](https://github.com/skribblez2718/caii) — Cognitive Agent Infrastructure. 7 fixed agents by cognitive function (Clarification, Research, Analysis, Synthesis, Generation, Validation, Memory); deterministic orchestration.
+- Dexter Horthy / Human Layer — CRISPY framework conference talk, March 2026. Authority 4/5, validated across "thousands of engineers." Source for the 7-phase decomposition, design doc pattern, vertical planning, and the "don't use prompts for control flow" principle.
 - [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow) — 60+ specialized agents, vector memory, swarm topologies, ReasoningBank. Enterprise-focused docs only; no production validation data referenced.
 - Zhang / Kraska / Khattab: [arXiv:2512.24601](https://arxiv.org/abs/2512.24601) — Recursive Language Models. CodeQA accuracy 24% → 62% improvement. Status: emerging; all published results use GPT-5/GPT-5-mini, not Claude.
 
@@ -497,25 +110,19 @@ Limitation: portfolio is one practitioner; treat these as Tier A direct-observat
 ## Related Patterns
 
 - [Spec-Driven Development](../archive/patterns-v1/spec-driven-development.md) - The foundational methodology (always use)
-- [Subagent Orchestration](./orchestration-comparison.md) - Default orchestration patterns
-- [GSD Orchestration](./orchestration-comparison.md) - Multi-session, fresh context patterns
-- [Cognitive Agent Infrastructure](./orchestration-comparison.md) - Scalable agent architecture
 - [Context Engineering](./behavioral-insights.md) - Context strategies for all frameworks
-- [MCP vs Skills Economics](./mcp-vs-skills-economics.md) - Execution layer decisions
-- [Recursive Context Management](./behavioral-insights.md) - Emerging RLM paradigm (monitor)
 
 ---
 
 ## Summary
 
-1. **SDD is always foundational** - All frameworks implement its 4 phases
-2. **Native Subagent is the default** - Zero setup, handles 80% of work
-3. **GSD for session continuity** - STATE.md when projects span sessions
-4. **CAII for agent architecture** - When building reusable agent systems
-5. **CRISPY for complex planning** - Design doc alignment, vertical slicing (RPI successor)
-6. **Claude-Flow for reference only** - Enterprise patterns, don't implement directly
+1. **GSD for session continuity** — STATE.md when projects span sessions.
+2. **CAII for agent architecture** — building reusable agent systems.
+3. **CRISPY for complex planning** — design doc alignment, vertical slicing (RPI successor).
+4. **Claude-Flow for reference only** — enterprise patterns, don't implement directly.
+5. **RLM is emerging** — monitor for adoption; apply the principles now through prompting.
 
-**When in doubt**: Start with Native Subagent. Add complexity only when you feel specific friction.
+**When in doubt**: start with Claude Code's native mechanisms (official features overview, "Match features to your goal"). Reach for an external framework only once you hit specific friction — multi-session continuity, reusable agent architecture, or 1000+ line plans.
 
 ---
 

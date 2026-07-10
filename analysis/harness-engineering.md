@@ -44,7 +44,7 @@ measurement-claims:
     date: "2026-04-01"
     revalidate: "2026-10-01"
 status: PRODUCTION
-last-verified: "2026-05-30"
+last-verified: "2026-07-10"
 evidence-tier: Mixed
 applies-to-signals: [harness-hooks, harness-minimal, harness-comprehensive, commit-bursts, session-error-loop, model-version-4-8, harness-goal-completion-loop, harness-dynamic-workflows]
 revalidate-by: 2026-11-30
@@ -52,11 +52,13 @@ revalidate-by: 2026-11-30
 
 # Harness Engineering: Diagnostic Framework for Agent Infrastructure
 
+> **Collapsed 2026-07-10 (Reduction Phase 4).** The harness-design mechanism half is now first-party — Anthropic's official best-practices page (2026 rewrite) and "How Claude Code works in large codebases" (2026-05-14). This doc keeps the delta the official docs don't carry: the Bitter-Lesson diagnostic, the accretion heuristics, and the portfolio's measured evidence.
+
 **Evidence Tier**: Mixed (A-B) — Anthropic engineering blog, expert practitioners, production-validated community frameworks
 
 ## Purpose
 
-This document evaluates **harness engineering** — the emerging discipline of designing infrastructure around AI coding agents. It defines the concept, compares competing philosophies, and provides a **diagnostic framework** for assessing what's wrong with your agent's harness and how to fix it.
+This document evaluates **harness engineering** against two standing questions that recur every model release: whether a piece of harness machinery still earns its keep once the model gets smarter (the Bitter-Lesson diagnostic), and whether the harness has accreted complexity nobody has pruned back out (the accretion heuristics). Mechanism selection — which extension point to reach for, CLAUDE.md vs. hooks vs. skills vs. plugins vs. LSP — is now covered by Anthropic's official best-practices page and the "How Claude Code works in large codebases" guide (2026-05-14); this document doesn't re-derive that ground. What it keeps is the portfolio's measured evidence and the failure modes those two sources don't cover.
 
 For domain-heavy projects (complex rule ecosystems, specialized tooling), see the companion document: [Domain Knowledge Architecture](./domain-knowledge-architecture.md).
 
@@ -67,70 +69,13 @@ For domain-heavy projects (complex rule ecosystems, specialized tooling), see th
 > "The model is not the bottleneck; the harness is."
 > — Prompt Engineering, "The AI Model Doesn't Matter Anymore" (February 2026)
 
-The central claim: in 2026, raw model capability is becoming commoditized. The infrastructure wrapped around the model — what it can see, what tools it can use, how it recovers from mistakes, how it tracks progress — determines whether an agent actually works.
-
-### The Evidence Gap Between Benchmarks and Reality
-
-| Metric | Score | Source |
-|--------|-------|--------|
-| Frontier models on standard benchmarks | 90%+ | Industry benchmarks |
-| Frontier models on real professional tasks (1-2 hours) | **24%** | Research study cited in video |
-| Same models after 8 attempts | **~40%** | Same study |
-
-**Why the gap?** Researchers found failures were not about model intelligence. The models had the knowledge and could reason through problems. Failures were execution and orchestration:
-
-- Agents got lost after too many steps
-- They looped back to approaches already tried and failed
-- They lost track of their original objective
-
-These are harness problems, not model problems.
-
-### The Smartphone Analogy
-
-In early smartphones, the processor was the whole story. Eventually processors became fast enough that raw power commoditized. Value migrated to the infrastructure layer: the OS, the camera software, the ecosystem.
-
-The same migration is happening in AI. OpenAI, Anthropic, and Manus all published harness engineering guidance independently in 2025-2026 — converging on the same conclusion from different starting points.
-
----
-
-## What IS a Harness?
-
-An agent harness is the infrastructure that wraps around the AI model. It manages what the agent sees, what it can do, how it recovers, and how it tracks progress.
-
-### The 6-Layer Harness Stack
-
-| Layer | Components | Purpose | Diagnostic Question |
-|-------|-----------|---------|-------------------|
-| **Context configuration** | CLAUDE.md, rules/, skills | Shape what the agent knows | "Is the agent working with the right context?" |
-| **Behavioral enforcement** | Hooks, permissions, sandboxing | Control what the agent does | "Are critical constraints enforced at 100%?" |
-| **Orchestration** | Subagents, agent teams, state files | Coordinate multi-step work | "Does the agent get lost after too many steps?" |
-| **Memory & continuity** | Progress files, git, file system | Bridge context boundaries | "Can the agent pick up where it left off?" |
-| **Quality gates** | TDD, review patterns, formatters | Ensure output correctness | "How do you know the output is right?" |
-| **Domain knowledge** | Resource maps, lookup mechanisms | Make domain expertise findable | "Does the LLM know what resources exist?" |
-
-For deep analysis of the domain knowledge layer, see [Domain Knowledge Architecture](./domain-knowledge-architecture.md).
-
----
-
-## Three Properties of a Good Harness
-
-Source: "The AI Model Doesn't Matter Anymore" (Tier B — multiple cited studies, detailed analysis)
-
-| Property | Definition | Why It Matters |
-|----------|-----------|----------------|
-| **Deterministic Replay** | Identical inputs produce comparable action sequences across runs | Without this, debugging an agent is nearly impossible |
-| **Observable Boundaries** | Every tool call, API interaction, and decision point is instrumented | You must see exactly where an agent branches or fails |
-| **Behavioral Contracts** | Explicit invariants that hold regardless of model temperature or prompt variations | Ensures reliability across model updates and prompt changes |
-
-**Counterintuitive finding**: Developers expect failures to happen in agent logic (bad prompts, hallucinations). In practice, most reliability failures happen in the harness itself — flaky tool mocks, test inputs that don't cover real-world distribution, and the gap between hermetic test environments and production.
-
-**Implication**: Harness-first development — define your behavioral test suite before implementing agent logic. Your harness should act as your specification.
+The central claim: in 2026, raw model capability is becoming commoditized, so the infrastructure wrapped around the model — what it can see, what tools it can use, how it recovers from mistakes, how it tracks progress — determines whether an agent actually works. A study cited in that video found frontier models scoring 90%+ on standard benchmarks but only **24%** on real professional tasks (1-2 hours), rising to **~40%** after 8 attempts. Researchers traced the gap to execution and orchestration rather than model intelligence: agents got lost after too many steps, looped back to approaches already tried and failed, and lost track of their original objective. Those are harness problems, not model problems — the same three failure patterns recur later in this document as the RETHINK-limb diagnostic.
 
 ---
 
 ## Harness Representation and Optimization
 
-Recent research (March 2026) reveals that **how** a harness is expressed and optimized matters independently of what it does.
+Research from March 2026 shows that **how** a harness is expressed and optimized matters independently of what it does.
 
 ### Natural Language Harness (NLH) Representation Gains
 
@@ -144,7 +89,7 @@ Migrating OS Symfony's native code harness into a Natural Language Harness repre
 
 The harness did the same thing in both cases — the representation changed. This suggests that expressing harness logic in natural language (closer to the model's native reasoning) is a distinct optimization axis from harness design itself.
 
-Source: Pan, Zou, Guo, Ni, Zheng (Tsinghua University + Harbin Institute of Technology), ["Natural-Language Agent Harnesses"](https://arxiv.org/abs/2603.25723), 2026-03-26. *(Previously cited in this doc as "Tingua NLH" — corrected to Tsinghua after locating the underlying paper 2026-05-24.)*
+Source: Pan, Zou, Guo, Ni, Zheng (Tsinghua University + Harbin Institute of Technology), ["Natural-Language Agent Harnesses"](https://arxiv.org/abs/2603.25723), 2026-03-26.
 
 ### Ablation Evidence: Verifiers Hurt, Self-Evolution Helps
 
@@ -156,9 +101,9 @@ The same Tsinghua/Harbin paper (Pan et al., arXiv:2603.25723) ran ablation studi
 | Multi-candidate search | **-2.4** | **-5.6** | Hurt performance |
 | Self-evolution (narrowing the agent's own attempt loop) | **+4.8** | **+2.7** | **Only consistently helpful module** |
 
-**Key nuance for harness design**: This challenges the "Quality gates" layer in the harness stack. Explicit verifier modules — separate components that check the agent's work — actively degraded performance. The agent's own iterative refinement (self-evolution) was the only module that consistently helped.
+**Key nuance for harness design**: explicit verifier modules — separate components that check the agent's work — actively degraded performance. The agent's own iterative refinement (self-evolution) was the only module that consistently helped.
 
-**Caveat**: This is benchmark evaluation, not production deployment. Production environments with real consequences may benefit from verification that benchmarks don't reward. But the default assumption should be: let the agent self-correct rather than bolting on external verifiers.
+**Caveat**: this is benchmark evaluation, not production deployment. Production environments with real consequences may benefit from verification that benchmarks don't reward. But the default assumption should be: let the agent self-correct rather than bolting on external verifiers.
 
 Source: Pan et al. (Tsinghua + Harbin IT), arXiv:2603.25723, 2026-03-26.
 
@@ -171,9 +116,9 @@ Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT) treat the harness itself a
 - Cost: ~10M tokens per iteration, 82 files read per round
 - Result: **76.4% on TerminalBench-2 with Opus 4.6** (rank 2 among Opus agents) and **37.6% with Haiku 4.5** (rank 1 among Haiku agents, outperforming Goose at 35.5%) — a smaller, cheaper model outranking larger ones through harness optimization alone
 
-**Cross-model transfer**: A harness optimized on one model transferred to five others, improving all of them (+7.7 points on text classification using 4× fewer context tokens; +4.7 points on IMO-level math across five held-out models). This is strong evidence that harness quality is model-independent — good infrastructure helps any model.
+**Cross-model transfer**: a harness optimized on one model transferred to five others, improving all of them (+7.7 points on text classification using 4× fewer context tokens; +4.7 points on IMO-level math across five held-out models). This is strong evidence that harness quality is model-independent — good infrastructure helps any model.
 
-**Convergence note**: Andrej Karpathy (Authority 4/5) independently described the same concept — meta-optimization of program.md — without referencing the Stanford+MIT work. Two high-authority sources arriving at the same idea from different directions.
+**Convergence note**: Andrej Karpathy (Authority 4/5) independently described the same concept — meta-optimization of program.md — without referencing the Stanford+MIT work.
 
 Source: Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT), ["Meta-Harness: End-to-End Optimization of Model Harnesses"](https://arxiv.org/abs/2603.28052), 2026-03-30.
 
@@ -181,9 +126,9 @@ Source: Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT), ["Meta-Harness: E
 
 The Meta-Harness paper states it as the headline finding: *"Changing the harness around a fixed large language model (LLM) can produce a 6× performance gap on the same benchmark."* No model changes, no prompt changes — purely orchestration code.
 
-**Specific replication with full citation**: LangChain's terminal-bench-2 submission moved from outside the top 30 to rank 5 by changing only the harness code. LangChain published the work as ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17): deepagents-cli went **52.8% → 66.5% on TerminalBench-2** (13.7 points) holding gpt-5.2-codex constant. Five specific harness changes were documented: (1) self-verification loop with `PreCompletionChecklistMiddleware`, (2) `LocalContextMiddleware` that maps directory structure and tooling at agent startup, (3) loop-detection middleware tracking per-file edit counts to catch "doom loops," (4) reasoning-budget allocation in a "reasoning sandwich" (xhigh-high-xhigh) across plan/build/verify phases, (5) time-budget warnings injected to encourage completion within timeout. The team published their full TerminalBench traces publicly. Direct quote on what harness engineering is for: *"the purpose of the harness engineer: prepare and deliver context so agents can autonomously complete work."*
+**Specific replication with full citation**: LangChain's terminal-bench-2 submission moved from outside the top 30 to rank 5 by changing only the harness code. LangChain published the work as ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17): deepagents-cli went **52.8% → 66.5% on TerminalBench-2** (13.7 points) holding gpt-5.2-codex constant, via five documented middleware changes: (1) a self-verification loop (`PreCompletionChecklistMiddleware`), (2) startup directory/tooling mapping (`LocalContextMiddleware`), (3) per-file edit-count loop detection for "doom loops," (4) a "reasoning sandwich" effort allocation (xhigh-high-xhigh) across plan/build/verify, and (5) time-budget warnings.
 
-**Independent benchmark corroboration**: Tian et al. *SWE-Bench Mobile* ([arXiv:2602.09540](https://arxiv.org/abs/2602.09540), 2026-02-10) reports the same model (Opus 4.5) scoring **12% on Cursor vs 2% on OpenCode** across 22 agent-model configurations — exactly 6×, in a separate venue, on a separate benchmark, from scaffold differences alone. The figure is now replicated, not just cited.
+**Independent benchmark corroboration**: Tian et al. *SWE-Bench Mobile* ([arXiv:2602.09540](https://arxiv.org/abs/2602.09540), 2026-02-10) reports the same model (Opus 4.5) scoring **12% on Cursor vs 2% on OpenCode** across 22 agent-model configurations — exactly 6×, in a separate venue, on a separate benchmark, from scaffold differences alone.
 
 Source: Lee et al., Meta-Harness, arXiv:2603.28052 (primary); Tian et al., SWE-Bench Mobile, arXiv:2602.09540 (independent corroboration).
 
@@ -211,10 +156,6 @@ Manus (acquired by Meta) rebuilt their agent framework five times in six months.
 
 They also solved a critical memory problem: tasks requiring ~50 tool calls caused performance degradation even with large context windows (signal drowned by noise). Solution: treat the file system as external memory. Write important information to markdown files; read when needed.
 
-### Claude Code's Own Design
-
-Claude Code uses just **four core tools**: read, write, edit, run bash. Extensibility comes through MCP protocol, not tool proliferation. This minimal harness with maximum model autonomy aligns with the evidence.
-
 ### The Bitter Lesson (Richard Sutton, Applied to Agents)
 
 Sutton's core argument: approaches that scale with computational power always beat approaches relying on human-engineered domain knowledge.
@@ -231,42 +172,19 @@ Anthropic's Claude Code v2 with Opus 4.6 provides concrete evidence for "harness
 - **Replaced with**: Single build session with evaluator at the end only
 - **Result**: DAW built in 4 hours for $125
 
-This is a vendor demonstrating the Bitter Lesson on their own product — stripping orchestration complexity because the model no longer needs it. The evaluator-at-the-end pattern also aligns with the ablation evidence above: self-evolution during work, verification only at completion.
+This is a vendor demonstrating the Bitter Lesson on their own product — stripping orchestration complexity because the model no longer needs it. The evaluator-at-the-end pattern also matches the ablation evidence above: self-evolution during work, verification only at completion.
 
-The generator/evaluator pattern this simplifies traces to Anthropic's primary write-up, which the repo had discussed but not cited: Prithvi Rajasekaran, ["Designing a harness for long-running application development"](https://www.anthropic.com/engineering/harness-design-long-running-apps) (2026-03-24, Tier A). It describes three agents (planner/generator/evaluator), the evaluator driving a Playwright browser to score design quality, originality, craft, and functionality across 5–15 iterations per generation, running up to ~4 hours at roughly $200/6hr versus ~$9/20min for a single-agent pass on the same task. It is also the source of the self-evaluation caution this repo leans on: agents asked to grade their own work "tend to respond by confidently praising the work — even when... the quality is obviously mediocre," which is why verification belongs in a separate evaluator rather than the generator's own self-report.
+The generator/evaluator pattern this simplifies traces to Anthropic's primary write-up: Prithvi Rajasekaran, ["Designing a harness for long-running application development"](https://www.anthropic.com/engineering/harness-design-long-running-apps) (2026-03-24, Tier A) — three agents (planner/generator/evaluator), a Playwright-driven evaluator scoring quality/originality/craft/functionality across 5–15 iterations, ~4 hours at ~$200/6hr versus ~$9/20min for a single-agent pass. It's also the source of the self-evaluation caution this document leans on: agents asked to grade their own work "tend to respond by confidently praising the work — even when... the quality is obviously mediocre," which is why verification belongs in a separate evaluator rather than the generator's own self-report.
 
-**Caveat — vendor-side regression in the same window**: The same vendor shipped a quality regression spanning March 4 – April 20, 2026 ([April 23 postmortem](https://www.anthropic.com/engineering/april-23-postmortem)) — reasoning-effort default flipped to `medium`, an extended-thinking-block caching bug, and a system-prompt verbosity cap that hurt coding quality. None of these invalidate the v2 simplification thesis (the orchestration changes were a separate workstream), but they demonstrate that "trust the vendor's defaults" is the wrong reading. Harness designers should pin effort levels explicitly and treat vendor-side defaults as version-anchored. See [Behavioral Insights — April 2026 Postmortem](behavioral-insights.md#vendor-side-quality-regression-case-study-the-april-2026-postmortem) for the full analysis.
+**Caveat — vendor-side regression in the same window**: the same vendor shipped a quality regression spanning March 4 – April 20, 2026 ([April 23 postmortem](https://www.anthropic.com/engineering/april-23-postmortem)) — reasoning-effort default flipped to `medium`, an extended-thinking-block caching bug, and a system-prompt verbosity cap that hurt coding quality. None of these invalidate the v2 simplification thesis (the orchestration changes were a separate workstream), but they demonstrate that "trust the vendor's defaults" is the wrong reading. Harness designers should pin effort levels explicitly and treat vendor-side defaults as version-anchored. See [Behavioral Insights — April 2026 Postmortem](behavioral-insights.md#vendor-side-quality-regression-case-study-the-april-2026-postmortem) for the full analysis.
 
 Source: Anthropic engineering blog, April 2026. Authority 5/5.
 
-### Harness Toolkit Additions (Q2 2026)
+### Loop Engineering and the RETHINK Limb
 
-Concrete harness-layer primitives shipped in Claude Code changelog v2.1.117 → v2.1.150 (verified 2026-05-24) that change what's expressible in the harness without requiring custom code:
+"Loop engineering" (Boris Cherny, June 2026; term coined by Addy Osmani) labels the orchestration and iteration-cadence layer this document already covers: GENERATE → SELECT → EVALUATE → ACCUMULATE → PUBLISH → RETHINK. It doesn't replace the harness-engineering framing — it stresses cadence, where harness engineering is the whole infrastructure stack — but splitting the loop into stages shows one recurring pattern: the Act stages (generate, evaluate, publish) get built first and hardest, while RETHINK — re-deriving the question the loop is answering before the next iteration — is usually weak or missing. Karpathy's complementary framing is that coding is the ideal self-improvement loop because it has built-in verification — "tests pass or fail, programs run or crash, diffs can be inspected" (Tier B, [Sequoia Ascent 2026](https://karpathy.bearblog.dev/sequoia-ascent-2026/), 2026-04-30) — but that verification keeps the Act limb honest without ever asking whether the loop is still solving the right problem. In harness terms, RETHINK isn't a new layer; it's the part of state-tracking and verification that checks the objective itself, not just the work toward it. A fast Act limb paired with a stale Orient limb produces confident motion toward the wrong target — the same failure the 24%-on-real-tasks study attributed to agents that "lost track of their original objective" and "looped back to approaches already tried."
 
-| Primitive | Version | What it enables | Pattern impact |
-|---|---|---|---|
-| `/goal` command | v2.1.139 (2026-05-11) | Set a completion condition; Claude keeps working across turns until it holds, with a live overlay of elapsed/turns/tokens. Works in interactive, `-p`, and Remote Control. | Replaces ad-hoc "did we finish? check it" prompts and external loop scripts with a first-class completion-loop primitive. (The changelog states the behavior above; it does not specify the internal checker mechanism, so no claim is made here about *how* the condition is evaluated.) |
-| Hooks invoke MCP tools directly via `type: "mcp_tool"` | v2.1.118 | A hook can call an MCP tool without spawning a subprocess. | Eliminates the process-spawn overhead that made MCP-from-hook patterns expensive; closes a gap that previously pushed users toward custom subagents. |
-| `continueOnBlock` PostToolUse option | v2.1.136 | When a PostToolUse hook rejects, feed the rejection reason back to Claude and continue the turn (instead of failing the turn). | Hooks become advisory-corrective, not just terminating; aligns with the "self-evolution > verifiers" finding from Pan et al. (arXiv:2603.25723) by letting the agent recover from rejections rather than aborting. |
-| `worktree.bgIsolation` setting | v2.1.143 | Background sessions auto-isolate into git worktrees under `.claude/worktrees/`; `"none"` opts out. | Replaces manual worktree juggling; pairs with the `claude agents` TUI (see [Orchestration Comparison](orchestration-comparison.md)). |
-| Per-category `/usage` breakdown | v2.1.144 | Cost breakdown by category: skills, subagents, plugins, MCP servers. | Makes the MCP-vs-Skills economic comparison ([MCP vs Skills Economics](mcp-vs-skills-economics.md)) measurable in your own project without external instrumentation. |
-| `${CLAUDE_EFFORT}` in skills, `effort.level` in hooks | v2.1.120, v2.1.128 | Skills and hooks can read the current effort level. | Effort becomes a first-class signal; enables conditional skill/hook behavior without parsing `/effort` state externally. |
-
-These are toolkit additions, not architectural shifts. They reduce the gap between "what the harness can express natively" and "what users were patching in with bash scripts and brittle parsing." None of them change the H-HARNESS-01 thesis; all of them lower the marginal cost of building a competent harness.
-
-Source: [Anthropic Claude Code changelog](https://code.claude.com/docs/en/changelog), v2.1.117 → v2.1.150. Tier A.
-
-### Loop Engineering: The Orchestration Face of the Harness
-
-In June 2026 a popular label — *loop engineering* — attached itself to the orchestration and iteration-cadence layer this document already analyzes. The practice is Boris Cherny's (Claude Code creator), from the WorkOS-hosted *Acquired Unplugged* event on 2026-06-02 (YouTube `RkQQ7WEor7w`): "I don't prompt Claude anymore. I have loops that are running... My job is to write loops" — the four-word "My job is to write loops" is host-anchored (Michael Grinich/WorkOS, LinkedIn; Tier A-minus), the fuller passage corroborated across multiple independent published accounts (The New Stack; note.com near-verbatim share 2026-06-09; Njuguna/Flor 2026-06-08), all converging on the same wording — video-derived, with no published timestamp (WorkOS's own writeup paraphrases it). The *term* was coined by Addy Osmani (Google), not Cherny — aggregators that attribute Osmani's "building blocks of a loop" enumeration to Cherny have it wrong. Anthropic's own published progression stops at prompt → context engineering ("we view context engineering as the natural progression of prompt engineering," 2025-09-29), so the third rung is supplied by commentators, and this repo named that rung *harness engineering* with research backing (Meta-Harness, NLH) the loop-engineering commentary cloud lacks.
-
-So "loop engineering" competes with, rather than supersedes, the harness-engineering framing: it stresses the iteration cadence and the scheduling of unattended work, where harness engineering is the whole infrastructure stack. Karpathy's framing is the useful part — coding is the ideal self-improvement loop because it has built-in verification ("tests pass or fail, programs run or crash, diffs can be inspected") (Tier B — Karpathy, [Sequoia Ascent 2026](https://karpathy.bearblog.dev/sequoia-ascent-2026/), 2026-04-30). The infrastructure behind these long-running managed agents — a durable append-only Session log kept outside the container, a stateless Harness "brain", and an isolated Sandbox for the "hands" — is documented in Anthropic's [Scaling Managed Agents](https://www.anthropic.com/engineering/managed-agents) (2026-04-08, Tier A), whose stable-interface design corroborates this repo's "external artifacts become memory" claim. The productized scheduling/looping primitives (`/loop`, `/goal`, Routines, Desktop scheduled tasks, the Ralph plugin) and their operational risk — the credential isolation, the unbounded-loop blast radius — get their own treatment in [Scheduled & Looping Primitives](scheduled-and-looping-primitives.md) and [Safety & Sandboxing](safety-and-sandboxing.md); this section only fixes the framing so the term is attributed correctly and `harness-engineering` stays the researched anchor.
-
-#### The RETHINK limb is the harness's Orient layer, and it is usually the weak one
-
-The useful thing loop engineering adds to the harness frame is that it decomposes the loop into stages and lets you ask which stage is weak. Osmani's "building blocks of a loop" and the single-practitioner lineage below both run **GENERATE → SELECT → EVALUATE → ACCUMULATE → PUBLISH → RETHINK**, and the consistent finding is that the Act stages (generate, evaluate, publish) get engineered first and hardest while the **RETHINK** stage — re-deriving the question the loop is answering before the next iteration — is weak or absent. In harness-stack terms RETHINK is not a new layer; it is the part of the **Memory & continuity** and **Quality gates** layers that points *upward* at the objective rather than *downward* at the work. Karpathy's verification keeps the Act limb honest ("did I do this right?"), but verification never asks "is this still the right thing to do?" — and a loop with a fast Act limb and a stale Orient limb produces **confident motion toward the wrong target**, the Boyd/OODA failure where Act outruns Orient. This is the mechanism behind two symptoms already in the diagnostic table: "Agent loses track of original objective" and "Agent loops on failed approaches" are RETHINK-limb failures, not generator failures, and they are exactly the failures the 24%-on-real-tasks study attributed to orchestration rather than model intelligence (agents that "lost track of their original objective" and "looped back to approaches already tried"). The remediation is not more tempo; it is a standing RETHINK step.
-
-A worked single-practitioner instance (Tier B, single-source — flagged: one person's own project, not independently reproduced) makes the fix concrete. A security-data research project scored each stage of its own loop in [`LOOP-ENGINEERING-DESIGN-2026-06-15.md`](../../project1/02-projects/securitydataworks/LOOP-ENGINEERING-DESIGN-2026-06-15.md) and found GENERATE and EVALUATE strong (a real CV-gated benchmark oracle, not LLM self-grading), SELECT/ACCUMULATE/PUBLISH leaking, and RETHINK weak-to-absent — its ranked gaps name it directly as **G4, "no standing question-quality / drift instrument — the human is the instrument,"** with the supporting point that goal-drift is emergent with no error code (citing Arike et al., AIES 2025), so restate-and-check is the only thing that catches it and log-monitoring never will. The project then wired the limb in as standing loop-state machines — [`BENCH-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/BENCH-LOOP-STATE.md) and [`CONSOLE-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/CONSOLE-LOOP-STATE.md) — each of which opens every iteration with a **step-0 ORIENT** that restates the durable objective verbatim and checks the prior iteration for drift before selecting, with the loop-state document itself standing in as the outer loop so it survives compaction rather than dying with the session's chat context. The design's own discipline ("the fix is not more tempo… it is spending on Orient") is the harness-engineering reading too: when a project runs unattended loops (any of the [scheduled/looping signals](scheduled-and-looping-primitives.md#audit-signals-detection)) with no standing Orient instrument, the harness recommendation is to add a loop-eng-style RETHINK limb — a loop-start objective restatement plus a question-quality instrument on a cadence, kept on a separate dashboard from Act-limb throughput so tempo never reads as outer-loop health, with anything that changes the objective held for human ratification rather than auto-applied. That "does each mechanism still match its intent?" pass, generalized beyond the loop case, is the subject of [`intent-alignment-audit.md`](intent-alignment-audit.md), the RETHINK companion to this doc.
+A single-practitioner instance makes the fix concrete (Tier B, not independently reproduced): a security-data research project scored its own loop in [`LOOP-ENGINEERING-DESIGN-2026-06-15.md`](../../project1/02-projects/securitydataworks/LOOP-ENGINEERING-DESIGN-2026-06-15.md), found GENERATE/EVALUATE strong but RETHINK absent — gap G4, "no standing question-quality / drift instrument — the human is the instrument" — and wired the fix in as a step-0 ORIENT opening every iteration of two standing loop-state machines ([`BENCH-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/BENCH-LOOP-STATE.md), [`CONSOLE-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/CONSOLE-LOOP-STATE.md)). The productized scheduling primitives (`/loop`, `/goal`, Routines) get their own treatment in [Scheduled & Looping Primitives](scheduled-and-looping-primitives.md); the generalized "does each mechanism still match its intent?" pass is [Intent-Alignment Audit](intent-alignment-audit.md).
 
 ### Counter-signal: Opus 4.7 Pushes *Prompt* Complexity Up (April 2026)
 
@@ -289,103 +207,32 @@ Source: Anthropic migration guide (April 2026), [Model Migration Anti-Patterns](
 
 | 4.8 delta | Harness-layer implication |
 |---|---|
-| **Fewer compactions + better compaction recovery** ("long agentic traces stay on task with fewer derailments after compaction") | Compaction-timing heuristics tuned on 4.7 are likely *too aggressive* on 4.8. The document-and-clear / fresh-session discipline in the [Diagnostic Framework](#diagnostic-framework-whats-wrong-with-my-harness) (and the 60% context trigger in [Behavioral Insights](behavioral-insights.md)) remains the safe default, but re-measure before assuming the same intervention cadence — 4.8 may sustain longer traces between resets. Do not assume a fixed token threshold carried over from 4.7. |
+| **Fewer compactions + better compaction recovery** ("long agentic traces stay on task with fewer derailments after compaction") | Compaction-timing heuristics tuned on 4.7 are likely *too aggressive* on 4.8. The document-and-clear / fresh-session discipline (and the 60% context trigger in [Behavioral Insights](behavioral-insights.md)) remains the safe default, but re-measure before assuming the same intervention cadence — 4.8 may sustain longer traces between resets. Do not assume a fixed token threshold carried over from 4.7. |
 | **Better tool triggering** ("less likely to skip a tool call the task required") | The harness still needs mechanical enforcement (PreToolUse hooks, explicit Read steps) for 100%-adherence requirements — the improvement is a frequency reduction, not a guarantee. But the "references not read" symptom that pushed users toward heavy enforcement scaffolding is *softer* on 4.8; audit whether some belt-and-suspenders enforcement can be relaxed. |
-| **Adaptive thinking is the only thinking mode; extended-thinking budgets return 400; default effort `high`** | Any harness or skill still passing `thinking: {type: "enabled", budget_tokens: N}` will hard-fail with a 400 on 4.8. Migrate to `thinking: {type: "adaptive"}` + the `effort` parameter (`low`/`medium`/`high`/`xhigh`). The reasoning-budget allocation pattern (e.g., LangChain's "reasoning sandwich" xhigh-high-xhigh across plan/build/verify, cited below) is expressed via *effort levels* in Claude Code and is unaffected — but any raw-API harness using numeric token budgets must be ported. |
+| **Adaptive thinking is the only thinking mode; extended-thinking budgets return 400; default effort `high`** | Any harness or skill still passing `thinking: {type: "enabled", budget_tokens: N}` will hard-fail with a 400 on 4.8. Migrate to `thinking: {type: "adaptive"}` + the `effort` parameter (`low`/`medium`/`high`/`xhigh`). The reasoning-budget allocation pattern (e.g., LangChain's "reasoning sandwich" xhigh-high-xhigh across plan/build/verify, cited above) is expressed via *effort levels* in Claude Code and is unaffected — but any raw-API harness using numeric token budgets must be ported. |
 
 This is a recovery release for harness purposes: 4.8 reduces the 4.7 failure modes that most stressed the harness (compaction derailment, skipped tool calls), while the one hard-breaking change is the extended-thinking-budget 400.
 
-### Convergence of Architectures
+---
 
-Three leading systems arrived at the same insight from different starting points:
+## Three Harness Philosophies: The Bitter-Lesson Read
 
-| System | Architecture | Core Philosophy |
-|--------|-------------|----------------|
-| **OpenAI Codex** | 3-layer (Orchestrator, Executor, Recovery) | Robust layering with clear separation |
-| **Claude Code** | 4 core tools + MCP extensibility | Minimal harness, maximum model autonomy |
-| **Manus** | "Reduce, offload, isolate" + file system memory | Simplification as the primary optimization |
+Three community approaches sit at different points on the Bitter-Lesson spectrum. Everything-Claude-Code (ECC) is batteries-included — 136+ skills, 30 subagents, 60+ commands, 119K+ GitHub stars, an Anthropic hackathon winner — and ranks lowest on Bitter-Lesson alignment: its runtime profiles (`ECC_HOOK_PROFILE=minimal`) let you dial complexity down, but the default trajectory adds tooling with each release, working against the Vercel/Manus evidence above. Superpowers is methodology-enforced — a mandatory 7-stage workflow, ~14 skills, 294K+ installs — and ranks in the middle: it enforces process without adding tools, so it doesn't accrete the way ECC does, though the ceremony has a real cost on small tasks. Anthropic's own minimal approach (CLAUDE.md + progress file, a 2-agent architecture, external artifacts as memory) ranks highest: it's the one most clearly built for deletion. GitHub stars and plugin installs are different metrics measuring different things — useful within their own claim, not comparable to each other.
 
 ---
 
-## Three Harness Philosophies in Practice
+## Anti-Patterns
 
-The Claude Code ecosystem offers three competing approaches. Comparing them reveals trade-offs, not a single right answer.
-
-| Dimension | Maximal (ECC) | Disciplined (Superpowers) | Minimal (Anthropic) |
-|-----------|---------------|---------------------------|---------------------|
-| **Philosophy** | Batteries-included | Methodology-enforced | Principle-guided |
-| **Scale** | 136+ skills, 30 subagents, 60+ commands | 7-stage workflow, ~14 skills | 2-agent architecture + external artifacts |
-| **Enforcement** | Runtime profiles (minimal/standard/strict) | Mandatory stages (deletes code written before tests) | Guidelines + conventions |
-| **Context strategy** | Continuous learning pipeline (instincts → skills) | Fresh context per subagent with structured review | One feature at a time + progress files |
-| **Memory model** | SQLite state store + instinct pipeline | Fresh per subagent (no accumulation) | File system as external memory |
-| **Failure mode** | Context bloat, hook storms, over-engineering | Ceremony overhead for small tasks | Drift without enforcement |
-| **Setup cost** | High (full plugin install + configuration) | Medium (plugin install, workflow automatic) | Low (CLAUDE.md + progress file) |
-| **Bitter Lesson alignment** | Low (adds complexity with each release) | Medium (enforces process, not implementation) | High (minimal, built for deletion) |
-| **Domain knowledge approach** | 136+ skills load domain-specific knowledge | Skills enforce methodology per domain | CLAUDE.md + progress files |
-| **Evidence tier** | B (119K+ stars, Anthropic hackathon winner) | B (294K+ installs, cross-platform) | A (Anthropic engineering blog) |
-| **Best for** | Teams wanting comprehensive tooling out of the box | Teams wanting enforced discipline without building infrastructure | Greenfield or minimal-dependency projects |
-
-**Measurement note**: GitHub stars (ECC) and plugin installs (Superpowers) are different metrics measuring different things. They should not be compared directly.
-
-**Key observation**: ECC's comprehensive approach works against the "Less Is More" evidence but provides value through runtime profiles that let you dial complexity up or down (`ECC_HOOK_PROFILE=minimal`). Superpowers enforces process without adding tools, aligning better with the Vercel/Manus findings. Anthropic's minimal approach most closely matches the convergence pattern.
-
----
-
-## Diagnostic Framework: What's Wrong With My Harness?
-
-Use this table to diagnose common agent reliability problems. Each symptom maps to a likely root cause and a specific remediation.
-
-| Symptom | Likely Diagnosis | Root Cause | Recommended Action | Reference |
-|---------|-----------------|------------|-------------------|-----------|
-| Agent gets lost after many steps | Missing state persistence | No external memory, context rot | Add progress file + document-and-clear pattern | [Behavioral Insights](./behavioral-insights.md) — 60% threshold |
-| Agent loops on failed approaches | No error recovery mechanism | Harness doesn't track what's been tried | Implement failure tracking in progress file | [Anthropic harness blog](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) |
-| Agent ignores project conventions | Over-reliance on CLAUDE.md | ~80% adherence rate, no enforcement | Move critical rules to hooks (100% enforcement) | [Behavioral Insights](./behavioral-insights.md) — CLAUDE.md adherence |
-| Agent overwhelmed by tools | Tool proliferation | Too many specialized tools | Strip to general-purpose tools (Vercel pattern) | "Less Is More" evidence above |
-| Quality degrades mid-session | Context rot | Working beyond 60% context capacity | Implement Document & Clear, subagent delegation | [Behavioral Insights](./behavioral-insights.md) — context thresholds |
-| Slow, expensive sessions | Context bloat from plugins/skills | Too many skills loaded (~2% context each) | Audit skill count, use path-scoped rules | [Plugins & Extensions](./plugins-and-extensions.md) |
-| Works in test, fails in production | Hermetic/production gap | Test harness differs from production | Layered testing: hermetic for units, production-like for integration | Three properties above |
-| Small tasks take too long | Ceremony overhead | Overly rigid workflow enforcement | Scale harness to task size (see decision tree below) | Superpowers pattern analysis |
-| Inconsistent across runs | Missing behavioral contracts | No explicit invariants | Define harness-level contracts independent of model | Three properties above |
-| Can't debug agent failures | Missing observability | Tool calls and decisions not instrumented | Add observable boundaries at each harness layer | Three properties above |
-| Team gets different results | Configuration drift | No enforcement, relying on advisory CLAUDE.md | Standardize via hooks + shared settings.json | [Plugins & Extensions](./plugins-and-extensions.md) |
-| LLM reinvents instead of reusing | Domain knowledge not discoverable | No resource map or lookup mechanism | See [Domain Knowledge Architecture](./domain-knowledge-architecture.md) | Companion document |
-| Context overwhelmed by domain docs | Domain knowledge not progressive | Everything loaded at once, no disclosure layers | See [Domain Knowledge Architecture](./domain-knowledge-architecture.md) | Companion document |
-
----
-
-## Decision Tree: How Much Harness Do You Need?
-
-```
-START: What is your task complexity?
-│
-├─ Simple (single file, <30 min)
-│   → MINIMAL HARNESS
-│   CLAUDE.md + permissions only
-│   Resource: Anthropic best practices blog
-│
-├─ Medium (multi-file, 1-4 hours)
-│   → DISCIPLINED HARNESS
-│   Add: hooks for enforcement, progress file, TDD workflow
-│   Resource: superpowers plugin, Anthropic harness blog
-│
-├─ Complex (multi-session, days)
-│   → STRUCTURED HARNESS
-│   Add: subagent orchestration, state persistence, quality gates
-│   Resource: orchestration-comparison.md, framework-selection-guide.md
-│
-├─ Domain-heavy (specialized ecosystems, complex rule languages)
-│   → STRUCTURED + DOMAIN LAYER
-│   Add: resource maps, path-scoped rules, domain methodology skills
-│   Resource: domain-knowledge-architecture.md
-│
-└─ Enterprise (team-wide, ongoing)
-    → COMPREHENSIVE HARNESS
-    Add: runtime profiles, continuous learning, plugin governance
-    Resource: everything-claude-code, plugins-and-extensions.md
-    WARNING: Start here only with evidence. Most projects over-engineer.
-```
-
-**Critical principle**: Start minimal. Add complexity only when you have evidence that the current harness is failing. The Vercel and Manus experiences show that removing harness complexity often improves outcomes.
+| Anti-Pattern | Source | Symptom | Fix |
+|-------------|--------|---------|-----|
+| Tool proliferation | Vercel experiment | Low accuracy despite many specialized tools | Strip to general-purpose tools |
+| Context stuffing | Manus experience | Performance degrades at 50+ tool calls | File system as external memory |
+| Hook storms | ECC patterns | Excessive token consumption from cascading hooks | Runtime profiles (`ECC_HOOK_PROFILE=minimal`) |
+| Ceremony overhead | Superpowers pattern | Small tasks take disproportionate time | Scale harness to task complexity |
+| Configuration drift | Anthropic minimal | Team members get inconsistent results | Hooks for enforcement + shared settings.json |
+| Swimming against the current | Bitter Lesson | Harness complexity grows with each model upgrade | Build every component for deletion |
+| Harness-as-specification neglect | Video thesis | Building agent first, retrofitting tests later | Define harness (behavioral tests) before agent logic |
+| Accretion without pruning | Practitioner heuristic | Repo accumulates custom code and raw captures the model must re-read each session | Necessity ladder before writing code (see [Secure Code Generation](./secure-code-generation.md)); archive or delete superseded material |
 
 ---
 
@@ -412,13 +259,7 @@ START: What is your task complexity?
 
 ### Production-Scale Agent-Driven Development (New Evidence, April 2026)
 
-Two high-credibility practitioners independently validated that agent-driven development achieves transformational velocity when the harness is right:
-
-**Nick Schrock (Dagster)** — Merged 1,000+ PRs in 3 weeks with approximately 5 manual IDE edits. His workflow: local dev -> cloud code review -> one command -> agent applies feedback. CI errors: downloads logs, agent fixes automatically. Key quote: "This isn't vibe coding. The process is still software engineering forward." The IDE becomes a read-only interface; code review in the browser is the primary editing surface.
-
-**Matthias Vallentin (Tenzir)** — Achieved 3x velocity improvement with agents handling commits, changelogs, docs, and releases. Framed as engineering org transformation, not individual productivity. This is the same team whose MCP vs Skills production data (see [MCP vs Skills Economics](./mcp-vs-skills-economics.md)) showed 50% cost reduction through architecture choices.
-
-**What makes this harness evidence**: Both practitioners emphasize that the velocity gains came from the review-loop workflow (harness) not from model improvements. Schrock's one-command CI fix cycle and Vallentin's agent-managed release process are harness engineering — giving agents the right tools, permissions, and recovery mechanisms.
+Two practitioners give the production-scale version of the table rows above, and both attribute the gains to the harness rather than the model. **Nick Schrock (Dagster)** merged 1,000+ PRs in 3 weeks with about 5 manual IDE edits, via a local-dev -> cloud-review -> agent-applies-feedback loop where CI errors are downloaded and fixed automatically ("This isn't vibe coding. The process is still software engineering forward."). **Matthias Vallentin (Tenzir)** got a 3x velocity improvement with agents handling commits, changelogs, docs, and releases, framed as org transformation rather than individual productivity — the same team whose MCP vs Skills production data ([MCP vs Skills Economics](./mcp-vs-skills-economics.md)) showed a 50% cost reduction through architecture choices.
 
 ### Evidence Nuancing the Thesis
 
@@ -466,19 +307,13 @@ The claim is falsifiable in a single test:
 
 Such a result would invalidate the "harness is the multiplier" framing — if a pure model swap can match the Stanford-reported 6× orchestration-only delta, then the harness-vs-model trade-off collapses to a routine optimization rather than a structural shift. As of 2026-05-24, no such benchmark has surfaced; the dominant cross-model deltas reported in 2026 (TerminalBench 2, SWE-bench, OSWorld) sit well below 6× even across major version jumps.
 
-### Outstanding Provenance Gaps — Resolved 2026-05-24
+### Provenance
 
-All three previously-tracked provenance gaps were closed by an academic-source sweep on 2026-05-24:
-
-- **~~Stanford 6×-orchestration figure~~** — **RESOLVED**. The figure originates from the Meta-Harness paper itself (Lee et al., [arXiv:2603.28052](https://arxiv.org/abs/2603.28052), 2026-03-30) where it appears verbatim: *"Changing the harness around a fixed large language model (LLM) can produce a 6× performance gap on the same benchmark."* The earlier "Stanford researchers via synthesis transcript" attribution and the "Meta-Harness paper" tracking item resolve to the same single source. The figure is independently corroborated by SWE-Bench Mobile (Tian et al., [arXiv:2602.09540](https://arxiv.org/abs/2602.09540), 2026-02-10), which reports Opus 4.5 scoring 12% on Cursor vs 2% on OpenCode — exactly 6×, scaffold-only.
-- **~~Meta-Harness paper~~** — **RESOLVED**. Full citation: Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT). "Meta-Harness: End-to-End Optimization of Model Harnesses." [arXiv:2603.28052](https://arxiv.org/abs/2603.28052), 2026-03-30. Result quantification corrected: 76.4% with Opus 4.6 (rank 2 among Opus agents) and 37.6% with Haiku 4.5 (rank 1 among Haiku agents, beating Goose at 35.5%).
-- **~~Tingua NLH ablation~~** — **RESOLVED with attribution correction**. "Tingua" was a misspelling of Tsinghua. Full citation: Pan, Zou, Guo, Ni, Zheng (Tsinghua University, Shenzhen International Graduate School + Harbin Institute of Technology). "Natural-Language Agent Harnesses." [arXiv:2603.25723](https://arxiv.org/abs/2603.25723), 2026-03-26. All ablation numbers in this doc (verifiers -0.8 SWE / -8.4 OSWorld; multi-candidate search -2.4 / -5.6; self-evolution +4.8 / +2.7) match the paper exactly.
-
-**Net effect on hypothesis strength**: H-HARNESS-01 moves from "B+ with three outstanding gaps" to "B+ with primary sources verified." The headline 6× figure is no longer transcript-only; it is the paper's published claim, independently replicated.
+An academic-source sweep on 2026-05-24 closed all three previously-tracked provenance gaps: the 6× figure is the Meta-Harness paper's own headline quote, not a transcript paraphrase (Lee et al., [arXiv:2603.28052](https://arxiv.org/abs/2603.28052), 2026-03-30, corrected result quantification: 76.4% Opus 4.6 / 37.6% Haiku 4.5 on TerminalBench-2); and "Tingua NLH" was a misspelling of Tsinghua — the paper is Pan, Zou, Guo, Ni, Zheng (Tsinghua + Harbin Institute of Technology), [arXiv:2603.25723](https://arxiv.org/abs/2603.25723), 2026-03-26, whose ablation numbers in this doc (verifiers -0.8 SWE / -8.4 OSWorld; multi-candidate search -2.4 / -5.6; self-evolution +4.8 / +2.7) match the published paper exactly. Net effect: H-HARNESS-01 moves from "B+ with three outstanding gaps" to "B+ with primary sources verified."
 
 ### Cross-Repository Tracking
 
-The hypothesis is mirrored in a personal hypothesis tracker (`project1/01-knowledge-base/hypotheses/relocated-out-of-scope.md`) that aggregates evidence across the author's portfolio (security data, MCP prototypes, second-brain). Findings flow into this document; tracker-side updates do not propagate automatically — revalidation should consult both. The tracker also lists adjacent cross-brain evidence (Splunk benchmark, CAII Johari Window) that supports the thesis indirectly via the workflows the harness optimizes for, not the harness mechanics themselves; those references are deliberately not duplicated here.
+The hypothesis is mirrored in a personal hypothesis tracker (`project1/01-knowledge-base/hypotheses/relocated-out-of-scope.md`) that aggregates evidence across the author's portfolio (security data, MCP prototypes, second-brain). Findings flow into this document; tracker-side updates do not propagate automatically, so revalidation should consult both.
 
 ---
 
@@ -505,90 +340,52 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 
 ---
 
-## Anti-Patterns
-
-| Anti-Pattern | Source | Symptom | Fix |
-|-------------|--------|---------|-----|
-| Tool proliferation | Vercel experiment | Low accuracy despite many specialized tools | Strip to general-purpose tools |
-| Context stuffing | Manus experience | Performance degrades at 50+ tool calls | File system as external memory |
-| Hook storms | ECC patterns | Excessive token consumption from cascading hooks | Runtime profiles (`ECC_HOOK_PROFILE=minimal`) |
-| Ceremony overhead | Superpowers pattern | Small tasks take disproportionate time | Scale harness to task complexity |
-| Configuration drift | Anthropic minimal | Team members get inconsistent results | Hooks for enforcement + shared settings.json |
-| Swimming against the current | Bitter Lesson | Harness complexity grows with each model upgrade | Build every component for deletion |
-| Harness-as-specification neglect | Video thesis | Building agent first, retrofitting tests later | Define harness (behavioral tests) before agent logic |
-| Accretion without pruning | Practitioner heuristic | Repo accumulates custom code and raw captures the model must re-read each session | Necessity ladder before writing code (see [Secure Code Generation](./secure-code-generation.md)); archive or delete superseded material |
-
----
-
-## Resource Map: Where to Go for What
-
-| Need | Resource | Type |
-|------|----------|------|
-| Understand context behavior and thresholds | [Behavioral Insights](./behavioral-insights.md) | This project |
-| Choose between extension mechanisms | [Plugins & Extensions](./plugins-and-extensions.md) | This project |
-| Compare orchestration approaches | [Orchestration Comparison](./orchestration-comparison.md) | This project |
-| Select a framework for your project | [Framework Selection Guide](./framework-selection-guide.md) | This project |
-| Structure domain knowledge for LLMs | [Domain Knowledge Architecture](./domain-knowledge-architecture.md) | This project |
-| Assess cost trade-offs (MCP vs Skills) | [MCP vs Skills Economics](./mcp-vs-skills-economics.md) | This project |
-| Implement a maximal harness | [everything-claude-code](https://github.com/affaan-m/everything-claude-code) | External |
-| Implement a disciplined workflow | [superpowers](https://github.com/obra/superpowers) | External |
-| Implement a minimal long-running harness | [Anthropic harness blog](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) | External |
-| Harden security layer | [Safety & Sandboxing](./safety-and-sandboxing.md) + [Secure Code Generation](./secure-code-generation.md) | This project |
-| See harness concepts operationalized with 7-repo evidence | [Agent-Driven Development](./agent-driven-development.md) | This project |
-
----
-
 ## Sources
 
 ### Tier A (Primary Vendor)
 
-- Anthropic: ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025) — Two-part architecture, external artifacts as memory, one feature at a time
-- Anthropic: Prithvi Rajasekaran, ["Designing a harness for long-running application development"](https://www.anthropic.com/engineering/harness-design-long-running-apps) (2026-03-24) — Primary source for the generator/evaluator (GAN-inspired) harness: planner/generator/evaluator, Playwright-driven evaluator scoring quality/originality/craft/functionality, 5–15 iterations, ~4hr, ~$200/6hr vs ~$9/20min single-agent, self-praise-bias caution on self-evaluation. The v2 simplification above is the derivative.
-- Anthropic: Lance Martin, Gabe Cemaj, Michael Cohen, ["Scaling Managed Agents: Decoupling the brain from the hands"](https://www.anthropic.com/engineering/managed-agents) (2026-04-08) — Long-running managed-agent architecture: durable append-only Session log outside the container, stateless Harness "brain", isolated Sandbox "hands"; stable interfaces survive harness churn; vault-isolated credentials vs prompt injection; ~60% p50 / >90% p95 time-to-first-token reduction from on-demand provisioning.
-- Anthropic: v2 harness simplification with Opus 4.6 (April 2026) — Removed sprints/negotiation/resets, single build session, evaluator-at-the-end pattern
-- Anthropic: [Migration Guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) (April 2026) — Opus 4.7 literal interpretation, fewer default subagents, adaptive verbosity; pushes prompt complexity up while harness simplifies
-- Anthropic: ["What's New Claude 4.8"](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8) (Tier A, fetched 2026-05-30) — Opus 4.8 (released 2026-05-28) harness-relevant deltas: fewer compactions + better compaction recovery, better tool triggering, more reliable effort calibration; adaptive thinking is the only thinking mode (extended-thinking budgets return 400); default effort `high`; 1M context default on Claude API/Bedrock/Vertex (200k Microsoft Foundry).
-- Boris Cherny: Interviews and posts (March 2026) — Parallel sessions, hooks, permissions pre-configuration, Document-and-Clear pattern
+- Anthropic: ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025)
+- Anthropic: Prithvi Rajasekaran, ["Designing a harness for long-running application development"](https://www.anthropic.com/engineering/harness-design-long-running-apps) (2026-03-24) — the generator/evaluator source the v2 simplification derives from
+- Anthropic: v2 harness simplification with Opus 4.6 (April 2026)
+- Anthropic: [Migration Guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) (April 2026) — Opus 4.7 literal interpretation
+- Anthropic: ["What's New Claude 4.8"](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8) (Tier A, fetched 2026-05-30)
+- Boris Cherny: Interviews and posts (March 2026) — parallel sessions, hooks, permissions pre-configuration, Document-and-Clear pattern
 
 ### Tier B (Validated / Expert Practitioner)
 
-- Prompt Engineering: ["The AI Model Doesn't Matter Anymore"](https://www.youtube.com/watch?v=1Ohf2aeSPFA) (February 2026) — Full transcript analyzed. Middleware era thesis, three harness properties, Vercel experiment, Manus analysis, Bitter Lesson application
-- Vercel: Text-to-SQL experiment (as cited in video) — Removing specialized tools improved all metrics
-- Manus: Context engineering lessons (as cited in video, acquired by Meta) — 5 rebuilds, file system as memory
-- Pan, Zou, Guo, Ni, Zheng (Tsinghua University + Harbin Institute of Technology): ["Natural-Language Agent Harnesses"](https://arxiv.org/abs/2603.25723) — arXiv:2603.25723, 2026-03-26. NLH representation gains (30.4% → 47.2%, 1,200 → 34 LLM calls), verifier/multi-candidate ablation, self-evolution as only consistently helpful module. *(Previously cited as "Tingua NLH" — attribution corrected 2026-05-24.)*
-- Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT): ["Meta-Harness: End-to-End Optimization of Model Harnesses"](https://arxiv.org/abs/2603.28052) — arXiv:2603.28052, 2026-03-30. Agentic proposer reads failed traces, writes new harness. 76.4% Opus 4.6 / 37.6% Haiku 4.5 on TerminalBench-2 (rank 1 among Haiku agents). Cross-model harness transfer (+7.7 text-classification, +4.7 IMO math across five held-out models). **Source for "6× performance gap from harness changes alone" headline figure.**
-- Tian, Wang, Yang et al.: ["SWE-Bench Mobile: Can LLM Agents Develop Industry-Level Mobile Apps?"](https://arxiv.org/abs/2602.09540) — arXiv:2602.09540, 2026-02-10. Independent corroboration: same Opus 4.5 model scores 12% on Cursor vs 2% on OpenCode (exactly 6×, scaffold-only) across 22 agent-model configurations.
-- Sen, Kasturi, Lumer, Gulati, Subbiah (PwC US): ["Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"](https://arxiv.org/abs/2605.15184) — arXiv:2605.15184, May 2026. 116-question LongMemEval study across Chronos, Claude Code, Codex, Gemini CLI. Two findings cited here: (1) grep generally yields higher accuracy than vector retrieval; (2) "overall scores still depend strongly on which harness and tool-calling style is used, even when the underlying conversation data are the same" — direct empirical support for harness-as-multiplier across retrieval strategies. Tier B preprint, not yet peer-reviewed.
-- Andrej Karpathy: Meta-optimization of program.md (March 2026, No Priors podcast) — Independent convergence with Stanford meta-harness concept. Authority 4/5.
-- Andrej Karpathy: ["Sequoia Ascent 2026"](https://karpathy.bearblog.dev/sequoia-ascent-2026/) (2026-04-30) — Coding's built-in verification (tests pass/fail, diffs inspectable) makes it the ideal self-improvement loop; the human stays the harness, responsible for the software. The "loop engineering" steelman. Authority 4/5.
-- `project1` (security-data research portfolio), ["SDW Loop Engineering"](../../project1/02-projects/securitydataworks/LOOP-ENGINEERING-DESIGN-2026-06-15.md) (2026-06-15) + the two loop-state machines [`BENCH-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/BENCH-LOOP-STATE.md) / [`CONSOLE-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/CONSOLE-LOOP-STATE.md) — single-practitioner worked instance of the GENERATE→SELECT→EVALUATE→ACCUMULATE→PUBLISH→RETHINK loop with the RETHINK limb scored absent (gap G4) and then wired in as a step-0 ORIENT opening every iteration. **Single-source — one practitioner's own project, not independently reproduced; cited as an illustrative pattern, bias-flagged.** Cites Arike et al., AIES 2025 (goal-drift is emergent with no error code).
-- LangChain DeepAgents team: ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17) — deepagents-cli moved 52.8% → 66.5% on TerminalBench-2 (outside Top 30 → Top 5) holding gpt-5.2-codex constant; five specific middleware changes documented; full TerminalBench traces published. Practitioner replication of the harness-as-multiplier effect with a public reproducible artifact. Authority 4/5.
-- [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — 119K+ stars, Anthropic hackathon winner, maximal harness approach
-- [superpowers](https://github.com/obra/superpowers) — 294K+ installs, disciplined methodology approach
-- Richard Sutton: "The Bitter Lesson" — Approaches scaling with compute beat hand-engineered knowledge
+- Prompt Engineering: ["The AI Model Doesn't Matter Anymore"](https://www.youtube.com/watch?v=1Ohf2aeSPFA) (February 2026) — source for the Harness Thesis, Vercel, Manus, and Bitter Lesson material above
+- Pan, Zou, Guo, Ni, Zheng (Tsinghua University + Harbin Institute of Technology): ["Natural-Language Agent Harnesses"](https://arxiv.org/abs/2603.25723) — arXiv:2603.25723, 2026-03-26. *(Previously cited as "Tingua NLH" — attribution corrected 2026-05-24.)*
+- Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT): ["Meta-Harness: End-to-End Optimization of Model Harnesses"](https://arxiv.org/abs/2603.28052) — arXiv:2603.28052, 2026-03-30. **Source for the "6× performance gap from harness changes alone" headline figure.**
+- Tian, Wang, Yang et al.: ["SWE-Bench Mobile: Can LLM Agents Develop Industry-Level Mobile Apps?"](https://arxiv.org/abs/2602.09540) — arXiv:2602.09540, 2026-02-10
+- Sen, Kasturi, Lumer, Gulati, Subbiah (PwC US): ["Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"](https://arxiv.org/abs/2605.15184) — arXiv:2605.15184, May 2026. Tier B preprint, not yet peer-reviewed.
+- Andrej Karpathy: Meta-optimization of program.md (March 2026, No Priors podcast). Authority 4/5.
+- Andrej Karpathy: ["Sequoia Ascent 2026"](https://karpathy.bearblog.dev/sequoia-ascent-2026/) (2026-04-30). Authority 4/5.
+- `project1` (security-data research portfolio), ["SDW Loop Engineering"](../../project1/02-projects/securitydataworks/LOOP-ENGINEERING-DESIGN-2026-06-15.md) (2026-06-15) + [`BENCH-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/BENCH-LOOP-STATE.md) / [`CONSOLE-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/CONSOLE-LOOP-STATE.md) — single-source, bias-flagged; cites Arike et al., AIES 2025, on emergent goal-drift
+- LangChain DeepAgents team: ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17). Authority 4/5.
+- [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — 119K+ stars, Anthropic hackathon winner
+- [superpowers](https://github.com/obra/superpowers) — 294K+ installs
+- Richard Sutton: "The Bitter Lesson"
 
 ### Related Analysis
 
 - [Behavioral Insights](./behavioral-insights.md) — Context thresholds, CLAUDE.md adherence, prompt sensitivity
 - [Domain Knowledge Architecture](./domain-knowledge-architecture.md) — Companion document for domain-heavy projects
-- [Plugins & Extensions](./plugins-and-extensions.md) — The harness toolkit (8 extension mechanisms)
-- [Orchestration Comparison](./orchestration-comparison.md) — Orchestration layer analysis
-- [Framework Selection Guide](./framework-selection-guide.md) — Framework decision trees
+- [MCP vs Skills Economics](./mcp-vs-skills-economics.md) — Cost trade-offs the Schrock/Vallentin evidence draws on
 - [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Prompt anti-patterns that break on Opus 4.7 (carry forward to 4.8); split between harness (simpler) and prompt (more explicit); 4.8 net-deltas table
-- [Scheduled & Looping Primitives](./scheduled-and-looping-primitives.md) — the scheduling-facing companion: `/loop`, `/goal`, Routines, Desktop scheduled tasks, the Ralph lineage, and the "loop engineering" framing operationalized as audit signals; carries the matching "weak RETHINK limb" treatment from the scheduling side plus the `project1` case study
-- [Intent-Alignment Audit](./intent-alignment-audit.md) — the RETHINK companion: the standing "does each load-bearing mechanism still match its intent?" pass, of which an absent loop RETHINK limb is one instance
+- [Scheduled & Looping Primitives](./scheduled-and-looping-primitives.md) — the scheduling-facing companion: `/loop`, `/goal`, Routines, Desktop scheduled tasks, the Ralph lineage, and the "loop engineering" framing turned into audit signals; carries the matching "weak RETHINK limb" treatment from the scheduling side plus the `project1` case study
+- [Intent-Alignment Audit](./intent-alignment-audit.md) — the RETHINK companion: the standing "does each mechanism still match its intent?" pass, of which an absent loop RETHINK limb is one instance
+- [Safety & Sandboxing](./safety-and-sandboxing.md) + [Secure Code Generation](./secure-code-generation.md) — the security layer of the harness stack
+- [Agent-Driven Development](./agent-driven-development.md) — harness concepts tested against 7-repo evidence
 
 ---
 
-*Last updated: 2026-06-21 (elevated the RETHINK limb — added "The RETHINK limb is the harness's Orient layer, and it is usually the weak one" under Loop Engineering: most loop setups have a strong Act limb and a weak/absent RETHINK limb, producing confident motion toward the wrong target; tied it to the existing "lost the objective" / "loops on failed approaches" diagnostic symptoms; added `project1`'s loop-engineering design + the two loop-state machines as a single-practitioner, bias-flagged case study; cross-linked the forthcoming `intent-alignment-audit.md` RETHINK companion). Prior: 2026-06-15 (loop-engineering framing + `/goal` version/claim fix + Rajasekaran and Scaling Managed Agents primary citations + Karpathy Sequoia Ascent). Prior: May 2026 (Opus 4.8 harness-layer deltas).*
+*Last updated: 2026-07-10 (Reduction Phase 4 — collapsed the harness-design mechanism half now carried by Anthropic's official best-practices page and "How Claude Code works in large codebases"; kept the Bitter-Lesson diagnostic, the accretion heuristics, and all measured/portfolio evidence; cut the 6-layer harness stack, the harness-toolkit changelog table, the philosophy feature-comparison detail, the symptom-to-mechanism diagnostic router, the task-complexity decision tree, and the standalone Resource Map — all now owned by the two first-party sources; confirmed no surviving links to the docs retired elsewhere in this pass). Prior: 2026-06-21 (RETHINK limb elevated). Prior: 2026-06-15 (loop-engineering framing + `/goal` version/claim fix + Rajasekaran and Scaling Managed Agents primary citations + Karpathy Sequoia Ascent). Prior: May 2026 (Opus 4.8 harness-layer deltas).*
 
 <!-- graphify-footer:start -->
 
 ## Related (from graph)
 
 - [`analysis/model-migration-anti-patterns.md`](analysis/model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
-- [`analysis/federated-query-architecture.md`](analysis/federated-query-architecture.md) [EXTRACTED (1.00)] — references
-- [`analysis/local-cloud-llm-orchestration.md`](analysis/local-cloud-llm-orchestration.md) [EXTRACTED (1.00)] — references
 - [`analysis/claude-md-progressive-disclosure.md`](analysis/claude-md-progressive-disclosure.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

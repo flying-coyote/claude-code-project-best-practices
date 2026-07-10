@@ -16,7 +16,7 @@ measurement-claims:
     date: "2026-04-06"
     revalidate: "2026-10-06"
 status: PRODUCTION
-last-verified: "2026-04-06"
+last-verified: "2026-07-10"
 evidence-tier: A
 applies-to-signals: [project-type-docs, project-type-research, typed-memory-no-registry]
 revalidate-by: 2026-10-06
@@ -24,28 +24,19 @@ revalidate-by: 2026-10-06
 
 # Memory System Patterns: Cross-Session Context Persistence
 
+> **Collapsed 2026-07-10 (Reduction Phase 4).** The conventions half is now first-party (official memory docs; 200-line/25KB limits documented). Kept delta: the portfolio's memory sizing, typing, and staleness evidence.
+
 **Evidence Tier**: A — Direct observation of memory systems across 5 project directories
 
 ## Purpose
 
-This document analyzes how Claude Code's auto-memory system works in practice across a portfolio of projects — what gets saved, how memory files are structured, when memory is useful vs. when it creates stale assumptions, and how memory sizing correlates with project complexity. The key insight: memory is **opt-in by project**, not universal, and the right amount of memory depends on how much context is lost between sessions.
+This document is the auto-memory-layer evidence reference: what gets saved in practice, how memory sizing correlates with project type, the memory types observed in the field, and the staleness failure mode. Directory layout, frontmatter format, and the MEMORY.md load limits are now documented natively by Anthropic's own memory docs; this doc keeps only the measured delta on top of that.
 
 ---
 
 ## Memory Architecture
 
-### Storage Location
-
-```
-~/.claude/projects/{encoded-repo-path}/memory/
-├── MEMORY.md           # Index file (always loaded into context)
-├── user_role.md        # Who the user is
-├── project_*.md        # Active work context
-├── reference_*.md      # External system pointers
-└── feedback_*.md       # Corrections and validated approaches
-```
-
-**Key property**: MEMORY.md is always loaded into conversation context. Individual memory files are loaded on demand when relevant. This is itself a progressive disclosure pattern — the index is cheap, the detail is loaded only when needed.
+MEMORY.md is the always-loaded index; individual `user_*`, `project_*`, `reference_*`, and `feedback_*` files load on demand.
 
 ### Four Memory Types
 
@@ -56,51 +47,9 @@ This document analyzes how Claude Code's auto-memory system works in practice ac
 | **reference** | Pointers to external systems | When external resources are discovered | "400 repos across 64 GitLab subgroups, 6 cloned locally" |
 | **feedback** | Corrections and validated approaches | When the user corrects or validates behavior | "Analysis docs must be diagnostic and actionable, not just descriptive" |
 
-### File Format
+### Typed memory beyond the four types (OKF pattern)
 
-Each memory file uses YAML frontmatter:
-
-```markdown
----
-name: User Role
-description: Corelight PS engineer focused on security engineering
-type: user
----
-
-Content here — for feedback/project types, structure as:
-rule/fact, then **Why:** and **How to apply:** lines.
-```
-
----
-
-## Typed Memory as a KM-Leverage Pattern (OKF)
-
-The `type:` field in that frontmatter is doing more work than it looks. It is the difference between a folder of markdown an agent can only grep and a *typed knowledge graph* an agent (or a script, or an MCP) can query — "give me every `Assumption` whose review is overdue," "every `MDR` still `Proposed`," "every `contradiction` with no resolution." Once the type vocabulary is canonical and machine-readable, the memory stops being a passive store and becomes something a harness can ask questions of. That is the leverage, and it is worth treating typed-frontmatter as a named pattern rather than a formatting convention.
-
-The external spec for this is Google Cloud's **Open Knowledge Format (OKF) v0.1** ([SPEC.md](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md), Apache-2.0; announced [2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing) — both verified against primary sources). OKF formalizes the LLM-wiki pattern as a directory of UTF-8 markdown files with YAML frontmatter, and it requires *exactly one* field of every concept: `type`. The spec's own words: "OKF requires exactly one thing of every concept: a `type` field. Everything else … is left to the producer." Reserved-but-optional fields are `title`, `description`, `resource`, `tags`, and `timestamp`; consumers MUST NOT reject a bundle for unknown type values or missing optional fields. Claude Code's auto-memory frontmatter (`type: user | project | reference | feedback`) is already a conformant instance of this — the same one-required-field design, predating the public spec.
-
-### OKF stores what we know; RETHINK re-asks whether it is still the right thing to know
-
-A typed store answers *what do we know* well, and answers *is what we know still true* not at all on its own — a memory file is a point-in-time snapshot (see [The Staleness Problem](#the-staleness-problem) above), and a `type:` does not expire just because the claim under it did. So the typed store pairs naturally with the **RETHINK** limb of the loop-engineering / harness-engineering loop (the intent-alignment "why" dimension — see [harness-engineering.md](./harness-engineering.md) and [scheduled-and-looping-primitives.md](./scheduled-and-looping-primitives.md)): OKF stores what we know; RETHINK re-asks, on a cadence, whether it is still the right thing to know. The two are complementary halves, and a typed memory is what makes the RETHINK pass *cheap* — because the types let the loop find the things most likely to have gone stale without re-reading the whole corpus. A worked example of that exact pairing is below in the case study: a typed graph plus a script that re-derives next-work from the types themselves (overdue assumptions, undecided decisions, unresolved contradictions).
-
-### Case study: project1 "Second Brain" (Tier B, single practitioner — FLAGGED)
-
-This is a firsthand worked implementation, and it should be read with its limit stated up front: **significant value seen recently; one practitioner, one project, not independently corroborated.** Treat the *mechanism* as transferable and the *magnitude* as a single data point.
-
-project1 is a ~500-doc cross-repo cybersecurity-research vault that types every live note and governs the type vocabulary with parsed-registry tooling. The pieces, with their real files:
-
-| Piece | File | What it does |
-|---|---|---|
-| Type registry (source of truth) | [`01-knowledge-base/_type-registry.md`](file:///home/jerem/project1/01-knowledge-base/_type-registry.md) | 30 canonical types + 9 intentional singletons + a merge map. Records two consolidations: 127 distinct live types (86 used once) → ~30 on 2026-06-09, then a 51-value drift → canonical on 2026-06-18. The rule is "pick a type from the registry; if none fits, add it *here* first." |
-| Vault conventions | [`AGENTS.md`](file:///home/jerem/project1/AGENTS.md) | The Tolaria-loaded conventions file; owns the per-type frontmatter field conventions (the registry owns the *list*). |
-| Shared OKF helpers | [`automation/lib/okf.py`](file:///home/jerem/project1/automation/lib/okf.py) | One module answers three questions consistently: what is an OKF note, which `type:` values are canonical, how complete/clean is the graph. `load_canonical_types()` *parses* the registry doc (single source of truth — never hard-codes the list, so the guard can't disagree with the human-readable registry). `load_notes()` takes a **list of roots** — federation-ready, so the same checks run across the hub and its spokes. |
-| Per-commit drift guard | [`automation/orchestrator/quality_gates.py`](file:///home/jerem/project1/automation/orchestrator/quality_gates.py) (`validate_okf_type`) | Wired into the pre-commit hook. Loads the canonical set from the registry once, and warns (deliberately does not block) on any non-canonical `type:` — "pick a canonical type or register it in `_type-registry.md` first." Warn-not-block is the calibrated choice: a loud warning on every commit is what keeps the vocabulary from drifting back to the 51-value sprawl, without making the registry rule a hard gate. |
-| Graph health (coverage / drift / gaps) | [`automation/okf_health.py`](file:///home/jerem/project1/automation/okf_health.py) | A health *signal*, not a gate. Reports typed-coverage %, type-drift count, and untyped knowledge-candidate gaps (nav/status/front-door files excluded by a stem regex). `--federated` adds the spoke repos (which read ~0% today — that is the gap the federation work closes, and this is how it watches it close). `--brief` emits a one-liner into the daily brief. |
-| Next-work from the graph (the RETHINK operationalization) | [`automation/okf_signals.py`](file:///home/jerem/project1/automation/okf_signals.py) | Reads the typed graph and derives a ranked next-work list *from the structure that is already there* — no separate backlog to keep in sync: `Assumption` notes past `last_reviewed + review_cadence_months`, `MDR` notes still `Proposed`, `contradiction` notes with no resolution framing, low-confidence/stale `hypothesis` notes, and Matrix-tracked components with thin note coverage. This is RETHINK made mechanical: the types tell the loop what is most likely to have gone stale. |
-
-The leverage claim, stated honestly: typing the corpus turned the memory from a grep target into something the daily loop interrogates — `okf_health --brief` and `okf_signals --brief` both feed the brief, so the graph's own debts (an overdue assumption, an undecided MDR) surface on cadence instead of being rediscovered by hand. The discipline that makes it hold is the four-part hygiene loop: every note carries a `type:`; one parsed registry is the source of truth; a pre-commit guard reads that registry; and a health check watches coverage and drift. The fuller treatment of that hygiene loop, with its anti-patterns, is in [archetype-A](memory-systems-archetype-a-curated-kb.md) §A1b.
-
-> **Adopt OKF typing when** your memory/KB has crossed roughly a hundred typed notes and `type:`-based retrieval has started to rot (the `typed-memory-no-registry` signal). Below that, a fixed handful of types needs neither a registry nor a guard — see the scale caveat in archetype-A §A1b.
+Once a memory store or KB crosses roughly a hundred typed notes, a fixed four-value taxonomy stops being enough and `type:`-based retrieval starts to rot — the `typed-memory-no-registry` signal in this doc's frontmatter. The fix observed in production is a canonical type registry plus a drift guard rather than letting types grow ad hoc. project1's second-brain vault is the worked example: a parsed type registry (127 distinct types → ~30 canonical, then a 51-value drift consolidated back to canonical), a pre-commit guard that warns on non-registry types, and a health/next-work script derived from the typed graph itself (Tier B, single practitioner, not independently corroborated — value seen recently, magnitude is a single data point). Full treatment: [archetype-A](memory-systems-archetype-a-curated-kb.md) §A1b.
 
 ---
 
@@ -176,7 +125,7 @@ Simple projects don't need memory. The project context is fully captured by CLAU
 | Debugging solutions | Fix is in the code; commit has context | `git log --grep` |
 | Ephemeral task state | Only useful in current session | Task tools |
 
-### The Staleness Problem
+## The Staleness Problem
 
 Memory files are point-in-time snapshots. The ps-health-inventory memory includes timestamps ("refactored 2026-03-17", "calibrated 2026-03-24") and Claude automatically flags stale memory (>6 days). But stale markers don't prevent acting on outdated information.
 
@@ -197,53 +146,6 @@ Memory is one of several ways context persists. Use the right mechanism:
 | Project context | **CLAUDE.md** | Per-session (always loaded) |
 | Operational workflows | **Commands** | On invocation |
 | Cross-repo state | **cross-repo-progress.json** | Custom (hub-spoke) |
-
----
-
-## External Memory Systems (April 2026)
-
-Beyond Claude Code's built-in auto-memory, external memory systems are emerging that provide cross-session persistence through different mechanisms:
-
-### MemPalace (Local-First via MCP)
-
-- **Repository**: https://github.com/memorylake-ai/mempalace
-- **Architecture**: ChromaDB (vector search) + SQLite (structured storage), fully local
-- **Integration**: `claude mcp add mempalace` — exposes 19 MCP tools for memory operations
-- **Stars**: 43k+ (April 2026)
-- **Maturity**: Active development, macOS ARM64 segfault reported in some configurations
-
-**Trade-offs vs built-in auto-memory**:
-
-| Dimension | Claude Auto-Memory | MemPalace |
-|-----------|-------------------|-----------|
-| Setup | Zero (built-in) | Install + MCP configuration |
-| Persistence | File-based MEMORY.md | ChromaDB + SQLite |
-| Search | Index scanning | Semantic vector search |
-| Scope | Per-project | Cross-project (shared DB) |
-| Privacy | Local files | Local (no cloud) |
-| Dependencies | None | Python, ChromaDB, SQLite |
-
-**Best for**: Users who need semantic search across large knowledge bases or cross-project memory sharing. The built-in auto-memory remains sufficient for most project-scoped workflows.
-
-### Honcho (Server-Based, Multi-Agent)
-
-- **Repository**: https://github.com/plastic-labs/honcho
-- **Architecture**: FastAPI + PostgreSQL + pgvector, background "deriver" worker
-- **Version**: v3.0.6 (production, 2.2k stars)
-- **Deployment**: Docker, Fly.io, or self-hosted
-
-**Key differentiator**: The "peer paradigm" treats all participants (human and AI) uniformly in the data model, and a background deriver generates cross-session insights asynchronously. This makes Honcho more suited to multi-agent systems with shared state than to single-developer workflows.
-
-**Assessment**: Honcho requires PostgreSQL infrastructure, making it heavier than either MemPalace or built-in memory. It's most relevant for teams building multi-agent systems that need shared persistent state across many sessions and participants — not for individual developer workflows where Claude Code's auto-memory is sufficient.
-
-### Choosing a Memory Approach
-
-| Scenario | Recommended Approach |
-|----------|---------------------|
-| Single developer, project-scoped context | Claude Code auto-memory (built-in) |
-| Cross-project knowledge, semantic search | MemPalace via MCP |
-| Multi-agent shared state, team workflows | Honcho (PostgreSQL-backed) |
-| Domain-specific coaching cache | File-based archive (MNDR pattern) |
 
 ---
 
@@ -272,11 +174,7 @@ Beyond Claude Code's built-in auto-memory, external memory systems are emerging 
 
 - Anthropic Claude Code auto-memory documentation — Type taxonomy, frontmatter format, MEMORY.md index
 - Boris Cherny (March 2026) — "CLAUDE.md is advisory (~80% adherence)" applies to memory instructions equally
-- **OKF typed-memory case study (§Typed Memory as a KM-Leverage Pattern)** — single production second-brain (project1), firsthand. Real implementation: `01-knowledge-base/_type-registry.md` (30 canonical types + merge map, measured 127→~30 then 51→canonical consolidations), `automation/lib/okf.py` (parsed-registry helpers, federation-ready), `quality_gates.py:validate_okf_type` (pre-commit drift guard), `okf_health.py` (coverage/drift/gap signal), `okf_signals.py` (graph-derived next-work — the RETHINK operationalization). **One practitioner, one project, not independently corroborated — value seen recently, magnitude is a single data point.**
-
-### Tier C (Vendor-Published Standard)
-
-- [Google Cloud — Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) — Apache-2.0; [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing). v0.1 marked "Draft"; sole required frontmatter field is `type`. Date, license, and the single-required-field claim verified against the primary spec + blog (2026-06-21). Cite the *pattern* from production; the spec is a vendor-published open standard.
+- OKF typed-memory pattern (project1 second-brain vault) — Tier B, single practitioner, not independently corroborated. Full case study: [archetype-A](memory-systems-archetype-a-curated-kb.md) §A1b.
 
 ### Related Analysis
 
@@ -286,7 +184,7 @@ Beyond Claude Code's built-in auto-memory, external memory systems are emerging 
 
 ---
 
-*Last updated: April 2026*
+*Last updated: April 2026 — collapsed 2026-07-10 (Reduction Phase 4)*
 
 <!-- graphify-footer:start -->
 

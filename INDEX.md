@@ -1,14 +1,14 @@
 # Index
 
-*Auto-generated: 2026-07-10 17:29*
+*Auto-generated: 2026-07-10 18:04*
 
 ## Summary
 
-**Total documents**: 147
+**Total documents**: 146
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 31 |
+| analysis | 30 |
 | archive | 9 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
@@ -75,7 +75,6 @@
 - [harness-engineering.md](analysis/harness-engineering.md)
 - [intent-alignment-audit.md](analysis/intent-alignment-audit.md)
 - [local-cloud-llm-orchestration.md](analysis/local-cloud-llm-orchestration.md)
-- [mcp-daily-essentials.md](analysis/mcp-daily-essentials.md)
 - [mcp-patterns.md](analysis/mcp-patterns.md)
 - [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md)
 - [memory-system-patterns.md](analysis/memory-system-patterns.md)

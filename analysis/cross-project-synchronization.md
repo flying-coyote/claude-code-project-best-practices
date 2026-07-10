@@ -2,21 +2,8 @@
 version-requirements:
   claude-code: "v2.1.0+"
 version-last-verified: "2026-04-06"
-measurement-claims:
-  - claim: "4-phase enrichment cascade in mndr-review-automation: Inspector MCP → Investigator API → TME Playbook MCP → Config Assessment"
-    source: "Direct analysis — mndr-review-automation/scripts/run_review.py lines 1348-1364"
-    date: "2026-04-06"
-    revalidate: "2026-10-06"
-  - claim: "Scheduled cross-repo dependency monitoring runs weekday mornings checking corelight-inspector for breaking changes"
-    source: "Direct analysis — third-brain/.claude/scheduled_tasks.json"
-    date: "2026-04-06"
-    revalidate: "2026-10-06"
-  - claim: "Dynamic module import from health-inventory to mndr-review-automation via Python importlib (HumioClient, HealthEvaluator, BestPracticesEvaluator)"
-    source: "Direct analysis — mndr-review-automation/lib/data_loader.py"
-    date: "2026-04-06"
-    revalidate: "2026-10-06"
 status: PRODUCTION
-last-verified: "2026-04-06"
+last-verified: "2026-07-10"
 evidence-tier: A
 applies-to-signals: [commit-cross-repo, project-type-multi-repo]
 revalidate-by: 2026-10-06
@@ -24,11 +11,13 @@ revalidate-by: 2026-10-06
 
 # Cross-Project Synchronization: How Changes Cascade Across Repos
 
+> **Collapsed 2026-07-10 (Reduction Phase 4).** The multi-session mechanics are now first-party (agent teams v2 + worktrees docs). Kept delta: the hub-spoke portfolio evidence.
+
 **Evidence Tier**: A — Direct observation of dependency chains across 7 repositories
 
 ## Purpose
 
-This document analyzes how changes in one repository cascade to others in an agent-driven development portfolio — the dependency tracking, integration patterns, and synchronization mechanisms that prevent silent breakage when upstream repos change. The key insight: without explicit synchronization mechanisms, cross-repo dependencies become invisible until they break during a customer engagement.
+This document is evidence of a hub-spoke portfolio structure in an agent-driven development environment: which repos are the hub, which are spokes, how the dependency graph is shaped, and how much of it a spoke's CLAUDE.md documents explicitly. The mechanics that used to hold this together by hand — scheduled dependency checks, dynamic module imports, a multi-phase enrichment pipeline — are now covered by first-party agent teams v2 and worktrees. What survives here is the measured portfolio state those mechanics were built to protect: which repos exist, what role each plays, and how active each one is.
 
 ---
 
@@ -65,45 +54,7 @@ Splunk-db-connect-benchmark (independent, referenced by hub)
 
 ---
 
-## Three Synchronization Mechanisms
-
-### 1. Scheduled Dependency Monitoring
-
-third-brain runs a cron task (`17 9 * * 1-5` — weekday mornings at 9:17 AM) that checks corelight-inspector for upstream changes:
-
-```json
-{
-  "cron": "17 9 * * 1-5",
-  "prompt": "Pull the latest corelight-inspector changes and check for updates
-             that affect the MNDR automation integration.
-             Check: src/tools/ (tool signatures), src/lib/schemas/ (log type schemas),
-             src/lib/helpers/router.ts (MCP transport protocol), package.json (version bumps).
-             If any changed, summarize impact on lib/inspector_client.py in mndr-review-automation."
-}
-```
-
-**What this catches**: Tool signature changes in corelight-inspector that would break `InspectorClient.profile_entity()` or `get_alert_context()` calls. Without this monitoring, the breakage would only be discovered when the MNDR pipeline runs during a customer review.
-
-**Design choice**: 9:17 AM (not :00 or :30) to avoid coinciding with fleet-level scheduled tasks.
-
-### 2. Dynamic Module Import
-
-mndr-review-automation imports core modules from health-inventory at runtime via `importlib`:
-
-```python
-# lib/data_loader.py
-def _load_module_from_health_inventory(module_name, filename):
-    # Uses PS_HEALTH_INVENTORY_PATH from .env
-    # Fallback: ~/Git projects/health-inventory
-```
-
-**Modules imported**: `HumioClient`, `HealthEvaluator`, `BestPracticesEvaluator`, NDJSON parsers, unified CSV loader
-
-**Why dynamic import instead of fork**: Changes to health-inventory (new collectors, threshold calibration, evaluator improvements) flow automatically to mndr-review-automation. No merge, no sync — the next pipeline run uses the updated code.
-
-**Trade-off**: A breaking change in health-inventory breaks mndr-review-automation immediately. This is acceptable because both repos are single-developer and the breakage is visible (test failure) rather than silent (stale fork).
-
-### 3. Hub-Spoke Progress Tracking
+## Hub-Spoke Progress Tracking
 
 third-brain maintains `cross-repo-progress.json` with real-time state across the portfolio:
 
@@ -120,53 +71,6 @@ third-brain maintains `cross-repo-progress.json` with real-time state across the
 ```
 
 **What this enables**: Session-start awareness of portfolio activity. High-velocity spokes (74 commits in 14 days) get attention; low-activity spokes (3 commits) are deprioritized.
-
----
-
-## The Enrichment Cascade
-
-The most complex cross-repo dependency is mndr-review-automation's 4-phase enrichment pipeline, where each phase calls a different external service or repo:
-
-### Phase 1: Inspector MCP Enrichment
-
-- **Source**: corelight-inspector (TypeScript MCP server)
-- **Client**: `lib/inspector_client.py` (JSON-RPC 2.0, localhost-only)
-- **Data**: Entity profiles, alert context, log searches
-- **Injection**: `<!-- INSPECTOR CONTEXT -->` HTML comment blocks in findings markdown
-
-### Phase 2: Investigator API Enrichment
-
-- **Source**: Corelight Investigator (GraphQL API, cloud service)
-- **Client**: `lib/investigator_client.py`
-- **Data**: Alert metadata, detection matches, log job results
-- **Injection**: `<!-- INVESTIGATOR CONTEXT -->` blocks
-
-### Phase 3: TME Playbook MCP Enrichment
-
-- **Source**: tme-mcp-server (Python MCP server)
-- **Client**: `lib/tme_playbook_client.py` (JSON-RPC 2.0, localhost-only, retry with backoff)
-- **Data**: Matched investigation playbooks, execution results
-- **Injection**: `<!-- TME PLAYBOOK ENRICHMENT -->` blocks
-
-### Phase 4: Config Assessment Enrichment
-
-- **Source**: health-inventory (Python, dynamic import)
-- **Client**: `lib/config_assessment/` (direct Python call)
-- **Data**: Sensor configuration deviations, compliance scores
-- **Injection**: `<!-- CONFIG ASSESSMENT -->` blocks
-
-### Context Aggregation
-
-The LLM step extracts all enrichment blocks via regex:
-
-```python
-_tme = re.search(
-    r"<!-- TME PLAYBOOK ENRICHMENT -->(.*?)<!-- END TME PLAYBOOK ENRICHMENT -->",
-    finding_text, re.DOTALL
-)
-```
-
-**Critical design property**: Each enrichment phase is optional. If Inspector MCP is down, the pipeline continues without entity profiles. If tme-mcp-server is unavailable, playbook enrichment is skipped. The LLM receives whatever enrichment was available — degraded quality, not pipeline failure.
 
 ---
 
@@ -193,9 +97,6 @@ This makes the dependency graph explicit in the agent's context — the agent kn
 
 | Failure Mode | How Detected | Prevention |
 |-------------|-------------|------------|
-| Upstream tool signature change | Scheduled cron task (weekday mornings) | Auto-check corelight-inspector changes |
-| health-inventory breaking change | mndr-review-automation test failure | 1,216 tests catch import breakage immediately |
-| MCP server unavailable | InspectorClient returns `None` | Graceful degradation; enrichment is optional |
 | Cross-repo state drift | cross-repo-progress.json staleness | Refreshed at session start |
 | New spoke repo added | Hub doesn't know about it | Manual addition to cross-repo-progress.json |
 
@@ -205,9 +106,6 @@ This makes the dependency graph explicit in the agent's context — the agent kn
 
 | Anti-Pattern | Symptom | Fix |
 |-------------|---------|-----|
-| Forking instead of importing | Upstream improvements don't flow; maintenance doubles | Dynamic import via importlib with fallback path |
-| No upstream monitoring | Breaking changes discovered during customer engagement | Scheduled dependency checks (cron task) |
-| Hard dependency on enrichment | Pipeline fails when MCP server is down | Optional enrichment with graceful degradation |
 | Implicit cross-repo dependencies | New developer doesn't know repos are connected | Explicit cross-project context in CLAUDE.md |
 | Hub without state tracking | Every session re-discovers portfolio state | cross-repo-progress.json with recent commit counts |
 
@@ -217,24 +115,18 @@ This makes the dependency graph explicit in the agent's context — the agent kn
 
 ### Tier A (Direct Production Observation)
 
-- mndr-review-automation enrichment cascade (April 2026) — 4-phase enrichment with HTML comment injection pattern (`scripts/run_review.py` lines 1348-1364)
-- Dynamic module import pattern (April 2026) — `lib/data_loader.py` importing from health-inventory via importlib
-- Scheduled dependency monitoring (April 2026) — `third-brain/.claude/scheduled_tasks.json` checking corelight-inspector
 - Hub-spoke progress tracking (April 2026) — `cross-repo-progress.json` tracking 4 repos with 120 recent commits
 
 ### Related Analysis
 
 - [Agent-Driven Development](./agent-driven-development.md) — Hub-spoke model and cross-repo coordination patterns
-- [Local+Cloud LLM Orchestration](./local-cloud-llm-orchestration.md) — Pipeline context where enrichment feeds LLM analysis
 
 ---
 
-*Last updated: April 2026*
+*Last updated: July 2026*
 
 <!-- graphify-footer:start -->
 
 ## Related (from graph)
-
-- [`analysis/local-cloud-llm-orchestration.md`](analysis/local-cloud-llm-orchestration.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->
