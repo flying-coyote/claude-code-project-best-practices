@@ -494,7 +494,6 @@ Example:
 
 ## Related Patterns
 
-- [Agent Principles](./agent-principles.md) - Production AI reliability principles
 - [Context Engineering](./behavioral-insights.md) - Correctness over compression
 - [Documentation Maintenance](../archive/patterns-v1/documentation-maintenance.md) - Keeping docs current in fast-moving projects
 

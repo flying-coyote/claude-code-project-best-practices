@@ -191,9 +191,7 @@ This doc is cited by (inbound) and cites (outbound) the following. Use the bidir
 - [Harness Engineering](harness-engineering.md) — links here from its 4.7 counter-signal row
 - [CLAUDE.md Progressive Disclosure](claude-md-progressive-disclosure.md) — links here from the Opus 4.7 references-without-read-enforcement warning
 - [Agent Evaluation](agent-evaluation.md) — links here from the implicit-subagent-dispatch anti-pattern
-- [Agent Principles](agent-principles.md) — links here from the 4.7 regression anti-pattern
 - [Evidence-Based Revalidation](evidence-based-revalidation.md) — links here from the 4.6 → 4.7 case study
-- [Session Quality Tools](session-quality-tools.md) — relevant for distinguishing 4.7 silent-no-op sessions from normal low-signal sessions
 
 ## Sources
 

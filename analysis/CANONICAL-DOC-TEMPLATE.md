@@ -14,7 +14,7 @@ status: PRODUCTION
 
 This is the canonical structure for new analysis documents in `analysis/`. Copy this file, rename, and fill in. The template captures patterns already dominant in the corpus — not a new standard invented here.
 
-Docs that exemplify each section well: [`behavioral-insights.md`](behavioral-insights.md) (diagnostic tables), [`model-migration-anti-patterns.md`](model-migration-anti-patterns.md) (counter-evidence + MUST-vs-positive tension), [`session-quality-tools.md`](session-quality-tools.md) (Gap statements).
+Docs that exemplify each section well: [`behavioral-insights.md`](behavioral-insights.md) (diagnostic tables), [`model-migration-anti-patterns.md`](model-migration-anti-patterns.md) (counter-evidence + MUST-vs-positive tension), [`session-quality-tools.md`](../archive/session-quality-tools.md) (Gap statements; archived — retirement completed 2026-07-10).
 
 ---
 
@@ -47,7 +47,7 @@ measurement-claims:      # OPTIONAL — only if doc makes dated quantitative cla
 | `last-verified` | When the doc's core claims were last reviewed for current accuracy. | `YYYY-MM-DD` |
 | `revalidate-by` | Expiry date after which claims need re-testing. Typically `last-verified + 6 months`. | `YYYY-MM-DD` |
 | `status` | Lifecycle state. | `PRODUCTION` (validated, active), `EMERGING` (not yet validated), `RETIRING` (a robust replacement cleared the bar; doc defers to it, keeps only the uncovered slice), `RETIRED` (replacement fully carries the load; tombstone pointer only), `REFERENCE` (imported reference doc), `ARCHIVED` (superseded, kept for history) |
-| `replacement-by` | The replacement a RETIRING/RETIRED doc defers to, with the cleared robustness bar (supported + GA + covers-slice + citeable) and what the doc still uniquely retains. Required when `status` is RETIRING/RETIRED. | String — see [`session-quality-tools.md`](session-quality-tools.md) for the first real example, and CONTRIBUTING.md § Retiring a doc |
+| `replacement-by` | The replacement a RETIRING/RETIRED doc defers to, with the cleared robustness bar (supported + GA + covers-slice + citeable) and what the doc still uniquely retains. Required when `status` is RETIRING/RETIRED. | String — see [`session-quality-tools.md`](../archive/session-quality-tools.md) (archived; the lane's first completed example) , and CONTRIBUTING.md § Retiring a doc |
 | `measurement-claims` | Dated quantitative claims with their own revalidation cycles. Only include if doc makes such claims. | Array of objects |
 
 **Rationale for split**: 19 of 28 existing docs include `measurement-claims` (production claims needing revalidation); 9 omit it (foundational methodology docs whose claims don't age the same way). The split is intentional — don't force `measurement-claims` onto methodology docs.
@@ -136,7 +136,7 @@ Full source entries go in the Sources section with URL, date, and authority cont
 - Citation without tier label
 - Tier label without source attribution
 
-Outlier docs getting retrofitted: `tool-ecosystem.md`, `mcp-daily-essentials.md`, `framework-selection-guide.md`.
+Outlier docs getting retrofitted: `mcp-daily-essentials.md`, `framework-selection-guide.md`.
 
 ---
 
@@ -150,7 +150,7 @@ Template:
 
 > - **Gap: {what's unvalidated}.** {Why this matters}. **Needs**: {specific study, data, or validation that would close it}.
 
-**Adopt selectively.** Every doc that cites confidence scores or arbitrary thresholds should have a Gaps section. Foundational methodology docs and purely diagnostic matrices may not need one. Current exemplars: [`session-quality-tools.md`](session-quality-tools.md).
+**Adopt selectively.** Every doc that cites confidence scores or arbitrary thresholds should have a Gaps section. Foundational methodology docs and purely diagnostic matrices may not need one. Current exemplars: [`session-quality-tools.md`](../archive/session-quality-tools.md) (archived).
 
 ---
 
@@ -197,7 +197,7 @@ Full rationale and step-by-step guidance in [`CONTRIBUTING.md`](../CONTRIBUTING.
 - [`evidence-tiers.md`](evidence-tiers.md) — Tier A/B/C definitions this template references
 - [`confidence-scoring.md`](confidence-scoring.md) — HIGH/MEDIUM/LOW assessment that maps to Gap-statement usage
 - [`model-migration-anti-patterns.md`](model-migration-anti-patterns.md) — counter-evidence exemplar
-- [`session-quality-tools.md`](session-quality-tools.md) — Gap-statement exemplar
+- [`session-quality-tools.md`](../archive/session-quality-tools.md) — Gap-statement exemplar (archived)
 - [`behavioral-insights.md`](behavioral-insights.md) — diagnostic-framework exemplar
 
 ---

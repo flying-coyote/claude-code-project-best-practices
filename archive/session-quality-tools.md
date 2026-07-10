@@ -3,12 +3,14 @@ evidence-tier: Mixed
 applies-to-signals: [session-diagnostics-run, session-edit-thrashing, session-error-loop, session-repeated-instructions]
 last-verified: 2026-06-04
 revalidate-by: 2026-10-22
-status: RETIRING
+status: RETIRED
 replacement-by: "Anthropic /insights (first-party, GA Feb 2026) — native session-history analysis + auto-generated CLAUDE.md rules from repeated instructions. Robustness bar cleared: first-party + GA + covers the session-pattern slice + citeable. Retained here: the static check that a repeated instruction is actually in the committed CLAUDE.md (session-history-only /insights can't see repo artifacts), and the evidence-assessment of claude-doctor's uncalibrated composite score."
 ---
 
 # Session Quality Diagnostic Tools
 
+> **Replacement status: RETIRED + ARCHIVED (2026-07-10; RETIRING since 2026-06-04).** Retirement completed: `/insights` is confirmed in the official commands reference (the "GA Feb 2026" date below could not be verified — earliest changelog trace is v2.1.101, 2026-04), and native `claude doctor` (full setup checkup + `/checkup` alias, v2.1.205+) replaced the community `claude-doctor` this doc assessed. The one surviving check (repeated instruction actually *committed* to CLAUDE.md) moved into AUDIT-CONTEXT's `session-repeated-instructions` row. This doc is out of the routed corpus; its `applies-to-signals` frontmatter is historical. Original RETIRING banner follows.
+>
 > **Replacement status: RETIRING (2026-06-04).** The session-pattern half of this doc is superseded by Anthropic's first-party `/insights` command (GA since February 2026), which reads your real session history and *auto-generates CLAUDE.md rules from instructions you repeat* — exactly what the `repeated-instructions` signal was gesturing at, done natively with no setup. **For session-pattern analysis and CLAUDE.md-rule generation, run `/insights` rather than `claude-doctor`.** What stays useful here, and is *not* covered by `/insights`: (1) the *static* check that a repeated instruction is actually committed to your CLAUDE.md — `/insights` reads session history, not repo artifacts; and (2) the evidence-assessment of why `claude-doctor`'s composite score is uncalibrated (Tier C), which generalizes to any friction-scoring tool. The audit's `session-*` signals route here for those two things and defer to `/insights` for the rest. This is the first doc to enter the project's retirement lane — see [CONTRIBUTING.md](../CONTRIBUTING.md) § Retiring a doc.
 
 **Sources**:

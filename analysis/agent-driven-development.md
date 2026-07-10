@@ -40,7 +40,6 @@ This document analyzes **how agent-driven development works in practice** across
 
 **How this differs from companion documents**:
 
-- [Agent Principles](./agent-principles.md) covers **why** agents need persistence, monitoring, and validation — this covers **how** those principles manifest in real infrastructure
 - [Harness Engineering](./harness-engineering.md) provides a **diagnostic framework** for agent infrastructure — this provides the **development methodology** that framework supports
 - [Orchestration Comparison](./orchestration-comparison.md) compares **which** orchestration approach to use — this shows **what the chosen approach looks like** in practice across multiple projects
 
@@ -184,7 +183,7 @@ The co-authoring data reveals a counterintuitive pattern: **Level 2 (Standard) r
 | **Direct tools** (no subagent) | Task is simple, single-file, low-risk | Quick edit, reading a file, running a test | — |
 | **Explore subagents** (1-3 parallel) | Need to understand unfamiliar code, multiple areas involved | 3 parallel Explore agents assessing cross-repo patterns | [Orchestration Comparison](./orchestration-comparison.md) |
 | **Plan subagent** | Architecture decisions, non-trivial implementation | Plan agent designing document structure before writing | [Orchestration Comparison](./orchestration-comparison.md) |
-| **Specialized agent** (custom) | Domain expertise, restricted tool access, different model | finding-reviewer: Sonnet model, 4 tools, structured coaching output | [Agent Principles](./agent-principles.md) |
+| **Specialized agent** (custom) | Domain expertise, restricted tool access, different model | finding-reviewer: Sonnet model, 4 tools, structured coaching output | [Agent Evaluation](./agent-evaluation.md) |
 | **Background agent** | Independent task, don't need results immediately | Running tests while continuing development | [Behavioral Insights](./behavioral-insights.md) |
 | **Git worktree** | Isolated changes, parallel branch work | Agent-driven feature branches (`flying-coyote/claude/[purpose]-[ID]`) | — |
 
@@ -411,7 +410,6 @@ Both practitioners emphasize that velocity gains came from harness engineering (
 - [Orchestration Comparison](./orchestration-comparison.md) — Comparison of orchestration approaches referenced in parallel agent strategies
 - [Behavioral Insights](./behavioral-insights.md) — Context thresholds and ~80% CLAUDE.md adherence rate explaining why hooks are needed for security
 - [Safety & Sandboxing](./safety-and-sandboxing.md) — 4-layer security stack analysis complementing the security boundary patterns here
-- [Agent Principles](./agent-principles.md) — Production reliability principles validated by the 7-repo portfolio data
 
 ---
 

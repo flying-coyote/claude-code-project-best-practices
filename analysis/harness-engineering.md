@@ -574,7 +574,6 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - [Plugins & Extensions](./plugins-and-extensions.md) — The harness toolkit (8 extension mechanisms)
 - [Orchestration Comparison](./orchestration-comparison.md) — Orchestration layer analysis
 - [Framework Selection Guide](./framework-selection-guide.md) — Framework decision trees
-- [Agent Principles](./agent-principles.md) — Persistent memory, unpredictability, monitoring
 - [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Prompt anti-patterns that break on Opus 4.7 (carry forward to 4.8); split between harness (simpler) and prompt (more explicit); 4.8 net-deltas table
 - [Scheduled & Looping Primitives](./scheduled-and-looping-primitives.md) — the scheduling-facing companion: `/loop`, `/goal`, Routines, Desktop scheduled tasks, the Ralph lineage, and the "loop engineering" framing operationalized as audit signals; carries the matching "weak RETHINK limb" treatment from the scheduling side plus the `project1` case study
 - [Intent-Alignment Audit](./intent-alignment-audit.md) — the RETHINK companion: the standing "does each load-bearing mechanism still match its intent?" pass, of which an absent loop RETHINK limb is one instance

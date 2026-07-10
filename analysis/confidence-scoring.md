@@ -290,7 +290,7 @@ The confidence-scoring framework itself carries unvalidated thresholds — apply
 - **Gap: tier → confidence mapping.** The mapping of Tier A source quality to HIGH confidence assumes primary sources are consistently correct. Anthropic's own disclosed "eval awareness" and "self-evaluation rationalization" failure modes (see [agent-evaluation.md](agent-evaluation.md)) show that even Tier A sources can have systematic errors. **Needs**: explicit Tier A source-reliability audit before promoting claims to HIGH.
 - **Gap: confidence inflation over time.** As a claim accumulates citations, confidence scores tend to drift upward (citation cascades). This framework has no mechanism to detect or correct inflation. **Needs**: periodic downward-revalidation where highly-confident claims are deliberately stress-tested against counter-evidence.
 
-These gaps don't invalidate the framework — they are the framework applied to itself. See [session-quality-tools.md](session-quality-tools.md) for an exemplar of full gap-statement usage.
+These gaps don't invalidate the framework — they are the framework applied to itself. See [session-quality-tools.md](../archive/session-quality-tools.md) (archived 2026-07-10, retirement complete) for an exemplar of full gap-statement usage.
 
 ---
 
@@ -301,14 +301,13 @@ This document is a synthesis methodology piece. It has no external citations bey
 ### Tier A
 
 - [agent-evaluation.md](agent-evaluation.md) — Documents Anthropic's disclosed "eval awareness" and "self-evaluation rationalization" failure modes, cited in the Gap section to challenge the assumption that Tier A sources are consistently correct.
-- [session-quality-tools.md](session-quality-tools.md) — Cited as an exemplar of the full Gap-statement format this doc defines.
+- [session-quality-tools.md](../archive/session-quality-tools.md) — archived exemplar of the full Gap-statement format this doc defines (retirement completed 2026-07-10).
 
 ---
 
 ## Related Patterns
 
 - [Evidence Tiers](./evidence-tiers.md) - Classification of source quality and research evidence
-- [Agent Principles](./agent-principles.md) - Accuracy and intellectual honesty
 - [Context Engineering](./behavioral-insights.md) - Correctness over compression
 
 ---
@@ -324,7 +323,6 @@ This document is a synthesis methodology piece. It has no external citations bey
 
 ## Related (from graph)
 
-- [`analysis/session-quality-tools.md`](analysis/session-quality-tools.md) [EXTRACTED (1.00)] — references
 - [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
 - [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
 - [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references

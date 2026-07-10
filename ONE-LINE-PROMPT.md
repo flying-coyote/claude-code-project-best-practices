@@ -68,9 +68,9 @@ Bulleted list of what triggered each fetch. Example:
 - [ ] .claude/worktrees/ or worktree.bgIsolation — {yes/no — background-session isolation}
 - [ ] .claude/workflows/*.js — {count — saved dynamic-workflow scripts}
 
-## Session Quality (`/insights` first; claude-doctor fallback)
+## Session Quality (`/insights` + `claude doctor`, both first-party)
 
-Recommend the audited project run Anthropic's first-party `/insights` for session-pattern analysis and auto-generated CLAUDE.md rules — it supersedes `claude-doctor` for this slice (`analysis/session-quality-tools.md` is RETIRING). If `/insights` is unavailable, `claude-doctor`'s signals below still apply:
+Recommend the audited project run Anthropic's first-party `/insights` for session-pattern analysis and CLAUDE.md rule suggestions, and native `claude doctor` (full setup checkup + `/checkup` alias, v2.1.205+) for install health. The signals below come from those runs:
 
 | Signal | Count | Action |
 |--------|-------|--------|
@@ -79,7 +79,7 @@ Recommend the audited project run Anthropic's first-party `/insights` for sessio
 | negative-sentiment | {N} | {directional only — do not act on this alone} |
 | repeated-instructions | {N} | {if >2: the repeated thing belongs in CLAUDE.md — `/insights` will auto-draft the rule; verify it is committed, not just suggested} |
 
-**Note**: composite health percentage uses arbitrary severity weights, and the session-pattern analysis is now better served by first-party `/insights`. Interpret signals individually — see `analysis/session-quality-tools.md` § Gaps and its Replacement-status banner.
+**Note**: composite health percentages use arbitrary severity weights — interpret signals individually. (The community `claude-doctor` path and its RETIRING analysis doc completed their retirement 2026-07-10; the gap analysis is preserved at `archive/session-quality-tools.md`.)
 
 ## Commit Patterns
 
@@ -175,10 +175,10 @@ Routing via [AUDIT-CONTEXT.md](AUDIT-CONTEXT.md) fixes all three: advisories mat
 Append one of these to narrow the audit:
 
 - `...focus on security patterns` — bias routing toward `safety-and-sandboxing.md`, `secure-code-generation.md`, `mcp-patterns.md`.
-- `...focus on agent architecture` — bias routing toward `harness-engineering.md`, `orchestration-comparison.md`, `agent-principles.md`.
+- `...focus on agent architecture` — bias routing toward `harness-engineering.md`, `orchestration-comparison.md`, `agent-evaluation.md`.
 - `...focus on Opus 4.8 migration readiness` — force-fetch `model-migration-anti-patterns.md` and `safety-and-sandboxing.md` regardless of model-version detection. Useful for pre-upgrade audits (4.8 keeps 4.7's literal-interpretation anti-patterns, adds an extended-thinking-budget 400 break, and regressed on prompt-injection robustness).
 - `...compare against {other repo path}` — runs the audit twice and produces a diff.
-- `...skip session diagnostics` — omits claude-doctor. Use when `~/.claude/projects/` is empty or transcripts are irrelevant.
+- `...skip session diagnostics` — omits `/insights` and `claude doctor`. Use when `~/.claude/projects/` is empty or transcripts are irrelevant.
 
 ## Wire It as a Recurring RETHINK Tick
 

@@ -216,10 +216,8 @@ The `measurement-claims` frontmatter in each analysis document includes `revalid
 
 - [`analysis/automated-config-assessment.md`](analysis/automated-config-assessment.md) [EXTRACTED (1.00) ×2] — references
 - [`analysis/confidence-scoring.md`](analysis/confidence-scoring.md) [EXTRACTED (1.00)] — references
-- [`analysis/session-quality-tools.md`](analysis/session-quality-tools.md) [EXTRACTED (1.00)] — references
 - [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
 - [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
 - [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
-- [`analysis/agent-principles.md`](analysis/agent-principles.md) [EXTRACTED (1.00)] — conceptually_related_to
 
 <!-- graphify-footer:end -->

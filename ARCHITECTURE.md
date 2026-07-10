@@ -53,18 +53,15 @@ claude-code-project-best-practices/
 │   ├── orchestration-comparison.md  # Orchestration approach comparison
 │   ├── mcp-vs-skills-economics.md   # Cost/performance analysis
 │   ├── mcp-patterns.md        # Failure modes + OWASP mapping
-│   ├── mcp-client-integration.md    # MCP client patterns (2 server architectures)
 │   ├── mcp-daily-essentials.md      # Optimal plugin configuration
 │   ├── plugins-and-extensions.md    # Skills vs MCP vs Hooks decision
 │   ├── safety-and-sandboxing.md     # 4-layer security stack
 │   ├── secure-code-generation.md    # OWASP-aware code generation
-│   ├── tool-ecosystem.md           # Claude Code vs alternatives
 │   ├── framework-selection-guide.md # Framework decision matrix
 │   ├── harness-engineering.md       # Harness philosophy + diagnostics
 │   ├── domain-knowledge-architecture.md # Domain knowledge for LLMs
 │   ├── agent-driven-development.md  # Agent-driven development methodology + 7-repo evidence
 │   ├── agent-evaluation.md         # Eval methodology
-│   ├── agent-principles.md         # 6 production principles
 │   ├── confidence-scoring.md       # Assessment framework
 │   ├── local-cloud-llm-orchestration.md  # Hybrid local+cloud LLM architecture
 │   ├── federated-query-architecture.md   # Federated query benchmarks + TCO

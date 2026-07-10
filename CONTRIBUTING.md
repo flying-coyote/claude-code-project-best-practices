@@ -123,7 +123,7 @@ replacement-by: "<replacement> (<support tier>, <GA date>) — <what it covers>.
 - [ ] Update `AUDIT-CONTEXT.md` routing so the relevant signals **defer to the replacement** and fetch the doc only for the retained slice.
 - [ ] Note the retirement in the `SOURCES.md` refresh log and in `PLAN.md`.
 
-**First application**: `analysis/session-quality-tools.md` (2026-06-04) → first-party `/insights`. See its frontmatter and banner for the pattern.
+**First application**: `analysis/session-quality-tools.md` (2026-06-04) → first-party `/insights` + native `claude doctor`; **completed and archived 2026-07-10** (`archive/session-quality-tools.md`). See its frontmatter and banner for the pattern.
 
 The mechanical reference-cleanup (grep for stale recommendations, update decision matrices) follows the same discipline as the **Deprecation Process** below — retirement is the doc-level case, deprecation the recommendation-level case.
 

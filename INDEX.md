@@ -1,15 +1,15 @@
 # Index
 
-*Auto-generated: 2026-07-10 16:47*
+*Auto-generated: 2026-07-10 16:55*
 
 ## Summary
 
-**Total documents**: 158
+**Total documents**: 154
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 44 |
-| archive | 7 |
+| analysis | 39 |
+| archive | 8 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
 | archive/examples-v1/coding-project | 1 |
@@ -62,13 +62,11 @@
 - [CANONICAL-DOC-TEMPLATE.md](analysis/CANONICAL-DOC-TEMPLATE.md)
 - [agent-driven-development.md](analysis/agent-driven-development.md)
 - [agent-evaluation.md](analysis/agent-evaluation.md)
-- [agent-principles.md](analysis/agent-principles.md)
 - [automated-config-assessment.md](analysis/automated-config-assessment.md)
 - [behavioral-insights.md](analysis/behavioral-insights.md)
 - [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md)
 - [confidence-scoring.md](analysis/confidence-scoring.md)
 - [cross-project-synchronization.md](analysis/cross-project-synchronization.md)
-- [dapr-durable-agents.md](analysis/dapr-durable-agents.md)
 - [domain-knowledge-architecture.md](analysis/domain-knowledge-architecture.md)
 - [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md)
 - [evidence-tiers.md](analysis/evidence-tiers.md)
@@ -77,7 +75,6 @@
 - [harness-engineering.md](analysis/harness-engineering.md)
 - [intent-alignment-audit.md](analysis/intent-alignment-audit.md)
 - [local-cloud-llm-orchestration.md](analysis/local-cloud-llm-orchestration.md)
-- [mcp-client-integration.md](analysis/mcp-client-integration.md)
 - [mcp-daily-essentials.md](analysis/mcp-daily-essentials.md)
 - [mcp-patterns.md](analysis/mcp-patterns.md)
 - [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md)
@@ -101,8 +98,6 @@
 - [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md)
 - [secure-code-generation.md](analysis/secure-code-generation.md)
 - [security-data-pipeline.md](analysis/security-data-pipeline.md)
-- [session-quality-tools.md](analysis/session-quality-tools.md)
-- [tool-ecosystem.md](analysis/tool-ecosystem.md)
 ## Research
 
 - [ai-creators-analysis.md](research/ai-creators-analysis.md)
@@ -140,6 +135,7 @@
 - [WORKFLOWS-ISSUES-2026-02-13-FIXED.md](archive/WORKFLOWS-ISSUES-2026-02-13-FIXED.md)
 - [WORKFLOWS-SETUP-2026-02-13-REFERENCE.md](archive/WORKFLOWS-SETUP-2026-02-13-REFERENCE.md)
 - [WORKFLOWS-SUMMARY.md](archive/WORKFLOWS-SUMMARY.md)
+- [session-quality-tools.md](archive/session-quality-tools.md)
 ## Archive / Docs-V1
 
 - [COMMUNITY-CONTRIBUTIONS.md](archive/docs-v1/COMMUNITY-CONTRIBUTIONS.md)

@@ -181,7 +181,7 @@ All four clear → recommend `RETIRING` (defer the slice; keep only what the rep
 3. Update AUDIT-CONTEXT.md routing to defer to the replacement
 4. Log the retirement in the SOURCES.md refresh log + PLAN.md
 
-**Current RETIRING docs**: `session-quality-tools.md` → first-party `/insights` (2026-06-04, the first application of this lane). **Watch list** (converging, not yet cleared): MCP/skills cost-economics ← `/usage` per-category breakdown; install-health ← `/doctor` (a slice this project never claimed).
+**Completed retirements**: `session-quality-tools.md` → first-party `/insights` + native `claude doctor` (RETIRING 2026-06-04; completed + archived 2026-07-10 — the lane's first full cycle). **Watch list** (converging, not yet cleared): MCP/skills cost-economics ← `/usage` per-category breakdown; install-health ← `/doctor` (a slice this project never claimed).
 
 ---
 

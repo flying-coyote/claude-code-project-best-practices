@@ -39,6 +39,8 @@ revalidate-by: 2026-10-15
 
 **Evidence Tier**: A (Industry standard - OWASP security framework)
 
+> **Retired sibling (2026-07-10)**: `mcp-client-integration.md` (client-side JSON-RPC session lifecycle, typed-wrapper and retry patterns from two server architectures) was deleted in the 2026-07 reduction — the official MCP docs now carry connection mechanics first-party; the doc remains in git history if the worked examples are wanted.
+
 > ⚠️ **Revalidation Required**: Security claims (43% vulnerability rate, ~10 trustworthy servers) expire **2026-03-20** (21 days). These statistics underpin defense-in-depth recommendations. Schedule OWASP source review before expiration to confirm current landscape.
 
 ## The Core Problem

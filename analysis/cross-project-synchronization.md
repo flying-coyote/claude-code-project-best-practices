@@ -225,7 +225,6 @@ This makes the dependency graph explicit in the agent's context — the agent kn
 ### Related Analysis
 
 - [Agent-Driven Development](./agent-driven-development.md) — Hub-spoke model and cross-repo coordination patterns
-- [MCP Client Integration](./mcp-client-integration.md) — InspectorClient and TmePlaybookClient patterns used in enrichment
 - [Local+Cloud LLM Orchestration](./local-cloud-llm-orchestration.md) — Pipeline context where enrichment feeds LLM analysis
 
 ---

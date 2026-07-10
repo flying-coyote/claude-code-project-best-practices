@@ -489,8 +489,6 @@ Layer 4: Hooks (application-level)    — Custom validation logic
 
 - [`analysis/mcp-patterns.md`](analysis/mcp-patterns.md) [EXTRACTED (1.00) ×2] — references
 - [`analysis/domain-knowledge-architecture.md`](analysis/domain-knowledge-architecture.md) [EXTRACTED (1.00)] — references
-- [`analysis/tool-ecosystem.md`](analysis/tool-ecosystem.md) [EXTRACTED (1.00)] — references
-- [`analysis/mcp-client-integration.md`](analysis/mcp-client-integration.md) [EXTRACTED (1.00) ×2] — references
 - [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
 - [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
 
