@@ -8,8 +8,8 @@
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 30 |
-| archive | 9 |
+| analysis | 27 |
+| archive | 12 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
 | archive/examples-v1/coding-project | 1 |
@@ -70,11 +70,9 @@
 - [domain-knowledge-architecture.md](analysis/domain-knowledge-architecture.md)
 - [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md)
 - [evidence-tiers.md](analysis/evidence-tiers.md)
-- [federated-query-architecture.md](analysis/federated-query-architecture.md)
 - [framework-selection-guide.md](analysis/framework-selection-guide.md)
 - [harness-engineering.md](analysis/harness-engineering.md)
 - [intent-alignment-audit.md](analysis/intent-alignment-audit.md)
-- [local-cloud-llm-orchestration.md](analysis/local-cloud-llm-orchestration.md)
 - [mcp-patterns.md](analysis/mcp-patterns.md)
 - [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md)
 - [memory-system-patterns.md](analysis/memory-system-patterns.md)
@@ -88,7 +86,6 @@
 - [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)
 - [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md)
 - [secure-code-generation.md](analysis/secure-code-generation.md)
-- [security-data-pipeline.md](analysis/security-data-pipeline.md)
 ## Research
 
 - [ai-creators-analysis.md](research/ai-creators-analysis.md)
@@ -126,7 +123,10 @@
 - [WORKFLOWS-ISSUES-2026-02-13-FIXED.md](archive/WORKFLOWS-ISSUES-2026-02-13-FIXED.md)
 - [WORKFLOWS-SETUP-2026-02-13-REFERENCE.md](archive/WORKFLOWS-SETUP-2026-02-13-REFERENCE.md)
 - [WORKFLOWS-SUMMARY.md](archive/WORKFLOWS-SUMMARY.md)
+- [federated-query-architecture.md](archive/federated-query-architecture.md)
+- [local-cloud-llm-orchestration.md](archive/local-cloud-llm-orchestration.md)
 - [memory-systems-genealogy-baseline.md](archive/memory-systems-genealogy-baseline.md)
+- [security-data-pipeline.md](archive/security-data-pipeline.md)
 - [session-quality-tools.md](archive/session-quality-tools.md)
 ## Archive / Docs-V1
 

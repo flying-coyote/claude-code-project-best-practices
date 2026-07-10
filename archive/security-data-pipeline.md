@@ -15,7 +15,7 @@ measurement-claims:
     source: "Direct analysis — zeek-iceberg-demo transformation scripts"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: PRODUCTION
+status: ARCHIVED
 last-verified: "2026-04-06"
 evidence-tier: A
 applies-to-signals: [project-type-data-pipeline]
@@ -23,6 +23,8 @@ revalidate-by: 2026-10-06
 ---
 
 # Security Data Pipeline: Zeek to Lakehouse as a Claude Code Case Study
+
+> **EVICTED TO ARCHIVE (2026-07-10, Reduction Phase 5 — cross-repo boundary).** Security-data spoke content that lived in the wrong repo: the canonical Zeek→OCSF numbers live in `~/sdw-lab-benchmarks`. The `project-type-data-pipeline` routing row was dropped in the same commit. Measurement claims below are the 2026-04-06 snapshot, preserved as recorded.
 
 **Evidence Tier**: A — Direct production analysis of zeek-iceberg-demo implementation
 

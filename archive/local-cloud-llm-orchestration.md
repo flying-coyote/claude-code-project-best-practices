@@ -19,7 +19,7 @@ measurement-claims:
     source: "Direct analysis — mndr-review-automation lib conventions + scripts/verify_deps.py"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: PRODUCTION
+status: ARCHIVED
 last-verified: "2026-04-06"
 evidence-tier: A
 applies-to-signals: [project-type-hybrid-llm]
@@ -27,6 +27,8 @@ revalidate-by: 2026-10-06
 ---
 
 # Local+Cloud LLM Orchestration: Hybrid Architecture for Sensitive Data
+
+> **EVICTED TO ARCHIVE (2026-07-10, Reduction Phase 5 — cross-repo boundary).** Portfolio case study of a non-fleet project (mndr); hybrid-LLM routing is off-mission for a Claude Code best-practices layer. The `project-type-hybrid-llm` routing row was dropped in the same commit. Measurement claims below are the 2026-04-06 snapshot, preserved as recorded.
 
 **Evidence Tier**: A — Direct production analysis of mndr-review-automation pipeline
 

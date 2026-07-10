@@ -578,8 +578,8 @@ For **concurrent-write team shared memory** across multiple AI tools — where f
 - [`memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md) — archetype A, the heavily-routed primary (own file)
 - [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — framing, threshold math, self-critique, and the owner-authorized-egress deciding rule
 - [`memory-system-patterns.md`](memory-system-patterns.md) — earlier pattern survey (precedes this archetype-driven view); the auto-memory layer used by C-EC
-- [`federated-query-architecture.md`](federated-query-architecture.md) — relevant to archetype D
-- [`local-cloud-llm-orchestration.md`](local-cloud-llm-orchestration.md) — relevant to the local-first constraint; how to route deterministic work locally and Pass 2 to a vendor *only when corpus permits*
+- [`archive/federated-query-architecture.md`](../archive/federated-query-architecture.md) — archived spoke case study relevant to archetype D (evicted 2026-07-10; canonical depth in the spoke repos)
+- [`archive/local-cloud-llm-orchestration.md`](../archive/local-cloud-llm-orchestration.md) — archived spoke case study on routing deterministic work locally and Pass 2 to a vendor *only when corpus permits* (evicted 2026-07-10)
 - [`archive/memory-systems-genealogy-baseline.md`](../archive/memory-systems-genealogy-baseline.md) — the archived empirical baseline behind §C-EC.6
 
 <!-- graphify-footer:start -->

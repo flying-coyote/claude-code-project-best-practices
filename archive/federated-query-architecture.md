@@ -19,7 +19,7 @@ measurement-claims:
     source: "Direct analysis — zeek-iceberg-demo + third-brain M1 milestone"
     date: "2026-04-06"
     revalidate: "2026-10-06"
-status: PRODUCTION
+status: ARCHIVED
 last-verified: "2026-04-06"
 evidence-tier: A
 applies-to-signals: [project-type-data-pipeline]
@@ -27,6 +27,8 @@ revalidate-by: 2026-10-06
 ---
 
 # Federated Query Architecture: Claude Code as Design and Benchmarking Tool
+
+> **EVICTED TO ARCHIVE (2026-07-10, Reduction Phase 5 — cross-repo boundary).** Security-data spoke content that lived in the wrong repo: the canonical federation benchmarks and cost analysis live in `~/sdw-lab-benchmarks` and the project1 canon, and this repo is a Claude Code best-practices layer, not a security-data spoke. The `project-type-data-pipeline` routing row was dropped in the same commit — fleet data repos get their depth from the spoke canon. Measurement claims below are the 2026-04-06 snapshot, preserved as recorded.
 
 **Evidence Tier**: A — Direct production observation across zeek-iceberg-demo (implementation) and third-brain (hypothesis validation, TCO analysis)
 
@@ -234,6 +236,6 @@ Is your data distributed across multiple sites?
 
 ## Related (from graph)
 
-- [`analysis/security-data-pipeline.md`](analysis/security-data-pipeline.md) [EXTRACTED (1.00)] — references
+- [`security-data-pipeline.md`](security-data-pipeline.md) [EXTRACTED (1.00)] — references (evicted alongside this doc)
 
 <!-- graphify-footer:end -->
