@@ -1,5 +1,8 @@
 # v2 Best Practices Compliance Matrix
 
+> **ARCHIVED 2026-07-10** (Reduction Proposal 2026-07, Phase 0). This is a 2026-03-31 point-in-time snapshot; several projects it lists as active (security-architect-mcp-server, the blog repo, splunk-db-connect-benchmark) have since been archived, so its facts must not be read as current. The live successor is project1's per-repo fleet-audit output (`project1/02-projects/fleet-audit/`).
+
+
 *Generated: 2026-03-31 | Based on 10-dimension audit from analysis/ documents*
 
 ## Summary

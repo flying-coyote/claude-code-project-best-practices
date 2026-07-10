@@ -193,7 +193,7 @@ def generate_issue_body(results: Dict) -> str:
 def main():
     parser = argparse.ArgumentParser(description="Check for expired measurement claims")
     parser.add_argument("--create-issue", action="store_true", help="Create GitHub issue for expired claims")
-    parser.add_argument("--patterns-dir", default="patterns", help="Patterns directory")
+    parser.add_argument("--patterns-dir", default="analysis", help="Directory of docs carrying measurement-claims frontmatter (default: analysis)")
     args = parser.parse_args()
 
     # Check for expired measurements

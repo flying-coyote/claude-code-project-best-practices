@@ -1,15 +1,15 @@
 # Index
 
-*Auto-generated: 2026-06-21 20:01*
+*Auto-generated: 2026-07-10 16:47*
 
 ## Summary
 
-**Total documents**: 156
+**Total documents**: 158
 
 | Directory | Count |
 |-----------|-------|
 | analysis | 44 |
-| archive | 6 |
+| archive | 7 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
 | archive/examples-v1/coding-project | 1 |
@@ -34,7 +34,7 @@
 | archive/skills-v1/examples/ultrathink-analyst/workflows | 3 |
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
-| drafts | 2 |
+| drafts | 3 |
 | research | 6 |
 | research/self-audit-2026-06 | 7 |
 | root | 12 |
@@ -54,9 +54,9 @@
 - [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md)
 - [PLAN.md](PLAN.md)
 - [README.md](README.md)
+- [SOURCE-REFRESH-2026-07-09-cowork.md](SOURCE-REFRESH-2026-07-09-cowork.md)
 - [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md)
 - [SOURCES.md](SOURCES.md)
-- [V2-COMPLIANCE-MATRIX.md](V2-COMPLIANCE-MATRIX.md)
 ## Analysis
 
 - [CANONICAL-DOC-TEMPLATE.md](analysis/CANONICAL-DOC-TEMPLATE.md)
@@ -136,6 +136,7 @@
 - [AUDIT-2026-02-27.md](archive/AUDIT-2026-02-27.md)
 - [REFACTORING-PLAN-2026-01-COMPLETED.md](archive/REFACTORING-PLAN-2026-01-COMPLETED.md)
 - [SCHEDULE-CHANGE.md](archive/SCHEDULE-CHANGE.md)
+- [V2-COMPLIANCE-MATRIX.md](archive/V2-COMPLIANCE-MATRIX.md)
 - [WORKFLOWS-ISSUES-2026-02-13-FIXED.md](archive/WORKFLOWS-ISSUES-2026-02-13-FIXED.md)
 - [WORKFLOWS-SETUP-2026-02-13-REFERENCE.md](archive/WORKFLOWS-SETUP-2026-02-13-REFERENCE.md)
 - [WORKFLOWS-SUMMARY.md](archive/WORKFLOWS-SUMMARY.md)
@@ -261,6 +262,7 @@
 - [README.md](archive/examples-v1/writing-project/README.md)
 ## Drafts
 
+- [REDUCTION-PROPOSAL-2026-07.md](drafts/REDUCTION-PROPOSAL-2026-07.md)
 - [loop-eng-BCDE-2026-06-16-DRAFT.md](drafts/loop-eng-BCDE-2026-06-16-DRAFT.md)
 - [loop-eng-carry-forwards-2026-06-16-RESULTS.md](drafts/loop-eng-carry-forwards-2026-06-16-RESULTS.md)
 

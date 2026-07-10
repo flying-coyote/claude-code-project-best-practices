@@ -418,7 +418,7 @@ last-verified: "2026-02-16"
 ---
 ```
 
-This enables automated tracking via `scripts/generate-tools-tracker.py`.
+This enables automated expiry checking via `scripts/check-measurement-expiry.py`, which scans `analysis/` frontmatter and exits non-zero on any claim past its `revalidate:` date.
 
 ---
 
@@ -463,11 +463,11 @@ Example:
 
 ### Integration with Automation
 
-**Automated Tracking** (via `.github/workflows/tools-evolution-tracker.yml`):
-- Daily parsing of patterns for version requirements
-- Extraction of measurement claims with expiry dates
-- Flagging expired claims for re-validation
-- Monitoring EMERGING patterns for promotion
+**Automated Tracking** (via `scripts/check-measurement-expiry.py`, run locally or wired into CI):
+- Scans `analysis/` doc frontmatter for `measurement-claims` entries with `revalidate:` dates
+- Fails (exit 1) on expired claims and warns on claims expiring within 30 days
+- `--create-issue` emits an issue body a GitHub workflow can post
+- (The former `tools-evolution-tracker.yml` daily workflow served the archived docs-v1 TOOLS-TRACKER and was removed in the 2026-07 reduction)
 
 **Manual Editorial Control**:
 - Promotion decisions (EMERGING → RECOMMENDED)

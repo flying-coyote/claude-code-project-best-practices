@@ -7,6 +7,14 @@
 
 ## Completed Milestones
 
+### Reduction 2026-07, Phase 0 — husk removal (July 10, 2026)
+
+- Deleted untracked residue: `mcp-server/` (73 MB of .venv/pycache left behind after the server's source was archived to `archive/mcp-server-v1/`), `examples/` (archived at `archive/examples-v1/`), `.graphify-venv/`, `graphify-out/`, `.understand-anything/` (graphify measurements are recorded in `analysis/memory-systems-graphify-vs-understand-anything.md`).
+- Removed the orphaned tracker pair: `scripts/generate-tools-tracker.py` + `.github/workflows/tools-evolution-tracker.yml` (served only the archived docs-v1 TOOLS-TRACKER); `analysis/evidence-tiers.md` repointed at the live `check-measurement-expiry.py` mechanism.
+- Fixed `scripts/check-measurement-expiry.py` default scan dir (`patterns/` → `analysis/`): it had been scanning a nonexistent directory and exiting green having checked nothing; it now finds 44 docs and currently flags 2 expired claims (both in `mcp-patterns.md`, a staged collapse target) + 11 expiring within 30 days.
+- Archived `V2-COMPLIANCE-MATRIX.md` → `archive/` with a staleness banner (2026-03-31 snapshot asserting since-archived projects as active; live successor = project1 fleet-audit outputs).
+- Full plan: `drafts/REDUCTION-PROPOSAL-2026-07.md` (KEEP 12 / COLLAPSE 18 / DELETE 14; Phases 1–3 execution continues, Phases 4–6 gated on Jeremy's sign-off).
+
 ### v2.1 - Production Evidence Integration (April–May 2026)
 
 - **Memory & knowledge stack archetypes** (April 28, 2026): split omnibus recommendations into 7 per-archetype docs (`memory-systems-archetype-{a..g}-*.md`) + methodology + graphify vs. understand-anything A/B testbed. Doc count 28 → 38. Empirical findings on Pass 2 LLM extraction (1187 nodes, 67 communities, ~25% hallucination spot-check on EXTRACTED edges).
