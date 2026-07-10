@@ -1,5 +1,5 @@
 ---
-status: DRAFT — awaiting Jeremy sign-off
+status: PARTIALLY EXECUTED 2026-07-10 — Phases 0-2 done + pushed (husk removal, currency fixes, 5 routing-safe deletes; corpus 44→39; fleet-audit regression green 32/32). Phase 3 (memory fold) is the next mechanical unit, no sign-off needed. Phases 4-6 await Jeremy's rulings — consolidated agenda: project1/02-projects/system-audit-2026-06/C2-SIMPLIFICATION-PLAN-2026-07.md
 date: 2026-07-09
 scope: Fable-era gap scan + staged reduction plan for this repo
 method: own-harness surface (running claude-fable-5) + claude-code-guide changelog sweep + official docs fetch + fleet-audit dependency trace + web source refresh
