@@ -1,15 +1,15 @@
 # Index
 
-*Auto-generated: 2026-07-10 18:04*
+*Auto-generated: 2026-07-10 18:06*
 
 ## Summary
 
-**Total documents**: 146
+**Total documents**: 139
 
 | Directory | Count |
 |-----------|-------|
 | analysis | 27 |
-| archive | 12 |
+| archive | 18 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
 | archive/examples-v1/coding-project | 1 |
@@ -35,11 +35,8 @@
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
 | drafts | 3 |
-| research | 6 |
 | research/self-audit-2026-06 | 7 |
 | root | 12 |
-| templates | 4 |
-| templates/rules | 3 |
 
 ---
 
@@ -86,14 +83,6 @@
 - [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)
 - [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md)
 - [secure-code-generation.md](analysis/secure-code-generation.md)
-## Research
-
-- [ai-creators-analysis.md](research/ai-creators-analysis.md)
-- [codeguard-review-2026-02.md](research/codeguard-review-2026-02.md)
-- [memory-systems-architecture-axes.md](research/memory-systems-architecture-axes.md)
-- [memory-systems-project-archetypes.md](research/memory-systems-project-archetypes.md)
-- [memory-systems-tools-inventory.md](research/memory-systems-tools-inventory.md)
-- [rethink-memory-stack-prompt.md](research/rethink-memory-stack-prompt.md)
 ## Research / Self-Audit-2026-06
 
 - [AUDIT-FINDINGS.md](research/self-audit-2026-06/AUDIT-FINDINGS.md)
@@ -103,17 +92,6 @@
 - [lens-4-security.md](research/self-audit-2026-06/lens-4-security.md)
 - [lens-5-wrong-tenx-busfactor.md](research/self-audit-2026-06/lens-5-wrong-tenx-busfactor.md)
 - [lens-6-devloop-and-public.md](research/self-audit-2026-06/lens-6-devloop-and-public.md)
-## Templates
-
-- [GETTING-STARTED.md](templates/GETTING-STARTED.md)
-- [claude-md-tier1-minimal.md](templates/claude-md-tier1-minimal.md)
-- [claude-md-tier2-standard.md](templates/claude-md-tier2-standard.md)
-- [claude-md-tier3-advanced.md](templates/claude-md-tier3-advanced.md)
-## Templates / Rules
-
-- [code-style.md](templates/rules/code-style.md)
-- [domain-context.md](templates/rules/domain-context.md)
-- [security-boundaries.md](templates/rules/security-boundaries.md)
 ## Archive
 
 - [AUDIT-2026-02-27.md](archive/AUDIT-2026-02-27.md)
@@ -123,9 +101,15 @@
 - [WORKFLOWS-ISSUES-2026-02-13-FIXED.md](archive/WORKFLOWS-ISSUES-2026-02-13-FIXED.md)
 - [WORKFLOWS-SETUP-2026-02-13-REFERENCE.md](archive/WORKFLOWS-SETUP-2026-02-13-REFERENCE.md)
 - [WORKFLOWS-SUMMARY.md](archive/WORKFLOWS-SUMMARY.md)
+- [ai-creators-analysis.md](archive/ai-creators-analysis.md)
+- [codeguard-review-2026-02.md](archive/codeguard-review-2026-02.md)
 - [federated-query-architecture.md](archive/federated-query-architecture.md)
 - [local-cloud-llm-orchestration.md](archive/local-cloud-llm-orchestration.md)
+- [memory-systems-architecture-axes.md](archive/memory-systems-architecture-axes.md)
 - [memory-systems-genealogy-baseline.md](archive/memory-systems-genealogy-baseline.md)
+- [memory-systems-project-archetypes.md](archive/memory-systems-project-archetypes.md)
+- [memory-systems-tools-inventory.md](archive/memory-systems-tools-inventory.md)
+- [rethink-memory-stack-prompt.md](archive/rethink-memory-stack-prompt.md)
 - [security-data-pipeline.md](archive/security-data-pipeline.md)
 - [session-quality-tools.md](archive/session-quality-tools.md)
 ## Archive / Docs-V1

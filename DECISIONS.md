@@ -656,4 +656,32 @@ Doc count 41 → 42 routable. The audit gains an unattended-execution detection 
 
 ---
 
-*Last updated: 2026-06-15*
+## Decision 11: The 2026-07 reduction — run the retirement lane at scale (2026-07-09/10)
+
+### Context
+
+The Fable-era gap scan (`drafts/REDUCTION-PROPOSAL-2026-07.md`, produced 2026-07-09 on `claude-fable-5`) found that Anthropic had shipped, natively, a large slice of what this repo maintained by hand: the rewritten official best-practices page, bundled skills (`security-review`, `claude-api`, `update-config`, `fewer-permission-prompts`), dynamic workflows, agent teams v2, nested subagents, MCP tool search with deferred definitions, documented memory limits, cloud Routines, and native `claude doctor` (v2.1.205). CONTRIBUTING.md's "temporary analytical layer" charter and the RETIRING lane anticipated exactly this. The owner approved Phases 0–3 as mechanical units and, on 2026-07-10, authorized Phases 4–6 to execute on reasonable assumptions rather than per-fork rulings.
+
+### Alternatives Considered
+
+1. **Keep maintaining full mechanism documentation in parallel with the official docs.** Rejected: the parallel-infrastructure habit is the exact failure the repo's charter warns against, and staleness-per-byte was already the corpus's dominant defect.
+2. **Delete wholesale.** Rejected: the corpus's unique value — measured portfolio evidence, evidence-tier discipline, the RETHINK/intent layer, the OWASP mappings, the routing audit — has no first-party equivalent.
+3. **Collapse-to-delta (chosen).** Each doc keeps the delta the official docs don't carry (measurements, evaluations, failure framings) behind a banner naming its first-party replacement; mechanism walkthroughs go.
+
+### Decision
+
+Executed Phases 0–6: husk removal; currency fixes; five routing-safe deletes; the memory-cluster fold (12 docs → 5); fifteen collapse-to-delta rewrites (the five core routed docs plus ten smaller); mcp-daily-essentials absorbed into mcp-patterns; three spoke-content docs evicted to archive/ with the `project-type-data-pipeline` and `project-type-hybrid-llm` rows dropped (cross-repo boundary); templates/ deleted after its credential-boundary material folded into safety-and-sandboxing; the RSS/source-monitoring watcher pair deleted after verifying their GitHub issues sat unread (hundreds open, zero triage — a loop with no bite); research/ root notes archived; SOURCES.md pruned and refreshed per the proposal's §3; model-migration-anti-patterns refreshed with the Fable-era delta; behavioral-insights flagged for Fable re-measure. Pre-tool-search token-economics numbers were kept but flagged stale-pending-remeasure rather than deleted.
+
+### Trade-offs Accepted
+
+- Reasonable-assumption execution means some collapse-depth calls were made without a per-doc owner ruling; the archive/ copies and git history preserve every cut byte, so any call can be reversed cheaply.
+- Routed-surface shrinkage (37 → ~24 routed docs) trades coverage breadth for currency; the official docs now carry the breadth.
+- The corpus keeps stale-flagged measurements (Tenzir economics, MCP context budgets) as evidence-with-caveat rather than silently losing the record.
+
+### Impact
+
+Analysis corpus 44 → 27 files; every fleet-audit signal key remains answerable; the raw-URL regression stayed green after each pushed phase. The repo's structure now matches its charter: an evidence layer over first-party documentation, not a parallel copy of it.
+
+---
+
+*Last updated: 2026-07-10*

@@ -4,7 +4,7 @@ All analysis documents in this repository are derived from authoritative sources
 
 **Quick Lookup**: For the top 20 most-referenced sources, see [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (100 lines vs 1,612 here)
 
-**Last curated**: 2026-06-21 (verified cluster refresh — Fable 5 GA, loop-eng lineage, OKF/typed-knowledge, memory-systems + evals leaders). Anthropic doc URLs are canonical at `code.claude.com`; older `docs.anthropic.com` paths still redirect but are not used here. See refresh log at the bottom, and the **Unverified / pending revalidation** section at the very end for claims that could not be primary-confirmed this pass.
+**Last curated**: 2026-07-10 (Reduction Phase 6 — 4 additions incl. the large-codebases Applied AI post and the best-practices-page 2026 rewrite, stale-markings for claude-doctor/`/insights`/Fable-suspension/Opus 4.7 migration/Vertrees/Playwright-CLI+valgard token numbers, 2 prunes, and link repointing for 4 retired analysis docs). Prior: 2026-06-21 (verified cluster refresh — Fable 5 GA, loop-eng lineage, OKF/typed-knowledge, memory-systems + evals leaders). Anthropic doc URLs are canonical at `code.claude.com`; older `docs.anthropic.com` paths still redirect but are not used here. See refresh log at the bottom, and the **Unverified / pending revalidation** section at the very end for claims that could not be primary-confirmed this pass.
 
 ## Primary Sources (Tier A)
 
@@ -157,6 +157,21 @@ All analysis documents in this repository are derived from authoritative sources
 - **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md) (alignment-training implications for harness designers)
 - **Evidence Tier**: A (Anthropic-authored research, with caveat that this is alignment research applied to harness design, not a harness-engineering guide)
 
+#### How Claude Code Works in Large Codebases
+- **Title**: "How Claude Code works in large codebases: Best practices and where to start"
+- **Source**: Claude by Anthropic (Applied AI team — Alon Krifcher, Charmaine Lee, Chris Concannon, Harsh Patel, Henrique Savelli, Jason Schwartz, Jonah Dueck, Kirby Kohlmorgen)
+- **Date**: 2026-05-14 (verified 2026-07-10)
+- **URL**: https://claude.com/blog/how-claude-code-works-in-large-codebases-best-practices-and-where-to-start
+- **Key Insights (verified 2026-07-10)**:
+  - **Five extension points**: CLAUDE.md (hierarchical, directory-scoped, loaded automatically), hooks (event-triggered automation), skills (packaged instructions loaded on-demand rather than bloating every session), plugins (bundled skills/hooks/MCP for org-wide distribution), and LSP (symbol-level navigation instead of string matching)
+  - **No-index filesystem navigation**: agentic search over RAG — "it traverses the file system, reads files, uses grep to find exactly what it needs, and follows references across the codebase," avoiding the staleness a centralized index accumulates
+  - **Load-bearing caution for harness maintainers (verbatim)**: "instructions written for your current model can work against a future one" — a rule written to force single-file refactors around an older model's limits "would prevent a newer one from making coordinated cross-file edits it handles well." Recommends reviewing CLAUDE.md/hooks/skills configuration every 3-6 months against the current model.
+  - Claude Code documented in production across multi-million-line monorepos, decades-old legacy systems, and distributed architectures spanning dozens of repositories
+- **Evidence Tier**: A (Primary vendor documentation, named engineering team)
+- **Revalidate by**: 2026-10-14
+- **Role**: Replaces chunks of `harness-engineering.md` per the 2026-07-10 reduction pass — first-party guidance now covers ground (the extension-point inventory, the model-currency caution for configuration) the analysis doc previously carried alone.
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md)
+
 ### Claude Code Documentation (Canonical)
 - **Source**: Anthropic Official Documentation
 - **URL**: https://code.claude.com/docs/en/best-practices (Canonical - January 2026, continuously updated; **re-fetched and re-verified 2026-06-21**)
@@ -171,7 +186,12 @@ All analysis documents in this repository are derived from authoritative sources
   - **CLAUDE.md discipline (verbatim)**: "keep it short and human-readable"; the prune test "Would removing this cause Claude to make mistakes? If not, cut it"; `@path/to/import` imports ("CLAUDE.md files can import additional files using @path/to/import syntax"); on-demand child loading ("Claude pulls in child CLAUDE.md files on demand when it reads a file in those directories").
   - **"Avoid common failure patterns" catalog (verbatim, all five)**: *The kitchen sink session*, *Correcting over and over*, *The over-specified CLAUDE.md*, *The trust-then-verify gap*, *The infinite exploration* — each with a prescribed Fix.
   - **Plugins are first-class**: "Plugins bundle skills, hooks, subagents, and MCP servers into a single installable unit ... Run `/plugin` to browse the marketplace."
-- **Revalidate by**: 2026-09-21
+- **Re-verified 2026-07-10 (2026 rewrite pass)**: page remains the canonical best-practices reference; the verbatim content above still holds. This entry doubles as the refresh target for the four analysis-doc collapses this pass reasons about (harness-engineering, claude-md-progressive-disclosure, orchestration-comparison, safety-and-sandboxing) — see `drafts/REDUCTION-PROPOSAL-2026-07.md` Phase 4. **Changelog cross-checked as the revalidation feed**:
+  - **Native `claude doctor`** (v2.1.205, 2026-07-08, confirmed on the live changelog): "`/doctor` is now a full setup checkup that can diagnose and fix issues; `/checkup` is its alias" — supersedes the community claude-doctor tool this repo's audit previously shelled out to (see Session Quality Diagnostic Tools below).
+  - **Sonnet 5 default** (v2.1.197, 2026-06-30, confirmed on the live changelog): "Introducing Claude Sonnet 5: now the default model in Claude Code, with a native 1M-token context window," promotional $2/$10 per MTok through 2026-08-31. See the Sonnet 5 section below.
+  - **Agent teams v2** (v2.1.178, 2026-06-15, confirmed on the live changelog): `TeamCreate`/`TeamDelete` tools removed; with `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` every session now has one implicit team — teammates spawn directly via the Agent tool's `name` parameter, no setup step.
+  - **Routines** (cloud-hosted scheduled/triggered workflows; carried in the source plan for this refresh as landing at v2.1.198): reached general availability in the June 2026 window per secondary sources, but the exact GA-tagged version could not be independently reconfirmed against the live changelog in this pass — v2.1.198's own changelog entry covers Claude-in-Chrome GA and background-agent auto-commit/push/PR, not Routines by name. Treat the v2.1.198 pairing as **unverified pending a direct fetch of the Routines GA announcement**.
+- **Revalidate by**: 2026-10-10
 - **Key Guidance**:
   - CLAUDE.md should be concise (~60 lines recommended)
   - Skills should be minimal ("Would removing this cause mistakes? If not, cut it.")
@@ -240,6 +260,8 @@ All analysis documents in this repository are derived from authoritative sources
 
 #### Opus 4.7 Migration Guidance (April 2026)
 
+> **📌 HISTORICAL (marked 2026-07-10)**: kept for provenance and as `model-migration-anti-patterns.md`'s evidentiary base for the 4.6→4.7 transition specifically. Current migration guidance for Fable-era models ships in the bundled `/claude-api` skill (loaded in this harness) rather than as a standalone doc here — consult that skill for live model-migration guidance.
+
 - **Primary — Anthropic Migration Guide**
   - **URL**: https://platform.claude.com/docs/en/about-claude/models/migration-guide
   - **Evidence Tier**: A (Primary vendor documentation)
@@ -264,6 +286,7 @@ All analysis documents in this repository are derived from authoritative sources
   - **Pattern**: [Harness Engineering](analysis/harness-engineering.md), [Model Migration Anti-Patterns](analysis/model-migration-anti-patterns.md)
 
 - **Secondary — Jason Vertrees: "Claude 4.7 Quietly Broke Your Prompts and Harness"**
+  - **📌 HISTORICAL (marked 2026-07-10)**: kept only as provenance for `model-migration-anti-patterns.md`'s 4.6→4.7 case study — not a live source for current-model guidance.
   - **URL**: https://www.linkedin.com/pulse/claude-47-quietly-break-your-prompts-harness-heres-how-jason-vertrees-mscpe/
   - **Date**: April 2026
   - **Evidence Tier**: B (Practitioner commentary operationalizing Tier A guidance)
@@ -320,7 +343,10 @@ Opus 4.8 shipped 2026-05-28 (model ID `claude-opus-4-8`; the `[1m]` suffix is th
 
 #### Claude Fable 5 / Mythos 5 (June 2026)
 
-Fable 5 (`claude-fable-5`) went GA 2026-06-09 as Anthropic's most capable widely released model. Verified against the API docs 2026-06-21; the consumer launch-news page (`/news/claude-fable-5`) returned **HTTP 404** at fetch time, so no benchmark figures are confirmed.
+Fable 5 (`claude-fable-5`) went GA 2026-06-09 as Anthropic's most capable widely released model. Verified against the API docs 2026-06-21; the consumer launch-news page (`/news/claude-fable-5`) returned **HTTP 404** at fetch time, so no benchmark figures are confirmed. **Currency update (2026-07-10)**: the suspension below is now CONFIRMED and RESOLVED — Fable 5 is redeployed and in production; the prior "NOT confirmed by any primary" framing is stale, see the new bullet immediately below.
+
+- **Primary — Redeploying Claude Fable 5** (`anthropic.com/news/redeploying-fable-5`, 2026-06-30, fetched 2026-07-10). Tier A. **Resolves the prior unverified-suspension flag**: Fable 5 and Mythos 5 WERE suspended worldwide starting 2026-06-12 under a US export-control directive, triggered by an Amazon-researcher-reported jailbreak that got Fable 5 to identify software vulnerabilities and, in one case, produce exploit code; Anthropic could not verify user nationality in real time, so it pulled both models for all users. Verbatim: "As of today, June 30, the export controls on Fable 5 and Mythos 5 have been lifted." Both models redeployed globally 2026-07-01 across Claude Platform, Claude.ai, Claude Code, and Claude Cowork — **in production as of this pass**. New safety classifier blocks the reported jailbreak technique "in over 99% of cases," rerouting flagged requests to Claude Opus 4.8. Access metered through 2026-07-07 (up to 50% of weekly Pro/Max/Team limits), then billed via usage credits at standard API rates ($10/$50 per MTok) from 2026-07-08. Cloud-platform access (AWS, Google Cloud, Microsoft Foundry) was being restored separately at fetch time.
+  - **Revalidate by**: 2026-10-10
 
 - **Primary — Claude Models Overview**
   - **URL**: https://platform.claude.com/docs/en/about-claude/models/overview
@@ -334,7 +360,18 @@ Fable 5 (`claude-fable-5`) went GA 2026-06-09 as Anthropic's most capable widely
   - **Verified verbatim**: Fable 5 GA across Claude API + AWS Bedrock + Vertex + Foundry from June 9 2026; refusals return `stop_reason: "refusal"` as a successful HTTP 200, not an error (Fable 5 only; Mythos 5 has no classifiers). Three fallback paths — server-side `fallbacks` parameter (beta on Claude API and on AWS), SDK middleware (client-side), and manual — with billing that "fallback credit refunds the prompt-cache cost of switching, so you avoid paying that cost twice." Mythos 5 (`claude-mythos-5`) shares Fable 5 capabilities without safety classifiers, limited availability via Project Glasswing, not GA. Adaptive thinking is "the only thinking mode"; raw chain of thought is never returned; `thinking.display` is `summarized` or `omitted` (default); "Pass thinking blocks back unchanged in multi-turn conversations on the same model." A "Migrating from Claude Opus 4.8 to Claude Fable 5" section exists in the migration guide (independently confirmed).
   - **Revalidate by**: 2026-09-21
 - **Pattern**: [Model Migration Anti-Patterns](analysis/model-migration-anti-patterns.md), [Behavioral Insights](analysis/behavioral-insights.md)
-- **⚠️ UNVERIFIED**: all Fable 5 benchmark numbers (SWE-bench, GPQA, capability scores) — the `/news/claude-fable-5` page 404'd on 2026-06-21 and no benchmark figure was confirmed from any primary source. Mythos 5 / Project Glasswing details beyond access model are unverified. The "Fable 5 suspended worldwide 2026-06-12 (export-control)" claim carried in the prior changelog row is NOT confirmed by any primary fetched this pass — see Unverified section.
+- **⚠️ UNVERIFIED (still open 2026-07-10)**: all Fable 5 benchmark numbers (SWE-bench, GPQA, capability scores) — the `/news/claude-fable-5` page 404'd on 2026-06-21 and no benchmark figure was confirmed from any primary source in that pass or this one. Mythos 5 / Project Glasswing details beyond access model are unverified. **RESOLVED this pass**: the suspension claim itself (2026-06-12, export-control) is now CONFIRMED by the redeployment primary above, along with the 2026-06-30 lift / 2026-07-01 redeployment — do not carry forward the old "not confirmed" framing.
+
+#### Sonnet 5 (June 2026)
+- **Title**: Claude Code changelog v2.1.197
+- **Source**: Anthropic (Claude Code changelog)
+- **Date**: 2026-06-30 (verified 2026-07-10)
+- **URL**: https://code.claude.com/docs/en/changelog
+- **Verified verbatim**: "Introducing Claude Sonnet 5: now the default model in Claude Code, with a native 1M-token context window," promotional pricing $2/$10 per MTok through 2026-08-31. Sonnet 5 is the model this repo's own harness was running for parts of this pass.
+- **⚠️ Unverified against a primary this pass**: exact model ID (`claude-sonnet-5` assumed, not independently confirmed against a model-card/overview page); benchmark figures; whether $2/$10 is permanent or promotional-only past 2026-08-31.
+- **Evidence Tier**: A (primary changelog)
+- **Revalidate by**: 2026-10-10
+- **Pattern**: [Model Migration Anti-Patterns](analysis/model-migration-anti-patterns.md), [Behavioral Insights](analysis/behavioral-insights.md)
 
 #### Sonnet 4.6 (February 2026)
 - **Title**: "Introducing Claude Sonnet 4.6"
@@ -572,11 +609,11 @@ Fable 5 (`claude-fable-5`) went GA 2026-06-09 as Anthropic's most capable widely
 ### Claude Code First-Party Introspection Commands (`/insights`, `/usage`, `/doctor`)
 - **Source**: Anthropic Claude Code (first-party commands)
 - **Evidence Tier**: A (Primary vendor feature)
-- **`/insights`** (announced by Thariq Shihipar, Anthropic, February 2026; maintained — `/insights` crash fix shipped in v2.1.149): analyzes local session history (~30 days / 50 sessions, Haiku) and produces an HTML report of recurring patterns and friction points, including copy-paste-ready CLAUDE.md rules auto-generated from instructions repeated across sessions. **Boundary**: session-history-only — does not read CLAUDE.md/hooks/agents/settings, does not detect model versions or migration anti-patterns, cites no evidence sources, and its suggestions are personalized to local habits (not portable to other projects).
-- **`/usage`** (per-category breakdown, v2.1.149, May 2026): shows what is driving limit usage by skills, subagents, plugins, and per-MCP-server cost. Supplies the live numbers the build-vs-borrow framework in `mcp-vs-skills-economics.md` / `mcp-daily-essentials.md` reasons about — the measurement, not the decision framework.
-- **`/doctor`** (environment diagnostic; "last update attempt" status added v2.1.153): checks installation status, config consistency, ripgrep, and MCP config errors. Install/config health — a slice this project never claimed.
-- **Relevance to this project**: These are the first-party features converging on the *edges* of the audit's scope. `/insights` is the cited replacement for the session-diagnostics slice — [`session-quality-tools.md`](analysis/session-quality-tools.md) is now `RETIRING` and defers to it (see [CONTRIBUTING.md](CONTRIBUTING.md) § Retiring a doc). `/usage` and `/doctor` are cited complements, not replacements for the static, evidence-tiered, model-migration-aware routing core, which has no first-party equivalent as of June 2026.
-- **Pattern**: [Session Quality Tools](analysis/session-quality-tools.md), [MCP vs Skills Economics](analysis/mcp-vs-skills-economics.md), [MCP Daily Essentials](analysis/mcp-daily-essentials.md)
+- **`/insights`** (maintained — `/insights` crash fix shipped in v2.1.149): analyzes local session history (~30 days / 50 sessions, Haiku) and produces an HTML report of recurring patterns and friction points, including copy-paste-ready CLAUDE.md rules auto-generated from instructions repeated across sessions. **⚠️ Date annotation (2026-07-10)**: `/insights` itself is confirmed real in the official commands reference, but the "announced by Thariq Shihipar, February 2026 / GA Feb 2026" date could not be verified against a primary in the July-2026 docs sweep — the earliest changelog trace found is the v2.1.149 crash-fix line (2026-05, which presupposes an earlier ship date but doesn't establish one). Treat the Feb-2026 GA date as unconfirmed, not as established fact. **Boundary**: session-history-only — does not read CLAUDE.md/hooks/agents/settings, does not detect model versions or migration anti-patterns, cites no evidence sources, and its suggestions are personalized to local habits (not portable to other projects).
+- **`/usage`** (per-category breakdown, v2.1.149, May 2026): shows what is driving limit usage by skills, subagents, plugins, and per-MCP-server cost. Supplies the live numbers the build-vs-borrow framework in `mcp-vs-skills-economics.md` reasons about (folded from `mcp-daily-essentials.md`, absorbed into `mcp-patterns.md` 2026-07-10) — the measurement, not the decision framework.
+- **`/doctor`** (environment diagnostic; "last update attempt" status added v2.1.153; **native full checkup at v2.1.205, 2026-07-08** — "`/doctor` is now a full setup checkup that can diagnose and fix issues; `/checkup` is its alias"): checks installation status, config consistency, ripgrep, and MCP config errors, and as of v2.1.205 supersedes the community claude-doctor tool this repo's audit previously shelled out to (see Session Quality Diagnostic Tools below).
+- **Relevance to this project**: These are the first-party features that converged on the *edges* of the audit's scope and, as of v2.1.205, closed the session-diagnostics slice entirely. `session-quality-tools.md` completed its `RETIRING → RETIRED` cycle 2026-07-10 (archived, not deleted — see [CONTRIBUTING.md](CONTRIBUTING.md) § Retiring a doc) and the audit's signal command moved from `npx -y claude-doctor` to `claude doctor`. `/usage` and `/doctor` remain cited complements, not replacements for the static, evidence-tiered, model-migration-aware routing core, which still has no first-party equivalent.
+- **Pattern**: [Session Quality Tools (archived)](archive/session-quality-tools.md), [MCP vs Skills Economics](analysis/mcp-vs-skills-economics.md), [MCP Patterns](analysis/mcp-patterns.md) (absorbed MCP Daily Essentials)
 
 ### Coalition for Secure AI (CoSAI) - Project CodeGuard
 - **Source**: https://github.com/cosai-oasis/project-codeguard
@@ -675,6 +712,7 @@ Fable 5 (`claude-fable-5`) went GA 2026-06-09 as Anthropic's most capable widely
 - **Pattern**: [Memory Systems Archetype A — Curated KB](analysis/memory-systems-archetype-a-curated-kb.md), [Memory System Patterns](analysis/memory-system-patterns.md)
 
 ### Daniel Miessler — TELOS / SPQA (typed personal-context prior art)
+> **⚠️ SUPERSEDED (2026-07-10)**: kept for provenance only. Miessler's current, live architecture is **PAI 5.0 → LifeOS 6.0.2** (renamed 2026-07-02) — see "Miessler 2026 — TELOS, PAI 5.0, and LifeOS" under Foundational Influences (Tier B) below. TELOS/SPQA remain valid as the typed-personal-context *prior art* this repo's OKF/typed-knowledge lineage draws on; they are not a description of his current tooling.
 - **TELOS**: https://github.com/danielmiessler/Telos (MIT, 1.4k stars, "framework for creating Deep Context about things that matter to humans"; templates `personal_telos.md` + `corporate_telos.md` capture mission/goals/strategies/tech-stack/metrics). Git-commit date unresolved from the fetch (prior "2024-01-17" was an HTML last-modified value, not a commit) — date `unknown`. Re-verified 2026-06-21.
 - **SPQA**: https://danielmiessler.com/blog/spqa-ai-architecture-replace-existing-software (2023-03-10, verified 2026-06-21). Four components confirmed verbatim — **STATE** (logs/docs/finances/chats/emails/transcripts), **POLICY** (mission/goals/anti-goals/challenges/strategies), **QUESTIONS** (leader inquiries), **ACTION** (outputs/recommendations). The article does not spell out the acronym; the four section names match. The "months/thousands-of-hours to minutes" / work drops to "1% to 5%" claim is the author's 2023 prediction (pre-agent-mainstream) — optimistic, unproven at scale.
 - **Role**: SPQA's State+Policy structure and TELOS's typed-context layer are prior art for the OKF/typed-knowledge `telos.md` / `project-context.md` policy layer. The architectural-role framing is Miessler's own (Tier C opinion); the repos' existence/contents are verified.
@@ -717,35 +755,12 @@ Fable 5 (`claude-fable-5`) went GA 2026-06-09 as Anthropic's most capable widely
 - **Pattern**: [GSD Orchestration](analysis/orchestration-comparison.md)
 - **Evidence Tier**: B (Open source, production-validated)
 
-### Builder.io: 50 Claude Code Tips and Best Practices
-- **Author**: Vishwas Gopinath (Builder.io staff engineer)
-- **URL**: https://www.builder.io/blog/claude-code-tips-best-practices
-- **Date**: 2026-03-20 (verified 2026-05-24)
-- **Description**: 50 practical Claude Code techniques covering aliases, bash commands, context management, team workflows, agent teams, and custom hooks
-- **Key Contributions**:
-  - Daily-use shortcuts and aliasing patterns (complements Boris Cherny's high-level workflow guidance with team-scale daily mechanics)
-  - Agent Teams + hook recipes for development automation
-  - Bridges individual practitioner patterns (Boris) to team practices
-- **Relevance**: Fills the "team daily practice" gap between vendor docs and individual workflow posts
-- **Evidence Tier**: B (Engineering publication, staff-level author, broad coverage of practitioner patterns)
-- **Patterns**: [Harness Engineering](analysis/harness-engineering.md), [Orchestration Comparison](analysis/orchestration-comparison.md)
-
-### Morph: Claude Code Best Practices — 2026 Guide
-- **Author**: Morph (developer-tools vendor; practitioner-authored guide)
-- **URL**: https://www.morphllm.com/claude-code-best-practices
-- **Date**: 2026-02-15 (verified 2026-05-24)
-- **Description**: Workflow guide covering project setup through implementation; emphasizes context engineering via CLAUDE.md, task scoping, Plan Mode, subagents for code search, and verification strategies
-- **Key Contributions**:
-  - Q1 2026 model-routing patterns (Opus/Sonnet/Haiku selection)
-  - Verification strategies cross-referenceable with the Writer/Reviewer pattern in this repo
-  - Cost-aware workflow scoping
-- **Relevance**: Adds vendor-neutral cost-optimization patterns that complement the Tenzir MCP-vs-Skills economics (January 2026) — useful for build-vs-borrow decisions
-- **Evidence Tier**: B (Practitioner vendor blog; corroborates patterns already in Tier A sources rather than introducing novel methodology)
-- **Patterns**: [Framework Selection Guide](analysis/framework-selection-guide.md), [Harness Engineering](analysis/harness-engineering.md)
+> **🗑️ PRUNED (2026-07-10)**: Builder.io "50 Claude Code Tips" and Morph "Claude Code Best Practices — 2026 Guide" were removed here — both were community/vendor restatements of practitioner mechanics (aliasing, hook recipes, task scoping, model routing) now covered by the official best-practices 2026 rewrite (see Claude Code Documentation (Canonical) above). Neither is cited as a named source by any live analysis doc (only by the 2026-05-24 changelog row below, which stays as written for provenance). URLs for provenance: `builder.io/blog/claude-code-tips-best-practices` (Gopinath, 2026-03-20); `morphllm.com/claude-code-best-practices` (2026-02-15).
 
 ### shanraisshan/claude-code-best-practice
+> **⚠️ SUPERSEDED-BUT-KEPT (2026-07-10)**: durable content (daily-MCP recommendations, RPI workflow, wildcard-permission examples) is now covered by the official best-practices 2026 rewrite — this entry would otherwise be a prune candidate alongside Builder.io/Morph above. **Not deleted**: `analysis/mcp-daily-essentials.md` and `analysis/plugins-and-extensions.md` both cite this repo by name as a live source (`🔗 Community Source` header + Sources footer in the former; marketplace comparison table in the latter) — per the reduction rule, an analysis doc's named source is annotated, not removed. Re-evaluate for deletion once those two docs' Phase-4 collapse lands and re-cites (or drops) it.
 - **URL**: https://github.com/shanraisshan/claude-code-best-practice
-- **Stars**: 5.6k+ (as of Feb 2026)
+- **Stars**: 5.6k+ (as of Feb 2026) — point-in-time, unrefreshed since; treat as directional only
 - **Description**: Community-driven knowledge base documenting practical Claude Code workflows and tooling recommendations
 - **Key Contributions**:
   - Top 4 daily MCP servers (Context7, Playwright, Claude in Chrome, DeepWiki)
@@ -756,7 +771,7 @@ Fable 5 (`claude-fable-5`) went GA 2026-06-09 as Anthropic's most capable widely
   - Monorepo CLAUDE.md loading behavior documentation
 - **Relevance**: Practical workflow tips and community-validated tool recommendations complement this project's methodology focus
 - **Evidence Tier**: B (Community validation with 5.6k+ stars, production usage patterns)
-- **Patterns**: [Plugins and Extensions](analysis/plugins-and-extensions.md), [Productivity Tooling](analysis/tool-ecosystem.md), [MCP Daily Essentials](analysis/mcp-daily-essentials.md)
+- **Patterns**: [Plugins and Extensions](analysis/plugins-and-extensions.md), [Productivity Tooling](analysis/tool-ecosystem.md), [MCP Patterns](analysis/mcp-patterns.md) (absorbed MCP Daily Essentials, 2026-07-10)
 
 ### CAII (Cognitive Agent Infrastructure Implementation)
 - **Author**: Kristoffer Sketch (skribblez2718)
@@ -815,14 +830,15 @@ Fable 5 (`claude-fable-5`) went GA 2026-06-09 as Anthropic's most capable widely
 - **URL**: https://dev.to/valgard/claude-code-must-haves-january-2026-kem
 - **Date**: January 2026
 - **Description**: Production analysis of MCP tool token consumption in Claude Code
-- **Key Insights**:
+- **⚠️ (stale-pending-remeasure: MCP tool search v2.1.121 changed token economics)** — these were pre-tool-search measurements; deferred tool definitions (default-on since v2.1.121) mean MCP tools no longer load their full definitions into context by default, so the 40%+/81,986-token figures below are very likely no longer representative. Treat as historical baseline, not current guidance, until re-measured against a current Claude Code version.
+- **Key Insights (as originally measured, January 2026 — see staleness flag above)**:
   - MCP tools can consume 40%+ of context (measured: 81,986 tokens at startup)
   - Sweet spot: 4 plugins + 2 MCPs
   - Recommended core MCPs: Context7 + Sequential Thinking
   - Use `disabledMcpServers` to limit per-project
   - Activate specialized MCPs on-demand, not by default
-- **Patterns**: [MCP Patterns](analysis/mcp-patterns.md#mcp-context-budget-management), [MCP Daily Essentials](analysis/mcp-daily-essentials.md)
-- **Evidence Tier**: B (Production measurement, documented methodology)
+- **Patterns**: [MCP Patterns](analysis/mcp-patterns.md#mcp-context-budget-management) (absorbed MCP Daily Essentials, 2026-07-10)
+- **Evidence Tier**: B (Production measurement, documented methodology; numbers stale-pending-remeasure per above)
 
 ### Context Rot Deep Dive
 - **Author**: Inkeep
@@ -1051,7 +1067,7 @@ Track these for production readiness:
 - **Author**: Jeremy Wiley (direct observation)
 - **Source**: Production analysis of mndr-review-automation hybrid LLM pipeline (April 2026)
 - **Key Data**: MLX/Gemma 4 31B local inference, Claude Sonnet cloud coaching, 10 tokenization entity types, 7 hallucination scrubbers, 1,216 tests, supply chain security (litellm rejected)
-- **Pattern**: [Local+Cloud LLM Orchestration](analysis/local-cloud-llm-orchestration.md)
+- **Pattern**: [Local+Cloud LLM Orchestration](archive/local-cloud-llm-orchestration.md) (evicted to archive/ with tombstone, 2026-07-10 — spoke-repo content, see `drafts/REDUCTION-PROPOSAL-2026-07.md` Phase 5)
 - **Evidence Tier**: A (Primary production observation)
 
 ### Portfolio Analysis: MCP Client Integration Patterns
@@ -1067,7 +1083,7 @@ Track these for production readiness:
 - **Author**: Jeremy Wiley (direct observation)
 - **Source**: Production analysis of zeek-iceberg-demo + third-brain federation hypothesis (April 2026)
 - **Key Data**: 15/15 benchmark queries pass (<10s), 93-99.9% WAN reduction, 86-99% cost savings, 20M OCSF events, TCO calculator validated
-- **Pattern**: [Federated Query Architecture](analysis/federated-query-architecture.md)
+- **Pattern**: [Federated Query Architecture](archive/federated-query-architecture.md) (evicted to archive/ with tombstone, 2026-07-10 — spoke-repo content, canonical numbers now live in `~/sdw-lab-benchmarks`)
 - **Evidence Tier**: A (Primary production observation)
 
 ### Portfolio Analysis: Automated Config Assessment
@@ -1083,7 +1099,7 @@ Track these for production readiness:
 - **Author**: Jeremy Wiley (direct observation)
 - **Source**: Cross-portfolio analysis of CLAUDE.md evolution, memory systems, revalidation patterns, security pipelines, and dependency cascading (April 2026)
 - **Key Data**: 6 repos with CLAUDE.md (42-209 lines), 5 repos with memory systems (2-13 files), hypothesis confidence tracking (3.0→4.7/5), Zeek→OCSF pipeline, 4-phase enrichment cascade
-- **Patterns**: [CLAUDE.md Progressive Disclosure](analysis/claude-md-progressive-disclosure.md), [Memory System Patterns](analysis/memory-system-patterns.md), [Evidence-Based Revalidation](analysis/evidence-based-revalidation.md), [Security Data Pipeline](analysis/security-data-pipeline.md), [Cross-Project Synchronization](analysis/cross-project-synchronization.md)
+- **Patterns**: [CLAUDE.md Progressive Disclosure](analysis/claude-md-progressive-disclosure.md), [Memory System Patterns](analysis/memory-system-patterns.md), [Evidence-Based Revalidation](analysis/evidence-based-revalidation.md), [Security Data Pipeline](archive/security-data-pipeline.md) (evicted to archive/ with tombstone, 2026-07-10 — canonical Zeek→OCSF numbers now live in `~/sdw-lab-benchmarks`), [Cross-Project Synchronization](analysis/cross-project-synchronization.md)
 - **Evidence Tier**: A (Primary production observation)
 
 ### LlamaIndex - Agentic Document Workflows
@@ -1145,7 +1161,8 @@ Track these for production readiness:
 - **URL**: https://github.com/microsoft/playwright-cli
 - **Date**: February 2026
 - **Description**: CLI tool for browser automation, purpose-built for AI coding agents as a token-efficient alternative to Playwright MCP
-- **Key Insights**:
+- **⚠️ (stale-pending-remeasure: MCP tool search v2.1.121 changed token economics)** — the 4x figure below was measured against a pre-tool-search Playwright MCP baseline (~114K tokens/task); deferred tool definitions since v2.1.121 likely shrink that MCP-side baseline too, so the ratio is no longer verified current.
+- **Key Insights (as originally measured, February 2026 — see staleness flag above)**:
   - 4x token reduction vs Playwright MCP (~27K vs ~114K tokens per task)
   - Saves snapshots/screenshots to disk instead of streaming into context
   - Compact element references (e.g., `e21`) instead of full DOM trees
@@ -1156,7 +1173,7 @@ Track these for production readiness:
 
 ### affaan-m/everything-claude-code
 - **URL**: https://github.com/affaan-m/everything-claude-code
-- **Stars**: 110K+ (as of March 2026)
+- **Stars**: point-in-time count dropped 2026-07-10 (was "110K+ as of March 2026" — snapshot stats go stale fast; follow the link for the current count)
 - **Author**: Affaan Mustafa (Anthropic Hackathon Winner)
 - **Description**: Maximalist Claude Code plugin ecosystem with 28 agents, 125+ skills, 60+ commands, and rules for 12 language ecosystems. Built over 10+ months of daily production use.
 - **Key Contributions**:
@@ -1169,7 +1186,7 @@ Track these for production readiness:
   - **Multi-platform**: Claude Code, Cursor, Codex, OpenCode, Antigravity IDE
 - **Philosophy**: Maximalist platform tuning — Claude becomes more effective with a rich pre-built library that automatically delegates, learns, and optimizes
 - **Relevance**: Largest community Claude Code configuration ecosystem; validates patterns documented in this project at scale; complementary approach (batteries-included vs evidence-based guidance)
-- **Evidence Tier**: B (Open source, 110K+ stars, production-validated across 10+ months, Anthropic hackathon winner)
+- **Evidence Tier**: B (Open source, large community star count — see repo for current figure, production-validated across 10+ months, Anthropic hackathon winner)
 - **Patterns**: [Plugins and Extensions](analysis/plugins-and-extensions.md), [Harness Engineering](analysis/harness-engineering.md)
 
 ### obra/superpowers
@@ -1235,7 +1252,7 @@ These tools complement Claude Code or provide alternative approaches to AI-assis
 | **Gemma 4 26B MoE** | [Google DeepMind](https://blog.google/technology/developers/gemma-4/) (April 2, 2026) | 3.8B active params, 256K context, native function calling. 86.4% tau2-bench (agentic tool use). Available via `ollama run gemma4:26b` |
 | **Ollama v0.19 MLX** | [Ollama Release Notes](https://github.com/ollama/ollama/releases) (March 27, 2026) | Native Apple MLX backend on Apple Silicon. Narrows the gap between direct MLX and Ollama for local inference |
 
-- **Pattern**: [Local+Cloud LLM Orchestration](analysis/local-cloud-llm-orchestration.md#model-alternatives-gemma-4-26b-moe-april-2026), [Tool Ecosystem](analysis/tool-ecosystem.md#ecosystem-development-ollama-v019-mlx-backend-march-2026)
+- **Pattern**: [Local+Cloud LLM Orchestration](archive/local-cloud-llm-orchestration.md#model-alternatives-gemma-4-26b-moe-april-2026) (evicted to archive/ with tombstone, 2026-07-10), [Tool Ecosystem](analysis/tool-ecosystem.md#ecosystem-development-ollama-v019-mlx-backend-march-2026)
 
 ### Context Extraction Tools
 
@@ -1265,9 +1282,11 @@ These tools complement Claude Code or provide alternative approaches to AI-assis
 
 ### Session Quality Diagnostic Tools
 
+> **⚠️ SUPERSEDED (2026-07-10)**: native `claude doctor` (v2.1.205, 2026-07-08 — "a full setup checkup that can diagnose and fix issues," `/checkup` alias) now covers this ground first-party. `analysis/session-quality-tools.md` completed its `RETIRING → RETIRED` cycle and is archived at [`archive/session-quality-tools.md`](archive/session-quality-tools.md); this repo's own audit signal command moved from `npx -y claude-doctor` to `claude doctor`. Entry kept for provenance — the AFINN-165 sentiment/heuristic methodology below is a still-valid Tier-B-underlying technique, just no longer this repo's active tool.
+
 | Tool | Repository | Purpose |
 |------|------------|---------|
-| **claude-doctor** | [aidenybai/claude-doctor](https://github.com/aidenybai/claude-doctor) | Session transcript analysis via AFINN-165 sentiment + heuristic pattern detection |
+| **claude-doctor** (community, superseded) | [aidenybai/claude-doctor](https://github.com/aidenybai/claude-doctor) | Session transcript analysis via AFINN-165 sentiment + heuristic pattern detection |
 
 - **Author**: Aiden Bai
 - **Version**: v0.0.3 (April 2026)
@@ -1275,7 +1294,7 @@ These tools complement Claude Code or provide alternative approaches to AI-assis
 - **Underlying Library**: AFINN-165 sentiment lexicon (Tier B — peer-reviewed, 2,477 words scored -5 to +5)
 - **Key Capabilities**: Edit-thrashing detection (5+ edits/file), error-loop detection (3+ consecutive failures), sentiment analysis, repeated-instruction detection (60% Jaccard similarity)
 - **Limitations**: Arbitrary severity weighting, no positive signal detection, no task-type normalization, percentage score not calibrated
-- **Analysis**: [Session Quality Diagnostic Tools](analysis/session-quality-tools.md)
+- **Analysis**: [Session Quality Diagnostic Tools (archived)](archive/session-quality-tools.md)
 
 ---
 
@@ -1286,7 +1305,7 @@ These represent the industry-standard methodologies for AI-driven development th
 ### GitHub Spec Kit (Foundational)
 - **Author**: GitHub
 - **URL**: https://github.com/github/spec-kit
-- **Stars**: 59,000+ (as of Jan 2026)
+- **Stars**: point-in-time count dropped 2026-07-10 (was "59,000+ as of Jan 2026" — follow the link for the current count)
 - **License**: MIT
 - **Description**: Tool-agnostic toolkit for spec-driven development with AI coding agents
 - **Key Concepts**:
@@ -1294,7 +1313,7 @@ These represent the industry-standard methodologies for AI-driven development th
   - Constitution command for project governing principles
   - Supports 16+ coding agents including Claude Code
 - **Pattern**: [Spec-Driven Development](analysis/harness-engineering.md)
-- **Evidence Tier**: A (Industry standard - 59K+ stars, adopted by this repository as foundational methodology)
+- **Evidence Tier**: A (Industry standard, large sustained star count and community adoption — see repo for current figure — adopted by this repository as foundational methodology)
 
 ### BMAD Method
 - **Author**: Brian (BMad) Madison
@@ -1533,10 +1552,13 @@ These sources directly influenced the design of the skill structure and project 
   - Skill template structure adapted from Fabric patterns (modular, composable AI behaviors)
   - Multi-workflow pattern for complex skills (ultrathink-analyst, git-workflow-helper examples); kebab-case naming standard
 
-#### Miessler 2026 — TELOS, PAI 5.0, and "10 Prompts to Run When Fable Comes Back"
+#### Miessler 2026 — TELOS, PAI 5.0, and LifeOS
 - **"10 Prompts to Run When Fable Comes Back"** (`danielmiessler.com/blog/prompts-to-run-when-fable-comes-back`, 2026-06-18, Tier C, verified 2026-06-21): the body contains **15** distinct numbered prompts (Harness Optimization 6, Security 2, Life/Work 5, Development 1, Public Presence 1 = 15) — the "16" count is contradicted by the page. Framing: prioritize META / system-level work over task-level; queue the highest-leverage strategic prompts for the strongest model. "Fable" = shorthand for any top-capability model ("Fable is just the temporary hotness"). "Ultracode" = a code word for "going super hard." The Development prompt is Peter Steinberger's loop prompt.
 - **TELOS** (`danielmiessler.com/telos`, date unknown, Tier C, verified 2026-06-21): structure Problems (P0-P4), Strategies (S0/S4), Missions (M0-M2). **Correction**: P0 is "Human Activation Crisis" (~99.9% of humans "not activated"), NOT "human vulnerability to AI." Names PAI ("Personal AI Infrastructure") and Fabric ("AI augmentation framework with **240+** prompt patterns"). The "Telos files live at USER/TELOS/" claim is NOT on this page — quarantined.
 - **PAI 5.0 "Life Operating System"** (`danielmiessler.com/blog/announcing-pai-5-life-operating-system`, 2026-04-30, Tier C, verified 2026-06-21): three layers (PAI framework / Pulse dashboard / Digital Assistant); "The Algorithm v6.3.0" — seven phases OBSERVE/THINK/PLAN/BUILD/EXECUTE/VERIFY/LEARN, effort tiers E1-E5; Memory v7.6 — three surfaces WORK/LEARNING/KNOWLEDGE (KNOWLEDGE = typed graph), BM25 retrieval; subagents Engineer/Architect/Designer (Anthropic) + Forge (GPT-5.4) + Anvil (Kimi K2.6) + Cato (cross-vendor auditor); five-inspector security pipeline (Pattern/Egress/Rules/Prompt/Injection).
+- **LifeOS 6.0.2 rename** (`github.com/danielmiessler/LifeOS`, 2026-07-02, Tier B — cross-verified 2026-07-10 against the GitHub repo + README + Releases page). PAI is renamed **LifeOS** ("A General Purpose AI Harness for magnifying human capabilities" — "a life and work optimization platform, not just a coding harness"); v6.0.2 carries the PAI→LifeOS rename through code identifiers and doc prose (runtime-critical paths/regexes left byte-identical on purpose, so nothing breaks) and ships as skill-only distribution — "the whole system ships as one self-contained `LifeOS/` skill" with an AI-native, markdown-first install (`Read https://ourlifeos.ai/install and install LifeOS for me`). Current architecture, consolidating the PAI 5.0 entry above: **Algorithm v6.x** — the same OBSERVE→THINK→PLAN→BUILD→EXECUTE→VERIFY→LEARN loop, now gated by verifiable **Ideal State Criteria** at each phase (a check the phase must satisfy before advancing, not just a status report); **Memory v7.x** — the same three typed surfaces (WORK/LEARNING/KNOWLEDGE); deterministic lifecycle hooks; **45 composable skills**. Stated stance (this repo's synthesis of the framing, not a direct quote): extend Claude Code as the runtime rather than build parallel infrastructure — LifeOS sits on top of Claude Code's own hooks/skills/subagents rather than replacing them, which is the same thesis this repo's 2026-07-10 reduction pass applies to itself. **Supersedes** the TELOS/SPQA entry above (§ Primary Sources) as the current statement of Miessler's architecture; that entry stays for provenance.
+  - **Evidence Tier**: B (named practitioner, public repo with verifiable release history, cross-checked against a second source)
+  - **Revalidate by**: 2026-10-10
 
 ---
 
@@ -1655,7 +1677,7 @@ These community repositories provide additional examples and inspiration for Cla
   - Analytics dashboard and conversation monitoring tools
   - Component attribution from wshobson/agents (48 agents, MIT) and awesome-claude-code (21 commands)
 - **Installation**: `npx claude-code-templates@latest`
-- **Stars**: 12.6k+ (as of Dec 2025)
+- **Stars**: point-in-time count dropped 2026-07-10 (was "12.6k+ as of Dec 2025" — follow the link for the current count)
 - **Relevance**: Ready-to-use implementations of patterns documented in this repository; complementary resource for users who want pre-built components rather than building from scratch
 
 ### Anthropic Official Skills Examples
@@ -1836,7 +1858,7 @@ These repositories provide community-maintained best practices and should be per
 
 | Repository | Status | Description |
 |------------|--------|-------------|
-| [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) | ✅ Verified | 400+ components, CLI tool (12.6k stars) |
+| [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) | ✅ Verified | 400+ components, CLI tool (star count point-in-time — dropped 2026-07-10, see link) |
 | [centminmod/my-claude-code-setup](https://github.com/centminmod/my-claude-code-setup) | 🔍 Discovered | Starter template with memory bank |
 | [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow/wiki/CLAUDE-MD-Templates) | 🔍 Discovered | CLAUDE.md templates by project type |
 | [ArthurClune/claude-md-examples](https://github.com/ArthurClune/claude-md-examples) | 🔍 Discovered | Sample CLAUDE.md files |
@@ -1971,7 +1993,7 @@ These analysis documents define the evidence and scoring frameworks used through
 
 ### Session Quality Diagnostics
 
-- **Document**: [session-quality-tools.md](analysis/session-quality-tools.md)
+- **Document**: [session-quality-tools.md](archive/session-quality-tools.md) — **RETIRED 2026-07-10**, archived; superseded by native `claude doctor` (v2.1.205)
 - **Role**: Evidence assessment of session quality diagnostic tools (claude-doctor), signal reliability analysis, harness maturity correlation
 - **Classification**: Mixed B-C — AFINN-165 lexicon (Tier B, peer-reviewed), tool methodology and thresholds (Tier C, unvalidated)
 
@@ -2051,7 +2073,8 @@ New cluster — practitioner eval methodology (Hamel Husain, Shreya Shankar), ha
 - **Shreya Shankar — agentic data systems / eval methodology** (`sh-reya.com/papers/`, 2026, Tier A for the papers list). CHI 2026 Best Paper "RAG Without the Lag"; CIDR 2026 "Supporting Our AI Overlords: Redesigning Data Systems to be Agent-First"; VLDB 2026 "Multi-Objective Agentic Rewrites…"; SIGMOD 2026 "Cut Costs, Not Accuracy…". Co-authored the O'Reilly book "Evals for AI Engineers" with Husain (off-page). ⚠️ "CMU assistant professor from 2027" is confirmed only to faculty-candidate status (March 2026) — treat the start year as inference.
 - **Philipp Schmid (Google DeepMind) — "Agent Harness 2026"** (`philschmid.de/agent-harness-2026`, 2026-01-05, Tier B). "It comes down to durability: How well a model follows instructions while executing hundreds of tool calls over time" — durability over single-turn scores. "Manus refactored their harness five times in six months"; LangChain "re-architected … three times"; "Vercel removed 80% [of] their agents tool[s]." ⚠️ The companion posts (Inner/Outer Loop, AGENTS.md guide, etc.) were NOT individually fetched — their dates are author-asserted.
 - **Harrison Chase (LangChain) — "Your harness, your memory"** (`langchain.com/blog/your-harness-your-memory`, 2026-04-11, Tier B). "Managing context, and therefore memory, is a core capability and responsibility of the agent harness." Closed/stateful harnesses (OpenAI Responses API, Anthropic server-side compaction) store state on vendor servers and prevent model switching/thread resumption; advocates open harnesses with user-controlled DBs. "When Claude Code's source code was leaked, there was 512k lines of code. That code is the harness."
-- **Simon Willison — Agentic Engineering Patterns guide** (`simonwillison.net/guides/agentic-engineering-patterns/` + `simonw.substack.com/p/agentic-engineering-patterns`, launched 2026-02-23/27, Tier C). Six categories (Principles, Working with coding agents, Testing/QA, Understanding code, Annotated prompts, Appendix); "Red/green TDD," "Linear walkthroughs," "Hoard things you know how to do." Authorship discipline: "I have a strong personal policy of not publishing AI-generated writing under my own name." ⚠️ The exact definition string "An agent is an LLM that runs tools in a loop … The harness is what controls the loop" was NOT located verbatim — treat as unverified.
+- **Simon Willison — Agentic Engineering Patterns guide** (`simonwillison.net/guides/agentic-engineering-patterns/` + `simonw.substack.com/p/agentic-engineering-patterns`; first two chapters published 2026-02-23, growing at roughly 1-2 chapters/week since — 12+ chapters as of the latest count verified 2026-07-10; **upgraded C → Tier B this pass** as the guide consolidated from a launch post into a durable, actively-maintained reference). Six categories (Principles, Working with coding agents, Testing/QA, Understanding code, Annotated prompts, Appendix); chapters confirmed include "Writing code is cheap now," "Red/green TDD," "Linear walkthroughs," "Hoard things you know how to do," and "What is agentic engineering?" (chapter 12 by publication order, positioned first in the reading order to answer the fundamental question). **Position**: favors deterministic constraints (tests, linting, type checks, red/green TDD) over behavioral instructions/prose rules as the reliable way to shape agent output — consistent with this repo's own hooks-over-CLAUDE.md-prose findings, and extends the existing Willison entries in this file (the separate Opus 4.7 system-prompt analysis, below in the Opus 4.7 Migration Guidance section) rather than replacing them. Authorship discipline: "I have a strong personal policy of not publishing AI-generated writing under my own name." ⚠️ The exact definition string "An agent is an LLM that runs tools in a loop … The harness is what controls the loop" was NOT located verbatim — treat as unverified.
+  - **Revalidate by**: 2026-10-10
 - **Diagnosing LLM-as-a-Judge via IRT (arXiv:2602.00521)** — Choi, Park, Cho, Park, Kim, 2026-01-31 (v2 2026-05-29), ICML 2026. Tier A. Applies IRT with the Graded Response Model; two reliability dimensions — "(1) intrinsic consistency … under prompt variations, and (2) human alignment." ⚠️ The "no universally robust configuration" claim is NOT in the abstract — softened.
 - **Terminal-Bench 2.0 (arXiv:2601.11868)** — Merrill et al. (85 authors), 2026-01-17. Tier A. "89 tasks in computer terminal environments," each with a unique environment, human-written solution, and comprehensive tests; frontier models/agents score **<65%**. ⚠️ The "81-82% with scaffolding / Docker / Harbor framework" details are NOT in the abstract.
 - **Agent-as-a-Judge (arXiv:2601.05111)** — You, Cai, Zhang, Xu, Liu, Yu, Li, Li et al., 2026-01-08. Tier A. Three LLM-judge limitations: "inherent biases, shallow single-pass reasoning, and the inability to verify assessments against real-world observations." ⚠️ Title is "Agent-as-a-Judge" (not "A Survey on…"); the procedural/reactive/self-evolving taxonomy is not in the abstract.
@@ -2165,7 +2188,7 @@ This repository uses a tiered evidence system:
 ### Tier A: Primary Sources
 - Direct from Anthropic (engineering blog, documentation)
 - Official specifications and standards (agentskills.io, OWASP)
-- Industry-standard frameworks (GitHub Spec Kit 59K+ stars)
+- Industry-standard frameworks (e.g. GitHub Spec Kit — see entry for current star count, point-in-time figures dropped 2026-07-10)
 - First-party production data
 
 ### Tier B: Validated Secondary
@@ -2220,9 +2243,10 @@ This sources document is updated when:
 
 | Date | Action | Result |
 |------|--------|--------|
+| 2026-07-10 | Reduction Phase 6 — SOURCES.md prune + refresh (`drafts/REDUCTION-PROPOSAL-2026-07.md` §3, §5.7) | **4 additions**: Anthropic "How Claude Code works in large codebases" (Applied AI team, 2026-05-14, Tier A, new subsection under Anthropic Engineering Blog); Daniel Miessler PAI 5.0 → **LifeOS 6.0.2** rename (2026-07-02, Tier B, new bullet in the Miessler 2026 subsection, supersedes the TELOS/SPQA entry); Simon Willison "Agentic Engineering Patterns" guide (upgraded Tier C → B, extends the existing Willison entry with the deterministic-constraints position and 12+-chapter growth); Claude Code official best-practices page refreshed in place (not duplicated) with a changelog-revalidation-feed bullet (native `claude doctor` v2.1.205, Sonnet 5 default v2.1.197, agent teams v2 v2.1.178, Routines ~v2.1.198 flagged unverified) plus a new dedicated Sonnet 5 subsection. **Stale-markings**: claude-doctor (community) superseded by native `claude doctor`; `/insights` GA-Feb-2026 date softened to unconfirmed (command itself confirmed real); Fable 5/Mythos 5 suspension resolved as CONFIRMED-then-lifted (redeployed 2026-07-01, in production — the prior "not confirmed" framing was itself stale); Opus 4.7 Migration Guidance and the Vertrees LinkedIn entry both marked historical/provenance-only; Playwright-CLI 4× token claim and the valgard MCP-context-budget numbers both annotated stale-pending-remeasure (MCP tool search v2.1.121 changed the token economics); point-in-time star counts dropped (numbers removed, links kept) on everything-claude-code, GitHub Spec Kit, and claude-code-templates. **2 prunes**: Builder.io "50 Tips" and Morph "2026 Guide" deleted outright (no analysis-doc citations); shanraisshan annotated-superseded rather than deleted (cited by name in `mcp-daily-essentials.md` and `plugins-and-extensions.md`). **Link repointing**: 4 classes — `mcp-daily-essentials.md` → `mcp-patterns.md` (absorbed, 3 Pattern-line occurrences); `federated-query-architecture.md` / `security-data-pipeline.md` / `local-cloud-llm-orchestration.md` → `archive/<same-filename>` (evicted-with-tombstone per Phase 5, 5 Pattern-line occurrences incl. one anchored link); memory-systems archetype files → `memory-systems-archetype-recommendations.md` (1 historical-changelog bare-link repoint, 2026-04-30 row); plus the `session-quality-tools.md` companion fix (`analysis/` → `archive/`, 3 occurrences) triggered by the claude-doctor supersession. Also resolved the "Fable 5 suspended" item in the Unverified section (struck through, marked RESOLVED) and re-verified the four highest-stakes new Tier A claims (large-codebases post date/authorship, v2.1.205/v2.1.197/v2.1.178 changelog entries, Fable redeployment) against live primaries before writing them in. SOURCES-QUICK-REFERENCE.md refreshed to match (entries #2, #27, #29, #34; By Analysis Category #15/#22/#23/#25 annotated). Bumped "Last curated" to 2026-07-10. |
 | 2026-06-21 | Verified cluster refresh (Fable 5 GA, loop-eng lineage, OKF/typed-knowledge, memory-systems + evals leaders) | Six verified clusters folded in. **Anthropic-official**: re-verified the canonical best-practices doc (added `/goal`+separate-evaluator, `Stop`-hook 8-block guard, `/rewind` checkpoints, `/btw` overlay, adversarial-review subagent, the five-item "Avoid common failure patterns" catalog, `@path` imports, plugins-first-class — all verbatim); registered **Claude Fable 5** (`claude-fable-5`, GA 2026-06-09, $10/$50, 1M/128k, adaptive-only, `stop_reason:"refusal"`, server-side `fallbacks`) + **Mythos 5** (Project Glasswing, no classifiers) + **Sonnet 4.6** (2026-02-17, $3/$15, 1M beta); **split** the conflated harness pages — corrected "Effective harnesses…" date to **2025-11-26** and registered the separate **Harness design** (2026-03-24, $124.70/3h50, $9 vs $200, self-praise bias) + **Scaling Managed Agents** (2026-04-08, p50 TTFT −60%/p95 −90%) pages; **dead-link fixes** — infrastructure-noise slug moved to `…/engineering/infrastructure-noise`, AI-resistant-evals slug corrected to capital-AI `…/AI-resistant-technical-evaluations` (NOT `/research/`); changelog version-attribution fix (lean system prompt = v2.1.154, not v2.1.181). **OKF / typed-knowledge** (⭐ elevated KM-leverage): enriched OKF v0.1 (Apache-2.0 sourced to REPO not blog; no central type registry; types-not-registered-centrally verbatim) + added **TypedMark** (Sébastien Dubois, 2026-06-20, new leader), **Hannecke frontmatter-first**, **TELOS/SPQA**. **Loop-eng lineage** (⭐ elevated KM-leverage): **reattributed** — Osmani's own post attributes the concept to Steinberger+Cherny (do NOT say Osmani coined it); repointed Cherny primary to YouTube/WorkOS, flagged the Stage-1/2/3 taxonomy + gate-conditions as secondary-only; corrected Huntley date (2025-07-14) and plugin-sourcing (README not ghuntley.com); corrected Karpathy (AutoResearch NOT in the Sequoia post); added **Peter Steinberger** (new leader, X post primary-unfetched). **Memory-systems**: registered MemGPT/Letta (Packer, new leader), mem0 (Singh, new leader), Anthropic memory-tool + context-engineering cookbook, LangMem. **Evals**: registered Husain + Shankar (new leaders), Schmid, Chase, three harness papers (Fudan/SJTU/Yao). All unverified items collected into the new **Unverified / pending revalidation (2026-06-21)** section at the end. Bumped "Last curated" to 2026-06-21. |
 | 2026-06-15 | Loop-engineering research + unattended-execution audit signals + new EMERGING doc | Added [`scheduled-and-looping-primitives.md`](analysis/scheduled-and-looping-primitives.md) (EMERGING) for the genuinely-new product surface (`/loop`, `/goal`, cloud Routines, Desktop scheduled tasks, the Ralph lineage). Wired seven routing signals into [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) under a new **Unattended / Long-Running Execution** section (`harness-loop-config`, `harness-scheduled-agent`, `ci-scheduled-agent`, `harness-background-tasks`, `harness-dynamic-workflows`, `harness-goal-completion-loop`, `cron-disabled` guard) + matching `applies-to-signals` frontmatter, plus an **Unattended Execution Exposure** output section in [`ONE-LINE-PROMPT.md`](ONE-LINE-PROMPT.md). New themed **Loop Engineering & Unattended Execution Sources** section (Tier A: scheduling/workflow docs, Rajasekaran harness-design 2026-03-24, Scaling Managed Agents 2026-04-08, 2026 Agentic Coding Trends Report; Tier B: Cherny WorkOS 2026-06-02 quote, Karpathy Sequoia Ascent 2026-04-30, Huntley Ralph; Tier C bias-flagged commentary cloud). **Attribution fixes**: "loop engineering" was coined by Addy Osmani, not Cherny; "12 Agentic Harness Patterns" is Bilgin Ibryam, not Nate B. Jones. **Fixes folded in**: `/goal` version corrected v2.1.140 → v2.1.139 and the unsupported "fast-model checker" clause hedged in `harness-engineering.md`; cited the previously-uncited Rajasekaran primary source. **Routing-invariant fix**: documented the two-level memory-index sub-route so the six archetype docs reached through it (B/D/E/F, C-EC, genealogy-baseline) are no longer orphan-signal docs, and softened the footer's bidirectional-sync claim. **Volatile model note**: Fable 5 / Mythos 5 released 2026-06-09, suspended worldwide 2026-06-12 (US export-control directive), Opus 4.8 the fallback — added a `model-version-fable-mythos` row + currency note. Doc count 41 → 42 routable. |
-| 2026-06-04 | First-party introspection registered + first doc enters retirement lane | Registered **Claude Code First-Party Introspection Commands** (`/insights`, `/usage`, `/doctor`) as Tier A after an obsolescence sweep found Anthropic converging on the edges of the audit's scope. `/insights` (GA Feb 2026 — native session-history analysis + auto-generated CLAUDE.md rules) is the cited **replacement** for the session-diagnostics slice: [`session-quality-tools.md`](analysis/session-quality-tools.md) moved `PRODUCTION → RETIRING` with a `replacement-by` frontmatter field and a tombstone banner, and the audit's session-diagnostic routing now defers to `/insights` (keeping only the static committed-CLAUDE.md check + the uncalibrated-score caveat that `/insights` does not cover). `/usage` and `/doctor` registered as cited complements (cost-measurement and install-health), not replacements for the static evidence-tiered routing core. This is the first application of the project's new `RETIRING/RETIRED` retirement lane (per [planned-obsolescence intent](CONTRIBUTING.md) — prune as robust replacements mature). |
+| 2026-06-04 | First-party introspection registered + first doc enters retirement lane | Registered **Claude Code First-Party Introspection Commands** (`/insights`, `/usage`, `/doctor`) as Tier A after an obsolescence sweep found Anthropic converging on the edges of the audit's scope. `/insights` (GA Feb 2026 — native session-history analysis + auto-generated CLAUDE.md rules) is the cited **replacement** for the session-diagnostics slice: [`session-quality-tools.md`](archive/session-quality-tools.md) (repointed 2026-07-10 — the doc completed its retirement and moved to `archive/`) moved `PRODUCTION → RETIRING` with a `replacement-by` frontmatter field and a tombstone banner, and the audit's session-diagnostic routing now defers to `/insights` (keeping only the static committed-CLAUDE.md check + the uncalibrated-score caveat that `/insights` does not cover). `/usage` and `/doctor` registered as cited complements (cost-measurement and install-health), not replacements for the static evidence-tiered routing core. This is the first application of the project's new `RETIRING/RETIRED` retirement lane (per [planned-obsolescence intent](CONTRIBUTING.md) — prune as robust replacements mature). |
 | 2026-05-30 | Opus 4.8 re-validation → SOURCES sync | Registered the Opus 4.8 release (2026-05-28, model ID `claude-opus-4-8`) across the source database after the four model-coupled docs and the audit routing were re-validated against 4.8 primary sources. New **Opus 4.8 Re-Validation (May 2026)** subsection with the 4.8 trio (Tier A — [What's New 4.8](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8), [system card](https://www.anthropic.com/claude-opus-4-8-system-card), [launch news](https://www.anthropic.com/news/claude-opus-4-8)); the 4.6→4.7 MRCR-v2 long-context regression case-study sources (OpenAI MRCR v2 + 4.7 card chart images Tier A + Context Arena/dev.to "232 pages" Tier B transcription); and the long-context degradation-onset benchmarks revalidating the "60%" heuristic (arXiv:2601.15300, Fiction.liveBench, NoLiMa/ICML 2025, arXiv:2510.05381). De-staled the Boris Cherny "(latest)" model reference and the Model Updates list to lead with Opus 4.8; bumped "Last curated" to 2026-05-30. The four harness arXiv papers cited in the 4.8 commit (2603.25723, 2603.28052, 2602.09540, 2605.15184) were already registered in the 2026-05-24 sweep — not re-added. Quick-reference: added entry #31 (Opus 4.8 trio) and corrected the stale #25 "Tingua" → "Tsinghua". |
 | 2026-05-25 | Dapr durable-agents doc registered (Tier B) | Added **Dapr — Distributed Application Runtime** to Tier B for the imported [`dapr-durable-agents.md`](analysis/dapr-durable-agents.md): Dapr docs (docs.dapr.io, Tier A CNCF graduated project), Dapr Agents repo, SPIFFE (spiffe.io, Tier A), and Bilgin Ibryam's "production durable agent in ~10 lines" LinkedIn demonstration (Tier B). Infrastructure-as-runtime pattern, complementary to `mcp-vs-skills-economics.md` (tool-exposure layer). Doc adapted from the security-data-commons-blog archive (SDC framing stripped, repo-format frontmatter added). |
 | 2026-05-24 | Anthropic changelog → analysis-doc integration + April 23 postmortem + Hoyt convergence + LangChain DeepAgents | Folded Q2 2026 Anthropic changelog (v2.1.117 → v2.1.150) into the relevant analysis docs as bounded subsections: agent-view + Ultrareview added to [`orchestration-comparison.md`](analysis/orchestration-comparison.md) as new sections; `/goal`, `mcp_tool` hooks, `continueOnBlock`, `worktree.bgIsolation`, per-category `/usage` added to [`harness-engineering.md`](analysis/harness-engineering.md) as "Harness Toolkit Additions (Q2 2026)"; plugin URL/zip loading, `claude plugin prune/tag`, `allowAllClaudeAiMcps` added to [`plugins-and-extensions.md`](analysis/plugins-and-extensions.md) as "Plugin Dependency & Distribution Updates"; `hard_deny` + sandbox path overrides added to [`safety-and-sandboxing.md`](analysis/safety-and-sandboxing.md) under Permission Model Design. **Unverified post resolved**: the previously-flagged "claude-code-quality-reports" 404 turned out to be at `/engineering/april-23-postmortem` — three independent bugs (March 4 reasoning-effort default high→medium, March 26 caching bug clearing extended thinking blocks, April 16 system-prompt verbosity cap) cumulatively degraded Claude Code intelligence across Sonnet 4.6/Opus 4.6/4.7 from early March through v2.1.116 on April 20. Added as Tier A vendor self-disclosure; integrated into [`behavioral-insights.md`](analysis/behavioral-insights.md) as "Vendor-Side Quality Regression Case Study" with implications for harness designers (effort-level defaults are load-bearing; brevity constraints at system-prompt layer can degrade output) and cross-referenced from `harness-engineering.md` v2-simplification section as a caveat to "trust vendor defaults." **Hoyt Emerson CLI-over-MCP** added as convergence data point to the "CLI + Skill Pattern" section in [`mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) — section expanded with a multi-source convergence table (Vallentin + Hoyt + Hex + ClickHouse + Reinhard + OSS Insight ≥6 major repos in Q1 2026). The second Hoyt claim (agents-build-tools-for-themselves) remains single-practitioner, not registered. **LangChain DeepAgents** (2026-02-17) added as the third independent practitioner replication of the harness-as-multiplier finding (52.8% → 66.5% on TerminalBench-2, gpt-5.2-codex held constant; "outside Top 30 → Top 5"; five middleware changes; public traces). Sits alongside Meta-Harness (arXiv:2603.28052) and SWE-Bench Mobile (arXiv:2602.09540) as the third independent corroboration of H-HARNESS-01's headline class of result. |
@@ -2231,14 +2255,14 @@ This sources document is updated when:
 | 2026-05-24 | Cross-brain integration: Vallentin CLI+Skill recipe + H-HARNESS-01 tracking | Added Matthias Vallentin LinkedIn (2026-03-17) "CLI + Skill > MCP" as Tier B source with vendor-incentive caveat — extends existing Vallentin/Tenzir presence with concrete 4-step CLI-ification recipe (OpenAPI → @hey-api/openapi-ts → commander → skill) and `mavam/clattio` reference implementation. Added "The CLI + Skill Pattern" section to [`mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) covering when to apply, decision flow, and which parts of the categorical claim to discount. Added "Hypothesis Status and Falsifiability" section to [`harness-engineering.md`](analysis/harness-engineering.md) consolidating H-HARNESS-01 evidence with explicit falsifiability criterion (>6× from model-only swap would invalidate the thesis) and outstanding-provenance gap log (Stanford 6× orchestration figure, Meta-Harness paper, Tingua NLH ablation). Cross-repository tracker pointer to project1 hypothesis ledger added without duplicating tangential cross-brain evidence. |
 | 2026-05-24 | Quality refresh + consumer-trust pass | URL canonicalization to `code.claude.com` (3 entries: sub-agents, hooks reference, verification guidance). Added 4 verified Tier B sources: Builder.io 50 Tips (Gopinath, 2026-03-20), Morph 2026 Best Practices Guide (2026-02-15), Shipyard Multi-Agent Orchestration (2026-03-18), VoltAgent awesome-claude-code-subagents (20.4k stars). Consumer-trust pass on analysis docs: backfilled `## Sources` footers across 16 docs that previously relied on inline YAML attribution only; surfaced vendor-reported caveats inline on Tier C performance claims (Graphify 71.5×, claude-context ~40%); cross-linked 7-repo portfolio evidence into `framework-selection-guide.md`, `orchestration-comparison.md`, and `memory-systems-archetype-recommendations.md`. Added "Last curated" header to top of this file. |
 | 2026-04-29 | C-PII renamed to C-Egress-Constrained + genealogy baseline measurement | Renamed `analysis/memory-systems-archetype-c-pii.md` → `memory-systems-archetype-c-egress-constrained.md` after user reframed Wiley genealogy projects' egress posture (placeholder discipline + public-source data → vendor-LLM egress authorized at owner's choice). Genealogy moves out of canonical-example slot; replaced with medical/legal/journals-with-third-parties. **New empirical doc**: [`memory-systems-genealogy-baseline.md`](archive/memory-systems-genealogy-baseline.md) — 3 Sonnet subagents ran 3 queries each across the 3 sister projects, scored 8/9 DEFINITIVE (89%) on the unaugmented stack alone. Counter-intuitive finding: tool-call cost correlates with *availability of dedicated memory files*, not corpus size — dry-cross (3.3k md, 5 calls) cheaper than kindred (396 md, 14 calls). Architectural takeaway: CLAUDE.md routing + dedicated memory files for resolved issues + MEMORY.md as flat index is the load-bearing pattern, not graph augmentation. Updated archetype-c primary doc, recommendations index, migration paths (C ↔ C-EC), build-vs-borrow gaps. |
-| 2026-04-30 | Tolaria + SiYuan + claude-video added; Archetype C-PII variant introduced; 2 architecture axes added | Verified Tolaria + SiYuan licenses via raw LICENSE fetch (both AGPL-3.0; my earlier "Tolaria is macOS-only" claim was wrong — releases ship .deb + AppImage + .exe + .dmg). Added entries #10, #11, #12 to `research/memory-systems-tools-inventory.md`. Created [`memory-systems-archetype-c-pii.md`](analysis/memory-systems-archetype-c-pii.md) for the genealogy-style PII-constrained second-brain case (5,311-doc uninstrumented corpus is the canonical example). Added Axis 9 (block-level vs page-level granularity) and Axis 10 (agent contract: convention vs MCP vs CLI) to `memory-systems-architecture-axes.md`. Added watch-later YouTube ingest hybrid (claude-video) to Archetype C primary doc with explicit egress profile. Updated `memory-systems-archetype-recommendations.md` index, migration paths (C ↔ C-PII), and build-vs-borrow gaps. Doc count 142 → 143. |
+| 2026-04-30 | Tolaria + SiYuan + claude-video added; Archetype C-PII variant introduced; 2 architecture axes added | Verified Tolaria + SiYuan licenses via raw LICENSE fetch (both AGPL-3.0; my earlier "Tolaria is macOS-only" claim was wrong — releases ship .deb + AppImage + .exe + .dmg). Added entries #10, #11, #12 to `research/memory-systems-tools-inventory.md`. Created [`memory-systems-archetype-c-pii.md`](analysis/memory-systems-archetype-recommendations.md) (repointed 2026-07-10 — folded into the recommendations index during the Phase 3 memory-cluster fold; link kept pointing at its live successor) for the genealogy-style PII-constrained second-brain case (5,311-doc uninstrumented corpus is the canonical example). Added Axis 9 (block-level vs page-level granularity) and Axis 10 (agent contract: convention vs MCP vs CLI) to `memory-systems-architecture-axes.md`. Added watch-later YouTube ingest hybrid (claude-video) to Archetype C primary doc with explicit egress profile. Updated `memory-systems-archetype-recommendations.md` index, migration paths (C ↔ C-PII), and build-vs-borrow gaps. Doc count 142 → 143. |
 | 2026-04-28 | Memory & knowledge archetype split + empirical Pass-2 testbed | Split omnibus recommendations into 7 per-archetype docs (`memory-systems-archetype-{a..g}-*.md`); added `memory-systems-graphify-vs-understand-anything.md` A/B comparison after running both LLM-driven graph builders on this repo. **New empirical evidence**: graphify Pass 1 (Tree-sitter) indexed 0 of 38 prose docs; Pass 2 produced 1187 nodes / 1651 edges / 67 communities / 88% EXTRACTED. Hallucination spot-check (n=8): ~25% of EXTRACTED cross-file prose edges hallucinated. Added 7 generic signals to AUDIT-CONTEXT.md (`md-corpus-*`, `vault-obsidian`, `vault-karpathy`, `corpus-sensitive`) so the new docs are reachable from the audit. Doc count 28 → 38. |
 | 2026-04-28 | Memory & knowledge system sources added | Added Karpathy LLM Wiki paradigm (Tier B by author authority); 7 tool implementations with verified licenses (Pratiyush, MehmetGoekce, Lum1104 = MIT; Rowboat = Apache 2.0; graphify, claude-context = MIT; OpenBrain = FSL-1.1-MIT); InfraNodus + Paranyushkin (Tier B methodology); Avi Chawla post (Tier C). Registered for new analyses `memory-systems-archetype-recommendations.md` and `memory-systems-recommendation-methodology.md`. |
 | 2026-04-22 | Opus 4.7 migration evidence | Added Anthropic migration guide, What's New 4.7, Best Practices 4.7 blog (Tier A); Vertrees LinkedIn, Willison counter-signal (Tier B); HN 47793411/47814832 (Tier C). Registered for use in new model-migration-anti-patterns analysis. |
 | 2026-04-20 | Advisory-triggered refresh | Verified current — no new releases (latest v2.1.114), no new Anthropic blog posts since April 18. 90 sections, all sources valid. |
 | 2026-04-18 | Sources refresh | Added v2.1.112-114 changelog, Opus 4.7 signal, expanded best-practices coverage |
 
-*Last updated: 2026-06-21 (verified cluster refresh — Fable 5 GA + Sonnet 4.6 + harness-page split + dead-link fixes; OKF/typed-knowledge and loop-eng lineage elevated as KM-leverage sources; memory-systems + evals leaders registered; Unverified section added). Prior: 2026-06-15 (loop-engineering & unattended-execution sources + new EMERGING doc + seven audit signals).*
+*Last updated: 2026-07-10 (Reduction Phase 6 — 4 additions, stale-markings across 7 entry classes, 2 prunes, link repointing for 4 retired analysis docs; see the changelog row above for the full breakdown). Prior: 2026-06-21 (verified cluster refresh — Fable 5 GA + Sonnet 4.6 + harness-page split + dead-link fixes; OKF/typed-knowledge and loop-eng lineage elevated as KM-leverage sources; memory-systems + evals leaders registered; Unverified section added). Prior: 2026-06-15 (loop-engineering & unattended-execution sources + new EMERGING doc + seven audit signals).*
 
 ---
 
@@ -2284,6 +2308,6 @@ Everything here either could not be primary-confirmed this pass, was contradicte
 
 ### Carried-over flags still open
 - **SWE-bench Verified contamination** claims (32.67% solution leakage, 76% file-path recall): sourced only to a secondary blog (digitalapplied.com); the OpenAI internal audit + underlying paper were NOT fetched — remain unverified.
-- **"Fable 5 suspended worldwide 2026-06-12 (US export-control directive)"** (carried in a prior changelog row): NOT verified against any primary this pass and does NOT appear on the Fable post page — do not assert it.
+- ~~**"Fable 5 suspended worldwide 2026-06-12 (US export-control directive)"** (carried in a prior changelog row): NOT verified against any primary this pass and does NOT appear on the Fable post page — do not assert it.~~ **RESOLVED 2026-07-10**: CONFIRMED true by a primary — `anthropic.com/news/redeploying-fable-5` (2026-06-30) states the export-control suspension began 2026-06-12 and was lifted 2026-06-30, with both models redeployed 2026-07-01. See the Claude Fable 5 / Mythos 5 section above. Struck through rather than deleted, for provenance of the earlier unverified state.
 - **TELOS git-commit date**: GitHub shows a last-commit badge but no resolvable commit date in the fetch; the prior "2024-01-17" was an HTML last-modified value. Date = unknown (repo existence, MIT, 1.4k stars, templates ARE verified).
 - **OpenAI evaluation-best-practices publication date**: not shown on the page (unknown); the Oct 31 / Nov 30 2026 deprecation dates ARE confirmed verbatim.

@@ -2,7 +2,7 @@
 
 **Purpose**: Fast lookup for the most commonly referenced sources with authority + recency weighting
 
-**For complete source database**: See [SOURCES.md](SOURCES.md) (comprehensive; last curated 2026-06-21 — includes a dedicated **Unverified / pending revalidation** section at the end)
+**For complete source database**: See [SOURCES.md](SOURCES.md) (comprehensive; last curated 2026-07-10 — Reduction Phase 6: 4 additions, stale-markings, 2 prunes, retired-doc link repointing; includes a dedicated **Unverified / pending revalidation** section at the end)
 
 **Authority Scale (0-5)**: 5=Foundational (built it), 4=Authoritative (core team/peer-reviewed), 3=Practitioner (production metrics), 2=Commentator (blog/YouTube), 1=Unverified, 0=Rejected
 
@@ -21,8 +21,9 @@
 
 ### 2. Anthropic Official Documentation — Authority: 5 (Foundational)
 **Source**: https://code.claude.com/docs/en/best-practices
-**Date**: Continuously updated | **Foundational**: Yes | **Effective Weight**: 1.00 (1.0 x 1.0)
+**Date**: Continuously updated; re-verified 2026-07-10 (2026 rewrite pass) | **Foundational**: Yes | **Effective Weight**: 1.00 (1.0 x 1.0)
 **Key Guidance**: CLAUDE.md ~60 lines, "Would removing this cause mistakes? If not, cut it.", avoid long slash command lists
+**Companion (2026-07-10)**: [How Claude Code works in large codebases](https://claude.com/blog/how-claude-code-works-in-large-codebases-best-practices-and-where-to-start) (Applied AI team, 2026-05-14) — five extension points (CLAUDE.md/hooks/skills/plugins/LSP), agentic search over RAG, and the caution that instructions tuned for an older model can constrain a newer one. **Changelog revalidation feed**: native `claude doctor` (v2.1.205, 2026-07-08), Sonnet 5 default (v2.1.197, 2026-06-30), agent teams v2 (v2.1.178, 2026-06-15); Routines GA ~v2.1.198 per the source plan for this refresh but unconfirmed against the live changelog.
 **Referenced in**: claude-md-progressive-disclosure, behavioral-insights, 10+ analysis docs
 
 ### 3. Long-Running Agent Harness — Authority: 5 (Foundational)
@@ -175,6 +176,7 @@
 **Referenced in**: [harness-engineering.md](analysis/harness-engineering.md), behavioral insights
 
 ### 27. Anthropic Opus 4.7 Migration Guide — Authority: 5 (Foundational)
+**📌 HISTORICAL (marked 2026-07-10)**: kept for provenance / the 4.6→4.7 anti-patterns case study. Current Fable-era migration guidance ships in the bundled `/claude-api` skill, not as a standalone doc.
 **Source**: [Migration Guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) + [What's New 4.7](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-7) + [Best Practices for Opus 4.7 with Claude Code](https://claude.com/blog/best-practices-for-using-claude-opus-4-7-with-claude-code)
 **Date**: April 16, 2026 | **Foundational**: Yes | **Effective Weight**: 1.00 (1.0 x 1.0)
 **Key Claims (verbatim)**: "Claude Opus 4.7 interprets prompts more literally and explicitly than Claude Opus 4.6... It will not silently generalize an instruction from one item to another, and it will not infer requests you didn't make." Also: fewer subagents spawned by default, fewer tool calls by default, adaptive response-length calibration. "Positive examples... tend to be more effective than negative examples."
@@ -187,6 +189,7 @@
 **Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md), [behavioral-insights.md](analysis/behavioral-insights.md)
 
 ### 29. Jason Vertrees — "Claude 4.7 Quietly Broke Your Prompts and Harness" — Authority: 2 (Commentator)
+**📌 HISTORICAL (marked 2026-07-10)**: kept only as provenance for `model-migration-anti-patterns.md`'s 4.6→4.7 case study.
 **Source**: [LinkedIn (April 2026)](https://www.linkedin.com/pulse/claude-47-quietly-break-your-prompts-harness-heres-how-jason-vertrees-mscpe/)
 **Date**: April 2026 | **Foundational**: No | **Effective Weight**: 0.35 (0.35 x 1.0)
 **Value**: Operationalizes the Anthropic migration guide into six auditable prompt anti-patterns (vague quality descriptors, edge-case gestures, unanchored triggers, implicit subagent dispatch, missing verbosity directives, references without read-enforcement).
@@ -221,11 +224,12 @@
 **Attribution correction (2026-06-21)**: do NOT say Osmani coined "loop engineering" — his own post attributes the concept to Steinberger + Cherny. Distinct roles: Cherny described the practice, Steinberger issued the call-to-discipline, Osmani named the five-block anatomy (Automations / Worktrees / Skills / Plugins-Connectors / Sub-agents + external on-disk memory).
 **Referenced in**: [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md), [harness-engineering.md](analysis/harness-engineering.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)
 
-### 34. Claude Fable 5 / Mythos 5 / Sonnet 4.6 — Authority: 5 (Foundational)
-**Source**: [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview) + [Fable 5 / Mythos 5 launch doc](https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5) + [Sonnet 4.6 announcement](https://www.anthropic.com/news/claude-sonnet-4-6)
-**Date**: Fable 5 GA June 9 2026; Sonnet 4.6 Feb 17 2026 (verified 2026-06-21) | **Foundational**: Yes | **Effective Weight**: 1.0 — Tier A
-**Key Claims**: **Fable 5** (`claude-fable-5`) = most capable widely released model; $10/$50 per MTok, 1M/128k, adaptive thinking always on; refusals as `stop_reason:"refusal"` (HTTP 200); server-side `fallbacks` (beta). **Mythos 5** (`claude-mythos-5`) = Fable-5 capabilities WITHOUT classifiers, Project Glasswing, not GA. Fable/Mythos use the Opus-4.7 tokenizer (~30% more tokens). **Sonnet 4.6** = $3/$15, 1M beta, 64k output (per overview), preferred over Sonnet 4.5 ~70% / over Opus 4.5 59% in Claude Code. Opus 4.1 retires Aug 5 2026.
-**⚠️ UNVERIFIED**: all Fable 5 benchmark numbers — the `/news/claude-fable-5` page 404'd on 2026-06-21. Do not assert Fable 5 benchmark specifics. See SOURCES.md Unverified section.
+### 34. Claude Fable 5 / Mythos 5 / Sonnet 4.6 / Sonnet 5 — Authority: 5 (Foundational)
+**Source**: [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview) + [Fable 5 / Mythos 5 launch doc](https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5) + [Sonnet 4.6 announcement](https://www.anthropic.com/news/claude-sonnet-4-6) + [Redeploying Claude Fable 5](https://www.anthropic.com/news/redeploying-fable-5) + Claude Code changelog v2.1.197
+**Date**: Fable 5 GA June 9 2026 (suspended 2026-06-12, redeployed 2026-07-01 — see below); Sonnet 4.6 Feb 17 2026; Sonnet 5 default June 30 2026 (verified 2026-07-10) | **Foundational**: Yes | **Effective Weight**: 1.0 — Tier A
+**Key Claims**: **Fable 5** (`claude-fable-5`) = most capable widely released model; $10/$50 per MTok, 1M/128k, adaptive thinking always on; refusals as `stop_reason:"refusal"` (HTTP 200); server-side `fallbacks` (beta). **Mythos 5** (`claude-mythos-5`) = Fable-5 capabilities WITHOUT classifiers, Project Glasswing, not GA. Fable/Mythos use the Opus-4.7 tokenizer (~30% more tokens). **Sonnet 4.6** = $3/$15, 1M beta, 64k output (per overview), preferred over Sonnet 4.5 ~70% / over Opus 4.5 59% in Claude Code. **Sonnet 5** (new, 2026-07-10) = default model in Claude Code since v2.1.197 (2026-06-30), native 1M-token context, promotional $2/$10 per MTok through 2026-08-31 — model ID and benchmarks not independently confirmed. Opus 4.1 retires Aug 5 2026.
+**Currency update (2026-07-10)**: Fable 5/Mythos 5 WERE suspended worldwide 2026-06-12 under a US export-control directive (Amazon-researcher-reported jailbreak); export controls lifted 2026-06-30, both models redeployed globally 2026-07-01 and **in production** with a new safety classifier (blocks the reported technique >99% of the time). The prior "not confirmed" framing on the suspension itself is now resolved as CONFIRMED-then-lifted.
+**⚠️ UNVERIFIED**: all Fable 5 benchmark numbers — the `/news/claude-fable-5` page 404'd on 2026-06-21 and remains unconfirmed. Do not assert Fable 5 benchmark specifics. See SOURCES.md Unverified section.
 **Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md), [behavioral-insights.md](analysis/behavioral-insights.md)
 
 ### 35. Memory-Systems Leaders (Packer/Letta, Singh/mem0) — Authority: 4 (Authoritative)
@@ -266,7 +270,7 @@
 12. **MCP Patterns**: OWASP MCP Top 10 + failure modes (Tier A)
 13. **MCP vs Skills Economics**: Tenzir production data (Tier B)
 14. **MCP Client Integration**: Two server architectures compared (Tier A)
-15. **MCP Daily Essentials**: Optimal plugin configuration (Tier B)
+15. **MCP Daily Essentials**: Optimal plugin configuration (Tier B) — *absorbed into MCP Patterns (#12), 2026-07-10*
 16. **Plugins & Extensions**: Skills vs MCP vs Hooks decision (Tier B)
 
 ### Security & Infrastructure (3)
@@ -277,12 +281,12 @@
 ### Orchestration & Architecture (4)
 20. **Orchestration Comparison**: GSD vs CAII vs Native (Tier B)
 21. **Framework Selection Guide**: Decision matrix (Tier B)
-22. **Federated Query Architecture**: 15/15 benchmarks, 86-99% savings (Tier A)
-23. **Local+Cloud LLM Orchestration**: Hybrid MLX+Claude (Tier A)
+22. **Federated Query Architecture**: 15/15 benchmarks, 86-99% savings (Tier A) — *evicted to archive/ with tombstone, 2026-07-10 (spoke-repo content; canonical numbers now in `~/sdw-lab-benchmarks`)*
+23. **Local+Cloud LLM Orchestration**: Hybrid MLX+Claude (Tier A) — *evicted to archive/ with tombstone, 2026-07-10 (spoke-repo content)*
 
 ### Cross-Project (3)
 24. **Cross-Project Synchronization**: Dependency cascading across repos (Tier A)
-25. **Security Data Pipeline**: Zeek → OCSF → Parquet → Iceberg (Tier A)
+25. **Security Data Pipeline**: Zeek → OCSF → Parquet → Iceberg (Tier A) — *evicted to archive/ with tombstone, 2026-07-10 (spoke-repo content; canonical numbers now in `~/sdw-lab-benchmarks`)*
 26. **Tool Ecosystem**: Claude Code vs alternatives (Tier B)
 
 ---
@@ -308,7 +312,9 @@
 
 **For detailed citations, methodology, and complete source database**: See [SOURCES.md](SOURCES.md)
 
-**Last Updated**: June 21, 2026 — verified cluster refresh: added #33 (loop-engineering lineage ⭐ KM-leverage, with the Osmani-coiner attribution correction + Steinberger as new leader), #34 (Claude Fable 5 / Mythos 5 / Sonnet 4.6 — Fable benchmark numbers UNVERIFIED), #35 (memory-systems leaders Packer/Letta + Singh/mem0 + Anthropic memory tool + LangMem), #36 (evals leaders Husain/Shankar/Schmid/Chase + harness papers). Elevated #32 (OKF) as a KM-leverage source with the Apache-on-repo + no-central-type-registry corrections. New thought leaders registered: Peter Steinberger, Charles Packer, Taranjeet Singh, Hamel Husain, Shreya Shankar, Philipp Schmid, Harrison Chase, Sébastien Dubois (TypedMark). Full unverified-claims inventory lives in the **Unverified / pending revalidation** section of [SOURCES.md](SOURCES.md). Count: 32 → 36.
+**Last Updated**: July 10, 2026 — Reduction Phase 6 (`drafts/REDUCTION-PROPOSAL-2026-07.md` §3, §5.7): refreshed #2 (Anthropic Official Documentation — added the large-codebases companion post + a changelog-revalidation-feed note: native `claude doctor` v2.1.205, Sonnet 5 default v2.1.197, agent teams v2 v2.1.178); marked #27 (Opus 4.7 Migration Guide) and #29 (Vertrees) HISTORICAL/provenance-only; updated #34 to **Claude Fable 5 / Mythos 5 / Sonnet 4.6 / Sonnet 5** — resolved the suspension claim as CONFIRMED-then-lifted (redeployed 2026-07-01, in production) and added Sonnet 5 (default since v2.1.197, 2026-06-30). Annotated #15/#22/#23/#25 in By Analysis Category as absorbed/evicted (MCP Daily Essentials → MCP Patterns; Federated Query Architecture, Local+Cloud LLM Orchestration, and Security Data Pipeline → `archive/` with tombstones, spoke-repo content). Full additions/stale-markings/prunes/repointing detail lives in the SOURCES.md 2026-07-10 changelog row and the **Unverified / pending revalidation** section of [SOURCES.md](SOURCES.md); Top-36 list count unchanged (no new numbered entries — Miessler LifeOS and the Willison Agentic Engineering Patterns guide upgrade live in the full SOURCES.md only, below the bar for this file's foundational/authoritative cut).
+
+Prior: June 21, 2026 — verified cluster refresh: added #33 (loop-engineering lineage ⭐ KM-leverage, with the Osmani-coiner attribution correction + Steinberger as new leader), #34 (Claude Fable 5 / Mythos 5 / Sonnet 4.6 — Fable benchmark numbers UNVERIFIED), #35 (memory-systems leaders Packer/Letta + Singh/mem0 + Anthropic memory tool + LangMem), #36 (evals leaders Husain/Shankar/Schmid/Chase + harness papers). Elevated #32 (OKF) as a KM-leverage source with the Apache-on-repo + no-central-type-registry corrections. New thought leaders registered: Peter Steinberger, Charles Packer, Taranjeet Singh, Hamel Husain, Shreya Shankar, Philipp Schmid, Harrison Chase, Sébastien Dubois (TypedMark). Full unverified-claims inventory lives in the **Unverified / pending revalidation** section of [SOURCES.md](SOURCES.md). Count: 32 → 36.
 
 Prior: May 30, 2026 — Opus 4.8 re-validation: added #31 (Anthropic Opus 4.8 trio — What's New 4.8 + system card + launch news, Tier A); corrected stale #25 "Tingua" → "Tsinghua" (paper now located: arXiv:2603.25723). The 4.6→4.7 MRCR-v2 regression sources and long-context degradation-onset benchmarks are registered in the full [SOURCES.md](SOURCES.md). Count: 33 → 34.
 

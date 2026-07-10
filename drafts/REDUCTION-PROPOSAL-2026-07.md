@@ -1,5 +1,5 @@
 ---
-status: PARTIALLY EXECUTED 2026-07-10 — Phases 0-3 done + pushed (husk removal, currency fixes, 5 routing-safe deletes, memory-cluster fold 12→5; corpus 44→31; fleet-audit regression green after each push). Phases 4-6 await Jeremy's rulings — consolidated agenda: project1/02-projects/system-audit-2026-06/C2-SIMPLIFICATION-PLAN-2026-07.md
+status: EXECUTED 2026-07-10 — Phases 0-6 done + pushed (owner authorized Phases 4-6 on reasonable assumptions). Corpus 44→27; fleet-audit regression green after each push. Record: DECISIONS.md Decision 11 + ARCHIVE.md milestone entries. Remaining open item: behavioral-insights Fable re-measure (flagged in-doc)
 date: 2026-07-09
 scope: Fable-era gap scan + staged reduction plan for this repo
 method: own-harness surface (running claude-fable-5) + claude-code-guide changelog sweep + official docs fetch + fleet-audit dependency trace + web source refresh

@@ -85,7 +85,7 @@ claude-code-project-best-practices/
 ├── automation/                 # Scripts
 │   └── generate_index.py      # INDEX.md generator
 │
-├── research/                   # Research and analysis
+├── research/                   # Research inputs (root notes archived 2026-07-10; self-audit-2026-06/ kept)
 │
 ├── ARCHITECTURE.md            # This file
 ├── DECISIONS.md               # Design rationale

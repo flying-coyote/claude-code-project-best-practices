@@ -29,9 +29,9 @@ This is the methodology and self-critique companion to `analysis/memory-systems-
 
 > **Companion docs**:
 > - `analysis/memory-systems-archetype-recommendations.md` — the per-archetype recommendations themselves
-> - `research/memory-systems-tools-inventory.md` — factual catalog of 8 tools with verified licenses
-> - `research/memory-systems-architecture-axes.md` — 8 architectural axes
-> - `research/memory-systems-project-archetypes.md` — 7 project archetypes A–G
+> - `archive/memory-systems-tools-inventory.md` (research note, archived 2026-07-10) — factual catalog of 8 tools with verified licenses
+> - `archive/memory-systems-architecture-axes.md` (research note, archived 2026-07-10) — 8 architectural axes
+> - `archive/memory-systems-project-archetypes.md` (research note, archived 2026-07-10) — 7 project archetypes A–G
 
 ---
 

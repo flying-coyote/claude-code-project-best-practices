@@ -37,6 +37,6 @@ Commit prefixes:
 - PLAN.md stays in git as canonical plan
 
 ## Current Focus
-v2.1 — 31 analysis documents (2026-07 reduction in progress; see drafts/REDUCTION-PROPOSAL-2026-07.md) with production evidence from 7-repo portfolio + 7 memory-system archetype recommendations (consolidated into one doc + archetype-A, 2026-07-10) with empirical Pass-2 testbed evidence, complementing ECC (tooling) and superpowers (methodology). Project intent: a temporary analytical layer designed to prune itself as robust community/vendor replacements mature (first applied 2026-06-04: `session-quality-tools.md` → first-party `/insights`).
+v2.1 — 27 analysis documents (2026-07 reduction Phases 0-6 executed; see drafts/REDUCTION-PROPOSAL-2026-07.md + DECISIONS.md Decision 11) with production evidence from 7-repo portfolio + 7 memory-system archetype recommendations (consolidated into one doc + archetype-A, 2026-07-10) with empirical Pass-2 testbed evidence, complementing ECC (tooling) and superpowers (methodology). Project intent: a temporary analytical layer designed to prune itself as robust community/vendor replacements mature (first applied 2026-06-04: `session-quality-tools.md` → first-party `/insights`).
 
 Note: This project uses emoji prefixes (documentation project). Code repos in the portfolio use conventional commits (`feat:`, `fix:`, `docs:`).

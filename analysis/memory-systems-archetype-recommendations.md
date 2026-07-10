@@ -35,9 +35,9 @@ Calibrated to **~500-document curated knowledge bases** as the single-curator de
 
 > **Source documents** (read first):
 >
-> - `research/memory-systems-tools-inventory.md` — factual catalog of 8 tools/paradigms with capabilities and licenses
-> - `research/memory-systems-architecture-axes.md` — 8 architectural axes that distinguish the tools
-> - `research/memory-systems-project-archetypes.md` — 7 archetypes A–G with axis profiles
+> - `archive/memory-systems-tools-inventory.md` (research note, archived 2026-07-10) — factual catalog of 8 tools/paradigms with capabilities and licenses
+> - `archive/memory-systems-architecture-axes.md` (research note, archived 2026-07-10) — 8 architectural axes that distinguish the tools
+> - `archive/memory-systems-project-archetypes.md` (research note, archived 2026-07-10) — 7 archetypes A–G with axis profiles
 
 **Constraints honored on every recommendation**:
 
