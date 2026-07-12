@@ -1,3 +1,7 @@
+---
+convergence: single-source
+---
+
 # Claude Code Best Practices: Evidence-Based Analysis
 
 **A portable, evidence-based audit you can run against any Claude Code project to get recommendations specific to *that project* — not generic best-practice advice.**
@@ -9,19 +13,21 @@ Claude Code best-practice content is scattered across vendor docs, interviews, b
 1. **Trust** — a recommendation from the Claude Code creator and a recommendation from a random blog post both read as "best practice." You cannot tell which to act on without doing the triage yourself.
 2. **Applicability** — advice that is load-bearing for an agent-heavy data pipeline is noise for a static site generator. Generic best-practice lists waste attention; project-specific recommendations do not.
 
-This project solves both by pairing an **evidence-tier system** (every source and claim labelled A/B/C — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 27 analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
+This project solves both by pairing an **evidence-tier system** (every source labelled A–D — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 27 analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
 
 The audit runs in two passes that complement each other. The first is the **INSPECT** pass — the presence/absence and count checks that ask what a project *has* (does a `CLAUDE.md` exist, is `.mcp.json` present, which model version is pinned), and it routes those signals to the matching docs. That pass is good at telling you which conventions you are missing and weak at telling you whether the conventions you already have are the right ones, because a presence check passes the moment a mechanism exists regardless of whether it still serves its purpose. The second pass — **RETHINK** — is the intent-alignment layer that closes that gap: for each central mechanism the project already has, it asks what the mechanism is *for* and checks the mechanism against that stated intent, so the audit catches intent-mechanism drift, the case where what a project has (a glob still pointing at a moved directory, an ARCHITECTURE.md frozen at an outgrown doc count, a write-scoped permission nobody decided to keep) has come apart from why it has it. This repo's own self-audit surfaced exactly this drift in itself, which is why the RETHINK pass is first-class rather than an afterthought; the routing and per-mechanism intent checks live in [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) and [`analysis/intent-alignment-audit.md`](analysis/intent-alignment-audit.md).
+
+Convergence status: the drift/staleness detection this audit performs is **single-source** practice — we found no independent external adoption that survived verification — so under this repo's convergence rule, adopting it as standing infrastructure requires converged status or an explicit owner exception.
 
 ## What You Get
 
 | Capability | Why It Matters | Where Else? |
 |-----------|---------------|-------------|
-| **Adaptive routing audit** (signal → 4–8 docs of 27) | Your project's context determines which advice you get | Nowhere |
-| **Intent-alignment pass** (RETHINK: each mechanism vs its stated *why*) | Catches intent-mechanism drift the presence checks miss — a stale glob, an outgrown doc count, an unintended permission | Nowhere |
-| **Evidence tier system** (A–D source + 1–5 claim strength) | Know which advice to trust | Nowhere |
+| **Adaptive routing audit** (signal → 4–8 docs of 27) | Your project's context determines which advice you get | No packaged equivalent found; the instrument is ours |
+| **Intent-alignment pass** (RETHINK: each mechanism vs its stated *why*) | Catches intent-mechanism drift the presence checks miss — a stale glob, an outgrown doc count, an unintended permission | Inspired by Daniel Miessler's diagnosis; the instrument is ours |
+| **Evidence tier system** (A–D source tiers; the 1–5 claim-strength axis is RETIRED as of 2026-07-12) | Know which advice to trust | Adapted from evidence-based-medicine tier systems; the application here is ours |
 | **Quantified behavioral insights** (80% CLAUDE.md adherence, 60% context threshold) | Calibrate expectations from data, not vibes | Scattered across interviews |
-| **Comparative analysis** (MCP vs Skills economics, orchestration approaches) | Make informed architectural decisions | Nowhere as analysis |
+| **Comparative analysis** (MCP vs Skills economics, orchestration approaches) | Make informed architectural decisions | The sources exist separately; the comparative synthesis is ours |
 | **Model-migration diagnostics** (Opus 4.6 → 4.7 silent no-op risks) | Catch prompts that break on the version you ship | Not systematically |
 | **Security analysis** (OWASP MCP Top 10, auto mode classifier, sandboxing) | Understand real security boundaries | OWASP (raw), not Claude-specific |
 
@@ -42,7 +48,7 @@ If you cannot verify a recommendation against the cited doc, the audit failed �
 ## Who It Is For
 
 - **Practitioners with a specific repo**: run the one-prompt audit; get 4–8 cited recommendations scoped to your project rather than 27 docs to read.
-- **Evaluators weighing claims from any AI tooling source**: the evidence-tier system (A–D source quality + 1–5 claim strength) applies to any claim, not just claims in this repo.
+- **Evaluators weighing claims from any AI tooling source**: the evidence-tier system (A–D source quality) applies to any claim, not just claims in this repo.
 - **Teams standardizing practice across multiple Claude Code projects**: the audit output is structured and comparable — diff two repos' audits to surface drift.
 
 ## What It Is *Not*
@@ -76,19 +82,19 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | You are... | Start with... | Then... |
 |---|---|---|
 | An external practitioner with a specific project | The Quick Start audit above | Follow the 4–8 cited docs the audit returns |
-| Evaluating a claim from any AI tooling source | [`analysis/evidence-tiers.md`](analysis/evidence-tiers.md) | The dual-tier system (A–D source + 1–5 claim strength) applies broadly |
+| Evaluating a claim from any AI tooling source | [`analysis/evidence-tiers.md`](analysis/evidence-tiers.md) | The A–D source-tier system applies broadly (the 1–5 claim-strength axis is RETIRED; A–D is the only tier system) |
 | Choosing a tool or framework | [`analysis/framework-selection-guide.md`](analysis/framework-selection-guide.md) | Native-mechanism selection is first-party now; the guide keeps the external-framework comparison |
 | Contributing an analysis doc | [`CONTRIBUTING.md`](CONTRIBUTING.md) → Integration Checklist | Start from [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md) |
 
 ---
 
-## Core Analysis (42 documents)
+## Core Analysis (27 documents)
 
-*The `analysis/` directory contains 43 `.md` files: these 42 routable analysis docs plus `CANONICAL-DOC-TEMPLATE.md`, a non-routable template excluded from the count.*
+*The `analysis/` directory contains 27 `.md` files: 26 routable analysis docs plus `CANONICAL-DOC-TEMPLATE.md`, a non-routable template excluded from the count.*
 
 | Document | What It Covers |
 |----------|---------------|
-| [evidence-tiers.md](analysis/evidence-tiers.md) | Dual-tier classification system for evaluating claims |
+| [evidence-tiers.md](analysis/evidence-tiers.md) | A–D source-tier classification for evaluating claims (the 1–5 claim-strength axis is retired) |
 | [behavioral-insights.md](analysis/behavioral-insights.md) | Quantified Claude Code behavior: context thresholds, instruction adherence, prompt sensitivity across model versions |
 | [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md) | Six prompt anti-patterns that break on Opus 4.7; cross-version diagnostic matrix |
 | [harness-engineering.md](analysis/harness-engineering.md) | Harness philosophy, diagnostic framework, infrastructure patterns |
@@ -141,7 +147,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 - **PreToolUse hooks enforce ~100% vs ~80% for CLAUDE.md alone** — hooks are the security boundary, not instructions.
 - **Federated query saves 86–99% vs centralized** — zeek-iceberg-demo: 0.19s vs 27.52s for equivalent queries.
 - **CLAUDE.md follows 3-tier progressive disclosure** — 42–57 lines (minimal) → 99–112 (resource map) → 166–209 (rules + security) across 6 repos.
-- **"Loop engineering" is the orchestration face of harness engineering, not a new paradigm** — Boris Cherny's "I write loops" (WorkOS, June 2026) productized as `/loop`/`/goal`/Routines; the term was coined by Addy Osmani, not Cherny. Delegation is still narrow — developers fully delegate only 0–20% of tasks (Anthropic 2026 Agentic Coding Trends Report).
+- **"Loop engineering" is the orchestration face of harness engineering, not a new paradigm** — Boris Cherny's "I write loops" (WorkOS, June 2026) productized as `/loop`/`/goal`/Routines; per the 2026-07-12 re-attribution (SOURCES.md), Osmani named the five-component anatomy and presents the framing as his own, quoting Steinberger for one line — do not credit a single coiner. Delegation is still narrow — developers fully delegate only 0–20% of tasks (Anthropic 2026 Agentic Coding Trends Report).
 
 ---
 
@@ -172,7 +178,7 @@ Full database: [SOURCES.md](SOURCES.md).
 
 ## Project Status
 
-**v2.1** — 42 analysis documents with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Opus 4.8 migration readiness (with a volatile Fable 5 / Mythos 5 currency note), unattended-execution primitives (`/loop`, `/goal`, Routines, scheduled tasks) plus the "loop engineering" framing, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
+**v2.1** — 27 analysis documents (post the 2026-07-10 Reduction Phases 0-6 consolidation, 44→27) with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Opus 4.8 migration readiness (with a volatile Fable 5 / Mythos 5 currency note), unattended-execution primitives (`/loop`, `/goal`, Routines, scheduled tasks) plus the "loop engineering" framing, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
 
 **Archive**: Prior v1 patterns (24 docs) live in `archive/patterns-v1/` — preserved for historical comparison, not active guidance. See [ARCHIVE.md](ARCHIVE.md).
 

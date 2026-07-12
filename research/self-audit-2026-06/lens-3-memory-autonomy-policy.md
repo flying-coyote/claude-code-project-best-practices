@@ -2,6 +2,7 @@
 lens: memory-autonomy-policy
 prompts: ["Fable #4 memory-that-compounds", "Fable #6 autonomy-ladder", "Fable #12 decisions-into-policy"]
 date: 2026-06-21
+convergence: emerging
 ---
 
 # Self-Audit Lens 3: Memory / Autonomy / Policy

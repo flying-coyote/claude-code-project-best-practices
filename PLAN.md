@@ -1,3 +1,7 @@
+---
+convergence: single-source
+---
+
 # Plan
 
 **Purpose**: Current priorities, immediate next actions

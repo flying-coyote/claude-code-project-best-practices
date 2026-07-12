@@ -7,6 +7,7 @@ prompts:
   - "Fable #13 the-one-real-constraint"
 date: 2026-06-21
 repo: /home/jerem/claude-code-project-best-practices
+convergence: single-source
 ---
 
 # Lens 1 — Intent and Goal

@@ -25,6 +25,7 @@ Every analysis doc must have a YAML frontmatter block with these fields:
 ```yaml
 ---
 evidence-tier: A | B | C | Mixed
+convergence: converged | emerging | single-source
 applies-to-signals: [list matching AUDIT-CONTEXT.md signal vocabulary]
 last-verified: YYYY-MM-DD
 revalidate-by: YYYY-MM-DD
@@ -43,6 +44,7 @@ measurement-claims:      # OPTIONAL — only if doc makes dated quantitative cla
 | Field | Purpose | Valid values |
 |---|---|---|
 | `evidence-tier` | Aggregate source quality of the doc's claims. Machine-readable. | `A` (Anthropic/primary observation), `B` (expert practitioner), `C` (community), `Mixed` |
+| `convergence` | Adoption breadth of the practice the doc analyzes (owner ruling B-F1, 2026-07-12). Infrastructure adoption requires `converged` or an explicit owner exception. Default for functions without verified external adoption evidence is `single-source` — never invent adoption evidence. | `converged` (multiple independent primaries / vendor-native), `emerging` (one credible external exemplar), `single-source` |
 | `applies-to-signals` | Which audit signals should route an agent to this doc. Must use vocabulary from `AUDIT-CONTEXT.md`. | e.g., `[claude-md-progressive-disclosure, model-version-4-7]` |
 | `last-verified` | When the doc's core claims were last reviewed for current accuracy. | `YYYY-MM-DD` |
 | `revalidate-by` | Expiry date after which claims need re-testing. Typically `last-verified + 6 months`. | `YYYY-MM-DD` |

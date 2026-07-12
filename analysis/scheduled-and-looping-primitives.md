@@ -4,6 +4,7 @@ applies-to-signals: [harness-loop-config, harness-scheduled-agent, ci-scheduled-
 last-verified: 2026-07-10
 revalidate-by: 2026-09-21
 status: EMERGING
+convergence: converged
 measurement-claims:
   - claim: "/loop runs interval or self-paced; minimum 1-minute interval; .claude/loop.md default prompt; recurring tasks auto-expire 7 days after creation; CLAUDE_CODE_DISABLE_CRON kill-switch; requires Claude Code v2.1.72+"
     source: "Claude Code docs — Run prompts on a schedule (code.claude.com/docs/en/scheduled-tasks)"

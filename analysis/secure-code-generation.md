@@ -1,5 +1,6 @@
 ---
 evidence-tier: A
+convergence: converged
 applies-to-signals: [commit-security-paths]
 last-verified: 2026-07-10
 revalidate-by: 2026-10-15

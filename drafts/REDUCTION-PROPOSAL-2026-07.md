@@ -4,6 +4,7 @@ date: 2026-07-09
 scope: Fable-era gap scan + staged reduction plan for this repo
 method: own-harness surface (running claude-fable-5) + claude-code-guide changelog sweep + official docs fetch + fleet-audit dependency trace + web source refresh
 goal: REDUCE repo complexity; hand slices off to Claude Code built-ins and external sources per CONTRIBUTING.md § Retiring a Doc ("shrinking coverage is success, not decay")
+convergence: single-source
 ---
 
 # Reduction Proposal 2026-07 — Fable-Era Gap Scan
@@ -33,7 +34,7 @@ Verdict key:
 | 5 | automated-config-assessment.md | COLLAPSE | Native `claude doctor` / `/checkup` (v2.1.205) + `fewer-permission-prompts` + `update-config` skills | The CC-config-assessment slice went native; keep the Hoosier 12/12 ground-truth evidence as a short measurement note. |
 | 6 | behavioral-insights.md | KEEP (R) | — | Always-Fetch doc; quantified thresholds (80% CLAUDE.md adherence, context-quality boundary) have no native home. Flag: numbers are Opus-4.x-era, re-measure on Fable before next revalidate-by. |
 | 7 | claude-md-progressive-disclosure.md | COLLAPSE (R) | Official CLAUDE.md guidance (include/exclude table, imports, child files, "prune ruthlessly") + `/init` | First-party docs now carry the whole prescription; keep the measured 42–209-line portfolio data and the ~150-line boundary evidence. |
-| 8 | confidence-scoring.md | KEEP (R) | — | 1–5 claim-strength methodology; nothing native; small. |
+| 8 | confidence-scoring.md | KEEP (R) | — | 1–5 claim-strength methodology; nothing native; small. Update 2026-07-12: the 1–5 evidence axis is RETIRED by owner ruling (A–D remains the only tier system); this verdict predates the ruling and records the executed reduction, not a ratification of the axis. |
 | 9 | cross-project-synchronization.md | COLLAPSE (R) | Agent teams v2 + worktrees docs for the mechanism half | Keep the hub-spoke portfolio evidence; the multi-session mechanics are now first-party. |
 | 10 | dapr-durable-agents.md | DELETE (R) | Dapr's own docs; SOURCES.md entry stays as pointer | `project-type-agent-infra` has never fired in the fleet; niche single-source doc; maintaining a Dapr explainer here is exactly the parallel-infrastructure habit to drop. Drop the routing row. |
 | 11 | domain-knowledge-architecture.md | COLLAPSE (R) | Official skills docs ("use skills for domain knowledge, CLAUDE.md for what applies broadly") | The core recommendation is now the documented default; keep the domain-heavy findability patterns that go beyond it. |

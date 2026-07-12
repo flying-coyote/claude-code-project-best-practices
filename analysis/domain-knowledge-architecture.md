@@ -18,6 +18,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: Mixed
+convergence: emerging  # AI-PKM caveat (B-F1 seed): emerging WITH license risk — Obsidian Smart Connections ~786K downloads but Jan-2026 proprietary switch (DR-6 verified)
 applies-to-signals: [project-type-domain-heavy, typed-memory-no-registry]
 revalidate-by: 2026-09-30
 ---
@@ -91,7 +92,7 @@ The core delta pattern for domain-heavy projects: instead of loading domain know
 
 A resource map points the LLM at *where* knowledge lives; typed frontmatter changes *how* it can be retrieved once it gets there. The external-memory layer in the progressive-disclosure stack (the "File system / Per-read" row) defaults to grep — fine for "find the string," weak for "find every decision that is still open." Give each knowledge file a `type:` in YAML frontmatter and the directory becomes a typed graph an agent or script can query by kind: every `Assumption`, every `MDR`, every `contradiction`. That's the difference between an external memory the agent re-reads and one it (or a cron) interrogates.
 
-The vendor-neutral spec is Google Cloud's **Open Knowledge Format (OKF) v0.1** ([SPEC.md](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md), Apache-2.0; [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing) — date/license verified against primary sources): a directory of markdown files whose one required frontmatter field is `type:`, everything else left to the producer. It formalizes the file-as-external-memory pattern above and adds the one field that makes the corpus queryable.
+The vendor-neutral spec is Google Cloud's **Open Knowledge Format (OKF) v0.1** ([SPEC.md](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md), Apache-2.0; [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing) — date/license verified against primary sources): a directory of markdown files whose one required frontmatter field is `type:`, everything else left to the producer. It formalizes the file-as-external-memory pattern above and adds the one field that makes the corpus queryable. Convergence status for this function (AI-PKM) is *emerging*, not converged, so under the repo's convergence rule this stays a documented pattern rather than a default — adopting it as infrastructure requires converged status or an explicit owner exception.
 
 The pairing that matters: **OKF stores what we know; the RETHINK limb of the loop re-asks whether it's still the right thing to know.** Domain expertise rots — a coverage note, a validated approach, a control mapping all age — and a presence-based resource map can't tell you *which* target has gone stale. A typed graph can: the loop's RETHINK pass (the intent-alignment "why" dimension; see [harness-engineering.md](./harness-engineering.md)) filters by type to what's most likely to need re-validation instead of re-reading everything.
 

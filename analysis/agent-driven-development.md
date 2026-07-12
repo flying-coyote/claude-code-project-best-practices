@@ -26,6 +26,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: Mixed
+convergence: single-source
 applies-to-signals: [commit-ai-coauthoring, commit-bursts, commit-cross-repo, harness-comprehensive]
 revalidate-by: 2026-10-06
 ---
@@ -70,6 +71,8 @@ All evidence comes from a single-developer portfolio of production repositories,
 ## Infrastructure Maturity Model
 
 Not every project needs a full harness. The 7-repo portfolio reveals a natural progression with four distinct maturity levels, each appropriate for different project stages.
+
+**Convergence note**: this maturity model is single-source evidence (one portfolio, one instrument), so under the repo's convergence rule, adopting infrastructure on its recommendation requires converged status or an explicit owner exception.
 
 ### Maturity Levels
 

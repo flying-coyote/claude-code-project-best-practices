@@ -1,3 +1,7 @@
+---
+convergence: single-source
+---
+
 # Sources Quick Reference
 
 **Purpose**: Fast lookup for the most commonly referenced sources with authority + recency weighting
@@ -139,7 +143,7 @@
 ### 21. Evidence Tier System — Authority: 3 (Practitioner)
 **Source**: Production validation (this repository, adapted from research methodology)
 **Date**: Ongoing | **Foundational**: No | **Effective Weight**: 0.65 (0.65 x 1.0)
-**Dual System**: A-D for source quality (primary/secondary/tertiary/opinion) + 1-5 for claim strength. Now extended with 0-5 authority scale + recency weighting (see karen-evaluator source-authority-matrix).
+**Tier System**: A-D for source quality (primary/secondary/tertiary/opinion). The companion 1-5 claim-strength axis is RETIRED (owner ruling 2026-07-12 — it was never ratified; A-D remains the only tier system). Extended with 0-5 authority scale + recency weighting (see karen-evaluator source-authority-matrix).
 **Referenced in**: [evidence-tiers.md](analysis/evidence-tiers.md), [confidence-scoring.md](analysis/confidence-scoring.md)
 
 ### 22. Dexter Horthy / Human Layer — Authority: 4 (Authoritative)
@@ -218,10 +222,10 @@
 **Referenced in**: [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md), [memory-system-patterns.md](analysis/memory-system-patterns.md)
 
 ### 33. Loop-Engineering Lineage (Cherny / Steinberger / Osmani) — Authority: mixed ⭐ KM-LEVERAGE
-**Sources**: Boris Cherny "I write loops" ([WorkOS Acquired Unplugged, YouTube `RkQQ7WEor7w`](https://www.youtube.com/watch?v=RkQQ7WEor7w) + WorkOS blog, 2026-06-02); Peter Steinberger "stop prompting, build loops" ([X status 2063697162748260627](https://x.com/steipete/status/2063697162748260627), 2026-06-07, **primary unfetched**); Addy Osmani ["Loop Engineering"](https://addyosmani.com/blog/loop-engineering/) five-component anatomy (2026-06-07)
+**Sources**: Boris Cherny "I write loops" ([WorkOS Acquired Unplugged, YouTube `RkQQ7WEor7w`](https://www.youtube.com/watch?v=RkQQ7WEor7w) + WorkOS blog, 2026-06-02); Peter Steinberger "stop prompting, build loops" ([X status 2063697162748260627](https://x.com/steipete/status/2063697162748260627), 2026-06-07, primary verified 2026-07-12 — a single soft X post); Addy Osmani ["Loop Engineering"](https://addyosmani.com/blog/loop-engineering/) five-component anatomy (2026-06-07)
 **Date**: June 2026 (re-verified/re-attributed 2026-06-21) | **Foundational**: No | **Effective Weight**: ~0.55 blended — Cherny B, Osmani/Steinberger C
 **Why elevated**: the second KM-leverage thread the maintainer values — shifting from prompting an agent to designing the loop that prompts it, with state externalized to files + git. Practice anchors are A/B (Cherny on a dated stage; Anthropic harness docs; Karpathy self-improvement loop); the "loop engineering" label layer is mostly Tier C, weeks old — promising, not yet corroborated.
-**Attribution correction (2026-06-21)**: do NOT say Osmani coined "loop engineering" — his own post attributes the concept to Steinberger + Cherny. Distinct roles: Cherny described the practice, Steinberger issued the call-to-discipline, Osmani named the five-block anatomy (Automations / Worktrees / Skills / Plugins-Connectors / Sub-agents + external on-disk memory).
+**Attribution correction (2026-06-21, revised 2026-07-12)**: distinct roles still hold — Cherny described the practice on a dated stage, and Osmani named the five-block anatomy (Automations / Worktrees / Skills / Plugins-Connectors / Sub-agents + external on-disk memory) — but the owner-ratified 2026-07-12 re-read tightens the Steinberger credit: his primary is a single soft X post, and Osmani presents loop engineering as his own framing, quoting Steinberger for one line. Cite Steinberger for the phrase, not as a lineage anchor, and where this repo builds on the thread the honest frame is "inspired by the sources' diagnosis; the formalization is ours."
 **Referenced in**: [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md), [harness-engineering.md](analysis/harness-engineering.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)
 
 ### 34. Claude Fable 5 / Mythos 5 / Sonnet 4.6 / Sonnet 5 — Authority: 5 (Foundational)
@@ -250,7 +254,7 @@
 ## By Analysis Category
 
 ### Evidence & Methodology (3)
-1. **Evidence Tiers**: Dual-tier classification (A-D + 1-5) (Tier B)
+1. **Evidence Tiers**: A-D source-quality classification; the 1-5 claim-strength axis is RETIRED (owner ruling 2026-07-12) (Tier B)
 2. **Confidence Scoring**: HIGH/MEDIUM/LOW assessment (Tier B)
 3. **Evidence-Based Revalidation**: Hypothesis confidence tracking (Tier A)
 

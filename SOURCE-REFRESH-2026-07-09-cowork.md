@@ -1,3 +1,7 @@
+---
+convergence: single-source
+---
+
 # Source Refresh — 2026-07-09 (Cowork cloud session)
 
 **Scope.** External-source refresh for the analytical layer, run in a Cowork cloud session that does **not** load the owner's memory. This file is a **staged report only**. It creates no dependency and edits nothing: `SOURCES.md`, `AUDIT-CONTEXT.md`, `DECISIONS.md`, `SOURCES-QUICK-REFERENCE.md`, and `ONE-LINE-PROMPT.md` are all left untouched, so the downstream automation that runs `ONE-LINE-PROMPT.md` verbatim and the separate local doc-reduction pass are unaffected. The corrections below are written for a human/local pass to apply.

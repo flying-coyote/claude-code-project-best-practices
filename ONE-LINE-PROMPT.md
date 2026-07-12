@@ -1,3 +1,7 @@
+---
+convergence: single-source
+---
+
 # Adaptive Routing Audit (one copy-paste)
 
 Copy-paste this prompt into Claude Code in **any project** to get an evidence-based audit of your harness, commit patterns, CLAUDE.md, and model-migration exposure — with every recommendation tied to a specific analysis doc, evidence tier, and the project signal that triggered the match.
@@ -182,7 +186,7 @@ Append one of these to narrow the audit:
 
 ## Wire It as a Recurring RETHINK Tick
 
-Running this once tells you what a project has today; running it on a cadence is what catches intent-mechanism drift — the glob that still points at a renamed directory, the doc count the structure outgrew, the write permission nobody decided to keep. Those failures are invisible to any single run because they show up only as the gap between two runs, so the audit earns most of its value when it ticks.
+Running this once tells you what a project has today; running it on a cadence is what catches intent-mechanism drift — the glob that still points at a renamed directory, the doc count the structure outgrew, the write permission nobody decided to keep. Those failures are invisible to any single run because they show up only as the gap between two runs, so the audit earns most of its value when it ticks. One caution before wiring anything: drift/staleness detection for docs is still a single-source pattern (this repo's own instrument, with no verified external adoption yet), so adopting it as standing infrastructure requires converged status or an explicit owner exception.
 
 Don't reach for cron first. Pin a `revalidate-by` on the audit output's frontmatter and let your normal freshness gate surface it (`analysis/evidence-based-revalidation.md`), or attach the run to an event you already have — a release, a quarterly review, a CLI-version bump. If you do want it unattended, use the lightest primitive that fits and bound it: a `/loop` with an explicit interval and the 7-day auto-expiry, or a scheduled run scoped to a worktree, never a write-scoped CI agent triggered by external text. The recurring-execution risks and the matching controls are mapped in `analysis/scheduled-and-looping-primitives.md` (evidence-tier: Mixed) and `analysis/safety-and-sandboxing.md`.
 

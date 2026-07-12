@@ -18,6 +18,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: B
+convergence: single-source  # cost-delta function is one Tenzir dataset; the CLI+Skill section documents its own multi-source support for the pattern claim only
 applies-to-signals: [harness-skills, harness-mcp]
 revalidate-by: 2026-07-15
 ---
@@ -108,7 +109,7 @@ Vallentin's company (Tenzir) builds agent-friendly data tooling, so the **catego
 | "CLI + Skill > MCP for SaaS tools where OpenAPI exists" | Defensible pattern; reproducible recipe |
 | "MCP is a solution in search of a problem" | Opinion — discount accordingly |
 
-Import the recipe; don't import the categorical conclusion.
+Import the recipe; don't import the categorical conclusion. Under the repo's convergence rule this doc is classed single-source (the measured cost delta rests on one Tenzir dataset), so adopting the recipe as standing infrastructure requires converged status or an explicit owner exception.
 
 This pattern is **complementary to** the MCP-vs-Skills cost comparison above, not a replacement. The cost data (`$10.27` vs `$20.78`) addresses workflows where both options exist; the CLI+Skill recipe addresses the case where the vendor MCP doesn't expose what you need at all.
 

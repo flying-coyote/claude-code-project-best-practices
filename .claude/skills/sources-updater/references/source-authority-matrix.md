@@ -52,8 +52,10 @@ the thing knows more than the person who made a video about it.
 
 ## Mapping to Existing Evidence Tiers
 
-The hypothesis-validator skill uses an inverted 1-5 scale (1 = highest, 5 = lowest).
-This matrix uses 0-5 (5 = highest, 0 = rejected). The mapping:
+> **RETIRED AXIS NOTE (2026-07-12, ruling B-F7):** the 1-5 evidence scale below is RETIRED — A–D is the only evidence-tier system. The historical mapping table is kept as a record of how the two scales once aligned; do not record new evidence on the 1-5 axis.
+
+The hypothesis-validator skill used an inverted 1-5 scale (1 = highest, 5 = lowest).
+This matrix uses 0-5 (5 = highest, 0 = rejected). The historical mapping:
 
 | Authority Tier | Evidence Tier | Label |
 |----------------|---------------|-------|
@@ -64,7 +66,7 @@ This matrix uses 0-5 (5 = highest, 0 = rejected). The mapping:
 | 1 (Unverified) | 5 (Speculation) | No supporting data |
 | 0 (Rejected) | N/A | Actively debunked |
 
-When recording evidence in hypotheses, use the existing 1-5 evidence tier scale.
+When recording evidence in hypotheses, use the A-D evidence-tier scale (1-5 retired 2026-07-12, B-F7).
 Use the 0-5 authority scale when evaluating whether to accept claims into
 the knowledge base in the first place.
 

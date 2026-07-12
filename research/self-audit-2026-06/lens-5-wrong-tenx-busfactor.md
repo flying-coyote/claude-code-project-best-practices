@@ -6,6 +6,7 @@ prompts:
   - "Fable #14 — bus-factor"
 date: 2026-06-21
 scope: self-audit of the best-practices repo through one integrated lens
+convergence: single-source
 ---
 
 # Lens 5 — Where the repo is most wrong, what would 10x, and the bus-factor
@@ -119,8 +120,10 @@ its own competitor-comparison numbers.
 ### 6. What would 10x: the adaptive routing audit is the crown jewel, and its currency depends on one fragile thing — the signal→doc sync (10X / structural)
 
 The capability that, if it 10x'd, would matter most is the **adaptive routing audit** (AUDIT-CONTEXT.md
-→ ONE-LINE-PROMPT.md). It is the repo's only genuinely unique asset — README's "Where Else? Nowhere"
-column is honestly earned for the routing audit and the evidence-tier system, and everything else
+→ ONE-LINE-PROMPT.md). It is the repo's most distinctive asset, though the truthful provenance
+frame is narrower than the README's "Where Else? Nowhere" column suggests: the diagnosis the audit
+acts on is inspired by external practitioners, and what is genuinely ours is the instrument, the
+routing formalization and the evidence-tier system. Everything else
 (the 42 analysis docs) is raw material the audit refines. A 10x here is not "more docs"; it's making
 the audit reproducible and trustworthy enough that someone other than the maintainer can run it and
 get the same answer. The current design is strong (the two-level memory-index sub-route, the
@@ -136,6 +139,9 @@ contribute without silently breaking routing.
 - Evidence: `AUDIT-CONTEXT.md:9-10,242` ("Routing rows and doc frontmatter must stay in sync"; "A sync linter must whitelist these classes" — described, not implemented); `CONTRIBUTING.md:68-80` (6-file manual integration checklist); `README.md:16-23` (the "Nowhere" uniqueness column).
 - Severity: structural / 10X-lever (not a defect today — the sync is currently correct per finding's INDEX/AUDIT-CONTEXT cross-read — but it's the highest-leverage thing to harden).
 - Recommendation: Write the sync linter the docs already promise: parse `applies-to-signals` across `analysis/*.md`, parse the signal keys in AUDIT-CONTEXT.md, assert bidirectional coverage with the documented whitelist (`commit-low-activity`, `cron-disabled`, `audit-always-fetch`, `contributing-new-analysis`, and the index-internal sub-routing tokens), and wire it into a workflow. This is the single change that most reduces single-maintainer risk because it moves the audit's correctness from "the maintainer remembers the checklist" to "CI blocks the merge."
+  One binding note: this function class is currently single-source (no external adoption evidence
+  has survived verification), so adopting it as standing infrastructure requires converged status or
+  an explicit owner exception.
 
 ### 7. Dead weight is minimal and mostly already handled — only two genuinely orphaned items (LOW)
 

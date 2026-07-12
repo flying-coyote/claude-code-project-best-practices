@@ -1,5 +1,6 @@
 ---
 evidence-tier: Mixed
+convergence: single-source
 applies-to-signals: [model-version-fable-mythos, model-version-4-8, model-version-4-7, model-version-4-6, model-version-4-5, model-version-migration, model-version-unknown, claude-md-vague-descriptors, claude-md-emphatic-constraints]
 last-verified: 2026-05-30
 revalidate-by: 2026-11-30

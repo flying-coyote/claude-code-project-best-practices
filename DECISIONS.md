@@ -1,3 +1,7 @@
+---
+convergence: single-source
+---
+
 # Design Decisions
 
 This document explains the reasoning behind key design choices and alternatives that were considered.
@@ -395,7 +399,7 @@ Advanced (optional):
 
 **Preserved**:
 - Evidence tiers (A-D) still used for source classification
-- Confidence scoring (1-5) still used for pattern certainty
+- Confidence scoring (1-5) still used for pattern certainty (this 1-5 axis was later RETIRED by owner ruling 2026-07-12; A-D remains the only tier system)
 - Skill tiers (1-3) still used for complexity levels
 
 ### Data Supporting This
@@ -438,7 +442,7 @@ Replace numbered tiers with single recommended setup (CLAUDE.md + hooks + permis
 - Files changed: README.md, patterns/project-infrastructure.md, QUICKSTART.md, prompts/MAKE-PROJECT-RECOMMENDATIONS.md, cross-references
 
 ### Note
-Evidence tiers (A-D), confidence scoring (1-5), and skill tiers (1-3) still use tier language — only infrastructure tiers were removed.
+Evidence tiers (A-D), confidence scoring (1-5), and skill tiers (1-3) still use tier language — only infrastructure tiers were removed. The 1-5 confidence axis was subsequently RETIRED (owner ruling 2026-07-12, it was never ratified); A-D remains the only tier system.
 
 ---
 
@@ -460,7 +464,7 @@ By March 2026, the repo had grown to 36 patterns that increasingly overlapped wi
 
 Archive 24 v1 patterns to `archive/patterns-v1/` and focus on 14 analysis documents that provide insights absent from ECC and superpowers:
 
-- Evidence tier classification system (A-D + 1-5)
+- Evidence tier classification system (A-D + 1-5; the 1-5 axis was RETIRED by owner ruling 2026-07-12, and A-D remains the only tier system)
 - Quantified behavioral insights (~80% CLAUDE.md adherence, 60% context threshold)
 - Comparative analysis (MCP vs Skills economics, orchestration approaches)
 - Security analysis with OWASP mapping
@@ -684,4 +688,4 @@ Analysis corpus 44 → 27 files; every fleet-audit signal key remains answerable
 
 ---
 
-*Last updated: 2026-07-10*
+*Last updated: 2026-07-12*

@@ -14,6 +14,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: A
+convergence: converged
 applies-to-signals: [claude-md-size, claude-md-references, claude-md-missing, claude-md-vague-descriptors, session-edit-thrashing, session-repeated-instructions]
 revalidate-by: 2026-10-22
 ---

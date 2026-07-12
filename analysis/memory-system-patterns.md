@@ -18,6 +18,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: A
+convergence: emerging  # AI-PKM: emerging WITH license-risk note (Obsidian Smart Connections ~786K downloads but Jan-2026 proprietary switch — DR-6 verified); drift/staleness detection for docs: single-source
 applies-to-signals: [project-type-docs, project-type-research, typed-memory-no-registry]
 revalidate-by: 2026-10-06
 ---
@@ -49,7 +50,7 @@ MEMORY.md is the always-loaded index; individual `user_*`, `project_*`, `referen
 
 ### Typed memory beyond the four types (OKF pattern)
 
-Once a memory store or KB crosses roughly a hundred typed notes, a fixed four-value taxonomy stops being enough and `type:`-based retrieval starts to rot — the `typed-memory-no-registry` signal in this doc's frontmatter. The fix observed in production is a canonical type registry plus a drift guard rather than letting types grow ad hoc. project1's second-brain vault is the worked example: a parsed type registry (127 distinct types → ~30 canonical, then a 51-value drift consolidated back to canonical), a pre-commit guard that warns on non-registry types, and a health/next-work script derived from the typed graph itself (Tier B, single practitioner, not independently corroborated — value seen recently, magnitude is a single data point). Full treatment: [archetype-A](memory-systems-archetype-a-curated-kb.md) §A1b.
+Once a memory store or KB crosses roughly a hundred typed notes, a fixed four-value taxonomy stops being enough and `type:`-based retrieval starts to rot — the `typed-memory-no-registry` signal in this doc's frontmatter. The fix observed in production is a canonical type registry plus a drift guard rather than letting types grow ad hoc. project1's second-brain vault is the worked example: a parsed type registry (127 distinct types → ~30 canonical, then a 51-value drift consolidated back to canonical), a pre-commit guard that warns on non-registry types, and a health/next-work script derived from the typed graph itself (Tier B, single practitioner, not independently corroborated — value seen recently, magnitude is a single data point). Full treatment: [archetype-A](memory-systems-archetype-a-curated-kb.md) §A1b. Because this pattern is single-source (see the convergence field in the frontmatter), adopting it as infrastructure requires converged status or an explicit owner exception.
 
 ---
 

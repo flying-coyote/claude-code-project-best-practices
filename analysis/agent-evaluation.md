@@ -1,5 +1,6 @@
 ---
 evidence-tier: A
+convergence: single-source
 applies-to-signals: [harness-custom-agents, revalidation-trigger, model-version-migration]
 last-verified: 2026-04-22
 revalidate-by: 2026-10-22
@@ -148,6 +149,8 @@ A critical insight: **infrastructure noise is a significant confounder in agenti
 3. **Control for infrastructure** — Same hardware, same network, same tool versions
 4. **Separate model noise from infra noise** — Run identical prompts with fixed seeds when possible
 5. **Report confidence intervals** — Not just point scores
+
+Note: this doc is classed `convergence: single-source`, and under the repo's adoption rule, standing up dedicated eval infrastructure on its recommendation requires converged status or an explicit owner exception.
 
 ---
 

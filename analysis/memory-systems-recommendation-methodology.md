@@ -19,6 +19,7 @@ measurement-claims:
     date: "2026-04-29"
     revalidate: "2026-10-29"
 evidence-tier: C
+convergence: emerging
 applies-to-signals: [memory-systems, methodology, evidence-tiering, md-corpus-small, md-corpus-design-target, md-corpus-large, md-corpus-very-large, corpus-sensitive]
 revalidate-by: 2026-10-28
 ---
@@ -38,6 +39,8 @@ This is the methodology and self-critique companion to `analysis/memory-systems-
 ## What this analysis is FOR
 
 The recommendations target **~500-document curated knowledge bases** — the scale at which the wiki + graph + contradiction-lint discipline starts paying back for a single curator without active automated ingestion. This is the design target, not the only valid scale.
+
+**Convergence gate**: the function this analysis serves (AI-PKM) is rated `emerging` in the frontmatter above, and because infrastructure adoption requires converged status or an explicit owner exception, the recommendations here calibrate the adoption decision without clearing that gate.
 
 ### Why ~500?
 

@@ -1,5 +1,6 @@
 ---
 evidence-tier: B
+convergence: single-source
 applies-to-signals: [audit-always-fetch, contributing-new-analysis]
 last-verified: 2026-04-22
 revalidate-by: 2026-10-22
@@ -14,11 +15,9 @@ A classification framework for source quality and claim confidence.
 
 ## Overview
 
-This document describes two complementary classification systems:
-- **Tier A-D**: For evaluating source quality and outputs
-- **Tier 1-5**: For evaluating research evidence strength
+This document describes the **Tier A-D** system for evaluating source quality and outputs, which is the only tier system in use.
 
-Use both systems together for comprehensive evidence assessment.
+It previously also described a second axis, **Tier 1-5** for research evidence strength. That axis was RETIRED by owner ruling 2026-07-12 (it was never ratified); its sections below are preserved as a record.
 
 ---
 
@@ -113,7 +112,9 @@ Example:
 
 ## Research Evidence Tiers (1-5)
 
-Used for hypothesis validation and research claim assessment. Complements the A-D system with focus on empirical validation.
+> **RETIRED** (owner ruling 2026-07-12): this 1-5 evidence axis was never ratified and is retired. Tier A-D is the only tier system. The description below is preserved as a record.
+
+Formerly used for hypothesis validation and research claim assessment; it complemented the A-D system with a focus on empirical validation.
 
 ### Tier 1: Production Deployments with Measured Outcomes
 - **What**: Real-world deployments with quantified results
@@ -163,6 +164,8 @@ Used for hypothesis validation and research claim assessment. Complements the A-
 ---
 
 ## Using Both Systems Together
+
+> **RETIRED with the 1-5 axis** (owner ruling 2026-07-12): the combined-assessment practice below is preserved as a record. Use Tier A-D alone.
 
 ### For Academic/Research Content
 Use **Tier 1-5** for hypothesis validation and research claims:
@@ -502,7 +505,7 @@ Example:
 ## Sources
 
 - Framework adapted from established research methodology (literature review best practices)
-- Tier 1-5 system based on evidence-based medicine hierarchies
+- Tier 1-5 system based on evidence-based medicine hierarchies (axis retired 2026-07-12)
 - Production validation across 12+ documentation projects
 
 **Evidence Tier**: B (Adapted from peer-reviewed methodology frameworks)

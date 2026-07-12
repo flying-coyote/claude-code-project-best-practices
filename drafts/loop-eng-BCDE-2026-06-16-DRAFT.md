@@ -5,6 +5,7 @@ author-note: Drafted per the PLAN.md "Next Review" carry-forward (loop-engineeri
 applies-to-docs: [analysis/scheduled-and-looping-primitives.md, analysis/harness-engineering.md, analysis/safety-and-sandboxing.md, AUDIT-CONTEXT.md, analysis/orchestration-comparison.md]
 applies-to-signals: [harness-goal-completion-loop, harness-scheduled-agent, harness-dynamic-workflows]
 discipline: Anthropic primary docs = Tier A; verify-before-rejecting on harness facts that may post-date training; volatile/version-sensitive facts flagged; attribution Osmani=term-coiner / Cherny=practice-source.
+convergence: converged
 ---
 
 # Loop-Engineering Follow-ups B / C / D / E (DRAFT)

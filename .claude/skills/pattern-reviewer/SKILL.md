@@ -19,7 +19,7 @@ Validate analysis documents against this repository's quality standards.
 
 ### Required
 
-- [ ] **Evidence Tier** label (A, B, or C) with claim strength (1-5)
+- [ ] **Evidence Tier** label (A, B, or C) — the 1-5 claim-strength axis was RETIRED 2026-07-12 (ruling B-F7); A–D is the only tier system
 - [ ] Source citation with URL
 - [ ] Overview/claim statement
 - [ ] Comparative analysis or quantified metrics

@@ -1,6 +1,7 @@
 ---
 evidence-tier: Mixed
 applies-to-signals: [audit-always-fetch, model-version-migration, model-version-4-8]
+convergence: single-source
 last-verified: 2026-05-30
 revalidate-by: 2026-11-30
 status: PRODUCTION
@@ -15,6 +16,8 @@ status: PRODUCTION
 ## Purpose
 
 This document collects **quantified behavioral observations** about Claude Code that aren't obvious from documentation alone. These are the "gotchas" and calibration points that distinguish effective usage from naive usage.
+
+**Convergence note**: the frontmatter rates this doc's function `single-source`; where a recommendation here would drive new infrastructure adoption rather than calibrating native Claude Code usage, adoption requires converged status or an explicit owner exception.
 
 ---
 

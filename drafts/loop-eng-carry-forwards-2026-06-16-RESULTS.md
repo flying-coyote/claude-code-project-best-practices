@@ -1,3 +1,7 @@
+---
+convergence: converged
+---
+
 # Loop-eng carry-forwards — results (2026-06-16)
 
 Status: **APPLIED 2026-06-19.** CF2a (anchored `/goal` regex → graduated to triggering), CF3 (`CronList`

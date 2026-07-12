@@ -2,6 +2,7 @@
 status: EMERGING
 last-verified: "2026-04-28"
 evidence-tier: B
+convergence: emerging
 applies-to-signals: [memory-systems, knowledge-base, graph, tool-selection, md-corpus-design-target, md-corpus-large]
 revalidate-by: 2026-10-28
 measurement-claims:
@@ -105,7 +106,7 @@ For one-off use, graphify is materially easier to start. For a project that inte
 | Karpathy-pattern wiki                                      | Lum1104 `/understand-knowledge` (its actual purpose; this repo doesn't qualify — see methodology assumption #7) |
 | Sensitive content (LLM egress unacceptable)               | Neither: both ship full document content to the invoking session's LLM. Pass 1-only graphify is code-only and won't help prose. |
 
-Both tools could run on the same repo if you wanted complementary outputs (graphify's audit, understand-anything's tour), but the maintenance overhead of two graph systems is real — pick one as authoritative.
+Both tools could run on the same repo if you wanted complementary outputs (graphify's audit, understand-anything's tour), but the maintenance overhead of two graph systems is real — pick one as authoritative. Either way, the AI-PKM function these tools serve is externally *emerging*, not converged, so adopting one as standing infrastructure requires converged status or an explicit owner exception.
 
 ## Hallucination spot-check on graphify EXTRACTED edges
 

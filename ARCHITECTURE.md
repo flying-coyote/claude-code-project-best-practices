@@ -1,7 +1,11 @@
+---
+convergence: single-source
+---
+
 # Architecture
 
 **Purpose**: System design, directory structure, and current phase status
-**Last Updated**: April 13, 2026
+**Last Updated**: July 12, 2026
 
 ---
 
@@ -12,7 +16,7 @@ This repository provides an **evidence-based analytical layer** for Claude Code.
 The audit engine has two passes that work together. The **INSPECT** pass is the presence/absence and count routing in `AUDIT-CONTEXT.md` — it asks what a project *has* and fetches the docs that match those signals, so it is strong at finding missing conventions and blind to whether the conventions a project already has still serve their purpose. The **RETHINK** pass is the intent-alignment layer that closes that blind spot: for each central mechanism the project already has, it asks what the mechanism is *for* and checks it against that stated intent, which is what catches intent-mechanism drift (a glob still pointing at a moved directory, a doc count the structure has outgrown, a write permission nobody decided to keep). RETHINK is first-class in the engine, not a follow-on, because this repo's own self-audit found that exact drift in itself; the per-mechanism intent checks live in [`analysis/intent-alignment-audit.md`](analysis/intent-alignment-audit.md) alongside the routing map in `AUDIT-CONTEXT.md`.
 
 **What we are**:
-- Evidence assessor (dual-tier system for claims)
+- Evidence assessor (A-D tier system for claims)
 - Comparative analyst (tools, frameworks, approaches)
 - Behavioral insight aggregator (quantified observations from expert practitioners)
 - Intent-alignment auditor (RETHINK: each mechanism checked against its stated *why*, not only its presence)
@@ -47,7 +51,7 @@ claude-code-project-best-practices/
 │   └── hooks/                 # Hook scripts
 │
 ├── analysis/                   # Core content (26 documents)
-│   ├── evidence-tiers.md      # Dual tier system (A-D + 1-5)
+│   ├── evidence-tiers.md      # A-D tier system (1-5 axis RETIRED 2026-07-12)
 │   ├── intent-alignment-audit.md # RETHINK pass: each mechanism vs its stated intent (drift detection)
 │   ├── behavioral-insights.md # Quantified Claude Code behavior
 │   ├── orchestration-comparison.md  # Orchestration approach comparison
@@ -112,7 +116,7 @@ This project occupies a specific niche in the Claude Code ecosystem:
 
 Based on comparative analysis (March 2026), these insights are ABSENT from ECC:
 
-1. Evidence tier classification system (A-D + 1-5)
+1. Evidence tier classification system (A-D; the 1-5 axis is RETIRED per owner ruling 2026-07-12 — A-D is the only tier system)
 2. ~80% CLAUDE.md adherence rate
 3. 60% context degradation threshold
 4. Custom subagent gatekeeping anti-pattern

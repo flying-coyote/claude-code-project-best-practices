@@ -34,6 +34,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: A
+convergence: converged  # vendor-native MCP support (Claude Code v2.0.0+) + independent standards work (OWASP MCP Top 10, OASIS CoSAI CodeGuard) + multi-client adoption
 applies-to-signals: [harness-mcp, commit-security-paths]
 revalidate-by: 2026-10-15
 ---

@@ -1,5 +1,6 @@
 ---
 evidence-tier: A
+convergence: emerging
 applies-to-signals: [harness-hooks, commit-security-paths, model-version-4-8, harness-loop-config, harness-scheduled-agent, ci-scheduled-agent]
 last-verified: 2026-07-10
 revalidate-by: 2026-11-30
@@ -161,7 +162,7 @@ git diff --cached | grep -EqI '(AKIA[0-9A-Z]{16}|-----BEGIN[A-Z ]*PRIVATE KEY---
 exit 0
 ```
 
-`/init` and the official hooks documentation ("Claude can write hooks for you") now generate project-specific versions of what the deleted tier templates did generically — this hook is one worked instance of that pattern, not a template to copy verbatim.
+`/init` and the official hooks documentation ("Claude can write hooks for you") now generate project-specific versions of what the deleted tier templates did generically — this hook is one worked instance of that pattern, not a template to copy verbatim. Approval-gating / human-in-the-loop tooling is rated emerging rather than converged, so adopting gating infrastructure of this kind requires converged status or an explicit owner exception.
 
 ---
 

@@ -5,6 +5,7 @@ prompts:
   - "Fable #5 — what does 'better' mean (evals / regression on the repo's own output)"
 date: 2026-06-21
 target-repo: /home/jerem/claude-code-project-best-practices
+convergence: single-source
 status: DRAFT
 ---
 
@@ -99,4 +100,4 @@ Pulling the "what does better mean" thread to a concrete answer, the cheapest ev
 2. **Routing-determinism fixtures** (Finding 2): 3-5 synthetic repos with expected signal-key + fetched-doc manifests, diffed. Golden-answer comparison on the routing layer, no LLM.
 3. **Sync linter** (Finding 3): parse `applies-to-signals` vs routing-table keys, fail on drift. The doc already says this "must" exist.
 
-None of the three need a model in the loop, none need Anthropic to publish guidance (the `PLAN.md:38` deferral reason), and together they would catch the three ways the repo can silently rot: stale claims, broken routing, and orphaned docs. The LLM-judged "are the recommendations actually good" eval is the genuinely hard part and is reasonably deferred — but deferring the deterministic half too is what left a 93-day-overdue claim shipping under a green CI badge.
+None of the three need a model in the loop, none need Anthropic to publish guidance (the `PLAN.md:38` deferral reason), and together they would catch the three ways the repo can silently rot: stale claims, broken routing, and orphaned docs. One adoption caveat: drift/staleness detection for docs is single-source in the external evidence (per the `convergence` frontmatter field), and the binding rule is that new infrastructure adoption requires converged status or an explicit owner exception. The LLM-judged "are the recommendations actually good" eval is the genuinely hard part and is reasonably deferred — but deferring the deterministic half too is what left a 93-day-overdue claim shipping under a green CI badge.

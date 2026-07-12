@@ -1,3 +1,7 @@
+---
+convergence: single-source
+---
+
 # Contributing to Claude Code Project Best Practices
 
 Thank you for your interest in contributing! This repository provides evidence-based analysis of Claude Code patterns and practices.

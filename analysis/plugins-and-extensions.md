@@ -10,6 +10,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: B
+convergence: converged
 applies-to-signals: [harness-skills, harness-mcp]
 revalidate-by: 2026-09-30
 ---

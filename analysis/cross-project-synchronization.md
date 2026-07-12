@@ -5,6 +5,7 @@ version-last-verified: "2026-04-06"
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: A
+convergence: single-source
 applies-to-signals: [commit-cross-repo, project-type-multi-repo]
 revalidate-by: 2026-10-06
 ---
@@ -18,6 +19,8 @@ revalidate-by: 2026-10-06
 ## Purpose
 
 This document is evidence of a hub-spoke portfolio structure in an agent-driven development environment: which repos are the hub, which are spokes, how the dependency graph is shaped, and how much of it a spoke's CLAUDE.md documents explicitly. The mechanics that used to hold this together by hand — scheduled dependency checks, dynamic module imports, a multi-phase enrichment pipeline — are now covered by first-party agent teams v2 and worktrees. What survives here is the measured portfolio state those mechanics were built to protect: which repos exist, what role each plays, and how active each one is.
+
+Convergence status is single-source (this portfolio's own observation, no verified external adoption evidence), so adopting the tracking patterns below as new infrastructure requires converged status or an explicit owner exception.
 
 ---
 

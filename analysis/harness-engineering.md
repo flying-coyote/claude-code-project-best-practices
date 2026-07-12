@@ -46,6 +46,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: Mixed
+convergence: converged  # vendor-official (Anthropic best-practices page + engineering blog) + independent academic (arXiv:2603.28052, arXiv:2603.25723) + LangChain + mass-adopted community frameworks — all cited in-doc
 applies-to-signals: [harness-hooks, harness-minimal, harness-comprehensive, commit-bursts, session-error-loop, model-version-4-8, harness-goal-completion-loop, harness-dynamic-workflows]
 revalidate-by: 2026-11-30
 ---

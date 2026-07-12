@@ -1,3 +1,7 @@
+---
+convergence: single-source
+---
+
 # Audit Context: Signal → Advisory Routing Map
 
 **Purpose**: This file is fetched by the [adaptive routing audit prompt](ONE-LINE-PROMPT.md) to route other projects to the analysis docs that apply to what they actually have, not all 27 at once. Each row states a verifiable signal, the docs to fetch, and the reason for the fetch.
@@ -262,6 +266,8 @@ In the final audit, every **Recommendation** must include:
 - The analysis doc that supports it (e.g., `analysis/model-migration-anti-patterns.md`)
 - The `evidence-tier` of that doc (read from the machine-readable frontmatter field, not from prose)
 - The signal key that triggered the match (e.g., `model-version-4-7`)
+
+Where a Recommendation proposes adopting new infrastructure (a drift gate, an intent instrument, a registry + guard), the binding rule applies: adoption requires converged status for the practice or an explicit owner exception (this doc itself carries `convergence: single-source`).
 
 Example:
 

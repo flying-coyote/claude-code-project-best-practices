@@ -1,5 +1,6 @@
 ---
 evidence-tier: B
+convergence: single-source
 applies-to-signals: [intent-undocumented, goal-drift-unmeasured, loop-without-rethink, typed-memory-no-registry]
 last-verified: 2026-06-21
 revalidate-by: 2026-09-21
@@ -8,7 +9,7 @@ status: EMERGING
 
 # Intent-Alignment Audit: the RETHINK / outer-loop layer
 
-**Evidence Tier**: B — generalizes Daniel Miessler's 16 "Fable" intent prompts (the same set the 2026-06-21 self-audit ran against this repo) and is modeled on the five-question Coaching-Kata cadence already running in production in project1's `karen-evaluator` skill. Method is validated by reuse, not by a controlled study, so the doc is held lightly (EMERGING) pending audit runs that show it catching drift on other projects.
+**Evidence Tier**: B — generalizes the "Fable" intent prompts the 2026-06-21 self-audit ran against this repo (a 16-prompt local set derived from Daniel Miessler's post, whose verified body carries 15 numbered prompts, so one prompt of the local set is a local addition; prompt numbers in this doc follow the local set) and is modeled on the five-question Coaching-Kata cadence already running in production in project1's `karen-evaluator` skill. Method is validated by reuse, not by a controlled study, so the doc is held lightly (EMERGING) pending audit runs that show it catching drift on other projects.
 
 ## Purpose
 
@@ -37,7 +38,7 @@ The corollary is that running this instrument is cheap insurance exactly when th
 
 ## The portable intent question bank
 
-Nine project-agnostic "why" questions, generalized from the 16 Fable prompts the self-audit applied to this repo. For each: what it asks, how to detect a project has never answered it, a **re-ask cadence**, a **decay rule** (when the last answer goes stale and must be re-derived rather than recalled), and a **promotion rule** (when a repeated answer has earned the right to become a standing policy the project enforces rather than a question it keeps re-asking).
+Nine project-agnostic "why" questions, generalized from the 16-prompt local Fable set the self-audit applied to this repo (Miessler's verified primary carries 15; see Sources). For each: what it asks, how to detect a project has never answered it, a **re-ask cadence**, a **decay rule** (when the last answer goes stale and must be re-derived rather than recalled), and a **promotion rule** (when a repeated answer has earned the right to become a standing policy the project enforces rather than a question it keeps re-asking).
 
 Cadences are advisory defaults, not hard schedules — tune them to how fast the project changes. The decay rules matter more than the cadences: a calendar tick with no decay trigger becomes a freshness stamp nobody acts on. Re-derive from the current state of the project, never recall last cycle's answer, or the instrument becomes theatre.
 
@@ -77,7 +78,7 @@ Cadences are advisory defaults, not hard schedules — tune them to how fast the
 
 **Asks**: If the one person who holds the project's working model stepped away, what breaks first — and is the correctness of any load-bearing mechanism resting on a human remembering a checklist? **Never-answered detection**: an invariant maintained by hand across many files (the self-audit's signal→doc sync, six manual steps per new doc) with no linter enforcing it; tribal knowledge with no written form. **Re-ask cadence**: quarterly. **Decay rule**: stale the moment a hand-maintained invariant grows past what one person reliably remembers — and it grows silently, so the cadence tick is the only thing that surfaces it. **Promotion rule**: when a manual checklist is followed twice, promote the deterministic part of it to a linter/CI gate (the self-audit's highest-leverage single change was committing the documented-but-unwritten sync linter), moving correctness from "the maintainer remembers" to "the merge blocks." Bus-factor reduction *is* the promotion of memory-held invariants into enforced ones.
 
-The four Fable prompts not in the bank are intentionally out of scope: #2 (bitter-lesson) and #8 (attack-surface) are already covered as full analysis docs ([`harness-engineering.md`](harness-engineering.md)'s Bitter-Lesson section, [`safety-and-sandboxing.md`](safety-and-sandboxing.md)); #9 (big-picture/ikigai) folds into Q1; #15 (dev-loop) and #16 (content-consolidation) are surface-coherence checks the presence-based audit already routes. The bank is the **intent** subset, the questions a grep can't answer.
+The seven prompts of the local set not in the bank are intentionally out of scope: #2 (bitter-lesson), #7 (injection-handling), and #8 (attack-surface) are already covered as full analysis docs ([`harness-engineering.md`](harness-engineering.md)'s Bitter-Lesson section, [`safety-and-sandboxing.md`](safety-and-sandboxing.md)); #9 (big-picture/ikigai) folds into Q1; #11 (what-10xs-and-what-dies) folds into Q6; #15 (dev-loop) and #16 (content-consolidation) are surface-coherence checks the presence-based audit already routes. The bank is the **intent** subset, the questions a grep can't answer.
 
 ## Prior art: project1's Coaching-Kata cadence (reuse, don't reinvent)
 
@@ -95,7 +96,7 @@ Two of its house rules transfer directly and are the reason the cadences above l
 
 ## Wiring it as a recurring tick
 
-The instrument is only useful if it *fires* on a cadence rather than waiting for a human to think to ask. The scheduling machinery already exists and is documented in [`scheduled-and-looping-primitives.md`](scheduled-and-looping-primitives.md) — pick the rung that matches how autonomous the project is:
+The instrument is only useful if it *fires* on a cadence rather than waiting for a human to think to ask. One gate before wiring anything, though: this instrument's convergence status is single-source (see frontmatter — no external adoption evidence for a standing intent-audit tick survived verification), and adopting it as standing infrastructure requires converged status or an explicit owner exception. The scheduling machinery itself already exists and is documented in [`scheduled-and-looping-primitives.md`](scheduled-and-looping-primitives.md) — pick the rung that matches how autonomous the project is:
 
 - A **cloud Routine** (`/schedule`, 1-hour minimum) for a project that runs largely unattended — the RETHINK step runs server-side on the same cadence as the work it's checking.
 - A **Desktop scheduled task** that starts a fresh session monthly to run the question bank against the current tree — fresh context is a feature here, since the point is to re-derive, not recall.
@@ -136,7 +137,7 @@ Finally, the strong-Act/stale-Orient framing is a diagnosis, not a measurement. 
 
 ### Tier B (Validated / Expert Practitioner)
 
-- Daniel Miessler — the 16 "Fable" intent prompts, applied to this repo across the six self-audit lenses (`research/self-audit-2026-06/lens-1`…`lens-6`, 2026-06-21). The nine-question bank is the project-agnostic generalization of the intent subset (#1, #3, #4, #5, #6, #10, #12, #13, #14).
+- Daniel Miessler — ["Prompts to Run When Fable Comes Back"](https://danielmiessler.com/blog/prompts-to-run-when-fable-comes-back) (2026-06-18, verified 2026-06-21): the page body carries **15** numbered prompts (the SOURCES.md quarantine note records the earlier "16" count as contradicted by the page), while the self-audit's local set numbers 16, so one prompt of the local set is a local addition; prompt numbers in this doc follow the local set, applied to this repo across the six self-audit lenses (`research/self-audit-2026-06/lens-1`…`lens-6`, 2026-06-21). The nine-question bank is the project-agnostic generalization of the intent subset (#1, #3, #4, #5, #6, #10, #12, #13, #14).
 - project1 `karen-evaluator` skill — `/home/jerem/project1/.claude/skills/karen-evaluator/workflows/question-quality-audit.md` — the running Coaching-Kata cadence (monthly / ≥5-benches, re-derive-don't-recall, corroboration-is-not-progress) this instrument is modeled on; its sibling `reprioritization-check.md` is the event-driven counterpart. Prior art, reused not reinvented.
 - Andrej Karpathy — ["Sequoia Ascent 2026"](https://karpathy.bearblog.dev/sequoia-ascent-2026/) (2026-04-30) — coding's built-in verification keeps each *action* of an unattended loop honest; the gap it does not close (is the goal still right) is the Orient step this instrument supplies.
 - John Boyd's OODA loop — the strong-Act / stale-Orient framing for an unattended loop with no RETHINK step. Conceptual framing, not a measured result.
@@ -147,4 +148,4 @@ Finally, the strong-Act/stale-Orient framing is a diagnosis, not a measurement. 
 
 ---
 
-*Last updated: 2026-06-21 (new EMERGING doc — the intent/"why" RETHINK layer the presence-based audit lacked; nine-question portable bank generalized from the 16 Fable prompts, modeled on project1's running Coaching-Kata question-quality cadence; four new signals declared: `intent-undocumented`, `goal-drift-unmeasured`, `loop-without-rethink`, `typed-memory-no-registry`).*
+*Last updated: 2026-07-12 (added the `convergence: single-source` frontmatter field and the adoption-gate note in the wiring section; corrected the prompt-count framing — Miessler's verified primary carries 15 prompts, and the self-audit's 16-prompt local set includes one local addition. Originally 2026-06-21: new EMERGING doc — the intent/"why" RETHINK layer the presence-based audit lacked; nine-question portable bank generalized from the self-audit's Fable prompt set, modeled on project1's running Coaching-Kata question-quality cadence; four new signals declared: `intent-undocumented`, `goal-drift-unmeasured`, `loop-without-rethink`, `typed-memory-no-registry`).*

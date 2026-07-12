@@ -1,8 +1,9 @@
 ---
 lens: devloop-and-public
+convergence: converged
 prompts:
   - "Fable #15 — Steinberger dev-loop (tight write-loop with gates)"
-  - "Fable #16 — blog/content consolidation (public-surface coherence)"
+  - "Fable #16 — blog/content consolidation (public-surface coherence; local-origin — the verified Miessler primary carries 15 prompts, this 16th is ours)"
 date: 2026-06-21
 auditor: subagent (devloop-and-public lens)
 scope: self-audit of claude-code-project-best-practices repo
@@ -10,11 +11,12 @@ scope: self-audit of claude-code-project-best-practices repo
 
 # Lens 6: Dev-loop & Public Surface
 
-This audit applies two Miessler "Fable" prompts to the best-practices repo itself: #15 (does the
+This audit applies two "Fable" prompts to the best-practices repo itself: Miessler's #15 (does the
 repo practice a tight write-loop with working gates — lint, INDEX regen, RSS/expiry checks?) and
-# 16 (is the repo's public surface — README, ONE-LINE-PROMPT, INDEX — coherent and consolidated,
-or scattered and duplicative?). The repo is itself a public knowledge product, so both lenses are
-fair to apply to it.
+#16 (is the repo's public surface — README, ONE-LINE-PROMPT, INDEX — coherent and consolidated,
+or scattered and duplicative?). One provenance note: the verified Miessler primary carries 15
+prompts, so #15 is his and #16 is a local-origin addition kept under the same numbering. The repo
+is itself a public knowledge product, so both lenses are fair to apply to it.
 
 ## Summary judgment
 
@@ -44,8 +46,10 @@ exist — it was archived to `archive/patterns-v1/` in the v1→v2 migration. Me
 `measurement-claims` / `revalidate` frontmatter the gate parses (e.g.
 `analysis/harness-engineering.md:1-12` has `measurement-claims:` with `revalidate: "2026-08-01"`).
 So the repo built a real expiry gate for time-bound claims, then archived the only directory it
-looks at, and now the daily job runs green while checking nothing. This is the Steinberger-loop
-failure mode in miniature: a gate that exists, runs, and silently verifies the empty set.
+looks at, and now the daily job runs green while checking nothing. This is the gated-loop failure
+mode in miniature: a gate that exists, runs, and silently verifies the empty set. (Provenance: the
+tight-loop diagnosis traces to a single Steinberger X post, which Osmani quotes for one line inside
+his own loop-engineering framing; the gate schema itself is this repo's own formalization.)
 
 Evidence:
 - `scripts/check-measurement-expiry.py:196` (`default="patterns"`), `:36` (`self.patterns_dir.glob("*.md")`)
@@ -190,7 +194,8 @@ but it is the one place the public metadata directly contradicts the repo's own 
 - **The hook-driven local write-loop is real and disciplined.** `post-tool-use.sh` regenerates INDEX
   and auto-formats code on Write/Edit; `stop-doc-check.sh` warns on stale ARCHITECTURE/PLAN and on
   uncommitted/unpushed work at session end; `credential-scan.sh` runs PreToolUse. That is a genuine
-  Steinberger-style gated loop for the maintainer's local sessions.
+  gated write-loop for the maintainer's local sessions, inspired by Steinberger's tight-loop
+  diagnosis though the gate instrument itself is homegrown.
 - **Lint is a working gate.** `package.json:10-11` defines `lint`/`lint:fix` over all markdown with a
   sensible ignore set, and `link-checker.yml` runs markdownlint + link-check in CI on `.md` PRs.
 - **The public surface is consolidated, not scattered** (Finding 5) — README/ONE-LINE-PROMPT/AUDIT-

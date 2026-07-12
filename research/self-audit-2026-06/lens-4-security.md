@@ -4,6 +4,7 @@ prompts: ["#7 prompt-injection-handling", "#8 deployed-infrastructure / attack-s
 date: 2026-06-21
 repo: claude-code-project-best-practices
 scope: self-audit (the best-practices repo applying Fable security prompts to itself)
+convergence: single-source
 ---
 
 # Lens 4 — Security: prompt-injection surface + deployed attack surface

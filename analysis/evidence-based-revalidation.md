@@ -14,6 +14,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-04-06"
 evidence-tier: A
+convergence: single-source
 applies-to-signals: [revalidation-trigger, model-version-migration, audit-always-fetch, generated-docs-no-drift-gate]
 revalidate-by: 2026-10-22
 ---
@@ -126,7 +127,7 @@ The detail that matters for Claude Code specifically: git does not version `.git
 
 One finding from validating this gate against a gold set: keep the **deterministic oracle above any LLM "gate skill" verdict**, and adding more skill rounds did not help. That is a Tier-B production confirmation of the ablation evidence in [Harness Engineering](./harness-engineering.md) ("verifiers hurt, self-evolution helps") and the self-evaluation-rationalization caveat in [Confidence Scoring](./confidence-scoring.md) — let the deterministic check decide, not a stacked panel of model judges.
 
-**Evidence tier**: B — single production project. Karpathy's "coding is the ideal self-improvement loop because verification is built-in" is the nearest external anchor, but it is about the agent's own loop, not the project-as-loop framing, so don't stretch it. The scored work-selection surface this same project runs (ranking a backlog by a weighting formula) is deliberately **not** generalized here — it is project-specific prioritization that dates with the project, not a portable Claude Code discipline.
+**Evidence tier**: B — single production project. Convergence status is single-source (no external adoption evidence for doc drift/staleness detection survived verification), so adopting the drift gate as standing infrastructure requires converged status or an explicit owner exception. Karpathy's "coding is the ideal self-improvement loop because verification is built-in" is the nearest external anchor, but it is about the agent's own loop, not the project-as-loop framing, so don't stretch it. The scored work-selection surface this same project runs (ranking a backlog by a weighting formula) is deliberately **not** generalized here — it is project-specific prioritization that dates with the project, not a portable Claude Code discipline.
 
 ---
 

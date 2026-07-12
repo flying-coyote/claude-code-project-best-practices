@@ -1,5 +1,6 @@
 ---
 evidence-tier: Mixed
+convergence: single-source
 applies-to-signals: [harness-custom-agents, harness-background-tasks, harness-dynamic-workflows]
 last-verified: 2026-07-10
 revalidate-by: 2026-12-15
@@ -41,6 +42,8 @@ Building reusable multi-agent system?
 60+ agents, enterprise scale?
   -> External tools (Claude-Flow, Auto-Claude).
 ```
+
+Adoption note: the external frameworks compared below carry single-source adoption evidence (this doc's convergence tag), and the standing rule is that adopting any of them as fleet infrastructure requires converged status or an explicit owner exception — the native-first branches above are vendor-native and unaffected.
 
 ---
 

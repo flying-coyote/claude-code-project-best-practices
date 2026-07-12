@@ -1,5 +1,6 @@
 ---
 evidence-tier: B
+convergence: single-source
 applies-to-signals: [audit-always-fetch, revalidation-trigger]
 last-verified: 2026-04-22
 revalidate-by: 2026-10-22
@@ -37,18 +38,18 @@ Systematically assess confidence levels for hypotheses, research claims, and tec
 - Replicable results
 
 **Evidence Requirements**:
-- Minimum: 2+ Tier A or Tier 1 sources
-- Ideal: 3+ independent sources across Tier A/B and Tier 1-2
+- Minimum: 2+ Tier A sources
+- Ideal: 3+ independent sources across Tier A/B
 
 **Example**:
 ```markdown
 **Hypothesis**: DuckDB outperforms Spark for sub-1GB datasets
 
 **Evidence**:
-- Tier 1: Production deployment (45s → 2s query time)
-- Tier 1: Independent benchmark (10x faster for small datasets)
-- Tier 2: Published VLDB paper confirming architecture advantage
-- Tier 3: Creator (DuckDB team) confirms design intent
+- Tier A: Production deployment (45s → 2s query time)
+- Tier A: Independent benchmark run (10x faster for small datasets)
+- Tier B: Published VLDB paper confirming architecture advantage
+- Tier B: Creator (DuckDB team) confirms design intent
 
 **Contradictions**: None found
 **Confidence**: HIGH (>80%)
@@ -64,7 +65,7 @@ Systematically assess confidence levels for hypotheses, research claims, and tec
 - Needs additional validation
 
 **Evidence Requirements**:
-- Minimum: 1+ Tier B or Tier 2-3 sources
+- Minimum: 1+ Tier B sources
 - Acceptable: Single strong source or multiple weaker sources
 
 **Example**:
@@ -72,8 +73,8 @@ Systematically assess confidence levels for hypotheses, research claims, and tec
 **Hypothesis**: Iceberg table format reduces storage costs 30-50%
 
 **Evidence**:
-- Tier 3: Conference talk from Netflix (claims 40% reduction)
-- Tier 4: Vendor whitepaper (claims 30-50% range)
+- Tier B: Conference talk from Netflix (claims 40% reduction)
+- Tier C: Vendor whitepaper (claims 30-50% range)
 - Tier C: Community blog posts (anecdotal reports)
 
 **Contradictions**: Vendor claims vary (30-70% range)
@@ -91,7 +92,7 @@ Systematically assess confidence levels for hypotheses, research claims, and tec
 - Substantial validation needed
 
 **Evidence Requirements**:
-- Tier C-D or Tier 4-5 sources only
+- Tier C-D sources only
 - Speculation or unverified assertions
 
 **Example**:
@@ -99,8 +100,8 @@ Systematically assess confidence levels for hypotheses, research claims, and tec
 **Hypothesis**: AI-based SIEM will replace rule-based detection
 
 **Evidence**:
-- Tier 4: Vendor marketing claims
-- Tier 5: Industry speculation and blog posts
+- Tier C: Vendor marketing claims
+- Tier D: Industry speculation and unattributed blog posts
 - Tier D: Social media discussions
 
 **Contradictions**:
@@ -116,16 +117,18 @@ Systematically assess confidence levels for hypotheses, research claims, and tec
 
 ## Integration with Evidence Tiers
 
+**Retired axis (owner ruling 2026-07-12)**: earlier revisions of this doc scored evidence on two axes, source quality (Tier A-D) and a separate 1-5 research-evidence scale. The 1-5 axis is retired because it was never ratified; Tier A-D is the only tier system, and the mappings and examples in this doc now read on A-D alone.
+
 ### Mapping Evidence to Confidence
 
 | Evidence Tier | Typical Confidence | Notes |
 |---------------|-------------------|-------|
-| **Multiple Tier A or Tier 1** | HIGH (>80%) | Strongest possible evidence |
-| **Single Tier A or Tier 1** | MEDIUM-HIGH (65-85%) | Strong but needs corroboration |
-| **Multiple Tier B or Tier 2** | MEDIUM (60-75%) | Solid evidence, some validation |
-| **Single Tier B or Tier 2** | MEDIUM (50-65%) | Adequate for cautious claims |
-| **Tier C or Tier 3** | MEDIUM-LOW (40-60%) | Supportive but not conclusive |
-| **Tier D or Tier 4-5** | LOW (<50%) | Speculation or unverified |
+| **Multiple Tier A** | HIGH (>80%) | Strongest possible evidence |
+| **Single Tier A** | MEDIUM-HIGH (65-85%) | Strong but needs corroboration |
+| **Multiple Tier B** | MEDIUM (60-75%) | Solid evidence, some validation |
+| **Single Tier B** | MEDIUM (50-65%) | Adequate for cautious claims |
+| **Tier C** | MEDIUM-LOW (40-60%) | Supportive but not conclusive |
+| **Tier D** | LOW (<50%) | Speculation or unverified |
 
 ### Confidence Adjustment Factors
 
@@ -169,7 +172,6 @@ Systematically assess confidence levels for hypotheses, research claims, and tec
 **Claim**: [Specific assertion]
 
 **Source Quality**: [Tier A-D]
-**Research Evidence**: [Tier 1-5]
 
 **Supporting Evidence**:
 1. [Evidence item 1]
@@ -203,7 +205,7 @@ Systematically assess confidence levels for hypotheses, research claims, and tec
 ### For Decision Making
 
 **Architecture decisions**:
-- Require: HIGH confidence (Tier A/B, Tier 1-2 evidence)
+- Require: HIGH confidence (Tier A/B evidence)
 - Accept: MEDIUM if validated with POC
 
 **Tool selection**:
@@ -232,7 +234,7 @@ After Peer Review: HIGH (independently verified)
 
 **Example Evolution**:
 ```markdown
-**2024-Q1**: Hypothesis formulated (LOW - Tier 4 vendor claims)
+**2024-Q1**: Hypothesis formulated (LOW - Tier C vendor claims)
 **2024-Q2**: POC completed (MEDIUM - internal validation)
 **2024-Q3**: Production deployment (HIGH - measured 10x improvement)
 **2024-Q4**: Published study (HIGH - peer-reviewed confirmation)
@@ -307,7 +309,7 @@ This document is a synthesis methodology piece. It has no external citations bey
 
 ## Related Patterns
 
-- [Evidence Tiers](./evidence-tiers.md) - Classification of source quality and research evidence
+- [Evidence Tiers](./evidence-tiers.md) - Classification of source quality (Tier A-D)
 - [Context Engineering](./behavioral-insights.md) - Correctness over compression
 
 ---

@@ -2,6 +2,7 @@
 status: EMERGING
 last-verified: "2026-04-28"
 evidence-tier: C
+convergence: emerging  # AI-PKM caveat (B-F1 seed): emerging WITH license risk — Obsidian Smart Connections ~786K downloads but Jan-2026 proprietary switch (DR-6 verified)
 applies-to-signals: [memory-systems, knowledge-base, wiki, graph, md-corpus-small, md-corpus-design-target, md-corpus-large, vault-karpathy, project-type-docs, typed-memory-no-registry]
 revalidate-by: 2026-10-28
 ---
@@ -83,6 +84,8 @@ One honest note on the guard: the live deployment makes the canonical-type check
 - **`graphify --wiki` direct export *alongside* a hand-curated `analysis/`**: produces two parallel "wikis" with no defined source-of-truth — violates the graphify-feeds-wiki constraint.
 
 ## A4. Adoption order
+
+**Adoption gate**: this archetype's function (AI-PKM) carries `convergence: emerging` in the frontmatter, and the binding rule is that infrastructure adoption requires converged status or an explicit owner exception, so treat the steps below as an evaluation path rather than a sanctioned default.
 
 1. `pipx install graphifyy` (PyPI name; CLI is `graphify`). **Decide first: Pass 2 yes or no.** `graphify update .` runs Tree-sitter Pass 1 only — zero LLM calls, zero egress — but for prose-heavy KBs Pass 1 indexes ~nothing (verified 2026-04-28 on this repo: 0 of 38 `analysis/*.md` got nodes; only code files were extracted). Pass 2 (LLM extraction over prose) is what makes graphify a topology layer for an analytical KB, and Pass 2 ships content to whatever LLM the invoking Claude Code session uses — *not* reversible. For sensitive content, skip Pass 2 or run on a public-only subset; if you skip it, the realistic stack collapses to "wikilinks + Lum1104 + grep" and graphify isn't earning its keep. **Stop if** `GRAPH_REPORT.md` after Pass 2 surfaces no relationships you didn't already know.
 2. Inspect `graph.html` and EXTRACTED/INFERRED/AMBIGUOUS counts. Read-only.

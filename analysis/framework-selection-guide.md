@@ -6,6 +6,7 @@ status: PRODUCTION
 last-verified: "2026-07-10"
 notes: "Comparative guide - native subagents handle ~80% of use cases"
 evidence-tier: B
+convergence: single-source
 applies-to-signals: [project-type-framework-selection, harness-comprehensive]
 revalidate-by: 2026-10-22
 ---
@@ -14,7 +15,7 @@ revalidate-by: 2026-10-22
 
 > **Collapsed 2026-07-10 (Reduction Phase 4).** Native-mechanism selection is now a first-party decision table (official features overview, "Match features to your goal"). Kept delta: the external-framework comparison.
 
-**Purpose**: Compare external orchestration frameworks (GSD, CAII, CRISPY, Claude-Flow, RLM) for projects that outgrow native subagents. **Evidence Tier**: B (synthesized from validated patterns and production implementations).
+**Purpose**: Compare external orchestration frameworks (GSD, CAII, CRISPY, Claude-Flow, RLM) for projects that outgrow native subagents. **Evidence Tier**: B (synthesized from validated patterns and production implementations). Convergence status for this guidance is single-source, so adopting any of these frameworks as standing infrastructure requires converged adoption evidence or an explicit owner exception.
 
 ---
 

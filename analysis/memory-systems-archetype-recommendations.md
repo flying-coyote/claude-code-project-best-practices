@@ -23,6 +23,7 @@ measurement-claims:
     date: "2026-04-30"
     revalidate: "2026-07-30"
 evidence-tier: C
+convergence: emerging  # AI-PKM caveat (B-F1 seed): emerging WITH license risk — Obsidian Smart Connections ~786K downloads but Jan-2026 proprietary switch (DR-6 verified)
 applies-to-signals: [memory-systems, knowledge-base, second-brain, wiki, graph, md-corpus-small, md-corpus-design-target, md-corpus-large, md-corpus-very-large, vault-obsidian, vault-karpathy, project-type-docs, project-type-research, typed-memory-no-registry, code-search, monorepo, cross-project-synchronization, federation, work-tracker, temporal, session-history, transcript-mining, team-shared-memory, multi-tool-concurrency, corpus-sensitive, pii, sensitive-content, healthcare-data, legal-data, journal-third-parties]
 revalidate-by: 2026-10-28
 ---
@@ -32,6 +33,8 @@ revalidate-by: 2026-10-28
 One consolidated doc (folded 2026-07-10; formerly a two-level index over seven per-archetype files): the per-archetype table routes to sections *in this document* for archetypes B through G, while **Archetype A keeps its own file** ([`memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md)) as the heavily-routed primary. Cross-cutting sections (migration paths, never-combine list, license/cost gotchas, build-vs-borrow, evidence gaps) follow the archetype sections.
 
 Calibrated to **~500-document curated knowledge bases** as the single-curator design target. See [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) for the framing, threshold math, self-critique, and applied corrections behind these recommendations — including the **owner-authorized-egress deciding rule** that governs the C-EC archetype.
+
+**Convergence status**: `emerging` (AI-PKM function, per the 2026-07-12 convergence review), so the binding rule applies: adopting infrastructure from these recommendations requires converged status or an explicit owner exception.
 
 > **Source documents** (read first):
 >
