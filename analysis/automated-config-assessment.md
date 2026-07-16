@@ -7,7 +7,7 @@ measurement-claims:
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: A
-convergence: single-source  # candidate-emerging: claude doctor + /checkup are vendor-native (in-doc basis), but config assessment is not a seed-table function and the B-F1 default for uncovered functions is single-source — owner may confirm emerging
+convergence: single-source  # ruled 2026-07-16: candidate-emerging DECLINED — doctor/checkup are install-health tooling, not baseline→deviation→remediation assessment substance; B-F1 default for uncovered functions stands; advance trigger stays on the ABSORPTION-MAP row
 applies-to-signals: [project-type-config-assessment]
 revalidate-by: 2026-10-06
 ---
@@ -26,7 +26,7 @@ This document keeps two things out of a longer prior analysis: a reusable assess
 
 Three layers, in sequence: a baseline specification (e.g., YAML) formalizes expected state, per-check severity, and remediation guidance; a deviation engine compares live telemetry against those thresholds and emits scored, structured findings; a remediation generator turns findings into a prioritized action plan (template-based and deterministic, optionally LLM-enhanced for richer context).
 
-The pattern generalizes beyond NDR sensor configuration to any domain where compliance must be assessed at scale against a formalized baseline — cloud infrastructure compliance (CIS benchmarks), database configuration audit, network device hardening, application security posture. For Claude Code's own configuration, the pattern is now native: `claude doctor` / `/checkup` run the deviation-detection layer, and the bundled `fewer-permission-prompts` and `update-config` skills run the remediation layer. Convergence for this function is emerging (the vendor-native tooling is the one official exemplar), so adopting new infrastructure on this pattern requires converged status or an explicit owner exception.
+The pattern generalizes beyond NDR sensor configuration to any domain where compliance must be assessed at scale against a formalized baseline — cloud infrastructure compliance (CIS benchmarks), database configuration audit, network device hardening, application security posture. For Claude Code's own configuration, the pattern is now native: `claude doctor` / `/checkup` run the deviation-detection layer, and the bundled `fewer-permission-prompts` and `update-config` skills run the remediation layer. Convergence for this function stays **single-source** (ruled 2026-07-16): the vendor tooling is install-health checking for Claude Code's own setup, not the generalized baseline→deviation→remediation assessment substance this doc keeps, so it does not count as an external exemplar — adopting new infrastructure on this pattern requires converged status or an explicit owner exception.
 
 ## Hoosier Energy Ground Truth (Measurement Note)
 

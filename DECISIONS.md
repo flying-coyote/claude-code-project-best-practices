@@ -710,6 +710,7 @@ Executed the first sweep as `drafts/ABSORPTION-SCAN-2026-07.md`: four criterion-
 - Two plan deviations, both evidence-forced and logged in the scan: RETIRING-in-place instead of straight-to-archive (the substance check the plan itself gated on returned PARTIAL), and `follows:` permitted on EMERGING docs (two of the five follow-lane docs are EMERGING; the anti-shadow-status intent survives via the RETIRING/RETIRED exclusion and mutual-exclusion rule).
 - The follow lane freezes growth on canon-covered slices, which trades our coverage breadth for tracking obligations — accepted because the canons out-publish us on commentary and our deltas are measurements they don't produce.
 - Four items deliberately staged for owner rulings rather than executed (model-migration convergence upgrade, config-assessment candidate-emerging, best_practices_reviewer.py wire-or-retire, plugins final retirement).
+- **Addendum (ruled same-day, 2026-07-16):** all staged items ruled — model-migration convergence upgrade approved (emerging, both exemplars recorded in-doc, Vertrees provenance-only); config-assessment candidate-emerging declined (install-health tooling is not assessment substance; stays single-source); best_practices_reviewer.py ruled retire (executes project1-side); plugins retirement approved as staged for 2026-09-30; the PLAN-staged methodology fold-in approved and batched to the same September session. Details: scan §4 + PLAN.md § Owner rulings.
 
 ### Impact
 

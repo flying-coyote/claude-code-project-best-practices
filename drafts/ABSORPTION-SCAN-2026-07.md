@@ -1,5 +1,5 @@
 ---
-status: EXECUTING (2026-07-16; flips to EXECUTED at wave completion)
+status: EXECUTED (2026-07-16; wave complete, all five staged items ruled same-day — see §4)
 convergence: single-source
 ---
 
@@ -69,7 +69,7 @@ Update: superpowers (v6.1.1 re-verification), ECC (rename history + worldflowai 
 2. `follows:` guard: valid on PRODUCTION **or EMERGING** (design said PRODUCTION-only) — two of the five follow-lane docs are EMERGING; the anti-shadow-status intent is preserved by the RETIRING/RETIRED exclusion and the mutual-exclusion rule.
 3. Decision 12 lands in the wave-completion commit (design put it in Phase 0) — so its Impact section records actual, not predicted, counts.
 
-**Staged for owner ruling (NOT executed):** model-migration-anti-patterns single-source→emerging (evidence exists in-doc but Vertrees was marked provenance-only 2026-07-10 — needs the ruling); automated-config-assessment's candidate-emerging note (pending since the B-F1 seed); plugins-and-extensions final retirement (at 2026-09-30 revalidate, after residual migration); wire-or-retire `best_practices_reviewer.py` (cross-repo, project1-side).
+**Staged for owner ruling — all ruled 2026-07-16 (same-day):** model-migration-anti-patterns single-source→emerging **approved** (both exemplars now recorded in-doc with the Vertrees provenance-only caveat explicit); automated-config-assessment's candidate-emerging note **declined** (stays single-source — doctor/checkup are install-health tooling, not config-assessment substance; advance trigger unchanged); plugins-and-extensions final retirement **approved as staged** for the 2026-09-30 revalidate, residual migration first; wire-or-retire `best_practices_reviewer.py` **ruled retire** (removal executes project1-side). A fifth item staged in PLAN.md only — the memory-systems-recommendation-methodology fold-in — was **approved and batched** to the same 2026-09-30 session.
 
 ---
 

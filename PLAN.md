@@ -34,20 +34,22 @@ convergence: single-source
 | Item | Effort | Status |
 |------|--------|--------|
 | Complete mcp-vs-skills-economics retirement (RETIRING → RETIRED + archive) | Low | Due at the 2026-09-30 review — retained A/B-instrument note relocates or archives with it |
-| plugins-and-extensions staged retirement | Medium | Due 2026-09-30 revalidate — migrate residual first (community-marketplace table → accept link-rot or evaluation note; 300–800ms figure → mcp-patterns), per the substance check in ABSORPTION-SCAN §2.2 |
-| September revalidation batch | Medium | 2026-09-21: intent-alignment-audit + scheduled-and-looping-primitives; 2026-09-30: domain-knowledge-architecture (Smart Connections license-risk re-verify) + plugins-and-extensions (above) |
+| plugins-and-extensions staged retirement | Medium | Ruled 2026-07-16: **approved as staged**. Due 2026-09-30 revalidate — migrate residual first (community-marketplace table → accept link-rot loss; 300–800ms figure → mcp-patterns), per the substance check in ABSORPTION-SCAN §2.2 |
+| September revalidation batch | Medium | 2026-09-21: intent-alignment-audit + scheduled-and-looping-primitives; 2026-09-30: domain-knowledge-architecture (Smart Connections license-risk re-verify) + plugins-and-extensions (above) + memory-systems-recommendation-methodology fold-in into archetype-recommendations (ruled 2026-07-16) |
 | behavioral-insights Fable-era re-measure | Medium | Open since Decision 11 — 80%/60%/~150 figures are pre-Fable; per-claim caveats now local at all 10 claim sites (2026-07-16), but the re-measure itself still needs a session |
 | v2.1.121 token-economics re-measure cluster | Medium | Open — mcp-patterns (81,986-token figure + two lapsed OWASP reverifies) and plugins-and-extensions (4x claims); one measurement session clears the cluster |
 | Quarterly absorption sweep (emerging-pattern-monitor Phase F) | Low | Next due ~2026-10 — check follow-lane advance triggers + canon liveness; weekly-review 5b trips DRIFT if the map's sweep date exceeds 100 days |
 
-### Staged for owner ruling
+### Owner rulings (all five staged items ruled 2026-07-16)
 
-| Item | Notes |
-|------|-------|
-| model-migration-anti-patterns convergence single-source → emerging | Evidence recorded in-doc (Vertrees independent audit framework + Willison counter-analysis), but Vertrees was marked provenance-only 2026-07-10 — needs the ruling |
-| automated-config-assessment candidate-emerging note | Pending since the B-F1 seed (claude doctor / checkup are vendor-native, but config assessment is not a seed-table function) |
-| Wire-or-retire `best_practices_reviewer.py` | Cross-repo (project1-side, `automation/orchestrator/`): existence-check-only coupling is the same no-bite defect that killed the RSS watchers — recommend retire unless wired to run the actual audit |
-| memory-systems-recommendation-methodology fold-in | Fold into archetype-recommendations at the next reduction pass (four EMERGING memory docs is a lot of surface for one investigation) |
+| Item | Ruling |
+|------|--------|
+| model-migration-anti-patterns convergence single-source → emerging | **Approved** — flipped in-doc with both exemplars recorded (Willison per-release analyses + Vertrees audit framework, Vertrees provenance-only caveat explicit); map row updated |
+| automated-config-assessment candidate-emerging note | **Declined** — stays single-source: doctor/checkup are install-health tooling, not baseline→deviation→remediation assessment substance; advance trigger unchanged on the map row |
+| Wire-or-retire `best_practices_reviewer.py` | **Retire** — existence-check-only coupling is the same no-bite defect that killed the RSS watchers; removal executes project1-side (`automation/orchestrator/`), nothing further in this repo |
+| memory-systems-recommendation-methodology fold-in | **Approved, batched** — executes in the 2026-09-30 session (fold into archetype-recommendations), not now |
+
+The fifth staged item — plugins-and-extensions final retirement — was ruled the same day: **approved as staged** for the 2026-09-30 revalidate, residual migration first (see High Priority row above).
 
 ### Carried research items
 

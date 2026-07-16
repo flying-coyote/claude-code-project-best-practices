@@ -1,6 +1,6 @@
 ---
 evidence-tier: Mixed
-convergence: single-source
+convergence: emerging  # ruled 2026-07-16: two independent external exemplars recorded in-doc — Willison per-release behavioral analyses + Vertrees audit framework (Vertrees provenance-only per the 2026-07-10 SOURCES pass: guidance stale, adoption evidence valid)
 applies-to-signals: [model-version-fable-mythos, model-version-4-8, model-version-4-7, model-version-4-6, model-version-4-5, model-version-migration, model-version-unknown, claude-md-vague-descriptors, claude-md-emphatic-constraints]
 last-verified: 2026-05-30
 revalidate-by: 2026-11-30
@@ -205,8 +205,10 @@ This doc is cited by (inbound) and cites (outbound) the following. Use the bidir
 - Best Practices for Opus 4.7 with Claude Code (Tier A): https://claude.com/blog/best-practices-for-using-claude-opus-4-7-with-claude-code
 - OpenAI MRCR v2 (Multi-Round Co-Reference Resolution, 8-needle) — benchmark for the 4.6→4.7 long-context regression case study.
 - Context Arena; dev.to "I read all 232 pages [of the Opus 4.7 system card]" (Tier B) — third-party transcription of the MRCR figures from the 4.7 card's chart images.
-- Jason Vertrees, "Claude 4.7 Quietly Broke Your Prompts and Harness" (Tier B, LinkedIn, April 2026)
+- Jason Vertrees, "Claude 4.7 Quietly Broke Your Prompts and Harness" (Tier B, LinkedIn, April 2026) — **provenance-only** per the 2026-07-10 SOURCES pass: his specific guidance is stale (written against 4.7 and not maintained), but his independent construction of an audit framework from the same Tier-A advisory stands as adoption evidence.
 - Simon Willison, Opus 4.7 system-prompt analysis (Tier B, April 18, 2026)
+
+**Convergence basis (emerging, ruled 2026-07-16)**: treating each model release as a behavioral-delta audit target — rather than a drop-in upgrade — has two independent external exemplars: Willison's per-release analyses (a behavioral read of each major model release, sustained across releases) and Vertrees's audit framework (an independent operationalization of the same migration advisory this doc systematizes). Vertrees counts as adoption evidence only, per the provenance-only caveat above; neither exemplar is a diagnostic instrument like this doc's matrix, which is the delta we keep (see ABSORPTION-MAP.md).
 - HN discussions 47793411, 47814832 (Tier C, community observation)
 - Soft-rule / emphatic-constraint hard-capping (Tier B, this project's observed-in-practice usage across Opus 4.7 / 4.8 sessions) — *not* named in any Anthropic card; consistent with but not proven by the Tier-A literal-interpretation posture.
 
@@ -216,4 +218,4 @@ This doc is cited by (inbound) and cites (outbound) the following. Use the bidir
 
 ---
 
-*Last updated: 2026-06-15 (volatile Fable 5 / Mythos 5 currency note + `model-version-fable-mythos` signal). Prior: May 2026 (4.8 release).*
+*Last updated: 2026-07-16 (convergence single-source → emerging per owner ruling; both exemplars recorded with the Vertrees provenance-only caveat). Prior: 2026-06-15 (volatile Fable 5 / Mythos 5 currency note + `model-version-fable-mythos` signal); May 2026 (4.8 release).*
