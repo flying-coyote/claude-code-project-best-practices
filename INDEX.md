@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-07-16 17:08*
+*Auto-generated: 2026-07-16 17:10*
 
 ## Summary
 
-**Total documents**: 140
+**Total documents**: 141
 
 | Directory | Count |
 |-----------|-------|
@@ -34,7 +34,7 @@
 | archive/skills-v1/examples/ultrathink-analyst/workflows | 3 |
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
-| drafts | 3 |
+| drafts | 4 |
 | research/self-audit-2026-06 | 7 |
 | root | 13 |
 
@@ -235,6 +235,7 @@
 - [README.md](archive/examples-v1/writing-project/README.md)
 ## Drafts
 
+- [ABSORPTION-SCAN-2026-07.md](drafts/ABSORPTION-SCAN-2026-07.md)
 - [REDUCTION-PROPOSAL-2026-07.md](drafts/REDUCTION-PROPOSAL-2026-07.md)
 - [loop-eng-BCDE-2026-06-16-DRAFT.md](drafts/loop-eng-BCDE-2026-06-16-DRAFT.md)
 - [loop-eng-carry-forwards-2026-06-16-RESULTS.md](drafts/loop-eng-carry-forwards-2026-06-16-RESULTS.md)
