@@ -131,6 +131,32 @@ replacement-by: "<replacement> (<support tier>, <GA date>) — <what it covers>.
 
 The mechanical reference-cleanup (grep for stale recommendations, update decision matrices) follows the same discipline as the **Deprecation Process** below — retirement is the doc-level case, deprecation the recommendation-level case.
 
+### Following a Canon (the pre-retirement lane)
+
+Some external coverage can never clear the robustness bar: thought-leader canons (Willison, Osmani, Ronacher, Karpathy) are blog-form, so they fail **Supported** by construction, and yet a canon may carry the conceptual load for a doc's slice better than we can maintain it in parallel. The follow lane is for exactly that case — the doc **stops growing** on the canon-covered slice, keeps only its delta (measurements, instruments, portfolio evidence), and new coverage effort goes to tracking the canon instead of writing our own.
+
+**Frontmatter** (valid on `PRODUCTION`/`EMERGING` docs, never RETIRING/RETIRED; mutually exclusive with `replacement-by:`):
+
+```yaml
+follows: "<canon> (<pinned URL>, Tier <X>, verified YYYY-MM-DD) — <what it covers of this doc's slice>. Bar status: fails Supported (blog-form canon). Delta kept here: <what we still uniquely carry>. Advance trigger: <observable event that converts this to replacement-by>."
+```
+
+**Body banner** (mirror of the Collapsed banner):
+
+```markdown
+> **Following <canon> since YYYY-MM-DD.** New coverage effort on <slice> goes to tracking the canon, not growing this doc. Delta kept: <...>.
+```
+
+**Rules:**
+
+- [ ] `follows:` and `replacement-by:` never co-exist on one doc — follow is the pre-retirement lane, retirement supersedes it.
+- [ ] When the named advance trigger fires and all four robustness bars clear, convert `follows:` → `replacement-by:` + `RETIRING` via the retirement steps above.
+- [ ] Register the canon in `SOURCES.md` with its boundary (what it covers / does not cover versus this doc's delta).
+- [ ] Update the doc's row in [`ABSORPTION-MAP.md`](ABSORPTION-MAP.md) (lane = `follow`).
+- [ ] A frozen canon (no activity for ~6+ months, e.g., HumanLayer 12-factor-agents since 2025-09) is grounds to drop the pointer, not to keep following.
+
+The standing per-doc ledger of absorbers, lanes, deltas, and advance triggers is [`ABSORPTION-MAP.md`](ABSORPTION-MAP.md) — a **derived** surface (per-doc frontmatter is canonical; on conflict the map is wrong), refreshed by periodic absorption sweeps (`drafts/ABSORPTION-SCAN-*.md`) and consistency-checked weekly.
+
 ### 4. Submit a Pull Request
 
 #### For Analysis Contributions

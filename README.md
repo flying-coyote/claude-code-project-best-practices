@@ -128,6 +128,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) | Full prompt + output format + edge cases |
 | [SOURCES.md](SOURCES.md) | Comprehensive source database with evidence tiers |
 | [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) | Top 30 authority-weighted sources |
+| [ABSORPTION-MAP.md](ABSORPTION-MAP.md) | Per-doc external-absorber ledger: who covers what, lane, retained delta, advance trigger (derived; frontmatter is canonical) |
 | [analysis/CANONICAL-DOC-TEMPLATE.md](analysis/CANONICAL-DOC-TEMPLATE.md) | Template for new analysis docs; canonical frontmatter schema |
 | [DECISIONS.md](DECISIONS.md) | Architecture decision records |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guide + integration checklist |

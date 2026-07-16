@@ -31,6 +31,7 @@ last-verified: YYYY-MM-DD
 revalidate-by: YYYY-MM-DD
 status: PRODUCTION | EMERGING | RETIRING | RETIRED | REFERENCE | ARCHIVED
 replacement-by: "..."   # OPTIONAL — required when status is RETIRING/RETIRED (the cleared-bar replacement; see CONTRIBUTING.md § Retiring a doc)
+follows: "..."           # OPTIONAL — a followed external canon carrying the conceptual load for this doc's slice (see CONTRIBUTING.md § Following a Canon); mutually exclusive with replacement-by
 measurement-claims:      # OPTIONAL — only if doc makes dated quantitative claims
   - claim: "..."
     source: "..."
@@ -50,6 +51,7 @@ measurement-claims:      # OPTIONAL — only if doc makes dated quantitative cla
 | `revalidate-by` | Expiry date after which claims need re-testing. Typically `last-verified + 6 months`. | `YYYY-MM-DD` |
 | `status` | Lifecycle state. | `PRODUCTION` (validated, active), `EMERGING` (not yet validated), `RETIRING` (a robust replacement cleared the bar; doc defers to it, keeps only the uncovered slice), `RETIRED` (replacement fully carries the load; tombstone pointer only), `REFERENCE` (imported reference doc), `ARCHIVED` (superseded, kept for history) |
 | `replacement-by` | The replacement a RETIRING/RETIRED doc defers to, with the cleared robustness bar (supported + GA + covers-slice + citeable) and what the doc still uniquely retains. Required when `status` is RETIRING/RETIRED. | String — see [`session-quality-tools.md`](../archive/session-quality-tools.md) (archived; the lane's first completed example) , and CONTRIBUTING.md § Retiring a doc |
+| `follows` | A followed external canon that carries the conceptual load for the doc's slice (owner ruling 2026-07-16): the doc keeps its delta and stops growing there; new coverage effort goes to tracking the canon. Valid only on `PRODUCTION`/`EMERGING` docs, never RETIRING/RETIRED (use `replacement-by`); mutually exclusive with `replacement-by`; converts to `replacement-by` + `RETIRING` when the named advance trigger fires and the robustness bar clears. Carries: canon + pinned URL + tier + verified date, coverage, bar status, delta kept, advance trigger. | String — see CONTRIBUTING.md § Following a Canon and [`ABSORPTION-MAP.md`](../ABSORPTION-MAP.md) |
 | `measurement-claims` | Dated quantitative claims with their own revalidation cycles. Only include if doc makes such claims. | Array of objects |
 
 **Rationale for split**: 19 of 28 existing docs include `measurement-claims` (production claims needing revalidation); 9 omit it (foundational methodology docs whose claims don't age the same way). The split is intentional — don't force `measurement-claims` onto methodology docs.

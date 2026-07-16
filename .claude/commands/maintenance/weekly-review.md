@@ -51,6 +51,16 @@ Conduct the weekly review of project status and documentation currency. This pro
 
    The binding adoption rule this feeds is in AUDIT-CONTEXT.md ("adoption requires converged status or an explicit owner exception"). The evidence axis is Tier A-D only; the 1-5 axis is retired and any new prose reaching for it gets rewritten onto A-D.
 
+5b. **Absorption-map consistency** (mechanical greps only — no WebFetch here; judgment about absorbers happens in quarterly absorption scans, `drafts/ABSORPTION-SCAN-*.md`, not in this weekly pass):
+   ```bash
+   map_rows=$(grep -c '^| \[`analysis/' ABSORPTION-MAP.md)
+   follows_docs=$(grep -l "^follows:" analysis/*.md 2>/dev/null | wc -l)
+   retiring_docs=$(grep -l "^replacement-by:" analysis/*.md 2>/dev/null | wc -l)
+   lane_conflicts=$(grep -l "^follows:" analysis/*.md 2>/dev/null | xargs -r grep -l "^replacement-by:" | wc -l)
+   map_verified=$(grep -m1 "Last verified sweep" ABSORPTION-MAP.md | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
+   ```
+   Checks, all mechanical: `map_rows` must equal `$routable` (one row per routable doc); every doc with `follows:` must have a `follow`-lane row and every `replacement-by:` doc a `retire-toward`-lane row (spot-check names against the map, not just counts); `lane_conflicts` must be 0 (`follows:` and `replacement-by:` are mutually exclusive — see CONTRIBUTING.md § Following a Canon); and if `map_verified` is more than 100 days old, add "absorption sweep" to next week's priorities. The map is derived — on any conflict, per-doc frontmatter wins and the map gets corrected to match it, never the reverse.
+
 6. **Identify blockers**:
    - Any docs waiting for sources or primary verification?
    - Any skills needing validation?
@@ -70,17 +80,17 @@ Conduct the weekly review of project status and documentation currency. This pro
 
 9. **Print the self-test line.** The run must end by printing exactly one line in this shape, with every value derived during this run:
    ```bash
-   echo "WEEKLY-REVIEW SELF-TEST: routable=$routable readme-match=<yes|no> index-match=<yes|no> convergence-fields=<n>/$routable sources-curated=<YYYY-MM-DD> expired-claims=<n> => <OK|DRIFT>"
+   echo "WEEKLY-REVIEW SELF-TEST: routable=$routable readme-match=<yes|no> index-match=<yes|no> convergence-fields=<n>/$routable absorption-rows=$map_rows/$routable follows=$follows_docs lane-conflicts=$lane_conflicts map-verified=$map_verified sources-curated=<YYYY-MM-DD> expired-claims=<n> => <OK|DRIFT>"
    ```
-   `OK` means every comparison matched and nothing is overdue; any mismatch or overdue item makes it `DRIFT` and the drifted checks must already appear in PLAN.md priorities from step 7. If the line cannot be printed with real values, the review did not actually run its checks.
+   `OK` means every comparison matched and nothing is overdue; any mismatch or overdue item makes it `DRIFT` and the drifted checks must already appear in PLAN.md priorities from step 7. A non-zero `lane_conflicts` or a `map-verified` date older than 100 days also forces `DRIFT`. If the line cannot be printed with real values, the review did not actually run its checks.
 
 10. **Commit**:
     ```
-    git add PLAN.md README.md INDEX.md
+    git add PLAN.md README.md INDEX.md ABSORPTION-MAP.md
     git commit -m "📋 Weekly review [date]"
     ```
-    (Include README.md/INDEX.md only if step 3 changed them.)
+    (Include README.md/INDEX.md/ABSORPTION-MAP.md only if steps 3/5b changed them.)
 
 ## Expected Outcome
 
-PLAN.md reflects the week's accomplishments and next week's priorities, the README corpus counts match what is on disk, SOURCES freshness and convergence-field coverage have been checked against the table above, and the run printed its one-line self-test.
+PLAN.md reflects the week's accomplishments and next week's priorities, the README corpus counts match what is on disk, SOURCES freshness and convergence-field coverage have been checked against the table above, the absorption map is row-consistent with per-doc frontmatter (step 5b), and the run printed its one-line self-test.

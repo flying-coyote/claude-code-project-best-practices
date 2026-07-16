@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-07-10 18:06*
+*Auto-generated: 2026-07-16 17:08*
 
 ## Summary
 
-**Total documents**: 139
+**Total documents**: 140
 
 | Directory | Count |
 |-----------|-------|
@@ -36,12 +36,13 @@
 | archive/templates-v1 | 1 |
 | drafts | 3 |
 | research/self-audit-2026-06 | 7 |
-| root | 12 |
+| root | 13 |
 
 ---
 
 ## Root
 
+- [ABSORPTION-MAP.md](ABSORPTION-MAP.md)
 - [ARCHITECTURE.md](ARCHITECTURE.md)
 - [ARCHIVE.md](ARCHIVE.md)
 - [AUDIT-CONTEXT.md](AUDIT-CONTEXT.md)

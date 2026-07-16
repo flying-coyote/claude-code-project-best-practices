@@ -12,8 +12,8 @@ scope: self-audit of claude-code-project-best-practices repo
 # Lens 6: Dev-loop & Public Surface
 
 This audit applies two "Fable" prompts to the best-practices repo itself: Miessler's #15 (does the
-repo practice a tight write-loop with working gates — lint, INDEX regen, RSS/expiry checks?) and
-#16 (is the repo's public surface — README, ONE-LINE-PROMPT, INDEX — coherent and consolidated,
+repo practice a tight write-loop with working gates — lint, INDEX regen, RSS/expiry checks?) and #16
+(is the repo's public surface — README, ONE-LINE-PROMPT, INDEX — coherent and consolidated,
 or scattered and duplicative?). One provenance note: the verified Miessler primary carries 15
 prompts, so #15 is his and #16 is a local-origin addition kept under the same numbering. The repo
 is itself a public knowledge product, so both lenses are fair to apply to it.

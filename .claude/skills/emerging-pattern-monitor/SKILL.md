@@ -1,7 +1,7 @@
 ---
 name: emerging-pattern-monitor
-version: 2.1.0
-description: Monitors analysis-doc lifecycle both ways — EMERGING→PRODUCTION promotion and PRODUCTION→RETIRING/RETIRED retirement (replacement-readiness as robust community/vendor elements mature)
+version: 2.2.0
+description: Monitors analysis-doc lifecycle in all three lanes — EMERGING→PRODUCTION promotion, PRODUCTION→RETIRING/RETIRED retirement (replacement-readiness as robust community/vendor elements mature), and follow-lane upkeep (followed canons' advance triggers + liveness, per ABSORPTION-MAP.md)
 triggers:
   - "review emerging patterns"
   - "check pattern promotion"
@@ -10,6 +10,8 @@ triggers:
   - "review retirement candidates"
   - "replacement readiness"
   - "what can we retire"
+  - "follow-lane check"
+  - "absorption sweep"
 auto_load: false
 ---
 
@@ -181,7 +183,19 @@ All four clear → recommend `RETIRING` (defer the slice; keep only what the rep
 3. Update AUDIT-CONTEXT.md routing to defer to the replacement
 4. Log the retirement in the SOURCES.md refresh log + PLAN.md
 
-**Completed retirements**: `session-quality-tools.md` → first-party `/insights` + native `claude doctor` (RETIRING 2026-06-04; completed + archived 2026-07-10 — the lane's first full cycle). **Watch list** (converging, not yet cleared): MCP/skills cost-economics ← `/usage` per-category breakdown; install-health ← `/doctor` (a slice this project never claimed).
+**Completed retirements**: `session-quality-tools.md` → first-party `/insights` + native `claude doctor` (RETIRING 2026-06-04; completed + archived 2026-07-10 — the lane's first full cycle). **Watch list**: the single watch list now lives in [`ABSORPTION-MAP.md`](../../../ABSORPTION-MAP.md) — one row per routable doc with absorber, lane, robustness-bar state, retained delta, and advance trigger (the former in-file items migrated there 2026-07-16: MCP/skills cost-economics ← `/usage` became the map's retire-toward row; install-health ← `/doctor` sits in the map's non-doc watch notes, a slice this project never claimed). Do not maintain a second list here.
+
+---
+
+## Phase F: Follow-lane monitoring (quarterly)
+
+The third lane. Docs with a `follows:` frontmatter field (see CONTRIBUTING.md § Following a Canon) track an external canon that carries the conceptual load for their slice while the doc keeps only its delta. Quarterly, for each `follow`-lane row in ABSORPTION-MAP.md:
+
+1. **Advance-trigger check** — has the row's named observable event happened (e.g., the canon's practice productized by a Supported tool, or first-party docs absorbing the slice)? If yes and all four robustness bars now clear, propose converting `follows:` → `replacement-by:` + `RETIRING` via Phase R3.
+2. **Canon liveness check** — is the canon still active (posts/commits within ~6 months)? A frozen canon (the HumanLayer 12-factor precedent: no push since 2025-09) is grounds to recommend dropping the pointer, not to keep following.
+3. **Output** — either "no change; `Verified` dates bumped for the rows actually re-checked" or a new `drafts/ABSORPTION-SCAN-YYYY-QQ.md` proposing a wave. A wave is NOT mandatory every quarter (Decision 9's negative precedent: don't over-apply reshaping to well-built docs).
+
+This phase is judgment work and belongs in the quarterly cadence; the weekly review only runs mechanical map-consistency greps (weekly-review step 5b).
 
 ---
 
@@ -199,5 +213,5 @@ All four clear → recommend `RETIRING` (defer the slice; keep only what the rep
 - New evidence tier definitions added
 - Anthropic guidance on pattern validation changes
 
-**Last Updated**: June 2026 (added the PRODUCTION→RETIRING/RETIRED retirement lane + robustness bar)
-**Skill Version**: 2.1.0
+**Last Updated**: 2026-07-16 (added Phase F follow-lane monitoring; watch list migrated to ABSORPTION-MAP.md as the single store)
+**Skill Version**: 2.2.0
