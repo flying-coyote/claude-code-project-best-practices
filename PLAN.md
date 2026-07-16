@@ -5,14 +5,14 @@ convergence: single-source
 # Plan
 
 **Purpose**: Current priorities, immediate next actions
-**Last Updated**: June 15, 2026 (loop-engineering + unattended-execution update: new EMERGING doc, 7 audit signals, routing-invariant fix, volatile Fable 5 / Mythos 5 currency note). Prior: June 4, 2026 (first-party introspection; session-quality-tools.md → RETIRING via /insights)
+**Last Updated**: July 16, 2026 (third-party absorption wave: instrument + first sweep + seven-lane repositioning; see `drafts/ABSORPTION-SCAN-2026-07.md` + DECISIONS.md Decision 12). Prior: 2026-07-12 (intake-alignment wave), 2026-07-09/10 (Reduction Phases 0–6, Decision 11), June 15, 2026 (loop-engineering + unattended-execution update)
 
 ---
 
 ## Current Focus
 
-**Phase**: v2.1 — Production Evidence Integration
-**Goal**: Maintain focused, evidence-based analysis that complements ECC and superpowers
+**Phase**: v2.1 — the evidence-graded-audit lane (README § Where This Sits)
+**Goal**: Carry the measurements and instruments no other lane publishes, and prune into the other six lanes as they mature — the absorption map (ABSORPTION-MAP.md) is the standing per-doc answer to "who covers what, and what hands off when."
 
 ---
 
@@ -20,10 +20,10 @@ convergence: single-source
 
 | Metric | Status |
 |--------|--------|
-| Analysis documents | 42 |
+| Analysis files | 25 (24 routable + template; 44→27 Reduction 2026-07-10, 27→25 absorption wave 2026-07-16) |
+| Absorption lanes | 15 none-found (KEEP-SOLE) / 5 follow / 1 retire-toward (mcp-vs-skills-economics → `/usage`) / 2 merged / 1 staged (plugins-and-extensions) |
 | Archived v1 patterns | 24 |
-| Source database entries | 141+ (Tier A sweep 2026-05-24 added: Meta-Harness arXiv:2603.28052, Pan et al./Tsinghua arXiv:2603.25723 — attribution corrected from "Tingua", Agentic Context Engineering arXiv:2510.04618 ICLR 2026, SWE-Bench Mobile arXiv:2602.09540, Memanto arXiv:2604.22085, LongMemEval-V2 arXiv:2605.12493, Teaching Claude why, agent-view/ultrareview/`/goal` Anthropic docs) |
-| Source attribution | 100% (16 docs backfilled with `## Sources` footers on 2026-05-24) |
+| Source database | Last curated 2026-07-16 (absorption-wave sweep: superpowers/ECC re-verified, AGENTS.md-LF + ClaudeLog + CodeGuard-integration + Ronacher/Ng added, negative dossiers for frozen/stale/abandoned absorbers) |
 
 ---
 
@@ -33,49 +33,48 @@ convergence: single-source
 
 | Item | Effort | Status |
 |------|--------|--------|
-| Monitor Tier A sources for new insights | Low | Ongoing |
-| Keep SOURCES.md current (biweekly) | Low | Ongoing |
-| Update analysis docs when new evidence emerges | Medium | Ongoing |
-| Opus 4.8 release re-validation (model-coupled docs) | Medium | **Done 2026-05-30** — 4.8 deltas, sycophancy nuance, injection regression §5.2, 60%-threshold revalidation, MRCR case study, soft-guideline anti-pattern, `model-version-4-8` routing. See model-migration-anti-patterns / behavioral-insights / safety-and-sandboxing / harness-engineering |
-| Benchmark multi-needle long-context retrieval (MRCR-v2) on Opus 4.8 | Medium | Open — no public 4.8 MRCR transcription yet; "better long-context" 4.8 claim is directional (Tier A), not quantified |
-| Revalidate 4.7-era claims on Opus 4.8 (side-by-side output diff) | Medium | Open — see [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md) |
-| CI regression tests for prompt anti-patterns (Vertrees proposal) | Medium | Deferred — out of scope until Anthropic publishes guidance |
-| Monitor first-party feature convergence for retirement (replacement-readiness) | Low | **Ongoing** — obsolescence sweep 2026-06-04 registered `/insights`, `/usage`, `/doctor` (Tier A). `session-quality-tools.md` → RETIRING (defers to `/insights`). Watch list: MCP/skills economics ← `/usage` per-category; install-health ← `/doctor`. Tracked via `emerging-pattern-monitor` retirement lane + CONTRIBUTING § Retiring a doc |
-| Obsolescence sweep + routing/count hygiene | Low | **Done 2026-06-04** — core (static evidence-tiered routing, model-migration detection, memory archetypes) has no first-party equivalent as of June 2026; only session-diagnostics commoditized (→ `/insights`). Wired previously-unreachable `dapr-durable-agents.md` into routing (`project-type-agent-infra`); reconciled stale doc counts (28/38 → 41) and backfilled 3 missing docs in the README Core Analysis table |
-| Loop-engineering + unattended-execution update | Medium | **Done 2026-06-15** — new EMERGING [`scheduled-and-looping-primitives.md`](analysis/scheduled-and-looping-primitives.md); 7 audit signals under AUDIT-CONTEXT "Unattended / Long-Running Execution" (`harness-loop-config`, `harness-scheduled-agent`, `ci-scheduled-agent`, `harness-background-tasks`, `harness-dynamic-workflows`, `harness-goal-completion-loop`, `cron-disabled`); `ONE-LINE-PROMPT.md` "Unattended Execution Exposure" output section; loop-engineering fold-in + `/goal` version/claim fixes + Rajasekaran/Managed-Agents/Karpathy citations in `harness-engineering.md`; routing-invariant fix (two-level memory-index sub-route documented); volatile Fable 5 / Mythos 5 currency note + `model-version-fable-mythos` row. See Decision 10 |
+| Complete mcp-vs-skills-economics retirement (RETIRING → RETIRED + archive) | Low | Due at the 2026-09-30 review — retained A/B-instrument note relocates or archives with it |
+| plugins-and-extensions staged retirement | Medium | Due 2026-09-30 revalidate — migrate residual first (community-marketplace table → accept link-rot or evaluation note; 300–800ms figure → mcp-patterns), per the substance check in ABSORPTION-SCAN §2.2 |
+| September revalidation batch | Medium | 2026-09-21: intent-alignment-audit + scheduled-and-looping-primitives; 2026-09-30: domain-knowledge-architecture (Smart Connections license-risk re-verify) + plugins-and-extensions (above) |
+| behavioral-insights Fable-era re-measure | Medium | Open since Decision 11 — 80%/60%/~150 figures are pre-Fable; per-claim caveats now local at all 10 claim sites (2026-07-16), but the re-measure itself still needs a session |
+| v2.1.121 token-economics re-measure cluster | Medium | Open — mcp-patterns (81,986-token figure + two lapsed OWASP reverifies) and plugins-and-extensions (4x claims); one measurement session clears the cluster |
+| Quarterly absorption sweep (emerging-pattern-monitor Phase F) | Low | Next due ~2026-10 — check follow-lane advance triggers + canon liveness; weekly-review 5b trips DRIFT if the map's sweep date exceeds 100 days |
 
-### Medium Priority
+### Staged for owner ruling
 
-| Item | Effort | Notes |
-|------|--------|-------|
-| Update internal cross-references in analysis/ docs | Low | Completed April 2026 |
-| Review CONTRIBUTING.md for v2.1 alignment | Low | Completed April 2026 |
+| Item | Notes |
+|------|-------|
+| model-migration-anti-patterns convergence single-source → emerging | Evidence recorded in-doc (Vertrees independent audit framework + Willison counter-analysis), but Vertrees was marked provenance-only 2026-07-10 — needs the ruling |
+| automated-config-assessment candidate-emerging note | Pending since the B-F1 seed (claude doctor / checkup are vendor-native, but config assessment is not a seed-table function) |
+| Wire-or-retire `best_practices_reviewer.py` | Cross-repo (project1-side, `automation/orchestrator/`): existence-check-only coupling is the same no-bite defect that killed the RSS watchers — recommend retire unless wired to run the actual audit |
+| memory-systems-recommendation-methodology fold-in | Fold into archetype-recommendations at the next reduction pass (four EMERGING memory docs is a lot of surface for one investigation) |
 
-### Low Priority
+### Carried research items
 
-| Item | Effort | Notes |
-|------|--------|-------|
-| Consider consolidated "key findings" summary page | Medium | Single-page executive summary |
+| Item | Notes |
+|------|-------|
+| MRCR-v2 multi-needle retrieval benchmark on Opus 4.8 | Open — "better long-context" remains directional (Tier A), not quantified |
+| 4.7-era claims side-by-side re-validation on 4.8 | Open — see model-migration-anti-patterns.md |
+| Track ICLR/ICML 2026 follow-ups (Agentic Context Engineering, Meta-Harness) + peer-reviewed publication of the four 2026 arXiv preprints | Ongoing |
 
 ---
 
 ## Review Cadence
 
-| Source Type | Frequency | Automation |
-|-------------|-----------|------------|
-| Anthropic Engineering Blog | Weekly | anthropic-blog-rss.yml |
-| Boris Cherny interviews/posts | Monthly | Manual |
-| Nate B. Jones publications | Monthly | Manual |
-| IndyDevDan repos/content | Monthly | Manual |
-| ECC major releases | Monthly | Manual |
+| Source Type | Frequency | Mechanism |
+|-------------|-----------|-----------|
+| Anthropic engineering blog + changelog | Weekly | `weekly-review` step 4 (the RSS watcher was deleted in Reduction Phase 6 — manual, in-loop) |
+| Absorption-map consistency | Weekly | `weekly-review` step 5b (mechanical greps + self-test line) |
+| Follow-lane canons (Willison, Osmani, Ronacher, Ng, Karpathy, Husain/Shankar, ClaudeLog, Miessler) | Quarterly | `emerging-pattern-monitor` Phase F — advance triggers + liveness |
+| ECC / superpowers / AGENTS.md / CodeGuard releases | Quarterly | Same Phase F sweep (retire-toward + standards lanes) |
 
 ---
 
 ## Completed Work
 
-Dated activity log for all completed work has moved to [ARCHIVE.md](ARCHIVE.md) — see "Detailed Activity Log" section.
+Dated activity log lives in [ARCHIVE.md](ARCHIVE.md) — "Detailed Activity Log". Wave summaries live in DECISIONS.md (Decision 11: the 2026-07 reduction; Decision 12: the absorption instrument + first third-party sweep).
 
 ## Next Review
 
-**When**: Late June 2026 (next biweekly cadence, ~2 weeks from 2026-06-15)
-**Focus**: Re-verify the **volatile Fable 5 / Mythos 5 suspension** and update the currency notes + `model-version-fable-mythos` row when access is restored or the suspension is made permanent; the Cherny "write loops" quote is now cited to multiple independent published accounts (The New Stack, note.com, Njuguna, Flor — all 2026-06; resolved 2026-06-19), so the transcribe-the-recording item is retired — still video-derived, no published timestamp to chase; watch whether "loop engineering" accumulates production evidence (graduate `scheduled-and-looping-primitives.md` EMERGING → PRODUCTION) or whether first-party tooling absorbs the audit value (retirement lane); **`harness-goal-completion-loop` validated + graduated 2026-06-19** (anchored user-turn-head predicate, measured 80%→0% false-positive; now triggers) and **dynamic-workflow caps re-confirmed** (per-run 1,000 / up to 16 concurrent; the `cores−2` formula and 4096 item-cap are NOT in the docs — the live docs were already clean) and **`CronList` confirmed not to enumerate cloud Routines**; **`harness-scheduled-agent` graduated 2026-06-19** — its `~/.claude/scheduled-tasks/<kebab-case-name>/SKILL.md` path/leaf/format confirmed from the official Desktop scheduled-tasks docs (a durable `/loop` cron's `.claude/scheduled_tasks.json` is a separate, currently-uncaught artifact, noted). Carry-forward: biweekly Tier A sweep; benchmark MRCR-v2 multi-needle retrieval on Opus 4.8; watch for a 4.7→4.8 migration-guide expansion and Petri 3.0 / injection-robustness follow-ups; track ICLR/ICML 2026 papers building on Agentic Context Engineering and Meta-Harness; watch for primary peer-reviewed publication of the four 2026 arXiv preprints.
+**When**: weekly cadence (`/weekly-review`); next judgment sweep ~2026-09-30 (September revalidation batch + the two staged retirements) and the quarterly Phase F pass ~2026-10.
+**Focus**: complete the economics-doc retirement; execute the plugins staged retirement after residual migration; run the Fable re-measure and the v2.1.121 token-economics session; put the four staged owner rulings in front of the owner; watch the AGENTS.md ecosystem for data-backed sizing guidance (the advance trigger on claude-md-progressive-disclosure's absorption row) and mem0/Letta docs for archetype-style guidance (the flip trigger on memory-systems-archetype-recommendations).

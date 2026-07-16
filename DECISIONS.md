@@ -688,4 +688,33 @@ Analysis corpus 44 → 27 files; every fleet-audit signal key remains answerable
 
 ---
 
-*Last updated: 2026-07-12*
+## Decision 12: The absorption instrument + first third-party sweep (2026-07-16)
+
+### Context
+
+Decision 11 collapsed the corpus to its delta against Anthropic **first-party** coverage, and the owner then posed the extension as a standing question: which **third-party** open-source projects or thought leaders answer parts of this project's best-practices definitions well enough to adapt and follow — even where they're not all the way there — so the custom load keeps shrinking? A mid-2026 landscape survey (GitHub-API-verified 2026-07-16) found the ecosystem had split into distinguishable lanes — superpowers under daily development as the methodology absorber, ECC (renamed from everything-claude-code) as the tooling reference, AGENTS.md under Linux Foundation stewardship, ClaudeLog occupying a mechanics-documentation lane, CoSAI CodeGuard shipping its own Claude Code marketplace plugin — while HumanLayer's canon froze (12-factor-agents inactive since 2025-09), the one community security hub died the day it was created, and multi-project portfolio management remained the one topic with no mature absorber anywhere. The owner ruled: full wave (Decision-11-style reasonable-assumption execution) and seven-lane README repositioning.
+
+### Alternatives Considered
+
+1. **Answer the question once as a report.** Rejected: a point-in-time answer rots exactly the way the RSS watchers did; the question needs an instrument, not an essay.
+2. **A new maturity scale for absorbers.** Rejected: the 1–5-axis retirement (ruling B-F7) is the standing precedent against parallel scales — the existing robustness bar and convergence field already carry the semantics.
+3. **A standing watcher/feed.** Rejected: the Phase-6 RSS deletion (hundreds of unread issues, zero triage) is the anti-precedent; the map has no automated inflow — it is written only by owner-gated sweeps and consistency-checked by mechanical weekly greps.
+4. **Chosen: a derived ledger + a follow lane + sweep cadence.** ABSORPTION-MAP.md (one row per routable doc: absorber, lane, robustness-bar state with the covers-substance cell made explicit, retained delta, advance trigger; `none found` a first-class value; canonical state stays in per-doc frontmatter), a `follows:` frontmatter field for blog-form canons that structurally fail the Supported bar (the doc keeps its delta and stops growing; converts to `replacement-by:` when the trigger fires), and three cadences — weekly mechanical greps (weekly-review 5b + extended self-test), quarterly judgment sweeps (emerging-pattern-monitor v2.2.0 Phase F), and scan-artifact waves (`drafts/ABSORPTION-SCAN-*.md`, sibling of the REDUCTION-PROPOSAL).
+
+### Decision
+
+Executed the first sweep as `drafts/ABSORPTION-SCAN-2026-07.md`: four criterion-3 substance checks (star counts never discharge covers-substance) — `/usage` PARTIAL (an observational monitor cannot produce a controlled same-workflow A/B), first-party features-overview PARTIAL (decision framework fully native; residual staged), CodeGuard PARTIAL (upstream marketplace plugin absorbs two of three import options), superpowers ✗ on all three checked docs (a compared object, not a comparator). Verdicts: 15 KEEP-SOLE, 5 FOLLOW-CANON (agent-evaluation → Husain/Shankar + internal collapse 344→128 with convergence→emerging recorded in-doc; behavioral-insights → ClaudeLog; harness-engineering → Willison/Ronacher/Osmani; memory-systems-archetype-a → Karpathy; scheduled-and-looping-primitives → Osmani/Ronacher/Ng, held EMERGING after its promotion check cleared 1 of 3 criteria), 1 RETIRE (mcp-vs-skills-economics RETIRING toward `/usage`, CLI+Skill pattern relocated to mcp-patterns, Tenzir figures marked historical — resolving the lapsed 2026-07-15 revalidation honestly), 2 INTERNAL MERGES (framework-selection → orchestration-comparison, ~60% overlap, CRISPY/HumanLayer marked frozen-upstream; confidence-scoring → evidence-tiers, which was also pruned net −24 lines despite absorbing the framework), 1 COLLAPSE-ROUND-2 (secure-code-generation Options B/C → upstream pointer, mandatory-triad drift corrected). Repositioned README from the three-project framing to the seven-lane map; fixed the .claude/CLAUDE.md 42-doc self-model drift; added the `repo-has-agents-md` audit signal; restored intent-alignment-audit.md to the README table it was missing from.
+
+### Trade-offs Accepted
+
+- Two plan deviations, both evidence-forced and logged in the scan: RETIRING-in-place instead of straight-to-archive (the substance check the plan itself gated on returned PARTIAL), and `follows:` permitted on EMERGING docs (two of the five follow-lane docs are EMERGING; the anti-shadow-status intent survives via the RETIRING/RETIRED exclusion and mutual-exclusion rule).
+- The follow lane freezes growth on canon-covered slices, which trades our coverage breadth for tracking obligations — accepted because the canons out-publish us on commentary and our deltas are measurements they don't produce.
+- Four items deliberately staged for owner rulings rather than executed (model-migration convergence upgrade, config-assessment candidate-emerging, best_practices_reviewer.py wire-or-retire, plugins final retirement).
+
+### Impact
+
+Analysis corpus 27 → 25 files (24 routable + template); routing bloat down one fetch on `project-type-research` (the confidence framework now rides the Always-Fetch doc); fleet-audit raw-URL regression green after each pushed phase; the weekly self-test now asserts absorption-map consistency (its dry-run caught its own first bug — the template's schema block producing a phantom lane-conflict). The owner's question now has a standing, mechanically-checked answer surface instead of a one-time report.
+
+---
+
+*Last updated: 2026-07-16*

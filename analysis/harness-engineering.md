@@ -11,7 +11,7 @@ measurement-claims:
     source: "Prompt Engineering YouTube (citing Vercel experiment)"
     date: "2026-02-01"
     revalidate: "2026-08-01"
-  - claim: "everything-claude-code: 136+ skills, 30 subagents, 119K+ stars"
+  - claim: "ECC (renamed from everything-claude-code): 136+ skills, 30 subagents as of the 2026-03-30 snapshot (star count dropped per the snapshot-stats convention; dated stats live in the SOURCES.md dossier)"
     source: "GitHub repository analysis"
     date: "2026-03-30"
     revalidate: "2026-09-30"
@@ -221,7 +221,7 @@ This is a recovery release for harness purposes: 4.8 reduces the 4.7 failure mod
 
 ## Three Harness Philosophies: The Bitter-Lesson Read
 
-Three community approaches sit at different points on the Bitter-Lesson spectrum. Everything-Claude-Code (ECC) is batteries-included — 136+ skills, 30 subagents, 60+ commands, 119K+ GitHub stars, an Anthropic hackathon winner — and ranks lowest on Bitter-Lesson alignment: its runtime profiles (`ECC_HOOK_PROFILE=minimal`) let you dial complexity down, but the default trajectory adds tooling with each release, working against the Vercel/Manus evidence above. Superpowers is methodology-enforced — a mandatory 7-stage workflow, ~14 skills, 294K+ installs — and ranks in the middle: it enforces process without adding tools, so it doesn't accrete the way ECC does, though the ceremony has a real cost on small tasks. Anthropic's own minimal approach (CLAUDE.md + progress file, a 2-agent architecture, external artifacts as memory) ranks highest: it's the one most clearly built for deletion. GitHub stars and plugin installs are different metrics measuring different things — useful within their own claim, not comparable to each other.
+Three community approaches sit at different points on the Bitter-Lesson spectrum. ECC (renamed from everything-claude-code) is batteries-included — 136+ skills, 30 subagents, 60+ commands as of the 2026-03-30 snapshot, an Anthropic hackathon winner, mass-adopted (dated stats: SOURCES.md dossier) — and ranks lowest on Bitter-Lesson alignment: its runtime profiles (`ECC_HOOK_PROFILE=minimal`) let you dial complexity down, but the default trajectory adds tooling with each release, working against the Vercel/Manus evidence above. Superpowers is methodology-enforced — a mandatory 7-stage workflow, ~14 skills, 294K+ installs — and ranks in the middle: it enforces process without adding tools, so it doesn't accrete the way ECC does, though the ceremony has a real cost on small tasks. Anthropic's own minimal approach (CLAUDE.md + progress file, a 2-agent architecture, external artifacts as memory) ranks highest: it's the one most clearly built for deletion. GitHub stars and plugin installs are different metrics measuring different things — useful within their own claim, not comparable to each other.
 
 ---
 
@@ -367,7 +367,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - Armin Ronacher: ["The Coming Loop"](https://lucumr.pocoo.org/2026/6/23/the-coming-loop/) (lucumr.pocoo.org, 2026-06-23) — inner agent loop vs. outer harness loop distinction. Tier B.
 - `project1` (security-data research portfolio), ["SDW Loop Engineering"](../../project1/02-projects/securitydataworks/LOOP-ENGINEERING-DESIGN-2026-06-15.md) (2026-06-15) + [`BENCH-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/BENCH-LOOP-STATE.md) / [`CONSOLE-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/CONSOLE-LOOP-STATE.md) — single-source, bias-flagged; cites Arike et al., AIES 2025, on emergent goal-drift
 - LangChain DeepAgents team: ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17). Authority 4/5.
-- [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — 119K+ stars, Anthropic hackathon winner
+- [ECC](https://github.com/affaan-m/everything-claude-code) (renamed from everything-claude-code) — Anthropic hackathon winner; dated adoption stats in the SOURCES.md dossier
 - [superpowers](https://github.com/obra/superpowers) — 294K+ installs
 - Richard Sutton: "The Bitter Lesson"
 

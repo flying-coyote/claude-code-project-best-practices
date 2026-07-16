@@ -6,7 +6,7 @@ convergence: single-source
 
 **Purpose**: Fast lookup for the most commonly referenced sources with authority + recency weighting
 
-**For complete source database**: See [SOURCES.md](SOURCES.md) (comprehensive; last curated 2026-07-10 — Reduction Phase 6: 4 additions, stale-markings, 2 prunes, retired-doc link repointing; includes a dedicated **Unverified / pending revalidation** section at the end)
+**For complete source database**: See [SOURCES.md](SOURCES.md) (comprehensive; last curated 2026-07-16 — absorption-wave sweep: superpowers/ECC re-verifications, AGENTS.md/ClaudeLog/Ronacher/Ng/first-party-distribution additions, CodeGuard plugin extension, negative dossiers, 4 quarantine lines; includes a dedicated **Unverified / pending revalidation** section at the end)
 
 **Authority Scale (0-5)**: 5=Foundational (built it), 4=Authoritative (core team/peer-reviewed), 3=Practitioner (production metrics), 2=Commentator (blog/YouTube), 1=Unverified, 0=Rejected
 
@@ -14,7 +14,7 @@ convergence: single-source
 
 ---
 
-## Top 36 Sources (Authority-Weighted)
+## Top 40 Sources (Authority-Weighted)
 
 ### 1. Boris Cherny (Claude Code Creator) — Authority: 5 (Foundational)
 **Role**: Engineering Manager at Anthropic, Claude Code creator
@@ -46,7 +46,7 @@ convergence: single-source
 **Source**: [Anthropic Dev Blog](https://www.anthropic.com/engineering/advanced-tool-use) (Nov 24, 2025)
 **Date**: November 2025 | **Foundational**: Yes | **Effective Weight**: 0.70 (1.0 x 0.7 floor)
 **Key Features**: Tool search (85% token reduction), programmatic calling (37% token reduction), input examples
-**Referenced in**: [tool-ecosystem.md](analysis/tool-ecosystem.md), [plugins-and-extensions.md](analysis/plugins-and-extensions.md)
+**Referenced in**: [plugins-and-extensions.md](analysis/plugins-and-extensions.md)
 
 ### 6. Agent Evaluation Patterns — Authority: 5 (Foundational)
 **Source**: [Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents), [Eval Awareness in BrowseComp](https://www.anthropic.com/engineering/eval-awareness-browsecomp) (Mar 2026)
@@ -70,7 +70,7 @@ convergence: single-source
 **Source**: [Production AI Engineering Best Practices](https://www.linkedin.com/posts/nathaniel-b-jones-phd_my-6-principles-for-production-ai-engineering-activity-7279554697086738432-UYvG)
 **Date**: Late 2025 | **Foundational**: No | **Effective Weight**: 0.46 (0.65 x 0.7)
 **Key Principles**: 6 principles for production reliability, lifecycle-aware context model
-**Referenced in**: [agent-principles.md](analysis/agent-principles.md), [memory-system-patterns.md](analysis/memory-system-patterns.md)
+**Referenced in**: [memory-system-patterns.md](analysis/memory-system-patterns.md)
 
 ### 10. IndyDevDan Framework — Authority: 3 (Practitioner)
 **Source**: [YouTube: How I Actually Use Claude Code](https://www.youtube.com/watch?v=0123456789) (Dec 2025)
@@ -120,7 +120,7 @@ convergence: single-source
 **Date**: 2025 | **Foundational**: No | **Effective Weight**: 0.25 (0.35 x 0.7)
 **Karen Note**: Title uses "X is dead" death-claim pattern. LlamaIndex sells RAG alternatives — incentive conflict.
 **Key Insight**: Dynamic navigation vs pre-computed embeddings, context fragmentation solutions
-**Referenced in**: [tool-ecosystem.md](analysis/tool-ecosystem.md)
+**Referenced in**: *(referencing doc `tool-ecosystem.md` deleted in the 2026-07 reduction — the `/plugin` marketplace carries tool discovery)*
 
 ### 18. Recursive Context Management (RLM) — Authority: 4 (Authoritative)
 **Source**: [arXiv:2512.24601](https://arxiv.org/abs/2512.24601) (MIT CSAIL - Zhang, Kraska, Khattab)
@@ -184,7 +184,7 @@ convergence: single-source
 **Source**: [Migration Guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) + [What's New 4.7](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-7) + [Best Practices for Opus 4.7 with Claude Code](https://claude.com/blog/best-practices-for-using-claude-opus-4-7-with-claude-code)
 **Date**: April 16, 2026 | **Foundational**: Yes | **Effective Weight**: 1.00 (1.0 x 1.0)
 **Key Claims (verbatim)**: "Claude Opus 4.7 interprets prompts more literally and explicitly than Claude Opus 4.6... It will not silently generalize an instruction from one item to another, and it will not infer requests you didn't make." Also: fewer subagents spawned by default, fewer tool calls by default, adaptive response-length calibration. "Positive examples... tend to be more effective than negative examples."
-**Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md), [behavioral-insights.md](analysis/behavioral-insights.md), [harness-engineering.md](analysis/harness-engineering.md), [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md), [agent-evaluation.md](analysis/agent-evaluation.md), [agent-principles.md](analysis/agent-principles.md), [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md)
+**Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md), [behavioral-insights.md](analysis/behavioral-insights.md), [harness-engineering.md](analysis/harness-engineering.md), [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md), [agent-evaluation.md](analysis/agent-evaluation.md), [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md)
 
 ### 28. Simon Willison — Opus 4.7 System Prompt Analysis — Authority: 3 (Practitioner)
 **Source**: [simonwillison.net (April 18, 2026)](https://simonwillison.net/2026/Apr/18/opus-system-prompt/)
@@ -248,6 +248,30 @@ convergence: single-source
 **Date**: 2026 (verified 2026-06-21) | **Foundational**: No | **Effective Weight**: 0.85
 **Key Insight**: Husain/Shankar — error analysis before infrastructure, binary pass/fail over Likert, custom annotation tool = highest-leverage investment, 60-80% of dev time on evals, six eval-skill toolkit. Shankar — CHI/CIDR/VLDB/SIGMOD 2026 agent-first data-systems papers + O'Reilly "Evals for AI Engineers." Schmid — durability over single-turn scores ("Manus refactored 5× in 6 months"). Chase — "managing context, and therefore memory, is a core … responsibility of the agent harness"; open vs closed harness lock-in; "Claude Code … 512k lines of code. That code is the harness." Plus harness-effect papers (Fudan 2604.25850 Terminal-Bench 2 69.7→77.0%; SJTU 2604.08224 four-component externalization taxonomy; Yao 2605.27922 Harness-Bench).
 **Referenced in**: [agent-evaluation.md](analysis/agent-evaluation.md), [harness-engineering.md](analysis/harness-engineering.md)
+
+### 37. obra/superpowers — Authority: 3 (Practitioner)
+**Source**: https://github.com/obra/superpowers
+**Date**: v6.1.1 (2026-07-02); 255,877★ / 22,790 forks as verified 2026-07-16 (GitHub API), pushed daily, 628 commits | **Foundational**: No | **Effective Weight**: 0.65 (0.65 x 1.0)
+**Key Insight**: The methodology lane in the seven-lane ecosystem — 13 skills (brainstorming through writing-plans, full enumeration in SOURCES.md) covering TDD, systematic debugging, subagent-driven development, worktrees, verification-before-completion. Substance check 2026-07-16: NO security skill, NO Bitter-Lesson content, NO framework comparison — a compared object in orchestration-comparison.md, not a comparator; its two-stage review varies *what* is reviewed on the same weights, distinct from Wiggins cross-model-family review (*whose weights* review).
+**Referenced in**: [plugins-and-extensions.md](analysis/plugins-and-extensions.md), [harness-engineering.md](analysis/harness-engineering.md), [orchestration-comparison.md](analysis/orchestration-comparison.md)
+
+### 38. affaan-m/ECC (renamed from everything-claude-code) — Authority: 3 (Practitioner)
+**Source**: https://github.com/affaan-m/everything-claude-code (renamed to **ECC**; old slug redirects)
+**Date**: 230,304★ as verified 2026-07-16 (GitHub API), pushed 2026-07-14 | **Foundational**: No | **Effective Weight**: 0.65 (0.65 x 1.0)
+**Key Insight**: The tooling lane — maximalist batteries-included plugin ecosystem, 10+ months of daily production use. **Naming hazard**: worldflowai/everything-claude-code is unrelated and several high-star forks mirror affaan-m — always pin the affaan-m owner. Component counts (28/119/60) are secondary-page claims, quarantined in SOURCES.md's Unverified section.
+**Referenced in**: [plugins-and-extensions.md](analysis/plugins-and-extensions.md), [harness-engineering.md](analysis/harness-engineering.md)
+
+### 39. AGENTS.md Standard (Agentic AI Foundation) — Authority: 4 (Authoritative)
+**Source**: https://agents.md (AAIF, under the Linux Foundation)
+**Date**: verified 2026-07-16 | **Foundational**: No | **Effective Weight**: 0.85 (0.85 x 1.0) — Tier A (standards body)
+**Key Insight**: Cross-agent instructions-file standard read by 20+ agents (Codex, Copilot, Cursor, Windsurf, Zed, Gemini CLI, JetBrains Junie...), 60K+ adopting repos; Claude Code reads it, CLAUDE.md stays the richer native format. A format standard, not sizing guidance — routed via the `repo-has-agents-md` signal. Unverified: the "170+ AAIF members" figure — do not assert.
+**Referenced in**: [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md)
+
+### 40. CoSAI Project CodeGuard (OASIS) — Authority: 4 (Authoritative)
+**Source**: https://github.com/cosai-oasis/project-codeguard + project-codeguard.org integration docs
+**Date**: Cisco-donated 2026-02-09; plugin verified 2026-07-16 | **Foundational**: No | **Effective Weight**: 0.85 (0.85 x 1.0) — Tier A (standards body)
+**Key Insight**: Now ships a first-party Claude Code marketplace plugin (`codeguard-security@project-codeguard`) with marketplace install, team settings.json deploy, and from-source build — absorbed secure-code-generation.md's Options B/C (2026-07-16). Critical triad: hardcoded-credentials / crypto-algorithms / digital-certificates (input-validation is separate, non-critical).
+**Referenced in**: [secure-code-generation.md](analysis/secure-code-generation.md)
 
 ---
 
@@ -316,7 +340,9 @@ convergence: single-source
 
 **For detailed citations, methodology, and complete source database**: See [SOURCES.md](SOURCES.md)
 
-**Last Updated**: July 10, 2026 — Reduction Phase 6 (`drafts/REDUCTION-PROPOSAL-2026-07.md` §3, §5.7): refreshed #2 (Anthropic Official Documentation — added the large-codebases companion post + a changelog-revalidation-feed note: native `claude doctor` v2.1.205, Sonnet 5 default v2.1.197, agent teams v2 v2.1.178); marked #27 (Opus 4.7 Migration Guide) and #29 (Vertrees) HISTORICAL/provenance-only; updated #34 to **Claude Fable 5 / Mythos 5 / Sonnet 4.6 / Sonnet 5** — resolved the suspension claim as CONFIRMED-then-lifted (redeployed 2026-07-01, in production) and added Sonnet 5 (default since v2.1.197, 2026-06-30). Annotated #15/#22/#23/#25 in By Analysis Category as absorbed/evicted (MCP Daily Essentials → MCP Patterns; Federated Query Architecture, Local+Cloud LLM Orchestration, and Security Data Pipeline → `archive/` with tombstones, spoke-repo content). Full additions/stale-markings/prunes/repointing detail lives in the SOURCES.md 2026-07-10 changelog row and the **Unverified / pending revalidation** section of [SOURCES.md](SOURCES.md); Top-36 list count unchanged (no new numbered entries — Miessler LifeOS and the Willison Agentic Engineering Patterns guide upgrade live in the full SOURCES.md only, below the bar for this file's foundational/authoritative cut).
+**Last Updated**: July 16, 2026 — absorption-wave sweep (`drafts/ABSORPTION-SCAN-2026-07.md`): added #37 (obra/superpowers v6.1.1 — GitHub-API-dated stats + the compared-object substance check), #38 (affaan-m/ECC — rename recorded, naming hazard, component counts quarantined), #39 (AGENTS.md standard, AAIF/Linux Foundation, Tier A), #40 (CoSAI Project CodeGuard — first-party marketplace plugin + critical-triad correction). Follow-lane pointers, negative dossiers (HumanLayer 12-factor/ACE, disler hooks-mastery, efij security list), and the 4 new quarantine lines live in the full [SOURCES.md](SOURCES.md). Count: 36 → 40.
+
+Prior: July 10, 2026 — Reduction Phase 6 (`drafts/REDUCTION-PROPOSAL-2026-07.md` §3, §5.7): refreshed #2 (Anthropic Official Documentation — added the large-codebases companion post + a changelog-revalidation-feed note: native `claude doctor` v2.1.205, Sonnet 5 default v2.1.197, agent teams v2 v2.1.178); marked #27 (Opus 4.7 Migration Guide) and #29 (Vertrees) HISTORICAL/provenance-only; updated #34 to **Claude Fable 5 / Mythos 5 / Sonnet 4.6 / Sonnet 5** — resolved the suspension claim as CONFIRMED-then-lifted (redeployed 2026-07-01, in production) and added Sonnet 5 (default since v2.1.197, 2026-06-30). Annotated #15/#22/#23/#25 in By Analysis Category as absorbed/evicted (MCP Daily Essentials → MCP Patterns; Federated Query Architecture, Local+Cloud LLM Orchestration, and Security Data Pipeline → `archive/` with tombstones, spoke-repo content). Full additions/stale-markings/prunes/repointing detail lives in the SOURCES.md 2026-07-10 changelog row and the **Unverified / pending revalidation** section of [SOURCES.md](SOURCES.md); Top-36 list count unchanged (no new numbered entries — Miessler LifeOS and the Willison Agentic Engineering Patterns guide upgrade live in the full SOURCES.md only, below the bar for this file's foundational/authoritative cut).
 
 Prior: June 21, 2026 — verified cluster refresh: added #33 (loop-engineering lineage ⭐ KM-leverage, with the Osmani-coiner attribution correction + Steinberger as new leader), #34 (Claude Fable 5 / Mythos 5 / Sonnet 4.6 — Fable benchmark numbers UNVERIFIED), #35 (memory-systems leaders Packer/Letta + Singh/mem0 + Anthropic memory tool + LangMem), #36 (evals leaders Husain/Shankar/Schmid/Chase + harness papers). Elevated #32 (OKF) as a KM-leverage source with the Apache-on-repo + no-central-type-registry corrections. New thought leaders registered: Peter Steinberger, Charles Packer, Taranjeet Singh, Hamel Husain, Shreya Shankar, Philipp Schmid, Harrison Chase, Sébastien Dubois (TypedMark). Full unverified-claims inventory lives in the **Unverified / pending revalidation** section of [SOURCES.md](SOURCES.md). Count: 32 → 36.
 

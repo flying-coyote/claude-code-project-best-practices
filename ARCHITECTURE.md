@@ -5,7 +5,7 @@ convergence: single-source
 # Architecture
 
 **Purpose**: System design, directory structure, and current phase status
-**Last Updated**: July 12, 2026
+**Last Updated**: July 16, 2026 (absorption wave: de-snapshotted per Decision 9 — file inventories defer to INDEX.md, ecosystem positioning defers to README § Where This Sits)
 
 ---
 
@@ -16,124 +16,73 @@ This repository provides an **evidence-based analytical layer** for Claude Code.
 The audit engine has two passes that work together. The **INSPECT** pass is the presence/absence and count routing in `AUDIT-CONTEXT.md` — it asks what a project *has* and fetches the docs that match those signals, so it is strong at finding missing conventions and blind to whether the conventions a project already has still serve their purpose. The **RETHINK** pass is the intent-alignment layer that closes that blind spot: for each central mechanism the project already has, it asks what the mechanism is *for* and checks it against that stated intent, which is what catches intent-mechanism drift (a glob still pointing at a moved directory, a doc count the structure has outgrown, a write permission nobody decided to keep). RETHINK is first-class in the engine, not a follow-on, because this repo's own self-audit found that exact drift in itself; the per-mechanism intent checks live in [`analysis/intent-alignment-audit.md`](analysis/intent-alignment-audit.md) alongside the routing map in `AUDIT-CONTEXT.md`.
 
 **What we are**:
-- Evidence assessor (A-D tier system for claims)
+
+- Evidence assessor (A-D tier system for claims + the HIGH/MEDIUM/LOW confidence framework, merged 2026-07-16)
 - Comparative analyst (tools, frameworks, approaches)
 - Behavioral insight aggregator (quantified observations from expert practitioners)
 - Intent-alignment auditor (RETHINK: each mechanism checked against its stated *why*, not only its presence)
 
-**What we are NOT**:
-- Implementation guide (see [everything-claude-code](https://github.com/anthropics-solutions/everything-claude-code))
-- Methodology framework (see [superpowers](https://github.com/obraun-cl/superpowers))
-- Tool catalog (see community repos in SOURCES.md)
+**What we are NOT**: the other six lanes of the ecosystem — first-party baseline, tooling ([ECC](https://github.com/affaan-m/everything-claude-code)), methodology ([superpowers](https://github.com/obra/superpowers)), mechanics documentation, standards, and thought-leader canons. The full lanes table with our relationship to each is README § Where This Sits; the per-doc ledger of who absorbs what is [ABSORPTION-MAP.md](ABSORPTION-MAP.md).
 
 ---
 
 ## Current Phase
 
-**Phase**: v2.1 — Production Evidence Integration
+**Phase**: v2.1 — the evidence-graded-audit lane
 **Status**: Active
 
 **Milestones**:
+
 - v1.0: Initial patterns from Anthropic (Nov 2025)
 - v1.1-v1.4: Pattern expansion to 36 patterns (Nov 2025 - Mar 2026)
 - v2.0: Repositioned as analytical layer; 36 patterns → 14 analysis documents (Mar 2026)
-- v2.1: Expanded to 26 analysis documents with 7-repo portfolio evidence + harness template kit (Apr 2026)
+- v2.1: Expanded to 26 docs with 7-repo portfolio evidence (Apr 2026); grew to 44 files, then the 2026-07-10 reduction collapsed to delta vs first-party (44→27, Decision 11); the 2026-07-16 absorption wave ran the first third-party sweep (27→25 files, Decision 12: absorption map + follow lane + one retirement + two merges)
 
 ---
 
 ## Directory Structure
 
-```
+Top-level layout only — the per-file inventory is auto-generated in [INDEX.md](INDEX.md) and was repeatedly stale here when hand-maintained (the 2026-06 self-audit caught this file frozen at an April snapshot, which is why the tree now defers).
+
+```text
 claude-code-project-best-practices/
-├── .claude/                    # Meta-project infrastructure
-│   ├── CLAUDE.md              # Project context
-│   ├── settings.json          # Hooks configuration
-│   └── hooks/                 # Hook scripts
-│
-├── analysis/                   # Core content (26 documents)
-│   ├── evidence-tiers.md      # A-D tier system (1-5 axis RETIRED 2026-07-12)
-│   ├── intent-alignment-audit.md # RETHINK pass: each mechanism vs its stated intent (drift detection)
-│   ├── behavioral-insights.md # Quantified Claude Code behavior
-│   ├── orchestration-comparison.md  # Orchestration approach comparison
-│   ├── mcp-vs-skills-economics.md   # Cost/performance analysis
-│   ├── mcp-patterns.md        # Failure modes + OWASP mapping
-│   ├── mcp-daily-essentials.md      # Optimal plugin configuration
-│   ├── plugins-and-extensions.md    # Skills vs MCP vs Hooks decision
-│   ├── safety-and-sandboxing.md     # 4-layer security stack
-│   ├── secure-code-generation.md    # OWASP-aware code generation
-│   ├── harness-engineering.md       # Harness philosophy + diagnostics
-│   ├── domain-knowledge-architecture.md # Domain knowledge for LLMs
-│   ├── agent-driven-development.md  # Agent-driven development methodology + 7-repo evidence
-│   ├── agent-evaluation.md         # Eval methodology
-│   ├── local-cloud-llm-orchestration.md  # Hybrid local+cloud LLM architecture
-│   ├── federated-query-architecture.md   # Federated query benchmarks + TCO
-│   ├── automated-config-assessment.md    # Baseline-deviation-remediation pattern
-│   ├── claude-md-progressive-disclosure.md # CLAUDE.md evolution across projects
-│   ├── memory-system-patterns.md         # Cross-session memory persistence
-│   ├── evidence-based-revalidation.md    # Hypothesis confidence tracking
-│   ├── security-data-pipeline.md         # Zeek → OCSF → Parquet pipeline
-│   └── cross-project-synchronization.md  # Cross-repo dependency cascading
-│
-├── archive/                    # Prior v1 content (preserved)
-│   ├── patterns-v1/           # 24 archived patterns
-│   ├── skills-v1/             # Archived skills + examples
-│   ├── templates-v1/          # Archived templates
-│   ├── presets-v1/            # Archived presets
-│   ├── prompts-v1/            # Archived prompts
-│   ├── examples-v1/           # Archived project examples
-│   ├── mcp-server-v1/         # Archived MCP server
-│   └── specs-v1/              # Archived specs
-│
-├── automation/                 # Scripts
-│   └── generate_index.py      # INDEX.md generator
-│
-├── research/                   # Research inputs (root notes archived 2026-07-10; self-audit-2026-06/ kept)
-│
-├── ARCHITECTURE.md            # This file
-├── DECISIONS.md               # Design rationale
-├── INDEX.md                   # Auto-generated inventory
-├── PLAN.md                    # Current priorities
-├── README.md                  # Project overview
-├── SOURCES.md                 # Comprehensive source database
-└── SOURCES-QUICK-REFERENCE.md # Top 20 sources
+├── .claude/          # Meta-project infrastructure (CLAUDE.md, settings, hooks, skills, commands)
+├── analysis/         # Core content — routable analysis docs + CANONICAL-DOC-TEMPLATE.md (count: see INDEX.md)
+├── archive/          # Prior v1 content + retired/merged doc snapshots (tombstone banners point at successors)
+├── automation/       # Scripts (generate_index.py)
+├── drafts/           # Scan artifacts (REDUCTION-PROPOSAL, ABSORPTION-SCAN)
+├── research/         # Research inputs (self-audit-2026-06/)
+├── ABSORPTION-MAP.md # Per-doc external-absorber ledger (derived; frontmatter canonical)
+├── AUDIT-CONTEXT.md  # Signal → advisory routing map (fetched by the audit prompt + sibling /fleet-audit)
+├── DECISIONS.md      # Design rationale
+├── INDEX.md          # Auto-generated inventory (canonical file listing)
+├── PLAN.md           # Current priorities
+├── README.md         # Project overview + Where This Sits (canonical positioning)
+├── SOURCES.md        # Comprehensive source database
+└── SOURCES-QUICK-REFERENCE.md # Authority-weighted top sources
 ```
 
 ---
 
-## Three-Project Ecosystem
+## Ecosystem Position
 
-This project occupies a specific niche in the Claude Code ecosystem:
-
-| Project | Role | Stars | Content |
-|---------|------|-------|---------|
-| **everything-claude-code** | Batteries-included tooling | 110K | 125+ skills, 28+ agents, implementation guides |
-| **superpowers** | Disciplined methodology | - | 14 skills, anti-rationalization, structured workflow |
-| **This project** | Evidence-based analysis | - | 26 analysis documents, source database, behavioral insights |
-
-### Unique Value (Not Found Elsewhere)
-
-Based on comparative analysis (March 2026), these insights are ABSENT from ECC:
-
-1. Evidence tier classification system (A-D; the 1-5 axis is RETIRED per owner ruling 2026-07-12 — A-D is the only tier system)
-2. ~80% CLAUDE.md adherence rate
-3. 60% context degradation threshold
-4. Custom subagent gatekeeping anti-pattern
-5. MCP vs Skills cost analysis (50% savings)
-6. Specification Gap framework (colleague-shaped vs tool-shaped)
-7. Cross-approach orchestration comparison
+Canonical statement: README § Where This Sits (seven lanes; this repo is the evidence-graded-audit lane, sole occupant, temporary by charter). The unique-value list previously duplicated here is carried by README's "What You Get" table and the ABSORPTION-MAP's `none found` rows — the docs whose delta no external lane publishes (portfolio measurements, the RETHINK instrument, the evidence-grading system itself).
 
 ---
 
 ## Key Design Decisions
 
 ### 1. Analysis Over Implementation
+
 We evaluate and compare rather than providing implementation guides. This keeps the project maintainable and avoids duplication.
 
 ### 2. Evidence-Based Claims
-All claims must include source, evidence tier, and date. Measurements require revalidation dates.
 
-### 3. Narrow Focus
-26 analysis documents rather than 36 patterns. Depth over breadth, expanded with production evidence.
+All claims must include source, evidence tier, and date. Measurements require revalidation dates (`scripts/check-measurement-expiry.py`).
+
+### 3. Narrow Focus, Shrinking by Design
+
+Depth over breadth, and the corpus is designed to shrink: collapse-to-delta against first-party coverage (Decision 11), follow/retire lanes against third-party coverage (Decision 12). Shrinking coverage is success, not decay (CONTRIBUTING § Retiring a Doc).
 
 ---
 
@@ -143,6 +92,7 @@ All claims must include source, evidence tier, and date. Measurements require re
 |----------|---------------|-----------|
 | analysis/ docs | New source material from Tier A/B sources | Monthly |
 | SOURCES.md | New publications from tracked sources | Biweekly |
+| ABSORPTION-MAP.md | Absorption sweeps (judgment) + weekly-review 5b (consistency) | Quarterly / weekly |
 | ARCHITECTURE.md | Structure changes | As needed |
 | INDEX.md | File changes | Automated |
 
