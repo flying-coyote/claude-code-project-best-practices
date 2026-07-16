@@ -61,7 +61,6 @@ claude-code-project-best-practices/
 │   ├── plugins-and-extensions.md    # Skills vs MCP vs Hooks decision
 │   ├── safety-and-sandboxing.md     # 4-layer security stack
 │   ├── secure-code-generation.md    # OWASP-aware code generation
-│   ├── framework-selection-guide.md # Framework decision matrix
 │   ├── harness-engineering.md       # Harness philosophy + diagnostics
 │   ├── domain-knowledge-architecture.md # Domain knowledge for LLMs
 │   ├── agent-driven-development.md  # Agent-driven development methodology + 7-repo evidence

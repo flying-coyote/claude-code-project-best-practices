@@ -101,13 +101,13 @@ convergence: single-source
 **Source**: https://github.com/glittercowboy/get-shit-done
 **Date**: 2025 | **Foundational**: No | **Effective Weight**: 0.46 (0.65 x 0.7)
 **Key Pattern**: Fresh context per subagent, state externalization, orchestrator never does heavy lifting
-**Referenced in**: [orchestration-comparison.md](analysis/orchestration-comparison.md), [framework-selection-guide.md](analysis/framework-selection-guide.md)
+**Referenced in**: [orchestration-comparison.md](analysis/orchestration-comparison.md)
 
 ### 15. CAII (Cognitive Agent Infrastructure) — Authority: 3 (Practitioner)
 **Source**: https://github.com/skribblez2718/caii (Kristoffer Sketch)
 **Date**: 2025 | **Foundational**: No | **Effective Weight**: 0.46 (0.65 x 0.7)
 **Key Pattern**: 7 fixed cognitive agents vs domain-specific proliferation, Johari Window for ambiguity
-**Referenced in**: [orchestration-comparison.md](analysis/orchestration-comparison.md), [framework-selection-guide.md](analysis/framework-selection-guide.md)
+**Referenced in**: [orchestration-comparison.md](analysis/orchestration-comparison.md)
 
 ### 16. MCP vs Skills Economics — Authority: 3 (Practitioner)
 **Source**: [Tenzir: "We Did MCP Wrong"](https://tenzir.com/blog/we-did-mcp-wrong) (Jan 2026)

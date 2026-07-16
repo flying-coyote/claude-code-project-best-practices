@@ -801,7 +801,7 @@ Fable 5 (`claude-fable-5`) went GA 2026-06-09 as Anthropic's most capable widely
   - Cost framing for multi-agent topologies
 - **Relevance**: Direct comparator for `analysis/orchestration-comparison.md`; provides external validation of orchestrator-choice tradeoffs
 - **Evidence Tier**: B (Infrastructure platform with production users; one author, but covers three independently developed systems)
-- **Patterns**: [Orchestration Comparison](analysis/orchestration-comparison.md), [Framework Selection Guide](analysis/framework-selection-guide.md)
+- **Patterns**: [Orchestration Comparison](analysis/orchestration-comparison.md) (framework-selection function merged in 2026-07-16)
 
 ### Claude-Flow Enterprise Orchestration
 - **Author**: ruvnet
@@ -814,7 +814,7 @@ Fable 5 (`claude-fable-5`) went GA 2026-06-09 as Anthropic's most capable widely
   - **6 Swarm Topologies**: Hierarchical, Mesh, Ring, Star, Hybrid, Adaptive
   - **ReasoningBank**: Trajectory storage with semantic pattern matching
 - **Performance Claims**: 250% Claude Code usage extension
-- **Pattern**: Reference architecture only (see [Framework Selection Guide](analysis/framework-selection-guide.md#claude-flow-reference-only))
+- **Pattern**: Reference architecture only (see [Orchestration Comparison](analysis/orchestration-comparison.md#claude-flow-reference-only))
 - **Evidence Tier**: B (Enterprise-focused documentation)
 
 ### Dapr — Distributed Application Runtime (Infrastructure-as-Runtime for Agents)

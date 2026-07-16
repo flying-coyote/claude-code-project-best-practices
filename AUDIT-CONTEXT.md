@@ -150,7 +150,7 @@ Record the answers in the audit output and treat them as Tier-B evidence (human 
 | `.claude/agents/` contains one or more agent-definition `.md` files (a README-only `agents/` dir does NOT match — exclude `README.md`) | `harness-custom-agents` | `analysis/orchestration-comparison.md` + `analysis/agent-evaluation.md` | Mechanism comparison for custom agents + per-version eval baselines. (The generic agent principles retired 2026-07 — the official best-practices guide now carries verification, planning, and explicit-dispatch guidance first-party.) |
 | an `mcpServers` key with ≥1 entry in `settings.json`, `.claude/mcp.json`, or root `.mcp.json` | `harness-mcp` | `analysis/mcp-patterns.md` | The single MCP doc (absorbed mcp-daily-essentials 2026-07-10): OWASP failure modes, 4-plugin + 2-MCP sweet spot, token economics flagged stale-pending-remeasure post-tool-search. (Client-side connection mechanics retired 2026-07 to the official MCP docs.) |
 | Only CLAUDE.md exists; no hooks/skills/agents/rules/commands | `harness-minimal` | `analysis/harness-engineering.md` | Start-minimal decision tree; when to add each mechanism. |
-| ≥4 of {hooks, skills, agents, rules, commands} directories present | `harness-comprehensive` | `analysis/harness-engineering.md` + `analysis/framework-selection-guide.md` | Bitter Lesson diagnostic — is the harness buying you anything, or accreting complexity? |
+| ≥4 of {hooks, skills, agents, rules, commands} directories present | `harness-comprehensive` | `analysis/harness-engineering.md` + `analysis/orchestration-comparison.md` | Bitter Lesson diagnostic — is the harness buying you anything, or accreting complexity? (Framework-selection function merged into orchestration-comparison 2026-07-16.) |
 
 ## Fetch on Unattended / Long-Running Execution
 
@@ -214,7 +214,7 @@ When **any** loop signal trips — `harness-loop-config`, `harness-scheduled-age
 | Repo uses "hypothesis," "H-{label}," or `confidence` tracking in commit messages or files | `project-type-research` | `analysis/evidence-based-revalidation.md` + `analysis/confidence-scoring.md` | Confidence scoring with explicit gap statements; revalidation cadence. |
 | Repo contains baseline/deviation/compliance tooling | `project-type-config-assessment` | `analysis/automated-config-assessment.md` | Baseline-deviation-remediation pattern. |
 | Commits reference ≥3 sibling repos in the same workspace | `project-type-multi-repo` | `analysis/cross-project-synchronization.md` + `analysis/agent-driven-development.md` | Cross-repo coordination and infrastructure maturity. |
-| User explicitly asks "which framework should I use" or repo is pre-scaffold | `project-type-framework-selection` | `analysis/framework-selection-guide.md` | Decision matrix; Specification Gap framework. (The tool survey retired 2026-07 — `/plugin` marketplace and community directories carry tool discovery now.) |
+| User explicitly asks "which framework should I use" or repo is pre-scaffold | `project-type-framework-selection` | `analysis/orchestration-comparison.md` | Framework Selection section (merged in 2026-07-16): five-framework decision table + selection anti-patterns + when-NOT-to-orchestrate. (The tool survey retired 2026-07 — `/plugin` marketplace and community directories carry tool discovery now.) |
 | Repo ships its own rule language, DSL, or vendor-specific configs | `project-type-domain-heavy` | `analysis/domain-knowledge-architecture.md` | Making expertise findable without overwhelming context. |
 
 ## Fetch on Memory & Knowledge System

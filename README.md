@@ -83,7 +83,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 |---|---|---|
 | An external practitioner with a specific project | The Quick Start audit above | Follow the 4–8 cited docs the audit returns |
 | Evaluating a claim from any AI tooling source | [`analysis/evidence-tiers.md`](analysis/evidence-tiers.md) | The A–D source-tier system applies broadly (the 1–5 claim-strength axis is RETIRED; A–D is the only tier system) |
-| Choosing a tool or framework | [`analysis/framework-selection-guide.md`](analysis/framework-selection-guide.md) | Native-mechanism selection is first-party now; the guide keeps the external-framework comparison |
+| Choosing a tool or framework | [`analysis/orchestration-comparison.md`](analysis/orchestration-comparison.md) | Native-mechanism selection is first-party now; the Framework Selection section (merged 2026-07-16) keeps the external-framework comparison |
 | Contributing an analysis doc | [`CONTRIBUTING.md`](CONTRIBUTING.md) → Integration Checklist | Start from [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md) |
 
 ---
@@ -102,8 +102,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md) | 3-tier CLAUDE.md evolution across 6 repos, ~150 instruction budget |
 | [agent-driven-development.md](analysis/agent-driven-development.md) | Agent-driven methodology with 7-repo quantified evidence |
 | [agent-evaluation.md](analysis/agent-evaluation.md) | Eval methodology from Anthropic engineering |
-| [orchestration-comparison.md](analysis/orchestration-comparison.md) | When to use native subagents vs GSD vs CAII vs agent teams |
-| [framework-selection-guide.md](analysis/framework-selection-guide.md) | Orchestration framework decision matrix |
+| [orchestration-comparison.md](analysis/orchestration-comparison.md) | When to use native subagents vs GSD vs CAII vs agent teams + framework-selection decision table (merged 2026-07-16) |
 | [mcp-patterns.md](analysis/mcp-patterns.md) | The single MCP doc: OWASP security mapping + 4-plugin/2-MCP sweet-spot evidence (absorbed mcp-daily-essentials 2026-07-10) |
 | [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md) | Cost/performance analysis: Skills 50% cheaper than MCP |
 | [plugins-and-extensions.md](analysis/plugins-and-extensions.md) | Skills vs MCP vs Hooks vs Commands decision framework |

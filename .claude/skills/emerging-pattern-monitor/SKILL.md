@@ -107,7 +107,7 @@ EMERGING Topics Found:
    - Status: EMERGING since 2025-10-15
 
 2. Claude-Flow multi-agent framework
-   - File: analysis/framework-selection-guide.md
+   - File: analysis/orchestration-comparison.md (Framework Selection section, merged 2026-07-16)
    - Status: EMERGING since 2025-11-20
 ```
 
