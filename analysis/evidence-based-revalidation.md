@@ -125,7 +125,7 @@ One production instance (a research knowledge base) runs three modes off a singl
 
 The detail that matters for Claude Code specifically: git does not version `.git/hooks/`, so the gate needs a **tracked hook source plus an `install-hooks.sh`** — the same coordination problem [Harness Engineering](./harness-engineering.md) raises for hooks-as-enforcement (re-run the installer after editing the hook).
 
-One finding from validating this gate against a gold set: keep the **deterministic oracle above any LLM "gate skill" verdict**, and adding more skill rounds did not help. That is a Tier-B production confirmation of the ablation evidence in [Harness Engineering](./harness-engineering.md) ("verifiers hurt, self-evolution helps") and the self-evaluation-rationalization caveat in [Confidence Scoring](./confidence-scoring.md) — let the deterministic check decide, not a stacked panel of model judges.
+One finding from validating this gate against a gold set: keep the **deterministic oracle above any LLM "gate skill" verdict**, and adding more skill rounds did not help. That is a Tier-B production confirmation of the ablation evidence in [Harness Engineering](./harness-engineering.md) ("verifiers hurt, self-evolution helps") and the self-evaluation-rationalization caveat in [Evidence Tiers — Confidence Assessment](./evidence-tiers.md) — let the deterministic check decide, not a stacked panel of model judges.
 
 **Evidence tier**: B — single production project. Convergence status is single-source (no external adoption evidence for doc drift/staleness detection survived verification), so adopting the drift gate as standing infrastructure requires converged status or an explicit owner exception. Karpathy's "coding is the ideal self-improvement loop because verification is built-in" is the nearest external anchor, but it is about the agent's own loop, not the project-as-loop framing, so don't stretch it. The scored work-selection surface this same project runs (ranking a backlog by a weighting formula) is deliberately **not** generalized here — it is project-specific prioritization that dates with the project, not a portable Claude Code discipline.
 
@@ -202,7 +202,7 @@ The `measurement-claims` frontmatter in each analysis document includes `revalid
 ### Related Analysis
 
 - [Evidence Tiers](./evidence-tiers.md) — Dual-tier classification system for claims
-- [Confidence Scoring](./confidence-scoring.md) — Assessment framework for research hypotheses
+- [Evidence Tiers — Confidence Assessment](./evidence-tiers.md) — Assessment framework for research hypotheses (confidence framework merged in 2026-07-16)
 - [Automated Config Assessment](./automated-config-assessment.md) — H-CONFIG-01 as primary revalidation case study
 - [Federated Query Architecture](../archive/federated-query-architecture.md) — H-NDR-FEDERATION-01 as milestone revalidation case study (evicted to archive 2026-07-10)
 - [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Opus 4.6 → 4.7 as a revalidation trigger; six prompt anti-patterns to audit on each release
@@ -216,7 +216,7 @@ The `measurement-claims` frontmatter in each analysis document includes `revalid
 ## Related (from graph)
 
 - [`analysis/automated-config-assessment.md`](analysis/automated-config-assessment.md) [EXTRACTED (1.00) ×2] — references
-- [`analysis/confidence-scoring.md`](analysis/confidence-scoring.md) [EXTRACTED (1.00)] — references
+- [`archive/confidence-scoring.md`](archive/confidence-scoring.md) [EXTRACTED (1.00)] — references (merged into evidence-tiers.md 2026-07-16)
 - [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
 - [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
 - [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references

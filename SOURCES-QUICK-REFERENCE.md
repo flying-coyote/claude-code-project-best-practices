@@ -144,7 +144,7 @@ convergence: single-source
 **Source**: Production validation (this repository, adapted from research methodology)
 **Date**: Ongoing | **Foundational**: No | **Effective Weight**: 0.65 (0.65 x 1.0)
 **Tier System**: A-D for source quality (primary/secondary/tertiary/opinion). The companion 1-5 claim-strength axis is RETIRED (owner ruling 2026-07-12 — it was never ratified; A-D remains the only tier system). Extended with 0-5 authority scale + recency weighting (see karen-evaluator source-authority-matrix).
-**Referenced in**: [evidence-tiers.md](analysis/evidence-tiers.md), [confidence-scoring.md](analysis/confidence-scoring.md)
+**Referenced in**: [evidence-tiers.md](analysis/evidence-tiers.md) (confidence framework merged in 2026-07-16)
 
 ### 22. Dexter Horthy / Human Layer — Authority: 4 (Authoritative)
 **Role**: Co-creator of RPI methodology, now CRISPY

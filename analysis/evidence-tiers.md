@@ -1,13 +1,15 @@
 ---
 evidence-tier: B
 convergence: single-source
-applies-to-signals: [audit-always-fetch, contributing-new-analysis]
-last-verified: 2026-04-22
+applies-to-signals: [audit-always-fetch, contributing-new-analysis, revalidation-trigger, project-type-research]
+last-verified: 2026-07-16
 revalidate-by: 2026-10-22
 status: PRODUCTION
 ---
 
 # Evidence Tier System
+
+> **Merged 2026-07-16 (Absorption Scan 2026-07 §1).** confidence-scoring.md folded in — one evidence-methodology doc instead of two. No external absorber exists for evidence-grading of AI-tooling claims; this consolidation is a reduction move, not an absorption.
 
 **Evidence Tier**: B (methodology document — adapted from established research methodology, validated in production use across this repository; self-referential scheme)
 
@@ -15,9 +17,9 @@ A classification framework for source quality and claim confidence.
 
 ## Overview
 
-This document describes the **Tier A-D** system for evaluating source quality and outputs, which is the only tier system in use.
+This document describes the **Tier A-D** system for evaluating source quality and outputs, which is the only tier system in use, plus the HIGH/MEDIUM/LOW confidence-assessment framework merged in from confidence-scoring.md on 2026-07-16.
 
-It previously also described a second axis, **Tier 1-5** for research evidence strength. That axis was RETIRED by owner ruling 2026-07-12 (it was never ratified); its sections below are preserved as a record.
+It previously also described a second axis, **Tier 1-5** for research evidence strength. That axis was RETIRED by owner ruling 2026-07-12 (ruling B-F7; it was never ratified); the retired-axis record was extracted 2026-07-16 to [evidence-tiers-1-5-axis-record.md](../archive/evidence-tiers-1-5-axis-record.md).
 
 ---
 
@@ -70,10 +72,7 @@ It previously also described a second axis, **Tier 1-5** for research evidence s
 ### For Research
 - **Hypothesis formation**: Any tier can inspire hypotheses
 - **Hypothesis validation**: Requires Tier A or B
-- **Confidence levels**:
-  - High (5): Multiple Tier A sources
-  - Medium (3-4): Tier B sources
-  - Low (1-2): Tier C or single source
+- **Confidence levels**: assessed HIGH/MEDIUM/LOW — see the Confidence Assessment section below for the canonical tier → confidence mapping
 
 ### For Decision Making
 - **Architectural decisions**: Tier A or B required
@@ -110,102 +109,69 @@ Example:
 
 ---
 
-## Research Evidence Tiers (1-5)
+## Research Evidence Tiers (1-5) — RETIRED
 
-> **RETIRED** (owner ruling 2026-07-12): this 1-5 evidence axis was never ratified and is retired. Tier A-D is the only tier system. The description below is preserved as a record.
-
-Formerly used for hypothesis validation and research claim assessment; it complemented the A-D system with a focus on empirical validation.
-
-### Tier 1: Production Deployments with Measured Outcomes
-- **What**: Real-world deployments with quantified results
-- **Examples**:
-  - "DuckDB reduced query time from 45s to 2s in our SOC"
-  - "Iceberg table format handles 500M events/day in production"
-  - Published case studies with named organizations and metrics
-- **Confidence**: Highest - suitable for strong claims
-- **Validation**: Independently verifiable, replicable
-
-### Tier 2: Peer-Reviewed Research with Replication
-- **What**: Academic research validated through peer review
-- **Examples**:
-  - Published papers in USENIX, IEEE S&P, ACM conferences
-  - Studies with reproducible methodology and datasets
-  - Meta-analyses synthesizing multiple studies
-- **Confidence**: High - suitable for confident claims
-- **Validation**: Peer-reviewed, methodology documented
-
-### Tier 3: Expert Consensus with Documented Reasoning
-- **What**: Agreement among recognized domain experts
-- **Examples**:
-  - Technical talks at industry conferences (e.g., DataBricks Summit)
-  - Expert interviews with transparent reasoning
-  - Industry standards bodies (NIST, ISO) recommendations
-- **Confidence**: Medium - requires corroboration
-- **Validation**: Expert credentials verifiable, reasoning documented
-
-### Tier 4: Vendor Claims or Theoretical Assertions
-- **What**: Vendor marketing, theoretical models without validation
-- **Examples**:
-  - Vendor whitepapers claiming performance improvements
-  - Theoretical projections without production data
-  - Blog posts from vendors promoting their products
-- **Confidence**: Low - treat with skepticism
-- **Validation**: Requires independent verification
-
-### Tier 5: Speculation Without Supporting Data
-- **What**: Opinions, predictions, unverified claims
-- **Examples**:
-  - Social media discussions and hot takes
-  - Unattributed claims ("many users report...")
-  - Personal speculation without evidence
-- **Confidence**: Minimal - context only, never cite as fact
-- **Validation**: Not suitable for validation
+> **Retired 2026-07-12 (owner ruling B-F7)**: the 1-5 claim-strength axis was never ratified; Tier A-D is the only tier system. The full retired-axis record (tier definitions and the "Using Both Systems Together" practice) was extracted 2026-07-16 to [evidence-tiers-1-5-axis-record.md](../archive/evidence-tiers-1-5-axis-record.md).
 
 ---
 
-## Using Both Systems Together
+## Confidence Assessment (HIGH/MEDIUM/LOW) — merged 2026-07-16
 
-> **RETIRED with the 1-5 axis** (owner ruling 2026-07-12): the combined-assessment practice below is preserved as a record. Use Tier A-D alone.
+Merged from confidence-scoring.md (pre-merge snapshot: [archive/confidence-scoring.md](../archive/confidence-scoring.md)). Systematic confidence assessment for hypotheses, research claims, and technical assertions — use it when formulating hypotheses, evaluating technical or vendor claims, making architectural decisions, or running publication quality checks.
 
-### For Academic/Research Content
-Use **Tier 1-5** for hypothesis validation and research claims:
+### Confidence Levels
+
+**HIGH (>80%)** — multiple independent confirmations, production validation with measured outcomes, peer-reviewed support, no significant contradictions, replicable results. Evidence floor: 2+ Tier A sources (ideal: 3+ independent sources across Tier A/B). Suitable for definitive statements ("demonstrates").
+
+**MEDIUM (50-80%)** — sound reasoning with some empirical evidence, minor contradictions or gaps, expert opinion in support, further validation still needed. Evidence floor: 1+ Tier B source (a single strong source or several weaker ones). Use hedge words ("suggests", "indicates", "may"), acknowledge limitations, and note what validation is missing.
+
+**LOW (<50%)** — theoretical reasoning only, limited evidence, significant contradictions, or unvalidated vendor claims; Tier C-D sources only. Label explicitly as speculation ("hypothesize", "theorize"); never present as established fact.
+
+### Tier → Confidence Mapping (canonical)
+
+| Evidence Tier       | Typical Confidence     | Notes                          |
+|---------------------|------------------------|--------------------------------|
+| **Multiple Tier A** | HIGH (>80%)            | Strongest possible evidence    |
+| **Single Tier A**   | MEDIUM-HIGH (65-85%)   | Strong but needs corroboration |
+| **Multiple Tier B** | MEDIUM (60-75%)        | Solid evidence, some validation |
+| **Single Tier B**   | MEDIUM (50-65%)        | Adequate for cautious claims   |
+| **Tier C**          | MEDIUM-LOW (40-60%)    | Supportive but not conclusive  |
+| **Tier D**          | LOW (<50%)             | Speculation or unverified      |
+
+Adjust upward when multiple independent sources agree, production validation exists, peer review confirms, no significant contradictions surface, and the methodology is replicable; adjust downward when sources conflict, only vendor claims are available, the reasoning is theoretical without empirical validation, known contradictions exist, or the methodology is not replicable.
+
+### Documentation Format
+
+For hypotheses:
 
 ```markdown
-**Hypothesis**: DuckDB outperforms Spark for sub-1GB security datasets
-
+**Hypothesis**: [Clear, testable statement]
 **Evidence**:
-- Tier 1: Production deployment at ACME Corp (2s vs 45s query time)
-- Tier 2: Benchmark study published at VLDB 2024
-- Tier 3: Jake Thomas (DuckDB creator) confirms architecture advantages
-
-**Confidence**: High (multiple Tier 1-2 sources)
+- [Tier X]: [Source and key finding]
+**Contradictions**: [Any conflicting evidence]
+**Confidence**: [HIGH/MEDIUM/LOW] ([percentage])
+**Validation Status**: [What's needed to increase confidence]
 ```
 
-### For Project Documentation and Outputs
-Use **Tier A-D** for source citations:
+For technical claims, state the claim, its source-quality tier (A-D), the supporting evidence, the confidence assessment, and what that confidence level is suitable for.
 
-```markdown
-**Tool Search reduces context usage by 85%** (Tier A - Primary Source)
-Source: Anthropic Engineering Blog
-Date: November 24, 2024
-```
+### Decision Thresholds
 
-### Combined Assessment Example
+- **Architecture decisions**: require HIGH confidence (Tier A/B evidence); accept MEDIUM only when validated with a POC
+- **Tool selection**: require MEDIUM minimum, verified with proof-of-concept testing
+- **Best practices**: MEDIUM-LOW acceptable where industry consensus exists, validated through team experience
 
-```markdown
-**Claim**: Iceberg table format is superior for security data lakes
+### Confidence Evolution
 
-**Source Quality** (A-D):
-- Tier A: Apache Iceberg official documentation
-- Tier B: Ryan Blue (creator) technical talks
+Confidence should evolve as evidence accumulates: LOW (theoretical only) → MEDIUM (after POC or early validation) → HIGH (after production deployment with measured outcomes) → HIGH, independently verified (after peer review). Match the language to the band at every stage — definitive only at HIGH, hedged at MEDIUM, labeled speculation at LOW.
 
-**Research Evidence** (1-5):
-- Tier 1: Netflix production deployment (500M events/day)
-- Tier 2: Benchmark comparison study (IEEE 2024)
-- Tier 3: Industry consensus at Data+AI Summit
+### Calibration Gaps (the framework applied to itself)
 
-**Overall Assessment**: Strong claim with Tier A sources and Tier 1-2 evidence
-```
+- **Threshold calibration.** The HIGH >80% / MEDIUM 50-80% / LOW <50% bands are cognitive anchors, not empirically derived. **Needs**: a study correlating band assignment to outcome accuracy across a corpus of labeled claims. Without this, "HIGH" and "MEDIUM" measure reviewer calibration more than reality.
+- **Tier → confidence mapping.** Mapping Tier A source quality to HIGH confidence assumes primary sources are consistently correct; Anthropic's own disclosed "eval awareness" and "self-evaluation rationalization" failure modes (see [agent-evaluation.md](agent-evaluation.md)) show that even Tier A sources can carry systematic errors. **Needs**: explicit Tier A source-reliability audit before promoting claims to HIGH.
+- **Confidence inflation over time.** As a claim accumulates citations, confidence scores drift upward (citation cascades), and this framework has no mechanism to detect or correct the inflation. **Needs**: periodic downward-revalidation where highly-confident claims are deliberately stress-tested against counter-evidence.
+
+These gaps don't invalidate the framework — they are the framework applied to itself. See [session-quality-tools.md](../archive/session-quality-tools.md) (archived 2026-07-10) for an exemplar of full gap-statement usage.
 
 ---
 
@@ -215,16 +181,24 @@ Date: November 24, 2024
 - Validates evidence tiers in claims
 - Flags unsupported assertions
 - Suggests appropriate tier for sources
+- Maps evidence tiers to confidence levels and suggests appropriate confidence language
 
 ### publication-quality-checker
 - Requires Tier A-B for strong claims
 - Warns on Tier C without corroboration
 - Blocks Tier D presented as fact
+- Validates confidence levels match evidence; ensures hedge words on MEDIUM/LOW claims
 
 ### hypothesis-validator
 - Tracks evidence tier per hypothesis
 - Requires higher tier for validation
 - Distinguishes speculation from evidence
+- Assigns HIGH/MEDIUM/LOW confidence and tracks its evolution over time
+
+### research-extractor
+- Classifies extracted claims by confidence
+- Links evidence to confidence assessment
+- Documents validation gaps
 
 ---
 
@@ -246,9 +220,14 @@ Date: November 24, 2024
 **Solution**: Document contradictions explicitly; favor higher tier when sources conflict
 
 ### ❌ Vendor Claims Without Validation
-**Problem**: Accepting vendor whitepapers (Tier C/4) at face value
+**Problem**: Accepting vendor whitepapers (Tier C) at face value
 **Symptom**: Overstated benefits, surprise limitations in production
 **Solution**: Treat vendor claims as hypotheses; validate with POC or independent benchmark
+
+### ❌ Confidence Exceeding Evidence
+**Problem**: Claiming HIGH confidence on Tier C-D sources, or using definitive language on MEDIUM-confidence claims
+**Symptom**: Hedge-free assertions that later reverse under scrutiny
+**Solution**: Match language to the confidence band — definitive only at HIGH, hedged at MEDIUM, labeled speculation at LOW; update the band as evidence evolves
 
 ---
 
@@ -307,7 +286,7 @@ Example:
 **Historical Measurement** (⚠️ NEEDS REVALIDATION - Expired 2026-01-15):
 - Original claim: "Playwright 4x more token-efficient than Chrome extension"
 - Tested: December 2025 with Opus 4.5
-- Status: Chrome extension deprecated 2026-01-10 (see DEPRECATIONS.md)
+- Status: Chrome extension deprecated 2026-01-10 (historical ledger: archive/docs-v1/DEPRECATIONS.md)
 - Current: Playwright now sole recommendation (no comparison needed)
 ```
 
@@ -360,10 +339,7 @@ next-review: 2026-03-01
 ---
 ```
 
-**Track in TOOLS-TRACKER.md**:
-- EMERGING patterns appear in Re-evaluation Schedule section
-- Quarterly review against promotion criteria
-- Automated monitoring via `emerging-pattern-monitor` skill
+**Track via the `emerging-pattern-monitor` skill**, which reviews EMERGING docs against these promotion criteria quarterly (the docs-v1 TOOLS-TRACKER.md that held the re-evaluation schedule was removed in the 2026-07 reduction).
 
 #### Example: Reinforcement Learning from Memory (RLM)
 
@@ -399,7 +375,7 @@ Technical claims often depend on specific versions. Include version context in c
 |-----------------|---------|-----------------|
 | **Minimum version** | "Requires v2.1.30+" | List in pattern frontmatter |
 | **Model-specific** | "Opus 4.6+ only" | Document model requirement |
-| **Breaking change** | "Deprecated in v3.0.0" | See DEPRECATIONS.md |
+| **Breaking change** | "Deprecated in v3.0.0" | Banner in the affected doc (historical ledger: `archive/docs-v1/DEPRECATIONS.md`) |
 | **Feature flag** | "Enable with --flag" | Document in usage section |
 
 #### Pattern Frontmatter for Version Tracking
@@ -443,7 +419,7 @@ Fast-moving ecosystems require explicit deprecation processes.
 
 #### Deprecation Documentation
 
-**Required in DEPRECATIONS.md**:
+**Record the deprecation in the affected doc (banner) and log the decision in DECISIONS.md** — the standalone DEPRECATIONS.md ledger was retired with docs-v1 in the 2026-07 reduction (historical record: `archive/docs-v1/DEPRECATIONS.md`). Each record needs:
 1. What was deprecated and when
 2. Why it was deprecated (with evidence tier)
 3. Migration path to recommended alternative
@@ -484,14 +460,13 @@ Example:
 
 ### Quarterly Audit Checklist
 
-**Review Rapid Evolution Tracking** (see DOGFOODING-GAPS.md):
+**Review Rapid Evolution Tracking**:
 - [ ] Review all EMERGING patterns for promotion eligibility
-- [ ] Verify no measurement claims past expiry without re-validation
-- [ ] Check DEPRECATIONS.md for patterns to archive
+- [ ] Run `scripts/check-measurement-expiry.py` — no measurement claims past expiry without re-validation
+- [ ] Check DECISIONS.md for deprecation decisions whose grace periods have lapsed (docs pending archival)
 - [ ] Audit version-requirements in patterns vs current Claude Code version
-- [ ] Review automation-generated issues from last quarter
+- [ ] Review any expiry issues emitted by `check-measurement-expiry.py --create-issue` last quarter
 - [ ] Update SOURCES.md with any missed Anthropic blog posts
-- [ ] Verify TOOLS-TRACKER.md accuracy against manual review
 
 ---
 
@@ -505,12 +480,13 @@ Example:
 ## Sources
 
 - Framework adapted from established research methodology (literature review best practices)
-- Tier 1-5 system based on evidence-based medicine hierarchies (axis retired 2026-07-12)
+- Tier 1-5 system based on evidence-based medicine hierarchies (axis retired 2026-07-12; record at [evidence-tiers-1-5-axis-record.md](../archive/evidence-tiers-1-5-axis-record.md))
 - Production validation across 12+ documentation projects
+- Confidence framework (merged 2026-07-16 from confidence-scoring.md): synthesis methodology validated in cybersecurity research projects; internal evidence cross-refs [agent-evaluation.md](agent-evaluation.md) (Tier A — eval-awareness failure modes cited in the calibration gaps) and [session-quality-tools.md](../archive/session-quality-tools.md) (archived gap-statement exemplar)
 
 **Evidence Tier**: B (Adapted from peer-reviewed methodology frameworks)
 
-*Last updated: January 2026*
+*Last updated: 2026-07-16 (confidence-scoring merge + retired-axis extraction + dead-reference prune)*
 
 <!-- graphify-footer:start -->
 

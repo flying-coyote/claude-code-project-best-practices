@@ -4,10 +4,12 @@ convergence: single-source
 applies-to-signals: [audit-always-fetch, revalidation-trigger]
 last-verified: 2026-04-22
 revalidate-by: 2026-10-22
-status: PRODUCTION
+status: ARCHIVED
 ---
 
 # Confidence Scoring for Research and Hypotheses
+
+> **MERGED INTO evidence-tiers.md (2026-07-16, Absorption wave Phase 3).** One evidence-methodology doc instead of two. This copy is the pre-merge snapshot, kept for history.
 
 **Source**: Production-validated pattern from research projects
 **Evidence Tier**: B (Validated in cybersecurity research projects)

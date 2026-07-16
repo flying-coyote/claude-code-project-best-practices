@@ -114,7 +114,6 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md) | Methodology + self-critique behind the archetype recommendations: scale thresholds (200/500/6k), 8 challengeable assumptions, evidence discipline |
 | [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md) | Archetype A — curated analytical knowledge bases (Karpathy LLM Wiki paradigm, graphify+footer, Lum1104 alternative) |
 | [memory-systems-graphify-vs-understand-anything.md](analysis/memory-systems-graphify-vs-understand-anything.md) | A/B comparison of two LLM-driven graph-builders + ~25% EXTRACTED-edge hallucination spot-check finding |
-| [confidence-scoring.md](analysis/confidence-scoring.md) | HIGH/MEDIUM/LOW assessment framework |
 | [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md) | Hypothesis confidence tracking, revalidation before demos |
 | [automated-config-assessment.md](analysis/automated-config-assessment.md) | Baseline-deviation-remediation pattern + Hoosier 12/12 ground-truth measurement |
 | [cross-project-synchronization.md](analysis/cross-project-synchronization.md) | Cross-repo dependency cascading, 4-phase enrichment cascade |

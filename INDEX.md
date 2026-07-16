@@ -1,15 +1,15 @@
 # Index
 
-*Auto-generated: 2026-07-16 17:19*
+*Auto-generated: 2026-07-16 17:28*
 
 ## Summary
 
-**Total documents**: 141
+**Total documents**: 142
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 27 |
-| archive | 18 |
+| analysis | 25 |
+| archive | 21 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
 | archive/examples-v1/coding-project | 1 |
@@ -63,12 +63,10 @@
 - [automated-config-assessment.md](analysis/automated-config-assessment.md)
 - [behavioral-insights.md](analysis/behavioral-insights.md)
 - [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md)
-- [confidence-scoring.md](analysis/confidence-scoring.md)
 - [cross-project-synchronization.md](analysis/cross-project-synchronization.md)
 - [domain-knowledge-architecture.md](analysis/domain-knowledge-architecture.md)
 - [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md)
 - [evidence-tiers.md](analysis/evidence-tiers.md)
-- [framework-selection-guide.md](analysis/framework-selection-guide.md)
 - [harness-engineering.md](analysis/harness-engineering.md)
 - [intent-alignment-audit.md](analysis/intent-alignment-audit.md)
 - [mcp-patterns.md](analysis/mcp-patterns.md)
@@ -104,7 +102,10 @@
 - [WORKFLOWS-SUMMARY.md](archive/WORKFLOWS-SUMMARY.md)
 - [ai-creators-analysis.md](archive/ai-creators-analysis.md)
 - [codeguard-review-2026-02.md](archive/codeguard-review-2026-02.md)
+- [confidence-scoring.md](archive/confidence-scoring.md)
+- [evidence-tiers-1-5-axis-record.md](archive/evidence-tiers-1-5-axis-record.md)
 - [federated-query-architecture.md](archive/federated-query-architecture.md)
+- [framework-selection-guide.md](archive/framework-selection-guide.md)
 - [local-cloud-llm-orchestration.md](archive/local-cloud-llm-orchestration.md)
 - [memory-systems-architecture-axes.md](archive/memory-systems-architecture-axes.md)
 - [memory-systems-genealogy-baseline.md](archive/memory-systems-genealogy-baseline.md)

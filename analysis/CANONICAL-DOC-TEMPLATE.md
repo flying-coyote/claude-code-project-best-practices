@@ -140,7 +140,7 @@ Full source entries go in the Sources section with URL, date, and authority cont
 - Citation without tier label
 - Tier label without source attribution
 
-Outlier docs getting retrofitted: `mcp-daily-essentials.md`, `framework-selection-guide.md`.
+(The former retrofit outliers are resolved: `mcp-daily-essentials.md` was absorbed into `mcp-patterns.md` 2026-07-10, and `framework-selection-guide.md` merged into `orchestration-comparison.md` 2026-07-16.)
 
 ---
 
@@ -198,8 +198,7 @@ Full rationale and step-by-step guidance in [`CONTRIBUTING.md`](../CONTRIBUTING.
 
 ## Related Analysis
 
-- [`evidence-tiers.md`](evidence-tiers.md) — Tier A/B/C definitions this template references
-- [`confidence-scoring.md`](confidence-scoring.md) — HIGH/MEDIUM/LOW assessment that maps to Gap-statement usage
+- [`evidence-tiers.md`](evidence-tiers.md) — Tier A/B/C definitions and the HIGH/MEDIUM/LOW assessment that maps to Gap-statement usage (confidence framework merged in 2026-07-16)
 - [`model-migration-anti-patterns.md`](model-migration-anti-patterns.md) — counter-evidence exemplar
 - [`session-quality-tools.md`](../archive/session-quality-tools.md) — Gap-statement exemplar (archived)
 - [`behavioral-insights.md`](behavioral-insights.md) — diagnostic-framework exemplar
@@ -214,8 +213,7 @@ Full rationale and step-by-step guidance in [`CONTRIBUTING.md`](../CONTRIBUTING.
 
 ### Tier B (Validated Methodology)
 
-- [`evidence-tiers.md`](evidence-tiers.md) — tier schema
-- [`confidence-scoring.md`](confidence-scoring.md) — gap/confidence schema
+- [`evidence-tiers.md`](evidence-tiers.md) — tier schema + gap/confidence schema (confidence framework merged in 2026-07-16)
 
 ---
 

@@ -1985,7 +1985,7 @@ These analysis documents define the evidence and scoring frameworks used through
 
 ### Confidence Scoring
 
-- **Document**: [confidence-scoring.md](analysis/confidence-scoring.md)
+- **Document**: [evidence-tiers.md](analysis/evidence-tiers.md) (confidence framework merged in 2026-07-16; pre-merge snapshot at archive/confidence-scoring.md)
 - **Role**: HIGH/MEDIUM/LOW confidence assessment methodology for research hypotheses and technical claims
 - **Classification**: Tier B — validated in production cybersecurity research projects
 

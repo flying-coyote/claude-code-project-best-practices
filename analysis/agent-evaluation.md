@@ -81,7 +81,7 @@ The generic anti-patterns (happy-path-only suites, single-run evaluation, ignori
 - [Subagent Orchestration](./orchestration-comparison.md) - Evaluating multi-agent coordination
 - [Context Engineering](./behavioral-insights.md) - Context quality affects eval results
 - [Evidence Tiers](./evidence-tiers.md) - Applying evidence standards to eval results
-- [Confidence Scoring](./confidence-scoring.md) - Scoring methodology applicable to evals
+- [Evidence Tiers — Confidence Assessment](./evidence-tiers.md) - Scoring methodology applicable to evals (confidence framework merged in 2026-07-16)
 
 ---
 

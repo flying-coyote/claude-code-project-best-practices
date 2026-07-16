@@ -65,7 +65,6 @@ claude-code-project-best-practices/
 │   ├── domain-knowledge-architecture.md # Domain knowledge for LLMs
 │   ├── agent-driven-development.md  # Agent-driven development methodology + 7-repo evidence
 │   ├── agent-evaluation.md         # Eval methodology
-│   ├── confidence-scoring.md       # Assessment framework
 │   ├── local-cloud-llm-orchestration.md  # Hybrid local+cloud LLM architecture
 │   ├── federated-query-architecture.md   # Federated query benchmarks + TCO
 │   ├── automated-config-assessment.md    # Baseline-deviation-remediation pattern

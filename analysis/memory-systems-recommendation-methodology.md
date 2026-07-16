@@ -211,7 +211,7 @@ The companion recommendations doc reflects these corrections from earlier drafts
 - `analysis/memory-systems-archetype-recommendations.md` — the recommendations themselves
 - `analysis/evidence-tiers.md` — evidence-tier framework used here
 - `analysis/evidence-based-revalidation.md` — how to keep recommendations current
-- `analysis/confidence-scoring.md` — adjacent practice for tracking claim confidence
+- `analysis/evidence-tiers.md` (Confidence Assessment section) — adjacent practice for tracking claim confidence (confidence framework merged in 2026-07-16)
 
 <!-- graphify-footer:start -->
 
