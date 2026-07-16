@@ -1841,7 +1841,7 @@ These repositories provide community-maintained best practices and should be per
 
 | Repository | Status | Stars | Focus | Priority |
 |------------|--------|-------|-------|----------|
-| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | ✅ Verified | 18k+ | Commands, workflows, patterns | HIGH |
+| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | ✅ Verified (active, pushed 2026-07-16) | — (snapshot counts dropped per the 2026-07-10 convention) | Commands, workflows, patterns | HIGH |
 | [jqueryscript/awesome-claude-code](https://github.com/jqueryscript/awesome-claude-code) | 🔍 Discovered | - | Tools, IDE integrations | HIGH |
 | [josix/awesome-claude-md](https://github.com/josix/awesome-claude-md) | 🔍 Discovered | - | CLAUDE.md examples | HIGH |
 | [ccplugins/awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins) | 🔍 Discovered | - | Plugins, hooks | MEDIUM |
