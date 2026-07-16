@@ -177,6 +177,8 @@ exit 0
 
 ## Sources
 
+**Corporate agentic-practice canons (directional framing only, 2026-07-16)**: Vercel's "Agent responsibly" (vercel.com/blog/agent-responsibly) and Shopify's AI-first engineering playbook are cited here as directional framing only (Tier C, verified 2026-07-16) — they are not absorbers for this doc's OWASP mapping, cred-boundary pattern, or unattended-execution delta. The one community security-hub attempt in this space, `efij/awesome-claude-code-security`, was created and abandoned the same day (2026-03-12); the durable sources for this doc remain Anthropic, named vendors, and academic/standards work.
+
 - [Beyond Permission Prompts: Making Claude Code More Secure](https://www.anthropic.com/engineering/beyond-permission-prompts) (October 2025, Tier A) — sandboxing impact measurement
 - [Claude Code Auto Mode](https://www.anthropic.com/engineering/claude-code-auto-mode) (March 25, 2026, Tier A) — classifier cited in the `hard_deny` and attack-surface analysis above
 - [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) (Tier A)
@@ -188,7 +190,7 @@ exit 0
 - [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) §5.2 (Tier A, released 2026-05-28) — prompt-injection robustness regressed 4.7→4.8: Gray Swan ART tool-use (k=100, thinking) 6.0%→9.6%; Shade coding/text injection (single attempt, no safeguards, thinking) 2.34%→7.03%; computer-use (single attempt, no safeguards, thinking) 0.46%→7.14%, dropping to 5.11% with safeguards. The "0.07%→0.26%" figure circulating elsewhere is error-bar margins, not injection rates — not used here.
 - templates/rules/security-boundaries.md, templates/settings.json, templates/hooks/{pre-commit-lint.sh, post-edit-test.sh} — retired 2026-07-10; credential-boundary rule set and hook pattern absorbed into this doc
 
-*Last updated: 2026-07-10 (Reduction Phase 4 collapse: cut sandbox/permission/auto-mode mechanism now owned by official docs; absorbed templates/ credential-boundary material). Prior: 2026-06-15 (unbounded/unattended-loop blast radius + controls; Scaling Managed Agents citation; loop/schedule audit signals). Prior: May 2026 (Opus 4.8 prompt-injection regression, §5.2).*
+*Last updated: 2026-07-16 (added corporate agentic-practice canons note — Vercel/Shopify cited as directional framing only, not absorbers; awesome-claude-code-security noted as abandoned same-day). Prior: 2026-07-10 (Reduction Phase 4 collapse: cut sandbox/permission/auto-mode mechanism now owned by official docs; absorbed templates/ credential-boundary material). Prior: 2026-06-15 (unbounded/unattended-loop blast radius + controls; Scaling Managed Agents citation; loop/schedule audit signals). Prior: May 2026 (Opus 4.8 prompt-injection regression, §5.2).*
 
 <!-- graphify-footer:start -->
 

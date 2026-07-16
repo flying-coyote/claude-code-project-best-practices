@@ -12,10 +12,10 @@ measurement-claims:
     date: "2026-04-06"
     revalidate: "2026-10-06"
 status: PRODUCTION
-last-verified: "2026-07-10"
+last-verified: "2026-07-16"
 evidence-tier: A
 convergence: converged
-applies-to-signals: [claude-md-size, claude-md-references, claude-md-missing, claude-md-vague-descriptors, session-edit-thrashing, session-repeated-instructions]
+applies-to-signals: [claude-md-size, claude-md-references, claude-md-missing, claude-md-vague-descriptors, session-edit-thrashing, session-repeated-instructions, repo-has-agents-md]
 revalidate-by: 2026-10-22
 ---
 
@@ -109,6 +109,12 @@ Boris Cherny's guidance (March 2026): Keep CLAUDE.md under ~150 instructions. Be
 
 ---
 
+## AGENTS.md Interop
+
+AGENTS.md (agents.md) is the emerging cross-tool agent-config standard, stewarded by the Agentic AI Foundation under the Linux Foundation as of 2026, adopted across tens of thousands of repos and read by 20+ agents; Claude Code reads it, with CLAUDE.md remaining the richer native format (Tier B, verified 2026-07-16). This doc's sizing/disclosure evidence applies to either file. Trigger to watch: the AGENTS.md ecosystem publishing data-backed sizing guidance would flip this doc's absorption row.
+
+---
+
 ## Sources
 
 ### Tier A (Direct Production Observation)
@@ -125,7 +131,7 @@ Boris Cherny's guidance (March 2026): Keep CLAUDE.md under ~150 instructions. Be
 
 ---
 
-*Last updated: July 2026*
+*Last updated: 2026-07-16 (added AGENTS.md interop note; `repo-has-agents-md` added to applies-to-signals). Prior: July 2026.*
 
 <!-- graphify-footer:start -->
 

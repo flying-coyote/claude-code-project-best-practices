@@ -44,7 +44,8 @@ measurement-claims:
     date: "2026-04-01"
     revalidate: "2026-10-01"
 status: PRODUCTION
-last-verified: "2026-07-10"
+follows: "Willison 'designing agentic loops' canon (simonwillison.net/tags/coding-agents/) + Ronacher inner-vs-outer-loop essays (lucumr.pocoo.org — 'The Coming Loop', 2026-06-23) + Osmani own-the-outer-loop (addyosmani.com/blog/agentic-engineering/) (Tier B practitioner canons, verified 2026-07-16) — the harness-design commentary layer. Bar status: fails Supported (blog-form canons). Delta kept here: the Bitter-Lesson diagnostic, accretion heuristics, and portfolio measurements — verified 2026-07-16 that no canon or framework carries these (superpowers v6.1.1: zero 'bitter lesson' hits; the diagnostic is applied TO it in this doc). Advance trigger: a Supported harness-design guide (first-party or maintained community) absorbing the diagnostic function."
+last-verified: "2026-07-16"
 evidence-tier: Mixed
 convergence: converged  # vendor-official (Anthropic best-practices page + engineering blog) + independent academic (arXiv:2603.28052, arXiv:2603.25723) + LangChain + mass-adopted community frameworks — all cited in-doc
 applies-to-signals: [harness-hooks, harness-minimal, harness-comprehensive, commit-bursts, session-error-loop, model-version-4-8, harness-goal-completion-loop, harness-dynamic-workflows]
@@ -56,6 +57,8 @@ revalidate-by: 2026-11-30
 > **Collapsed 2026-07-10 (Reduction Phase 4).** The harness-design mechanism half is now first-party — Anthropic's official best-practices page (2026 rewrite) and "How Claude Code works in large codebases" (2026-05-14). This doc keeps the delta the official docs don't carry: the Bitter-Lesson diagnostic, the accretion heuristics, and the portfolio's measured evidence.
 
 **Evidence Tier**: Mixed (A-B) — Anthropic engineering blog, expert practitioners, production-validated community frameworks
+
+> **Following the Willison/Ronacher/Osmani harness canons since 2026-07-16.** New coverage effort on harness-design commentary goes to tracking those canons, not growing this doc. Delta kept: the Bitter-Lesson diagnostic, accretion heuristics, portfolio measurements.
 
 ## Purpose
 
@@ -361,6 +364,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - Sen, Kasturi, Lumer, Gulati, Subbiah (PwC US): ["Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"](https://arxiv.org/abs/2605.15184) — arXiv:2605.15184, May 2026. Tier B preprint, not yet peer-reviewed.
 - Andrej Karpathy: Meta-optimization of program.md (March 2026, No Priors podcast). Authority 4/5.
 - Andrej Karpathy: ["Sequoia Ascent 2026"](https://karpathy.bearblog.dev/sequoia-ascent-2026/) (2026-04-30). Authority 4/5.
+- Armin Ronacher: ["The Coming Loop"](https://lucumr.pocoo.org/2026/6/23/the-coming-loop/) (lucumr.pocoo.org, 2026-06-23) — inner agent loop vs. outer harness loop distinction. Tier B.
 - `project1` (security-data research portfolio), ["SDW Loop Engineering"](../../project1/02-projects/securitydataworks/LOOP-ENGINEERING-DESIGN-2026-06-15.md) (2026-06-15) + [`BENCH-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/BENCH-LOOP-STATE.md) / [`CONSOLE-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/CONSOLE-LOOP-STATE.md) — single-source, bias-flagged; cites Arike et al., AIES 2025, on emergent goal-drift
 - LangChain DeepAgents team: ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17). Authority 4/5.
 - [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — 119K+ stars, Anthropic hackathon winner
@@ -380,7 +384,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 
 ---
 
-*Last updated: 2026-07-10 (Reduction Phase 4 — collapsed the harness-design mechanism half now carried by Anthropic's official best-practices page and "How Claude Code works in large codebases"; kept the Bitter-Lesson diagnostic, the accretion heuristics, and all measured/portfolio evidence; cut the 6-layer harness stack, the harness-toolkit changelog table, the philosophy feature-comparison detail, the symptom-to-mechanism diagnostic router, the task-complexity decision tree, and the standalone Resource Map — all now owned by the two first-party sources; confirmed no surviving links to the docs retired elsewhere in this pass). Prior: 2026-06-21 (RETHINK limb elevated). Prior: 2026-06-15 (loop-engineering framing + `/goal` version/claim fix + Rajasekaran and Scaling Managed Agents primary citations + Karpathy Sequoia Ascent). Prior: May 2026 (Opus 4.8 harness-layer deltas).*
+*Last updated: 2026-07-16 (follows: Willison/Ronacher/Osmani harness canons added — doc now tracks those canons for harness-design commentary, keeps the Bitter-Lesson diagnostic, accretion heuristics, and portfolio measurements as delta; added Ronacher's "The Coming Loop" to Sources). Prior: 2026-07-10 (Reduction Phase 4 — collapsed the harness-design mechanism half now carried by Anthropic's official best-practices page and "How Claude Code works in large codebases"; kept the Bitter-Lesson diagnostic, the accretion heuristics, and all measured/portfolio evidence; cut the 6-layer harness stack, the harness-toolkit changelog table, the philosophy feature-comparison detail, the symptom-to-mechanism diagnostic router, the task-complexity decision tree, and the standalone Resource Map — all now owned by the two first-party sources; confirmed no surviving links to the docs retired elsewhere in this pass). Prior: 2026-06-21 (RETHINK limb elevated). Prior: 2026-06-15 (loop-engineering framing + `/goal` version/claim fix + Rajasekaran and Scaling Managed Agents primary citations + Karpathy Sequoia Ascent). Prior: May 2026 (Opus 4.8 harness-layer deltas).*
 
 <!-- graphify-footer:start -->
 

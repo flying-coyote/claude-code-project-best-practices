@@ -74,6 +74,8 @@ Not every project needs a full harness. The 7-repo portfolio reveals a natural p
 
 **Convergence note**: this maturity model is single-source evidence (one portfolio, one instrument), so under the repo's convergence rule, adopting infrastructure on its recommendation requires converged status or an explicit owner exception.
 
+Adjacent canon: Addy Osmani's Agentic Autonomy Levels (addyosmani.com, 2026) is the conceptual ladder for the same progression — this doc's contribution is the measured 7-repo dataset, not the ladder (Tier C — Osmani; crosswalk noted 2026-07-16).
+
 ### Maturity Levels
 
 #### Level 0: No Infrastructure
@@ -261,7 +263,7 @@ Both practitioners emphasize that velocity gains came from harness engineering (
 
 ---
 
-*Last updated: April 2026*
+*Last updated: 2026-07-16 (added Osmani Agentic Autonomy Levels crosswalk near the maturity-model section). Prior: April 2026.*
 
 <!-- graphify-footer:start -->
 

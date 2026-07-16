@@ -2,9 +2,10 @@
 evidence-tier: Mixed
 applies-to-signals: [audit-always-fetch, model-version-migration, model-version-4-8]
 convergence: single-source
-last-verified: 2026-05-30
+last-verified: 2026-07-16
 revalidate-by: 2026-11-30
 status: PRODUCTION
+follows: "ClaudeLog (claudelog.com, community Claude Code mechanics documentation by InventorBlack — Anthropic Developer Ambassador; Tier C with author-authority note, verified 2026-07-16) — the 'how Claude Code behaves' mechanics-explainer lane. Bar status: fails Supported-as-replacement (docs site, no release discipline). Delta kept here: the quantified measurements — 80% CLAUDE.md adherence, 60% context threshold, ~150-instruction budget (all pre-Fable, re-measure open). Advance trigger: ClaudeLog or Anthropic publishing measured adherence/threshold data."
 ---
 
 # Behavioral Insights: How Claude Code Actually Works
@@ -12,6 +13,8 @@ status: PRODUCTION
 > **Re-measure flag (2026-07-10)**: the quantified thresholds below (80% CLAUDE.md adherence, the 60% context-quality boundary, the capacity bands) were measured in the Opus 4.x era. Fable 5 is now in production and its context handling may move these numbers — re-measure on Fable before the next `revalidate-by` and treat the current figures as Opus-4.x-calibrated until then.
 
 **Evidence Tier**: Mixed (A-B) — Quantified claims from Boris Cherny, Anthropic engineering blog, and practitioner observation
+
+> **Following ClaudeLog since 2026-07-16.** New coverage effort on behavior-mechanics explanation goes to tracking the canon (claudelog.com), not growing this doc. Delta kept: the quantified measurements, which ClaudeLog does not publish.
 
 ## Purpose
 
@@ -34,7 +37,7 @@ This document collects **quantified behavioral observations** about Claude Code 
 | 80%+ | Near-failure zone | Start new session |
 | ~83.5% | Auto-compaction triggers | System intervenes automatically |
 
-**Key insight**: Quality degrades *before* the context window fills. The 60% mark is where Boris recommends proactive intervention.
+**Key insight**: Quality degrades *before* the context window fills. The 60% mark is where Boris recommends proactive intervention (pre-Fable measurement, March 2026 — re-measure open).
 
 > **Revalidation (2026-05-30) — "60%" is an intervention heuristic, not a measured degradation onset.** The 60% figure is a Claude-Code *usage-intervention* rule of thumb (Tier C; the originally-cited source page now 403s), not a benchmarked degradation threshold. Published long-context benchmarks put the *onset* much earlier and make it model-specific: arXiv:2601.15300 finds Qwen2.5-7B degrades at 40–50% of max context (F1 0.55→0.30); Fiction.liveBench shows deep-comprehension sliding "closer to 32k"; NoLiMa (ICML 2025) shows most models drop below half their short-input score by 32k tokens. The defensible claim is: **degradation onset is model-specific and typically begins far below the advertised window — roughly 16–64k tokens, ≈20–50% on a 1M-context model. Treat 60% as a practical "intervene now" trigger, not as the point where quality starts to fall.** 4.8's "better long-context handling / fewer compactions" (Tier A, [4.8 docs](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8)) shifts this favorably vs 4.7, but by an unquantified amount — re-measure on 4.8 rather than assuming the threshold moved. Sources: arXiv:2601.15300, Fiction.liveBench, NoLiMa (ICML 2025), arXiv:2510.05381.
 
@@ -55,7 +58,7 @@ This document collects **quantified behavioral observations** about Claude Code 
 
 ### CLAUDE.md Adherence (~80%)
 
-Boris Cherny reports CLAUDE.md instructions are followed approximately 80% of the time. This means:
+Boris Cherny reports CLAUDE.md instructions are followed approximately 80% of the time (pre-Fable measurement, March 2026 — re-measure open). This means:
 - Don't rely on CLAUDE.md for safety-critical constraints
 - Use hooks for enforcement where compliance must be 100%
 - Keep instructions under ~150 lines to maximize adherence
@@ -95,7 +98,7 @@ AI conversations suffer from four knowledge quadrants (adapted from CAII/skribbl
 
 ### ~150 Instruction Cap (Convergent Evidence)
 
-The ~150 instruction cap is now independently validated by multiple high-authority sources:
+The ~150 instruction cap is now independently validated by multiple high-authority sources (pre-Fable measurement — re-measure open):
 
 | Source | Authority | Basis |
 |--------|-----------|-------|
@@ -270,7 +273,7 @@ Anthropic published a postmortem ([engineering blog, 2026-04-23](https://www.ant
 
 **Anthropic's own remediation list** (announced in the postmortem): broader per-model evaluations for system-prompt changes, stricter code-review process using the improved Code Review tool, soak periods and gradual rollouts for intelligence-affecting changes, expanded repository context for code reviews.
 
-**What this changes about the rest of this doc**: the practitioner-observed quality thresholds elsewhere in this document (60% context decline, ~80% CLAUDE.md adherence, ~150 instruction cap) were collected by users observing aggregate behavior — but vendor-side defaults sit *upstream* of all of those observations. A revalidation against a degraded default measures the degraded default, not the underlying behavior. Date-anchor practitioner-observed claims to a specific Claude Code version, and re-run them after major vendor-side changes.
+**What this changes about the rest of this doc**: the practitioner-observed quality thresholds elsewhere in this document (60% context decline, ~80% CLAUDE.md adherence, ~150 instruction cap; all pre-Fable, re-measure open) were collected by users observing aggregate behavior — but vendor-side defaults sit *upstream* of all of those observations. A revalidation against a degraded default measures the degraded default, not the underlying behavior. Date-anchor practitioner-observed claims to a specific Claude Code version, and re-run them after major vendor-side changes.
 
 Source: [Anthropic Engineering — April 23 Postmortem](https://www.anthropic.com/engineering/april-23-postmortem) (2026-04-23). Tier A. Confirmed via WebFetch 2026-05-24.
 
@@ -311,9 +314,9 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 
 Several widely-cited thresholds in this doc are load-bearing but carry single-source confidence. Explicit gap statements:
 
-- **Gap: 60% context quality threshold.** ⚠️ **REVALIDATED 2026-05-30 — reclassified.** Boris Cherny reports proactive intervention at 60% context; this is a practitioner *intervention heuristic* (Tier C), not a measured degradation onset, and the originally-cited source page now 403s. Independent benchmarks put the *onset* far earlier and model-specific: arXiv:2601.15300 (Qwen2.5-7B degrades at 40–50% of max context, F1 0.55→0.30), Fiction.liveBench (deep-comprehension slide "closer to 32k"), NoLiMa/ICML 2025 (most models <½ short-input score by 32k). Restated claim: onset begins far below the advertised window (~16–64k tokens, ≈20–50% on 1M-context models); 60% is the "intervene now" trigger, not the degradation point. **Still needs**: per-model correlation study between context fill and a measurable output-quality metric on current models (4.8). Do not re-run on a 4.7 baseline and call it current.
-- **Gap: ~80% CLAUDE.md adherence.** Cited ubiquitously in this repo. Source is Boris Cherny's direct observation; no public methodology for the 80% figure. **Needs**: controlled study running the same CLAUDE.md across N sessions, measuring instruction-follow rate per instruction type.
-- **Gap: ~150 instruction cap.** Convergent evidence (Cherny + Horthy) upgrades confidence, but both sources reach it by observation, not measurement. **Needs**: ablation study varying CLAUDE.md instruction count and measuring adherence.
+- **Gap: 60% context quality threshold.** ⚠️ **REVALIDATED 2026-05-30 — reclassified.** Boris Cherny reports proactive intervention at 60% context; this is a practitioner *intervention heuristic* (Tier C), not a measured degradation onset, and the originally-cited source page now 403s. Independent benchmarks put the *onset* far earlier and model-specific: arXiv:2601.15300 (Qwen2.5-7B degrades at 40–50% of max context, F1 0.55→0.30), Fiction.liveBench (deep-comprehension slide "closer to 32k"), NoLiMa/ICML 2025 (most models <½ short-input score by 32k). Restated claim: onset begins far below the advertised window (~16–64k tokens, ≈20–50% on 1M-context models); 60% is the "intervene now" trigger, not the degradation point. **Still needs**: per-model correlation study between context fill and a measurable output-quality metric on current models (4.8). Do not re-run on a 4.7 baseline and call it current. (Pre-Fable measurement; re-measure open.)
+- **Gap: ~80% CLAUDE.md adherence.** Cited ubiquitously in this repo. Source is Boris Cherny's direct observation; no public methodology for the 80% figure. **Needs**: controlled study running the same CLAUDE.md across N sessions, measuring instruction-follow rate per instruction type. (Pre-Fable measurement, March 2026 — re-measure open.)
+- **Gap: ~150 instruction cap.** Convergent evidence (Cherny + Horthy) upgrades confidence, but both sources reach it by observation, not measurement. **Needs**: ablation study varying CLAUDE.md instruction count and measuring adherence. (Pre-Fable measurement; re-measure open.)
 - **Gap: Opus 4.7 literalism rate.** Anthropic states 4.7 "will not silently generalize," but does not quantify *how often* 4.6 was generalizing. **Needs**: side-by-side prompt-running on 4.6 vs 4.7 against a corpus of vague prompts; measure the silent-no-op rate delta.
 
 These gaps do not invalidate the claims — they scope them. Practitioner-observed thresholds are still the best available evidence for these behaviors.
@@ -324,10 +327,10 @@ These gaps do not invalidate the claims — they scope them. Practitioner-observ
 
 | Claim | Source | Confidence |
 |-------|--------|------------|
-| CLAUDE.md followed ~80% of the time | Boris Cherny (March 2026) | High (Tier A practitioner) |
+| CLAUDE.md followed ~80% of the time | Boris Cherny (March 2026, pre-Fable) | High (Tier A practitioner) |
 | Auto-compaction at ~83.5% context | Boris Cherny (March 2026) | High |
-| 60% context = *intervention heuristic* (not measured degradation onset) | Boris Cherny (March 2026); benchmarks put onset earlier & model-specific | Medium (reclassified 2026-05-30 — see Gaps) |
-| ~150 instruction cap for CLAUDE.md | Boris Cherny + Dexter Horthy (convergent) | **High** (upgraded: convergent evidence) |
+| 60% context = *intervention heuristic* (not measured degradation onset) | Boris Cherny (March 2026, pre-Fable); benchmarks put onset earlier & model-specific | Medium (reclassified 2026-05-30 — see Gaps) |
+| ~150 instruction cap for CLAUDE.md | Boris Cherny + Dexter Horthy (convergent, pre-Fable) | **High** (upgraded: convergent evidence) |
 | Auto mode 93% approval rate | Anthropic blog (March 2026) | High (Tier A) |
 | Extended thinking = 2-3x latency | Boris Cherny (March 2026) | High |
 | Skills use ~2% context budget each | Anthropic docs | High (Tier A) |
@@ -373,7 +376,7 @@ These gaps do not invalidate the claims — they scope them. Practitioner-observ
 ---
 
 *Merged from: johari-window-ambiguity.md, recursive-context-management.md*
-*Last updated: May 2026 (Opus 4.8 deltas + sycophancy nuance + 60%-threshold revalidation). Prior: April 2026.*
+*Last updated: 2026-07-16 (follows: ClaudeLog added — doc now tracks the mechanics-explainer canon, keeps the quantified-measurement delta; local pre-Fable currency caveats added at each 80%/60%/~150 claim site). Prior: May 2026 (Opus 4.8 deltas + sycophancy nuance + 60%-threshold revalidation). Prior: April 2026.*
 
 <!-- graphify-footer:start -->
 

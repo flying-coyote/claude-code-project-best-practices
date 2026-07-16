@@ -1,6 +1,7 @@
 ---
 status: EMERGING
-last-verified: "2026-04-28"
+follows: "Karpathy LLM-wiki paradigm (write-time vs read-time wiki; Tier B by author authority, verified 2026-07-16) — the curated-KB paradigm layer this archetype implements. Bar status: fails Supported (blog/talk-form canon). Delta kept here: working implementation evidence — the graphify+footer pipeline and the typed-registry remediation. Advance trigger: the paradigm productized by a Supported tool covering the curated-KB archetype."
+last-verified: "2026-07-16"
 evidence-tier: C
 convergence: emerging  # AI-PKM caveat (B-F1 seed): emerging WITH license risk — Obsidian Smart Connections ~786K downloads but Jan-2026 proprietary switch (DR-6 verified)
 applies-to-signals: [memory-systems, knowledge-base, wiki, graph, md-corpus-small, md-corpus-design-target, md-corpus-large, vault-karpathy, project-type-docs, typed-memory-no-registry]
@@ -10,6 +11,8 @@ revalidate-by: 2026-10-28
 # Archetype A — Curated Analytical Knowledge Base
 
 **Evidence Tier**: C — recommendation synthesizes Tier-B paradigm (Karpathy LLM Wiki) with Tier-C tool-specific claims (graphify, Lum1104).
+
+> **Following the Karpathy LLM-wiki paradigm since 2026-07-16.** New coverage effort on the paradigm layer goes to tracking the canon, not growing this doc. Delta kept: the implementation evidence (graphify+footer, typed-registry remediation).
 
 ## Purpose
 
@@ -132,6 +135,10 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections (migration, never-combine, license)
 - [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — framing and self-critique behind these recommendations
 - [`memory-system-patterns.md`](memory-system-patterns.md) — earlier pattern survey
+
+---
+
+*Last updated: 2026-07-16 (follow-lane wiring — `follows:` frontmatter + body banner for the Karpathy LLM-wiki paradigm canon). Prior: 2026-04-28 (layout-requirement verification against plugin v2.3.2; A1b typed-frontmatter hygiene pattern added).*
 
 <!-- graphify-footer:start -->
 

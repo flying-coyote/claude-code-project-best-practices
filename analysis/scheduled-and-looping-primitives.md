@@ -1,9 +1,10 @@
 ---
 evidence-tier: Mixed
 applies-to-signals: [harness-loop-config, harness-scheduled-agent, ci-scheduled-agent, harness-background-tasks, harness-goal-completion-loop]
-last-verified: 2026-07-10
+last-verified: 2026-07-16
 revalidate-by: 2026-09-21
 status: EMERGING
+follows: "Osmani 'Loop Engineering' (addyosmani.com, 2026-06-07 — five-component anatomy; per the 2026-07-12 re-attribution he presents the framing as his own and quotes Steinberger for one line) + Ronacher 'The Coming Loop' (lucumr.pocoo.org, 2026-06-23) + Ng three-loop model (The Batch, 2026-06-30) (Tier B/C commentary canons, verified 2026-07-16) — the loop-engineering commentary layer; the primitive inventory itself is already first-party (collapsed 2026-07-10). Bar status: fails Supported (blog-form canons). Delta kept here: the audit-signal routing table, the failure framing (cost runaway, premature done, weak-RETHINK limb), and the loop-engineering provenance ledger. Advance trigger: first-party docs absorbing the failure-mode framing, or a Supported loop-engineering guide."
 convergence: converged
 measurement-claims:
   - claim: "/loop runs interval or self-paced; minimum 1-minute interval; .claude/loop.md default prompt; recurring tasks auto-expire 7 days after creation; CLAUDE_CODE_DISABLE_CRON kill-switch; requires Claude Code v2.1.72+"
@@ -25,6 +26,8 @@ measurement-claims:
 > **Collapsed 2026-07-10 (Reduction Phase 4).** The primitive inventory is now first-party (official scheduled-tasks, /goal, and workflows docs; Routines GA v2.1.198). Kept delta: the audit-signal → routing table the fleet audit renders from, the unattended-execution failure framing (cost runaway, premature "done", self-verification gaps), the weak-RETHINK-limb analysis, and the loop-engineering provenance.
 
 **Evidence Tier**: Mixed (A-B-C) — official Claude Code docs/changelog plus the Cherny quote (Tier A, per this repo's Claude-Code-creator rule), named-practitioner analysis (Tier B: Huntley, Karpathy), a single-practitioner case study (Tier B, single-source flagged — `project1`'s loop design + loop-state machines), and the June-2026 "loop engineering" commentary cloud (Tier C, bias-flagged).
+
+> **Following the Osmani/Ronacher/Ng loop-commentary canons since 2026-07-16.** New coverage effort on loop-engineering commentary goes to tracking those canons, not growing this doc. Delta kept: the audit-signal routing table + failure framing + provenance ledger.
 
 ## Purpose
 
@@ -107,6 +110,7 @@ What this doc does *not* establish, and what's still open:
 
 - Andrej Karpathy — ["Sequoia Ascent 2026"](https://karpathy.bearblog.dev/sequoia-ascent-2026/) (2026-04-30): coding's built-in verification makes it the ideal self-improvement loop.
 - Geoffrey Huntley — ["Ralph Wiggum as a software engineer"](https://ghuntley.com/ralph/) (2025-07): origin of the fixed-prompt `while`-loop technique the productized commands descend from.
+- Armin Ronacher — "The Coming Loop" (lucumr.pocoo.org, 2026-06-23): a second independent loop-engineering commentary voice outside the Cherny/Osmani line, corroborating the failure-mode framing (cost runaway, verification) this doc carries as delta.
 
 ### Tier B (Single-practitioner case study — flagged)
 
@@ -117,7 +121,8 @@ What this doc does *not* establish, and what's still open:
 - The New Stack, "Loop engineering" (2026-06), and Addy Osmani, "Loop Engineering" (2026-06-07): establish/name the term and the "building blocks" decomposition; conceptual, no production metrics.
 - Filip Verloy (Rubrik), "From Prompt Engineering to Loop Engineering" (2026-06-07): security framing — agentic overreach, prompt injection at machine speed; vendor-adjacent, flag bias.
 - Data Science Dojo, MindStudio, Louis Bouchard (2026-06): explainer-tier coverage, thin on primary sourcing.
+- Andrew Ng — three-loop model, *The Batch* newsletter (2026-06-30): a third independent loop-engineering commentary voice; explainer-tier, no production metrics.
 
 ---
 
-*Last updated: 2026-07-10 (Reduction Phase 4 — see banner; 33KB → 17KB). Prior: 2026-06-21 (added "The weak RETHINK limb" section — strong-Act/weak-RETHINK case study + advisory recommendation). Prior: 2026-06-19 (`harness-goal-completion-loop` graduated via the 80%→0% false-positive measurement; `harness-scheduled-agent` graduated; Tier-D cost estimate added). Prior: 2026-06-15 (new EMERGING doc).*
+*Last updated: 2026-07-16 (follow-lane wiring — `follows:` frontmatter + body banner for the Osmani/Ronacher/Ng loop-commentary canons; Ronacher and Ng added to Sources; promotion check re-run, status held EMERGING). Prior: 2026-07-10 (Reduction Phase 4 — see banner; 33KB → 17KB). Prior: 2026-06-21 (added "The weak RETHINK limb" section — strong-Act/weak-RETHINK case study + advisory recommendation). Prior: 2026-06-19 (`harness-goal-completion-loop` graduated via the 80%→0% false-positive measurement; `harness-scheduled-agent` graduated; Tier-D cost estimate added). Prior: 2026-06-15 (new EMERGING doc).*

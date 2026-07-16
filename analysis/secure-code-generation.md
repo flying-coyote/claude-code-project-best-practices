@@ -2,7 +2,7 @@
 evidence-tier: A
 convergence: converged
 applies-to-signals: [commit-security-paths]
-last-verified: 2026-07-10
+last-verified: 2026-07-16
 revalidate-by: 2026-10-15
 status: PRODUCTION
 ---
@@ -17,6 +17,8 @@ status: PRODUCTION
 - [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) (Evidence Tier A)
 
 **Evidence Tier**: A (Industry consortium — Anthropic, Google, OpenAI, Microsoft, NVIDIA are CoSAI members)
+
+> **Collapsed 2026-07-16 (Absorption Scan 2026-07 §2.3).** CodeGuard's Claude Code integration is now documented upstream by the standards body itself (Tier A — project-codeguard.org/claude-code-skill-plugin): marketplace plugin install, team settings.json deploy, from-source build. Options B/C below are reduced to that pointer. Retained here: Option A (the CLAUDE.md-paste minimal path, which upstream does not document) + the commit-security-paths remediation + the supply-chain section.
 
 ## Why This Still Matters
 
@@ -45,43 +47,27 @@ Plus specialized rules for MCP security, DevOps/CI/CD, file handling, XML/serial
 
 ## Importing CodeGuard Rules into a Project
 
-Three ways to bring CodeGuard rules into Claude Code, in order of setup cost.
+Two paths to bring CodeGuard rules into Claude Code: paste our own scoped subset yourself (Option A), or use CodeGuard's own upstream integration (Options B/C, absorbed 2026-07-16).
 
 ### Option A: CLAUDE.md Rules (Simplest)
 
-Paste the 3 mandatory rules (credentials, cryptography, input validation — full text under "commit-security-paths Remediation" below) directly into your project's CLAUDE.md under a `## Security Rules (Always Active)` heading. Minimal setup, but limited coverage. Good for small projects.
+Paste our three commit-security-paths rules (credentials, cryptography, input validation — full text under "commit-security-paths Remediation" below; this is our own scoped set, not a restatement of upstream's mandatory triad — see the note in that section) directly into your project's CLAUDE.md under a `## Security Rules (Always Active)` heading. Minimal setup, but limited coverage. Good for small projects. Upstream documents no equivalent CLAUDE.md-paste path, so this option has no absorption pointer.
 
-### Option B: Skills Directory (Recommended)
+### Options B/C — use upstream's integration (absorbed 2026-07-16)
 
-Create a security skill that Claude Code loads automatically:
+CodeGuard now documents its own Claude Code integration upstream, at project-codeguard.org/claude-code-skill-plugin (setup detail at project-codeguard.org/getting-started) — this absorbs what Options B and C used to walk through by hand. Three routes, in order of setup cost:
 
-```
-.claude/skills/secure-coding/
-├── SKILL.md              # Security skill with routing
-└── rules/
-    ├── credentials.md    # Hardcoded credential prevention
-    ├── crypto.md         # Cryptographic algorithm standards
-    └── validation.md     # Input validation patterns
-```
+- **Marketplace plugin**: `/plugin marketplace add cosai-oasis/project-codeguard`, then `/plugin install codeguard-security@project-codeguard`, then `/reload-plugins`.
+- **Team deploy**: set `extraKnownMarketplaces` and `enabledPlugins` in `.claude/settings.json` so the whole team gets the plugin on next session start.
+- **From-source build**: for anyone who wants to vendor or modify the rules directly.
 
-SKILL.md needs only a `name` and a `description` (what it prevents: hardcoded credentials, weak cryptography, injection) — Claude Code loads the routing, the `rules/` files carry the detail. Balanced coverage with progressive disclosure. Recommended for most projects.
-
-### Option C: Full CodeGuard Plugin (Comprehensive)
-
-Install the CodeGuard plugin, which bundles all 23 rules and ships a `.claude-plugin/` directory that converts to Claude Code's skill format automatically:
-
-```bash
-git clone https://github.com/cosai-oasis/project-codeguard.git
-# Follow CodeGuard's Claude Code integration instructions
-```
-
-Maximum coverage but higher context token cost. Best for security-sensitive projects.
+The plugin ships as an auto-loaded Agent Skill with per-rule files — the progressive-disclosure shape Option B used to hand-roll — so there's no reason to hand-roll it anymore.
 
 ---
 
-## commit-security-paths Remediation: 3 Mandatory Rules
+## commit-security-paths Remediation: Our 3 Rules
 
-These rules apply regardless of which import option above is in use.
+These three rules — hardcoded credentials, modern cryptography, input validation — are the scope of this repo's own `commit-security-paths` audit signal, not a restatement of upstream's mandatory set. CodeGuard's own always-enforced critical triad is `codeguard-1-hardcoded-credentials`, `codeguard-1-crypto-algorithms`, and `codeguard-1-digital-certificates` — digital-certificates is in, input-validation is not (input validation is a separate, non-critical CodeGuard rule). Our three rules apply regardless of which import option above is in use.
 
 ### Rule 1: Never Hardcode Credentials
 
@@ -258,9 +244,13 @@ exit 0  # Allow
 
 ## Sources
 
-- [Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) (CoSAI/OASIS)
+### Tier A
+
+- [Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) (CoSAI/OASIS, verified 2026-07-16)
+- [Project CodeGuard — Claude Code Skill/Plugin](https://project-codeguard.org/claude-code-skill-plugin) (verified 2026-07-16)
+- [Project CodeGuard — Getting Started](https://project-codeguard.org/getting-started) (verified 2026-07-16)
 - [Cisco Donates Project CodeGuard to CoSAI](https://blogs.cisco.com/ai/cisco-donates-project-codeguard-to-the-coalition-for-secure-ai) (February 2026)
 - [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)
 - [Coalition for Secure AI](https://www.coalitionforsecureai.org/)
 
-*Last updated: July 2026*
+*Last updated: 2026-07-16 (Absorption Scan 2026-07 §2.3: CodeGuard's upstream Claude Code integration — marketplace plugin, team settings.json deploy, from-source build — absorbed Options B/C; commit-security-paths triad rescoped and corrected against upstream's mandatory set, which swaps in digital-certificates for input-validation). Prior: July 2026.*

@@ -54,9 +54,10 @@ Conduct the weekly review of project status and documentation currency. This pro
 5b. **Absorption-map consistency** (mechanical greps only — no WebFetch here; judgment about absorbers happens in quarterly absorption scans, `drafts/ABSORPTION-SCAN-*.md`, not in this weekly pass):
    ```bash
    map_rows=$(grep -c '^| \[`analysis/' ABSORPTION-MAP.md)
-   follows_docs=$(grep -l "^follows:" analysis/*.md 2>/dev/null | wc -l)
-   retiring_docs=$(grep -l "^replacement-by:" analysis/*.md 2>/dev/null | wc -l)
-   lane_conflicts=$(grep -l "^follows:" analysis/*.md 2>/dev/null | xargs -r grep -l "^replacement-by:" | wc -l)
+   # exclude the template — its schema block carries both fields at line start (same exclusion as step 5's loop)
+   follows_docs=$(grep -l "^follows:" analysis/*.md 2>/dev/null | grep -v CANONICAL-DOC-TEMPLATE | wc -l)
+   retiring_docs=$(grep -l "^replacement-by:" analysis/*.md 2>/dev/null | grep -v CANONICAL-DOC-TEMPLATE | wc -l)
+   lane_conflicts=$(grep -l "^follows:" analysis/*.md 2>/dev/null | grep -v CANONICAL-DOC-TEMPLATE | xargs -r grep -l "^replacement-by:" | wc -l)
    map_verified=$(grep -m1 "Last verified sweep" ABSORPTION-MAP.md | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
    ```
    Checks, all mechanical: `map_rows` must equal `$routable` (one row per routable doc); every doc with `follows:` must have a `follow`-lane row and every `replacement-by:` doc a `retire-toward`-lane row (spot-check names against the map, not just counts); `lane_conflicts` must be 0 (`follows:` and `replacement-by:` are mutually exclusive — see CONTRIBUTING.md § Following a Canon); and if `map_verified` is more than 100 days old, add "absorption sweep" to next week's priorities. The map is derived — on any conflict, per-doc frontmatter wins and the map gets corrected to match it, never the reverse.
