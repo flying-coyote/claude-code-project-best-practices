@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-07-16 18:02*
+*Auto-generated: 2026-07-16 20:22*
 
 ## Summary
 
-**Total documents**: 142
+**Total documents**: 143
 
 | Directory | Count |
 |-----------|-------|
@@ -35,6 +35,7 @@
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
 | drafts | 4 |
+| research | 1 |
 | research/self-audit-2026-06 | 7 |
 | root | 13 |
 
@@ -82,6 +83,9 @@
 - [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)
 - [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md)
 - [secure-code-generation.md](analysis/secure-code-generation.md)
+## Research
+
+- [fable-probe-session-2026-07-16.md](research/fable-probe-session-2026-07-16.md)
 ## Research / Self-Audit-2026-06
 
 - [AUDIT-FINDINGS.md](research/self-audit-2026-06/AUDIT-FINDINGS.md)

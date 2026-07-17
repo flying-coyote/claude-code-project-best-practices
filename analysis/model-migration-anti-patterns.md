@@ -1,5 +1,10 @@
 ---
 evidence-tier: Mixed
+measurement-claims:
+  - claim: "Fable 5 in-harness probe (n=3/condition, effort medium): vague-descriptor and edge-case anti-patterns SOFTENED vs 4.7 expectation (4/5 and 3/4 target behaviors produced unprompted); adaptive verbosity present (~10x complex/simple, ~37% concision-directive cut)"
+    source: "Controlled 64-agent probe session, this repo — raw record research/fable-probe-session-2026-07-16.md"
+    date: "2026-07-16"
+    revalidate: "2027-01-16"
 convergence: emerging  # ruled 2026-07-16: two independent external exemplars recorded in-doc — Willison per-release behavioral analyses + Vertrees audit framework (Vertrees provenance-only per the 2026-07-10 SOURCES pass: guidance stale, adoption evidence valid)
 applies-to-signals: [model-version-fable-mythos, model-version-4-8, model-version-4-7, model-version-4-6, model-version-4-5, model-version-migration, model-version-unknown, claude-md-vague-descriptors, claude-md-emphatic-constraints]
 last-verified: 2026-05-30
@@ -53,6 +58,8 @@ The practical consequence: prompts that worked on 4.6 because the model *helpful
 
 **Anti-patterns adapted from Vertrees (LinkedIn, April 2026). Version-severity columns are our own cross-reference to the Tier A migration guides and system cards.**
 
+**Fable 5 (probed 2026-07-16, Tier B)**: the matrix keeps its Tier-A columns as-is, but three rows now have direct Fable measurements — the vague-descriptor and edge-case rows are *softened* on Fable (most target behaviors appear unprompted; explicit type-validation and resource limits still need enumeration) and adaptive verbosity carries forward. See [Fable 5 probe measurements](#fable-5-probe-measurements-2026-07-16-tier-b--self-measured) for what was established, what was voided, and why.
+
 ---
 
 ## Opus 4.8 Net Deltas vs 4.7 (Tier A)
@@ -70,9 +77,36 @@ Opus 4.8 (2026-05-28) is a *recovery and calibration* release, not a posture shi
 
 ---
 
+## Fable 5 Probe Measurements (2026-07-16, Tier B — self-measured)
+
+The 4.7-era rows above rested on Anthropic's own migration advisory; the Fable currency note carried them forward by inference. This section replaces that inference with measurement where a probe could be built honestly, and records the probes that failed their own controls, because a voided probe with a known failure mode is worth more to the next re-runner than a silently dropped one.
+
+**Method**: a 64-agent controlled session on `claude-fable-5` inside the Claude Code harness — paired vague-vs-explicit prompt conditions, 3 reps per condition, all probes at `effort: medium`, mechanical scoring where the dependent variable allowed it and LLM judges for behavior-presence counts in code, with every candidate finding passed through a three-lens adversarial verification (overclaim, method-confound, data-consistency) instructed to refute by default. Because the probes ran as subagents they inherit the harness system prompt and the user's global CLAUDE.md, so every result characterizes *Fable-in-harness* — which is the ecologically relevant measurand for this checklist, but not the bare model. Raw distributions: [research/fable-probe-session-2026-07-16.md](../research/fable-probe-session-2026-07-16.md).
+
+### Established (survived all three lenses)
+
+| Anti-pattern | Fable result (in-harness, n=3) | vs 4.7 expectation |
+|---|---|---|
+| Vague quality descriptors | "Follow best practices / robust, clean code" produced 4 of 5 enumerated target behaviors at 3/3 unprompted (clear missing-file error, pathlib, type hints, invalid-JSON handling); the one 0/3 gap was explicit runtime path/type validation, which the explicit condition produced 3/3 — so the probe demonstrably separates conditions | **Softened** — vague asks are mostly expanded; genuine invariants (type checks) still need enumeration |
+| Edge-case gestures | "Consider edge cases" handled empty string 3/3, None 3/3, unicode 2/3 — but produced no oversize-line/resource-limit handling in any rep (0/3 vs 3/3 enumerated) | **Softened, with a residual** — common defensive cases appear unprompted; *resource limits still require explicit enumeration* |
+| Missing verbosity directives | Complex-topic answers ran ~10x simple ones without a directive (means ~693 vs ~69 words, ranges non-overlapping); "Provide concise, focused responses" cut complex answers ~37% | **Carries forward** — adaptive verbosity is present and the standard directive works; keep it |
+
+The practical upshot for a 4.x→Fable migration audit: the grep-for-vague-descriptors steps below remain worth running, but on Fable the highest-yield targets narrow to *invariant-class* instructions (type validation, resource limits, compliance boundaries) rather than quality vocabulary generally, because Fable fills in the conventional quality behaviors unprompted at least in-harness, where the harness prompt may itself supply some of that expansion.
+
+### Voided probes (recorded so the next attempt fixes the instrument, not the conclusion)
+
+- **Implicit subagent dispatch** — positive control failed: the explicit-dispatch arm also executed inline 3/3, consistent with a subagent depth cap (the probes were themselves subagents), so the instrument measured the environment. Re-run needs top-level execution with tool-call telemetry.
+- **References without read-enforcement** — the constraint-token proxy failed its own control (enforced reads scored 0,2,0), so unenforced 0,0,0 cannot discriminate "unread" from "proxy-insensitive." The 4.7-era row stands unmodified on its Tier-A basis; no Fable claim either way.
+- **Unanchored triggers** — the negative arm saturated: Fable logged in all three functions unprompted, so the paired design had no power. A directional softening hint, but non-discriminative; re-run needs a behavior the model doesn't do by default.
+- **Soft-guideline literalization** — contaminated dependent variable: the inherited global CLAUDE.md legislates the exact em-dash rate the probe measured, so the emphatic-arm result cannot be attributed to the probe's rule. The claim below stays Tier B observed-in-practice, still unprobed under controlled conditions.
+
+**Scope caveats on everything above**: n=3 per condition, one effort level (medium — the 4.7 advisory says literalism is strongest at *lower* effort, which this design did not vary), in-harness measurand, self-measured. These are observed-in-practice Tier B rows in the same category as the soft-guideline claim this doc already carries; none of them alters the Tier-A 4.7/4.8 rows.
+
+---
+
 ## First-Class Anti-Pattern: Soft-Guideline Literalization
 
-Promoted to a named anti-pattern as of 2026-05-30. 4.7 introduced it; 4.8 carries it forward. The failure mode: **soft, advisory guidance written with emphatic syntax gets hard-capped or hard-enforced as if it were an invariant.** A house-style note like "cap em-dashes at ~1 per 200 words" or "keep responses concise (max 3 paragraphs)" is treated by the model as a compile-time assertion rather than a heuristic — the model over-restricts to satisfy the literal "max"/"MUST"/"ALWAYS," sometimes degrading output to honor a rule the author meant as directional.
+Promoted to a named anti-pattern as of 2026-05-30. 4.7 introduced it; 4.8 carries it forward. A controlled Fable probe was attempted 2026-07-16 and voided by a contaminated dependent variable (see [voided probes](#voided-probes-recorded-so-the-next-attempt-fixes-the-instrument-not-the-conclusion)), so the claim remains observed-in-practice, unprobed under controlled conditions. The failure mode: **soft, advisory guidance written with emphatic syntax gets hard-capped or hard-enforced as if it were an invariant.** A house-style note like "cap em-dashes at ~1 per 200 words" or "keep responses concise (max 3 paragraphs)" is treated by the model as a compile-time assertion rather than a heuristic — the model over-restricts to satisfy the literal "max"/"MUST"/"ALWAYS," sometimes degrading output to honor a rule the author meant as directional.
 
 **Dual attribution — read this carefully, the two halves are different tiers:**
 
@@ -218,4 +252,4 @@ This doc is cited by (inbound) and cites (outbound) the following. Use the bidir
 
 ---
 
-*Last updated: 2026-07-16 (convergence single-source → emerging per owner ruling; both exemplars recorded with the Vertrees provenance-only caveat). Prior: 2026-06-15 (volatile Fable 5 / Mythos 5 currency note + `model-version-fable-mythos` signal); May 2026 (4.8 release).*
+*Last updated: 2026-07-16 (Fable 5 probe measurements section — two rows softened, one carried forward, four probes voided with method notes; same day: convergence single-source → emerging per owner ruling, both exemplars recorded with the Vertrees provenance-only caveat). Prior: 2026-06-15 (volatile Fable 5 / Mythos 5 currency note + `model-version-fable-mythos` signal); May 2026 (4.8 release).*

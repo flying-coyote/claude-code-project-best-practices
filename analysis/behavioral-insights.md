@@ -1,16 +1,21 @@
 ---
 evidence-tier: Mixed
+measurement-claims:
+  - claim: "Fable 5 in-harness adherence ladder: 1.0 adherence at 10/40/80/150 synthetic token-inclusion rules (n=3 per rung, zero variance) — ceiling bound only, does not locate the cap for realistic instructions"
+    source: "Controlled probe session, this repo — raw record research/fable-probe-session-2026-07-16.md"
+    date: "2026-07-16"
+    revalidate: "2027-01-16"
 applies-to-signals: [audit-always-fetch, model-version-migration, model-version-4-8]
 convergence: single-source
 last-verified: 2026-07-16
 revalidate-by: 2026-11-30
 status: PRODUCTION
-follows: "ClaudeLog (claudelog.com, community Claude Code mechanics documentation by InventorBlack — Anthropic Developer Ambassador; Tier C with author-authority note, verified 2026-07-16) — the 'how Claude Code behaves' mechanics-explainer lane. Bar status: fails Supported-as-replacement (docs site, no release discipline). Delta kept here: the quantified measurements — 80% CLAUDE.md adherence, 60% context threshold, ~150-instruction budget (all pre-Fable, re-measure open). Advance trigger: ClaudeLog or Anthropic publishing measured adherence/threshold data."
+follows: "ClaudeLog (claudelog.com, community Claude Code mechanics documentation by InventorBlack — Anthropic Developer Ambassador; Tier C with author-authority note, verified 2026-07-16) — the 'how Claude Code behaves' mechanics-explainer lane. Bar status: fails Supported-as-replacement (docs site, no release discipline). Delta kept here: the quantified measurements — 80% CLAUDE.md adherence, 60% context threshold, ~150-instruction budget (pre-Fable; first bounded Fable data point 2026-07-16, realistic-diversity re-measure open). Advance trigger: ClaudeLog or Anthropic publishing measured adherence/threshold data."
 ---
 
 # Behavioral Insights: How Claude Code Actually Works
 
-> **Re-measure flag (2026-07-10)**: the quantified thresholds below (80% CLAUDE.md adherence, the 60% context-quality boundary, the capacity bands) were measured in the Opus 4.x era. Fable 5 is now in production and its context handling may move these numbers — re-measure on Fable before the next `revalidate-by` and treat the current figures as Opus-4.x-calibrated until then.
+> **Re-measure flag (2026-07-10)**: the quantified thresholds below (80% CLAUDE.md adherence, the 60% context-quality boundary, the capacity bands) were measured in the Opus 4.x era. Fable 5 is now in production and its context handling may move these numbers — re-measure on Fable before the next `revalidate-by` and treat the current figures as Opus-4.x-calibrated until then. *First bounded Fable data point recorded 2026-07-16*: a synthetic-rule adherence ladder found zero degradation through 150 rules (a ceiling result on an artificial instrument — see the ~150-cap section), so the Opus-era figures are now flagged stale for Fable while the realistic-diversity re-measure stays open.
 
 **Evidence Tier**: Mixed (A-B) — Quantified claims from Boris Cherny, Anthropic engineering blog, and practitioner observation
 
@@ -106,6 +111,8 @@ The ~150 instruction cap is now independently validated by multiple high-authori
 | Dexter Horthy (RPI/CRISPY creator) | 4/5 | Cites arXiv paper via Kyle's blog |
 
 This upgrades the claim from single-source expert guidance to **convergent practitioner evidence** — different practitioners, different data sources, same conclusion. The cap appears to be a genuine behavioral boundary, not an artifact of one person's workflow.
+
+> **First Fable 5 data point (2026-07-16, Tier B, self-measured — a bound, not a replication).** A 12-run in-harness ladder (10/40/80/150 mechanically checkable token-inclusion rules, n=3 per rung, `effort: medium`, probes on `claude-fable-5` inside the Claude Code harness) measured **100% adherence at every rung with zero variance**. Read this narrowly: synthetic token rules are easier to satisfy than the heterogeneous prose instructions of a real CLAUDE.md, and the instrument never entered a degradation region, so it cannot certify the cap is gone — it bounds the degradation onset above 150 *synthetic* rules on Fable, nothing more. What it does establish is that the Opus-era figures should be treated as stale for Fable pending a re-measure with realistic rule diversity, rungs past 150, and a same-instrument Opus comparison arm. Raw distributions and the adversarial-verification record: [research/fable-probe-session-2026-07-16.md](../research/fable-probe-session-2026-07-16.md).
 
 **Recommendations**:
 - Keep CLAUDE.md under 150 lines (60 lines optimal)
@@ -315,8 +322,8 @@ Auto mode uses a Sonnet 4.6 classifier to pre-approve or pre-deny tool calls:
 Several widely-cited thresholds in this doc are load-bearing but carry single-source confidence. Explicit gap statements:
 
 - **Gap: 60% context quality threshold.** ⚠️ **REVALIDATED 2026-05-30 — reclassified.** Boris Cherny reports proactive intervention at 60% context; this is a practitioner *intervention heuristic* (Tier C), not a measured degradation onset, and the originally-cited source page now 403s. Independent benchmarks put the *onset* far earlier and model-specific: arXiv:2601.15300 (Qwen2.5-7B degrades at 40–50% of max context, F1 0.55→0.30), Fiction.liveBench (deep-comprehension slide "closer to 32k"), NoLiMa/ICML 2025 (most models <½ short-input score by 32k). Restated claim: onset begins far below the advertised window (~16–64k tokens, ≈20–50% on 1M-context models); 60% is the "intervene now" trigger, not the degradation point. **Still needs**: per-model correlation study between context fill and a measurable output-quality metric on current models (4.8). Do not re-run on a 4.7 baseline and call it current. (Pre-Fable measurement; re-measure open.)
-- **Gap: ~80% CLAUDE.md adherence.** Cited ubiquitously in this repo. Source is Boris Cherny's direct observation; no public methodology for the 80% figure. **Needs**: controlled study running the same CLAUDE.md across N sessions, measuring instruction-follow rate per instruction type. (Pre-Fable measurement, March 2026 — re-measure open.)
-- **Gap: ~150 instruction cap.** Convergent evidence (Cherny + Horthy) upgrades confidence, but both sources reach it by observation, not measurement. **Needs**: ablation study varying CLAUDE.md instruction count and measuring adherence. (Pre-Fable measurement; re-measure open.)
+- **Gap: ~80% CLAUDE.md adherence.** Cited ubiquitously in this repo. Source is Boris Cherny's direct observation; no public methodology for the 80% figure. **Needs**: controlled study running the same CLAUDE.md across N sessions, measuring instruction-follow rate per instruction type. (Pre-Fable measurement, March 2026 — re-measure open; the 2026-07-16 synthetic ladder is single-instruction-type and hit ceiling, so it does not discharge this gap.)
+- **Gap: ~150 instruction cap.** Convergent evidence (Cherny + Horthy) upgrades confidence, but both sources reach it by observation, not measurement. **Needs**: ablation study varying CLAUDE.md instruction count and measuring adherence. (Pre-Fable measurement; re-measure open. First bounded Fable ablation 2026-07-16: 1.0 adherence at 10/40/80/150 synthetic token rules, n=3 per rung — a ceiling result that bounds degradation above 150 synthetic rules without locating the cap for realistic instructions; see the ~150-cap section.)
 - **Gap: Opus 4.7 literalism rate.** Anthropic states 4.7 "will not silently generalize," but does not quantify *how often* 4.6 was generalizing. **Needs**: side-by-side prompt-running on 4.6 vs 4.7 against a corpus of vague prompts; measure the silent-no-op rate delta.
 
 These gaps do not invalidate the claims — they scope them. Practitioner-observed thresholds are still the best available evidence for these behaviors.
