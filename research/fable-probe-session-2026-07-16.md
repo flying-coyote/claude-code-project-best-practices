@@ -38,3 +38,36 @@
 - adherence vs-Opus comparison — the raw ladder stands as a ceiling bound, but "Opus claims did not reproduce" was refuted: no positive control (the instrument never demonstrated it can detect degradation), and synthetic token rules are not comparable to heterogeneous prose instructions. Needs rungs past 150 + realistic rule diversity + a same-instrument Opus comparison arm.
 
 **Caveats carried on every surviving claim**: n=3 per condition, single effort level (medium), in-harness measurand, Tier B observed-in-practice. Workflow run `wf_1446bac1-89b`, 64 agents, 0 errors, ~1.77M subagent tokens.
+
+---
+
+## Re-run of the two fixable voided probes (same day)
+
+### Soft-guideline literalization — fixed instrument (unlegislated token, baseline arm, then genre extension)
+
+Instrument fix: the dependent variable moved from em-dashes (legislated by the inherited global CLAUDE.md, which voided round one) to the second-person word "you" in audience-addressed product copy — unlegislated, high natural baseline, mechanically countable. Arms: no-rule baseline; emphatic (`HARD RULE: ... MUST appear AT MOST 3 times ... NEVER exceed 3`); advisory (`aim for roughly 3 or so ... directional, not a hard cap`). After a first-pass confound refutation was answered with family-count data (see verification trail below), the confound verifier ruled SURVIVES-IF-EXTENDED and specified the extension: 2–3 more genres, n≈7–9/arm, second-person family total (you + your + you'll/you're/you've) pre-registered as primary metric. Executed: 3 new genres (password-manager page, backup-onboarding email, network-monitor landing page), 2 reps/arm/genre, effort medium (runs `wf_3bdfe5fd-572`, `wf_30a3d4b0-70e`).
+
+Pooled, n=9/arm across 4 genres — family totals:
+
+| Arm | Per-rep family totals | Mean |
+|---|---|---|
+| baseline | 18, 18, 16, 15, 28, 29, 30, 25, 24 | 22.6 |
+| emphatic cap-3 | 2, 1, 2, 1, 1, 3, 1, 3, 2 | 1.78 |
+| advisory ~3 | 5, 3, 7, 5, 2, 3, 4, 10, 5 | 4.89 |
+
+Bare-"you" (the token the rule literally named): emphatic {1,0,1,1,0,2,1,2,1} — mean 1.0, max 2, never reaching the allowed 3 in any rep; advisory {3,1,3,3,2,2,3,4,3} — mean 2.67, one rep exceeding the stated number (4). Substitution gaming disconfirmed: the emphatic arm suppressed the whole family ~13x below baseline although the rule named one word. Mann-Whitney on the pre-registered family metric, emphatic vs advisory: U = 75.5/81, one-sided p ≈ 0.001; both rule arms separate from baseline with no overlap. Pattern holds in each of the 4 genres individually.
+
+### Implicit dispatch — fixed instrument (working spawn path + transcript telemetry)
+
+Instrument fix: round one was void because workflow-spawned subagents had no Agent tool (their explicit arms ran ToolSearch for it, found nothing, fell back inline — the "tried_to_delegate_but_failed" self-reports were honest tool-unavailability reports, confirmed by zero Agent tool_use blocks in all six transcripts). The overclaim verifier — itself a main-loop-spawned subagent with Agent-tool access — falsified "subagents structurally cannot spawn subagents" and identified the working spawn path. Re-run: 6 probes via the main-loop Agent tool (general-purpose), telemetry from transcripts as ground truth.
+
+| Arm (n=3) | Agent tool calls (telemetry) | Other tools | Outcome |
+|---|---|---|---|
+| explicit ("Dispatch each task to a separate subagent") | 3, 3, 3 — 9/9 dispatches succeeded | none | **Positive control passes** |
+| implicit ("Execute the tasks.") | 0, 0, 0 | Bash (+Read in 2/3) | Inline in all reps |
+
+Method note (scoped per the overclaim verifier): Agent-tool availability differed by spawn path in this session — absent for workflow-spawned general-purpose subagents, present for main-loop-spawned ones. Whether that is a fixed harness property is untested beyond this session; dispatch probes must use a spawn path where the positive control passes. Caveat on the finding: the dispatch probes ran at session effort (xhigh — the Agent tool takes no effort override), unlike every other probe in this record (medium), and the three-item read-only task list makes inline execution economically sensible regardless of propensity, so the finding characterizes default dispatch propensity on small task lists only.
+
+### Verification trail (round two)
+
+Confound lens: first verdict REFUTED on substitution-gaming (answered with measured family counts — the emphatic arm did not substitute, it suppressed the family) and n=3 thinness; re-verdict SURVIVES-IF-EXTENDED with the extension spec above; extension executed. Overclaim lens: literalization SURVIVES conditionally with three wording constraints (no "tracks the stated number"; "pilot"-grade framing until extended; limitations adjacent to the headline — all applied here and in the doc text); the original dispatch method note REFUTED for overclaiming "structurally cannot" from six transcripts, with the verifier's own toolset as counter-evidence — the scoped rewrite above incorporates its corrections. Final same-day verdicts on the pooled/extended data are recorded in the docs that cite this file.
