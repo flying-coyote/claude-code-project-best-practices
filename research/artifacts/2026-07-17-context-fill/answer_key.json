@@ -1,0 +1,286 @@
+{
+  "CAL": {
+    "name": "CAL",
+    "path": "/tmp/claude-1000/-home-jerem-claude-code-project-best-practices/0ae1ac5a-4390-4786-8ee1-c5025f5a0325/scratchpad/fixtures/CAL.txt",
+    "chars": 21212,
+    "lines": 408,
+    "est_tokens": 5303,
+    "begin_marker": "dmfp-d3bu-9gp3",
+    "end_marker": "v8xp-vgf4-bzfv",
+    "facts": [
+      {
+        "key": "CAL-532",
+        "value": "ss4f-8vtj-54jz",
+        "depth": 0.05,
+        "line": 22
+      },
+      {
+        "key": "CAL-651",
+        "value": "v9wr-f6hd-vdkc",
+        "depth": 0.15,
+        "line": 63
+      },
+      {
+        "key": "CAL-786",
+        "value": "f94e-7ctc-yt86",
+        "depth": 0.25,
+        "line": 104
+      },
+      {
+        "key": "CAL-848",
+        "value": "ez5d-9huc-b6t9",
+        "depth": 0.35,
+        "line": 145
+      },
+      {
+        "key": "CAL-903",
+        "value": "35c5-sdhy-p3er",
+        "depth": 0.45,
+        "line": 186
+      },
+      {
+        "key": "CAL-535",
+        "value": "7cv6-fq23-9sv5",
+        "depth": 0.55,
+        "line": 227
+      },
+      {
+        "key": "CAL-906",
+        "value": "e7ek-fpfy-uefm",
+        "depth": 0.65,
+        "line": 267
+      },
+      {
+        "key": "CAL-323",
+        "value": "jkdh-mamb-5x2r",
+        "depth": 0.75,
+        "line": 307
+      },
+      {
+        "key": "CAL-868",
+        "value": "3tfz-n9yv-wpth",
+        "depth": 0.85,
+        "line": 347
+      },
+      {
+        "key": "CAL-862",
+        "value": "nzuu-9yjx-4w83",
+        "depth": 0.95,
+        "line": 387
+      }
+    ]
+  },
+  "R40": {
+    "name": "R40",
+    "path": "/tmp/claude-1000/-home-jerem-claude-code-project-best-practices/0ae1ac5a-4390-4786-8ee1-c5025f5a0325/scratchpad/fixtures/R40.txt",
+    "chars": 161253,
+    "lines": 4449,
+    "est_tokens": 40313,
+    "begin_marker": "jtx3-3hnd-fbdp",
+    "end_marker": "bh33-u23p-24hs",
+    "facts": [
+      {
+        "key": "R40-914",
+        "value": "m4ym-983e-yy5d",
+        "depth": 0.05,
+        "line": 224
+      },
+      {
+        "key": "R40-708",
+        "value": "spnh-uqsf-43dc",
+        "depth": 0.15,
+        "line": 669
+      },
+      {
+        "key": "R40-443",
+        "value": "s9z6-pcmp-txtu",
+        "depth": 0.25,
+        "line": 1115
+      },
+      {
+        "key": "R40-447",
+        "value": "tkx5-cndh-57ny",
+        "depth": 0.35,
+        "line": 1560
+      },
+      {
+        "key": "R40-582",
+        "value": "ugp4-2a9x-sxe6",
+        "depth": 0.45,
+        "line": 2004
+      },
+      {
+        "key": "R40-774",
+        "value": "qrhb-qx3u-wexn",
+        "depth": 0.55,
+        "line": 2449
+      },
+      {
+        "key": "R40-187",
+        "value": "w2yq-8dee-yrqf",
+        "depth": 0.65,
+        "line": 2894
+      },
+      {
+        "key": "R40-208",
+        "value": "bp3w-392q-5jzy",
+        "depth": 0.75,
+        "line": 3338
+      },
+      {
+        "key": "R40-237",
+        "value": "ew22-7zru-e9wv",
+        "depth": 0.85,
+        "line": 3782
+      },
+      {
+        "key": "R40-248",
+        "value": "v8ef-c7w4-5xeu",
+        "depth": 0.95,
+        "line": 4226
+      }
+    ]
+  },
+  "R100": {
+    "name": "R100",
+    "path": "/tmp/claude-1000/-home-jerem-claude-code-project-best-practices/0ae1ac5a-4390-4786-8ee1-c5025f5a0325/scratchpad/fixtures/R100.txt",
+    "chars": 401255,
+    "lines": 5872,
+    "est_tokens": 100313,
+    "begin_marker": "f3bt-pa5m-wjfu",
+    "end_marker": "fwcv-wk32-9bdg",
+    "facts": [
+      {
+        "key": "R100-849",
+        "value": "zpsn-bh5v-whrf",
+        "depth": 0.05,
+        "line": 295
+      },
+      {
+        "key": "R100-317",
+        "value": "y47k-ffza-gnhk",
+        "depth": 0.15,
+        "line": 883
+      },
+      {
+        "key": "R100-621",
+        "value": "jxve-xz5u-5796",
+        "depth": 0.25,
+        "line": 1470
+      },
+      {
+        "key": "R100-555",
+        "value": "rt65-nr2g-uaj2",
+        "depth": 0.35,
+        "line": 2058
+      },
+      {
+        "key": "R100-627",
+        "value": "3524-f8fa-amwu",
+        "depth": 0.45,
+        "line": 2645
+      },
+      {
+        "key": "R100-983",
+        "value": "ntbu-y7hv-eynz",
+        "depth": 0.55,
+        "line": 3232
+      },
+      {
+        "key": "R100-191",
+        "value": "ducj-d45v-r76j",
+        "depth": 0.65,
+        "line": 3818
+      },
+      {
+        "key": "R100-169",
+        "value": "fu4e-zda6-jrny",
+        "depth": 0.75,
+        "line": 4405
+      },
+      {
+        "key": "R100-742",
+        "value": "p4y6-umzz-wzau",
+        "depth": 0.85,
+        "line": 4991
+      },
+      {
+        "key": "R100-525",
+        "value": "8wnd-6fzz-aeeh",
+        "depth": 0.95,
+        "line": 5578
+      }
+    ]
+  },
+  "R140": {
+    "name": "R140",
+    "path": "/tmp/claude-1000/-home-jerem-claude-code-project-best-practices/0ae1ac5a-4390-4786-8ee1-c5025f5a0325/scratchpad/fixtures/R140.txt",
+    "chars": 561238,
+    "lines": 12211,
+    "est_tokens": 140309,
+    "begin_marker": "mjua-dben-6exv",
+    "end_marker": "6hfp-wg8c-cegv",
+    "facts": [
+      {
+        "key": "R140-541",
+        "value": "xvzd-557e-v2hu",
+        "depth": 0.05,
+        "line": 612
+      },
+      {
+        "key": "R140-664",
+        "value": "2kks-nuu6-qzju",
+        "depth": 0.15,
+        "line": 1834
+      },
+      {
+        "key": "R140-313",
+        "value": "rxdv-wxxt-36sb",
+        "depth": 0.25,
+        "line": 3055
+      },
+      {
+        "key": "R140-889",
+        "value": "9dvp-4wzb-9rcb",
+        "depth": 0.35,
+        "line": 4276
+      },
+      {
+        "key": "R140-422",
+        "value": "ad2n-kgjj-aqxc",
+        "depth": 0.45,
+        "line": 5497
+      },
+      {
+        "key": "R140-715",
+        "value": "p978-xxks-7x2a",
+        "depth": 0.55,
+        "line": 6718
+      },
+      {
+        "key": "R140-374",
+        "value": "ah5e-w26c-awb8",
+        "depth": 0.65,
+        "line": 7939
+      },
+      {
+        "key": "R140-781",
+        "value": "gqcz-7ywb-zp5q",
+        "depth": 0.75,
+        "line": 9159
+      },
+      {
+        "key": "R140-421",
+        "value": "jq4d-4tnm-r8wj",
+        "depth": 0.85,
+        "line": 10380
+      },
+      {
+        "key": "R140-297",
+        "value": "7xyg-thn7-3c4j",
+        "depth": 0.95,
+        "line": 11600
+      }
+    ]
+  }
+}
