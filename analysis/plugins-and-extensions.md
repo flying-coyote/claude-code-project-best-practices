@@ -3,12 +3,12 @@ version-requirements:
   claude-code: "v2.1.0+"  # Skills auto-reload feature
 version-last-verified: "2026-03-23"
 measurement-claims:
-  - claim: "Skills are 4x more token-efficient than MCP for methodology (stale-pending-remeasure: tool search v2.1.121)"
+  - claim: "Skills are 4x more token-efficient than MCP for methodology (definitions-layer claim; partially re-measured 2026-07-18 — with tool search engaged (default since v2.1.7) MCP definitions defer to ~11 est. tokens/tool names-only, narrowing the static-loading gap this figure was measured against; treat as a static-loading comparison)"
     source: "Simon Willison analysis"
     date: "2025-10-16"
     revalidate: "2026-10-16"
 status: PRODUCTION
-last-verified: "2026-07-10"
+last-verified: "2026-07-18"
 evidence-tier: B
 convergence: converged
 applies-to-signals: [harness-skills, harness-mcp]
@@ -74,8 +74,7 @@ Curated, but not Anthropic-vetted — apply the checklist below before installin
 - [ ] Minimal scope — does one thing well?
 - [ ] Version pinned — can you lock to a specific version?
 
-> "~43% of MCP servers have command injection vulnerabilities. Only ~10 of 5,960+ available servers are genuinely trustworthy."
-> — [Nate B. Jones, MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving)
+> 42% of 12,000+ scanned public MCP servers have command-injection flaws — BlueRock MCP Trust Registry (2026-07, Tier C vendor scan; the figure originated with Equixly's 2025 test of an undisclosed sample). The oft-quoted companion line "only ~10 of 5,960+ servers are genuinely trustworthy" was withdrawn from this repo 2026-07-18: provenance tracing showed it was Nate B. Jones's editorial judgment over a mid-2025 directory count, never a measurement — the ecosystem passed 22,000 directory listings by mid-2026.
 
 Apply the same skepticism to plugins: an unvetted community source can bundle arbitrary hooks, MCP servers, and shell access alongside whatever it's actually marketed for, so the checklist above is a gate, not a formality — run it before installing, not after something looks wrong.
 
@@ -115,11 +114,11 @@ Once a plugin clears the checklist and is adopted, treat it as a dependency, not
 
 ## Token Economics
 
-The choice between MCP and Skills is a cost decision as much as a capability one: whichever mechanism reaches the same outcome with fewer tokens per call compounds across a session, especially for agents that make many tool calls in a row. Measured context costs of the extension mechanisms follow (Evidence Tier B). Two of the numbers below predate tool search (v2.1.121), which changed how tool schemas load into context — treat those as directional until re-measured against the new baseline, not as current fact:
+The choice between MCP and Skills is a cost decision as much as a capability one: whichever mechanism reaches the same outcome with fewer tokens per call compounds across a session, especially for agents that make many tool calls in a row. Measured context costs of the extension mechanisms follow (Evidence Tier B). Tool search (auto mode default-on since v2.1.7; per-server `alwaysLoad` since v2.1.121 — pegs corrected 2026-07-18) changed how tool schemas load into context, so static-loading numbers are upper bounds, not current session costs:
 
-- **MCP servers** are an open protocol adopted by every major model provider, which is exactly why they carry more overhead than a Claude-specific mechanism: they can consume thousands of tokens per server just loading tool-schema definitions — the protocol transmits a JSON schema for every registered tool up front, whether that call gets used in the session or not *(stale-pending-remeasure: tool search v2.1.121)* — plus a 300-800ms baseline latency that makes them unsuitable for transaction paths.
+- **MCP servers** are an open protocol adopted by every major model provider, which is exactly why they carry more overhead than a Claude-specific mechanism: statically loaded, they can consume thousands of tokens per server in tool-schema definitions — a 2026-07-18 wire measurement found 51 tools of workspace-mcp at ~28.8k est. tokens, 66% of it input schemas (see [MCP Patterns — Context Budget](./mcp-patterns.md#mcp-context-budget-then-and-now)) — though with tool search engaged the same session carried 82 tool names at ~0.9k est. tokens, deferring schemas until invocation. The 300-800ms baseline latency that makes MCP unsuitable for transaction paths is unchanged by either loading mode.
 - **Skills** are token-efficient by design: metadata loads first, at roughly dozens of tokens, with the full SKILL.md body loading only on invocation. Skill description budget scales dynamically at 2% of the context window, with a 16KB fallback; keep SKILL.md itself under 500 lines and move reference material into a `references/` subdirectory. — [Agent Skills Engineering Blog](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) (March 19, 2026)
-- **Measured comparison**: Microsoft's Playwright CLI achieves a 4x token reduction (114K → 27K) over the equivalent MCP server by saving data to disk instead of streaming it into context *(stale-pending-remeasure: tool search v2.1.121)*. See [MCP Patterns — CLI vs MCP](./mcp-patterns.md#cli-vs-mcp-the-token-efficiency-case) for the full comparison.
+- **Measured comparison** *(corrected 2026-07-18)*: the widely-quoted "Microsoft-measured 4x (114K → 27K)" Playwright figure is unsupported — it appears in no Microsoft source, and traces to a Medium-post citation loop. Community benchmarks put the CLI's token reduction at roughly 2-3.7x, task-dependent, with the one independent run also finding the MCP roughly 2x faster wall-clock (the CLI needed 2-3x more tool calls). The prior stale-pending-remeasure flag here was also misapplied: tool search defers tool *definitions* at load time, while CLI-vs-MCP cuts tool *output* per call, so the two levers are orthogonal. See [MCP Patterns — CLI vs MCP](./mcp-patterns.md#cli-vs-mcp-the-token-efficiency-case) for the full corrected comparison.
 - Simon Willison draws the same conclusion from the CLI-tool angle: "Almost everything achievable with an MCP can be handled by a CLI tool instead. LLMs know how to call `cli-tool --help`... Skills have exactly the same advantage, only now you don't even need to implement a new CLI tool — you can just drop a Markdown file describing how to do a task instead." — [Simon Willison](https://simonwillison.net/2025/Oct/16/claude-skills/), also the source behind this doc's frontmatter measurement-claim.
 
 For the fuller MCP-vs-Skills cost comparison — Tenzir's production numbers ($10.27 vs $20.78 per task, 50% cheaper, 38% slower, 55% less cached tokens) — see [MCP vs Skills Economics](./mcp-vs-skills-economics.md); that's a dedicated measurement doc, not duplicated here. Both documents converge on the same directional finding from independent evidence (Willison's practitioner analysis here, Tenzir's production telemetry there): Skills win on token cost, MCP sometimes wins on wall-clock speed, and the right choice depends on which one you're optimizing for.
@@ -144,7 +143,7 @@ For the mechanism documentation itself, start with the official docs linked in P
 
 ---
 
-*Last updated: 2026-07-10*
+*Last updated: 2026-07-18 (token-economics corrections: Playwright 114K/27K attribution corrected to community benchmarks ~2-3.7x with the misapplied stale flag removed, the withdrawn trustworthy-count quote replaced with BlueRock 2026 scan data, tool-search version pegs corrected, wire-measurement data point added; verification trail in research/probe-session-2026-07-18.md). Prior: 2026-07-10.*
 
 <!-- graphify-footer:start -->
 

@@ -100,3 +100,17 @@ Fresh session (post-`/clear`), instrument rebuilt per the recorded void fixes. F
 ### Verification trail (addendum)
 
 The run-1 draft was REFUTED by the confound lens on served-model grounds (per-turn telemetry, independently re-confirmed by the coordinator and by the overclaim lens — with the wrinkle that run 1's two negatives were fable-served) after the overclaim lens had passed it with six wording corrections (void "not reproduced" not "resolved"; filler provenance; "endpoint-anchored" not "calibrated in both directions"; negative-control scope n=2/R40-only; compliance accounting including the R140 interleaved notes it discovered; "no compaction markers" not "no compaction"). The amended disposition (run 1 Opus-descriptive + run 2 gated-Fable) was then verified by both lenses against raw transcripts with independent re-scoring: confound SURVIVES-IF-WEAKENED (fill-figure estimator wording, spawn-path disclosure, run-1-row conditions — all applied above), overclaim PASS-WITH-CORRECTIONS (session-trail registration wording, run-1 effort as spec-not-telemetry, floor scope, void attribution narrowed to session-vs-filler, run-1 negatives footnote — all applied above). Raw data: workflow transcript dirs `wf_5b0b492d-cda` and `wf_34cdc8e6-6e0` plus the run-2 main-loop agent transcripts (session-local, transient); the durable record is this file plus the archived instrument at `research/artifacts/2026-07-17-context-fill/`.
+
+---
+
+## Continuation pointer (2026-07-18)
+
+The program's durable open item — the realistic-prose adherence ladder — was executed
+2026-07-18 in a follow-on session, together with the token-economics wire re-measure and a
+web reverification sweep. Full record, adjudication log, and two-lens verification trails:
+[probe-session-2026-07-18.md](probe-session-2026-07-18.md). Headline: Fable 12/12 gated
+reps at 1.0 through 200 realistic-diversity rules (descriptive ceiling, cap still
+unlocated) on an instrument with a demonstrated-failure-capable checker and a
+same-instrument Opus 4.8 arm, which produced the program's first same-instrument
+between-model score difference (adjudication-dependent literalization discrimination on
+one verbatim-phrase rule).

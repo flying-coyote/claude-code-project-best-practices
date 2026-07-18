@@ -1,32 +1,36 @@
 ---
 version-requirements:
   claude-code: "v2.0.0+"  # MCP support
-version-last-verified: "2026-02-27"
+version-last-verified: "2026-07-18"  # against Claude Code v2.1.214 changelog
 measurement-claims:
   - claim: "MCP baseline latency: 300-800ms"
     source: "Nate B. Jones"
     date: "2025-10-15"
     revalidate: "2026-10-15"
-  - claim: "~43% of MCP servers have command injection vulnerabilities (stale-pending-reverify: dated third-party security survey; revalidate window lapsed 2026-03-20, ecosystem has grown since)"
-    source: "OWASP security audit"
-    date: "2025-09-20"
-    revalidate: "2026-10-10"
-  - claim: "Only ~10 of 5,960+ MCP servers are genuinely trustworthy (stale-pending-reverify: dated third-party security survey; revalidate window lapsed 2026-03-20, ecosystem has grown since)"
-    source: "OWASP security analysis"
-    date: "2025-09-20"
-    revalidate: "2026-10-10"
-  - claim: "Tool Search achieves 89% token reduction (77K to 8.7K tokens)"
+  - claim: "42% of 12,000+ scanned public MCP servers have command-injection flaws (reverified 2026-07-18; consistent with Equixly's 2025 ~43% on an undisclosed-N popularity sample — different population and method, so context, not replication; the prior 'OWASP audit' attribution was a mis-citation via Nate Jones)"
+    source: "BlueRock MCP Trust Registry (Tier C vendor product page, flag bias; Equixly 2025-03-29 historical origin)"
+    date: "2026-07-17"
+    revalidate: "2027-01-18"
+  - claim: "MCP ecosystem size: PulseMCP 22,300+ listings (Jul 2026), official registry ~9,652 latest records at a 2026-05-24 pull (dedup-dependent; listing counts include duplicates and abandonware). The former '~10 of 5,960+ genuinely trustworthy' row is withdrawn — provenance showed a Tier D editorial numerator over a mid-2025 directory count; it never was a measurement"
+    source: "PulseMCP directory (verified 2026-07-18); SafeDep registry pull; provenance trace of Nate B. Jones guide"
+    date: "2026-07-18"
+    revalidate: "2027-01-18"
+  - claim: "Tool Search achieves 89% token reduction (77K to 8.7K tokens) (directionally supported, not re-measured, by the 2026-07-18 wire measurement below)"
     source: "H-MCP-CONTEXT-01 hypothesis"
     date: "2026-04-15"
     revalidate: "2026-10-15"
+  - claim: "Wire-measured static schema cost (raw JSON-RPC tools/list, chars/4 estimator — floors, not harness tokens): workspace-mcp 51 tools ~28.8k est. tokens (66% input schemas; largest single tool ~5.9k); @playwright/mcp 24 tools ~4.9k est. tokens; deferred names-only cost for 82 in-session tools ~0.9k est. tokens"
+    source: "self-measured (research/probe-session-2026-07-18.md; versions unpinned, single-day snapshot)"
+    date: "2026-07-18"
+    revalidate: "2027-01-18"
   - claim: "15% of OpenClaw skills contain harmful instructions"
     source: "Jenova Research"
     date: "2026-03-01"
     revalidate: "2026-09-01"
-  - claim: "MCP tool definitions consumed 81,986 tokens at startup (41% of a 200K context window) (stale-pending-remeasure: MCP tool search v2.1.121 changed token economics)"
+  - claim: "MCP tool definitions consumed 81,986 tokens at startup (41% of a 200K context window) (historical static-loading data point; re-measure executed 2026-07-18 — deferred loading is the current default, see the wire-measurement row)"
     source: "valgard production analysis"
     date: "2026-01"
-    revalidate: "2026-10-10"
+    revalidate: "2027-01-18"
   - claim: "Sweet spot: 4 plugins + 2 MCPs for optimal context usage (fallback config for non-Tool-Search setups; superseded as default guidance by deferred tool loading)"
     source: "valgard production analysis"
     date: "2026-01"
@@ -64,7 +68,7 @@ Seven anti-patterns account for most production MCP failures:
 | # | Failure Mode | Mistake | Symptom / Impact | Fix |
 |---|---|---|---|---|
 | 1 | Universal Router Trap | Routing all requests through MCP | Everything gets slower — 300-800ms added to every operation | Route selectively; only send requests that need AI analysis |
-| 2 | Kitchen Sink Server Pattern | Overly permissive servers with too many capabilities | Command injection vulnerabilities, data exposure — ~43% of servers affected, only ~10 of 5,960+ genuinely trustworthy (OWASP audit; stale-pending-reverify — dated survey, see frontmatter) | Minimal capabilities per server, explicit permission boundaries, security audit before deployment |
+| 2 | Kitchen Sink Server Pattern | Overly permissive servers with too many capabilities | Command injection vulnerabilities, data exposure — 42% of 12,000+ scanned public servers affected (BlueRock MCP Trust Registry 2026-07, Tier C vendor scan; Equixly 2025 origin; reverified 2026-07-18) | Minimal capabilities per server, explicit permission boundaries, security audit before deployment |
 | 3 | Real-Time Context Delusion | Using MCP in latency-sensitive paths | Destroyed conversion rates in checkout flows, search results, form submissions, real-time pricing | Keep MCP out of user-facing transaction paths |
 | 4 | Permission Overexposure | Granting broad permissions "to make it work" | Data leakage, compliance violations | Principle of least privilege, scoped tokens per context, regular permission audits |
 | 5 | Transaction Path Integration | Placing MCP in critical business workflows | Transaction failures cascade when MCP has issues | MCP for analysis, not execution — keep transactions on traditional rails |
@@ -126,20 +130,20 @@ Absorbed from mcp-daily-essentials.md (retired 2026-07-10), which tracked the "t
 |---|---|---|---|
 | Context7 | ~15K tokens | Framework/library work, fast-moving APIs | Rarely — near-universal value |
 | Sequential Thinking | ~10K tokens | Algorithm design, complex business logic, debugging logic errors | Simple CRUD operations only |
-| Playwright (MCP) | ~20K tokens | Frontend/E2E testing, visual regression | Backend-only, no UI testing — or prefer the Playwright CLI (below) |
+| Playwright (MCP) | ~20K tokens (community estimate; wire re-measure 2026-07-18: current @playwright/mcp is 24 tools ≈ ~4.9k est. tokens of definitions — treat the old row as superseded, not drifted) | Frontend/E2E testing, visual regression | Backend-only, no UI testing — or prefer the Playwright CLI (below) |
 | DeepWiki | ~18K tokens (varies by repo size) | Exploring unfamiliar codebases, open-source contribution | Single, familiar codebase |
 
-Context-cost figures above predate Tool Search's deferred loading (stale-pending-remeasure: MCP tool search v2.1.121 changed token economics) — treat as static-loading upper bounds, not current per-session costs; see MCP Context Budget: Then and Now, below.
+Context-cost figures above predate Tool Search's deferred loading (auto mode default-on since v2.1.7; per-server `alwaysLoad` since v2.1.121 — version pegs corrected 2026-07-18 against the changelog) — treat as static-loading upper bounds, not current per-session costs; see MCP Context Budget: Then and Now, below.
 
 ---
 
 ## CLI vs MCP: The Token Efficiency Case
 
-The Playwright team's `@playwright/cli` (February 2026) provides measured evidence for preferring CLI over MCP in coding-agent workflows; mcp-daily-essentials.md's community estimates extend the pattern to two more capabilities:
+The Playwright team's `@playwright/cli` (agent-CLI work from late January 2026) argues for preferring CLI over MCP in coding-agent workflows, but only qualitatively — **the widely-circulated "~114K vs ~27K (4x)" pairing is unsupported** (corrected 2026-07-18): it appears in neither the repo README (current, nor the late-Feb-2026 state at commit fa6f6bc) nor the playwright.dev/agent-cli docs, and no Microsoft-published measurement was found. The earliest pairing found is a Medium post (2026-02-24) asserting unlinked "Microsoft's benchmarks," whose author's own run measured ~89K vs ~24K (~3.7x); later sources cite that post in a citation loop. The one independent benchmark found (Outpost/Ranger, 2026-04-03) measured ~50-70K MCP vs ~19-45K CLI — roughly 2x on tokens, with MCP about 2x *faster* wall-clock because the CLI needed 2-3x more tool calls. And playwright-mcp v0.0.78 (2026-07-09) shipped distilled accessibility snapshots plus a `browser_find` search tool, so workflow-level MCP token measurements predating it overstate the current server:
 
 | Capability | MCP Token Cost | CLI Token Cost | Reduction |
 |---|---|---|---|
-| Browser automation (Playwright) | ~114,000 | ~27,000 | ~76% (4x) — measured, [microsoft/playwright-cli](https://github.com/microsoft/playwright-cli), Tier B |
+| Browser automation (Playwright) | ~50-90K (community runs, pre-v0.0.78 MCP) | ~19-45K | ~2-3.7x measured, task-dependent — community benchmarks, Tier C (Outpost/Ranger the strongest single source); MCP ~2x faster wall-clock in that run |
 | GitHub operations | ~20,000 (GitHub MCP) | ~5,000 (`gh` CLI) | ~75% — community estimate, Tier B |
 | File operations | ~15,000 (Filesystem MCP) | ~2,000 (native tools) | ~87% — community estimate, Tier B |
 
@@ -229,7 +233,7 @@ Is this request time-sensitive?
 
 ## OWASP MCP Security Framework
 
-The [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) identifies critical security risks in MCP deployments.
+The [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) identifies critical security risks in MCP deployments. Status note (verified 2026-07-18): the project remains pre-release — Phase 3 "Beta Release and Pilot Testing", items designated MCP01:2025-MCP10:2025 — so cite it as an active OWASP framework in beta, not a finalized standard; the companion [Practical Guide for Securely Using Third-Party MCP Servers](https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/) is still listed at v1.0 (2025-11-04), no newer version found.
 
 ### Attack Patterns
 
@@ -325,7 +329,7 @@ See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard
 
 ## MCP Context Budget: Then and Now
 
-**The pre-Tool-Search problem** (stale-pending-remeasure: MCP tool search v2.1.121 changed token economics). Production measurements from January 2026 (valgard) found MCP tool definitions consuming 81,986 tokens at startup — 41% of a 200K context window — before a single line of code was loaded. Static-loading configurations scaled roughly:
+**The pre-Tool-Search problem** (historical — re-measure executed 2026-07-18, below). Production measurements from January 2026 (valgard) found MCP tool definitions consuming 81,986 tokens at startup — 41% of a 200K context window — before a single line of code was loaded. Static-loading configurations scaled roughly:
 
 | Configuration | MCP Tool Tokens | Remaining Context |
 |---|---|---|
@@ -336,9 +340,11 @@ See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard
 
 **The sweet-spot heuristic** (absorbed from mcp-daily-essentials.md, retired 2026-07-10). valgard's production analysis settled on 4 plugins + 2 MCPs — Context7 + Sequential Thinking as the universal core, ~25K tokens combined — with database, git, and domain-specific servers activated on demand via `disabledMcpServers` in project-level `.claude/settings.json`. This was a single-workload measurement, never validated across project types, and mcp-daily-essentials.md documented several cases where "4 + 2" undershot or overshot: heavy documentation work did better on Context7 alone (more budget left for reading), security/data-pipeline work often justified 3+ specialized servers, and pure-reasoning exploration sometimes wanted zero MCPs.
 
-**What changed**: Claude Code's Tool Search achieves an 89% token reduction (77K → 8.7K tokens; H-MCP-CONTEXT-01 hypothesis, 5/5 confidence, validated April 2026) by deferring tool schema loading until a tool is actually needed, gated on a 10K-token threshold rather than loading every definition at session start. Input schema overhead ran 60-80% of MCP tool token budgets (Speakeasy Dynamic Toolsets finding); lazy schema loading removes that cost until invocation. Workflow consolidation — 4-5 high-level tools outperforming 50+ granular ones — is now independently confirmed across 5 implementations.
+**What changed**: Claude Code's Tool Search achieves an 89% token reduction (77K → 8.7K tokens; H-MCP-CONTEXT-01 hypothesis, 5/5 confidence, validated April 2026) by deferring tool schema loading until a tool is actually needed — auto mode, default-on since v2.1.7, engages when MCP tool definitions exceed roughly 10% of the context window, with per-server `alwaysLoad` exemptions since v2.1.121 and default-off exceptions on Vertex AI (since v2.1.119) and non-first-party gateway hosts. Input schema overhead ran 60-80% of MCP tool token budgets (Speakeasy Dynamic Toolsets finding); lazy schema loading removes that cost until invocation. Workflow consolidation — 4-5 high-level tools outperforming 50+ granular ones — is now independently confirmed across 5 implementations.
 
-**Rule of thumb, updated**: "4 plugins + 2 MCPs" and ">15 tools = over-budget" apply to static loading only, and remain a reasonable fallback for setups not running Tool Search. With Tool Search enabled (default since v2.1.121), the binding constraint shifts from "how many tools fit in context" to "how many tools can be discovered efficiently" — a materially higher ceiling this doc has not yet re-measured, hence the stale-pending-remeasure flags throughout this section.
+**Re-measure (2026-07-18, wire-level)**: raw JSON-RPC `tools/list` payloads, chars/4 estimator (floors — schema-dense JSON likely tokenizes denser, and the harness adds name prefixes and rendering framing). workspace-mcp (51 tools): 115,062 JSON chars ≈ ~28.8k est. tokens if statically loaded, 66% of it input schemas, and one tool (`batch_update_doc`) alone ~5.9k est. tokens — schema cost concentrates heavily in a few complex tools. @playwright/mcp@latest (24 tools): ~4.9k est. tokens, roughly a quarter of the old ~20K community estimate above (that row had no stated version, tool count, or tokenizer, so treat it as superseded rather than drifted). Under deferred loading the same session carried 82 MCP tool names at ~0.9k est. tokens total. Scope: 1 of the session's 5 servers was wire-measurable (the 4 claude.ai-hosted ones were not; playwright was measured out-of-session as a stand-in for its table row); versions unpinned, single-day snapshot. This supports the 89%-reduction claim directionally without re-measuring it, and demotes the valgard 81,986-token figure to a historical static-loading data point. Raw record: `research/probe-session-2026-07-18.md`.
+
+**Rule of thumb, updated**: "4 plugins + 2 MCPs" and ">15 tools = over-budget" apply to static loading only, and remain a reasonable fallback for setups not running Tool Search (or below its auto-mode threshold). With Tool Search engaged, the binding constraint shifts from "how many tools fit in context" to "how many tools can be discovered efficiently" — a materially higher ceiling.
 
 ---
 
@@ -362,14 +368,19 @@ See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard
 - H-AGENT-SECURITY-01 hypothesis (skill supply chain risk)
 - Jenova Research: OpenClaw skill security analysis (March 2026)
 - Speakeasy Dynamic Toolsets: input schema token overhead analysis
-- [microsoft/playwright-cli](https://github.com/microsoft/playwright-cli) (Tier B)
-- [valgard MCP Context Budget Analysis](https://dev.to/valgard/claude-code-must-haves-january-2026-kem) (Tier B, absorbed via mcp-daily-essentials.md)
+- [microsoft/playwright-cli](https://github.com/microsoft/playwright-cli) (Tier B for the qualitative claim only — the repo publishes no token figures; checked current + commit fa6f6bc, 2026-07-18)
+- [Outpost/Ranger — The Hidden Cost of Fewer Tokens](https://outpost.ranger.net/post/the-hidden-cost-of-fewer-tokens/) (2026-04-03, Tier B — the one independent CLI-vs-MCP benchmark found: ~2x tokens, MCP ~2x faster wall-clock)
+- [BlueRock MCP Trust Registry](https://www.bluerock.io/products/mcp-trust-registry) (2026-07, Tier C vendor product page, flag bias — 42% of 12,000+ scanned servers command-injection; methodology disclosed only as "22+ security rules")
+- [Equixly — MCP Servers: The New Security Nightmare](https://equixly.com/blog/2025/03/29/mcp-server-new-security-nightmare/) (2025-03-29, Tier C — historical origin of the ~43% figure; no sample size disclosed)
+- Adjacent MCP vulnerability surveys (landscape context, relayed via one Tier C roundup, primaries unverified): Enkrypt AI 33% critical of 1,000; Endor Labs 82% path traversal of 2,614; Hasan et al. 5.5% tool poisoning of 1,899
+- [valgard MCP Context Budget Analysis](https://dev.to/valgard/claude-code-must-haves-january-2026-kem) (Tier B, absorbed via mcp-daily-essentials.md; historical static-loading data point)
+- Wire measurement 2026-07-18: `research/probe-session-2026-07-18.md` (self-measured, JSON-RPC tools/list)
 - [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) (community MCP recommendations, absorbed via mcp-daily-essentials.md)
 - [CoSAI Project CodeGuard](https://github.com/cosai-oasis/project-codeguard)
 - [Tenzir Blog — "We Did MCP Wrong"](https://tenzir.com/blog/we-did-mcp-wrong) (Matthias Vallentin, January 2026, Tier B — original CLI+Skill thesis; relocated here 2026-07-16)
 - [Matthias Vallentin LinkedIn — "CLI + Skill > MCP"](https://lnkd.in/dqHjgHc6) (2026-03-17, Tier C, vendor-incentive caveat — four-step CLI-ification recipe, `mavam/clattio`)
 
-*Last updated: 2026-07-16 (CLI+Skill pattern relocated from mcp-vs-skills-economics.md — Absorption wave Phase 3). Prior: 2026-07-10 (collapsed; absorbed mcp-daily-essentials.md).*
+*Last updated: 2026-07-18 (token-economics re-measure cluster executed: wire measurement of tool-definition costs, 81,986 figure demoted to historical, tool-search version pegs corrected to v2.1.7/v2.1.121, Playwright 114K/27K attribution corrected to community benchmarks ~2-3.7x, both lapsed OWASP-survey rows reverified — 42%-of-12,000+ re-cited to BlueRock, trustworthy-count row withdrawn as never-a-measurement; two-lens adversarial verification trail in research/probe-session-2026-07-18.md). Prior: 2026-07-16 (CLI+Skill pattern relocated from mcp-vs-skills-economics.md — Absorption wave Phase 3); 2026-07-10 (collapsed; absorbed mcp-daily-essentials.md).*
 
 <!-- graphify-footer:start -->
 

@@ -1,0 +1,395 @@
+{
+ "fable-K100-r1": {
+  "models": {
+   "claude-fable-5": 18
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 5,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-K100-r2": {
+  "models": {
+   "claude-fable-5": 22
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 4,
+  "assist_text_blocks": 4,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-K100-r3": {
+  "models": {
+   "claude-fable-5": 24
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 4,
+  "assist_text_blocks": 5,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-K200-r1": {
+  "models": {
+   "claude-fable-5": 25
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 4,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-K200-r2": {
+  "models": {
+   "claude-fable-5": 27
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 3,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-K200-r3": {
+  "models": {
+   "claude-fable-5": 30
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 4,
+  "assist_text_blocks": 4,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-K25-r1": {
+  "models": {
+   "claude-fable-5": 14
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 3,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-K25-r2": {
+  "models": {
+   "claude-fable-5": 14
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 1,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-K25-r3": {
+  "models": {
+   "claude-fable-5": 14
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 3,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-K50-r1": {
+  "models": {
+   "claude-fable-5": 19
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 4,
+  "assist_text_blocks": 2,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-K50-r2": {
+  "models": {
+   "claude-fable-5": 17
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 4,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-K50-r3": {
+  "models": {
+   "claude-fable-5": 17
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 2,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-base-r1": {
+  "models": {
+   "claude-fable-5": 10
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 3,
+  "assist_text_blocks": 2,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-base-r2": {
+  "models": {
+   "claude-fable-5": 10
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 3,
+  "assist_text_blocks": 1,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "fable-base-r3": {
+  "models": {
+   "claude-fable-5": 12
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 4,
+  "assist_text_blocks": 1,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-K100-r1": {
+  "models": {
+   "claude-opus-4-8": 22
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 6,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-K100-r2": {
+  "models": {
+   "claude-opus-4-8": 22,
+   "<synthetic>": 1
+  },
+  "all_expected_model": false,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 8,
+  "compaction_markers": 0,
+  "GATE": "FAIL"
+ },
+ "opus-K100-r3": {
+  "models": {
+   "claude-opus-4-8": 19
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 6,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-K200-r1": {
+  "models": {
+   "claude-opus-4-8": 45
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 8,
+  "assist_text_blocks": 13,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-K200-r2": {
+  "models": {
+   "claude-opus-4-8": 10,
+   "<synthetic>": 1
+  },
+  "all_expected_model": false,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 2,
+  "assist_text_blocks": 3,
+  "compaction_markers": 0,
+  "GATE": "FAIL"
+ },
+ "opus-K200-r3": {
+  "models": {
+   "claude-opus-4-8": 10,
+   "<synthetic>": 1
+  },
+  "all_expected_model": false,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 2,
+  "assist_text_blocks": 3,
+  "compaction_markers": 0,
+  "GATE": "FAIL"
+ },
+ "opus-K25-r1": {
+  "models": {
+   "claude-opus-4-8": 28
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 9,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-K25-r2": {
+  "models": {
+   "claude-opus-4-8": 33
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 11,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-K25-r3": {
+  "models": {
+   "claude-opus-4-8": 27
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 10,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-K50-r1": {
+  "models": {
+   "claude-opus-4-8": 30
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 10,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-K50-r2": {
+  "models": {
+   "claude-opus-4-8": 27
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 10,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-K50-r3": {
+  "models": {
+   "claude-opus-4-8": 21
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 8,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-base-r1": {
+  "models": {
+   "claude-opus-4-8": 14
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 3,
+  "assist_text_blocks": 5,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-base-r2": {
+  "models": {
+   "claude-opus-4-8": 12
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 3,
+  "assist_text_blocks": 4,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
+ "opus-base-r3": {
+  "models": {
+   "claude-opus-4-8": 16
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 3,
+  "assist_text_blocks": 5,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ }
+}

@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-07-17 12:44*
+*Auto-generated: 2026-07-18 16:47*
 
 ## Summary
 
-**Total documents**: 143
+**Total documents**: 151
 
 | Directory | Count |
 |-----------|-------|
@@ -35,7 +35,9 @@
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
 | drafts | 4 |
-| research | 1 |
+| research | 2 |
+| research/artifacts/2026-07-18-realistic-ladder | 5 |
+| research/artifacts/2026-07-18-realistic-ladder/golden | 2 |
 | research/self-audit-2026-06 | 7 |
 | root | 13 |
 
@@ -86,6 +88,7 @@
 ## Research
 
 - [fable-probe-session-2026-07-16.md](research/fable-probe-session-2026-07-16.md)
+- [probe-session-2026-07-18.md](research/probe-session-2026-07-18.md)
 ## Research / Self-Audit-2026-06
 
 - [AUDIT-FINDINGS.md](research/self-audit-2026-06/AUDIT-FINDINGS.md)
@@ -95,6 +98,17 @@
 - [lens-4-security.md](research/self-audit-2026-06/lens-4-security.md)
 - [lens-5-wrong-tenx-busfactor.md](research/self-audit-2026-06/lens-5-wrong-tenx-busfactor.md)
 - [lens-6-devloop-and-public.md](research/self-audit-2026-06/lens-6-devloop-and-public.md)
+## Research / Artifacts / 2026-07-18-Realistic-Ladder
+
+- [GUIDE-100.md](research/artifacts/2026-07-18-realistic-ladder/GUIDE-100.md)
+- [GUIDE-200.md](research/artifacts/2026-07-18-realistic-ladder/GUIDE-200.md)
+- [GUIDE-25.md](research/artifacts/2026-07-18-realistic-ladder/GUIDE-25.md)
+- [GUIDE-50.md](research/artifacts/2026-07-18-realistic-ladder/GUIDE-50.md)
+- [PROVENANCE.md](research/artifacts/2026-07-18-realistic-ladder/PROVENANCE.md)
+## Research / Artifacts / 2026-07-18-Realistic-Ladder / Golden
+
+- [CHANGELOG.md](research/artifacts/2026-07-18-realistic-ladder/golden/CHANGELOG.md)
+- [README.md](research/artifacts/2026-07-18-realistic-ladder/golden/README.md)
 ## Archive
 
 - [AUDIT-2026-02-27.md](archive/AUDIT-2026-02-27.md)

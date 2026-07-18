@@ -1,0 +1,64 @@
+[
+ {
+  "server": "gworkspace",
+  "n_tools": 51,
+  "total_json_chars": 115062,
+  "est_tokens_chars4": 28765,
+  "mean_chars_per_tool": 2256,
+  "input_schema_share": 0.661,
+  "top3": [
+   {
+    "name": "batch_update_doc",
+    "json_chars": 23602,
+    "desc_chars": 1328,
+    "schema_chars": 21816
+   },
+   {
+    "name": "send_gmail_message",
+    "json_chars": 4655,
+    "desc_chars": 505,
+    "schema_chars": 3755
+   },
+   {
+    "name": "update_paragraph_style",
+    "json_chars": 4166,
+    "desc_chars": 367,
+    "schema_chars": 3402
+   }
+  ],
+  "names_only_chars": 1111
+ },
+ {
+  "server": "playwright",
+  "n_tools": 24,
+  "total_json_chars": 19433,
+  "est_tokens_chars4": 4858,
+  "mean_chars_per_tool": 809,
+  "input_schema_share": 0.69,
+  "top3": [
+   {
+    "name": "browser_take_screenshot",
+    "json_chars": 1617,
+    "desc_chars": 123,
+    "schema_chars": 1305
+   },
+   {
+    "name": "browser_fill_form",
+    "json_chars": 1223,
+    "desc_chars": 25,
+    "schema_chars": 1023
+   },
+   {
+    "name": "browser_drop",
+    "json_chars": 1137,
+    "desc_chars": 135,
+    "schema_chars": 803
+   }
+  ],
+  "names_only_chars": 434
+ },
+ {
+  "server": "best-practices",
+  "error": "[Errno 2] No such file or directory: '/home/jerem/claude-code-project-best-practices/mcp-server/.venv/bin/python'"
+ }
+]

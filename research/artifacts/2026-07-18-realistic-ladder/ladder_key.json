@@ -1,0 +1,2064 @@
+{
+ "seed": 718,
+ "release_date": "2026-07-18",
+ "core25": [
+  "term-digest",
+  "term-source-table",
+  "content-py311",
+  "content-no-network",
+  "content-repo-url",
+  "struct-one-h1",
+  "struct-section-order",
+  "struct-options-3col",
+  "md-bullets-star",
+  "md-fence-console",
+  "md-prompt-marker",
+  "prose-no-contractions",
+  "py-entry-run",
+  "py-no-main-def",
+  "py-version-const",
+  "py-private-helpers",
+  "py-single-quotes",
+  "py-future-annotations",
+  "py-encoding-comment",
+  "py-module-doc",
+  "cli-epilog-url",
+  "chg-title",
+  "chg-version-format",
+  "chg-unreleased",
+  "chg-verb-prefix"
+ ],
+ "rungs": {
+  "25": {
+   "ids": [
+    "term-digest",
+    "term-source-table",
+    "content-py311",
+    "content-no-network",
+    "content-repo-url",
+    "struct-one-h1",
+    "struct-section-order",
+    "struct-options-3col",
+    "md-bullets-star",
+    "md-fence-console",
+    "md-prompt-marker",
+    "prose-no-contractions",
+    "py-entry-run",
+    "py-no-main-def",
+    "py-version-const",
+    "py-private-helpers",
+    "py-single-quotes",
+    "py-future-annotations",
+    "py-encoding-comment",
+    "py-module-doc",
+    "cli-epilog-url",
+    "chg-title",
+    "chg-version-format",
+    "chg-unreleased",
+    "chg-verb-prefix"
+   ],
+   "guide": "/tmp/claude-1000/-home-jerem-claude-code-project-best-practices/0ae1ac5a-4390-4786-8ee1-c5025f5a0325/scratchpad/ladder/guides/GUIDE-25.md",
+   "guide_lines": 30,
+   "guide_chars": 3010
+  },
+  "50": {
+   "ids": [
+    "term-digest",
+    "term-source-table",
+    "content-py311",
+    "content-no-network",
+    "content-repo-url",
+    "struct-one-h1",
+    "struct-section-order",
+    "struct-options-3col",
+    "md-bullets-star",
+    "md-fence-console",
+    "md-prompt-marker",
+    "prose-no-contractions",
+    "py-entry-run",
+    "py-no-main-def",
+    "py-version-const",
+    "py-private-helpers",
+    "py-single-quotes",
+    "py-future-annotations",
+    "py-encoding-comment",
+    "py-module-doc",
+    "cli-epilog-url",
+    "chg-title",
+    "chg-version-format",
+    "chg-unreleased",
+    "chg-verb-prefix",
+    "term-cap-github",
+    "py-pathlib",
+    "struct-has-license",
+    "ban-straightforward",
+    "struct-options-table",
+    "ban-production-ready",
+    "ban-excellent",
+    "ban-comprehensive",
+    "content-no-deps",
+    "ban-elegant",
+    "ban-unlock",
+    "chg-newest-first",
+    "ban-obviously",
+    "py-no-wildcard",
+    "ban-handy",
+    "prose-no-exclaim",
+    "ban-battle-tested",
+    "ban-nifty",
+    "py-fstrings",
+    "ban-blazing",
+    "py-prog-lumen",
+    "cli-version-flag",
+    "content-exit-codes-listed",
+    "ban-convenient",
+    "md-no-emoji"
+   ],
+   "guide": "/tmp/claude-1000/-home-jerem-claude-code-project-best-practices/0ae1ac5a-4390-4786-8ee1-c5025f5a0325/scratchpad/ladder/guides/GUIDE-50.md",
+   "guide_lines": 42,
+   "guide_chars": 4397
+  },
+  "100": {
+   "ids": [
+    "term-digest",
+    "term-source-table",
+    "content-py311",
+    "content-no-network",
+    "content-repo-url",
+    "struct-one-h1",
+    "struct-section-order",
+    "struct-options-3col",
+    "md-bullets-star",
+    "md-fence-console",
+    "md-prompt-marker",
+    "prose-no-contractions",
+    "py-entry-run",
+    "py-no-main-def",
+    "py-version-const",
+    "py-private-helpers",
+    "py-single-quotes",
+    "py-future-annotations",
+    "py-encoding-comment",
+    "py-module-doc",
+    "cli-epilog-url",
+    "chg-title",
+    "chg-version-format",
+    "chg-unreleased",
+    "chg-verb-prefix",
+    "term-cap-github",
+    "py-pathlib",
+    "struct-has-license",
+    "ban-straightforward",
+    "struct-options-table",
+    "ban-production-ready",
+    "ban-excellent",
+    "ban-comprehensive",
+    "content-no-deps",
+    "ban-elegant",
+    "ban-unlock",
+    "chg-newest-first",
+    "ban-obviously",
+    "py-no-wildcard",
+    "ban-handy",
+    "prose-no-exclaim",
+    "ban-battle-tested",
+    "ban-nifty",
+    "py-fstrings",
+    "ban-blazing",
+    "py-prog-lumen",
+    "cli-version-flag",
+    "content-exit-codes-listed",
+    "ban-convenient",
+    "md-no-emoji",
+    "term-cap-csv",
+    "md-output-text",
+    "ban-really",
+    "ban-effortless",
+    "content-windows",
+    "ban-perfect",
+    "content-semver",
+    "ban-trivial",
+    "py-sorted-imports",
+    "content-single-file",
+    "ban-just",
+    "content-utf8",
+    "md-filename-code",
+    "content-stdlib",
+    "ban-innovative",
+    "content-support-email",
+    "ban-magical",
+    "ban-basically",
+    "py-file-name",
+    "content-tagline",
+    "struct-has-development",
+    "struct-no-h3",
+    "chg-date-today",
+    "ban-sleek",
+    "py-no-comments",
+    "py-kebab-flags",
+    "py-run-returns-int",
+    "cli-json-flag",
+    "md-no-images",
+    "struct-has-exit-codes",
+    "py-csv-module",
+    "md-line-length",
+    "py-argparse",
+    "ban-streamline",
+    "md-fence-lang",
+    "prose-no-ampersand",
+    "ban-great",
+    "ban-best-in-class",
+    "term-cap-unix",
+    "py-fn-40",
+    "md-table-align",
+    "py-two-blank-lines",
+    "chg-initial",
+    "struct-has-installation",
+    "content-four-decimals",
+    "prose-iso-dates",
+    "content-reads-once",
+    "ban-efficient",
+    "md-https-only",
+    "prose-no-ie"
+   ],
+   "guide": "/tmp/claude-1000/-home-jerem-claude-code-project-best-practices/0ae1ac5a-4390-4786-8ee1-c5025f5a0325/scratchpad/ladder/guides/GUIDE-100.md",
+   "guide_lines": 70,
+   "guide_chars": 7313
+  },
+  "200": {
+   "ids": [
+    "term-digest",
+    "term-source-table",
+    "content-py311",
+    "content-no-network",
+    "content-repo-url",
+    "struct-one-h1",
+    "struct-section-order",
+    "struct-options-3col",
+    "md-bullets-star",
+    "md-fence-console",
+    "md-prompt-marker",
+    "prose-no-contractions",
+    "py-entry-run",
+    "py-no-main-def",
+    "py-version-const",
+    "py-private-helpers",
+    "py-single-quotes",
+    "py-future-annotations",
+    "py-encoding-comment",
+    "py-module-doc",
+    "cli-epilog-url",
+    "chg-title",
+    "chg-version-format",
+    "chg-unreleased",
+    "chg-verb-prefix",
+    "term-cap-github",
+    "py-pathlib",
+    "struct-has-license",
+    "ban-straightforward",
+    "struct-options-table",
+    "ban-production-ready",
+    "ban-excellent",
+    "ban-comprehensive",
+    "content-no-deps",
+    "ban-elegant",
+    "ban-unlock",
+    "chg-newest-first",
+    "ban-obviously",
+    "py-no-wildcard",
+    "ban-handy",
+    "prose-no-exclaim",
+    "ban-battle-tested",
+    "ban-nifty",
+    "py-fstrings",
+    "ban-blazing",
+    "py-prog-lumen",
+    "cli-version-flag",
+    "content-exit-codes-listed",
+    "ban-convenient",
+    "md-no-emoji",
+    "term-cap-csv",
+    "md-output-text",
+    "ban-really",
+    "ban-effortless",
+    "content-windows",
+    "ban-perfect",
+    "content-semver",
+    "ban-trivial",
+    "py-sorted-imports",
+    "content-single-file",
+    "ban-just",
+    "content-utf8",
+    "md-filename-code",
+    "content-stdlib",
+    "ban-innovative",
+    "content-support-email",
+    "ban-magical",
+    "ban-basically",
+    "py-file-name",
+    "content-tagline",
+    "struct-has-development",
+    "struct-no-h3",
+    "chg-date-today",
+    "ban-sleek",
+    "py-no-comments",
+    "py-kebab-flags",
+    "py-run-returns-int",
+    "cli-json-flag",
+    "md-no-images",
+    "struct-has-exit-codes",
+    "py-csv-module",
+    "md-line-length",
+    "py-argparse",
+    "ban-streamline",
+    "md-fence-lang",
+    "prose-no-ampersand",
+    "ban-great",
+    "ban-best-in-class",
+    "term-cap-unix",
+    "py-fn-40",
+    "md-table-align",
+    "py-two-blank-lines",
+    "chg-initial",
+    "struct-has-installation",
+    "content-four-decimals",
+    "prose-iso-dates",
+    "content-reads-once",
+    "ban-efficient",
+    "md-https-only",
+    "prose-no-ie",
+    "py-version-010",
+    "struct-h1-first-line",
+    "py-no-classes",
+    "ban-supercharge",
+    "ban-simply",
+    "content-no-stdin",
+    "content-empty-cells",
+    "py-shebang",
+    "ban-essentially",
+    "py-module-250",
+    "ban-empower",
+    "chg-bullets-only",
+    "ban-robust",
+    "inv-three-files",
+    "md-backtick-flags",
+    "chg-no-links",
+    "cli-json-dumps",
+    "md-ordered-paren",
+    "ban-powerful",
+    "cli-delimiter-default",
+    "py-no-typing-import",
+    "struct-has-options",
+    "content-pip",
+    "ban-extremely",
+    "content-issue-first",
+    "term-cli-hyphen",
+    "ban-painless",
+    "ban-beautiful",
+    "ban-next-generation",
+    "py-const-first",
+    "ban-easy",
+    "term-macos",
+    "content-gigabyte",
+    "ban-world-class",
+    "struct-has-usage-examples",
+    "inv-no-license-file",
+    "ban-streamlined",
+    "ban-rock-solid",
+    "inv-no-tests-dir",
+    "ban-feature-rich",
+    "py-no-dictreader",
+    "prose-no-question",
+    "struct-has-overview",
+    "term-readme-caps",
+    "py-stderr",
+    "md-no-hr",
+    "ban-utilize",
+    "ban-hassle-free",
+    "ban-unleash",
+    "ban-easily",
+    "py-type-hints",
+    "ban-intuitive",
+    "term-numeric-fields",
+    "content-tested-on",
+    "ban-plug-and-play",
+    "ban-quickly",
+    "ban-superb",
+    "content-pure-python",
+    "cli-exit-2",
+    "ban-lightweight",
+    "term-cap-python",
+    "py-one-file",
+    "ban-performant",
+    "ban-very",
+    "ban-fantastic",
+    "ban-leverage",
+    "ban-amazing",
+    "prose-no-eg",
+    "ban-frictionless",
+    "struct-usage-3ex",
+    "content-changelog-mention",
+    "py-no-data-var",
+    "content-copyright",
+    "ban-modern",
+    "term-cap-json",
+    "content-status-alpha",
+    "py-imports-top",
+    "ban-awesome",
+    "struct-ends-license",
+    "ban-game-changing",
+    "content-mit",
+    "py-docstrings",
+    "term-cap-lumen",
+    "ban-cutting-edge",
+    "content-header-row",
+    "ban-incredibly",
+    "ban-wonderful",
+    "ban-quick",
+    "ban-enterprise-grade",
+    "ban-delightful",
+    "cli-desc-digest",
+    "py-round-4",
+    "ban-state-of-the-art",
+    "ban-user-friendly",
+    "md-no-html",
+    "ban-flexible",
+    "term-filepath-two-words",
+    "py-main-guard",
+    "ban-revolutionary",
+    "cli-delimiter"
+   ],
+   "guide": "/tmp/claude-1000/-home-jerem-claude-code-project-best-practices/0ae1ac5a-4390-4786-8ee1-c5025f5a0325/scratchpad/ladder/guides/GUIDE-200.md",
+   "guide_lines": 119,
+   "guide_chars": 13481
+  }
+ },
+ "bank_size": 200,
+ "rules": {
+  "term-digest": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "\\bdigest\\b",
+    "min": 2
+   }
+  },
+  "term-source-table": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "\\bsource table\\b",
+    "min": 1
+   }
+  },
+  "term-numeric-fields": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "\\bnumeric fields?\\b",
+    "min": 1
+   }
+  },
+  "term-cap-lumen": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "custom",
+    "fn": "cap_lumen"
+   }
+  },
+  "term-cap-csv": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "(?<![\\w./-])csv(?![\\w.-])"
+   }
+  },
+  "term-cap-json": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "(?<![\\w./-])json(?![\\w.-])"
+   }
+  },
+  "term-cap-python": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "(?<![\\w./-])python(?![\\w.-])"
+   }
+  },
+  "term-macos": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bMacOS\\b|\\bMac OS\\b"
+   }
+  },
+  "content-mit": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "\\bMIT License\\b",
+    "min": 1
+   }
+  },
+  "content-py311": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "\\bPython 3\\.11 or newer\\b",
+    "min": 1
+   }
+  },
+  "content-support-email": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "support@lumen\\.dev",
+    "min": 1
+   }
+  },
+  "content-copyright": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "Copyright 2026 The Lumen Project",
+    "min": 1
+   }
+  },
+  "content-no-deps": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "[Nn]o third-party dependencies",
+    "min": 1
+   }
+  },
+  "content-pip": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "pip install lumen-csv",
+    "min": 1
+   }
+  },
+  "content-status-alpha": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "Status: alpha",
+    "min": 1
+   }
+  },
+  "content-repo-url": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "https://github\\.com/lumen-project/lumen",
+    "min": 1
+   }
+  },
+  "content-tested-on": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "Tested on Linux and macOS",
+    "min": 1
+   }
+  },
+  "content-windows": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "Windows is not currently supported",
+    "min": 1
+   }
+  },
+  "content-reads-once": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "reads the source table exactly once",
+    "min": 1
+   }
+  },
+  "content-stdlib": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "standard library only",
+    "min": 1
+   }
+  },
+  "content-no-network": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "Lumen never transmits data over the network",
+    "min": 1
+   }
+  },
+  "content-issue-first": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "open an issue [^.]{0,60}(?:before|prior to) submitting a pull request|[Bb]efore submitting a pull request[^.]{0,60}open an issue",
+    "min": 1
+   }
+  },
+  "content-gigabyte": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "files up to one gigabyte",
+    "min": 1
+   }
+  },
+  "content-utf8": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "UTF-8",
+    "min": 1
+   }
+  },
+  "struct-one-h1": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "one_h1_lumen"
+   }
+  },
+  "struct-h1-first-line": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "h1_first_line"
+   }
+  },
+  "struct-section-order": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "section_order"
+   }
+  },
+  "struct-has-overview": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "has_h2",
+    "arg": "Overview"
+   }
+  },
+  "struct-has-installation": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "has_h2",
+    "arg": "Installation"
+   }
+  },
+  "struct-has-usage-examples": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "has_h2",
+    "arg": "Usage examples"
+   }
+  },
+  "struct-has-options": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "has_h2",
+    "arg": "Options"
+   }
+  },
+  "struct-has-exit-codes": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "has_h2",
+    "arg": "Exit codes"
+   }
+  },
+  "struct-has-development": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "has_h2",
+    "arg": "Development"
+   }
+  },
+  "struct-has-license": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "has_h2",
+    "arg": "License"
+   }
+  },
+  "struct-no-h3": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md",
+    "pattern": "^###",
+    "raw": true
+   }
+  },
+  "struct-ends-license": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "ends_license"
+   }
+  },
+  "struct-options-table": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "options_is_table"
+   }
+  },
+  "struct-options-3col": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "options_3col"
+   }
+  },
+  "struct-usage-3ex": {
+   "rtype": "readme-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "three_invocations"
+   }
+  },
+  "md-bullets-star": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "bullets_star"
+   }
+  },
+  "md-fence-lang": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "fences_have_lang"
+   }
+  },
+  "md-fence-console": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "fences_console"
+   }
+  },
+  "md-prompt-marker": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "prompt_marker"
+   }
+  },
+  "md-output-text": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "output_text_fence"
+   }
+  },
+  "md-no-html": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "no_html"
+   }
+  },
+  "md-no-images": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "!\\[",
+    "raw": true
+   }
+  },
+  "md-filename-code": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "filenames_backticked"
+   }
+  },
+  "md-table-align": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "table_align_colons"
+   }
+  },
+  "md-line-length": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "line_length_100"
+   }
+  },
+  "md-ordered-paren": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "ordered_paren"
+   }
+  },
+  "md-https-only": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "http://",
+    "raw": true
+   }
+  },
+  "prose-no-exclaim": {
+   "rtype": "prose-style",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "!"
+   }
+  },
+  "prose-no-question": {
+   "rtype": "prose-style",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md",
+    "pattern": "\\?"
+   }
+  },
+  "prose-iso-dates": {
+   "rtype": "prose-style",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\b(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2}"
+   }
+  },
+  "prose-no-eg": {
+   "rtype": "prose-style",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\be\\.g\\."
+   }
+  },
+  "prose-no-ie": {
+   "rtype": "prose-style",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bi\\.e\\."
+   }
+  },
+  "prose-no-ampersand": {
+   "rtype": "prose-style",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "&"
+   }
+  },
+  "prose-no-contractions": {
+   "rtype": "prose-style",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\b(don't|can't|won't|isn't|aren't|doesn't|didn't|it's|you're|we're|that's|there's|hasn't|haven't|wouldn't|couldn't|shouldn't|let's)\\b"
+   }
+  },
+  "py-file-name": {
+   "rtype": "python-naming",
+   "check": {
+    "kind": "custom",
+    "fn": "file_lumen_py"
+   }
+  },
+  "py-entry-run": {
+   "rtype": "python-naming",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "^def run\\("
+   }
+  },
+  "py-no-main-def": {
+   "rtype": "python-naming",
+   "check": {
+    "kind": "py_bans_regex",
+    "pattern": "^def main\\("
+   }
+  },
+  "py-prog-lumen": {
+   "rtype": "python-naming",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "prog\\s*=\\s*['\\\"]lumen['\\\"]"
+   }
+  },
+  "py-version-const": {
+   "rtype": "python-naming",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "^LUMEN_VERSION\\s*="
+   }
+  },
+  "py-version-010": {
+   "rtype": "python-naming",
+   "check": {
+    "kind": "custom",
+    "fn": "version_010_consistent"
+   }
+  },
+  "py-private-helpers": {
+   "rtype": "python-naming",
+   "check": {
+    "kind": "custom",
+    "fn": "helpers_underscore"
+   }
+  },
+  "py-no-classes": {
+   "rtype": "python-naming",
+   "check": {
+    "kind": "py_bans_regex",
+    "pattern": "^class\\s"
+   }
+  },
+  "py-kebab-flags": {
+   "rtype": "python-naming",
+   "check": {
+    "kind": "py_bans_regex",
+    "pattern": "add_argument\\(\\s*['\\\"]--[a-z0-9]+_[a-z0-9_]+['\\\"]"
+   }
+  },
+  "py-no-data-var": {
+   "rtype": "python-naming",
+   "check": {
+    "kind": "py_bans_regex",
+    "pattern": "^\\s*data\\s*="
+   }
+  },
+  "py-fstrings": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "py_bans_regex",
+    "pattern": "\\.format\\(|%\\s*\\("
+   }
+  },
+  "py-pathlib": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "custom",
+    "fn": "pathlib_not_ospath"
+   }
+  },
+  "py-argparse": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "import argparse"
+   }
+  },
+  "py-type-hints": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "custom",
+    "fn": "all_defs_hinted"
+   }
+  },
+  "py-docstrings": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "custom",
+    "fn": "all_defs_docstring"
+   }
+  },
+  "py-module-doc": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "custom",
+    "fn": "module_doc_lumen"
+   }
+  },
+  "py-single-quotes": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "custom",
+    "fn": "single_quotes"
+   }
+  },
+  "py-main-guard": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "if __name__ =="
+   }
+  },
+  "py-future-annotations": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "^from __future__ import annotations"
+   }
+  },
+  "py-shebang": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "custom",
+    "fn": "shebang_first"
+   }
+  },
+  "py-no-wildcard": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "py_bans_regex",
+    "pattern": "^from\\s+\\S+\\s+import\\s+\\*"
+   }
+  },
+  "py-imports-top": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "custom",
+    "fn": "imports_top"
+   }
+  },
+  "py-stderr": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "sys\\.stderr|stderr"
+   }
+  },
+  "py-encoding-comment": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "coding[:=]\\s*utf-8"
+   }
+  },
+  "py-fn-40": {
+   "rtype": "python-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "fn_max_40"
+   }
+  },
+  "py-module-250": {
+   "rtype": "python-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "module_max_250"
+   }
+  },
+  "py-one-file": {
+   "rtype": "python-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "one_py_file"
+   }
+  },
+  "py-const-first": {
+   "rtype": "python-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "const_before_defs"
+   }
+  },
+  "cli-delimiter": {
+   "rtype": "cli-behavior",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "['\\\"]-d['\\\"].{0,40}['\\\"]--delimiter['\\\"]|['\\\"]--delimiter['\\\"]"
+   }
+  },
+  "cli-delimiter-default": {
+   "rtype": "cli-behavior",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "default\\s*=\\s*['\\\"],['\\\"]"
+   }
+  },
+  "cli-json-flag": {
+   "rtype": "cli-behavior",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "['\\\"]--json['\\\"]"
+   }
+  },
+  "cli-json-dumps": {
+   "rtype": "cli-behavior",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "json\\.dumps"
+   }
+  },
+  "cli-version-flag": {
+   "rtype": "cli-behavior",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "['\\\"]--version['\\\"]"
+   }
+  },
+  "cli-exit-2": {
+   "rtype": "cli-behavior",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "sys\\.exit\\(2\\)|SystemExit\\(2\\)|return 2|exit\\(2\\)"
+   }
+  },
+  "cli-desc-digest": {
+   "rtype": "cli-behavior",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "description\\s*=\\s*['\\\"][^'\\\"]*digest"
+   }
+  },
+  "cli-epilog-url": {
+   "rtype": "cli-behavior",
+   "check": {
+    "kind": "custom",
+    "fn": "epilog_url"
+   }
+  },
+  "chg-title": {
+   "rtype": "changelog",
+   "check": {
+    "kind": "custom",
+    "fn": "chg_title"
+   }
+  },
+  "chg-version-format": {
+   "rtype": "changelog",
+   "check": {
+    "kind": "custom",
+    "fn": "chg_version_format"
+   }
+  },
+  "chg-unreleased": {
+   "rtype": "changelog",
+   "check": {
+    "kind": "custom",
+    "fn": "chg_unreleased"
+   }
+  },
+  "chg-initial": {
+   "rtype": "changelog",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "CHANGELOG.md",
+    "pattern": "v0\\.1\\.0",
+    "min": 1
+   }
+  },
+  "chg-date-today": {
+   "rtype": "changelog",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "CHANGELOG.md",
+    "pattern": "2026-07-18",
+    "min": 1
+   }
+  },
+  "chg-verb-prefix": {
+   "rtype": "changelog",
+   "check": {
+    "kind": "custom",
+    "fn": "chg_verb_prefix"
+   }
+  },
+  "chg-bullets-only": {
+   "rtype": "changelog",
+   "check": {
+    "kind": "custom",
+    "fn": "chg_bullets_only"
+   }
+  },
+  "chg-newest-first": {
+   "rtype": "changelog",
+   "check": {
+    "kind": "custom",
+    "fn": "chg_newest_first"
+   }
+  },
+  "inv-three-files": {
+   "rtype": "file-inventory",
+   "check": {
+    "kind": "custom",
+    "fn": "exactly_three_files"
+   }
+  },
+  "inv-no-license-file": {
+   "rtype": "file-inventory",
+   "check": {
+    "kind": "custom",
+    "fn": "no_license_file"
+   }
+  },
+  "inv-no-tests-dir": {
+   "rtype": "file-inventory",
+   "check": {
+    "kind": "custom",
+    "fn": "no_tests"
+   }
+  },
+  "ban-simply": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bsimply\\b",
+    "ci": true
+   }
+  },
+  "ban-easy": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\beasy\\b",
+    "ci": true
+   }
+  },
+  "ban-easily": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\beasily\\b",
+    "ci": true
+   }
+  },
+  "ban-just": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bjust\\b",
+    "ci": true
+   }
+  },
+  "ban-powerful": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bpowerful\\b",
+    "ci": true
+   }
+  },
+  "ban-robust": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\brobust\\b",
+    "ci": true
+   }
+  },
+  "ban-blazing": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bblazing\\b",
+    "ci": true
+   }
+  },
+  "ban-straightforward": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bstraightforward\\b",
+    "ci": true
+   }
+  },
+  "ban-obviously": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bobviously\\b",
+    "ci": true
+   }
+  },
+  "ban-very": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bvery\\b",
+    "ci": true
+   }
+  },
+  "ban-really": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\breally\\b",
+    "ci": true
+   }
+  },
+  "ban-great": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bgreat\\b",
+    "ci": true
+   }
+  },
+  "ban-awesome": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bawesome\\b",
+    "ci": true
+   }
+  },
+  "ban-perfect": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bperfect\\b",
+    "ci": true
+   }
+  },
+  "ban-elegant": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\belegant\\b",
+    "ci": true
+   }
+  },
+  "ban-quick": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bquick\\b",
+    "ci": true
+   }
+  },
+  "ban-quickly": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bquickly\\b",
+    "ci": true
+   }
+  },
+  "ban-trivial": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\btrivial\\b",
+    "ci": true
+   }
+  },
+  "ban-basically": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bbasically\\b",
+    "ci": true
+   }
+  },
+  "ban-comprehensive": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bcomprehensive\\b",
+    "ci": true
+   }
+  },
+  "ban-effortless": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\beffortless\\b",
+    "ci": true
+   }
+  },
+  "ban-lightweight": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\blightweight\\b",
+    "ci": true
+   }
+  },
+  "ban-user-friendly": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\buser\\-friendly\\b",
+    "ci": true
+   }
+  },
+  "ban-feature-rich": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bfeature\\-rich\\b",
+    "ci": true
+   }
+  },
+  "ban-cutting-edge": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bcutting\\-edge\\b",
+    "ci": true
+   }
+  },
+  "ban-state-of-the-art": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bstate\\-of\\-the\\-art\\b",
+    "ci": true
+   }
+  },
+  "ban-utilize": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\butilize\\b",
+    "ci": true
+   }
+  },
+  "ban-leverage": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bleverage\\b",
+    "ci": true
+   }
+  },
+  "ban-performant": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bperformant\\b",
+    "ci": true
+   }
+  },
+  "ban-intuitive": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bintuitive\\b",
+    "ci": true
+   }
+  },
+  "ban-modern": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bmodern\\b",
+    "ci": true
+   }
+  },
+  "ban-flexible": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bflexible\\b",
+    "ci": true
+   }
+  },
+  "ban-efficient": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\befficient\\b",
+    "ci": true
+   }
+  },
+  "ban-convenient": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bconvenient\\b",
+    "ci": true
+   }
+  },
+  "ban-handy": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bhandy\\b",
+    "ci": true
+   }
+  },
+  "ban-nifty": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bnifty\\b",
+    "ci": true
+   }
+  },
+  "ban-amazing": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bamazing\\b",
+    "ci": true
+   }
+  },
+  "ban-incredibly": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bincredibly\\b",
+    "ci": true
+   }
+  },
+  "ban-extremely": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bextremely\\b",
+    "ci": true
+   }
+  },
+  "ban-essentially": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bessentially\\b",
+    "ci": true
+   }
+  },
+  "ban-delightful": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bdelightful\\b",
+    "ci": true
+   }
+  },
+  "term-cap-github": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bGithub\\b"
+   }
+  },
+  "term-cap-unix": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "(?<![\\w./-])unix(?![\\w./-])"
+   }
+  },
+  "term-filepath-two-words": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "(?i)\\bfilepath\\b"
+   }
+  },
+  "term-cli-hyphen": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bcommand line (tool|interface|option|options|flag|flags|argument|arguments)\\b"
+   }
+  },
+  "term-readme-caps": {
+   "rtype": "terminology",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "(?<![\\w./-])readme(?![\\w./-])"
+   }
+  },
+  "content-changelog-mention": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "CHANGELOG\\.md",
+    "min": 1
+   }
+  },
+  "content-pure-python": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "pure Python",
+    "min": 1
+   }
+  },
+  "content-single-file": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "a single file",
+    "min": 1
+   }
+  },
+  "content-no-stdin": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "standard input",
+    "min": 1
+   }
+  },
+  "content-header-row": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "header row",
+    "min": 1
+   }
+  },
+  "content-empty-cells": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "[Ee]mpty cells are ignored",
+    "min": 1
+   }
+  },
+  "content-four-decimals": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "four decimal places",
+    "min": 1
+   }
+  },
+  "content-semver": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "semantic versioning",
+    "min": 1
+   }
+  },
+  "content-tagline": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "prose_requires_regex",
+    "file": "README.md",
+    "pattern": "CSV digest tool",
+    "min": 1
+   }
+  },
+  "content-exit-codes-listed": {
+   "rtype": "required-content",
+   "check": {
+    "kind": "custom",
+    "fn": "exit_codes_listed"
+   }
+  },
+  "md-no-emoji": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "no_emoji"
+   }
+  },
+  "md-no-hr": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "no_hr"
+   }
+  },
+  "md-backtick-flags": {
+   "rtype": "markdown-style",
+   "check": {
+    "kind": "custom",
+    "fn": "flags_backticked"
+   }
+  },
+  "py-round-4": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "custom",
+    "fn": "round_four"
+   }
+  },
+  "py-csv-module": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "import csv"
+   }
+  },
+  "py-no-dictreader": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "py_bans_regex",
+    "pattern": "DictReader"
+   }
+  },
+  "py-run-returns-int": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "py_requires_regex",
+    "pattern": "def run\\([^)]*\\)[^:\\n]*->\\s*int"
+   }
+  },
+  "py-no-typing-import": {
+   "rtype": "python-idiom",
+   "check": {
+    "kind": "py_bans_regex",
+    "pattern": "from typing import|^import typing"
+   }
+  },
+  "py-sorted-imports": {
+   "rtype": "python-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "sorted_imports"
+   }
+  },
+  "py-two-blank-lines": {
+   "rtype": "python-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "two_blank_lines"
+   }
+  },
+  "py-no-comments": {
+   "rtype": "python-structure",
+   "check": {
+    "kind": "custom",
+    "fn": "no_comments"
+   }
+  },
+  "chg-no-links": {
+   "rtype": "changelog",
+   "check": {
+    "kind": "custom",
+    "fn": "chg_no_links"
+   }
+  },
+  "ban-innovative": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\binnovative\\b",
+    "ci": true
+   }
+  },
+  "ban-sleek": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bsleek\\b",
+    "ci": true
+   }
+  },
+  "ban-superb": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bsuperb\\b",
+    "ci": true
+   }
+  },
+  "ban-fantastic": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bfantastic\\b",
+    "ci": true
+   }
+  },
+  "ban-excellent": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bexcellent\\b",
+    "ci": true
+   }
+  },
+  "ban-wonderful": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bwonderful\\b",
+    "ci": true
+   }
+  },
+  "ban-beautiful": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bbeautiful\\b",
+    "ci": true
+   }
+  },
+  "ban-supercharge": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bsupercharge\\b",
+    "ci": true
+   }
+  },
+  "ban-streamline": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bstreamline\\b",
+    "ci": true
+   }
+  },
+  "ban-streamlined": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bstreamlined\\b",
+    "ci": true
+   }
+  },
+  "ban-empower": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bempower\\b",
+    "ci": true
+   }
+  },
+  "ban-unlock": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bunlock\\b",
+    "ci": true
+   }
+  },
+  "ban-unleash": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bunleash\\b",
+    "ci": true
+   }
+  },
+  "ban-revolutionary": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\brevolutionary\\b",
+    "ci": true
+   }
+  },
+  "ban-game-changing": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bgame\\-changing\\b",
+    "ci": true
+   }
+  },
+  "ban-next-generation": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bnext\\-generation\\b",
+    "ci": true
+   }
+  },
+  "ban-world-class": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bworld\\-class\\b",
+    "ci": true
+   }
+  },
+  "ban-best-in-class": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bbest\\-in\\-class\\b",
+    "ci": true
+   }
+  },
+  "ban-enterprise-grade": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\benterprise\\-grade\\b",
+    "ci": true
+   }
+  },
+  "ban-production-ready": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bproduction\\-ready\\b",
+    "ci": true
+   }
+  },
+  "ban-battle-tested": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bbattle\\-tested\\b",
+    "ci": true
+   }
+  },
+  "ban-rock-solid": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\brock\\-solid\\b",
+    "ci": true
+   }
+  },
+  "ban-plug-and-play": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bplug\\-and\\-play\\b",
+    "ci": true
+   }
+  },
+  "ban-hassle-free": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bhassle\\-free\\b",
+    "ci": true
+   }
+  },
+  "ban-painless": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bpainless\\b",
+    "ci": true
+   }
+  },
+  "ban-frictionless": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bfrictionless\\b",
+    "ci": true
+   }
+  },
+  "ban-magical": {
+   "rtype": "word-ban",
+   "check": {
+    "kind": "prose_bans_regex",
+    "file": "README.md,CHANGELOG.md",
+    "pattern": "\\bmagical\\b",
+    "ci": true
+   }
+  }
+ }
+}
