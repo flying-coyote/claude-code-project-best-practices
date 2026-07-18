@@ -305,7 +305,7 @@ rule("cli-version-flag", "cli-behavior", "CLI behavior",
      {"kind": "py_requires_regex", "pattern": r"['\"]--version['\"]"})
 rule("cli-exit-2", "cli-behavior", "CLI behavior",
      ["A missing or unreadable source table exits with status 2."],
-     {"kind": "py_requires_regex", "pattern": r"sys\.exit\(2\)|SystemExit\(2\)|return 2|exit\(2\)"})
+     {"kind": "custom", "fn": "exit_two"})
 rule("cli-desc-digest", "cli-behavior", "CLI behavior",
      ["The parser description mentions the digest by name."],
      {"kind": "py_requires_regex", "pattern": r"description\s*=\s*['\"][^'\"]*digest"})

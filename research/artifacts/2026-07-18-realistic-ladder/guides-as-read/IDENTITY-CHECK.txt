@@ -1,0 +1,12 @@
+Guide-as-read extraction 2026-07-18 (from Read-tool results embedded in transcripts).
+Disk guides were regenerated twice after the runs (checker-spec edits re-ran the seeded
+generator); identity of prose/selection to what agents read is certified by these
+extractions, one per rung (morning wave) plus all three evening replacement reps.
+
+fable-K25-r1: rung 25, transcript-vs-disk identical=True, md5(as-read)=5132412ee7deeba2a6606ba63e670d96
+fable-K50-r1: rung 50, transcript-vs-disk identical=True, md5(as-read)=87650c17d3e90f0e069a17a02e27387c
+fable-K100-r1: rung 100, transcript-vs-disk identical=True, md5(as-read)=814f31aa14bc2d611eea5f99a54acc98
+fable-K200-r1: rung 200, transcript-vs-disk identical=True, md5(as-read)=4a367e552c3fea3892f2df9158e13829
+opus-K100-r2b: rung 100, transcript-vs-disk identical=True, md5(as-read)=814f31aa14bc2d611eea5f99a54acc98
+opus-K200-r2b: rung 200, transcript-vs-disk identical=True, md5(as-read)=4a367e552c3fea3892f2df9158e13829
+opus-K200-r3b: rung 200, transcript-vs-disk identical=True, md5(as-read)=4a367e552c3fea3892f2df9158e13829

@@ -112,5 +112,7 @@ web reverification sweep. Full record, adjudication log, and two-lens verificati
 reps at 1.0 through 200 realistic-diversity rules (descriptive ceiling, cap still
 unlocated) on an instrument with a demonstrated-failure-capable checker and a
 same-instrument Opus 4.8 arm, which produced the program's first same-instrument
-between-model score difference (adjudication-dependent literalization discrimination on
-one verbatim-phrase rule).
+between-model score difference (an interpretation-dependent literalization-propensity gap
+on one ambiguously-worded verbatim-phrase rule — fable 6/6 literal vs opus 4/6 at full
+n=3/rung after same-day replacement reps; checker-artifact-robust within the strict
+reading).

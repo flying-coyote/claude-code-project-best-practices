@@ -467,6 +467,17 @@
    "err": []
   },
   {
+   "label": "opus-K100-r2b",
+   "model": "opus",
+   "K": 100,
+   "raw": 1.0,
+   "informative": 1.0,
+   "n_inf": 47,
+   "core25_inf": 1.0,
+   "viol_informative": [],
+   "err": []
+  },
+  {
    "label": "opus-K100-r3",
    "model": "opus",
    "K": 100,
@@ -513,6 +524,17 @@
    ]
   },
   {
+   "label": "opus-K200-r2b",
+   "model": "opus",
+   "K": 200,
+   "raw": 1.0,
+   "informative": 1.0,
+   "n_inf": 78,
+   "core25_inf": 1.0,
+   "viol_informative": [],
+   "err": []
+  },
+  {
    "label": "opus-K200-r3",
    "model": "opus",
    "K": 200,
@@ -533,6 +555,17 @@
     "chg-bullets-only",
     "chg-no-links"
    ]
+  },
+  {
+   "label": "opus-K200-r3b",
+   "model": "opus",
+   "K": 200,
+   "raw": 1.0,
+   "informative": 1.0,
+   "n_inf": 78,
+   "core25_inf": 1.0,
+   "viol_informative": [],
+   "err": []
   },
   {
    "label": "opus-K25-r1",

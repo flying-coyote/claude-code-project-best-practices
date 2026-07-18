@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-07-18 16:47*
+*Auto-generated: 2026-07-18 18:48*
 
 ## Summary
 
-**Total documents**: 151
+**Total documents**: 158
 
 | Directory | Count |
 |-----------|-------|
@@ -38,6 +38,7 @@
 | research | 2 |
 | research/artifacts/2026-07-18-realistic-ladder | 5 |
 | research/artifacts/2026-07-18-realistic-ladder/golden | 2 |
+| research/artifacts/2026-07-18-realistic-ladder/guides-as-read | 7 |
 | research/self-audit-2026-06 | 7 |
 | root | 13 |
 
@@ -109,6 +110,15 @@
 
 - [CHANGELOG.md](research/artifacts/2026-07-18-realistic-ladder/golden/CHANGELOG.md)
 - [README.md](research/artifacts/2026-07-18-realistic-ladder/golden/README.md)
+## Research / Artifacts / 2026-07-18-Realistic-Ladder / Guides-As-Read
+
+- [GUIDE-100-as-read-by-fable-K100-r1.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-100-as-read-by-fable-K100-r1.md)
+- [GUIDE-100-as-read-by-opus-K100-r2b.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-100-as-read-by-opus-K100-r2b.md)
+- [GUIDE-200-as-read-by-fable-K200-r1.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-200-as-read-by-fable-K200-r1.md)
+- [GUIDE-200-as-read-by-opus-K200-r2b.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-200-as-read-by-opus-K200-r2b.md)
+- [GUIDE-200-as-read-by-opus-K200-r3b.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-200-as-read-by-opus-K200-r3b.md)
+- [GUIDE-25-as-read-by-fable-K25-r1.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-25-as-read-by-fable-K25-r1.md)
+- [GUIDE-50-as-read-by-fable-K50-r1.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-50-as-read-by-fable-K50-r1.md)
 ## Archive
 
 - [AUDIT-2026-02-27.md](archive/AUDIT-2026-02-27.md)

@@ -221,6 +221,19 @@
   "compaction_markers": 0,
   "GATE": "FAIL"
  },
+ "opus-K100-r2b": {
+  "models": {
+   "claude-opus-4-8": 39
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 4,
+  "assist_text_blocks": 13,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
  "opus-K100-r3": {
   "models": {
    "claude-opus-4-8": 19
@@ -261,6 +274,19 @@
   "compaction_markers": 0,
   "GATE": "FAIL"
  },
+ "opus-K200-r2b": {
+  "models": {
+   "claude-opus-4-8": 34
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 4,
+  "assist_text_blocks": 12,
+  "compaction_markers": 0,
+  "GATE": "PASS"
+ },
  "opus-K200-r3": {
   "models": {
    "claude-opus-4-8": 10,
@@ -274,6 +300,19 @@
   "assist_text_blocks": 3,
   "compaction_markers": 0,
   "GATE": "FAIL"
+ },
+ "opus-K200-r3b": {
+  "models": {
+   "claude-opus-4-8": 24
+  },
+  "all_expected_model": true,
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 7,
+  "compaction_markers": 0,
+  "GATE": "PASS"
  },
  "opus-K25-r1": {
   "models": {

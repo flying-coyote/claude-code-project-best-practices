@@ -541,6 +541,20 @@ def chg_newest_first(c):
     return "SAT" if tup == sorted(tup, reverse=True) else "VIOL"
 
 
+def exit_two(c):
+    """Exit status 2 as a literal, or via a module constant assigned 2
+    (constant indirection satisfies the prose)."""
+    if c.py is None:
+        return "ERR"
+    if re.search(r"sys\.exit\(2\)|SystemExit\(2\)|return 2\b|exit\(2\)", c.py):
+        return "SAT"
+    for m in re.finditer(r"^([A-Z][A-Z0-9_]*)\s*(?::\s*\w+\s*)?=\s*2\b", c.py, re.M):
+        name = m.group(1)
+        if re.search(rf"return {name}\b|sys\.exit\({name}\)|SystemExit\({name}\)", c.py):
+            return "SAT"
+    return "VIOL"
+
+
 def round_four(c):
     """round(..., 4) literally, or round(..., CONST) where CONST is assigned 4
     (constant indirection satisfies the prose)."""
@@ -675,7 +689,7 @@ CUSTOM = {f.__name__: f for f in [
     single_quotes, shebang_first, imports_top, const_before_defs, fn_max_40,
     module_max_250, one_py_file, file_lumen_py, exactly_three_files,
     no_license_file, no_tests, chg_title, chg_version_format, chg_unreleased,
-    chg_verb_prefix, chg_bullets_only, chg_newest_first, chg_no_links, epilog_url, round_four,
+    chg_verb_prefix, chg_bullets_only, chg_newest_first, chg_no_links, epilog_url, round_four, exit_two,
     exit_codes_listed, no_emoji, no_hr, flags_backticked, sorted_imports,
     two_blank_lines, no_comments]}
 for name in REQ7:

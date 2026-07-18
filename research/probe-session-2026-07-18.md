@@ -273,6 +273,70 @@ pre-registration scope (criterion pre-fixed; realized set computed under the fin
 amended checker), and the L4 additions (interaction asymmetry, synthetic-turn gate
 mechanism, strict nesting) all applied above.
 
+### Replacement reps (same day, evening wave) — the three environmental losses re-run
+
+The three usage-limit casualties were re-run after the 4pm ET reset as opus-K100-r2b,
+opus-K200-r2b, opus-K200-r3b (evening wave, ~18:30-18:45 ET, ~7h after the morning wave,
+**opus-only** — no contemporaneous fable reps exist to control a wave effect). All three
+gate PASS (all-turns claude-opus-4-8, guide read, zero compaction). Fixture identity for
+both waves is certified by transcript-extracted Read results
+(`research/artifacts/2026-07-18-realistic-ladder/guides-as-read/`, byte-identical in all
+checks) — necessary because the on-disk guides were regenerated twice after the runs by
+checker-spec edits re-running the seeded generator.
+
+With the replacements, the opus arm reaches n=3 gated at every rung, with the K100 and
+K200 cells wave-mixed (2 morning + 1 evening; 1 morning + 2 evening): 1.0 at K25/K50/K200
+and 46/47 (0.979), 46/47, 1.0 at K100. Fable remains 12/12 at 1.0. The K200 1.0 depends on
+**checker amendment 7** for one rep: r3b returns `STATUS_MISSING = 2` on OSError,
+satisfying the rule as written ("A missing or unreadable source table exits with status 2"
+— a behavior statement; the guide separately establishes `run`'s int return as the process
+exit status) though not the original regex. Same indirection class as the prior
+amendments; the confound lens's exhaustive flip-scan across all 33 outdirs plus golden
+found exactly three rule-level flips (opus-K200-r3b, and fable-K50-r2/opus-K50-r2 in
+unselected cells — direct proof the amendment class rescues fable code just as readily),
+no baseline flips, informative set unchanged at 78, golden unchanged. Disclosures: the
+amendment was triggered by and only benefits an opus artifact (symmetry held but had no
+bite), and without it r3b would post a second sub-ceiling opus observation (77/78); this
+is also the seventh SAT-direction liberalization while content-stdlib remains the sole
+strict-reading VIOL-direction call — the asymmetry-of-scrutiny disclosure gains a data
+point.
+
+The `content-stdlib` paraphrase is confined to the morning K100 wave (3/3 including the
+supplementary rep); the single evening K100 replacement rendered the phrase literally —
+a word-order variant of the morning sentence ("uses the Python standard library only" vs
+morning's "uses only the Python standard library"), from the rep with the arm's heaviest
+verify-and-fix telemetry (39 turns / 4 writes / 13 pre-final text blocks vs 19-22 / 3 / 6
+for the morning gated reps), so extra fix cycles rival wave/timing as the explanation, and
+at n=1 the data cannot distinguish wave-linked serving drift from sampling variance of a
+stable propensity (morning 0/3 literal is unremarkable at a ~0.4 literal rate). Either
+way the rung-linked reading is dead: K200 rendered the phrase literally 3/3 across both
+waves (and the morning K200 casualties' partial artifacts agree with their replacements —
+no selective-rerun bias signature). Gated literal-phrase rendering stands at **fable 6/6
+vs opus 4/6**; the between-model observation is smaller in point estimate and no longer
+uniform within the rung (2/3 gated K100 reps vs the original 3/3).
+
+**Framing correction (overclaim lens, superseding the compressed "adjudication-dependent"
+phrase above where they conflict)**: two different adjudications are in play and the
+record keeps them separate. The difference that survives scoring exists only under the
+strict-verbatim *interpretation* of the ambiguous rule sentence (contestable: no exactness
+rider, "verbatim or nearly so" section lead, prompt-echo interference) — but *within* that
+interpretation it is not a checker artifact, because no prose-faithful amendment can
+rescue a missing required phrase. What amendment 7 makes adjudication-dependent is the
+opus arm's 1.0 at K200, not the existence of the between-model observation. Cite it as an
+interpretation-dependent literalization-propensity difference that is
+checker-artifact-robust.
+
+**Verification trail (addendum)**: both ladder lenses were resumed with context intact.
+Confound: items 1-3 SURVIVES (scores, gates, and tallies independently re-derived;
+amendment-7 flip-scan by exhaustion; guides-as-read extraction), items 4-5
+SURVIVES-IF-WEAKENED (no wave-effect insinuation; fable-has-no-evening-arm and
+double-regeneration provenance disclosures) — applied above. Overclaim: (a) numerals PASS
+with the 46/47 precision upgrade, (b)-(c)-(e) PASS-WITH-CORRECTIONS (word-order variant +
+fix-loop telemetry riders; "smaller in point estimate and no longer uniform"; wave-mixed
+cells + amendment-7 dependence of the K200 1.0), (d) amendment 7 prose-faithful PASS, and
+the compressed "adjudication-dependent difference" phrase FAILED as worded — replaced by
+the framing correction above.
+
 ### What stays open
 
 Locating an actual Fable failure region on realistic instructions — the residual
