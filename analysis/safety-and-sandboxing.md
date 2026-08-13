@@ -1,8 +1,8 @@
 ---
 evidence-tier: A
 convergence: emerging
-applies-to-signals: [harness-hooks, commit-security-paths, model-version-4-8, harness-loop-config, harness-scheduled-agent, ci-scheduled-agent]
-last-verified: 2026-07-10
+applies-to-signals: [harness-hooks, commit-security-paths, model-version-opus-5, model-version-sonnet-5, model-version-4-8, harness-loop-config, harness-scheduled-agent, ci-scheduled-agent]
+last-verified: 2026-08-13
 revalidate-by: 2026-11-30
 status: PRODUCTION
 ---
@@ -49,11 +49,17 @@ MCP servers introduce additional attack surfaces. Key risks from [OWASP MCP Top 
 
 ---
 
-## Model-Level Prompt-Injection Robustness: Opus 4.8 Regressed vs 4.7 (system card §5.2)
+## Model-Level Prompt-Injection Robustness Across Model Versions
 
-**Source**: [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) §5.2 (Evidence Tier A). Released 2026-05-28; model ID `claude-opus-4-8`.
+Injection robustness is a **model property the sandboxing / permission / hook stack above does not replace**: those layers constrain what a compromised agent can *do*; injection robustness governs how easily the agent is compromised in the first place. It also moves in both directions across releases, so it has to be re-checked per model rather than assumed monotonic — 4.7 → 4.8 was a regression (measured, below), and the vendor's position on Opus 5 is a reversal (claimed, not yet measured here).
 
-Opus 4.8 is an alignment *improvement* over 4.7 on most measures — but **prompt-injection robustness is the exception: 4.8 regressed vs 4.7**. This matters because injection robustness is a model property the sandboxing/permission/hook stack above does *not* replace — those layers constrain what a compromised agent can *do*; injection robustness governs how easily the agent is compromised in the first place.
+**Current-model status as of 2026-08-13**: Opus 5 (`claude-opus-5`, released 2026-07-24) is the current Opus and the Claude Code default Opus model from v2.1.219; **Opus 4.8 is now a Legacy model**. The measured 4.7→4.8 comparison below is retained because it is the only §-level numeric comparison this document has, and because projects still pinning `claude-opus-4-8` inherit exactly those figures.
+
+### Opus 4.8 regressed vs 4.7 (system card §5.2)
+
+**Source**: [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) §5.2 (Evidence Tier A). Released 2026-05-28; model ID `claude-opus-4-8` (Legacy as of 2026-07-24).
+
+Opus 4.8 is an alignment *improvement* over 4.7 on most measures — but **prompt-injection robustness is the exception: 4.8 regressed vs 4.7**.
 
 The numbers below are easy to mis-cite. **Always state the safeguard / attempt-count / thinking conditions** — an unqualified headline percentage is meaningless here.
 
@@ -73,6 +79,22 @@ Reading the table: these are attack *success* rates (lower is better), so every 
 - The single-attempt / k=100 distinction is load-bearing: a 7% single-attempt success rate compounds badly under repeated adversarial attempts (the Gray Swan k=100 column shows the multi-attempt regime).
 
 **Defensive implication**: on 4.8, lean harder on the layers that don't depend on model injection-robustness — OS-level sandboxing, `hard_deny` for catastrophic-blast-radius commands (see above), and least-privilege networking — especially for **computer-use and tool-use agents handling untrusted content**, where the regression is largest. Enable injection safeguards where available; the system-card figures show they cut the computer-use single-attempt rate by roughly a third.
+
+### Opus 5 (2026-07-24): vendor claims the most injection-resistant Claude yet — no numbers extracted
+
+The vendor's position is that Opus 5 reverses the 4.8 regression and then some. Boris Cherny, 2026-07-25:
+
+> "Opus 5 is our least prompt injectable model yet"
+
+**Citation discipline matters here.** This is a **Tier B relay of a vendor claim**: the quote reaches this document via [Simon Willison](https://simonwillison.net/2026/Jul/25/boris-cherny/) (2026-07-25, fetch-verified 2026-08-13), attributed by Cherny to Opus 5's System Card evaluations and red-teaming. The Opus 5 system card PDF exists (dated 2026-07-24), but **its contents were not read in this pass** — so the claim is attributed to Cherny-via-Willison, *not* to the card, and **no percentages are quoted for Opus 5 anywhere in this document**.
+
+> **Open follow-up (blocking a numeric update)**: extract the §-level prompt-injection figures from the Opus 5 system card — the Gray Swan ART tool-use (k=100, thinking) and Shade adaptive-attacker coding/text and computer-use rows, with the same safeguard / attempt-count / thinking conditions as the 4.7→4.8 table. Until that is done, **the 4.7→4.8 numeric comparison above cannot be extended to Opus 5**, and any Opus 5 row in that table would be fabricated. A superlative is not a measurement.
+
+**Defensive implication**: do not relax controls on the strength of a superlative. The 4.8-era posture — OS-level sandboxing, `hard_deny` for catastrophic-blast-radius commands, least-privilege networking, injection safeguards enabled — is exactly the posture that *does not depend* on which way the model-level number moved, which is the reason to keep it while the number is unverified. Two Opus 5 behavioral deltas independently argue for holding the line: it delegates to subagents more readily and Claude Code v2.1.219 raises nested subagent depth from 1 to 3 by default, so a single injected instruction has more machinery beneath it than it did on 4.8 (see [Harness Engineering — Opus 5 update](harness-engineering.md) for the harness-side reading).
+
+**Cybersecurity capability, deliberately capped**: Anthropic's launch post states Opus 5 **remains behind Mythos 5 on cybersecurity tasks** (Tier A). Willison's read of the same release (Tier B, 2026-07-24) is that vulnerability-finding is substantially improved but deliberately capped relative to Mythos 5 — *"it comes close to Mythos 5 at finding cybersecurity vulnerabilities."* Practical consequence for defensive work: Opus 5 is a reasonable reviewer, not a Mythos-class vulnerability finder, and a security review that assumes frontier-level discovery is over-trusting the tier.
+
+**Sonnet 5 adds a refusal path the harness must handle** (Tier A, ["What's new in Sonnet 5"](https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5)): Sonnet 5 is the **first Sonnet with real-time cybersecurity safeguards**, which surface as `stop_reason: "refusal"` on an **HTTP 200** response. Any harness, hook, or CI wrapper that treats HTTP 200 as success will silently record a refusal as a completed step — check `stop_reason` explicitly and fail loudly. This matters most in unattended contexts (below), where nobody reads the transcript.
 
 ---
 
@@ -187,10 +209,14 @@ exit 0
 - H-AI-SHADOW-01 — Shadow AI usage in enterprises (4.5/5 confidence)
 - [OWASP AI Vulnerability Scoring System (AIVSS)](https://owasp.org/) (February 2026)
 - Anthropic Managed Agents — Environment scoping and credential management (April 2026)
-- [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) §5.2 (Tier A, released 2026-05-28) — prompt-injection robustness regressed 4.7→4.8: Gray Swan ART tool-use (k=100, thinking) 6.0%→9.6%; Shade coding/text injection (single attempt, no safeguards, thinking) 2.34%→7.03%; computer-use (single attempt, no safeguards, thinking) 0.46%→7.14%, dropping to 5.11% with safeguards. The "0.07%→0.26%" figure circulating elsewhere is error-bar margins, not injection rates — not used here.
+- [What's new in Claude Opus 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) (Tier A, fetched 2026-08-13) — Opus 5 released 2026-07-24 (`claude-opus-5`); 4.8 moved to Legacy; readier subagent delegation (with Claude Code v2.1.219 nested depth 3 by default) is the delta with security consequences here. Launch post (Tier A): Opus 5 remains behind Mythos 5 on cybersecurity tasks.
+- Boris Cherny (2026-07-25) via [Simon Willison](https://simonwillison.net/2026/Jul/25/boris-cherny/) — *"Opus 5 is our least prompt injectable model yet."* **Tier B relay of a vendor claim** attributed to the Opus 5 System Card's evals and red-teaming. The Opus 5 system card PDF exists (2026-07-24) but its contents were **not read** in the 2026-08-13 pass — no Opus 5 injection percentages are cited in this document, and extracting the card's §-level figures is a tracked open follow-up.
+- Simon Willison, ["Introducing Claude Opus 5"](https://simonwillison.net/2026/Jul/24/introducing-claude-opus-5/) (2026-07-24, Tier B) — vulnerability-finding substantially improved but deliberately capped relative to Mythos 5.
+- [What's new in Claude Sonnet 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5) (Tier A, fetched 2026-08-13) — first Sonnet with real-time cybersecurity safeguards; refusals arrive as `stop_reason: "refusal"` on HTTP 200.
+- [Opus 4.8 system card](https://www.anthropic.com/claude-opus-4-8-system-card) §5.2 (Tier A, released 2026-05-28; model now Legacy) — prompt-injection robustness regressed 4.7→4.8: Gray Swan ART tool-use (k=100, thinking) 6.0%→9.6%; Shade coding/text injection (single attempt, no safeguards, thinking) 2.34%→7.03%; computer-use (single attempt, no safeguards, thinking) 0.46%→7.14%, dropping to 5.11% with safeguards. The "0.07%→0.26%" figure circulating elsewhere is error-bar margins, not injection rates — not used here.
 - templates/rules/security-boundaries.md, templates/settings.json, templates/hooks/{pre-commit-lint.sh, post-edit-test.sh} — retired 2026-07-10; credential-boundary rule set and hook pattern absorbed into this doc
 
-*Last updated: 2026-07-16 (added corporate agentic-practice canons note — Vercel/Shopify cited as directional framing only, not absorbers; awesome-claude-code-security noted as abandoned same-day). Prior: 2026-07-10 (Reduction Phase 4 collapse: cut sandbox/permission/auto-mode mechanism now owned by official docs; absorbed templates/ credential-boundary material). Prior: 2026-06-15 (unbounded/unattended-loop blast radius + controls; Scaling Managed Agents citation; loop/schedule audit signals). Prior: May 2026 (Opus 4.8 prompt-injection regression, §5.2).*
+*Last updated: 2026-08-13 (Opus 5 currency pass — injection section restructured: umbrella heading + the 4.7→4.8 numeric comparison demoted to a subsection (4.8 now Legacy), new Opus 5 subsection carrying the vendor's "least prompt injectable model yet" position as a **Tier B relay** (Cherny 2026-07-25 via Willison; Opus 5 system-card contents unread this pass, so **no numbers**) with the card-figure extraction flagged as a blocking open follow-up; defensive posture explicitly held unchanged, with readier delegation + Claude Code v2.1.219 nested depth 3 as reasons not to relax it; Opus 5 remains behind Mythos 5 on cybersecurity tasks (Tier A) with Willison's deliberately-capped read (Tier B); Sonnet 5's real-time cyber safeguards add a `stop_reason: "refusal"` on HTTP 200 that unattended harnesses must check. Frontmatter gained `model-version-opus-5` / `model-version-sonnet-5`.) Prior: 2026-07-16 (added corporate agentic-practice canons note — Vercel/Shopify cited as directional framing only, not absorbers; awesome-claude-code-security noted as abandoned same-day). Prior: 2026-07-10 (Reduction Phase 4 collapse: cut sandbox/permission/auto-mode mechanism now owned by official docs; absorbed templates/ credential-boundary material). Prior: 2026-06-15 (unbounded/unattended-loop blast radius + controls; Scaling Managed Agents citation; loop/schedule audit signals). Prior: May 2026 (Opus 4.8 prompt-injection regression, §5.2).*
 
 <!-- graphify-footer:start -->
 
