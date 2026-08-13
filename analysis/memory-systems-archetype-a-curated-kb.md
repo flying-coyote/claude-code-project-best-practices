@@ -1,7 +1,7 @@
 ---
 status: EMERGING
 follows: "Karpathy LLM-wiki paradigm (write-time vs read-time wiki; Tier B by author authority, verified 2026-07-16) — the curated-KB paradigm layer this archetype implements. Bar status: fails Supported (blog/talk-form canon). Delta kept here: working implementation evidence — the graphify+footer pipeline and the typed-registry remediation. Advance trigger: the paradigm productized by a Supported tool covering the curated-KB archetype."
-last-verified: "2026-07-16"
+last-verified: "2026-08-13"
 evidence-tier: C
 convergence: emerging  # AI-PKM caveat (B-F1 seed): emerging WITH license risk — Obsidian Smart Connections ~786K downloads but Jan-2026 proprietary switch (DR-6 verified)
 applies-to-signals: [memory-systems, knowledge-base, wiki, graph, md-corpus-small, md-corpus-design-target, md-corpus-large, vault-karpathy, project-type-docs, typed-memory-no-registry]
@@ -13,6 +13,14 @@ revalidate-by: 2026-10-28
 **Evidence Tier**: C — recommendation synthesizes Tier-B paradigm (Karpathy LLM Wiki) with Tier-C tool-specific claims (graphify, Lum1104).
 
 > **Following the Karpathy LLM-wiki paradigm since 2026-07-16.** New coverage effort on the paradigm layer goes to tracking the canon, not growing this doc. Delta kept: the implementation evidence (graphify+footer, typed-registry remediation).
+
+## Canon liveness check — 2026-08-13: STABLE
+
+The followed canon is unchanged. The [Karpathy LLM-wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) (created 2026-04-04) shows **exactly one revision** — no updates through 2026-08-13 (fetch-verified 2026-08-13). The write-time-vs-read-time wiki paradigm this archetype implements therefore stands as originally published; no advance-trigger movement, and nothing in the canon layer requires a change to A1–A5 below.
+
+Karpathy's in-window public activity has moved to **model-capability commentary rather than knowledge-architecture**: a Fable 5 launch reaction (~2026-06-09, X post — search-snippet only, X unfetchable: "this is a major-version-bump-deserving step change forward… peaking especially for long problem-solving sessions on very difficult problems"), and a ~2026-07-05 warning about "focusing on agents before models" (snippet-only). **Tier C for both** — search snippets, primary source unfetchable. Neither revises the wiki paradigm, and neither is load-bearing for any recommendation here; they are recorded only to show the canon author was active and did *not* update the pattern.
+
+Next liveness check rides with this doc's `revalidate-by` (2026-10-28).
 
 ## Purpose
 
@@ -138,7 +146,7 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 
 ---
 
-*Last updated: 2026-07-16 (follow-lane wiring — `follows:` frontmatter + body banner for the Karpathy LLM-wiki paradigm canon). Prior: 2026-04-28 (layout-requirement verification against plugin v2.3.2; A1b typed-frontmatter hygiene pattern added).*
+*Last updated: 2026-08-13 (canon-liveness check — Karpathy LLM-wiki gist fetch-verified unchanged at one revision since 2026-04-04; canon verdict STABLE; author's in-window commentary noted as model-capability topics, not paradigm revision; `last-verified` → 2026-08-13. The `follows:` frontmatter verified date is deliberately left at 2026-07-16 for the next consolidation pass). Prior: 2026-07-16 (follow-lane wiring — `follows:` frontmatter + body banner for the Karpathy LLM-wiki paradigm canon). Prior: 2026-04-28 (layout-requirement verification against plugin v2.3.2; A1b typed-frontmatter hygiene pattern added).*
 
 <!-- graphify-footer:start -->
 

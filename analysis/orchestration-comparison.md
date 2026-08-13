@@ -2,7 +2,7 @@
 evidence-tier: Mixed
 convergence: single-source
 applies-to-signals: [harness-custom-agents, harness-background-tasks, harness-dynamic-workflows, project-type-framework-selection, harness-comprehensive]
-last-verified: 2026-07-16
+last-verified: 2026-08-13
 revalidate-by: 2026-12-15
 status: PRODUCTION
 ---
@@ -48,6 +48,18 @@ Building reusable multi-agent system?
 ```
 
 Adoption note: the external frameworks compared below carry single-source adoption evidence (this doc's convergence tag), and the standing rule is that adopting any of them as fleet infrastructure requires converged status or an explicit owner exception — the native-first branches above are vendor-native and unaffected.
+
+### Currency (2026-08-13) — Opus 5 shifts the orchestration cost calculus
+
+Two changes landed on 2026-07-24 that move the decision boundary above, both Tier A:
+
+**1. Opus 5 delegates more readily — so cap it explicitly.** Per [What's new — Opus 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) (`claude-opus-5`, released 2026-07-24, $5/$25 per Mtok), "In multi-agent frameworks, it delegates to subagents more readily." Anthropic's own [Opus 5 prompting guide](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) recommends **capping subagent delegation explicitly** in the prompt. This is first-party corroboration of the when-NOT-to-orchestrate stance above, arriving from the opposite direction: the earlier concern was that users over-orchestrated by choice, whereas on Opus 5 the *model* reaches for subagents on its own and the prompt has to hold it back. Practical effect: the "no orchestration needed" branch of the tree above is no longer self-enforcing on Opus 5 — state the cap.
+
+**2. Nested subagents now default to depth 3 (was 1).** Claude Code v2.1.219 (2026-07-24 changelog): "Subagents can now spawn nested subagents up to depth 3 by default (was 1)." This is a structural change, not a tunable most people will notice — a delegation tree that previously terminated one level down can now fan out three levels by default. Combined with (1), the realistic worst case is a readier delegator running under a deeper default ceiling. Audit actual tree depth before assuming the token profile of a workflow measured pre-2026-07-24 still holds; the [Measured Orchestration Overhead](#measured-orchestration-overhead) numbers below all predate both changes.
+
+**3. Self-verification may make scripted verification sub-agents redundant.** Opus 5 "verifies its own work without being told to," and carried-over verification instructions "cause over-verification" (verbatim, What's new — Opus 5). Two implications for the architectures compared below: a dedicated Validation/verification agent (CAII's Validation function, GSD's XML task specs with embedded verification, any hand-rolled verifier subagent) may now be **duplicating work the model already does unprompted**, and the prompt text that drives it is itself an over-verification trigger. Do not rip out verification agents on this basis alone — fail-closed checkpoints exist for auditability as much as for correctness — but re-measure whether the verification pass is still buying anything on Opus 5 before paying for it.
+
+Scope note: these are model- and version-scoped observations about Opus 5 and Claude Code v2.1.219, not re-measurements of any framework comparison below. Nothing in this doc's measured evidence has been re-run on a Claude 5-family model.
 
 ---
 
@@ -174,6 +186,28 @@ Not a full orchestration framework, but a pattern applicable within any framewor
 
 Wiggins' loop-engineering harness restates several practices already anchored elsewhere in this comparison — fresh context per role, deterministic verification, fail-closed checkpoints — but it adds one dimension the corpus didn't carry as a named practice: **cross-model-family review** — "shared weights share failure modes," so the reviewing checkpoint should run a different model family than the drafting one, on the reasoning that a reviewer built on the same weights as the writer inherits the writer's blind spots along with its competence. This fleet already practices it in both directions: Gemini Deep Research drafts are verified by Claude locally, and a 2026-06 D-audit found roughly 60% of a Gemini-drafted analysis's claims failed verification against primary sources — a cross-family check catching same-family blind spots, running the opposite direction from Wiggins' own example (Gemini drafts checked by Claude, not the reverse). The addition here is the name, not the mechanism: the practice was already running and already verified before the article gave it a label.
 
+### Advisor / Executor: Tier-Split Orchestration (added 2026-08-13)
+
+**Source**: Addy Osmani, ["Notes on Anthropic's Fable 5"](https://addyosmani.com/notes/fable-5/) (2026-07-06, fetch-verified 2026-08-13) — Tier B, relaying Anthropic's own guidance rather than an independent measurement.
+
+Where the Wiggins pattern above splits roles across model *families* for blind-spot coverage, this one splits them across price *tiers* for cost. Verbatim from Osmani: "Use Fable 5 as an 'advisor.' An executor (Sonnet 5) calls Fable 5 for guidance. Most tokens bill at [the] lower rate."
+
+The economics are the whole point. At the 2026-08-13 lineup — Fable 5 at $10/$50 per Mtok versus Sonnet 5 at $2/$10 — the executor carries the token volume (file reads, edits, tool traffic) at the cheap rate while the expensive tier is consulted only at decision points. This is the same shape as the advisor-strategy benchmark claims already recorded under Production Evidence below (2% higher multilingual SWE-bench, 11% lower cost vs. non-advisor baselines), now with a concrete current-lineup instantiation.
+
+Osmani also relays a capability data point for why the top tier is worth consulting at all: Fable "landed a WebRTC bug that Opus 4.8 and GPT-5.5 had both missed." Single anecdote, no methodology — treat as illustrative, not as evidence of a capability gap.
+
+**When it applies**: high-token-volume work with a low density of hard decisions (large refactors, migrations, broad test authoring). **When it does not**: work that is mostly judgment and little mechanical execution, where the tier split just adds a hop.
+
+**Caveat on the cost math**: Sonnet 5's tokenizer emits roughly 30% more tokens than Sonnet 4.6 for the same input text (Tier A — see [`behavioral-insights.md`](behavioral-insights.md)), so a per-Mtok price comparison understates Sonnet 5's real cost per unit of work. The advisor split still wins on price, but not by the ratio the sticker prices suggest.
+
+### Keep Judgment in the Main Loop (added 2026-08-13)
+
+**Source**: Simon Willison, ["Judgement"](https://simonwillison.net/2026/Jul/3/judgement/) (2026-07-03) — Tier B, practitioner authority.
+
+The complementary rule for both splits above: **delegate mechanical subagent work to cheaper tiers, keep judgment in the main loop.** The partition is by *kind of work*, not by size — mechanical, verifiable, bounded work (search, collation, bulk edits, running checks) is what delegates safely; judgment calls delegate badly because the main loop loses the reasoning that produced them and can only see the conclusion.
+
+This sharpens the advisor/executor pattern into a placement rule: the executor tier should not be the tier making architecture or tradeoff decisions, and it also explains the over-delegation anti-pattern already in the table below. It is a useful counterweight to Opus 5's readier delegation (see the currency section above) — the model's default is to hand work off, and the discipline is to hand off the mechanical half only.
+
 ---
 
 ## Framework Selection (merged 2026-07-16)
@@ -290,6 +324,9 @@ Two data points survive from the now-superseded native-mechanism sections for sc
 - [Building a C Compiler with Parallel Claudes](https://www.anthropic.com/engineering/building-a-c-compiler-with-parallel-claudes)
 - Boris Cherny: premature-orchestration principle (March 2026)
 - Anthropic: Advisor strategy benchmark claims (April 2026)
+- [What's new — Claude Opus 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) (released 2026-07-24, `claude-opus-5`, $5/$25; fetched 2026-08-13) — "In multi-agent frameworks, it delegates to subagents more readily"; "verifies its own work without being told to"; carried-over verification instructions "cause over-verification."
+- [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) (fetched 2026-08-13) — recommends capping subagent delegation explicitly.
+- Claude Code changelog v2.1.219 (2026-07-24) — "Subagents can now spawn nested subagents up to depth 3 by default (was 1)."
 
 **Tier B (Validated)**:
 - [glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done) — GSD orchestration. STATE.md for cross-session memory, fresh context per executor, .planning/ directory structure. README advises "overkill for simple tasks."
@@ -298,6 +335,8 @@ Two data points survive from the now-superseded native-mechanism sections for sc
 - Dexter Horthy / HumanLayer: CRISPY methodology, design doc pattern, vertical planning, "don't use prompts for control flow" principle (Authority 4/5; conference talk March 2026, validated across "thousands of engineers"). Upstream frozen — 12-factor-agents no activity since 2025-09, ACE since 2025-12; treat as historical reference (verified 2026-07-16).
 - [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow) — 60+ specialized agents, vector memory, swarm topologies, ReasoningBank. Enterprise-focused docs only; no production validation data referenced.
 - Zhang / Kraska / Khattab: [arXiv:2512.24601](https://arxiv.org/abs/2512.24601) — Recursive Language Models. CodeQA accuracy 24% → 62% improvement. Status: emerging; all published results use GPT-5/GPT-5-mini, not Claude.
+- Addy Osmani: ["Notes on Anthropic's Fable 5"](https://addyosmani.com/notes/fable-5/) (2026-07-06, fetch-verified 2026-08-13) — advisor/executor tier split, relaying Anthropic guidance ("Use Fable 5 as an 'advisor.' An executor (Sonnet 5) calls Fable 5 for guidance. Most tokens bill at [the] lower rate."). Also the Fable-landed-a-WebRTC-bug anecdote (illustrative only, no methodology). Practitioner relay of a first-party pattern — not an independent benchmark.
+- Simon Willison: ["Judgement"](https://simonwillison.net/2026/Jul/3/judgement/) (2026-07-03) — delegate mechanical subagent work to cheaper tiers, keep judgment in the main loop. Practitioner authority; observational, not measured.
 
 **Tier C (Low Confidence)**:
 - Chase AI: Measured orchestration overhead benchmarks (Authority 2/5, single task type only)
@@ -314,7 +353,7 @@ Two data points survive from the now-superseded native-mechanism sections for sc
 
 ---
 
-*Last updated: 2026-07-16 (Absorption Scan 2026-07 §1 — framework-selection-guide.md merged in: five-framework selection table, Claude-Flow and RLM sections, universally useful patterns, selection anti-patterns and summary; CRISPY/Horthy content flagged upstream-frozen; ECC URL corrected to affaan-m). Prior: 2026-07-10 (Reduction Phase 4 — native-mechanism half collapsed to the official docs; added the Errorta/Jon Wiggins cross-model-family-review paragraph; measured numbers and portfolio evidence preserved). Prior: 2026-06-15 (dynamic workflows; subagent 5-levels-deep recursion; `harness-dynamic-workflows`/`harness-background-tasks` signals). Prior: April 2026.*
+*Last updated: 2026-08-13 (currency section — Opus 5 delegates more readily and Anthropic's prompting guide says cap it; nested-subagent default depth 1→3 in Claude Code v2.1.219; Opus 5 self-verification may make scripted verification sub-agents redundant. Added two cross-model-family orchestration patterns alongside the Wiggins row: advisor/executor tier split (Osmani relay of Anthropic guidance, Tier B) and Willison's keep-judgment-in-the-main-loop rule (Tier B). Sources updated; `last-verified` → 2026-08-13. No `model-version-*` signal added — this doc's applies-to-signals carry no model-version keys.). Prior: 2026-07-16 (Absorption Scan 2026-07 §1 — framework-selection-guide.md merged in: five-framework selection table, Claude-Flow and RLM sections, universally useful patterns, selection anti-patterns and summary; CRISPY/Horthy content flagged upstream-frozen; ECC URL corrected to affaan-m). Prior: 2026-07-10 (Reduction Phase 4 — native-mechanism half collapsed to the official docs; added the Errorta/Jon Wiggins cross-model-family-review paragraph; measured numbers and portfolio evidence preserved). Prior: 2026-06-15 (dynamic workflows; subagent 5-levels-deep recursion; `harness-dynamic-workflows`/`harness-background-tasks` signals). Prior: April 2026.*
 
 <!-- graphify-footer:start -->
 
