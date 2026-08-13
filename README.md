@@ -28,7 +28,7 @@ Convergence status: the drift/staleness detection this audit performs is **singl
 | **Evidence tier system** (A–D source tiers; the 1–5 claim-strength axis is RETIRED as of 2026-07-12) | Know which advice to trust | Adapted from evidence-based-medicine tier systems; the application here is ours |
 | **Quantified behavioral insights** (80% CLAUDE.md adherence, 60% context threshold) | Calibrate expectations from data, not vibes | Scattered across interviews |
 | **Comparative analysis** (orchestration/framework selection, CLI-vs-MCP measurements) | Make informed architectural decisions | The sources exist separately; the comparative synthesis is ours |
-| **Model-migration diagnostics** (Opus 4.6 → 4.7 silent no-op risks) | Catch prompts that break on the version you ship | Not systematically |
+| **Model-migration diagnostics** (Opus 4.6 → Opus 5 cross-version matrix: 4.7 silent no-ops, Opus 5 delegation/verification reversals) | Catch prompts that break on the version you ship | Not systematically |
 | **Security analysis** (OWASP MCP Top 10, auto mode classifier, sandboxing) | Understand real security boundaries | OWASP (raw), not Claude-specific |
 
 ### Concrete Example: What an Audit Recommendation Looks Like
@@ -36,11 +36,13 @@ Convergence status: the drift/staleness detection this audit performs is **singl
 Every recommendation from the audit cites its source doc, evidence tier, and the project signal that triggered the match:
 
 ```markdown
-**Migrate implicit subagent dispatch in `.claude/agents/builder.md:14`**
-- Signal: `model-version-4-7` (settings.json references `claude-opus-4-7`)
+**Cap subagent delegation in `.claude/agents/builder.md:14`**
+- Signal: `model-version-opus-5` (settings.json references `claude-opus-5`)
 - Source: `analysis/model-migration-anti-patterns.md` (evidence-tier: Mixed)
-- Action: Replace "Dispatch the work to available subagents" with
-  "Use the Explore subagent to scan src/, then the Plan subagent to design the change."
+- Action: Opus 5 reverses the 4.7/4.8 explicit-dispatch posture — it delegates readily
+  (nested depth default 1→3 since v2.1.219). Replace open-ended "delegate as you see fit"
+  with an explicit cap, and delete 4.x-era verification scaffolding the model now performs
+  unprompted.
 ```
 
 If you cannot verify a recommendation against the cited doc, the audit failed — that is the design.
@@ -62,7 +64,7 @@ The ecosystem now has seven distinguishable lanes, and this project deliberately
 | Methodology | [superpowers](https://github.com/obra/superpowers) | Use alongside; independently implements patterns equivalent to our archived v1 skills (re-verified at v6.1.1, 2026-07-16) |
 | Mechanics documentation | [ClaudeLog](https://claudelog.com) | Follow for how-it-works explainers; we keep the measured numbers it doesn't publish |
 | Standards | [AGENTS.md](https://agents.md) (Linux Foundation), [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/), [CoSAI Project CodeGuard](https://project-codeguard.org) | Map to and adopt where they cover the substance — CodeGuard's own Claude Code integration absorbed two of our three rule-import options (2026-07-16) |
-| Thought-leader canons | Willison, Osmani, Ronacher, Ng, Karpathy, Miessler | Follow-and-track (the `follows:` frontmatter lane): blog-form canons carry the conceptual load for a slice, but never clear the Supported bar for infrastructure adoption |
+| Thought-leader canons | Willison, Osmani, Ronacher, Ng, Karpathy, Husain/Shankar, Miessler | Follow-and-track (the `follows:` frontmatter lane): blog-form canons carry the conceptual load for a slice, but never clear the Supported bar for infrastructure adoption |
 | Evidence-graded audit | **this repo** | Sole occupant; temporary by charter — shrinking coverage is success |
 
 **Not implementation how-to.** If a recommendation says "add a PreToolUse hook," this project explains *why and when*; it does not paste the hook code. Pair this project with the lanes above — use alongside, not instead of.
@@ -107,7 +109,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | [evidence-tiers.md](analysis/evidence-tiers.md) | A–D source-tier classification + HIGH/MEDIUM/LOW confidence framework (merged 2026-07-16; the 1–5 claim-strength axis is retired) |
 | [intent-alignment-audit.md](analysis/intent-alignment-audit.md) | The RETHINK layer: nine why-questions a presence/absence audit can't ask (EMERGING) |
 | [behavioral-insights.md](analysis/behavioral-insights.md) | Quantified Claude Code behavior: context thresholds, instruction adherence, prompt sensitivity across model versions |
-| [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md) | Six prompt anti-patterns that break on Opus 4.7; cross-version diagnostic matrix |
+| [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md) | Cross-version diagnostic matrix, Opus 4.5 → Opus 5: the 4.7 silent no-ops, the 4.8 recovery, and Opus 5's delegation/verification reversals |
 | [harness-engineering.md](analysis/harness-engineering.md) | Harness philosophy, diagnostic framework, infrastructure patterns |
 | [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md) | Unattended execution: `/loop`, `/goal`, Routines, Desktop scheduled tasks, the Ralph lineage, and the "loop engineering" framing (EMERGING) |
 | [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md) | 3-tier CLAUDE.md evolution across 6 repos, ~150 instruction budget |
@@ -149,7 +151,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 
 - **CLAUDE.md is followed ~80% of the time** — use hooks for 100% enforcement (Boris Cherny, March 2026).
 - **Context quality degrades at 60% capacity, not when full** — proactive intervention saves quality.
-- **Opus 4.7 interprets prompts literally** — 4.6-tuned prompts with vague descriptors, edge-case gestures, or unanchored triggers may silently no-op ([Anthropic migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide), April 2026).
+- **Opus 4.7 interprets prompts literally, and the posture persists through Opus 5** — 4.6-tuned prompts with vague descriptors, edge-case gestures, or unanchored triggers may silently no-op ([Anthropic migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide), April 2026). Opus 5 (July 2026) then *reverses* two 4.x-era remediations: it delegates to subagents readily (cap it explicitly) and self-verifies without instruction (delete carried-over verification scaffolding).
 - **Skills were 50% cheaper than equivalent MCP in Tenzir's pre-tool-search A/B** (January 2026, historical) — the live per-category cost signal is first-party `/usage` now; the durable point is the controlled same-workflow comparison an observational monitor can't produce.
 - **Auto mode approves 93% of tool calls** — viable for most workflows (Anthropic, March 2026).
 - **Custom subagents can "gatekeep context"** — prefer native delegation unless truly specialized (Boris Cherny).
@@ -168,7 +170,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | Source | Key Contribution |
 |--------|-----------------|
 | **Boris Cherny** (Claude Code creator) | Quantified behavioral insights, five-layer architecture |
-| **Anthropic Engineering Blog** | Auto mode, agent skills, hooks reference, eval methodology, Opus 4.7 migration guide |
+| **Anthropic Engineering Blog + model docs** | Auto mode, agent skills, hooks reference, eval methodology, per-release migration guides (4.7 → Opus 5 prompting guide) |
 | **OWASP MCP Top 10** | MCP security framework |
 | **7-Repo Portfolio Analysis** | Agent-driven development evidence, infrastructure maturity, cross-repo coordination |
 
@@ -176,9 +178,11 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 
 | Source | Key Contribution |
 |--------|-----------------|
-| **Simon Willison** | "Designing agentic loops" canon (followed by harness-engineering.md); per-release model analyses |
+| **Simon Willison** | Agentic-loops canon, live home: the *Agentic Engineering Patterns* guide (followed by harness-engineering.md); per-release model analyses spanning the full Claude 5 family (Apr–Aug 2026) |
 | **Addy Osmani** | Loop engineering, Agentic Autonomy Levels, own-the-outer-loop (followed canons) |
-| **Armin Ronacher** | Inner agent loop vs outer harness loop; the most critical voice on autonomous-loop limits |
+| **Armin Ronacher** | Inner agent loop vs outer harness loop ("harness loops", The Coming Loop); schema-non-neutrality counter-signal (Better Models: Worse Tools, July 2026); the most critical voice on autonomous-loop limits |
+| **Hamel Husain & Shreya Shankar** | LLM-evals canon incl. the agentic two-phase eval section (followed by agent-evaluation.md) |
+| **Andrej Karpathy** | LLM-wiki / curated-KB paradigm (followed by memory-systems-archetype-a-curated-kb.md) |
 | **Nate B. Jones** | Agent principles, Specification Gap, OB1 memory architecture |
 | **ECC** (renamed from everything-claude-code) | Comprehensive tooling reference — the tooling lane |
 | **superpowers** | Disciplined methodology, anti-rationalization — the methodology lane (re-verified v6.1.1) |
@@ -190,7 +194,7 @@ Full database: [SOURCES.md](SOURCES.md).
 
 ## Project Status
 
-**v2.1** — 24 routable analysis docs (44→27 in the 2026-07-10 Reduction Phases 0-6; 27→25 files in the 2026-07-16 absorption wave — first third-party sweep, five docs entered the follow lane, one retirement toward `/usage`, two merges; see ABSORPTION-MAP.md) with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Opus 4.8 migration readiness (with a volatile Fable 5 / Mythos 5 currency note), unattended-execution primitives (`/loop`, `/goal`, Routines, scheduled tasks) plus the "loop engineering" framing, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
+**v2.1** — 24 routable analysis docs (44→27 in the 2026-07-10 Reduction Phases 0-6; 27→25 files in the 2026-07-16 absorption wave — first third-party sweep, five docs entered the follow lane, one retirement toward `/usage`, two merges; see ABSORPTION-MAP.md) with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Claude 5-family migration readiness (Fable 5 / Opus 5 / Sonnet 5, with Opus 4.8 as Legacy; refreshed 2026-08-13), unattended-execution primitives (`/loop`, `/goal`, Routines, scheduled tasks) plus the "loop engineering" framing, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
 
 **Archive**: Prior v1 patterns (24 docs) live in `archive/patterns-v1/` — preserved for historical comparison, not active guidance. See [ARCHIVE.md](ARCHIVE.md).
 
