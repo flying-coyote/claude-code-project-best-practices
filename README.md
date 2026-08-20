@@ -67,6 +67,8 @@ The ecosystem now has seven distinguishable lanes, and this project deliberately
 | Thought-leader canons | Willison, Osmani, Ronacher, Ng, Karpathy, Husain/Shankar, Miessler | Follow-and-track (the `follows:` frontmatter lane): blog-form canons carry the conceptual load for a slice, but never clear the Supported bar for infrastructure adoption |
 | Evidence-graded audit | **this repo** | Sole occupant; temporary by charter — shrinking coverage is success |
 
+**Competing runtimes (scope note, 2026-08-19).** Competing agent runtimes are out-of-scope-but-tracked rather than an eighth lane: this project audits Claude Code projects, and when a competitor natively consumes the Claude Code artifact set, as DeepSeek Harness is the first to do at scale (CLAUDE.md/AGENTS.md, SKILL.md skills, a partial hooks.json bridge, MCP; [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness), v0.1 developer preview, Tier A for its own docs and code), that consumption is evidence about how far the practices audited here port across harnesses, not a new lane to occupy, so dsh lands as a watch item in [ABSORPTION-MAP.md](ABSORPTION-MAP.md) while adding a lane remains an owner decision.
+
 **Not implementation how-to.** If a recommendation says "add a PreToolUse hook," this project explains *why and when*; it does not paste the hook code. Pair this project with the lanes above — use alongside, not instead of.
 
 ---

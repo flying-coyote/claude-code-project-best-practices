@@ -113,6 +113,8 @@ Boris Cherny's guidance (March 2026): Keep CLAUDE.md under ~150 instructions. Be
 
 AGENTS.md (agents.md) is the emerging cross-tool agent-config standard, stewarded by the Agentic AI Foundation under the Linux Foundation as of 2026, adopted across tens of thousands of repos and read by 20+ agents; Claude Code reads it, with CLAUDE.md remaining the richer native format (Tier B, verified 2026-07-16). This doc's sizing/disclosure evidence applies to either file. Trigger to watch: the AGENTS.md ecosystem publishing data-backed sizing guidance would flip this doc's absorption row.
 
+Update (2026-08-19): the split-brain audit this doc's `repo-has-agents-md` signal feeds now covers files consumed by two runtimes in fact, because DeepSeek Harness (dsh v0.1, released 2026-08-13) natively discovers both AGENTS.md and CLAUDE.md, plus their `.local.md` overlays, from home and root-to-cwd, injecting them under a maxBytes budget that drops whole broader files before truncating the single most-specific one (Tier A, `packages/context/agent-instructions/README.md` in [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness), verified 2026-08-19). That budget mechanic is a second independent data point that instruction-file loading is budget-bounded, beside Claude Code's own memory-loading budget, and it is a reason split-brain drift between the two files now carries cross-runtime consequences, since a divergent pair is consumed by two harnesses rather than one.
+
 ---
 
 ## Currency (2026-08-13) — First-Party Adopts "Progressive Disclosure" by Name
@@ -163,8 +165,7 @@ Shifts 3 and 5 (progressive disclosure, auto-memory) presuppose a model that **f
 
 ---
 
-*Last updated: 2026-08-13 (currency section on Anthropic's Claude 5-generation context-engineering post — first-party adoption of "progressive disclosure" by name, the 80%-system-prompt-reduction claim, the six shifts, `/doctor`; mirror-verified with direct-fetch-blocked caveat; partial-absorption signal flagged for the next sweep without touching status/lane frontmatter; model-side counterpoint on reference-following enforcement; `last-verified` → 2026-08-13). Prior: 2026-07-16 (added AGENTS.md interop note; `repo-has-agents-md` added to applies-to-signals). Prior: July 2026.*
-
+*Last updated: 2026-08-19 (AGENTS.md interop extended — DeepSeek Harness reads both files natively with a maxBytes budget, a second budget-bounded-loading data point). Prior: 2026-08-13 (currency section on Anthropic's Claude 5-generation context-engineering post — first-party adoption of "progressive disclosure" by name, the 80%-system-prompt-reduction claim, the six shifts, `/doctor`; mirror-verified with direct-fetch-blocked caveat; partial-absorption signal flagged for the next sweep without touching status/lane frontmatter; model-side counterpoint on reference-following enforcement; `last-verified` → 2026-08-13). Prior: 2026-07-16 (added AGENTS.md interop note; `repo-has-agents-md` added to applies-to-signals). Prior: July 2026.*
 <!-- graphify-footer:start -->
 
 ## Related (from graph)

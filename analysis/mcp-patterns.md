@@ -235,6 +235,8 @@ Is this request time-sensitive?
 
 The [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) identifies critical security risks in MCP deployments. Status note (verified 2026-07-18): the project remains pre-release — Phase 3 "Beta Release and Pilot Testing", items designated MCP01:2025-MCP10:2025 — so cite it as an active OWASP framework in beta, not a finalized standard; the companion [Practical Guide for Securely Using Third-Party MCP Servers](https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/) is still listed at v1.0 (2025-11-04), no newer version found.
 
+Second first-party client population (added 2026-08-19): DeepSeek Harness (dsh v0.1, released 2026-08-13) ships an MCP client with the same stdio and streamable-http transports, and it mounts MCP servers through its ordinary tool registry rather than as a privileged protocol, so a server arrives as one plugin among many (Tier A, `docs/config-catalog.md` in [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness), verified 2026-08-19). The OWASP-mapping guidance and the server-curation practices in this doc therefore apply to a second runtime unchanged, which makes MCP-server curation a harness-portable practice rather than a Claude-Code-specific one.
+
 ### Attack Patterns
 
 | Attack | Description | Impact |
@@ -364,6 +366,7 @@ See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard
 - [Nate B. Jones - MCP Implementation Guide](https://natesnewsletter.substack.com/p/the-mcp-implementation-guide-solving)
 - [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)
 - [OWASP Guide for Securely Using Third-Party MCP Servers v1.0](https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/)
+- [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) (Tier A for its own docs — MCP client transports in `docs/config-catalog.md`; added 2026-08-19)
 - H-MCP-CONTEXT-01 hypothesis (5/5 confidence, validated April 2026)
 - H-AGENT-SECURITY-01 hypothesis (skill supply chain risk)
 - Jenova Research: OpenClaw skill security analysis (March 2026)
@@ -380,7 +383,7 @@ See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard
 - [Tenzir Blog — "We Did MCP Wrong"](https://tenzir.com/blog/we-did-mcp-wrong) (Matthias Vallentin, January 2026, Tier B — original CLI+Skill thesis; relocated here 2026-07-16)
 - [Matthias Vallentin LinkedIn — "CLI + Skill > MCP"](https://lnkd.in/dqHjgHc6) (2026-03-17, Tier C, vendor-incentive caveat — four-step CLI-ification recipe, `mavam/clattio`)
 
-*Last updated: 2026-07-18 (token-economics re-measure cluster executed: wire measurement of tool-definition costs, 81,986 figure demoted to historical, tool-search version pegs corrected to v2.1.7/v2.1.121, Playwright 114K/27K attribution corrected to community benchmarks ~2-3.7x, both lapsed OWASP-survey rows reverified — 42%-of-12,000+ re-cited to BlueRock, trustworthy-count row withdrawn as never-a-measurement; two-lens adversarial verification trail in research/probe-session-2026-07-18.md). Prior: 2026-07-16 (CLI+Skill pattern relocated from mcp-vs-skills-economics.md — Absorption wave Phase 3); 2026-07-10 (collapsed; absorbed mcp-daily-essentials.md).*
+*Last updated: 2026-08-19 (noted DeepSeek Harness as a second first-party MCP client population — same transports, mounted through its ordinary tool registry; curation guidance now harness-portable). Prior: 2026-07-18 (token-economics re-measure cluster executed: wire measurement of tool-definition costs, 81,986 figure demoted to historical, tool-search version pegs corrected to v2.1.7/v2.1.121, Playwright 114K/27K attribution corrected to community benchmarks ~2-3.7x, both lapsed OWASP-survey rows reverified — 42%-of-12,000+ re-cited to BlueRock, trustworthy-count row withdrawn as never-a-measurement; two-lens adversarial verification trail in research/probe-session-2026-07-18.md). Prior: 2026-07-16 (CLI+Skill pattern relocated from mcp-vs-skills-economics.md — Absorption wave Phase 3); 2026-07-10 (collapsed; absorbed mcp-daily-essentials.md).*
 
 <!-- graphify-footer:start -->
 

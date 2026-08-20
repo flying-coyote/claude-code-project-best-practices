@@ -40,6 +40,7 @@ This is the standing answer to the owner's question: *which external open-source
 ## Non-doc watch items
 
 - **install-health ← `claude doctor` / `/checkup`** — a slice this project never claimed; watched only so the audit never grows one (migrated from the emerging-pattern-monitor in-file watch list, 2026-07-16).
+- **DeepSeek Harness (dsh) ← [`deepseek-ai/deepseek-harness`](https://github.com/deepseek-ai/deepseek-harness)** — watched for the [`harness-engineering.md`](analysis/harness-engineering.md) and [`plugins-and-extensions.md`](analysis/plugins-and-extensions.md) rows as a cross-harness portability testbed (it natively consumes the CC artifact set) and a competing plugin ecosystem; evaluation point is the ~2026-10 Phase F sweep, and the v0.1 developer preview iterates fast, so expect breaking changes (Tier A, its own repo/docs; added 2026-08-19).
 
 ---
 

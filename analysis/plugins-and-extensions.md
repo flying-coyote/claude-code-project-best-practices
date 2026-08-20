@@ -112,6 +112,10 @@ Once a plugin clears the checklist and is adopted, treat it as a dependency, not
 }
 ```
 
+### Cross-runtime counterpoint (added 2026-08-19)
+
+DeepSeek Harness v0.1 (released 2026-08-13, developer preview) ships an everything-is-a-plugin architecture with no privileged core, which means a plugin can replace the model adapter, the session log, and the agent loop itself, and installation is pnpm passthrough — npm names, `github:` specs, or tarballs, with no registry, no signing, and no review, the official advice being commit-SHA pinning and reading the source (Tier A, [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) architecture doc + publish.md). The evaluation checklist above is therefore Claude-marketplace-scoped: it assumes a curated directory and plugins that extend the harness rather than ones that can rewrite its kernel, so it does not cover kernel-level plugin ecosystems of this shape. This also bears on the doc's staged 2026-09-30 retirement, whose premise was that the extension slice went first-party: a competing plugin-native runtime with an uncurated install path is evidence the cross-runtime residual may grow, and PLAN.md carries the re-examination note.
+
 ## Token Economics
 
 The choice between MCP and Skills is a cost decision as much as a capability one: whichever mechanism reaches the same outcome with fewer tokens per call compounds across a session, especially for agents that make many tool calls in a row. Measured context costs of the extension mechanisms follow (Evidence Tier B). Tool search (auto mode default-on since v2.1.7; per-server `alwaysLoad` since v2.1.121 — pegs corrected 2026-07-18) changed how tool schemas load into context, so static-loading numbers are upper bounds, not current session costs:

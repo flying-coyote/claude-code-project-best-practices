@@ -29,6 +29,9 @@ cat .claude/settings.json 2>/dev/null
 cat .claude/mcp.json .mcp.json 2>/dev/null              # MCP servers commonly live here, not only in settings.json
 ls .claude/agents/*.md 2>/dev/null | grep -vi readme    # custom-agent definitions only (a README-only agents/ dir is not a custom agent)
 
+# Second agent runtime configured alongside .claude/ (added 2026-08-19)
+ls -d .dsh/ ~/.dsh/ .agents/skills/ ~/.agents/skills/ 2>/dev/null      # dsh config trees (incl. profiles) + the vendor-neutral .agents/skills tree; equivalent config dirs for other runtimes count too
+
 # CLAUDE.md state
 wc -l CLAUDE.md .claude/CLAUDE.md 2>/dev/null
 ls AGENTS.md 2>/dev/null                                 # cross-tool agent-config standard (agents.md); Claude Code reads it alongside CLAUDE.md
@@ -91,6 +94,7 @@ ls .claude/skills/*intent* .claude/skills/*goal* .claude/commands/*goal* 2>/dev/
 - **`CLAUDE_CODE_DISABLE_CRON=1` observed**: signal = `cron-disabled`. Suppress `harness-loop-config`, `harness-scheduled-agent`, and `harness-goal-completion-loop` — the **local** scheduler is off, so loop-hardening advice would be noise. This does **not** bound cloud Routines (server-side, configured via `/schedule`): a local env var doesn't disable them, so still emit the cloud-Routine operator question.
 - **Host-level signals** (`~/.claude/scheduled-tasks/`, `/goal` in `~/.claude/projects/` transcripts): user-home, not repo-local. Treat absence as "not observed," like session diagnostics — never fail the audit on them.
 - **Cloud Routines leave no on-disk footprint**: absence of the unattended-execution signals does NOT prove the project runs nothing unattended. A pure-cloud Routine on Anthropic infrastructure is invisible to a repo-local audit — note this rather than asserting full coverage.
+- **A foreign outer harness looping Claude Code is invisible for the same reason** (noted 2026-08-19): a second runtime such as dsh can drive CC headless as a one-shot subagent through the official Agent SDK, which writes no `.claude/loop.md`, scheduled task, or CI cron for the signals above to find, so absence of local loop config does not prove nothing drives CC unattended. Treat it like the cloud-Routine blind spot — note it rather than asserting coverage, and check whether `second-runtime-present` was observed.
 - **CLI older than v2.1.72** (from `claude --version`): scheduled tasks and `/loop` are unavailable; skip the unattended-execution rows.
 - **Intent greps find nothing**: the intent signals are *evidence-of-absence* checks, and absence of evidence is not proof — a project's "why" may live in a wiki, an issue, a README paragraph the grep missed, or a maintainer's head. Treat `intent-undocumented` and `goal-drift-unmeasured` as **interview prompts, not verdicts**: when the grep comes up empty, do not assert the project has no intent; instead pose the Intent Interview below and let the human answer settle it. Phrase any finding "verify" (like the cloud-Routine and `generated-docs-no-drift-gate` blind spots), and never fail the audit on an intent signal.
 
@@ -153,6 +157,7 @@ Record the answers in the audit output and treat them as Tier-B evidence (human 
 | an `mcpServers` key with ≥1 entry in `settings.json`, `.claude/mcp.json`, or root `.mcp.json` | `harness-mcp` | `analysis/mcp-patterns.md` | The single MCP doc (absorbed mcp-daily-essentials 2026-07-10): OWASP failure modes, 4-plugin + 2-MCP sweet spot, token economics flagged stale-pending-remeasure post-tool-search. (Client-side connection mechanics retired 2026-07 to the official MCP docs.) |
 | Only CLAUDE.md exists; no hooks/skills/agents/rules/commands | `harness-minimal` | `analysis/harness-engineering.md` | Start-minimal decision tree; when to add each mechanism. |
 | ≥4 of {hooks, skills, agents, rules, commands} directories present | `harness-comprehensive` | `analysis/harness-engineering.md` + `analysis/orchestration-comparison.md` | Bitter Lesson diagnostic — is the harness buying you anything, or accreting complexity? (Framework-selection function merged into orchestration-comparison 2026-07-16.) |
+| A `.dsh/` or `~/.dsh` config tree, a `.agents/skills` tree, dsh profiles, or an equivalent second-runtime config dir present alongside `.claude/` | `second-runtime-present` | `analysis/harness-engineering.md` (Cross-harness portability section) + `analysis/safety-and-sandboxing.md` (foreign-orchestrator trust boundary) | Instruction files and permission allowlists authored for Claude Code now also bind other runtimes that consume them, because dsh reads AGENTS.md/CLAUDE.md and can spawn CC headless via the official Agent SDK, where omitting `settingSources` loads the project's own settings.json and CLAUDE.md (Tier A, code.claude.com/docs/en/agent-sdk/claude-code-features), so coexistence changes both portability and exposure. Row added 2026-08-19. |
 
 ## Fetch on Unattended / Long-Running Execution
 
