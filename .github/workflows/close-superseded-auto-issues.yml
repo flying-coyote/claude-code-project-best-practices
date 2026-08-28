@@ -1,0 +1,146 @@
+name: Close Superseded Auto-Filed Issues
+
+# One-shot maintenance, run manually. Not scheduled — it exists to drain a
+# backlog once, not to run forever.
+#
+# WHY THIS EXISTS
+# ---------------
+# This repository accumulated ~972 open issues, none of them triaged. Two
+# generators produced them:
+#
+#   1. The daily source/documentation watchers (📋 Daily source review,
+#      📊 Documentation maintenance, 🔍 Review awesome-claude-code updates,
+#      📚 Review potential new Anthropic blog post, 📚 Review Claude Code
+#      vX release). These generators were DELETED in the 2026-07 Reduction
+#      Phase 6, explicitly because "their GitHub issues sat unread — hundreds
+#      open, zero triage". The generators are gone; their output was left.
+#      Nothing has filed one since 2026-07-10.
+#
+#   2. The link checker, which filed a fresh "🔗 Broken links detected" issue
+#      on every scheduled run rather than updating one. It survived that cull
+#      and reproduced the same failure. It was rewritten on 2026-08-28 to
+#      maintain a single standing issue and to fail the PR on a new dangling
+#      internal link — and the corpus it was reporting on now has ZERO dangling
+#      internal links, so every one of its historical reports is spent.
+#
+# An untriaged backlog this size is not a record, it is noise that hides the
+# signal — the same pathology the repo documents in
+# analysis/prose-corpus-discoverability.md: a check that fires into a void is,
+# in outcome, no check at all.
+#
+# SAFETY
+# ------
+# - Closes ONLY issues whose titles match the known auto-generated patterns.
+# - Never touches an issue with any comment on it (a comment means a human
+#   engaged, so it is not untriaged noise).
+# - Never touches pull requests.
+# - Dry-run by default. You must pass apply=true to actually close anything.
+# - Closes as `not_planned`, which is the honest reason: these were never
+#   planned work, they were unread machine output.
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Actually close issues (false = dry run, list only)'
+        required: true
+        default: 'false'
+      limit:
+        description: 'Max issues to close in this run'
+        required: true
+        default: '500'
+
+permissions:
+  issues: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const APPLY = context.payload.inputs.apply === 'true';
+            const LIMIT = parseInt(context.payload.inputs.limit || '500', 10);
+
+            // Titles produced by generators that no longer exist, plus the
+            // superseded link-checker stream. Anchored to the start of the
+            // title so a human-written issue mentioning these words is safe.
+            const PATTERNS = [
+              /^🔗 Broken links detected in documentation$/,
+              /^📋 Daily source review/,
+              /^📊 Documentation maintenance/,
+              /^🔍 Review awesome-claude-code updates$/,
+              /^📚 Review potential new Anthropic blog post$/,
+              /^📚 Review Claude Code .* release$/,
+              /^📋 Weekly source review/,
+              /^✅ Self-compliance audit/,
+              /^🚨 CRITICAL: Tier A sources inaccessible$/,
+            ];
+            // The standing issue the rewritten checker maintains — never close it.
+            const KEEP = /^🔗 Standing report: broken links in documentation$/;
+
+            const closeNote = [
+              'Closing as **superseded machine output**, not as completed work.',
+              '',
+              'This issue was filed automatically by a generator that no longer exists,',
+              'or by the link checker before it was rewritten. Specifics:',
+              '',
+              '- The daily source/documentation watchers were **deleted** in the 2026-07',
+              '  Reduction (Phase 6), explicitly because their issues sat unread.',
+              '- The link checker was **rewritten on 2026-08-28** to maintain one standing',
+              '  issue instead of filing daily, and to fail a PR on a new dangling internal',
+              '  link. The corpus it reported on now has **zero** dangling internal links.',
+              '',
+              'Nothing here was triaged and nothing in it is actionable today. If a real',
+              'task is buried in this issue, reopen it — that is the signal this cleanup',
+              'is meant to make visible again.',
+              '',
+              'See `analysis/prose-corpus-discoverability.md` — a check that fires into a',
+              'void is, in outcome, no check at all.',
+            ].join('\n');
+
+            let closed = 0, skippedCommented = 0, scanned = 0, page = 1;
+            const toClose = [];
+
+            while (true) {
+              const { data } = await github.rest.issues.listForRepo({
+                owner: context.repo.owner, repo: context.repo.repo,
+                state: 'open', per_page: 100, page,
+              });
+              if (!data.length) break;
+              for (const issue of data) {
+                if (issue.pull_request) continue;
+                scanned++;
+                if (KEEP.test(issue.title)) continue;
+                if (!PATTERNS.some(p => p.test(issue.title))) continue;
+                if (issue.comments > 0) { skippedCommented++; continue; }
+                toClose.push(issue.number);
+              }
+              page++;
+              if (page > 30) break;
+            }
+
+            core.info(`scanned ${scanned} open issues`);
+            core.info(`matched ${toClose.length} auto-filed, untriaged issues`);
+            core.info(`skipped ${skippedCommented} that carry a human comment`);
+
+            if (!APPLY) {
+              core.notice(`DRY RUN — would close ${Math.min(toClose.length, LIMIT)} issues. Re-run with apply=true.`);
+              core.info(toClose.slice(0, 50).join(', ') + (toClose.length > 50 ? ' …' : ''));
+              return;
+            }
+
+            for (const number of toClose.slice(0, LIMIT)) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: number, body: closeNote,
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: number, state: 'closed', state_reason: 'not_planned',
+              });
+              closed++;
+              if (closed % 25 === 0) core.info(`closed ${closed}…`);
+            }
+            core.notice(`Closed ${closed} superseded auto-filed issues.`);
