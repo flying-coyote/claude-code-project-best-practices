@@ -408,7 +408,7 @@ Test if skills trigger correctly:
 
 **Patterns**:
 - [Progressive Disclosure](../patterns-v1/progressive-disclosure.md) - 3-tier token optimization
-- [Evidence Tiers](../patterns/evidence-tiers.md) - Source quality classification
+- [Evidence Tiers](../../analysis/evidence-tiers.md) - Source quality classification
 - [Confidence Scoring](../confidence-scoring.md) - Hypothesis confidence levels
 
 ---

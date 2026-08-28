@@ -72,4 +72,4 @@ Use evidence tiers for claims:
 
 ## Example CLAUDE.md
 
-See [examples/writing-project/.claude/CLAUDE.md](../examples/writing-project/.claude/CLAUDE.md)
+See [examples/writing-project/.claude/CLAUDE.md](../examples-v1/writing-project/.claude/CLAUDE.md)

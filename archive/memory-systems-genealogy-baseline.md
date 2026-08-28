@@ -230,6 +230,6 @@ Author a research-time query set with the user from real session questions (not 
 
 - [`memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md) Archetype C section — non-PII variant of the second-brain archetype (folded 2026-07-10)
 - [`memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md) Archetype C-EC section — egress-constrained variant (renamed from C-PII; the genealogy-as-canonical-example framing was retired in the 2026-04-29 reframe; folded 2026-07-10)
-- [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across archetypes
-- [`memory-system-patterns.md`](memory-system-patterns.md) — earlier pattern survey
-- [`memory-systems-graphify-vs-understand-anything.md`](memory-systems-graphify-vs-understand-anything.md) — A/B comparison of LLM graph builders on the docs in *this* repo (not genealogy)
+- [`memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md) — index across archetypes
+- [`memory-system-patterns.md`](../analysis/memory-system-patterns.md) — earlier pattern survey
+- [`memory-systems-graphify-vs-understand-anything.md`](../analysis/memory-systems-graphify-vs-understand-anything.md) — A/B comparison of LLM graph builders on the docs in *this* repo (not genealogy)

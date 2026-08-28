@@ -355,7 +355,7 @@ fi
 
 ## Related Patterns
 
-- [Tool Ecosystem](./tool-ecosystem.md) - Complementary tools overview
+- Tool Ecosystem (doc retired 2026-07-10 — the `/plugin` marketplace and community directories carry tool discovery now) - Complementary tools overview
 - [Documentation Maintenance](./documentation-maintenance.md) - Keeping docs current
 - [Advanced Hooks](./advanced-hooks.md) - Automating asset generation
 

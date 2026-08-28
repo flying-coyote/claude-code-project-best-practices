@@ -327,7 +327,7 @@ We're curators with some unique measurement discipline. Not authorities.
 - [COMMUNITY-RESOURCES.md](COMMUNITY-RESOURCES.md) - Projects we curate
 - [QUARTERLY-REVIEW.md](QUARTERLY-REVIEW.md) - Our review process
 - [DEPRECATIONS.md](DEPRECATIONS.md) - Deprecation tracking template
-- [evidence-tiers.md](patterns/evidence-tiers.md) - Evidence tier system
+- [evidence-tiers.md](../../analysis/evidence-tiers.md) - Evidence tier system
 
 ---
 

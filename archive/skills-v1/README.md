@@ -502,5 +502,5 @@ This complements the patterns in this repository - we teach the **why** and **ho
 
 - [Anthropic Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
 - [Example Skills in this repo](examples/)
-- [DECISIONS.md](../DECISIONS.md) for design rationale
+- [DECISIONS.md](../../DECISIONS.md) for design rationale
 - [claude-code-templates](https://github.com/davila7/claude-code-templates) for pre-built components

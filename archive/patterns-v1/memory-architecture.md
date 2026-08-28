@@ -358,6 +358,6 @@ Claude Code  Claude Desktop  ChatGPT
 - [Documentation Maintenance](./documentation-maintenance.md) - Keeping memory current
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
 - [Session Learning](./session-learning.md) - Cross-session preference capture from corrections
-- [MCP Patterns](./mcp-patterns.md) - MCP server architecture and security
+- [MCP Patterns](../../analysis/mcp-patterns.md) - MCP server architecture and security
 
 *Last updated: March 2026*

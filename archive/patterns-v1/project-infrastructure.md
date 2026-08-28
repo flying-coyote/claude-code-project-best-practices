@@ -333,7 +333,7 @@ See [QUICKSTART.md](../docs-v1/QUICKSTART.md) for complete bash commands to set 
 - [Documentation Maintenance](./documentation-maintenance.md) - CLAUDE.md best practices
 - [GitHub Actions Integration](./github-actions-integration.md) - CI/CD setup
 - [Parallel Sessions](./parallel-sessions.md) - Multi-session workflows
-- [Safety and Sandboxing](./safety-and-sandboxing.md) - Security infrastructure
+- [Safety and Sandboxing](../../analysis/safety-and-sandboxing.md) - Security infrastructure
 
 ---
 

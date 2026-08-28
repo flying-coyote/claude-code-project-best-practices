@@ -79,7 +79,7 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 **Optional additions**:
 - [Agentic Retrieval](../patterns-v1/agentic-retrieval.md) - Better code navigation
 - [Confidence Scoring](../confidence-scoring.md) - Assess AI outputs
-- [Tool Ecosystem](patterns/tool-ecosystem.md) - When to use Claude Code vs alternatives
+- Tool Ecosystem (doc retired 2026-07-10 — the `/plugin` marketplace and community directories carry tool discovery now) - When to use Claude Code vs alternatives
 
 **Outcome**: Productive solo workflow with quality infrastructure
 
@@ -92,15 +92,15 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 **Sequence** (1-2 hours):
 1. ✅ **Foundation**: Complete "Start Here" section above
 2. [Project Infrastructure](../patterns-v1/project-infrastructure.md) - Team standardization approach
-3. [Evidence Tiers](patterns/evidence-tiers.md) - Dual tier system for claims (A-D + 1-5)
+3. [Evidence Tiers](../../analysis/evidence-tiers.md) - Dual tier system for claims (A-D + 1-5)
 4. [Documentation Maintenance](../patterns-v1/documentation-maintenance.md) - ARCH/PLAN/INDEX trio
 5. [Architecture Decision Records](../patterns-v1/architecture-decision-records.md) - Document why
-6. [Agent Evaluation](patterns/agent-evaluation.md) - Measure what you're improving
+6. [Agent Evaluation](../../analysis/agent-evaluation.md) - Measure what you're improving
 
 **Optional additions**:
-- [Plugins and Extensions](patterns/plugins-and-extensions.md) - When Skills vs MCP vs Hooks
+- [Plugins and Extensions](../../analysis/plugins-and-extensions.md) - When Skills vs MCP vs Hooks
 - [Framework Selection Guide](../framework-selection-guide.md) - Choose orchestration
-- [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md) - Cost tradeoffs
+- [MCP vs Skills Economics](../../analysis/mcp-vs-skills-economics.md) - Cost tradeoffs
 
 **Outcome**: Evidence-based team standards with clear documentation
 
@@ -112,14 +112,14 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 
 **Sequence** (1-2 hours):
 1. ✅ **Foundation**: Complete "Start Here" section above
-2. [Safety and Sandboxing](patterns/safety-and-sandboxing.md) - OS-level isolation
-3. [MCP Patterns](patterns/mcp-patterns.md) - 7 failure modes + OWASP security
-4. [Agent Principles](patterns/agent-principles.md) - 6 principles for reliability
-5. [Agent Evaluation](patterns/agent-evaluation.md) - Testing and validation
+2. [Safety and Sandboxing](../../analysis/safety-and-sandboxing.md) - OS-level isolation
+3. [MCP Patterns](../../analysis/mcp-patterns.md) - 7 failure modes + OWASP security
+4. Agent Principles (doc retired 2026-07-10 — official Anthropic best-practices carries this slice) - 6 principles for reliability
+5. [Agent Evaluation](../../analysis/agent-evaluation.md) - Testing and validation
 6. [Advanced Hooks](../patterns-v1/advanced-hooks.md) - Pre/PostToolUse quality gates
 
 **Optional additions**:
-- [Secure Code Generation](patterns/secure-code-generation.md) - Prevent vulnerabilities
+- [Secure Code Generation](../../analysis/secure-code-generation.md) - Prevent vulnerabilities
 - [Memory Architecture](../patterns-v1/memory-architecture.md) - Information lifecycle
 - [Session Learning](../patterns-v1/session-learning.md) - Improve over time
 
@@ -195,9 +195,9 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 ### Use Case 4: "I need to choose between MCP, Skills, or Hooks"
 
 **Quick path** (45 minutes):
-1. [Plugins and Extensions](patterns/plugins-and-extensions.md) - Decision framework
-2. [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md) - Cost/performance tradeoffs
-3. [MCP Patterns](patterns/mcp-patterns.md) - Failure modes + security
+1. [Plugins and Extensions](../../analysis/plugins-and-extensions.md) - Decision framework
+2. [MCP vs Skills Economics](../../analysis/mcp-vs-skills-economics.md) - Cost/performance tradeoffs
+3. [MCP Patterns](../../analysis/mcp-patterns.md) - Failure modes + security
 4. [Progressive Disclosure](../patterns-v1/progressive-disclosure.md) - Skill architecture
 5. [Advanced Hooks](../patterns-v1/advanced-hooks.md) - Quality gates
 
@@ -210,8 +210,8 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 **Deep path** (2-3 hours):
 1. [Framework Selection Guide](../framework-selection-guide.md) - Choose orchestration
 2. [GSD Orchestration](../patterns-v1/gsd-orchestration.md) OR [Cognitive Agent Infrastructure](../patterns-v1/cognitive-agent-infrastructure.md)
-3. [Agent Principles](patterns/agent-principles.md) - Reliability principles
-4. [Agent Evaluation](patterns/agent-evaluation.md) - Testing patterns
+3. Agent Principles (doc retired 2026-07-10 — official Anthropic best-practices carries this slice) - Reliability principles
+4. [Agent Evaluation](../../analysis/agent-evaluation.md) - Testing patterns
 5. [Advanced Tool Use](../patterns-v1/advanced-tool-use.md) - Programmatic calling
 
 **Advanced**:
@@ -237,7 +237,7 @@ Once you've completed a learning path, you can explore the full catalog organize
 ### Plan Phase (3 patterns)
 - [Documentation Maintenance](../patterns-v1/documentation-maintenance.md)
 - [Architecture Decision Records](../patterns-v1/architecture-decision-records.md)
-- [Evidence Tiers](patterns/evidence-tiers.md)
+- [Evidence Tiers](../../analysis/evidence-tiers.md)
 
 ### Tasks + Implement Phase (7 patterns)
 - [Long-Running Agent](../patterns-v1/long-running-agent.md)
@@ -249,24 +249,24 @@ Once you've completed a learning path, you can explore the full catalog organize
 - [AI Image Generation](../patterns-v1/ai-image-generation.md)
 
 ### Cross-Phase (18 patterns)
-- [Agent Principles](patterns/agent-principles.md)
-- [Agent Evaluation](patterns/agent-evaluation.md)
-- [MCP Patterns](patterns/mcp-patterns.md)
-- [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md)
-- [Plugins and Extensions](patterns/plugins-and-extensions.md)
-- [Safety and Sandboxing](patterns/safety-and-sandboxing.md)
+- Agent Principles (doc retired 2026-07-10 — official Anthropic best-practices carries this slice)
+- [Agent Evaluation](../../analysis/agent-evaluation.md)
+- [MCP Patterns](../../analysis/mcp-patterns.md)
+- [MCP vs Skills Economics](../../analysis/mcp-vs-skills-economics.md)
+- [Plugins and Extensions](../../analysis/plugins-and-extensions.md)
+- [Safety and Sandboxing](../../analysis/safety-and-sandboxing.md)
 - [GSD Orchestration](../patterns-v1/gsd-orchestration.md)
 - [Cognitive Agent Infrastructure](../patterns-v1/cognitive-agent-infrastructure.md)
 - [Recursive Context Management](../patterns-v1/recursive-context-management.md)
 - [Session Learning](../patterns-v1/session-learning.md)
 - [Confidence Scoring](../confidence-scoring.md)
 - [Recursive Evolution](../patterns-v1/recursive-evolution.md)
-- [Tool Ecosystem](patterns/tool-ecosystem.md)
-- [Secure Code Generation](patterns/secure-code-generation.md)
+- Tool Ecosystem (doc retired 2026-07-10 — the `/plugin` marketplace and community directories carry tool discovery now)
+- [Secure Code Generation](../../analysis/secure-code-generation.md)
 - [Subagent Orchestration](../patterns-v1/subagent-orchestration.md)
-- [Execution Management](patterns/execution-management.md)
-- [Verification and Testing](patterns/verification-and-testing.md)
-- [Quality Metrics](patterns/quality-metrics.md)
+- Execution Management (never written — a planned v1 doc that did not ship)
+- Verification and Testing (never written — a planned v1 doc that did not ship)
+- Quality Metrics (never written — a planned v1 doc that did not ship)
 
 ---
 

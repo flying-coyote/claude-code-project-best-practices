@@ -258,7 +258,7 @@ Self-Evolution uses significantly more tokens:
 - [Subagent Orchestration](./subagent-orchestration.md) - Parallel execution patterns
 - [Confidence Scoring](../confidence-scoring.md) - Quality assessment framework
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
-- [UltraThink Analyst](../skills/examples/ultrathink-analyst/SKILL.md) - Deep analysis methodology
+- [UltraThink Analyst](../skills-v1/examples/ultrathink-analyst/SKILL.md) - Deep analysis methodology
 
 ---
 

@@ -235,7 +235,7 @@ After setting up:
 ## Related Patterns
 
 - [context-engineering.md](../../patterns-v1/context-engineering.md) - Minimal CLAUDE.md principles
-- [evidence-tiers.md](../../patterns/evidence-tiers.md) - Research and claim validation
+- [evidence-tiers.md](../../../analysis/evidence-tiers.md) - Research and claim validation
 - [documentation-maintenance.md](../../patterns-v1/documentation-maintenance.md) - Long-term doc management
 - [FOUNDATIONAL-PRINCIPLES.md](../../docs-v1/FOUNDATIONAL-PRINCIPLES.md) - The Big 3
 

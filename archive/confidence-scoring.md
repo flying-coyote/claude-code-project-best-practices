@@ -291,7 +291,7 @@ After Peer Review: HIGH (independently verified)
 The confidence-scoring framework itself carries unvalidated thresholds — applying its own medicine:
 
 - **Gap: threshold calibration.** The HIGH >80% / MEDIUM 50–80% / LOW <50% bands are cognitive anchors, not empirically derived. **Needs**: a study correlating band assignment to outcome accuracy across a corpus of labeled claims. Without this, "HIGH" and "MEDIUM" are more about reviewer calibration than about reality.
-- **Gap: tier → confidence mapping.** The mapping of Tier A source quality to HIGH confidence assumes primary sources are consistently correct. Anthropic's own disclosed "eval awareness" and "self-evaluation rationalization" failure modes (see [agent-evaluation.md](agent-evaluation.md)) show that even Tier A sources can have systematic errors. **Needs**: explicit Tier A source-reliability audit before promoting claims to HIGH.
+- **Gap: tier → confidence mapping.** The mapping of Tier A source quality to HIGH confidence assumes primary sources are consistently correct. Anthropic's own disclosed "eval awareness" and "self-evaluation rationalization" failure modes (see [agent-evaluation.md](../analysis/agent-evaluation.md)) show that even Tier A sources can have systematic errors. **Needs**: explicit Tier A source-reliability audit before promoting claims to HIGH.
 - **Gap: confidence inflation over time.** As a claim accumulates citations, confidence scores tend to drift upward (citation cascades). This framework has no mechanism to detect or correct inflation. **Needs**: periodic downward-revalidation where highly-confident claims are deliberately stress-tested against counter-evidence.
 
 These gaps don't invalidate the framework — they are the framework applied to itself. See [session-quality-tools.md](../archive/session-quality-tools.md) (archived 2026-07-10, retirement complete) for an exemplar of full gap-statement usage.
@@ -304,15 +304,15 @@ This document is a synthesis methodology piece. It has no external citations bey
 
 ### Tier A
 
-- [agent-evaluation.md](agent-evaluation.md) — Documents Anthropic's disclosed "eval awareness" and "self-evaluation rationalization" failure modes, cited in the Gap section to challenge the assumption that Tier A sources are consistently correct.
+- [agent-evaluation.md](../analysis/agent-evaluation.md) — Documents Anthropic's disclosed "eval awareness" and "self-evaluation rationalization" failure modes, cited in the Gap section to challenge the assumption that Tier A sources are consistently correct.
 - [session-quality-tools.md](../archive/session-quality-tools.md) — archived exemplar of the full Gap-statement format this doc defines (retirement completed 2026-07-10).
 
 ---
 
 ## Related Patterns
 
-- [Evidence Tiers](./evidence-tiers.md) - Classification of source quality (Tier A-D)
-- [Context Engineering](./behavioral-insights.md) - Correctness over compression
+- [Evidence Tiers](../analysis/evidence-tiers.md) - Classification of source quality (Tier A-D)
+- [Context Engineering](../analysis/behavioral-insights.md) - Correctness over compression
 
 ---
 

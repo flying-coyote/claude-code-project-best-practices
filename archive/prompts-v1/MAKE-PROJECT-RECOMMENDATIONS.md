@@ -164,7 +164,7 @@ Tell the user: "I'll now set up the recommended infrastructure (CLAUDE.md + hook
 - ✅ `Edit` tool for editing (not `sed`)
 - ✅ `Grep` tool for searching (not `grep` command)
 - Reserve bash for: git operations, npm/python commands, docker
-- 📚 **Full guidance**: [tool-ecosystem.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/tool-ecosystem.md)
+- 📚 **Full guidance**: tool-ecosystem.md (doc retired 2026-07-10 — the `/plugin` marketplace and community directories carry tool discovery now)
 
 #### 8. Browser Automation - Claude in Chrome
 **Updated recommendation (as of 2026-03)**:
@@ -172,7 +172,7 @@ Tell the user: "I'll now set up the recommended infrastructure (CLAUDE.md + hook
 - ✅ **Use**: Playwright CLI (4x more token-efficient for scripted testing)
 - **When to use Chrome**: Interactive UI verification, visual testing
 - **When to use Playwright**: Automated test suites, CI pipelines
-- 📚 **Full guidance**: [tool-ecosystem.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/tool-ecosystem.md)
+- 📚 **Full guidance**: tool-ecosystem.md (doc retired 2026-07-10 — the `/plugin` marketplace and community directories carry tool discovery now)
 
 #### 9. Custom Subagents (`.claude/agents/`)
 Define specialized agents with their own tools, model, and skills:

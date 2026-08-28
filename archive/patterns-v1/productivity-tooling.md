@@ -262,8 +262,8 @@ From [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/cl
 ## Related Patterns
 
 - [Parallel Sessions](./parallel-sessions.md) - Managing multiple Claude instances
-- [Plugins and Extensions](./plugins-and-extensions.md) - Extension ecosystem
-- [MCP Daily Essentials](./mcp-daily-essentials.md) - Core MCP servers for daily work
+- [Plugins and Extensions](../../analysis/plugins-and-extensions.md) - Extension ecosystem
+- MCP Daily Essentials (absorbed into `analysis/mcp-patterns.md` 2026-07-10) - Core MCP servers for daily work
 - [Advanced Hooks](./advanced-hooks.md) - Automating workflow enforcement
 
 ---

@@ -362,10 +362,10 @@ Examples: medical record summarization, legal document review, financial analysi
 
 ### Related Analysis
 
-- [Agent-Driven Development](./agent-driven-development.md) — Infrastructure maturity model; mndr-review-automation as Level 3 (Full Harness) example
-- [Safety & Sandboxing](./safety-and-sandboxing.md) — 4-layer security stack that this document extends with tokenization boundary
-- [Harness Engineering](./harness-engineering.md) — Diagnostic framework for agent infrastructure
-- [MCP Patterns](./mcp-patterns.md) — MCP failure modes relevant to the Inspector enrichment integration
+- [Agent-Driven Development](../analysis/agent-driven-development.md) — Infrastructure maturity model; mndr-review-automation as Level 3 (Full Harness) example
+- [Safety & Sandboxing](../analysis/safety-and-sandboxing.md) — 4-layer security stack that this document extends with tokenization boundary
+- [Harness Engineering](../analysis/harness-engineering.md) — Diagnostic framework for agent infrastructure
+- [MCP Patterns](../analysis/mcp-patterns.md) — MCP failure modes relevant to the Inspector enrichment integration
 
 ---
 

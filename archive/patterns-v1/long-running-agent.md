@@ -126,6 +126,6 @@ The session-start hook implements:
 - [Documentation Maintenance](./documentation-maintenance.md) - ARCH/PLAN/INDEX trio
 - [Advanced Hooks](./advanced-hooks.md) - SessionStart implementation patterns
 - [Subagent Orchestration](./subagent-orchestration.md) - Context window recovery via subagents
-- [Agent Principles](./agent-principles.md) - Foundational principles for agent design
+- Agent Principles (doc retired 2026-07-10 — official Anthropic best-practices carries this slice) - Foundational principles for agent design
 
 *Last updated: January 2026*

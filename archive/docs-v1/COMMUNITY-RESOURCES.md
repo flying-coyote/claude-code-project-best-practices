@@ -167,7 +167,7 @@ Dual-tier framework for assessing claim quality:
 - **Document tiers** (A-D): Source authority
 - **Measurement tiers** (1-5): Claim specificity with revalidation dates
 
-See: [evidence-tiers.md](patterns/evidence-tiers.md)
+See: [evidence-tiers.md](../../analysis/evidence-tiers.md)
 
 ---
 
@@ -203,7 +203,7 @@ Applied OWASP principles to AI coding agents:
 - STRIDE threat modeling for skills
 - OS-level sandboxing patterns
 
-See: [mcp-patterns.md](patterns/mcp-patterns.md), [secure-code-generation.md](patterns/secure-code-generation.md)
+See: [mcp-patterns.md](../../analysis/mcp-patterns.md), [secure-code-generation.md](../../analysis/secure-code-generation.md)
 
 ---
 
@@ -239,7 +239,7 @@ Decision matrices and comparative frameworks:
 - Framework selection (Native vs GSD vs CAII)
 - Tool ecosystem comparisons (Claude Code vs alternatives)
 
-See: [plugins-and-extensions.md](patterns/plugins-and-extensions.md), [framework-selection-guide.md](../framework-selection-guide.md)
+See: [plugins-and-extensions.md](../../analysis/plugins-and-extensions.md), [framework-selection-guide.md](../framework-selection-guide.md)
 
 ---
 
@@ -280,7 +280,7 @@ See: [DEPRECATIONS.md](DEPRECATIONS.md)
 3. Include: Resource name, issue description, suggested fix
 
 **Discovered new community resource?**
-1. Check evidence tier criteria ([evidence-tiers.md](patterns/evidence-tiers.md))
+1. Check evidence tier criteria ([evidence-tiers.md](../../analysis/evidence-tiers.md))
 2. Assess maturity (EMERGING vs PRODUCTION)
 3. Submit PR or open issue with assessment
 
@@ -304,7 +304,7 @@ We stand on the shoulders of giants. Our role: curate, validate, integrate.
 - [SOURCES.md](../../SOURCES.md) - Full source database with evidence tiers
 - [SOURCES-QUICK-REFERENCE.md](../../SOURCES-QUICK-REFERENCE.md) - Top 20 Tier A/B sources
 - [ARCHITECTURE.md](../../ARCHITECTURE.md) - Project philosophy and meta-guide approach
-- [evidence-tiers.md](patterns/evidence-tiers.md) - Evidence tier assessment framework
+- [evidence-tiers.md](../../analysis/evidence-tiers.md) - Evidence tier assessment framework
 
 ---
 

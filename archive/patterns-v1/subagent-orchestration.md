@@ -842,10 +842,10 @@ Then implement sequentially in parent with full context.
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient methodology loading
 - [Context Engineering](./context-engineering.md) - Managing context effectively
-- [Agent Principles](./agent-principles.md) - Six foundational principles for agent design
+- Agent Principles (doc retired 2026-07-10 — official Anthropic best-practices carries this slice) - Six foundational principles for agent design
 - [Advanced Hooks](./advanced-hooks.md) - SubagentStart/Stop hooks for orchestration
-- [Safety and Sandboxing](./safety-and-sandboxing.md) - Security for multi-agent execution
-- [Agent Evaluation](./agent-evaluation.md) - Evaluating agent team performance
+- [Safety and Sandboxing](../../analysis/safety-and-sandboxing.md) - Security for multi-agent execution
+- [Agent Evaluation](../../analysis/agent-evaluation.md) - Evaluating agent team performance
 
 ---
 

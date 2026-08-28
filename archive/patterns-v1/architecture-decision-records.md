@@ -486,7 +486,7 @@ Maintain an index in ARCHITECTURE.md:
 
 ## Related Patterns
 
-- [Evidence Tiers](./evidence-tiers.md) - Classify evidence supporting decisions
+- [Evidence Tiers](../../analysis/evidence-tiers.md) - Classify evidence supporting decisions
 - [Confidence Scoring](../confidence-scoring.md) - Assess decision confidence
 - [Documentation Maintenance](./documentation-maintenance.md) - ARCHITECTURE-PLAN-INDEX trio
 

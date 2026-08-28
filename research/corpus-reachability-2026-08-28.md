@@ -265,9 +265,15 @@ placeholder            1         3       4
 dangling               0        90      90
 ```
 
-**Repaired 2026-08-28** (was: live 11 dangling / 54 root-relative / 28 outside-repo; archive 203 dangling / 17 root-relative). The live lane is now clean on all three classes. Root cause of the largest group was this repo's own `scripts/graphify_footer_inject.py`, which rendered repo-root-relative targets into files under `analysis/` — the mechanism built to enrich the pointer graph was degrading it. Fixed at source plus 60 emitted links repaired.
+**Repaired 2026-08-28** (was: live 11 dangling / 54 root-relative / 28 outside-repo; archive 203 dangling / 17 root-relative). **The whole corpus is now clean on all three classes**, live lane and dead lane alike. Root cause of the largest group was this repo's own `scripts/graphify_footer_inject.py`, which rendered repo-root-relative targets into files under `analysis/` — the mechanism built to enrich the pointer graph was degrading it. Fixed at source plus 60 emitted links repaired.
 
-The 90 remaining are all in the dead lane and split deliberately: **70** would point an archived v1 doc at a *live* successor, which changes what the historical record says and is the same false-successor judgment that needs verification rather than a mechanical rewrite; **20** name documents deleted outright (`tool-ecosystem`, `agent-principles`, `execution-management`); **3** are ambiguous. Left as-is and recorded, rather than guessed.
+The dead lane was finished in a second pass once the shape of the remainder was understood. The earlier caution — that repointing an archived doc at a live doc is a *successor claim* needing verification — turned out to apply to almost none of them:
+
+- **72 were path migrations, not successor claims.** v1's `patterns/` directory became `analysis/` in the v2.0 repositioning, and the documents inside it that were never archived (`evidence-tiers.md`, `harness-engineering.md`, `mcp-patterns.md` …) simply moved. A link to `patterns/evidence-tiers.md` resolving to `analysis/evidence-tiers.md` is the **same document lineage** at its new path — the basename is identical — so no judgment about coverage is involved. Three more were structural (`skills/examples/…` → `archive/skills-v1/examples/…`, `examples/coding-project/` → `archive/examples-v1/coding-project/`).
+- **17 references to 7 genuinely deleted targets were de-linked** with their actual fate recorded inline: `tool-ecosystem.md` and `agent-principles.md` (retired 2026-07-10), `mcp-daily-essentials.md` (absorbed into `mcp-patterns.md`), `settings.json.template` (`templates/` deleted, material folded into `safety-and-sandboxing.md`), and `execution-management` / `verification-and-testing` / `quality-metrics` — three docs the v1 learning path linked that **were never written**.
+- **4 template placeholders** (`ADR-XXX-…`, `{rel_path}/{f}`, `file.md`) are illustrative and correctly left alone.
+
+The distinction that unlocked it: **an identical basename moving between directories is a rename; a different basename is a successor claim.** The first is mechanical, the second needs the verification that overturned 35 of 39 claims.
 
 `root-relative` resolves only if read as repo-root-relative; `outside-repo` is a `file://` URL or a path that still escapes the repo root after normalisation.
 

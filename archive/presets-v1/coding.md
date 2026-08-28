@@ -52,4 +52,4 @@ Commit messages follow conventional format:
 
 ## Example CLAUDE.md
 
-See [examples/coding-project/.claude/CLAUDE.md](../examples/coding-project/.claude/CLAUDE.md)
+See [examples/coding-project/.claude/CLAUDE.md](../examples-v1/coding-project/.claude/CLAUDE.md)

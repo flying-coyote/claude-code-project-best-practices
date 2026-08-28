@@ -93,8 +93,8 @@
 
 **Then choose by need**:
 - Solo developer working on features → [long-running-agent.md](../patterns-v1/long-running-agent.md)
-- Team lead setting standards → [evidence-tiers.md](patterns/evidence-tiers.md)
-- Production/security focus → [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md)
+- Team lead setting standards → [evidence-tiers.md](../../analysis/evidence-tiers.md)
+- Production/security focus → [safety-and-sandboxing.md](../../analysis/safety-and-sandboxing.md)
 - Need more guidance → See [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md)
 
 **Principle**: You don't need all 36 patterns. Start with 3, add as needed.
@@ -261,7 +261,7 @@ cd claude-code-project-best-practices
 
 2. **JSON syntax** - Validate with `cat .claude/settings.json | jq .`:
    - Common errors: trailing commas, unquoted keys, wrong brackets
-   - Use [templates/settings.json.template](templates/settings.json.template) as reference
+   - Use templates/settings.json.template (`templates/` deleted 2026-07-10; its credential-boundary material folded into `analysis/safety-and-sandboxing.md`) as reference
 
 3. **Schema version** - Use current schema:
    ```json
@@ -395,7 +395,7 @@ echo "test" >> README.md
 1. **MCP server latency** - MCP adds 300-800ms per call:
    - **Fix**: Use native tools where possible
    - Read files: Native Read tool (fast) vs MCP file server (slow)
-   - See [mcp-vs-skills-economics.md](patterns/mcp-vs-skills-economics.md)
+   - See [mcp-vs-skills-economics.md](../../analysis/mcp-vs-skills-economics.md)
 
 2. **Bloated CLAUDE.md** - Large context = slower processing:
    - **Fix**: Audit CLAUDE.md, target <60 lines
@@ -474,9 +474,9 @@ echo "test" >> README.md
 2. **Check FOUNDATIONAL-PRINCIPLES.md** - Most issues trace to violating The Big 3
 
 3. **Review examples/** - See complete working implementations:
-   - [examples/coding-project/](examples/coding-project/)
-   - [examples/writing-project/](examples/writing-project/)
-   - [examples/research-project/](examples/research-project/)
+   - [examples/coding-project/](../examples-v1/coding-project/)
+   - [examples/writing-project/](../examples-v1/writing-project/)
+   - [examples/research-project/](../examples-v1/research-project/)
 
 4. **File an issue** - If problem isn't covered:
    - Repository: https://github.com/flying-coyote/claude-code-project-best-practices/issues

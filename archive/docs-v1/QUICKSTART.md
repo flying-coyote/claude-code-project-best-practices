@@ -329,7 +329,7 @@ No! Start with CLAUDE.md + natural language. Add components only when needed.
 - See [MAKE-PROJECT-RECOMMENDATIONS.md Step 4](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/prompts/MAKE-PROJECT-RECOMMENDATIONS.md) for component guidance.
 
 **Q: Can I use this with other AI coding tools (Cursor, Aider)?**
-Principles apply across tools. See [tool-ecosystem.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/tool-ecosystem.md) for guidance.
+Principles apply across tools. See tool-ecosystem.md (doc retired 2026-07-10 — the `/plugin` marketplace and community directories carry tool discovery now) for guidance.
 
 **Q: When should I add GitHub Actions?**
 Add when you have multiple collaborators and use pull requests. It enables `@.claude` review comments that help with code quality and consistency.
