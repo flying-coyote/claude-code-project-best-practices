@@ -140,7 +140,16 @@ Meanwhile all 25 live `analysis/` docs carry `status:` and `last-verified:`, and
 
 The seventeen are corrected in this change (`status: ARCHIVED` plus a tombstone banner naming the live successor, matching the convention already used on the docs evicted in 2026-07; `--currency` now reports `correct=29 WRONG=0 absent=67`). The 67 silent files are **not** fixed and remain the open item — the point of the measurement is the number, not the patch.
 
-The mechanism behind all of it is systematic, not sloppy: **every automated instrument in the repository is scoped to the live lane.** `markdownlint` excludes `archive` by glob; `check-measurement-expiry.py` defaults to `analysis`; the stop hook checks two root files' mtimes. Each exclusion is individually sensible — you do not lint a tombstone. The aggregate is that the one lane where stale prose is *guaranteed* to live is the one lane nothing inspects. In a code project the dead lane self-reports. Here it went unreported for the six months since the v2.0 repositioning moved those files.
+The mechanism behind all of it splits in two, and the second half is the more useful finding.
+
+**The currency checks are scoped to the live lane.** `markdownlint` excludes `archive` by glob; `check-measurement-expiry.py` defaults to `analysis`; the stop hook checks two root files' mtimes. Each exclusion is individually sensible — you do not lint a tombstone. The aggregate is that nothing checks whether the dead lane says it is dead. In a code project that lane self-reports; here it went unreported for the six months since the v2.0 repositioning moved those files.
+
+**But the check that does cover everything fires into a void.** `.github/workflows/link-checker.yml` runs daily across *all* markdown, `archive/` included. It is not live-lane-scoped, and it works. As of 2026-08-28 the repository carries **916 open issues labelled `documentation`**; the ten most recent are the same auto-filed "🔗 Broken links detected" issue, one per day, **each with zero comments and no edit since creation**. Meanwhile 215 internal links stay dangling.
+
+Two conclusions, and they generalize past this repository:
+
+1. **A firing check is not a working check.** An alarm nobody can act on is, in outcome, indistinguishable from no alarm. This repo has diagnosed exactly this before — the 2026-07 reduction deleted the RSS and source-monitoring watchers because *"their GitHub issues sat unread — hundreds open, zero triage."* The link checker survived that cull and reproduced the failure.
+2. **Link resolution and link authority are different questions, and only the first has a checker.** Whether a link resolves is a *mechanical* property — exactly the code-like property that survives translation to prose, which is why a checker for it exists and works. A link to `archive/patterns-v1/progressive-disclosure.md` resolves perfectly and goes green every day; the file it resolves to spent six months asserting `status: PRODUCTION`. No checker asked the second question because nothing framed it as a question.
 
 ---
 
@@ -152,7 +161,8 @@ The mechanism behind all of it is systematic, not sloppy: **every automated inst
 | Entry point points by bare path only | `grep -c '](.*\.md)' .claude/CLAUDE.md` returns 0 | Recoverable, but strict link-checkers score it zero and link-rot goes undetected | Convert the resource map to markdown links; then link-checking works |
 | A dead lane exists with no marker | `measure-link-reachability.py --currency` reports a high `absent` count | Superseded prose returns from search indistinguishable from live prose | Tombstone banner + `status: ARCHIVED` in every file in the lane |
 | A dead-lane file asserts a live status | `measure-link-reachability.py --currency` reports `WRONG > 0` | **Severe.** Defeats the check a careful reader runs | Rewrite the status field to the dead value; the original stays in git history |
-| Dead lane excluded from every automated check | read the lint globs and script defaults | The lane most likely to rot is the lane nothing inspects | Run *currency* checks over the dead lane even while excluding it from *style* checks |
+| Dead lane excluded from the currency checks | read the lint globs and script defaults | The lane most likely to rot is the lane nothing inspects | Keep the *style* exclusions; add a *currency* pass over the dead lane |
+| A check fires on a cadence into an untriaged queue | count open auto-filed issues; check `comments` and `updated_at` on them | A firing check is not a working check — in outcome it equals no check, while reading as coverage | Make it block something, aggregate it into one standing issue, or delete it; an alarm nobody acts on is worse than none because it looks like coverage |
 | Automated pointer enrichment emits non-resolving links | run a link checker over generated footers | The mechanism built to enrich the graph is degrading it | Emit paths relative to the containing file |
 
 ### Anti-Patterns
@@ -162,7 +172,8 @@ The mechanism behind all of it is systematic, not sloppy: **every automated inst
 | Treating "let Claude fetch it" as sufficient for prose | Agent cites a superseded doc with full confidence and no hedge | Pointer graph + currency markers as infrastructure, not prose hygiene |
 | Archiving by *moving* only | Path says `archive/`; file body and frontmatter still say live | Marker in the file, because retrieval returns the body, not the directory listing |
 | Excluding the dead lane from all checks | Green lint, rotting archive | Split style checks (exclude) from currency checks (include) |
-| Currency markers only on the lane that is already current | `analysis/` 100% marked, `archive/` 31% | Mark the lane that *needs* the marker |
+| Currency markers only on the lane that is already current | `analysis/` fully marked; 12 of 96 in `archive/` | Mark the lane that *needs* the marker |
+| A link checker read as a discoverability check | green link check, superseded prose still returned as current | Link *resolution* is mechanical and checkable; link *authority* is neither. Check both, and do not let the first stand in for the second |
 | A generated index counted as discoverability | 100% reachability, zero authority signal | Report reachability *and* marking; one without the other is theatre |
 
 ---

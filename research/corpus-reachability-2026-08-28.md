@@ -196,17 +196,34 @@ grep -rli "audit.*existing project" --include=*.md .
 ```
 One hit, and it is the v1 prompt. The live replacement is [`ONE-LINE-PROMPT.md`](../ONE-LINE-PROMPT.md), which does not use that phrasing. An agent asked to "audit an existing project against this repo's practices" and reaching for the obvious query gets *exclusively* superseded instructions, with no in-file signal — the archived prompt opens "Copy everything below the line and paste it into Claude Code."
 
-### 3.6 Why nothing caught it: every automated instrument is scoped to the live lane
+### 3.6 Why nothing caught it — two different failures, not one
 
-| Instrument | Scope | Covers `archive/`? |
+The first draft of this record claimed "every automated instrument is scoped to the live lane." That is **wrong**, and the correction is more interesting than the claim.
+
+**Failure 1 — the currency checks are live-lane-scoped.**
+
+| Instrument | Scope | Reads `archive/`? |
 |---|---|---|
-| `markdownlint-cli2` (`npm run lint`) | glob with `'!archive'` | **no** — explicitly excluded |
+| `markdownlint-cli2` (`npm run lint`) | glob carries `'!archive'` | **no** — explicitly excluded |
 | `scripts/check-measurement-expiry.py` | `--patterns-dir` default `analysis` | **no** |
-| `automation/generate_index.py` (PostToolUse) | lists paths; asserts nothing about status | lists only |
-| `.claude/hooks/stop-doc-check.sh` | `ARCHITECTURE.md`, `PLAN.md` mtime | no |
+| `.claude/hooks/stop-doc-check.sh` | `ARCHITECTURE.md` + `PLAN.md` mtime | no |
 | `weekly-review` step 5b | absorption-map consistency greps | no |
+| `automation/generate_index.py` (PostToolUse) | lists paths; asserts nothing about status | lists only |
 
-The exclusion is individually reasonable in each case — you do not lint a tombstone. The aggregate effect is that the one lane where stale prose is *guaranteed* to live is the one lane no instrument inspects. In a code project the equivalent dead lane self-reports: it fails to compile, or it shows up unreferenced. Prose does neither.
+Each exclusion is individually reasonable — you do not lint a tombstone. The aggregate is that nothing checks whether the dead lane *says* it is dead.
+
+**Failure 2 — the check that does cover the whole corpus fires into a void.**
+
+`.github/workflows/link-checker.yml` runs `gaurav-nelson/github-action-markdown-link-check` daily on cron and on every markdown PR, across **all** markdown including `archive/`. It is not live-lane-scoped. It works. And on the scheduled path it opens a GitHub issue titled "🔗 Broken links detected in documentation".
+
+As of 2026-08-28 the repository has **916 open issues carrying the `documentation` label** (exact count via the issues API, `state=OPEN`). The ten most recent are all that same auto-filed broken-link issue, one per day from 2026-08-18 through 2026-08-27, **every one with zero comments and `updated_at` equal to `created_at`**. The oldest open issue dates to 2026-02-13.
+
+So the link checker has been reporting for months into a queue nobody reads. This is a pathology this repository has already diagnosed once and acted on — the 2026-07 reduction deleted the RSS and source-monitoring watchers with the note that *"their GitHub issues sat unread — hundreds open, zero triage"* (PLAN.md, Review Cadence). The link checker survived that cull and reproduced the same failure.
+
+Two things follow, and they are the useful part:
+
+1. **A firing check is not a working check.** An alarm that cannot be acted on is indistinguishable, in outcome, from no alarm. The 215 dangling internal links in §3.7 have been individually detectable, daily, for months.
+2. **The link checker cannot see the thing that matters anyway.** It asks whether a link *resolves* — a mechanical property, and precisely the code-like property that *does* survive the translation to prose. It cannot ask whether the target is *authoritative*. A link to `archive/patterns-v1/progressive-disclosure.md` resolves perfectly and is green every single day; the file it resolves to spent six months asserting `status: PRODUCTION`. Link resolution and link authority are different questions, and only the first has a checker.
 
 ### 3.7 Pointer decay in the live lane
 
@@ -235,7 +252,7 @@ Three sub-findings in the live lane:
 | Dead-lane files correctly declaring supersession | not measured | **12 of 96 (12%)** |
 | Dead-lane files **asserting a live status** | not measured | **17** |
 | Dead-lane files silent either way | not measured | **67 of 96 (70%)** |
-| Health check / lint reporting a defect | green, 191/191 | green |
+| Health check / lint reporting a defect | green, 191/191 | lint green; the one check that *did* fire (daily link checker) has 916 open, untriaged issues |
 
 Neither corpus's existing health signals reported either failure, because neither failure is what those signals measure. That is the point of the instrument.
 
