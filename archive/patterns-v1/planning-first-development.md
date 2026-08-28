@@ -7,11 +7,13 @@ measurement-claims:
     source: "IndyDevDan - Principled AI Coding"
     date: "2025-10-01"
     revalidate: "2026-10-01"
-status: "PRODUCTION"
+status: ARCHIVED
 last-verified: "2026-02-16"
 ---
 
 # Planning-First Development: Great Planning is Great Prompting
+
+> **ARCHIVED — not current guidance.** This is a v1 pattern doc, superseded by the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) and retained for historical comparison only. No single live doc succeeds it; the current corpus is the Core Analysis table in `README.md`. Its `measurement-claims` and dates below are the v1-era snapshot, preserved as recorded — do not treat them as current. (Status corrected 2026-08-28: this file previously asserted a live `status:` in its own frontmatter, so retrieval surfaced it as current. See `analysis/prose-corpus-discoverability.md`.)
 
 **Source**: [IndyDevDan - Principled AI Coding](https://agenticengineer.com/principled-ai-coding), aligned with [GitHub Spec Kit](https://github.com/github/spec-kit)
 **Evidence Tier**: A (Practitioner methodology + industry standard)

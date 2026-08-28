@@ -2,12 +2,14 @@
 version-requirements:
   claude-code: "v2.0.0+"
 version-last-verified: "2026-02-27"
-status: "PRODUCTION"
+status: ARCHIVED
 last-verified: "2026-02-16"
 notes: "Methodology pattern - no version-specific features required"
 ---
 
 # Spec-Driven Development: The Foundational Methodology
+
+> **ARCHIVED — not current guidance.** This is a v1 pattern doc, superseded by the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) and retained for historical comparison only. No live doc succeeds it, and it is **still cited as current by the live corpus** — [`analysis/orchestration-comparison.md`](../../analysis/orchestration-comparison.md) links here calling it "the foundational methodology underlying all of these (v1 archive)." So this file is archived by location but load-bearing in fact; read it as the methodology reference it is still used as, with its v1-era specifics dated. Its `measurement-claims` and dates below are the v1-era snapshot, preserved as recorded — do not treat them as current. (Status corrected 2026-08-28: this file previously asserted a live `status:` in its own frontmatter, so retrieval surfaced it as current. See `analysis/prose-corpus-discoverability.md`.)
 
 **Source**: [GitHub Spec Kit](https://github.com/github/spec-kit) (59K+ stars), [agentskills.io](https://agentskills.io) (open standard)
 **Evidence Tier**: A (Industry standard - major vendor adoption, cross-platform specification)

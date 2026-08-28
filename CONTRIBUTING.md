@@ -77,7 +77,8 @@ When you add a new analysis doc, these files must be updated in the same PR. Mis
 - [ ] **`SOURCES.md`** — full source entry with URL, date, evidence tier, key insights, pattern reference.
 - [ ] **`SOURCES-QUICK-REFERENCE.md`** — add only if the source is Authority 3 or higher (practitioner / authoritative / foundational). Skip for Authority 1–2 sources.
 - [ ] **`AUDIT-CONTEXT.md`** — **mandatory**. Add at least one signal → fetch row. Signal keys must match the `applies-to-signals` frontmatter in your new doc. **Without this, the doc is unreachable by the audit prompt.**
-- [ ] **`README.md`** — add to the "Core Analysis" table with a one-line description. Bump the count in `## Project Status` if applicable.
+- [ ] **`README.md`** — add to the "Core Analysis" table with a one-line description. Bump the count in `## Project Status` **and** the "4–8 of N routable" line in the audit-prompt section.
+- [ ] **`.claude/CLAUDE.md`** — bump the doc counts (four sites: the intro's "4–8 of N routable", Project Structure, Resource Map, Current Focus). **Easy to miss and the worst one to miss**: this is the only file loaded in *every* session, so a stale count here is asserted to the agent unconditionally, before it reads anything else. Added to this checklist 2026-08-28 after a contribution left it stale — the failure mode is the subject of [`analysis/prose-corpus-discoverability.md`](analysis/prose-corpus-discoverability.md).
 - [ ] **`INDEX.md`** — auto-regenerated. Run the regenerator skill (`index-regenerator`) if configured, or leave for the next maintenance pass.
 - [ ] **`PLAN.md`** — add a bullet to `## Recent Activity` (only if you have maintainer access).
 

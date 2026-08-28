@@ -13,7 +13,7 @@ Claude Code best-practice content is scattered across vendor docs, interviews, b
 1. **Trust** — a recommendation from the Claude Code creator and a recommendation from a random blog post both read as "best practice." You cannot tell which to act on without doing the triage yourself.
 2. **Applicability** — advice that is load-bearing for an agent-heavy data pipeline is noise for a static site generator. Generic best-practice lists waste attention; project-specific recommendations do not.
 
-This project solves both by pairing an **evidence-tier system** (every source labelled A–D — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 24 routable analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
+This project solves both by pairing an **evidence-tier system** (every source labelled A–D — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 25 routable analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
 
 The audit runs in two passes that complement each other. The first is the **INSPECT** pass — the presence/absence and count checks that ask what a project *has* (does a `CLAUDE.md` exist, is `.mcp.json` present, which model version is pinned), and it routes those signals to the matching docs. That pass is good at telling you which conventions you are missing and weak at telling you whether the conventions you already have are the right ones, because a presence check passes the moment a mechanism exists regardless of whether it still serves its purpose. The second pass — **RETHINK** — is the intent-alignment layer that closes that gap: for each central mechanism the project already has, it asks what the mechanism is *for* and checks the mechanism against that stated intent, so the audit catches intent-mechanism drift, the case where what a project has (a glob still pointing at a moved directory, an ARCHITECTURE.md frozen at an outgrown doc count, a write-scoped permission nobody decided to keep) has come apart from why it has it. This repo's own self-audit surfaced exactly this drift in itself, which is why the RETHINK pass is first-class rather than an afterthought; the routing and per-mechanism intent checks live in [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) and [`analysis/intent-alignment-audit.md`](analysis/intent-alignment-audit.md).
 
@@ -75,7 +75,7 @@ The ecosystem now has seven distinguishable lanes, and this project deliberately
 
 ## Quick Start: Adaptive Routing Audit (one copy-paste)
 
-Copy-paste this into Claude Code in **any project**. It collects signals, fetches the [routing map](AUDIT-CONTEXT.md), and conditionally fetches 4–8 of the 24 routable analysis docs based on what it observes. One prompt; 6–10 network fetches; 1–5 minutes typical round-trip.
+Copy-paste this into Claude Code in **any project**. It collects signals, fetches the [routing map](AUDIT-CONTEXT.md), and conditionally fetches 4–8 of the 25 routable analysis docs based on what it observes. One prompt; 6–10 network fetches; 1–5 minutes typical round-trip.
 
 ```
 Audit this project with the adaptive routing protocol at
@@ -102,9 +102,9 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 
 ---
 
-## Core Analysis (25 files)
+## Core Analysis (26 files)
 
-*The `analysis/` directory contains 25 `.md` files: 24 routable analysis docs plus `CANONICAL-DOC-TEMPLATE.md`, a non-routable template excluded from the count (post the 2026-07-16 absorption wave: one retirement in progress, two merges).*
+*The `analysis/` directory contains 26 `.md` files: 25 routable analysis docs plus `CANONICAL-DOC-TEMPLATE.md`, a non-routable template excluded from the count (post the 2026-07-16 absorption wave: one retirement in progress, two merges; `prose-corpus-discoverability.md` added 2026-08-28).*
 
 | Document | What It Covers |
 |----------|---------------|
@@ -132,6 +132,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md) | Hypothesis confidence tracking, revalidation before demos |
 | [automated-config-assessment.md](analysis/automated-config-assessment.md) | Baseline-deviation-remediation pattern + Hoosier 12/12 ground-truth measurement |
 | [cross-project-synchronization.md](analysis/cross-project-synchronization.md) | Cross-repo dependency cascading, 4-phase enrichment cascade |
+| [prose-corpus-discoverability.md](analysis/prose-corpus-discoverability.md) | Why "let Claude fetch what it needs" is a code assumption: link-reachability and currency-marking as measured corpus properties, with the instrument and this repo's own self-audit result (EMERGING) |
 
 ### Meta and Source Files
 
@@ -196,7 +197,7 @@ Full database: [SOURCES.md](SOURCES.md).
 
 ## Project Status
 
-**v2.1** — 24 routable analysis docs (44→27 in the 2026-07-10 Reduction Phases 0-6; 27→25 files in the 2026-07-16 absorption wave — first third-party sweep, five docs entered the follow lane, one retirement toward `/usage`, two merges; see ABSORPTION-MAP.md) with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Claude 5-family migration readiness (Fable 5 / Opus 5 / Sonnet 5, with Opus 4.8 as Legacy; refreshed 2026-08-13), unattended-execution primitives (`/loop`, `/goal`, Routines, scheduled tasks) plus the "loop engineering" framing, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
+**v2.1** — 25 routable analysis docs (44→27 in the 2026-07-10 Reduction Phases 0-6; 27→25 files in the 2026-07-16 absorption wave — first third-party sweep, five docs entered the follow lane, one retirement toward `/usage`, two merges; see ABSORPTION-MAP.md) with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Claude 5-family migration readiness (Fable 5 / Opus 5 / Sonnet 5, with Opus 4.8 as Legacy; refreshed 2026-08-13), unattended-execution primitives (`/loop`, `/goal`, Routines, scheduled tasks) plus the "loop engineering" framing, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
 
 **Archive**: Prior v1 patterns (24 docs) live in `archive/patterns-v1/` — preserved for historical comparison, not active guidance. See [ARCHIVE.md](ARCHIVE.md).
 

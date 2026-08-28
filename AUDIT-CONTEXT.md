@@ -4,7 +4,7 @@ convergence: single-source
 
 # Audit Context: Signal → Advisory Routing Map
 
-**Purpose**: This file is fetched by the [adaptive routing audit prompt](ONE-LINE-PROMPT.md) to route other projects to the analysis docs that apply to what they actually have, not all 27 at once. Each row states a verifiable signal, the docs to fetch, and the reason for the fetch.
+**Purpose**: This file is fetched by the [adaptive routing audit prompt](ONE-LINE-PROMPT.md) to route other projects to the analysis docs that apply to what they actually have, not all 25 at once. Each row states a verifiable signal, the docs to fetch, and the reason for the fetch.
 
 **Design principles**:
 
@@ -67,6 +67,29 @@ ls index.md raw log.md 2>/dev/null                      # Karpathy layout at roo
 ls wiki/index.md wiki/raw wiki/log.md 2>/dev/null       # Karpathy layout under wiki/
 ls -d secrets/ private/ confidential/ 2>/dev/null
 ls -a .env .env.* 2>/dev/null | head -3
+
+# Prose-corpus discoverability (added 2026-08-28) — only meaningful when the md count above is >= 50.
+# 1. Does the auto-loaded entry point point anywhere at all, by link or by bare path?
+grep -cE '\]\([^)]*\.md\)|`[^`]*\.md`|`[a-zA-Z0-9_./-]+/`' CLAUDE.md .claude/CLAUDE.md AGENTS.md 2>/dev/null
+# 2. Is there a generated inventory, and is it referenced from the entry point?
+ls INDEX.md docs/INDEX.md SUMMARY.md 2>/dev/null
+grep -lE 'INDEX\.md|SUMMARY\.md' CLAUDE.md .claude/CLAUDE.md AGENTS.md 2>/dev/null
+# 3. Is there a dead lane, and how big is it?
+ls -d archive/ old/ deprecated/ legacy/ .archive/ 2>/dev/null
+find archive old deprecated legacy -name '*.md' 2>/dev/null | wc -l
+# 4. Currency marking in that lane, three ways: correct / WRONG (asserts a live
+#    status while archived) / absent. A plain `grep -rl '^status: PRODUCTION'` is
+#    WRONG here: it matches template examples inside prompt bodies and fenced
+#    YAML, and on this repo returned a false severe hit. Parse the FIRST
+#    frontmatter block only:
+for f in $(find archive old deprecated legacy -name '*.md' 2>/dev/null); do \
+  awk '/^---[[:space:]]*$/{n++; if(n==2) exit; next} n==1' "$f" \
+  | grep -qE '^status:[[:space:]]*"?(PRODUCTION|EMERGING|REFERENCE|STABLE|ACTIVE|CURRENT)' \
+  && echo "WRONG $f"; done
+# Or, authoritative and three-way in one call (this repo ships it):
+python3 scripts/measure-link-reachability.py --currency
+# 5. Does any automated check actually read the dead lane? (look for it in the exclude globs)
+grep -nE "'!archive'|--exclude-dir=archive|ignore.*archive" package.json .markdownlintignore Makefile 2>/dev/null
 
 # Typed-memory hygiene + generated-doc drift
 grep -rlE '^type:' --include='*.md' . 2>/dev/null | head -1            # any note carries a type: field
@@ -217,8 +240,8 @@ When **any** loop signal trips — `harness-loop-config`, `harness-scheduled-age
 
 | Signal (verifiable) | Signal key | Fetch | Why |
 |---|---|---|---|
-| README mentions "documentation," "knowledge base," or "notes" in title/first paragraph | `project-type-docs` | `analysis/memory-system-patterns.md` + `analysis/memory-systems-archetype-recommendations.md` + `analysis/claude-md-progressive-disclosure.md` | Auto-memory sizing; archetype index for picking a stack; progressive disclosure for reference-heavy work. The archetype-recommendations index then routes to the per-archetype doc that fits the corpus. |
-| Repo uses "hypothesis," "H-{label}," or `confidence` tracking in commit messages or files | `project-type-research` | `analysis/evidence-based-revalidation.md` | Revalidation cadence; the HIGH/MEDIUM/LOW confidence framework merged into `evidence-tiers.md` 2026-07-16, which is Always-Fetch — one fewer signal-triggered doc. |
+| README mentions "documentation," "knowledge base," or "notes" in title/first paragraph | `project-type-docs` | `analysis/memory-system-patterns.md` + `analysis/memory-systems-archetype-recommendations.md` + `analysis/claude-md-progressive-disclosure.md` + `analysis/prose-corpus-discoverability.md` | Auto-memory sizing; archetype index for picking a stack; progressive disclosure for reference-heavy work; and — because the primary artifact is prose — whether the corpus is actually reachable and whether superseded files declare themselves. The archetype-recommendations index then routes to the per-archetype doc that fits the corpus. |
+| Repo uses "hypothesis," "H-{label}," or `confidence` tracking in commit messages or files | `project-type-research` | `analysis/evidence-based-revalidation.md` + `analysis/prose-corpus-discoverability.md` | Revalidation cadence, plus the corpus-level analogue: a revalidation date is a currency marker, and the discoverability doc measures marker *coverage* rather than expiry. the HIGH/MEDIUM/LOW confidence framework merged into `evidence-tiers.md` 2026-07-16, which is Always-Fetch — one fewer signal-triggered doc. |
 | Repo contains baseline/deviation/compliance tooling | `project-type-config-assessment` | `analysis/automated-config-assessment.md` | Baseline-deviation-remediation pattern. |
 | Commits reference ≥3 sibling repos in the same workspace | `project-type-multi-repo` | `analysis/cross-project-synchronization.md` + `analysis/agent-driven-development.md` | Cross-repo coordination and infrastructure maturity. |
 | User explicitly asks "which framework should I use" or repo is pre-scaffold | `project-type-framework-selection` | `analysis/orchestration-comparison.md` | Framework Selection section (merged in 2026-07-16): five-framework decision table + selection anti-patterns + when-NOT-to-orchestrate. (The tool survey retired 2026-07 — `/plugin` marketplace and community directories carry tool discovery now.) |
@@ -234,11 +257,13 @@ The recommendations in archetype A (curated analytical KB) and C (personal secon
 |---|---|---|---|
 | Markdown count is 50–200 (excluding `archive/`, `node_modules/`, `.git/`) | `md-corpus-small` | `analysis/memory-systems-archetype-a-curated-kb.md` + `analysis/memory-systems-recommendation-methodology.md` | "Below ~200" branch — manual cross-refs work; Lum1104 over wikilinks if a graph view is wanted; no graphify Pass 2. |
 | Markdown count is 200–1500 | `md-corpus-design-target` | `analysis/memory-systems-archetype-a-curated-kb.md` + `analysis/memory-systems-archetype-recommendations.md` + `analysis/memory-systems-graphify-vs-understand-anything.md` | Archetype-A primary stack territory. Sample-verification discipline required: ~25% of graphify EXTRACTED edges hallucinated in this repo's Pass 2 testbed (n=8 spot-check, 2026-04-28). |
-| Markdown count is 1500–6000 | `md-corpus-large` | `analysis/memory-systems-archetype-a-curated-kb.md` + `analysis/memory-systems-recommendation-methodology.md` + `analysis/memory-systems-graphify-vs-understand-anything.md` | Full archetype-A stack + reviewer pass. At this scale 25% hallucinated EXTRACTED edges = thousands of wrong "verified" relations; hallucination-mitigation is load-bearing, not optional. |
-| Markdown count > 6000 | `md-corpus-very-large` | `analysis/memory-systems-recommendation-methodology.md` (read "far-larger projects" section) + `analysis/memory-systems-archetype-recommendations.md` (read the Archetype G section) | Generic recommendations don't calibrate at 12×–40× the design target. Custom domain-specific stack required (e.g., Postgres + pgvector + MCP shim, or domain-specific extractors). |
+| Markdown count is 1500–6000 | `md-corpus-large` | `analysis/memory-systems-archetype-a-curated-kb.md` + `analysis/memory-systems-recommendation-methodology.md` + `analysis/memory-systems-graphify-vs-understand-anything.md` + `analysis/prose-corpus-discoverability.md` | Full archetype-A stack + reviewer pass, plus a reachability/currency measurement — at this scale a hand-maintained pointer graph has almost certainly stopped covering the corpus. At this scale 25% hallucinated EXTRACTED edges = thousands of wrong "verified" relations; hallucination-mitigation is load-bearing, not optional. |
+| Markdown count > 6000 | `md-corpus-very-large` | `analysis/memory-systems-recommendation-methodology.md` (read "far-larger projects" section) + `analysis/memory-systems-archetype-recommendations.md` (read the Archetype G section) + `analysis/prose-corpus-discoverability.md` | Measure reachability first at this scale — the one corpus measured in this band scored 12 of 703 files reachable. Generic recommendations don't calibrate at 12×–40× the design target. Custom domain-specific stack required (e.g., Postgres + pgvector + MCP shim, or domain-specific extractors). |
 | `.obsidian/` directory present | `vault-obsidian` | `analysis/memory-systems-archetype-recommendations.md` (read the Archetype C section) | Cross-domain personal-vault layout (archetype-C). The vault's built-in graph view typically substitutes for an external graph-builder; recommendations should bias toward "use what the vault already gives you" before adding tooling. |
 | Lowercase `index.md` + `raw/` directory + `log.md` ALL present at repo root or under `wiki/` | `vault-karpathy` | `analysis/memory-systems-archetype-a-curated-kb.md` | Lum1104 `/understand-knowledge` will pass detection. Without all three, the skill falls back to `/understand-anything:understand` (no Karpathy gate, file-level + tour). |
 | `secrets/`, `private/`, or `confidential/` dirs present, OR `.env`/`.env.*` files at root, OR user explicitly flags corpus as sensitive | `corpus-sensitive` | `analysis/memory-systems-recommendation-methodology.md` (assumption #5 + assumption #8) | LLM egress unacceptable. graphify Pass 2 and understand-anything both ship full document content to the invoking session's LLM — not reversible. Stack collapses to "wikilinks + grep + local graph view"; no LLM-driven graph layer. |
+| Markdown count ≥50 **and** the auto-loaded entry point (`CLAUDE.md` / `.claude/CLAUDE.md` / `AGENTS.md`) contains no resolvable pointer to a generated inventory or routing map (collection cmds 1–2) | `corpus-unreachable-docs` | `analysis/prose-corpus-discoverability.md` | Most of the corpus is unreachable from what a session loads, and search will not close the gap: retrieval cannot see authority or currency, so a superseded file returns as confidently as a live one. Get the number with `scripts/measure-link-reachability.py` before recommending anything. One measured corpus scored 12 of 703 files reachable while every health check stayed green. |
+| A dead lane exists (`archive/`, `old/`, `deprecated/`, `legacy/`) with ≥10 markdown files **and** collection cmd 3 shows unmarked files — or, severely, cmd 4 returns >0 | `corpus-unmarked-supersession` | `analysis/prose-corpus-discoverability.md` | Superseded prose stays well-formed and matches queries exactly as confidently as live prose. A dead-lane file asserting `status: PRODUCTION` is worse than an unmarked one — it defeats the check a careful reader runs. This repo measured, of 96 `archive/` files, 12 correct / 17 asserting a live status / 67 silent (2026-08-28; the 17 plus three executable v1 prompts were corrected in the same change, leaving `correct=31 WRONG=0 absent=65`). Distinguish a **currency** gap from a **coverage** gap first: where the archived file is the only coverage of its topic, marking it superseded removes the agent's only source and makes the answer worse. Check cmd 5 too: the lane is usually excluded from every automated check, which is the mechanism. |
 | `type:` frontmatter present across notes **but** no `_type-registry.md` and no hook/script referencing a type registry | `typed-memory-no-registry` | `analysis/intent-alignment-audit.md` + `analysis/memory-systems-archetype-a-curated-kb.md` (§A1b) — see **Fetch on Intent Alignment** for the canonical row | Typed corpus with no canonical registry or drift guard — at risk of type-vocabulary sprawl (one production vault hit 127 distinct types, 86 used once). Routes to the intent doc (the un-owned vocabulary is an intent gap) and archetype-A's concrete remediation: a single parsed registry + pre-commit guard + coverage metric (project1's `_type-registry.md` + `automation/lib/okf.py` is the worked example). The *presence* of `type:` and *absence* of a registry file are greppable; whether a guard truly parses vs hard-codes needs a human read — phrase the finding "verify." |
 
 ## Fetch on Revalidation Context
