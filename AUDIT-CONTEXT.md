@@ -74,12 +74,20 @@ grep -cE '\]\([^)]*\.md\)|`[^`]*\.md`|`[a-zA-Z0-9_./-]+/`' CLAUDE.md .claude/CLA
 # 2. Is there a generated inventory, and is it referenced from the entry point?
 ls INDEX.md docs/INDEX.md SUMMARY.md 2>/dev/null
 grep -lE 'INDEX\.md|SUMMARY\.md' CLAUDE.md .claude/CLAUDE.md AGENTS.md 2>/dev/null
-# 3. Is there a dead lane, how big is it, and is any of it marked as superseded?
+# 3. Is there a dead lane, and how big is it?
 ls -d archive/ old/ deprecated/ legacy/ .archive/ 2>/dev/null
 find archive old deprecated legacy -name '*.md' 2>/dev/null | wc -l
-grep -rLE '^status:|SUPERSEDED|ARCHIVED|DEPRECATED|Collapsed|superseded by' --include='*.md' archive old deprecated legacy 2>/dev/null | wc -l
-# 4. Severe sub-case: a file in the dead lane asserting a LIVE lifecycle status in its own frontmatter
-grep -rlE '^status: *"?(PRODUCTION|EMERGING|STABLE|ACTIVE|CURRENT)' --include='*.md' archive old deprecated legacy 2>/dev/null | wc -l
+# 4. Currency marking in that lane, three ways: correct / WRONG (asserts a live
+#    status while archived) / absent. A plain `grep -rl '^status: PRODUCTION'` is
+#    WRONG here: it matches template examples inside prompt bodies and fenced
+#    YAML, and on this repo returned a false severe hit. Parse the FIRST
+#    frontmatter block only:
+for f in $(find archive old deprecated legacy -name '*.md' 2>/dev/null); do \
+  awk '/^---[[:space:]]*$/{n++; if(n==2) exit; next} n==1' "$f" \
+  | grep -qE '^status:[[:space:]]*"?(PRODUCTION|EMERGING|REFERENCE|STABLE|ACTIVE|CURRENT)' \
+  && echo "WRONG $f"; done
+# Or, authoritative and three-way in one call (this repo ships it):
+python3 scripts/measure-link-reachability.py --currency
 # 5. Does any automated check actually read the dead lane? (look for it in the exclude globs)
 grep -nE "'!archive'|--exclude-dir=archive|ignore.*archive" package.json .markdownlintignore Makefile 2>/dev/null
 

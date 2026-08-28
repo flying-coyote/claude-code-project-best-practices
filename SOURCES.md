@@ -2143,6 +2143,14 @@ These analysis documents define the evidence and scoring frameworks used through
 - **Role**: A-D source-quality classification used by all analysis documents. The companion 1-5 claim-strength axis is **RETIRED** (owner ruling 2026-07-12 — the 1-5 axis was never ratified; A-D remains the only tier system)
 - **Classification**: Tier B — adapted from established research methodology, validated in this repository
 
+### Anthropic — CLAUDE.md include/exclude guidance (the derivability premise)
+
+- **Source**: [code.claude.com/docs/en/best-practices](https://code.claude.com/docs/en/best-practices) — § "Write an effective CLAUDE.md" (the ❌ Exclude column) and § "Provide rich content" (the "let Claude fetch what it needs" bullet)
+- **Tier**: A — first-party Anthropic documentation
+- **Verified**: 2026-08-28
+- **Why it is cited**: this is the primary text [prose-corpus-discoverability.md](analysis/prose-corpus-discoverability.md) scopes. The exclude guidance — *anything Claude can figure out by reading code* — and the fetch-on-demand discovery model together encode an assumption that the **unloaded remainder is derivable**. The analysis doc's claim is not that this guidance is wrong, but that its warrant is a property of *code* (unique identifiers, staleness that fails loudly, structurally-visible deadness) and does not transfer to a prose corpus, whose discriminating property is authority and currency.
+- **Boundary**: the guidance is about what to put in CLAUDE.md. It says nothing about prose corpora, makes no claim about them, and is not contradicted by the analysis doc — which scopes rather than disputes it.
+
 ### Prose Corpus Discoverability
 
 - **Document**: [prose-corpus-discoverability.md](analysis/prose-corpus-discoverability.md) (added 2026-08-28, `status: EMERGING`)

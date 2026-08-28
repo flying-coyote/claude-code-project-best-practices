@@ -181,6 +181,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 
 ### Related Analysis
 
+- [Prose Corpus Discoverability](./prose-corpus-discoverability.md) — **the measurement companion to the Resource Map Pattern above.** This doc prescribes the map and notes that a presence-based map "can't tell you which target has gone stale"; that one measures whether the map actually reaches the corpus (link-reachability from session-loaded entry points) and whether the files declare their own currency, and explains why prose needs both where code does not
 - [Harness Engineering](./harness-engineering.md) — Umbrella concept, diagnostic framework, philosophy comparison
 - [Behavioral Insights](./behavioral-insights.md) — Context thresholds, CLAUDE.md adherence, instruction processing
 - [Plugins & Extensions](./plugins-and-extensions.md) — Extension mechanism selection (skills vs MCP vs hooks vs rules)
