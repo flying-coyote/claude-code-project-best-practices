@@ -91,9 +91,28 @@ def generate_index(root_dir: str = ".", output_file: str = "INDEX.md"):
     content.append("*This file is auto-generated. Do not edit manually.*")
     content.append("")
 
-    # Write file
+    new_text = '\n'.join(content)
+
+    # Only rewrite when the inventory itself changed. The header carries a
+    # wall-clock stamp and the PostToolUse hook re-runs this after nearly every
+    # tool call, so writing unconditionally left INDEX.md permanently dirty with
+    # a timestamp-only diff — churn that says nothing (git already records when
+    # the file last changed). Compare everything except the stamp line.
+    def without_stamp(text):
+        return [ln for ln in text.split('\n')
+                if not ln.startswith('*Auto-generated: ')]
+
+    try:
+        with open(output_file) as f:
+            if without_stamp(f.read()) == without_stamp(new_text):
+                print(f"{output_file} already current "
+                      f"({sum(dir_counts.values())} documents); not rewritten")
+                return
+    except FileNotFoundError:
+        pass
+
     with open(output_file, 'w') as f:
-        f.write('\n'.join(content))
+        f.write(new_text)
 
     print(f"Generated {output_file} with {sum(dir_counts.values())} documents")
 
