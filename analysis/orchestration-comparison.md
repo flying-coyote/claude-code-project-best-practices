@@ -371,8 +371,8 @@ Two data points survive from the now-superseded native-mechanism sections for sc
 
 ## Related (from graph)
 
-- [`analysis/harness-engineering.md`](analysis/harness-engineering.md) [EXTRACTED (1.00) ×2] — references
-- [`analysis/agent-driven-development.md`](analysis/agent-driven-development.md) [EXTRACTED (1.00)] — references
-- [`analysis/memory-systems-archetype-a-curated-kb.md`](analysis/memory-systems-archetype-a-curated-kb.md) [INFERRED (0.60)] — semantically_similar_to
+- [`analysis/harness-engineering.md`](harness-engineering.md) [EXTRACTED (1.00) ×2] — references
+- [`analysis/agent-driven-development.md`](agent-driven-development.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md) [INFERRED (0.60)] — semantically_similar_to
 
 <!-- graphify-footer:end -->

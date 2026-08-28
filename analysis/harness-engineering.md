@@ -55,6 +55,8 @@ revalidate-by: 2027-02-13
 # Harness Engineering: Diagnostic Framework for Agent Infrastructure
 
 > **Collapsed 2026-07-10 (Reduction Phase 4).** The harness-design mechanism half is now first-party — Anthropic's official best-practices page (2026 rewrite) and "How Claude Code works in large codebases" (2026-05-14). This doc keeps the delta the official docs don't carry: the Bitter-Lesson diagnostic, the accretion heuristics, and the portfolio's measured evidence.
+>
+> **Citation note.** Paths under `project1/` name files on the author's machine, not in this repository. They are recorded as **provenance for a single-practitioner production deployment** — enough to identify what was inspected and when — and are deliberately not hyperlinks, because no reader of this repository can follow them. Treat every `project1/` claim at the Tier-B bar this repo gives uncorroborated single-project evidence.
 
 **Evidence Tier**: Mixed (A-B) — Anthropic engineering blog, expert practitioners, production-validated community frameworks
 
@@ -193,7 +195,7 @@ Source: Anthropic engineering blog, April 2026. Authority 5/5.
 
 "Loop engineering" (Boris Cherny, June 2026; term coined by Addy Osmani) labels the orchestration and iteration-cadence layer this document already covers: GENERATE → SELECT → EVALUATE → ACCUMULATE → PUBLISH → RETHINK. It doesn't replace the harness-engineering framing — it stresses cadence, where harness engineering is the whole infrastructure stack — but splitting the loop into stages shows one recurring pattern: the Act stages (generate, evaluate, publish) get built first and hardest, while RETHINK — re-deriving the question the loop is answering before the next iteration — is usually weak or missing. Karpathy's complementary framing is that coding is the ideal self-improvement loop because it has built-in verification — "tests pass or fail, programs run or crash, diffs can be inspected" (Tier B, [Sequoia Ascent 2026](https://karpathy.bearblog.dev/sequoia-ascent-2026/), 2026-04-30) — but that verification keeps the Act limb honest without ever asking whether the loop is still solving the right problem. In harness terms, RETHINK isn't a new layer; it's the part of state-tracking and verification that checks the objective itself, not just the work toward it. A fast Act limb paired with a stale Orient limb produces confident motion toward the wrong target — the same failure the 24%-on-real-tasks study attributed to agents that "lost track of their original objective" and "looped back to approaches already tried."
 
-A single-practitioner instance makes the fix concrete (Tier B, not independently reproduced): a security-data research project scored its own loop in [`LOOP-ENGINEERING-DESIGN-2026-06-15.md`](../../project1/02-projects/securitydataworks/LOOP-ENGINEERING-DESIGN-2026-06-15.md), found GENERATE/EVALUATE strong but RETHINK absent — gap G4, "no standing question-quality / drift instrument — the human is the instrument" — and wired the fix in as a step-0 ORIENT opening every iteration of two standing loop-state machines ([`BENCH-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/BENCH-LOOP-STATE.md), [`CONSOLE-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/CONSOLE-LOOP-STATE.md)). The productized scheduling primitives (`/loop`, `/goal`, Routines) get their own treatment in [Scheduled & Looping Primitives](scheduled-and-looping-primitives.md); the generalized "does each mechanism still match its intent?" pass is [Intent-Alignment Audit](intent-alignment-audit.md).
+A single-practitioner instance makes the fix concrete (Tier B, not independently reproduced): a security-data research project scored its own loop in `LOOP-ENGINEERING-DESIGN-2026-06-15.md`, found GENERATE/EVALUATE strong but RETHINK absent — gap G4, "no standing question-quality / drift instrument — the human is the instrument" — and wired the fix in as a step-0 ORIENT opening every iteration of two standing loop-state machines (`BENCH-LOOP-STATE.md`, `CONSOLE-LOOP-STATE.md`). The productized scheduling primitives (`/loop`, `/goal`, Routines) get their own treatment in [Scheduled & Looping Primitives](scheduled-and-looping-primitives.md); the generalized "does each mechanism still match its intent?" pass is [Intent-Alignment Audit](intent-alignment-audit.md).
 
 ### Counter-signal: Opus 4.7 Pushes *Prompt* Complexity Up (April 2026)
 
@@ -434,7 +436,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - Simon Willison: ["Agentic Engineering Patterns"](https://simonwillison.net/2026/Feb/23/agentic-engineering-patterns/) (announced 2026-02-23, added to through August 2026) — the current home of the agentic-loops canon this doc follows; no direct sequel to "Designing agentic loops" exists. Tier B, verified 2026-08-13.
 - Simon Willison: ["Introducing Claude Opus 5"](https://simonwillison.net/2026/Jul/24/introducing-claude-opus-5/) (2026-07-24) — *"a thoughtful and proactive model that comes close to the frontier intelligence of Claude Fable 5 at half the price"*; briefly led Artificial Analysis ahead of Fable 5. Tier B, fetch-verified 2026-08-13.
 - Simon Willison: ["One-shotting a Raccoon Heist game using Claude Fable 5"](https://simonwillison.net/2026/Aug/5/raccoon-heist/) (2026-08-05) — minimal-harness one-shot high-water mark; *"As a finished game project, it's mediocre. As a starting point from a single prompt I think it's very impressive."* Tier B, fetch-verified 2026-08-13.
-- `project1` (security-data research portfolio), ["SDW Loop Engineering"](../../project1/02-projects/securitydataworks/LOOP-ENGINEERING-DESIGN-2026-06-15.md) (2026-06-15) + [`BENCH-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/BENCH-LOOP-STATE.md) / [`CONSOLE-LOOP-STATE.md`](../../project1/02-projects/securitydataworks/CONSOLE-LOOP-STATE.md) — single-source, bias-flagged; cites Arike et al., AIES 2025, on emergent goal-drift
+- `project1` (security-data research portfolio), `"SDW Loop Engineering"` (2026-06-15) + `BENCH-LOOP-STATE.md` / `CONSOLE-LOOP-STATE.md` — single-source, bias-flagged; cites Arike et al., AIES 2025, on emergent goal-drift
 - LangChain DeepAgents team: ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17). Authority 4/5.
 - [ECC](https://github.com/affaan-m/everything-claude-code) (renamed from everything-claude-code) — Anthropic hackathon winner; dated adoption stats in the SOURCES.md dossier
 - [superpowers](https://github.com/obra/superpowers) — 294K+ installs
@@ -458,7 +460,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 
 ## Related (from graph)
 
-- [`analysis/model-migration-anti-patterns.md`](analysis/model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
-- [`analysis/claude-md-progressive-disclosure.md`](analysis/claude-md-progressive-disclosure.md) [EXTRACTED (1.00)] — references
+- [`analysis/model-migration-anti-patterns.md`](model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
+- [`analysis/claude-md-progressive-disclosure.md`](claude-md-progressive-disclosure.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

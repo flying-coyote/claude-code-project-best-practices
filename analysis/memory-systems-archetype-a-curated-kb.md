@@ -13,6 +13,8 @@ revalidate-by: 2026-10-28
 **Evidence Tier**: C — recommendation synthesizes Tier-B paradigm (Karpathy LLM Wiki) with Tier-C tool-specific claims (graphify, Lum1104).
 
 > **Following the Karpathy LLM-wiki paradigm since 2026-07-16.** New coverage effort on the paradigm layer goes to tracking the canon, not growing this doc. Delta kept: the implementation evidence (graphify+footer, typed-registry remediation).
+>
+> **Citation note.** Paths under `project1/` name files on the author's machine, not in this repository. They are recorded as **provenance for a single-practitioner production deployment** — enough to identify what was inspected and when — and are deliberately not hyperlinks, because no reader of this repository can follow them. Treat every `project1/` claim at the Tier-B bar this repo gives uncorroborated single-project evidence.
 
 ## Canon liveness check — 2026-08-13: STABLE
 
@@ -56,7 +58,7 @@ Federation: have the registry loader take multiple repo roots, so the same cover
 
 ### OKF stores what we know; RETHINK re-asks whether it is still right
 
-The four-part hygiene above keeps the typed store *clean*, but a clean store still only answers *what do we know*. It says nothing about whether what we know is still true — a hand-cited analytical note ages, an assumption's review comes due, a contradiction stays unresolved. So the typed substrate pairs with the **RETHINK** limb of the loop (the intent-alignment "why" pass — see [harness-engineering.md](harness-engineering.md)): OKF stores what we know; RETHINK re-asks, on a cadence, whether it is still the right thing to know. The types are what make that re-asking cheap — the loop filters to the kinds most likely to have gone stale rather than re-reading the corpus. In the worked deployment this is a real script ([`okf_signals.py`](file:///home/jerem/project1/automation/okf_signals.py), below) that derives next-work *from the types themselves*, so the graph is the backlog and there is nothing separate to keep in sync.
+The four-part hygiene above keeps the typed store *clean*, but a clean store still only answers *what do we know*. It says nothing about whether what we know is still true — a hand-cited analytical note ages, an assumption's review comes due, a contradiction stays unresolved. So the typed substrate pairs with the **RETHINK** limb of the loop (the intent-alignment "why" pass — see [harness-engineering.md](harness-engineering.md)): OKF stores what we know; RETHINK re-asks, on a cadence, whether it is still the right thing to know. The types are what make that re-asking cheap — the loop filters to the kinds most likely to have gone stale rather than re-reading the corpus. In the worked deployment this is a real script (`okf_signals.py`, below) that derives next-work *from the types themselves*, so the graph is the backlog and there is nothing separate to keep in sync.
 
 ### The worked deployment (the §A1b source, with real files)
 
@@ -64,12 +66,12 @@ The single production second-brain this pattern is drawn from is project1, a ~50
 
 | Part | File |
 |---|---|
-| Registry (source of truth) + merge map | [`01-knowledge-base/_type-registry.md`](file:///home/jerem/project1/01-knowledge-base/_type-registry.md) — 30 canonical + 9 singletons; records the 127→~30 (2026-06-09) and 51→canonical (2026-06-18) consolidations |
-| Per-type field conventions | [`AGENTS.md`](file:///home/jerem/project1/AGENTS.md) — the Tolaria-loaded conventions file (registry owns the *list*; AGENTS.md owns the *fields per type*) |
-| Parsed-registry helpers (single source of truth, federation-ready) | [`automation/lib/okf.py`](file:///home/jerem/project1/automation/lib/okf.py) — `load_canonical_types()` parses the registry region; `load_notes()` takes a list of roots |
-| Pre-commit drift guard | [`automation/orchestrator/quality_gates.py`](file:///home/jerem/project1/automation/orchestrator/quality_gates.py) `validate_okf_type` — **warns, does not hard-block** (a loud per-commit warning is what keeps the set from re-drifting; the registry rule is "register the new type first") |
-| Coverage / drift / gap health check | [`automation/okf_health.py`](file:///home/jerem/project1/automation/okf_health.py) — signal not gate; `--federated` adds spokes (reading ~0% today by design), `--brief` feeds the daily brief |
-| Next-work from the graph (RETHINK) | [`automation/okf_signals.py`](file:///home/jerem/project1/automation/okf_signals.py) — overdue assumptions, undecided MDRs, unresolved contradictions, weak hypotheses, thin components |
+| Registry (source of truth) + merge map | `01-knowledge-base/_type-registry.md` — 30 canonical + 9 singletons; records the 127→~30 (2026-06-09) and 51→canonical (2026-06-18) consolidations |
+| Per-type field conventions | `AGENTS.md` — the Tolaria-loaded conventions file (registry owns the *list*; AGENTS.md owns the *fields per type*) |
+| Parsed-registry helpers (single source of truth, federation-ready) | `automation/lib/okf.py` — `load_canonical_types()` parses the registry region; `load_notes()` takes a list of roots |
+| Pre-commit drift guard | `automation/orchestrator/quality_gates.py` `validate_okf_type` — **warns, does not hard-block** (a loud per-commit warning is what keeps the set from re-drifting; the registry rule is "register the new type first") |
+| Coverage / drift / gap health check | `automation/okf_health.py` — signal not gate; `--federated` adds spokes (reading ~0% today by design), `--brief` feeds the daily brief |
+| Next-work from the graph (RETHINK) | `automation/okf_signals.py` — overdue assumptions, undecided MDRs, unresolved contradictions, weak hypotheses, thin components |
 
 One honest note on the guard: the live deployment makes the canonical-type check a **warning, not a blocking gate**, which is softer than this section's part 3 ("flags any commit") implies and deliberately so — the hard blocks in that pre-commit hook are reserved for invariants (matrix-decision validity, retired-claim drift), while type-drift is a loud warning so the registry-first rule stays a discipline rather than a wall. Adopt blocking or warning per how much you trust contributors to register types first.
 
@@ -152,6 +154,6 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 
 ## Related (from graph)
 
-- [`analysis/memory-systems-archetype-recommendations.md`](analysis/memory-systems-archetype-recommendations.md) [EXTRACTED (1.00) ×2] — references
+- [`analysis/memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) [EXTRACTED (1.00) ×2] — references
 
 <!-- graphify-footer:end -->

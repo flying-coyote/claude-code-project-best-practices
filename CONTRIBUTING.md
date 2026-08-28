@@ -259,65 +259,65 @@ When deprecating a pattern, tool, or recommendation, follow this checklist to pr
 
 **Steps to deprecate**:
 
-1. **Update DEPRECATIONS.md**:
-   ```markdown
-   ### [Tool/Pattern Name]
+> **Corrected 2026-08-28.** This section used to open "Update DEPRECATIONS.md" and
+> pointed at `../DEPRECATIONS.md`. **That file is not at the repo root** — it was
+> archived in the v2.0 repositioning and now lives, as a historical ledger only, at
+> [`archive/docs-v1/DEPRECATIONS.md`](archive/docs-v1/DEPRECATIONS.md). It also
+> referenced `QUARTERLY-REVIEW.md` and `QUICKSTART.md`, both archived. So the
+> checklist instructed contributors to update three files that no longer exist,
+> in the document that gates every contribution.
+>
+> The 2026-06 self-audit flagged this ("the missing `DEPRECATIONS.md` … the scripts
+> reference", `research/self-audit-2026-06/AUDIT-FINDINGS.md`) and it stayed open.
+> It is a worked instance of what
+> [`analysis/prose-corpus-discoverability.md`](analysis/prose-corpus-discoverability.md)
+> measures: live guidance kept pointing at an archived mechanism, and nothing
+> checked, because the checks look at the live lane's *style*, never at whether its
+> *pointers still land*.
 
-   **Status**: ❌ DEPRECATED
-   **Deprecated Date**: YYYY-MM-DD
-   **Reason**: [Brief explanation]
-   **Grace Period Ends**: YYYY-MM-DD (if applicable)
+Deprecation is now the **recommendation-level** case of the doc-level lifecycle
+already defined above (§ Retiring a Doc). Use the same machinery:
 
-   **Migration Path**:
-   [Clear instructions on what to use instead]
-   ```
+1. **Record the deprecation where the lifecycle lives**, not in a separate ledger:
+   - a doc superseded wholesale → `status: RETIRING`/`RETIRED` + `replacement-by:` (§ Retiring a Doc)
+   - a *recommendation* inside a still-live doc → strike it in place with the tier,
+     the date, and the replacement, e.g.
+     `> ⚠️ **Deprecated 2026-01-10** — Claude in Chrome. Use [replacement] instead (Tier A — vendor announcement).`
+   - the source itself → mark it deprecated in `SOURCES.md` and add a refresh-log row
 
-2. **Search all analysis documents for references**:
+2. **Find every reference before you claim it is done** — the coordination failure
+   this section exists to prevent:
    ```bash
-   # Find all mentions of deprecated item
-   grep -r "deprecated-tool-name" analysis/
-   grep -r "deprecated-item" analysis/
+   grep -rn "deprecated-item" --include='*.md' . | grep -v node_modules
+   python3 scripts/measure-link-reachability.py --links      # any link you just orphaned
    ```
 
-3. **Update or remove recommendations**:
-   - Add deprecation notice where still referenced (if in grace period)
-   - Remove from "recommended" or "top N" lists
-   - Update decision matrices and configuration examples
-   - Replace with migration path where appropriate
+3. **Update the surfaces that carry the recommendation**: the doc itself,
+   `AUDIT-CONTEXT.md` routing rows that fetch it, `README.md`'s Core Analysis table,
+   `SOURCES.md`, and `.claude/CLAUDE.md` if a count moved.
 
-4. **Add migration notes**:
-   - In analysis documents that reference deprecated item, add:
-     ```markdown
-     > ⚠️ **Deprecated**: [Tool] was deprecated YYYY-MM-DD.
-     > Use [replacement] instead. See [DEPRECATIONS.md](../DEPRECATIONS.md#tool-name).
-     ```
+4. **Grace period**, if you set one: track it in `PLAN.md` under Current Priorities
+   with the expiry date. There is no `QUARTERLY-REVIEW.md` to add it to.
 
-5. **Run comprehensive grep**:
-   ```bash
-   # Catch any missed references
-   grep -ri "deprecated-item" . --exclude-dir=.git --exclude-dir=node_modules
-   ```
-
-6. **Update related files**:
-   - [ ] SOURCES.md (mark source as deprecated if tool-specific)
-   - [ ] README.md (remove from features/tools list)
-   - [ ] INDEX.md (regenerate if pattern removed)
-   - [ ] QUICKSTART.md (update if quick start references deprecated item)
-
-7. **Grace period tracking** (if applicable):
-   - Add to QUARTERLY-REVIEW.md checklist to remove after grace period
-   - Set calendar reminder for grace period end date
+5. **Verify**: `npm run lint`, then
+   `python3 scripts/measure-link-reachability.py --links` and confirm `dangling` in
+   the live lane is still **0**. Deprecation is the most common way it stops being 0.
 
 ### Example: Claude in Chrome Deprecation
 
-See [AUDIT-2026-02-27.md](AUDIT-2026-02-27.md) for case study of deprecation coordination issues.
+See [AUDIT-2026-02-27.md](archive/AUDIT-2026-02-27.md) for a case study of
+deprecation coordination failure.
 
 **What went wrong**:
-- DEPRECATIONS.md updated ✅
-- mcp-daily-essentials.md still recommended it ❌
-- tool-ecosystem.md recommended alternative ✅
 
-**Lesson**: Must update ALL analysis documents that reference deprecated item, not just DEPRECATIONS.md.
+- the ledger was updated ✅
+- `mcp-daily-essentials.md` still recommended it ❌
+- `tool-ecosystem.md` recommended the alternative ✅
+
+**Lesson**: update every document that carries the recommendation, not only the
+place you record the decision. The 2026-08-28 correction above is the same lesson
+landing on this file itself — the process doc drifted from the repo it governs, and
+only a link check caught it.
 
 ### After Grace Period
 

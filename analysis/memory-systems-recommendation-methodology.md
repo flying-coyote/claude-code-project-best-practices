@@ -217,8 +217,8 @@ The companion recommendations doc reflects these corrections from earlier drafts
 
 ## Related (from graph)
 
-- [`analysis/evidence-tiers.md`](analysis/evidence-tiers.md) [EXTRACTED (1.00)] — references
-- [`analysis/memory-systems-archetype-a-curated-kb.md`](analysis/memory-systems-archetype-a-curated-kb.md) [EXTRACTED (1.00)] — references
-- [`analysis/memory-systems-archetype-recommendations.md`](analysis/memory-systems-archetype-recommendations.md) [EXTRACTED (1.00)] — references
+- [`analysis/evidence-tiers.md`](evidence-tiers.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

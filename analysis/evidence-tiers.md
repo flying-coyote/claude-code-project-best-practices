@@ -492,8 +492,8 @@ Example:
 
 ## Related (from graph)
 
-- [`analysis/model-migration-anti-patterns.md`](analysis/model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
-- [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md) [EXTRACTED (1.00)] — references
-- [`analysis/agent-evaluation.md`](analysis/agent-evaluation.md) [EXTRACTED (1.00)] — references
+- [`analysis/model-migration-anti-patterns.md`](model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
+- [`analysis/CANONICAL-DOC-TEMPLATE.md`](CANONICAL-DOC-TEMPLATE.md) [EXTRACTED (1.00)] — references
+- [`analysis/agent-evaluation.md`](agent-evaluation.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

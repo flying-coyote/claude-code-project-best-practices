@@ -111,6 +111,6 @@ The generic anti-patterns (happy-path-only suites, single-run evaluation, ignori
 
 ## Related (from graph)
 
-- [`analysis/model-migration-anti-patterns.md`](analysis/model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
+- [`analysis/model-migration-anti-patterns.md`](model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

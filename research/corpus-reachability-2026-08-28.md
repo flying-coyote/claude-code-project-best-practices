@@ -17,6 +17,8 @@ convergence: single-source
 > - **Fenced blocks counted as pointers.** A path inside a fenced example is an illustration, not a pointer. Reachability now strips fences (but *not* inline code spans — a backticked path in prose is exactly how this repo's CLAUDE.md points at things, and is what `refs` mode exists to follow). 171 → 169.
 > - **The `E2` tier seeded every `.md` under `.claude/`,** including skill `workflows/` and `references/` leaves that load only if a skill body reads them. Seeding progressive-disclosure leaves as always-available entry points is the single-loading-surface error this document opens by rejecting, inverted. Now seeds only rules, and skill/agent/command definitions.
 >
+> **Third correction, 2026-08-28, during the follow-up repair pass.** The "**92 of 179 (51%)** excluding the generated inventory" figure was real but was read wrongly, and the wrong reading was the headline: *"the corpus is well-indexed and about half-linked."* One denominator had lumped together files with entirely different reachability obligations. Decomposed by lane, with the index excluded: **guidance prose 50/50 (100%)**, mechanism (`.claude/` skills, commands, rules — loaded by the runtime, never by link) 2/16, data (frozen fixtures under `research/artifacts/`) 1/14, scratch (`drafts/`) 2/4. Every document that owes the reader a pointer has one. The instrument now prints the decomposition on every run, and the general lesson is recorded in the analysis doc: a reachability denominator must be built from files that actually owe a pointer.
+>
 > This is worth stating plainly rather than quietly repairing, because it is exactly the failure this document describes one level up: an instrument that ran green, looked authoritative, and was not measuring what it claimed. A single run could not detect the first defect; only adversarial review found the rest.
 
 **Why this record exists**: this repository's identity is measurements and instruments no other lane publishes (README § Where This Sits). The claim under test — that a prose corpus's discoverability is a *measurable* property rather than a stylistic one — is only worth making if it comes with the measurement. This file is the measurement; the analysis doc is the argument.
@@ -96,7 +98,7 @@ E1/refs: net of seeds 168/180 (93.3%) | excluding generated inventory 92/179 | h
 
 Excluding `archive/` (85 live files): E1/links 1 (1.2%), E1/refs **71 (83.5%)**, and excluding the generated inventory, **54 of 83**.
 
-**Headline: 169 of 181 files (93.4%) reachable from the auto-loaded entry point — but 77 of those only via `INDEX.md`.** Take the generated inventory out and it is **92 of 179 (51%)**. Both are true and they say different things: the corpus is well-*indexed* and about half-*linked*. Against the vault's reported 12 of 703, either figure still says this repository does not have the disease at the reachability level; the 51% says the margin is much thinner than the headline suggests.
+**Headline: 169 of 181 files (93.4%) reachable from the auto-loaded entry point. Decomposed by lane with the generated index excluded — the only reading that means anything — guidance prose is 50 of 50 (100%).** The corpus-wide figure without the index is 93 of 179, but that denominator mixes prose with harness config (loaded by the runtime, not by link) and frozen fixtures, neither of which owes the reader a pointer. Against the vault's reported 12 of 703, this repository does not have the disease at the reachability level, and the guidance lane is clean.
 
 Three disclosures now print on every run, because each moves the number in a direction the headline flatters:
 
@@ -280,7 +282,7 @@ Three sub-findings in the live lane:
 | | vault (703 files) | this repo (179 files) |
 |---|---|---|
 | Reachable from session-loaded entry points | **12 of 703 (1.7%)** (reported, not reproduced) | 169 of 181 (93.4%) (measured) |
-| — excluding the generated inventory | not reported | **92 of 179 (51%)** |
+| — guidance prose only, generated index excluded | not reported | **50 of 50 (100%)** |
 | Dead-lane files correctly declaring supersession | not measured | **12 of 96 (12%)** |
 | Dead-lane files **asserting a live status** | not measured | **17** |
 | Dead-lane files silent either way | not measured | **67 of 96 (70%)** |

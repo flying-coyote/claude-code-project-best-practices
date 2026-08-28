@@ -227,8 +227,8 @@ From claude-doctor's 8 suggested rules, filtered by evidence reliability:
 
 ## Related (from graph)
 
-- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
-- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
-- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [INFERRED (0.70)] — conceptually_related_to
+- [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/behavioral-insights.md`](../analysis/behavioral-insights.md) [INFERRED (0.70)] — conceptually_related_to
 
 <!-- graphify-footer:end -->

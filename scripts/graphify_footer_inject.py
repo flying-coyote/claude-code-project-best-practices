@@ -18,6 +18,7 @@ import argparse
 import json
 import sys
 from collections import defaultdict
+import os
 from pathlib import Path
 
 START_MARKER = "<!-- graphify-footer:start -->"
@@ -96,7 +97,7 @@ def edges_by_file(graph: dict) -> dict[str, list[dict]]:
     return {src: list(targets.values()) for src, targets in by_file.items()}
 
 
-def render_footer(edges: list[dict]) -> str:
+def render_footer(edges: list[dict], source: Path | None = None) -> str:
     if not edges:
         return ""
     edges_sorted = sorted(
@@ -111,7 +112,17 @@ def render_footer(edges: list[dict]) -> str:
         conf = f" ({e['confidence']:.2f})" if isinstance(e["confidence"], (int, float)) else ""
         count = f" ×{e['count']}" if e.get("count", 1) > 1 else ""
         label = f" — {e['label']}" if e["label"] else ""
-        lines.append(f"- [`{e['target']}`]({e['target']}) [{e['provenance']}{conf}{count}]{label}")
+        # graphify stores targets repo-root-relative, but this footer is written
+        # INTO a file in a subdirectory. Emitting the root path verbatim produced
+        # links that resolve to e.g. analysis/analysis/foo.md -- 71 of them across
+        # the corpus. Emit a path relative to the file being written.
+        href = e["target"]
+        if source is not None:
+            try:
+                href = os.path.relpath(e["target"], source.parent).replace(os.sep, "/")
+            except ValueError:
+                href = e["target"]
+        lines.append(f"- [`{e['target']}`]({href}) [{e['provenance']}{conf}{count}]{label}")
     lines.extend(["", END_MARKER, ""])
     return "\n".join(lines)
 
@@ -155,7 +166,7 @@ def main() -> int:
             no_edges += 1
             continue
 
-        footer = render_footer(edges)
+        footer = render_footer(edges, f)
         will_change, new_text = upsert_footer(f, footer)
         if not will_change:
             continue

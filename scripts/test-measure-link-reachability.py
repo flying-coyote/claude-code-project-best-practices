@@ -78,6 +78,12 @@ def main():
                 "excluding generated inventory" in txt)
     ok &= check("reports hazard exposure separately from the numerator",
                 "hazard exposure" in txt)
+    # 7. The lane decomposition. A corpus-wide percentage lumps prose that owes
+    #    the reader a pointer together with config the runtime loads by its own
+    #    rules; reporting it undecomposed produced a headline that was wrong by
+    #    a factor of two in the direction of alarm.
+    ok &= check("reports the by-lane decomposition", "by lane, index excluded" in txt)
+    ok &= check("names the guidance lane explicitly", "guidance" in txt)
 
     print("\nAll tests passed." if ok else "\nFAILURES above.")
     return 0 if ok else 1

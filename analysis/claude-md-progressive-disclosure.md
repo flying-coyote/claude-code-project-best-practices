@@ -170,6 +170,6 @@ Shifts 3 and 5 (progressive disclosure, auto-memory) presuppose a model that **f
 
 ## Related (from graph)
 
-- [`analysis/model-migration-anti-patterns.md`](analysis/model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
+- [`analysis/model-migration-anti-patterns.md`](model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

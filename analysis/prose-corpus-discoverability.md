@@ -7,7 +7,7 @@ measurement-claims:
     source: "Contributor-reported three-day production run; not independently reproduced"
     date: "2026-08-28"
     revalidate: "2027-02-28"
-  - claim: "This repository: 169 of 181 markdown files (93.4%) reachable from the auto-loaded entry point, but only 92 of 179 once the generated INDEX.md is excluded — 77 files hang off that single edge. On currency, of 96 archive/ files 12 correctly declared themselves superseded, 17 asserted a live status in their own frontmatter, 67 said nothing; the 17 plus three executable v1 prompts were corrected in the same change, so re-running today reports correct=31 WRONG=0 absent=65"
+  - claim: "This repository: 169 of 181 markdown files (93.4%) reachable from the auto-loaded entry point. Decomposed by lane with the generated INDEX.md excluded — the only reading that means anything — guidance prose is 50 of 50 (100%), while mechanism (2/16), data (1/14) and scratch (2/4) are link-unreachable by design. On currency, of 96 archive/ files 12 correctly declared themselves superseded, 17 asserted a live status in their own frontmatter, 67 said nothing; the 17 plus three executable v1 prompts were corrected, so re-running today reports correct=31 WRONG=0 absent=65"
     source: "Direct measurement, scripts/measure-link-reachability.py, with determinism regression test scripts/test-measure-link-reachability.py"
     date: "2026-08-28"
     revalidate: "2027-02-28"
@@ -102,7 +102,7 @@ Three entry tiers: `E1` auto-loaded (`.claude/CLAUDE.md` and root `CLAUDE.md`/`A
 | Files | 703 markdown, 6.07M words | 181 markdown |
 | Session under measurement | 359,985 words, 191 commits | — |
 | **Reachable from session-loaded entry points** | **12 of 703 (1.7%)** (reported) | 169 of 181 (93.4%) (measured) |
-| — of which reachable *only* via a generated index | not reported | **77 files; excluding it, 92 of 179 (51%)** |
+| — guidance prose only, generated index excluded | not reported | **50 of 50 (100%)** |
 | Frontmatter `type:` coverage | 96% | — |
 | **Dead-lane files correctly declaring supersession** | not measured | **12 of 96 (12%)** |
 | **Dead-lane files asserting a LIVE status** | not measured | **17** |
@@ -187,19 +187,24 @@ Two conclusions, and they generalize past this repository:
 
 *Path inference is a real mitigation, and it degrades gracefully rather than failing cleanly.* An agent seeing `archive/patterns-v1/` in a result may well infer supersession, which makes the hazard probabilistic rather than certain. But it depends on the directory being legibly named, and it does not survive the cases that matter: a root-level `SOURCE-REFRESH-2026-07-09-cowork.md` gives no lifecycle signal from its path; `drafts/` and `research/` are ambiguous by construction; and Collision B above returns a single hit whose path an agent has no live alternative to compare against.
 
-*Reachability alone is a weak and gameable metric — and adversarial review showed it is worse than the first draft admitted.* The claim used to be "one generated index file takes any corpus to 100%." A reviewer demonstrated that **one line** does: appending thirteen backticked paths to `.claude/CLAUDE.md` took this repo's figure to 100.0%, via a line no reader would ever act on.
+*Reachability alone is a weak and gameable metric.* A reviewer took this repo to **100.0%** by appending *one line* of thirteen backticked paths to `.claude/CLAUDE.md` — a line no reader would ever act on. The metric is also **sign-inverted against its own thesis** (adding tombstones *raises* it), so hazard exposure is reported separately and never folded into the numerator, and seeds are excluded from it since they were loaded rather than reached.
 
-That is not hypothetical here. **Of this repository's 169 reachable files, 77 are reachable only through `INDEX.md`.** Exclude the generated inventory and the figure falls from 93.4% to **92 of 179 (51%)**. The instrument now reports both, always, because the headline flatters:
+*And the corpus-wide percentage was itself the metric's worst distortion — corrected 2026-08-28.* This document previously reported "**92 of 179 (51%)** excluding the generated inventory" and read it as *the corpus is well-indexed and about half-linked, which is the property that carries authority*. **That reading was wrong**, because a single denominator lumped together files with completely different reachability obligations. Decomposed:
 
 ```
-E1/refs: net of seeds 168/180 (93.3%) | excluding generated inventory 92/179 | hazard exposure 96
+E1/refs: by lane, index excluded — guidance 50/50 | mechanism 2/16 | data 1/14 | scratch 2/4
 ```
 
-The metric is also **sign-inverted against its own thesis**: adding tombstones *raises* the score, and reaching a superseded file is a debit, not a credit — so hazard exposure is reported separately and never folded into the numerator. And seeds are not an achievement: they were loaded, not reached, so a net-of-seeds figure is reported too.
+| Lane | Owes the reader a pointer? | Result |
+|---|---|---|
+| **guidance** — prose meant to be found and acted on (`analysis/`, root docs, research records) | **yes — this is the only lane where the number means anything** | **50 of 50, 100%** |
+| **mechanism** — `.claude/` skills, commands, rules | **no.** The runtime loads these by its own rules; nothing links to a rules file and nothing should. Link-unreachable is the *correct* state | 2 of 16 |
+| **data** — frozen fixtures and transcripts under `research/artifacts/` | no; reached through their own provenance file if at all | 1 of 14 |
+| **scratch** — `drafts/` | no | 2 of 4 |
 
-The honest reading: this repository is well-*indexed*, which is a real and useful property, and only about half-*linked*, which is the property that carries authority. Report all three numbers or none. A single-number "discoverability score" would be worse than nothing.
+So every guidance document in this repository is reachable from the auto-loaded entry point **without** the generated index. The 51% was almost entirely harness config and frozen experimental data being scored against an obligation they do not have.
 
-*The direction of first-party guidance is toward less upfront context, and this is consistent with that, not against it.* Anthropic removed over 80% of Claude Code's system prompt for the Claude 5 generation with no measured loss on coding evals, and names progressive disclosure a recommended shift. Pruning upfront context does not weaken this document's claim — it **raises the stakes on it**, because everything pruned now depends on the pointer graph and the currency marker to be recoverable and trustworthy. The remedy proposed here is not "load more"; it is "make the unloaded remainder actually reachable, and make it declare whether it is still true."
+The instrument now prints this decomposition on every run. **Report the guidance lane, index excluded** — a corpus-wide reachability percentage is close to meaningless, and this document published one for a day. The general lesson is the one worth carrying: *a reachability metric needs a denominator built from files that actually owe the reader a pointer,* and a corpus that mixes prose, config, and data will flatter or damn itself at random depending on their ratio.
 
 *Three of five realistic queries hit a **coverage gap wearing a currency-marking costume**, and marking harder makes those answers worse.* An adversarial pass ran five questions a user might actually ask this repo. For hooks, spec-driven development, and session learning, the archived file is not *competing* with live prose — it is the **only** prose. There is no `analysis/*hook*` doc at all. An agent that correctly reads `archive/`, correctly distrusts it, and stops is left with nothing, and is worse off than one that had read it. Currency marking is the right instrument only where a live alternative exists; where it does not, the honest marker says "uncovered", not "superseded" — which is why one banner added by this change was rewritten to say exactly that after the successor it named turned out not to cover the subject.
 
@@ -241,7 +246,7 @@ The honest reading: this repository is well-*indexed*, which is a real and usefu
 
 ### Tier A (Primary / Direct Observation)
 
-- **This repository, measured 2026-08-28** — 181 markdown files; **169 reachable** under `E1/refs` (93.4%) — 92 of 179 excluding the generated inventory — and 71 of 85 live-only (83.5%); of 96 `archive/` files **12 correct / 17 WRONG / 67 absent** on currency marking; 1,335 internal links classified (1,018 resolve, 71 root-relative-only, 28 outside-repo, 214 dangling) — link totals shift as these docs are edited, since they sit inside the corpus they measure, so read them against the commit. Instrument, test, and raw record: [`scripts/measure-link-reachability.py`](../scripts/measure-link-reachability.py), [`scripts/test-measure-link-reachability.py`](../scripts/test-measure-link-reachability.py), [`research/corpus-reachability-2026-08-28.md`](../research/corpus-reachability-2026-08-28.md).
+- **This repository, measured 2026-08-28** — 181 markdown files; **169 reachable** under `E1/refs` (93.4%); decomposed by lane with the generated index excluded, **guidance 50/50 (100%)**, mechanism 2/16, data 1/14, scratch 2/4; of 96 `archive/` files **12 correct / 17 WRONG / 67 absent** on currency marking; 1,335 internal links classified (1,018 resolve, 71 root-relative-only, 28 outside-repo, 214 dangling) — link totals shift as these docs are edited, since they sit inside the corpus they measure, so read them against the commit. Instrument, test, and raw record: [`scripts/measure-link-reachability.py`](../scripts/measure-link-reachability.py), [`scripts/test-measure-link-reachability.py`](../scripts/test-measure-link-reachability.py), [`research/corpus-reachability-2026-08-28.md`](../research/corpus-reachability-2026-08-28.md).
   - **Reproducible, and that had to be earned.** The first figures published here came from a nondeterministic instrument (a set literal in `_resolve` let `PYTHONHASHSEED` decide which of two valid resolutions the BFS followed; repeated runs returned 168–171) against a stale corpus count that excluded this doc's own two files. Both are fixed and a regression test now runs the instrument under eight hash seeds, verified to fail against the pre-fix version. The episode is recorded rather than repaired silently because it is this document's own thesis one level up: an instrument that ran green and was not measuring what it claimed. See the correction notice at the top of the raw record.
   - **The 17 `WRONG` files are a historical measurement, already remediated in-tree.** They were corrected in the same change that published this doc, so `--currency` reports `correct=31 WRONG=0 absent=65` today. Anyone re-running it now and expecting 17 will find zero; the pre-fix state is reproducible from git at the parent of that commit.
 

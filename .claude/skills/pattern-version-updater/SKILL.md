@@ -134,9 +134,9 @@ Always include: exact claim text, source, date, revalidate date.
 
 ## Related Analysis
 
-- [Evidence Tiers](../../analysis/evidence-tiers.md) - Version-aware citations
-- [Harness Engineering](../../analysis/harness-engineering.md) - Update cadence
-- [Domain Knowledge Architecture](../../analysis/domain-knowledge-architecture.md) - Skill structure
+- [Evidence Tiers](../../../analysis/evidence-tiers.md) - Version-aware citations
+- [Harness Engineering](../../../analysis/harness-engineering.md) - Update cadence
+- [Domain Knowledge Architecture](../../../analysis/domain-knowledge-architecture.md) - Skill structure
 
 ---
 
