@@ -419,7 +419,7 @@ Domain Context Injection:
 
 ### Claude-Flow: Vector Memory + Swarm
 
-**Source**: [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow) (reference architecture - see [Framework Selection Guide](./framework-selection-guide.md#claude-flow-reference-only))
+**Source**: [ruvnet/claude-flow](https://github.com/ruvnet/claude-flow) (reference architecture - see [Framework Selection Guide](../framework-selection-guide.md#claude-flow-reference-only))
 
 Enterprise-scale approach using vector memory for pattern retrieval:
 
@@ -573,8 +573,8 @@ For full codebase context, see `.context/repo-overview.txt`
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient methodology loading
 - [Memory Architecture](./memory-architecture.md) - Lifecycle-based information management
 - [Agentic Retrieval](./agentic-retrieval.md) - Semantic highways for document exploration
-- [MCP vs Skills Economics](./mcp-vs-skills-economics.md) - Cost-aware context architecture
-- [Agent Evaluation](./agent-evaluation.md) - Evaluating context strategy effectiveness
+- [MCP vs Skills Economics](../../analysis/mcp-vs-skills-economics.md) - Cost-aware context architecture
+- [Agent Evaluation](../../analysis/agent-evaluation.md) - Evaluating context strategy effectiveness
 
 ---
 

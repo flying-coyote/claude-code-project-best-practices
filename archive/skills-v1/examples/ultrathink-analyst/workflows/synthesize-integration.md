@@ -1,5 +1,7 @@
 # SYNTHESIZE: Integration Workflow
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. Nothing live carries a synthesis-to-recommendations protocol — analysis/memory-systems-recommendation-methodology.md is scoped to one domain's recommendations rather than a reusable method — so this phase workflow, like its parent skill, is uncovered territory. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Purpose**: Integrate findings from FRAME and ANALYZE into actionable recommendations with clear next steps. Use this workflow after completing analysis to generate insights and recommendations.
 
 ---

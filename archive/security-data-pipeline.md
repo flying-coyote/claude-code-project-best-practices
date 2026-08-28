@@ -152,7 +152,7 @@ The git history shows phased development:
 2. **Phase 2**: Federation overlay — Multi-site, DuckDB edge, ClickHouse hot tier, Trino
 3. **Phase 3**: Claude Code infrastructure — Hooks, commands, SDD artifacts, audit report
 
-This matches the infrastructure maturity model in [Agent-Driven Development](./agent-driven-development.md): the pipeline was built first, then the agent infrastructure was added to make it operational.
+This matches the infrastructure maturity model in [Agent-Driven Development](../analysis/agent-driven-development.md): the pipeline was built first, then the agent infrastructure was added to make it operational.
 
 ### Multi-Site Data Generation
 
@@ -194,7 +194,7 @@ The key reusable components: OCSF transformer pattern, Parquet + Iceberg storage
 ### Related Analysis
 
 - [Federated Query Architecture](./federated-query-architecture.md) — Query performance and TCO analysis built on this pipeline
-- [Agent-Driven Development](./agent-driven-development.md) — Development methodology used for this pipeline
+- [Agent-Driven Development](../analysis/agent-driven-development.md) — Development methodology used for this pipeline
 
 ---
 

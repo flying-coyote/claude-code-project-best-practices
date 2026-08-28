@@ -6,6 +6,8 @@ allowed-tools: Read, Grep, Glob, WebSearch
 
 # Detection Rule Reviewer
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. Nothing in the live corpus covers detection-rule quality review — analysis/domain-knowledge-architecture.md names a detection-rules directory only as an example of `.claude/rules/` path scoping — so this remains uncovered territory. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 Evaluate detection rules against quality standards: accuracy, performance, evasion resistance, and operational readiness.
 
 ## Trigger Conditions

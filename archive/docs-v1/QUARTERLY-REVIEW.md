@@ -1,5 +1,7 @@
 # Quarterly Review Process
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. **No successor covers this document.** Partial coverage only: measurement-claim expiry moved to `.claude/commands/maintenance/weekly-review.md` step 4 (`scripts/check-measurement-expiry.py`) and EMERGING→PRODUCTION promotion to `.claude/skills/emerging-pattern-monitor/SKILL.md`. Five of the eight checklist sections have no live owner — version-requirement updates and `version-last-verified` upkeep (VERSION-TRACKING.md is itself archived), beta-header graduation checks, the DOGFOODING-GAPS self-compliance audit, the `last-verified` staleness sweep, and external source-URL/star-count freshness (the link checker skips `http(s)` targets by design). The recurring deprecation cross-check is event-triggered in CONTRIBUTING.md § Deprecation Process rather than scheduled — that section states outright that "there is no `QUARTERLY-REVIEW.md` to add it to." No live document carries the quarterly cadence itself: the Q1–Q4 due-date table, calendar reminders, ~3.5-hour time budget, ad-hoc review triggers, or the summary-report format. `emerging-pattern-monitor` Phase F is quarterly but scoped to follow-lane absorption sweeps, an unrelated lane. Treat this file as the reference of record for the unowned steps until they are re-homed. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Purpose**: Systematic maintenance to prevent outdated claims, expired revalidation dates, and documentation drift.
 
 **Schedule**: Q1 (Mar 31), Q2 (Jun 30), Q3 (Sep 30), Q4 (Dec 31)
@@ -313,8 +315,8 @@ git push origin master
 - [VERSION-TRACKING.md](VERSION-TRACKING.md) - Current versions and beta headers
 - [DOGFOODING-GAPS.md](DOGFOODING-GAPS.md) - Self-compliance tracking
 - [DEPRECATIONS.md](DEPRECATIONS.md) - Deprecated patterns and migration paths
-- [AUDIT-2026-02-27.md](AUDIT-2026-02-27.md) - Initial audit that prompted this process
-- [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
+- [AUDIT-2026-02-27.md](../AUDIT-2026-02-27.md) - Initial audit that prompted this process
+- [CONTRIBUTING.md](../../CONTRIBUTING.md) - Contribution guidelines
 
 ---
 

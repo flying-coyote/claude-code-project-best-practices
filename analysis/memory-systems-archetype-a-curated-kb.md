@@ -10,9 +10,11 @@ revalidate-by: 2026-10-28
 
 # Archetype A — Curated Analytical Knowledge Base
 
-**Evidence Tier**: C — recommendation synthesizes Tier-B paradigm (Karpathy LLM Wiki) with Tier-C tool-specific claims (graphify, Lum1104).
+**Evidence Tier**: C — recommendation synthesizes Tier-B paradigm (Karpathy LLM Wiki) with Tier-C tool-specific claims (graphify, Understand-Anything).
 
 > **Following the Karpathy LLM-wiki paradigm since 2026-07-16.** New coverage effort on the paradigm layer goes to tracking the canon, not growing this doc. Delta kept: the implementation evidence (graphify+footer, typed-registry remediation).
+>
+> **Citation note.** Paths under `project1/` name files on the author's machine, not in this repository. They are recorded as **provenance for a single-practitioner production deployment** — enough to identify what was inspected and when — and are deliberately not hyperlinks, because no reader of this repository can follow them. Treat every `project1/` claim at the Tier-B bar this repo gives uncorroborated single-project evidence.
 
 ## Canon liveness check — 2026-08-13: STABLE
 
@@ -31,8 +33,8 @@ Calibrated to the **~500-document single-curator design target**. See [`memory-s
 ## A1. Primary stack — splits by scale
 
 - **At the ~500-doc design target**: **Graphify (write-time topology) → footer-injected into a Karpathy-pattern wiki convention.**
-- **Below ~200 docs**: **Lum1104 alone over a hand-curated wiki with `[[wikilinks]]`.** Lum1104 uses existing wikilinks as ground truth (deterministic on *your* structure) and is strictly downstream — no glue work to maintain, no Pass-2 egress on prose. Promote to graphify+footer when growing past ~200.
-  - **Layout requirement** (verified 2026-04-28 against plugin v2.3.2 `parse-knowledge-base.py`): `/understand-knowledge` gates on `index.md` (lowercase, at root or under `wiki/`) **+ ≥3 markdown files**. `log.md`, `raw/`, and a root schema (`CLAUDE.md`/`AGENTS.md`) are detected but optional. Repos using `INDEX.md` uppercase, or with the schema under `.claude/CLAUDE.md`, fail detection — rename or use Lum1104's general `/understand-anything:understand` skill instead, which doesn't gate on Karpathy layout.
+- **Below ~200 docs**: **Understand-Anything alone over a hand-curated wiki with `[[wikilinks]]`.** Understand-Anything uses existing wikilinks as ground truth (deterministic on *your* structure) and is strictly downstream — no glue work to maintain, no Pass-2 egress on prose. Promote to graphify+footer when growing past ~200.
+  - **Layout requirement** (verified 2026-04-28 against plugin v2.3.2 `parse-knowledge-base.py`): `/understand-knowledge` gates on `index.md` (lowercase, at root or under `wiki/`) **+ ≥3 markdown files**. `log.md`, `raw/`, and a root schema (`CLAUDE.md`/`AGENTS.md`) are detected but optional. Repos using `INDEX.md` uppercase, or with the schema under `.claude/CLAUDE.md`, fail detection — rename or use Understand-Anything's general `/understand-anything:understand` skill instead, which doesn't gate on Karpathy layout.
 
 | Layer       | Owner (design-target stack)                                                                                            | Why                                                                                                                              |
 |-------------|------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
@@ -41,7 +43,7 @@ Calibrated to the **~500-document single-curator design target**. See [`memory-s
 | Synthesis   | Hand-edited prose, augmented by graph footer                                                                            | Axis 2 — augments-wiki; prose carries argumentation graph can't represent                                                        |
 | Lint        | Local script reading `graph.json` + each `analysis/*.md`, flagging wiki claims that conflict with EXTRACTED edges       | Axis 8 — bridges deterministic vs LLM-derived                                                                                    |
 
-**Driving axes**: 1 (write-time dominant), 2 (augments-wiki), 7 (markdown), 8 (provenance discipline). **Evidence tier**: B for the Karpathy paradigm; **C — vendor-reported, not independently benchmarked** — for graphify's specific 71.5× token claim ([safishamsi/graphify](https://github.com/safishamsi/graphify)).
+**Driving axes**: 1 (write-time dominant), 2 (augments-wiki), 7 (markdown), 8 (provenance discipline). **Evidence tier**: B for the Karpathy paradigm; **C — vendor-reported, not independently benchmarked** — for graphify's specific 71.5× token claim ([Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify)).
 
 ## A1b. Typed-frontmatter hygiene — OKF as the KM-leverage pattern
 
@@ -56,7 +58,7 @@ Federation: have the registry loader take multiple repo roots, so the same cover
 
 ### OKF stores what we know; RETHINK re-asks whether it is still right
 
-The four-part hygiene above keeps the typed store *clean*, but a clean store still only answers *what do we know*. It says nothing about whether what we know is still true — a hand-cited analytical note ages, an assumption's review comes due, a contradiction stays unresolved. So the typed substrate pairs with the **RETHINK** limb of the loop (the intent-alignment "why" pass — see [harness-engineering.md](harness-engineering.md)): OKF stores what we know; RETHINK re-asks, on a cadence, whether it is still the right thing to know. The types are what make that re-asking cheap — the loop filters to the kinds most likely to have gone stale rather than re-reading the corpus. In the worked deployment this is a real script ([`okf_signals.py`](file:///home/jerem/project1/automation/okf_signals.py), below) that derives next-work *from the types themselves*, so the graph is the backlog and there is nothing separate to keep in sync.
+The four-part hygiene above keeps the typed store *clean*, but a clean store still only answers *what do we know*. It says nothing about whether what we know is still true — a hand-cited analytical note ages, an assumption's review comes due, a contradiction stays unresolved. So the typed substrate pairs with the **RETHINK** limb of the loop (the intent-alignment "why" pass — see [harness-engineering.md](harness-engineering.md)): OKF stores what we know; RETHINK re-asks, on a cadence, whether it is still the right thing to know. The types are what make that re-asking cheap — the loop filters to the kinds most likely to have gone stale rather than re-reading the corpus. In the worked deployment this is a real script (`okf_signals.py`, below) that derives next-work *from the types themselves*, so the graph is the backlog and there is nothing separate to keep in sync.
 
 ### The worked deployment (the §A1b source, with real files)
 
@@ -64,12 +66,12 @@ The single production second-brain this pattern is drawn from is project1, a ~50
 
 | Part | File |
 |---|---|
-| Registry (source of truth) + merge map | [`01-knowledge-base/_type-registry.md`](file:///home/jerem/project1/01-knowledge-base/_type-registry.md) — 30 canonical + 9 singletons; records the 127→~30 (2026-06-09) and 51→canonical (2026-06-18) consolidations |
-| Per-type field conventions | [`AGENTS.md`](file:///home/jerem/project1/AGENTS.md) — the Tolaria-loaded conventions file (registry owns the *list*; AGENTS.md owns the *fields per type*) |
-| Parsed-registry helpers (single source of truth, federation-ready) | [`automation/lib/okf.py`](file:///home/jerem/project1/automation/lib/okf.py) — `load_canonical_types()` parses the registry region; `load_notes()` takes a list of roots |
-| Pre-commit drift guard | [`automation/orchestrator/quality_gates.py`](file:///home/jerem/project1/automation/orchestrator/quality_gates.py) `validate_okf_type` — **warns, does not hard-block** (a loud per-commit warning is what keeps the set from re-drifting; the registry rule is "register the new type first") |
-| Coverage / drift / gap health check | [`automation/okf_health.py`](file:///home/jerem/project1/automation/okf_health.py) — signal not gate; `--federated` adds spokes (reading ~0% today by design), `--brief` feeds the daily brief |
-| Next-work from the graph (RETHINK) | [`automation/okf_signals.py`](file:///home/jerem/project1/automation/okf_signals.py) — overdue assumptions, undecided MDRs, unresolved contradictions, weak hypotheses, thin components |
+| Registry (source of truth) + merge map | `01-knowledge-base/_type-registry.md` — 30 canonical + 9 singletons; records the 127→~30 (2026-06-09) and 51→canonical (2026-06-18) consolidations |
+| Per-type field conventions | `AGENTS.md` — the Tolaria-loaded conventions file (registry owns the *list*; AGENTS.md owns the *fields per type*) |
+| Parsed-registry helpers (single source of truth, federation-ready) | `automation/lib/okf.py` — `load_canonical_types()` parses the registry region; `load_notes()` takes a list of roots |
+| Pre-commit drift guard | `automation/orchestrator/quality_gates.py` `validate_okf_type` — **warns, does not hard-block** (a loud per-commit warning is what keeps the set from re-drifting; the registry rule is "register the new type first") |
+| Coverage / drift / gap health check | `automation/okf_health.py` — signal not gate; `--federated` adds spokes (reading ~0% today by design), `--brief` feeds the daily brief |
+| Next-work from the graph (RETHINK) | `automation/okf_signals.py` — overdue assumptions, undecided MDRs, unresolved contradictions, weak hypotheses, thin components |
 
 One honest note on the guard: the live deployment makes the canonical-type check a **warning, not a blocking gate**, which is softer than this section's part 3 ("flags any commit") implies and deliberately so — the hard blocks in that pre-commit hook are reserved for invariants (matrix-decision validity, retired-claim drift), while type-drift is a loud warning so the registry-first rule stays a discipline rather than a wall. Adopt blocking or warning per how much you trust contributors to register types first.
 
@@ -84,7 +86,7 @@ One honest note on the guard: the live deployment makes the canonical-type check
 | Hybrid                        | Optimizes                                                       | Pick when                                                                |
 |-------------------------------|------------------------------------------------------------------|--------------------------------------------------------------------------|
 | + MehmetGoekce L1/L2 split    | Context budget at scale                                          | KB exceeds ~100 docs and CLAUDE.md routinely loses important rules       |
-| + Lum1104 plugin              | Wiki-aware graph (uses your wikilinks as ground truth)           | Rich `[[wikilinks]]` already exist and you want a graph that respects them |
+| + Understand-Anything plugin              | Wiki-aware graph (uses your wikilinks as ground truth)           | Rich `[[wikilinks]]` already exist and you want a graph that respects them |
 | + Pratiyush adapters          | Mining historical Claude Code sessions back into the analytical layer | Session archive (archetype F) is worth promoting findings into A         |
 
 ## A3. Anti-patterns
@@ -98,11 +100,17 @@ One honest note on the guard: the live deployment makes the canonical-type check
 
 **Adoption gate**: this archetype's function (AI-PKM) carries `convergence: emerging` in the frontmatter, and the binding rule is that infrastructure adoption requires converged status or an explicit owner exception, so treat the steps below as an evaluation path rather than a sanctioned default.
 
-1. `pipx install graphifyy` (PyPI name; CLI is `graphify`). **Decide first: Pass 2 yes or no.** `graphify update .` runs Tree-sitter Pass 1 only — zero LLM calls, zero egress — but for prose-heavy KBs Pass 1 indexes ~nothing (verified 2026-04-28 on this repo: 0 of 38 `analysis/*.md` got nodes; only code files were extracted). Pass 2 (LLM extraction over prose) is what makes graphify a topology layer for an analytical KB, and Pass 2 ships content to whatever LLM the invoking Claude Code session uses — *not* reversible. For sensitive content, skip Pass 2 or run on a public-only subset; if you skip it, the realistic stack collapses to "wikilinks + Lum1104 + grep" and graphify isn't earning its keep. **Stop if** `GRAPH_REPORT.md` after Pass 2 surfaces no relationships you didn't already know.
+1. `pipx install graphifyy` (PyPI name; CLI is `graphify`). **Decide first: Pass 2 yes or no.** `graphify update .` runs Tree-sitter Pass 1 only — zero LLM calls, zero egress — but for prose-heavy KBs Pass 1 indexes ~nothing (verified 2026-04-28 on this repo: 0 of 38 `analysis/*.md` got nodes; only code files were extracted). Pass 2 (LLM extraction over prose) is what makes graphify a topology layer for an analytical KB, and **Pass 2 egress is not reversible** — decide before you run it, not after.
+
+   > **Corrected 2026-08-28 — where Pass 2 sends content depends on how you invoke it.** This step used to say flatly that Pass 2 "ships content to whatever LLM the invoking Claude Code session uses" and that the only options for sensitive content were to skip it or run a public-only subset. Both halves need qualifying. Session routing is a property of the **`/graphify` skill path**; headless `graphify extract` has its own provider chain and egresses directly. And current graphify documents `--backend ollama` (plus `OPENAI_BASE_URL` for llama.cpp / vLLM / LM Studio), so a **local Pass 2** is now a documented configuration — sensitive content is no longer a categorical disqualification.
+   >
+   > The catch is that local is **opt-in and last in line**: the auto-detection chain runs Gemini → Kimi → Claude → OpenAI → DeepSeek → Azure → Bedrock → **Ollama**, so any provider credential in the environment wins silently, and an empty key list is not sufficient either (`--backend claude-cli` rides the Claude subscription; Bedrock uses the ambient AWS IAM chain). Pin the backend explicitly and audit the environment. Untested here — quality against a local model is unmeasured.
+
+   If you skip Pass 2 entirely, the realistic stack collapses to "wikilinks + Understand-Anything + grep" and graphify isn't earning its keep. **Stop if** `GRAPH_REPORT.md` after Pass 2 surfaces no relationships you didn't already know.
 2. Inspect `graph.html` and EXTRACTED/INFERRED/AMBIGUOUS counts. Read-only.
-3. Write a 30–50 line footer-injection script (per `analysis/*.md`, append "Related (from graph)" with INFERRED edges marked). Commit on a branch. **Stop if** edges look noisy and require manual filtering — that's a signal to evaluate Lum1104 instead.
+3. Write a 30–50 line footer-injection script (per `analysis/*.md`, append "Related (from graph)" with INFERRED edges marked). Commit on a branch. **Stop if** edges look noisy and require manual filtering — that's a signal to evaluate Understand-Anything instead.
 4. Add `graphify hook install` (git hooks: rebuild on commit/branch).
-5. Only then evaluate L1/L2 split or Lum1104.
+5. Only then evaluate L1/L2 split or Understand-Anything.
 
 ## A5. Constraint check
 
@@ -112,7 +120,7 @@ One honest note on the guard: the live deployment makes the canonical-type check
 | No wiki/graph contradiction  | ✅ lint enforces, provenance tags carry through                                                            |
 | A/B/C tiering preserved      | ✅ markdown substrate keeps tier metadata in front-matter                                                  |
 | Augments not generates       | ✅ prose stays hand-edited                                                                                 |
-| Local-first                  | ⚠️ graphify Pass 2 ships content to the Claude Code session's LLM. Bound the egress by skipping Pass 2 on sensitive content. |
+| Local-first                  | ⚠️ graphify Pass 2 egresses by default. On the `/graphify` skill path it goes to the Claude Code session's LLM; headless `graphify extract` goes to whichever provider it auto-detects. Bound it with an explicit `--code-only` or `--backend ollama` plus an environment audit — not by assuming no session or no API key means no egress (corrected 2026-08-28). |
 | Markdown substrate           | ✅                                                                                                         |
 
 ## Sources
@@ -133,8 +141,8 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 ### Tier C
 
 - [Google Cloud — Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) — Apache-2.0; [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing) (Google Cloud blog). v0.1 marked "Draft." Vendor-neutral markdown-wiki spec for agent context; its sole required frontmatter field is `type:` (recommended-but-optional: `title`, `description`, `resource`, `tags`, `timestamp`; consumers MUST NOT reject a bundle for unknown types or missing optional fields). Version, license, date, and the single-required-field claim verified against the primary spec + blog on 2026-06-21. The §A1b registry+guard is a conformance/hygiene layer on top of that one required field. **Vendor-published open standard — cite the pattern from production, not the spec.**
-- [safishamsi/graphify](https://github.com/safishamsi/graphify) — graphify v0.5.4, 2026-04-28. 71.5× token-savings claim for topology-first retrieval. **Vendor-reported — not independently benchmarked.**
-- Lum1104/understand-anything plugin — wiki-aware graph using `[[wikilinks]]` as ground truth; layout requirements verified 2026-04-28 against plugin v2.3.2 `parse-knowledge-base.py`. **Community-reported — not independently benchmarked.**
+- [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) *(was `safishamsi/graphify`, which no longer resolves — repo re-homed; verified 2026-08-28)* — graphify v0.5.4, 2026-04-28. 71.5× token-savings claim for topology-first retrieval. **Vendor-reported — not independently benchmarked.**
+- [Egonex-AI/Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) *(formerly `Lum1104/Understand-Anything`; transfer verified 2026-08-28)* — wiki-aware graph using `[[wikilinks]]` as ground truth; layout requirements verified 2026-04-28 against plugin **v2.3.2**. Upstream is now v2.9.4 and its default state directory moved to `.ua/`, so re-verify the detector before relying on it. **Community-reported — not independently benchmarked.**
 - MehmetGoekce L1/L2 split — context-budget management at scale; named in hybrid alternatives without an independent benchmark. **Community-reported — not independently benchmarked.**
 - Pratiyush/llm-wiki adapters — session-to-wiki ingestion for Claude Code, Codex, Cursor, Gemini; cited as hybrid alternative for session-archive promotion. **Community-reported — not independently benchmarked.**
 
@@ -152,6 +160,6 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 
 ## Related (from graph)
 
-- [`analysis/memory-systems-archetype-recommendations.md`](analysis/memory-systems-archetype-recommendations.md) [EXTRACTED (1.00) ×2] — references
+- [`analysis/memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) [EXTRACTED (1.00) ×2] — references
 
 <!-- graphify-footer:end -->

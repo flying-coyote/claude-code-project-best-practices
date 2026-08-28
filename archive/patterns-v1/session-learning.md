@@ -357,7 +357,7 @@ Without git commits for changes:
 - [Documentation Maintenance](./documentation-maintenance.md) — Keeping CLAUDE.md current
 - [Long-Running Agent](./long-running-agent.md) — External artifacts as memory
 - [Recursive Evolution](./recursive-evolution.md) — Judge feedback loops (similar concept)
-- [Agent Principles](./agent-principles.md) — Addresses Principle 1 (Persistent Memory)
+- Agent Principles (doc retired 2026-07-10 — official Anthropic best-practices carries this slice) — Addresses Principle 1 (Persistent Memory)
 
 ---
 

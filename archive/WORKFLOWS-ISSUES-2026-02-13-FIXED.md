@@ -1,5 +1,7 @@
 # Workflow Issues to Fix
 
+> **ARCHIVED — a dated record, not guidance.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. A closed defect checklist, applied at the time, against workflow files that no longer exist in the audited form — source-monitoring.yml, the file with six of the reported defects, was deleted in the 2026-07 reduction. It records a point in time and needs no successor — nobody should be looking here for current guidance. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 ## Problem
 
 The GitHub Actions workflow files have YAML syntax errors due to JavaScript template literals with multi-line markdown content.

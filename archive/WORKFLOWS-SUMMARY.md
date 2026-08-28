@@ -1,5 +1,7 @@
 # GitHub Actions Workflows - Implementation Summary
 
+> **ARCHIVED — a dated record, not guidance.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. A dated implementation record: the Monday/Sunday schedule it states was changed to daily within the same week, and the seven-job source-monitoring workflow it summarizes was deleted in the 2026-07 reduction, so it describes what was built in February 2026 rather than anything that runs now. It records a point in time and needs no successor — nobody should be looking here for current guidance. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 ## What Was Created
 
 ### New Workflow Files

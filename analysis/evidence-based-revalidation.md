@@ -215,10 +215,10 @@ The `measurement-claims` frontmatter in each analysis document includes `revalid
 
 ## Related (from graph)
 
-- [`analysis/automated-config-assessment.md`](analysis/automated-config-assessment.md) [EXTRACTED (1.00) ×2] — references
-- [`archive/confidence-scoring.md`](archive/confidence-scoring.md) [EXTRACTED (1.00)] — references (merged into evidence-tiers.md 2026-07-16)
-- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
-- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
-- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
+- [`analysis/automated-config-assessment.md`](automated-config-assessment.md) [EXTRACTED (1.00) ×2] — references
+- [`archive/confidence-scoring.md`](../archive/confidence-scoring.md) [EXTRACTED (1.00)] — references (merged into evidence-tiers.md 2026-07-16)
+- [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/behavioral-insights.md`](behavioral-insights.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

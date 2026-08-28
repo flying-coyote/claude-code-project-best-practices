@@ -269,9 +269,9 @@ Both practitioners emphasize that velocity gains came from harness engineering (
 
 ## Related (from graph)
 
-- [`analysis/harness-engineering.md`](analysis/harness-engineering.md) [EXTRACTED (1.00)] — references
-- [`analysis/cross-project-synchronization.md`](analysis/cross-project-synchronization.md) [EXTRACTED (1.00) ×2] — references
-- [`analysis/claude-md-progressive-disclosure.md`](analysis/claude-md-progressive-disclosure.md) [EXTRACTED (1.00)] — references
-- [`analysis/secure-code-generation.md`](analysis/secure-code-generation.md) [INFERRED (0.85)] — semantically_similar_to
+- [`analysis/harness-engineering.md`](harness-engineering.md) [EXTRACTED (1.00)] — references
+- [`analysis/cross-project-synchronization.md`](cross-project-synchronization.md) [EXTRACTED (1.00) ×2] — references
+- [`analysis/claude-md-progressive-disclosure.md`](claude-md-progressive-disclosure.md) [EXTRACTED (1.00)] — references
+- [`analysis/secure-code-generation.md`](secure-code-generation.md) [INFERRED (0.85)] — semantically_similar_to
 
 <!-- graphify-footer:end -->

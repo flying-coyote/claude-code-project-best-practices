@@ -1,5 +1,7 @@
 # Research Preset
 
+> **ARCHIVED — not current guidance, and only partly succeeded.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. Partially superseded. The research-methodology half of this preset lives on in [analysis/evidence-tiers.md](../../analysis/evidence-tiers.md), which is a strict superset of both the evidence-tier block (Tier A-D with citation format, contradiction handling, and the merged HIGH/MEDIUM/LOW confidence framework) and the hypothesis-tracking block (its Documentation Format carries statement, evidence tier, contradictions, confidence, and validation status). The configuration half has no successor: the project-type recognition signals (`concepts/`, `hypotheses/`, `bibliography/`), the tiered component table (permissions.allow, Stop/Session/Post-tool hooks, GitHub Actions), and the research commit conventions (`research:`, `data:`, `hypothesis:`, `cite:`) appear nowhere in evidence-tiers.md or elsewhere in `analysis/` — this file remains their only record. Its v1-era specifics and dates are a snapshot, preserved as recorded — do not treat them as current. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 For analysis projects: studies, literature reviews, hypothesis tracking.
 
 ## When to Use
@@ -32,7 +34,7 @@ Choose this preset when your project:
 | Post-tool hook | 2 | Optional | Auto-update indexes if tracking |
 | GitHub Actions | 3 | For teams | @.claude research reviews |
 
-See [Project Infrastructure Pattern](../patterns/project-infrastructure.md) for the full tiered approach.
+See [Project Infrastructure Pattern](../patterns-v1/project-infrastructure.md) for the full tiered approach.
 
 ## Evidence Tier System
 

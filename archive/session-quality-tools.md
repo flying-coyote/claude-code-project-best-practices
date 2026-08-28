@@ -214,10 +214,10 @@ From claude-doctor's 8 suggested rules, filtered by evidence reliability:
 ## Related Analysis
 
 - [Confidence Scoring](confidence-scoring.md) — the Gap-statement format this doc uses
-- [CLAUDE.md Progressive Disclosure](claude-md-progressive-disclosure.md) — edit-thrashing and repeated-instructions signals often map to CLAUDE.md gaps
-- [Harness Engineering](harness-engineering.md) — error-loop signals often map to missing harness-level recovery
-- [Model Migration Anti-Patterns](model-migration-anti-patterns.md) — distinguishing genuine session-quality issues from Opus 4.7 silent-no-op artifacts
-- [Evidence-Based Revalidation](evidence-based-revalidation.md) — session diagnostics as a revalidation signal over time
+- [CLAUDE.md Progressive Disclosure](../analysis/claude-md-progressive-disclosure.md) — edit-thrashing and repeated-instructions signals often map to CLAUDE.md gaps
+- [Harness Engineering](../analysis/harness-engineering.md) — error-loop signals often map to missing harness-level recovery
+- [Model Migration Anti-Patterns](../analysis/model-migration-anti-patterns.md) — distinguishing genuine session-quality issues from Opus 4.7 silent-no-op artifacts
+- [Evidence-Based Revalidation](../analysis/evidence-based-revalidation.md) — session diagnostics as a revalidation signal over time
 
 ---
 
@@ -227,8 +227,8 @@ From claude-doctor's 8 suggested rules, filtered by evidence reliability:
 
 ## Related (from graph)
 
-- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
-- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
-- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [INFERRED (0.70)] — conceptually_related_to
+- [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/behavioral-insights.md`](../analysis/behavioral-insights.md) [INFERRED (0.70)] — conceptually_related_to
 
 <!-- graphify-footer:end -->

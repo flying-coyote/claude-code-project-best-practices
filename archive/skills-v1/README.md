@@ -1,5 +1,7 @@
 # Claude Skills
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. **Superseded — no in-repo successor.** `analysis/plugins-and-extensions.md` does **not** cover this document's subject. That doc retains only third-party plugin/skill *adoption evaluation* and *token economics*; the skill-authoring material here — skill locations, the SKILL.md structure and frontmatter fields (`allowed-tools`, `agent`, `context: fork`, `hooks`), hot-reload, third-person description and DO-NOT-ACTIVATE design principles, personal-vs-project scoping, cross-project deployment, and the production slash-command examples — was cut in the 2026-07-10 reduction and handed to the official [plugins](https://code.claude.com/docs/en/plugins) and Agent Skills documentation, not to another doc in this repository. Only one clause survives locally (the "keep SKILL.md under 500 lines, move reference material into `references/`" sizing rule, in that doc's Token Economics section). Grepping `analysis/` for `allowed-tools`, `~/.claude/skills`, "third-person" and hot-reload returns no live coverage. For authoring guidance, go to the first-party docs; this archived file is the last in-repo snapshot and is retained for historical reference only. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 Skills are reusable AI behavior patterns that activate based on context. They're one of the most powerful features of mature Claude Code projects.
 
 > **Note**: As of Claude Code 2.1.3, slash commands and skills are **unified**. Custom slash commands are now skills with no behavioral difference.
@@ -500,5 +502,5 @@ This complements the patterns in this repository - we teach the **why** and **ho
 
 - [Anthropic Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
 - [Example Skills in this repo](examples/)
-- [DECISIONS.md](../DECISIONS.md) for design rationale
+- [DECISIONS.md](../../DECISIONS.md) for design rationale
 - [claude-code-templates](https://github.com/davila7/claude-code-templates) for pre-built components

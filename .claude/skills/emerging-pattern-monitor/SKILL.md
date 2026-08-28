@@ -158,7 +158,7 @@ EMERGING Topics Found:
 
 ## Retirement Monitoring (PRODUCTION → RETIRING → RETIRED)
 
-The inverse lane. This project is designed to prune itself as the ecosystem matures (see [CONTRIBUTING.md](../../CONTRIBUTING.md) § Retiring a doc) — coverage shrinking is success, not decay — so PRODUCTION docs are also monitored for whether a robust community/vendor element has caught up enough to take over a slice.
+The inverse lane. This project is designed to prune itself as the ecosystem matures (see [CONTRIBUTING.md](../../../CONTRIBUTING.md) § Retiring a doc) — coverage shrinking is success, not decay — so PRODUCTION docs are also monitored for whether a robust community/vendor element has caught up enough to take over a slice.
 
 ### Phase R1: Scan PRODUCTION docs for replacement candidates
 
@@ -201,7 +201,7 @@ This phase is judgment work and belongs in the quarterly cadence; the weekly rev
 
 ## Related Analysis
 
-- [Evidence Tiers](../../analysis/evidence-tiers.md) - Tier A source criteria
+- [Evidence Tiers](../../../analysis/evidence-tiers.md) - Tier A source criteria
 - [Pattern Version Updater](../pattern-version-updater/SKILL.md) - Coordinates on version requirements
 
 ---

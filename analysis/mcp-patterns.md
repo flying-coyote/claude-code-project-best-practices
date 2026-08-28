@@ -389,9 +389,9 @@ See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard
 
 ## Related (from graph)
 
-- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
-- [`analysis/mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) [EXTRACTED (1.00)] — references
-- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
-- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/behavioral-insights.md`](behavioral-insights.md) [EXTRACTED (1.00)] — references
+- [`analysis/mcp-vs-skills-economics.md`](mcp-vs-skills-economics.md) [EXTRACTED (1.00)] — references
+- [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

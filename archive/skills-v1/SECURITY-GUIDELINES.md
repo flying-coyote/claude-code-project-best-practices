@@ -1,5 +1,7 @@
 # Claude Skills Security Guidelines
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. Not superseded. analysis/safety-and-sandboxing.md and analysis/plugins-and-extensions.md cover the consumer side of skill security — model-level injection robustness, marketplace supply-chain risk, MCP tool poisoning, unattended-loop blast radius, credential isolation, and a pre-install vetting checklist — but carry none of this document's producer-side material: the ZERO/LOW/MEDIUM/HIGH risk classification of a skill by the content it processes, the invisible-text prompt-injection threat model, the five-layer defense protocol (source classification, content summary first, user confirmation, provenance tracking, injection detection), the per-skill SECURITY section format, the allowed/forbidden behavior lists, the MITRE ATLAS technique mapping, and the incident-response procedure and log format. Every one of those terms returns zero hits in both named successors and, apart from two descriptive SOURCES.md line items, zero hits anywhere in analysis/ or the root docs. (The "five-layer" matches elsewhere in the repo are Boris Cherny's five-layer *architecture*, an unrelated homonym.) This material has no successor: it is an open coverage gap, retained in archive/ as the only copy. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Purpose**: Security governance for Claude Skills
 **Evidence Tier**: B (Production validated with real-world incident response)
 
@@ -296,7 +298,7 @@ If injection suspected:
 
 This document covers **skill-level security** (protecting against prompt injection, data exfiltration, and knowledge base poisoning). For **output-level security** (ensuring Claude generates secure application code), see:
 
-- [Secure Code Generation](../patterns/secure-code-generation.md) — CoSAI Project CodeGuard integration
+- [Secure Code Generation](../../analysis/secure-code-generation.md) — CoSAI Project CodeGuard integration
   - 23 security rules for generated code (credentials, crypto, input validation)
   - Hook-based credential scanning
   - Supply chain security for AI-generated dependencies
@@ -309,6 +311,6 @@ The two frameworks are complementary:
 
 ## Related Patterns
 
-- [Secure Code Generation](../patterns/secure-code-generation.md) - CodeGuard for secure AI-generated code
-- [Progressive Disclosure](../patterns/progressive-disclosure.md) - Workflow routing includes security context
-- [Memory Architecture](../patterns/memory-architecture.md) - Storage security considerations
+- [Secure Code Generation](../../analysis/secure-code-generation.md) - CodeGuard for secure AI-generated code
+- [Progressive Disclosure](../patterns-v1/progressive-disclosure.md) - Workflow routing includes security context
+- [Memory Architecture](../patterns-v1/memory-architecture.md) - Storage security considerations

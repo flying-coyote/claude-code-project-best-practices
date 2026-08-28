@@ -26,6 +26,8 @@ revalidate-by: 2026-09-30
 # Domain Knowledge Architecture: Making Expertise Findable Without Overwhelming Context
 
 > **Collapsed 2026-07-10 (Reduction Phase 4).** The core recommendation (skills for domain knowledge, CLAUDE.md for what applies broadly) is now the documented first-party default. Kept delta: the domain-heavy findability patterns that go beyond it.
+>
+> **Citation note.** Paths under `project1/` name files on the author's machine, not in this repository. They are recorded as **provenance for a single-practitioner production deployment** — enough to identify what was inspected and when — and are deliberately not hyperlinks, because no reader of this repository can follow them. Treat every `project1/` claim at the Tier-B bar this repo gives uncorroborated single-project evidence.
 
 This is the companion document to [Harness Engineering](./harness-engineering.md), focused on the domain knowledge layer of the harness stack.
 
@@ -48,7 +50,7 @@ Domain-heavy projects — security rule ecosystems, infrastructure-as-code, regu
 | **External memory** | File system | Reference docs, catalogs, prior decisions | When agent reads specific files | Per-read |
 | **Deep dive** | Subagents | Specialized investigation in fresh context | When delegated | Zero main context cost |
 
-This mirrors the pattern Manus discovered independently — file system as external memory — and it's why Claude Code's 4-tool design (read, write, edit, bash) works: the tools let the LLM *pull* context on demand instead of having it pushed into the window (Vercel's text-to-SQL experiment found this swap alone moved accuracy from 80% to 100% — see Sources). The two sections below — resource maps and typed knowledge — are the domain-heavy-specific patterns built on top of this stack; skills and CLAUDE.md are now covered by the official docs.
+This mirrors the pattern Manus discovered independently — file system as external memory — and it's why Claude Code's 4-tool design (read, write, edit, bash) works: the tools let the LLM *pull* context on demand instead of having it pushed into the window (Vercel's text-to-SQL experiment found this swap alone moved accuracy from 4/5 to 5/5 evaluation queries — **n=5, one query flipping**, so cite the direction, not the rate; see Sources). The two sections below — resource maps and typed knowledge — are the domain-heavy-specific patterns built on top of this stack; skills and CLAUDE.md are now covered by the official docs.
 
 ---
 
@@ -100,9 +102,9 @@ The pairing that matters: **OKF stores what we know; the RETHINK limb of the loo
 
 A firsthand implementation in a ~500-doc cross-repo security-research vault (project1, "Second Brain"). **Value seen recently; one practitioner, one project, not independently corroborated** — treat the mechanism as transferable, the magnitude as one data point.
 
-- Canonical type registry: [`01-knowledge-base/_type-registry.md`](file:///home/jerem/project1/01-knowledge-base/_type-registry.md) holds 30 canonical types + 9 singletons + a merge map, and records two real consolidations (127 distinct types, 86 used once → ~30 on 2026-06-09; then a 51-value drift → canonical on 2026-06-18). [`AGENTS.md`](file:///home/jerem/project1/AGENTS.md) owns per-type field conventions; the registry owns the list.
-- Pre-commit drift guard: [`quality_gates.py`](file:///home/jerem/project1/automation/orchestrator/quality_gates.py)'s `validate_okf_type` *parses* the registry (via [`okf.py`](file:///home/jerem/project1/automation/lib/okf.py)'s `load_canonical_types()`) rather than hard-coding the list, so the gate can never disagree with the human-readable registry.
-- RETHINK operationalization: [`okf_signals.py`](file:///home/jerem/project1/automation/okf_signals.py) reads the typed graph and emits next-work from the types themselves — overdue `Assumption` reviews, undecided `Proposed` MDRs, unresolved `contradiction`s, weak `hypothesis` notes, thin-coverage components — with no separate backlog to keep in sync. The graph is the backlog. [`okf_health.py`](file:///home/jerem/project1/automation/okf_health.py) tracks coverage/drift and is federation-ready (`--federated` across the hub's spoke repos).
+- Canonical type registry: `01-knowledge-base/_type-registry.md` holds 30 canonical types + 9 singletons + a merge map, and records two real consolidations (127 distinct types, 86 used once → ~30 on 2026-06-09; then a 51-value drift → canonical on 2026-06-18). `AGENTS.md` owns per-type field conventions; the registry owns the list.
+- Pre-commit drift guard: `quality_gates.py`'s `validate_okf_type` *parses* the registry (via `okf.py`'s `load_canonical_types()`) rather than hard-coding the list, so the gate can never disagree with the human-readable registry.
+- RETHINK operationalization: `okf_signals.py` reads the typed graph and emits next-work from the types themselves — overdue `Assumption` reviews, undecided `Proposed` MDRs, unresolved `contradiction`s, weak `hypothesis` notes, thin-coverage components — with no separate backlog to keep in sync. The graph is the backlog. `okf_health.py` tracks coverage/drift and is federation-ready (`--federated` across the hub's spoke repos).
 
 Transferable lesson: a resource map tells the agent where to look; a `type:` plus a parsed registry tells the *loop* what to re-examine, which is what lets RETHINK run on a cadence without re-loading the domain. Detailed in [archetype-A](./memory-systems-archetype-a-curated-kb.md) §A1b.
 
@@ -172,7 +174,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 ### Tier B (Validated / Production)
 
 - Manus: file system as external memory pattern — context engineering lessons (2025-2026)
-- Vercel: text-to-SQL experiment — general-purpose (pull) tools outperformed specialized (push) tools, 80% → 100% accuracy
+- Vercel: ["We removed 80% of our agent's tools"](https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools) (Andrew Qu, 2025-12-22, Tier A first-party) — general-purpose (pull) tools outperformed specialized (push) tools: ~15-18 tools → 2, accuracy 4/5 → 5/5 (**n=5**), tokens -37%, steps -42%, 3.5x faster. Re-sourced from a second-hand video citation 2026-08-28; the accuracy figure is one query, not a rate.
 - **OKF typed-substrate case study** (§Typed Knowledge as the Queryable Substrate) — single production vault (project1), firsthand: `_type-registry.md`, `okf.py`, `quality_gates.py:validate_okf_type`, `okf_health.py`, `okf_signals.py`. **One practitioner, one project, not independently corroborated.**
 
 ### Tier C (Vendor-Published Standard)
@@ -196,9 +198,9 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 
 ## Related (from graph)
 
-- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
-- [`analysis/mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) [EXTRACTED (1.00)] — references
-- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
-- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/behavioral-insights.md`](behavioral-insights.md) [EXTRACTED (1.00)] — references
+- [`analysis/mcp-vs-skills-economics.md`](mcp-vs-skills-economics.md) [EXTRACTED (1.00)] — references
+- [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

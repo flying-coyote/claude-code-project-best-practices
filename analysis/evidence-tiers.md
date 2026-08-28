@@ -290,6 +290,29 @@ Example:
 - Current: Playwright now sole recommendation (no comparison needed)
 ```
 
+**Frozen: `revalidate: never`** (added 2026-08-28). A separate case from expired. Some
+measurements *cannot* be re-run — the measured corpus was private, the artifact is gone,
+or a later step mutated the state that was measured. Marking those with a rolling
+revalidate date makes them expire every quarter forever, and a queue full of items nobody
+can close is how a marker stops being read at all. Use `revalidate: never` instead, and
+say in the same breath *why* it cannot be repeated:
+
+```yaml
+  - claim: "The unaugmented stack achieved 89% DEFINITIVE answers (8/9), measured 2026-04-29"
+    source: "archive/memory-systems-genealogy-baseline.md — N=9, Sonnet, self-classified,
+      single-arm (~±10% binomial CI). Frozen: the measured corpora are private, and the
+      baseline memory state was mutated by Experiment #1's 20 added files."
+    date: "2026-04-29"
+    revalidate: never   # unrepeatable — not overdue
+```
+
+`scripts/check-measurement-expiry.py` reports these in their own 🧊 Frozen section and
+never counts them as expired. Two rules keep this honest: **frozen is a verdict, not a
+default** — reach for it only when you can name what makes the measurement unrepeatable,
+never to silence a claim you simply do not want to re-check; and a frozen claim is still
+a **dated snapshot**, so it must be cited with its date and its sample, never in the
+present tense.
+
 ---
 
 ### EMERGING PATTERN Status
@@ -492,8 +515,8 @@ Example:
 
 ## Related (from graph)
 
-- [`analysis/model-migration-anti-patterns.md`](analysis/model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
-- [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md) [EXTRACTED (1.00)] — references
-- [`analysis/agent-evaluation.md`](analysis/agent-evaluation.md) [EXTRACTED (1.00)] — references
+- [`analysis/model-migration-anti-patterns.md`](model-migration-anti-patterns.md) [EXTRACTED (1.00)] — references
+- [`analysis/CANONICAL-DOC-TEMPLATE.md`](CANONICAL-DOC-TEMPLATE.md) [EXTRACTED (1.00)] — references
+- [`analysis/agent-evaluation.md`](agent-evaluation.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

@@ -361,6 +361,32 @@ def report_links(root: Path, corpus: set[str]) -> int:
     return 0
 
 
+# Not every file owes the reader a pointer. Lumping them into one percentage
+# was the metric's biggest distortion: a corpus-wide 51% read as "half the prose
+# is unfindable" when in fact every guidance document was reachable and the
+# shortfall was entirely config and frozen data.
+#
+#   guidance   prose a reader is meant to find and act on. Pointer reachability
+#              is a real obligation here, and the only place the headline means
+#              anything.
+#   mechanism  harness config (.claude/): skills, commands, rules. The runtime
+#              loads these by its own rules; nothing links to a rules file and
+#              nothing should. Link-unreachable is the CORRECT state.
+#   data       frozen fixtures, transcripts, generated artifacts. Reached
+#              through their own provenance file, if at all.
+#   scratch    drafts and work-in-progress.
+def lane_of(path: str) -> str:
+    if path.startswith(".claude/"):
+        return "mechanism"
+    if path.startswith("research/artifacts/"):
+        return "data"
+    if path.startswith("drafts/"):
+        return "scratch"
+    if path.startswith("archive/"):
+        return "dead"
+    return "guidance"
+
+
 def report_currency(root: Path, lanes: list[str]) -> int:
     """Classify every markdown file in each named dead lane."""
     any_lane = False
@@ -483,6 +509,23 @@ def main() -> int:
             line += f" | hazard exposure (reachable dead-lane files) {len(dead)}"
         print(line)
         del tier
+
+    # (d) the decomposition that makes the headline mean something. Report the
+    #     guidance lane separately, with the generated inventory excluded --
+    #     that single figure is the one worth acting on.
+    print()
+    for k, v in results.items():
+        seeds = set(v["entry_points"])
+        inv = {f for f in corpus if Path(f).name in ("INDEX.md", "SUMMARY.md", "TOC.md")}
+        reach = reachable(root, corpus - inv, seeds & (corpus - inv), k.split("/")[1])
+        buckets: dict[str, list[int]] = {}
+        for f in corpus - inv:
+            b = buckets.setdefault(lane_of(f), [0, 0])
+            b[1] += 1
+            if f in reach:
+                b[0] += 1
+        parts = [f"{ln} {n}/{d}" for ln, (n, d) in sorted(buckets.items())]
+        print(f"{k}: by lane, index excluded — " + " | ".join(parts))
 
     if args.list_unreachable:
         for k, v in results.items():

@@ -1,5 +1,7 @@
 # Workflow Schedule Change: Weekly → Daily
 
+> **ARCHIVED — a dated record, not guidance.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. A dated change record whose premise did not survive: source-monitoring.yml was deleted outright in the 2026-07 reduction for producing exactly the untriaged issue flow projected here, and the standing verdict on that daily cadence is in analysis/prose-corpus-discoverability.md. It records a point in time and needs no successor — nobody should be looking here for current guidance. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Date**: February 13, 2026
 **Change**: Monitoring frequency increased from weekly to daily
 **Rationale**: AI coding sector is evolving rapidly

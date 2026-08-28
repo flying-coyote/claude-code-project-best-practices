@@ -1,5 +1,7 @@
 # Pattern Learning Path
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No successor carries this file's function. The guided-reading material here — a Start Here trio with per-doc rationale, four role-based paths, five use-case paths, reading-time budgets, and a pattern-dependency graph with an explicit read-prerequisites-first rule — has no live analogue. AUDIT-CONTEXT.md routes on machine-observable repo signals to an unordered, anti-bloat-capped fetch set and never asks who the reader is or in what order to read; INDEX.md is an auto-generated flat catalog that already coexisted with this file in v1 (this file's own "See Also" names it as a complement, not a replacement); README § How to Use This Repo is a four-row entry-point table giving one starting doc per reader type, with no sequence, prerequisites, or reading budget. The 34-36 patterns sequenced below are archived, so these specific itineraries are dead with their substrate — but nothing in the live repo tells a reader of the 25 analysis docs what to read first or in what order. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Purpose**: Guided reading sequence for 36 patterns to reduce overwhelm and provide clear learning progression
 
 ---
@@ -34,7 +36,7 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 
 ---
 
-### 2. [Context Engineering](patterns/context-engineering.md)
+### 2. [Context Engineering](../patterns-v1/context-engineering.md)
 **Specs as deterministic context; external artifacts as agent memory**
 
 **Why second**: Foundation for how Claude Code works. Context over prompts.
@@ -45,7 +47,7 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 
 ---
 
-### 3. [Spec-Driven Development](patterns/spec-driven-development.md)
+### 3. [Spec-Driven Development](../patterns-v1/spec-driven-development.md)
 **4-phase model: Specify → Plan → Tasks → Implement**
 
 **Why third**: The methodology that organizes all other patterns.
@@ -68,16 +70,16 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 
 **Sequence** (1-2 hours):
 1. ✅ **Foundation**: Complete "Start Here" section above
-2. [Project Infrastructure](patterns/project-infrastructure.md) - Tiered setup (5/15/30 min)
-3. [Long-Running Agent](patterns/long-running-agent.md) - Work across sessions
-4. [Progressive Disclosure](patterns/progressive-disclosure.md) - Skill architecture (73% token savings)
-5. [Advanced Hooks](patterns/advanced-hooks.md) - Quality gates (formatting, linting)
-6. [Parallel Sessions](patterns/parallel-sessions.md) - 5+ sessions for parallel work
+2. [Project Infrastructure](../patterns-v1/project-infrastructure.md) - Tiered setup (5/15/30 min)
+3. [Long-Running Agent](../patterns-v1/long-running-agent.md) - Work across sessions
+4. [Progressive Disclosure](../patterns-v1/progressive-disclosure.md) - Skill architecture (73% token savings)
+5. [Advanced Hooks](../patterns-v1/advanced-hooks.md) - Quality gates (formatting, linting)
+6. [Parallel Sessions](../patterns-v1/parallel-sessions.md) - 5+ sessions for parallel work
 
 **Optional additions**:
-- [Agentic Retrieval](patterns/agentic-retrieval.md) - Better code navigation
-- [Confidence Scoring](patterns/confidence-scoring.md) - Assess AI outputs
-- [Tool Ecosystem](patterns/tool-ecosystem.md) - When to use Claude Code vs alternatives
+- [Agentic Retrieval](../patterns-v1/agentic-retrieval.md) - Better code navigation
+- [Confidence Scoring](../confidence-scoring.md) - Assess AI outputs
+- Tool Ecosystem (doc retired 2026-07-10 — the `/plugin` marketplace and community directories carry tool discovery now) - When to use Claude Code vs alternatives
 
 **Outcome**: Productive solo workflow with quality infrastructure
 
@@ -89,16 +91,16 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 
 **Sequence** (1-2 hours):
 1. ✅ **Foundation**: Complete "Start Here" section above
-2. [Project Infrastructure](patterns/project-infrastructure.md) - Team standardization approach
-3. [Evidence Tiers](patterns/evidence-tiers.md) - Dual tier system for claims (A-D + 1-5)
-4. [Documentation Maintenance](patterns/documentation-maintenance.md) - ARCH/PLAN/INDEX trio
-5. [Architecture Decision Records](patterns/architecture-decision-records.md) - Document why
-6. [Agent Evaluation](patterns/agent-evaluation.md) - Measure what you're improving
+2. [Project Infrastructure](../patterns-v1/project-infrastructure.md) - Team standardization approach
+3. [Evidence Tiers](../../analysis/evidence-tiers.md) - Dual tier system for claims (A-D + 1-5)
+4. [Documentation Maintenance](../patterns-v1/documentation-maintenance.md) - ARCH/PLAN/INDEX trio
+5. [Architecture Decision Records](../patterns-v1/architecture-decision-records.md) - Document why
+6. [Agent Evaluation](../../analysis/agent-evaluation.md) - Measure what you're improving
 
 **Optional additions**:
-- [Plugins and Extensions](patterns/plugins-and-extensions.md) - When Skills vs MCP vs Hooks
-- [Framework Selection Guide](patterns/framework-selection-guide.md) - Choose orchestration
-- [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md) - Cost tradeoffs
+- [Plugins and Extensions](../../analysis/plugins-and-extensions.md) - When Skills vs MCP vs Hooks
+- [Framework Selection Guide](../framework-selection-guide.md) - Choose orchestration
+- [MCP vs Skills Economics](../../analysis/mcp-vs-skills-economics.md) - Cost tradeoffs
 
 **Outcome**: Evidence-based team standards with clear documentation
 
@@ -110,16 +112,16 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 
 **Sequence** (1-2 hours):
 1. ✅ **Foundation**: Complete "Start Here" section above
-2. [Safety and Sandboxing](patterns/safety-and-sandboxing.md) - OS-level isolation
-3. [MCP Patterns](patterns/mcp-patterns.md) - 7 failure modes + OWASP security
-4. [Agent Principles](patterns/agent-principles.md) - 6 principles for reliability
-5. [Agent Evaluation](patterns/agent-evaluation.md) - Testing and validation
-6. [Advanced Hooks](patterns/advanced-hooks.md) - Pre/PostToolUse quality gates
+2. [Safety and Sandboxing](../../analysis/safety-and-sandboxing.md) - OS-level isolation
+3. [MCP Patterns](../../analysis/mcp-patterns.md) - 7 failure modes + OWASP security
+4. Agent Principles (doc retired 2026-07-10 — official Anthropic best-practices carries this slice) - 6 principles for reliability
+5. [Agent Evaluation](../../analysis/agent-evaluation.md) - Testing and validation
+6. [Advanced Hooks](../patterns-v1/advanced-hooks.md) - Pre/PostToolUse quality gates
 
 **Optional additions**:
-- [Secure Code Generation](patterns/secure-code-generation.md) - Prevent vulnerabilities
-- [Memory Architecture](patterns/memory-architecture.md) - Information lifecycle
-- [Session Learning](patterns/session-learning.md) - Improve over time
+- [Secure Code Generation](../../analysis/secure-code-generation.md) - Prevent vulnerabilities
+- [Memory Architecture](../patterns-v1/memory-architecture.md) - Information lifecycle
+- [Session Learning](../patterns-v1/session-learning.md) - Improve over time
 
 **Outcome**: Secure, reliable AI coding infrastructure
 
@@ -131,16 +133,16 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 
 **Sequence** (2-3 hours):
 1. ✅ **Foundation**: Complete "Start Here" section above
-2. [Framework Selection Guide](patterns/framework-selection-guide.md) - Native vs GSD vs CAII
-3. [GSD Orchestration](patterns/gsd-orchestration.md) - Fresh context per subagent
-4. [Cognitive Agent Infrastructure](patterns/cognitive-agent-infrastructure.md) - 7 cognitive agents
-5. [Recursive Context Management](patterns/recursive-context-management.md) - Programmatic self-examination
-6. [Recursive Evolution](patterns/recursive-evolution.md) - Self-Evolution Algorithm
+2. [Framework Selection Guide](../framework-selection-guide.md) - Native vs GSD vs CAII
+3. [GSD Orchestration](../patterns-v1/gsd-orchestration.md) - Fresh context per subagent
+4. [Cognitive Agent Infrastructure](../patterns-v1/cognitive-agent-infrastructure.md) - 7 cognitive agents
+5. [Recursive Context Management](../patterns-v1/recursive-context-management.md) - Programmatic self-examination
+6. [Recursive Evolution](../patterns-v1/recursive-evolution.md) - Self-Evolution Algorithm
 
 **Optional additions**:
-- [Johari Window Ambiguity](patterns/johari-window-ambiguity.md) - Surface hidden assumptions
-- [Advanced Tool Use](patterns/advanced-tool-use.md) - Tool search, programmatic calling
-- [AI Image Generation](patterns/ai-image-generation.md) - Visual asset pipelines
+- [Johari Window Ambiguity](../patterns-v1/johari-window-ambiguity.md) - Surface hidden assumptions
+- [Advanced Tool Use](../patterns-v1/advanced-tool-use.md) - Tool search, programmatic calling
+- [AI Image Generation](../patterns-v1/ai-image-generation.md) - Visual asset pipelines
 
 **Outcome**: Deep understanding of orchestration approaches
 
@@ -152,12 +154,12 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 
 **Quick path** (30 minutes):
 1. [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) - The Big 3
-2. [Project Infrastructure](patterns/project-infrastructure.md) - Tiered setup
-3. Use [BOOTSTRAP-NEW-PROJECT.md](prompts/BOOTSTRAP-NEW-PROJECT.md) with preset
+2. [Project Infrastructure](../patterns-v1/project-infrastructure.md) - Tiered setup
+3. Use [BOOTSTRAP-NEW-PROJECT.md](../prompts-v1/BOOTSTRAP-NEW-PROJECT.md) with preset
 
 **Then add as needed**:
-- [Context Engineering](patterns/context-engineering.md) - If CLAUDE.md grows
-- [Documentation Maintenance](patterns/documentation-maintenance.md) - For ARCH/PLAN/INDEX
+- [Context Engineering](../patterns-v1/context-engineering.md) - If CLAUDE.md grows
+- [Documentation Maintenance](../patterns-v1/documentation-maintenance.md) - For ARCH/PLAN/INDEX
 
 ---
 
@@ -165,39 +167,39 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 
 **Quick path** (45 minutes):
 1. [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) - Audit against The Big 3
-2. [Project Infrastructure](patterns/project-infrastructure.md) - Compare to recommended setup
-3. Use [AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)
+2. [Project Infrastructure](../patterns-v1/project-infrastructure.md) - Compare to recommended setup
+3. Use [AUDIT-EXISTING-PROJECT.md](../prompts-v1/AUDIT-EXISTING-PROJECT.md)
 4. [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - Address specific issues
 
 **Then add gaps**:
-- Missing hooks → [Advanced Hooks](patterns/advanced-hooks.md)
-- Bloated CLAUDE.md → [Context Engineering](patterns/context-engineering.md)
-- No planning process → [Spec-Driven Development](patterns/spec-driven-development.md)
+- Missing hooks → [Advanced Hooks](../patterns-v1/advanced-hooks.md)
+- Bloated CLAUDE.md → [Context Engineering](../patterns-v1/context-engineering.md)
+- No planning process → [Spec-Driven Development](../patterns-v1/spec-driven-development.md)
 
 ---
 
 ### Use Case 3: "I'm working on complex multi-session features"
 
 **Quick path** (1 hour):
-1. [Long-Running Agent](patterns/long-running-agent.md) - External artifacts as memory
-2. [Spec-Driven Development](patterns/spec-driven-development.md) - Specify → Plan → Tasks → Implement
-3. [Documentation Maintenance](patterns/documentation-maintenance.md) - ARCH/PLAN/INDEX
-4. [Progressive Disclosure](patterns/progressive-disclosure.md) - Manage large skills
+1. [Long-Running Agent](../patterns-v1/long-running-agent.md) - External artifacts as memory
+2. [Spec-Driven Development](../patterns-v1/spec-driven-development.md) - Specify → Plan → Tasks → Implement
+3. [Documentation Maintenance](../patterns-v1/documentation-maintenance.md) - ARCH/PLAN/INDEX
+4. [Progressive Disclosure](../patterns-v1/progressive-disclosure.md) - Manage large skills
 
 **Then optimize**:
-- [Memory Architecture](patterns/memory-architecture.md) - 4-tier lifecycle
-- [Session Learning](patterns/session-learning.md) - Capture corrections
+- [Memory Architecture](../patterns-v1/memory-architecture.md) - 4-tier lifecycle
+- [Session Learning](../patterns-v1/session-learning.md) - Capture corrections
 
 ---
 
 ### Use Case 4: "I need to choose between MCP, Skills, or Hooks"
 
 **Quick path** (45 minutes):
-1. [Plugins and Extensions](patterns/plugins-and-extensions.md) - Decision framework
-2. [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md) - Cost/performance tradeoffs
-3. [MCP Patterns](patterns/mcp-patterns.md) - Failure modes + security
-4. [Progressive Disclosure](patterns/progressive-disclosure.md) - Skill architecture
-5. [Advanced Hooks](patterns/advanced-hooks.md) - Quality gates
+1. [Plugins and Extensions](../../analysis/plugins-and-extensions.md) - Decision framework
+2. [MCP vs Skills Economics](../../analysis/mcp-vs-skills-economics.md) - Cost/performance tradeoffs
+3. [MCP Patterns](../../analysis/mcp-patterns.md) - Failure modes + security
+4. [Progressive Disclosure](../patterns-v1/progressive-disclosure.md) - Skill architecture
+5. [Advanced Hooks](../patterns-v1/advanced-hooks.md) - Quality gates
 
 **Outcome**: Clear decision on extension approach
 
@@ -206,15 +208,15 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 ### Use Case 5: "I'm building custom AI workflows"
 
 **Deep path** (2-3 hours):
-1. [Framework Selection Guide](patterns/framework-selection-guide.md) - Choose orchestration
-2. [GSD Orchestration](patterns/gsd-orchestration.md) OR [Cognitive Agent Infrastructure](patterns/cognitive-agent-infrastructure.md)
-3. [Agent Principles](patterns/agent-principles.md) - Reliability principles
-4. [Agent Evaluation](patterns/agent-evaluation.md) - Testing patterns
-5. [Advanced Tool Use](patterns/advanced-tool-use.md) - Programmatic calling
+1. [Framework Selection Guide](../framework-selection-guide.md) - Choose orchestration
+2. [GSD Orchestration](../patterns-v1/gsd-orchestration.md) OR [Cognitive Agent Infrastructure](../patterns-v1/cognitive-agent-infrastructure.md)
+3. Agent Principles (doc retired 2026-07-10 — official Anthropic best-practices carries this slice) - Reliability principles
+4. [Agent Evaluation](../../analysis/agent-evaluation.md) - Testing patterns
+5. [Advanced Tool Use](../patterns-v1/advanced-tool-use.md) - Programmatic calling
 
 **Advanced**:
-- [Recursive Evolution](patterns/recursive-evolution.md) - Self-improvement
-- [Recursive Context Management](patterns/recursive-context-management.md) - Advanced inference
+- [Recursive Evolution](../patterns-v1/recursive-evolution.md) - Self-improvement
+- [Recursive Context Management](../patterns-v1/recursive-context-management.md) - Advanced inference
 
 ---
 
@@ -223,48 +225,48 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 Once you've completed a learning path, you can explore the full catalog organized by SDD phase:
 
 ### Foundational (2 patterns)
-- [Spec-Driven Development](patterns/spec-driven-development.md) ✅ Start Here
-- [Framework Selection Guide](patterns/framework-selection-guide.md)
+- [Spec-Driven Development](../patterns-v1/spec-driven-development.md) ✅ Start Here
+- [Framework Selection Guide](../framework-selection-guide.md)
 
 ### Specify Phase (4 patterns)
-- [Context Engineering](patterns/context-engineering.md) ✅ Start Here
-- [Memory Architecture](patterns/memory-architecture.md)
-- [Johari Window Ambiguity](patterns/johari-window-ambiguity.md)
-- [Project Infrastructure](patterns/project-infrastructure.md)
+- [Context Engineering](../patterns-v1/context-engineering.md) ✅ Start Here
+- [Memory Architecture](../patterns-v1/memory-architecture.md)
+- [Johari Window Ambiguity](../patterns-v1/johari-window-ambiguity.md)
+- [Project Infrastructure](../patterns-v1/project-infrastructure.md)
 
 ### Plan Phase (3 patterns)
-- [Documentation Maintenance](patterns/documentation-maintenance.md)
-- [Architecture Decision Records](patterns/architecture-decision-records.md)
-- [Evidence Tiers](patterns/evidence-tiers.md)
+- [Documentation Maintenance](../patterns-v1/documentation-maintenance.md)
+- [Architecture Decision Records](../patterns-v1/architecture-decision-records.md)
+- [Evidence Tiers](../../analysis/evidence-tiers.md)
 
 ### Tasks + Implement Phase (7 patterns)
-- [Long-Running Agent](patterns/long-running-agent.md)
-- [Progressive Disclosure](patterns/progressive-disclosure.md)
-- [Advanced Hooks](patterns/advanced-hooks.md)
-- [Advanced Tool Use](patterns/advanced-tool-use.md)
-- [Agentic Retrieval](patterns/agentic-retrieval.md)
-- [Parallel Sessions](patterns/parallel-sessions.md)
-- [AI Image Generation](patterns/ai-image-generation.md)
+- [Long-Running Agent](../patterns-v1/long-running-agent.md)
+- [Progressive Disclosure](../patterns-v1/progressive-disclosure.md)
+- [Advanced Hooks](../patterns-v1/advanced-hooks.md)
+- [Advanced Tool Use](../patterns-v1/advanced-tool-use.md)
+- [Agentic Retrieval](../patterns-v1/agentic-retrieval.md)
+- [Parallel Sessions](../patterns-v1/parallel-sessions.md)
+- [AI Image Generation](../patterns-v1/ai-image-generation.md)
 
 ### Cross-Phase (18 patterns)
-- [Agent Principles](patterns/agent-principles.md)
-- [Agent Evaluation](patterns/agent-evaluation.md)
-- [MCP Patterns](patterns/mcp-patterns.md)
-- [MCP vs Skills Economics](patterns/mcp-vs-skills-economics.md)
-- [Plugins and Extensions](patterns/plugins-and-extensions.md)
-- [Safety and Sandboxing](patterns/safety-and-sandboxing.md)
-- [GSD Orchestration](patterns/gsd-orchestration.md)
-- [Cognitive Agent Infrastructure](patterns/cognitive-agent-infrastructure.md)
-- [Recursive Context Management](patterns/recursive-context-management.md)
-- [Session Learning](patterns/session-learning.md)
-- [Confidence Scoring](patterns/confidence-scoring.md)
-- [Recursive Evolution](patterns/recursive-evolution.md)
-- [Tool Ecosystem](patterns/tool-ecosystem.md)
-- [Secure Code Generation](patterns/secure-code-generation.md)
-- [Subagent Orchestration](patterns/subagent-orchestration.md)
-- [Execution Management](patterns/execution-management.md)
-- [Verification and Testing](patterns/verification-and-testing.md)
-- [Quality Metrics](patterns/quality-metrics.md)
+- Agent Principles (doc retired 2026-07-10 — official Anthropic best-practices carries this slice)
+- [Agent Evaluation](../../analysis/agent-evaluation.md)
+- [MCP Patterns](../../analysis/mcp-patterns.md)
+- [MCP vs Skills Economics](../../analysis/mcp-vs-skills-economics.md)
+- [Plugins and Extensions](../../analysis/plugins-and-extensions.md)
+- [Safety and Sandboxing](../../analysis/safety-and-sandboxing.md)
+- [GSD Orchestration](../patterns-v1/gsd-orchestration.md)
+- [Cognitive Agent Infrastructure](../patterns-v1/cognitive-agent-infrastructure.md)
+- [Recursive Context Management](../patterns-v1/recursive-context-management.md)
+- [Session Learning](../patterns-v1/session-learning.md)
+- [Confidence Scoring](../confidence-scoring.md)
+- [Recursive Evolution](../patterns-v1/recursive-evolution.md)
+- Tool Ecosystem (doc retired 2026-07-10 — the `/plugin` marketplace and community directories carry tool discovery now)
+- [Secure Code Generation](../../analysis/secure-code-generation.md)
+- [Subagent Orchestration](../patterns-v1/subagent-orchestration.md)
+- Execution Management (never written — a planned v1 doc that did not ship)
+- Verification and Testing (never written — a planned v1 doc that did not ship)
+- Quality Metrics (never written — a planned v1 doc that did not ship)
 
 ---
 
@@ -329,4 +331,4 @@ Start with foundations, add as needed, adapt to your context.
 
 **Last Updated**: February 2026
 **Pattern Count**: 34
-**See Also**: [INDEX.md](INDEX.md) (complete file listing), [TROUBLESHOOTING.md](TROUBLESHOOTING.md) (common issues)
+**See Also**: [INDEX.md](../../INDEX.md) (complete file listing), [TROUBLESHOOTING.md](TROUBLESHOOTING.md) (common issues)

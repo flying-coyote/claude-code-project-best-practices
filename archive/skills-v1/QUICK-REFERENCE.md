@@ -1,5 +1,7 @@
 # Skills Quick Reference
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live doc replaces it: the skills it indexes exist only in this archive, and its transferable half — the SKILL.md/workflows/references progressive-disclosure tiers, activation testing, and maintenance cadence — is uncovered territory in the live corpus, since analysis/claude-md-progressive-disclosure.md is about CLAUDE.md sizing and never discusses skills. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Purpose**: Fast lookup for skill triggers, purposes, and integration patterns
 **For detailed skill documentation**: See individual SKILL.md files in examples/
 
@@ -286,7 +288,7 @@ ultrathink-analyst/
 | 500-1000 lines | 3-5 operations | Multi-workflow | ultrathink-analyst |
 | 1000+ lines | 5+ operations | Multi-workflow | git-workflow-helper |
 
-**Reference**: See [progressive-disclosure.md](../patterns/progressive-disclosure.md) for full pattern
+**Reference**: See [progressive-disclosure.md](../patterns-v1/progressive-disclosure.md) for full pattern
 
 ---
 
@@ -405,9 +407,9 @@ Test if skills trigger correctly:
 - [SECURITY-GUIDELINES.md](./SECURITY-GUIDELINES.md) - Security framework
 
 **Patterns**:
-- [Progressive Disclosure](../patterns/progressive-disclosure.md) - 3-tier token optimization
-- [Evidence Tiers](../patterns/evidence-tiers.md) - Source quality classification
-- [Confidence Scoring](../patterns/confidence-scoring.md) - Hypothesis confidence levels
+- [Progressive Disclosure](../patterns-v1/progressive-disclosure.md) - 3-tier token optimization
+- [Evidence Tiers](../../analysis/evidence-tiers.md) - Source quality classification
+- [Confidence Scoring](../confidence-scoring.md) - Hypothesis confidence levels
 
 ---
 

@@ -153,10 +153,10 @@ For the mechanism documentation itself, start with the official docs linked in P
 
 ## Related (from graph)
 
-- [`analysis/mcp-patterns.md`](analysis/mcp-patterns.md) [EXTRACTED (1.00)] — references
-- [`analysis/domain-knowledge-architecture.md`](analysis/domain-knowledge-architecture.md) [EXTRACTED (1.00)] — references
-- [`analysis/mcp-vs-skills-economics.md`](analysis/mcp-vs-skills-economics.md) [EXTRACTED (1.00) ×2] — references
-- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
-- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/mcp-patterns.md`](mcp-patterns.md) [EXTRACTED (1.00)] — references
+- [`analysis/domain-knowledge-architecture.md`](domain-knowledge-architecture.md) [EXTRACTED (1.00)] — references
+- [`analysis/mcp-vs-skills-economics.md`](mcp-vs-skills-economics.md) [EXTRACTED (1.00) ×2] — references
+- [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

@@ -233,9 +233,9 @@ exit 0
 
 ## Related (from graph)
 
-- [`analysis/mcp-patterns.md`](analysis/mcp-patterns.md) [EXTRACTED (1.00) ×2] — references
-- [`analysis/domain-knowledge-architecture.md`](analysis/domain-knowledge-architecture.md) [EXTRACTED (1.00)] — references
-- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
-- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/mcp-patterns.md`](mcp-patterns.md) [EXTRACTED (1.00) ×2] — references
+- [`analysis/domain-knowledge-architecture.md`](domain-knowledge-architecture.md) [EXTRACTED (1.00)] — references
+- [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

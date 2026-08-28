@@ -847,7 +847,7 @@ exit 0  # Allow
 - **Non-disruptive** — Only blocks when a real credential pattern matches
 - **Complements .gitignore** — Catches secrets in source files, not just config files
 
-**See**: [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard integration pattern.
+**See**: [Secure Code Generation](../../analysis/secure-code-generation.md) for the full CodeGuard integration pattern.
 
 ---
 
@@ -887,7 +887,7 @@ Use **both** for defense-in-depth:
 
 Sandboxing is open-sourced by Anthropic and enabled by default in newer Claude Code versions.
 
-**See**: [Safety and Sandboxing](./safety-and-sandboxing.md) for comprehensive sandboxing architecture and configuration.
+**See**: [Safety and Sandboxing](../../analysis/safety-and-sandboxing.md) for comprehensive sandboxing architecture and configuration.
 
 ---
 
@@ -1010,12 +1010,12 @@ When compacting, always preserve:
 
 ## Related Patterns
 
-- [Secure Code Generation](./secure-code-generation.md) - CodeGuard credential scanning and security rules
+- [Secure Code Generation](../../analysis/secure-code-generation.md) - CodeGuard credential scanning and security rules
 - [Long-Running Agent](./long-running-agent.md) - Verify before work startup protocol
 - [Documentation Maintenance](./documentation-maintenance.md) - Three-document system
 - [Subagent Orchestration](./subagent-orchestration.md) - SubagentStop hook usage
 - [Advanced Tool Use](./advanced-tool-use.md) - Tool search complements hook-based validation
-- [Safety and Sandboxing](./safety-and-sandboxing.md) - OS-level security complements hooks
+- [Safety and Sandboxing](../../analysis/safety-and-sandboxing.md) - OS-level security complements hooks
 
 ---
 

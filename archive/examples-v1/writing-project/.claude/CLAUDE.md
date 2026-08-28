@@ -1,5 +1,7 @@
 # Technical Blog (Example)
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live successor covers this file. evidence-tiers.md carries only its A/B/C/D claim-grading block; claude-md-progressive-disclosure.md does not reach it at all, since its measured band starts at 42 lines (this file is 28) and its six-repo dataset contains no content/writing project. The voice rules stated as a repeat-violation list, the markdown-project gotchas (assets in images/, case-sensitive links, drafts/ excluded from lint), and the file's role as a worked example CLAUDE.md for a non-code writing project have no counterpart anywhere in analysis/. Retained in archive/ as the only record of these. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 ## Purpose
 Blog on software architecture and system design. Target: senior developers/tech leads.
 

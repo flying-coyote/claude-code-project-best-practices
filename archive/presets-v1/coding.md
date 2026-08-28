@@ -1,5 +1,7 @@
 # Coding Preset
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. Archived v1 artifact with no live successor. `analysis/agent-driven-development.md` is topically adjacent — its Infrastructure Maturity Model names harness component sets by level — but it does not cover this file: it contains no project-type recognition signals (package.json / Cargo.toml / pyproject.toml / go.mod / pom.xml), no code-quality-standards block, no conventional-commit workflow text, and none of the preset table's permissions.allow baseline, PostToolUse auto-format, or GitHub Actions PR-review rows. Its maturity levels are indexed on observed repo maturity, not on project type, so they answer a different question. The preset concept itself was retired in the v2.0 repositioning (DECISIONS.md Decisions 2 and 5) without replacement; both of this file's pointers are dead — `../patterns-v1/project-infrastructure.md` is itself archived, and `../examples/coding-project/.claude/CLAUDE.md` no longer exists. Read as v1 history only. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 For software development projects: libraries, tools, applications.
 
 ## When to Use
@@ -32,7 +34,7 @@ Choose this preset when your project:
 | Post-tool hook | 3 | Optional | Auto-format with prettier/black |
 | GitHub Actions | 3 | For teams | @.claude PR reviews |
 
-See [Project Infrastructure Pattern](../patterns/project-infrastructure.md) for the full tiered approach.
+See [Project Infrastructure Pattern](../patterns-v1/project-infrastructure.md) for the full tiered approach.
 
 ## Git Workflow
 
@@ -50,4 +52,4 @@ Commit messages follow conventional format:
 
 ## Example CLAUDE.md
 
-See [examples/coding-project/.claude/CLAUDE.md](../examples/coding-project/.claude/CLAUDE.md)
+See [examples/coding-project/.claude/CLAUDE.md](../examples-v1/coding-project/.claude/CLAUDE.md)

@@ -169,7 +169,7 @@ The architecture was developed using an explicit hypothesis validation framework
 
 ### Infrastructure Progression
 
-zeek-iceberg-demo demonstrates the Level 1→2 maturity progression from [Agent-Driven Development](./agent-driven-development.md):
+zeek-iceberg-demo demonstrates the Level 1→2 maturity progression from [Agent-Driven Development](../analysis/agent-driven-development.md):
 
 - **Phase 1**: Basic CLAUDE.md + manual demo workflow
 - **Phase 2**: Added `.claude/` infrastructure — SessionStart hook, 4 slash commands (`/demo`, `/status`, `/setup-minio`, `/reflections`), settings.json permissions
@@ -191,7 +191,7 @@ The architecture spans two repos:
 - **zeek-iceberg-demo**: Implementation (Docker Compose, transformers, benchmarks, demo scripts)
 - **third-brain**: Strategy (hypothesis tracking, TCO calculator, business case, competitive analysis)
 
-This hub-spoke pattern (documented in [Agent-Driven Development](./agent-driven-development.md)) enables the implementation repo to stay focused on code while the knowledge hub maintains strategic context.
+This hub-spoke pattern (documented in [Agent-Driven Development](../analysis/agent-driven-development.md)) enables the implementation repo to stay focused on code while the knowledge hub maintains strategic context.
 
 ---
 
@@ -225,8 +225,8 @@ Is your data distributed across multiple sites?
 
 ### Related Analysis
 
-- [Agent-Driven Development](./agent-driven-development.md) — Development methodology used to build and validate this architecture
-- [Harness Engineering](./harness-engineering.md) — Infrastructure maturity progression observed in zeek-iceberg-demo
+- [Agent-Driven Development](../analysis/agent-driven-development.md) — Development methodology used to build and validate this architecture
+- [Harness Engineering](../analysis/harness-engineering.md) — Infrastructure maturity progression observed in zeek-iceberg-demo
 
 ---
 

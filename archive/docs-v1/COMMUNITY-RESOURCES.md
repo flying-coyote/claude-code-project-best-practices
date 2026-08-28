@@ -1,5 +1,7 @@
 # Community Resources Directory
 
+> **ARCHIVED — not current guidance, and only partly succeeded.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. **Partially superseded (verify before relying on this file).** README § Where This Sits carries forward the lane map and the "what this project uniquely provides" statement, and SOURCES.md retains per-resource dossiers with evidence tiers. Three parts have no successor: the per-resource "What they do best / What we add / When to use" profiles (README relates to *lanes*, not individual resources), the 7-row Need → Primary Resource decision matrix, and the deprecation-tracking process (link rot, breaking changes, superseded tools) — ABSORPTION-MAP.md tracks the opposite relation, whether external canons absorb *our* docs. Two of the five profiled resources, shanraisshan and valgard, appear in neither README nor ABSORPTION-MAP and survive only as SOURCES.md entries explicitly annotated SUPERSEDED-BUT-KEPT and "Historical baseline." The linked QUARTERLY-REVIEW.md and DEPRECATIONS.md are also archived. Its v1-era specifics and dates are a snapshot, preserved as recorded — do not treat them as current. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Last Updated**: March 6, 2026
 
 ---
@@ -165,7 +167,7 @@ Dual-tier framework for assessing claim quality:
 - **Document tiers** (A-D): Source authority
 - **Measurement tiers** (1-5): Claim specificity with revalidation dates
 
-See: [evidence-tiers.md](patterns/evidence-tiers.md)
+See: [evidence-tiers.md](../../analysis/evidence-tiers.md)
 
 ---
 
@@ -177,7 +179,7 @@ See: [evidence-tiers.md](patterns/evidence-tiers.md)
 - Integration with native Claude Code features
 - Multi-session continuity patterns
 
-See: [spec-driven-development.md](patterns/spec-driven-development.md)
+See: [spec-driven-development.md](../patterns-v1/spec-driven-development.md)
 
 ---
 
@@ -189,7 +191,7 @@ Mathematical analysis of context budget with:
 - "Correctness Over Compression" principle
 - Production patterns for 200K token budgets
 
-See: [context-engineering.md](patterns/context-engineering.md)
+See: [context-engineering.md](../patterns-v1/context-engineering.md)
 
 ---
 
@@ -201,7 +203,7 @@ Applied OWASP principles to AI coding agents:
 - STRIDE threat modeling for skills
 - OS-level sandboxing patterns
 
-See: [mcp-patterns.md](patterns/mcp-patterns.md), [secure-code-generation.md](patterns/secure-code-generation.md)
+See: [mcp-patterns.md](../../analysis/mcp-patterns.md), [secure-code-generation.md](../../analysis/secure-code-generation.md)
 
 ---
 
@@ -225,7 +227,7 @@ Example: "Context7 + Sequential Thinking: 25K tokens (12.5% of context) - revali
 - State externalization patterns
 - Multi-agent coordination
 
-See: [subagent-orchestration.md](patterns/subagent-orchestration.md), [gsd-orchestration.md](patterns/gsd-orchestration.md)
+See: [subagent-orchestration.md](../patterns-v1/subagent-orchestration.md), [gsd-orchestration.md](../patterns-v1/gsd-orchestration.md)
 
 ---
 
@@ -237,7 +239,7 @@ Decision matrices and comparative frameworks:
 - Framework selection (Native vs GSD vs CAII)
 - Tool ecosystem comparisons (Claude Code vs alternatives)
 
-See: [plugins-and-extensions.md](patterns/plugins-and-extensions.md), [framework-selection-guide.md](patterns/framework-selection-guide.md)
+See: [plugins-and-extensions.md](../../analysis/plugins-and-extensions.md), [framework-selection-guide.md](../framework-selection-guide.md)
 
 ---
 
@@ -278,7 +280,7 @@ See: [DEPRECATIONS.md](DEPRECATIONS.md)
 3. Include: Resource name, issue description, suggested fix
 
 **Discovered new community resource?**
-1. Check evidence tier criteria ([evidence-tiers.md](patterns/evidence-tiers.md))
+1. Check evidence tier criteria ([evidence-tiers.md](../../analysis/evidence-tiers.md))
 2. Assess maturity (EMERGING vs PRODUCTION)
 3. Submit PR or open issue with assessment
 
@@ -299,10 +301,10 @@ We stand on the shoulders of giants. Our role: curate, validate, integrate.
 
 ## Related Documentation
 
-- [SOURCES.md](SOURCES.md) - Full source database with evidence tiers
-- [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) - Top 20 Tier A/B sources
-- [ARCHITECTURE.md](ARCHITECTURE.md) - Project philosophy and meta-guide approach
-- [evidence-tiers.md](patterns/evidence-tiers.md) - Evidence tier assessment framework
+- [SOURCES.md](../../SOURCES.md) - Full source database with evidence tiers
+- [SOURCES-QUICK-REFERENCE.md](../../SOURCES-QUICK-REFERENCE.md) - Top 20 Tier A/B sources
+- [ARCHITECTURE.md](../../ARCHITECTURE.md) - Project philosophy and meta-guide approach
+- [evidence-tiers.md](../../analysis/evidence-tiers.md) - Evidence tier assessment framework
 
 ---
 

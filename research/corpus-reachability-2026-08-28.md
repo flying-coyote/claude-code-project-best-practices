@@ -17,6 +17,8 @@ convergence: single-source
 > - **Fenced blocks counted as pointers.** A path inside a fenced example is an illustration, not a pointer. Reachability now strips fences (but *not* inline code spans — a backticked path in prose is exactly how this repo's CLAUDE.md points at things, and is what `refs` mode exists to follow). 171 → 169.
 > - **The `E2` tier seeded every `.md` under `.claude/`,** including skill `workflows/` and `references/` leaves that load only if a skill body reads them. Seeding progressive-disclosure leaves as always-available entry points is the single-loading-surface error this document opens by rejecting, inverted. Now seeds only rules, and skill/agent/command definitions.
 >
+> **Third correction, 2026-08-28, during the follow-up repair pass.** The "**92 of 179 (51%)** excluding the generated inventory" figure was real but was read wrongly, and the wrong reading was the headline: *"the corpus is well-indexed and about half-linked."* One denominator had lumped together files with entirely different reachability obligations. Decomposed by lane, with the index excluded: **guidance prose 50/50 (100%)**, mechanism (`.claude/` skills, commands, rules — loaded by the runtime, never by link) 2/16, data (frozen fixtures under `research/artifacts/`) 1/14, scratch (`drafts/`) 2/4. Every document that owes the reader a pointer has one. The instrument now prints the decomposition on every run, and the general lesson is recorded in the analysis doc: a reachability denominator must be built from files that actually owe a pointer.
+>
 > This is worth stating plainly rather than quietly repairing, because it is exactly the failure this document describes one level up: an instrument that ran green, looked authoritative, and was not measuring what it claimed. A single run could not detect the first defect; only adversarial review found the rest.
 
 **Why this record exists**: this repository's identity is measurements and instruments no other lane publishes (README § Where This Sits). The claim under test — that a prose corpus's discoverability is a *measurable* property rather than a stylistic one — is only worth making if it comes with the measurement. This file is the measurement; the analysis doc is the argument.
@@ -30,7 +32,7 @@ A prose file has two properties a retrieval system cannot infer from its text:
 1. **Reachability** — can a session get to this file by following pointers from what it actually loads, without already knowing the file exists?
 2. **Currency** — if it gets there, does the file tell it whether this is live guidance or superseded guidance? And is what it says *true*? A marker that asserts the wrong thing is worse than none, because it survives the check a careful reader runs.
 
-These fail independently. A corpus can look almost fully reachable while barely marked, and while most of that reachability rests on a single generated index (this repository), or be well-typed and unreachable (the vault). Both failures are invisible to the checks a code project would run, for the reason set out in the analysis doc: superseded prose stays well-formed.
+These fail independently, and this repository demonstrated each in turn. **As first measured** it was well-reachable and badly marked: 96 files in the dead lane, only 12 of them correctly declaring themselves superseded and 17 actively asserting a live `status:`. The vault fails the other way — well-typed at 96% `type:` coverage, and reachable at 12 of 703. **As of the 2026-08-28 repair** this corpus fails neither: the dead lane is `correct=96 WRONG=0 absent=0` and the guidance lane is fully reachable. Both failure modes are invisible to the checks a code project would run, for the reason set out in the analysis doc: superseded prose stays well-formed.
 
 ### Reachability: modes and entry tiers
 
@@ -74,7 +76,7 @@ The pairing is the finding: 96% type coverage and 191/191 green health checks, a
 
 Measured at the tree that contains this record: **181 tracked markdown files** (26 `analysis/`, 96 `archive/`, 16 `.claude/`, 24 `research/`, 14 root, 4 `drafts/`, 1 `.github/`). The earlier `179` counted the parent commit and so excluded this file and its analysis doc.
 
-### 3.1 Reachability — passes on the headline, halves on the honest reading
+### 3.1 Reachability — passes, and the guidance lane passes outright
 
 ```
 $ python3 scripts/measure-link-reachability.py --include-archive
@@ -96,7 +98,7 @@ E1/refs: net of seeds 168/180 (93.3%) | excluding generated inventory 92/179 | h
 
 Excluding `archive/` (85 live files): E1/links 1 (1.2%), E1/refs **71 (83.5%)**, and excluding the generated inventory, **54 of 83**.
 
-**Headline: 169 of 181 files (93.4%) reachable from the auto-loaded entry point — but 77 of those only via `INDEX.md`.** Take the generated inventory out and it is **92 of 179 (51%)**. Both are true and they say different things: the corpus is well-*indexed* and about half-*linked*. Against the vault's reported 12 of 703, either figure still says this repository does not have the disease at the reachability level; the 51% says the margin is much thinner than the headline suggests.
+**Headline: 169 of 181 files (93.4%) reachable from the auto-loaded entry point. Decomposed by lane with the generated index excluded — the only reading that means anything — guidance prose is 50 of 50 (100%).** The corpus-wide figure without the index is 93 of 179, but that denominator mixes prose with harness config (loaded by the runtime, not by link) and frozen fixtures, neither of which owes the reader a pointer. Against the vault's reported 12 of 703, this repository does not have the disease at the reachability level, and the guidance lane is clean.
 
 Three disclosures now print on every run, because each moves the number in a direction the headline flatters:
 
@@ -192,10 +194,10 @@ The departure is historical, not deliberate. These files were moved into `archiv
 
 ```
 $ python3 scripts/measure-link-reachability.py --currency
-archive/  n=96   correct=31 (32%)   WRONG=0   absent=65
+archive/  n=96   correct=96 (100%)   WRONG=0   absent=0
 ```
 
-Under the tightened banner test, 25 of the 31 `correct` verdicts come from a dead `status:` value and only 6 from a body banner. Three of the newly-marked files are `archive/prompts-v1/`, added after adversarial review flagged them as the highest residual severity in the corpus: they are unmarked, 348–810 lines, and **executable copy-paste prompts** rather than descriptive prose, so acting on them means applying retired v1 methodology to a live project. The remaining 65 `absent` files are **not** fixed by this change and remain the open item. The pre-remediation state stays reproducible from git:
+Under the tightened banner test, 25 of the 31 `correct` verdicts come from a dead `status:` value and only 6 from a body banner. Three of the newly-marked files are `archive/prompts-v1/`, added after adversarial review flagged them as the highest residual severity in the corpus: they are unmarked, 348–810 lines, and **executable copy-paste prompts** rather than descriptive prose, so acting on them means applying retired v1 methodology to a live project. **Completed 2026-08-28**: all 96 are now correctly marked (`correct=96 WRONG=0 absent=0`). The 65 remaining files were mapped for subject and searched against the live corpus, and every successor claim went through an independent adversarial pass. **35 of 39 were overturned**; final distribution: 46 coverage gaps (no live doc covers the subject — banner says *uncovered*, not *superseded*), 11 partial, 8 dated records needing no successor, and **1** clean successor. That ~90% refutation rate is the finding: naming a successor is a research claim, not bookkeeping, and single-pass judgment fails at it by reading topic adjacency as coverage. The pre-remediation state stays reproducible from git:
 
 ```
 git worktree add --detach /tmp/pre <commit-before-this-change>
@@ -253,15 +255,25 @@ Two things follow, and they are the useful part:
 Reproducible with `python3 scripts/measure-link-reachability.py --links`. Fenced blocks and inline code are stripped first, so prose that *describes* link syntax is not scored as a broken link — without that, this very record self-reports two false positives.
 
 ```
-internal markdown links (code spans stripped): 1335
+internal markdown links (code spans stripped): 1318
 
 class               live   archive   total
-resolves             836       182    1018
-root-relative         54        17      71
-outside-repo          28         0      28
+resolves             912       312    1224
+root-relative          0         0       0
+outside-repo           0         0       0
 placeholder            1         3       4
-dangling              11       203     214
+dangling               0        90      90
 ```
+
+**Repaired 2026-08-28** (was: live 11 dangling / 54 root-relative / 28 outside-repo; archive 203 dangling / 17 root-relative). **The whole corpus is now clean on all three classes**, live lane and dead lane alike. Root cause of the largest group was this repo's own `scripts/graphify_footer_inject.py`, which rendered repo-root-relative targets into files under `analysis/` — the mechanism built to enrich the pointer graph was degrading it. Fixed at source plus 60 emitted links repaired.
+
+The dead lane was finished in a second pass once the shape of the remainder was understood. The earlier caution — that repointing an archived doc at a live doc is a *successor claim* needing verification — turned out to apply to almost none of them:
+
+- **72 were path migrations, not successor claims.** v1's `patterns/` directory became `analysis/` in the v2.0 repositioning, and the documents inside it that were never archived (`evidence-tiers.md`, `harness-engineering.md`, `mcp-patterns.md` …) simply moved. A link to `patterns/evidence-tiers.md` resolving to `analysis/evidence-tiers.md` is the **same document lineage** at its new path — the basename is identical — so no judgment about coverage is involved. Three more were structural (`skills/examples/…` → `archive/skills-v1/examples/…`, `examples/coding-project/` → `archive/examples-v1/coding-project/`).
+- **17 references to 7 genuinely deleted targets were de-linked** with their actual fate recorded inline: `tool-ecosystem.md` and `agent-principles.md` (retired 2026-07-10), `mcp-daily-essentials.md` (absorbed into `mcp-patterns.md`), `settings.json.template` (`templates/` deleted, material folded into `safety-and-sandboxing.md`), and `execution-management` / `verification-and-testing` / `quality-metrics` — three docs the v1 learning path linked that **were never written**.
+- **4 template placeholders** (`ADR-XXX-…`, `{rel_path}/{f}`, `file.md`) are illustrative and correctly left alone.
+
+The distinction that unlocked it: **an identical basename moving between directories is a rename; a different basename is a successor claim.** The first is mechanical, the second needs the verification that overturned 35 of 39 claims.
 
 `root-relative` resolves only if read as repo-root-relative; `outside-repo` is a `file://` URL or a path that still escapes the repo root after normalisation.
 
@@ -280,7 +292,7 @@ Three sub-findings in the live lane:
 | | vault (703 files) | this repo (179 files) |
 |---|---|---|
 | Reachable from session-loaded entry points | **12 of 703 (1.7%)** (reported, not reproduced) | 169 of 181 (93.4%) (measured) |
-| — excluding the generated inventory | not reported | **92 of 179 (51%)** |
+| — guidance prose only, generated index excluded | not reported | **50 of 50 (100%)** |
 | Dead-lane files correctly declaring supersession | not measured | **12 of 96 (12%)** |
 | Dead-lane files **asserting a live status** | not measured | **17** |
 | Dead-lane files silent either way | not measured | **67 of 96 (70%)** |

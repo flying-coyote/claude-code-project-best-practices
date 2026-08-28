@@ -1,5 +1,7 @@
 # Memory System Architecture — Comparison Axes
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live doc replaces it: analysis/memory-systems-archetype-recommendations.md and analysis/memory-systems-archetype-a-curated-kb.md cite these axes by number ('Axis 2 — augments-wiki', 'Axis 8 — provenance discipline') but define none of them, so this file is still the only definition of that vocabulary and is still linked from both as a source document. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Date**: 2026-04-27
 **Status**: Research notes
 **Purpose**: The architectural dimensions that distinguish memory/knowledge systems. Used by `rethink-memory-stack-prompt.md` to drive per-archetype recommendations. Pair with `memory-systems-tools-inventory.md` and `memory-systems-project-archetypes.md`.

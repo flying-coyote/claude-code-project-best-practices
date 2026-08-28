@@ -1,5 +1,7 @@
 # Quick Setup: Claude Code Best Practices
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live successor exists in this repo by design — README § Where This Sits rules implementation how-to out of scope and defers it to the first-party Claude Code docs and `/init` — so a reader wanting setup steps has only this v1-era walkthrough here. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Goal**: Get recommended project infrastructure running in 15-30 minutes.
 
 ---
@@ -327,7 +329,7 @@ No! Start with CLAUDE.md + natural language. Add components only when needed.
 - See [MAKE-PROJECT-RECOMMENDATIONS.md Step 4](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/prompts/MAKE-PROJECT-RECOMMENDATIONS.md) for component guidance.
 
 **Q: Can I use this with other AI coding tools (Cursor, Aider)?**
-Principles apply across tools. See [tool-ecosystem.md](https://raw.githubusercontent.com/flying-coyote/claude-code-project-best-practices/master/patterns/tool-ecosystem.md) for guidance.
+Principles apply across tools. See tool-ecosystem.md (doc retired 2026-07-10 — the `/plugin` marketplace and community directories carry tool discovery now) for guidance.
 
 **Q: When should I add GitHub Actions?**
 Add when you have multiple collaborators and use pull requests. It enables `@.claude` review comments that help with code quality and consistency.

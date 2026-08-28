@@ -62,6 +62,42 @@ Conduct the weekly review of project status and documentation currency. This pro
    ```
    Checks, all mechanical: `map_rows` must equal `$routable` (one row per routable doc); every doc with `follows:` must have a `follow`-lane row and every `replacement-by:` doc a `retire-toward`-lane row (spot-check names against the map, not just counts); `lane_conflicts` must be 0 (`follows:` and `replacement-by:` are mutually exclusive — see CONTRIBUTING.md § Following a Canon); and if `map_verified` is more than 100 days old, add "absorption sweep" to next week's priorities. The map is derived — on any conflict, per-doc frontmatter wins and the map gets corrected to match it, never the reverse.
 
+5c. **Corpus discoverability** (mechanical; the instrument does the work — see [`analysis/prose-corpus-discoverability.md`](../../../analysis/prose-corpus-discoverability.md)):
+   ```bash
+   python3 scripts/measure-link-reachability.py --links      > /tmp/wr-links.txt
+   python3 scripts/measure-link-reachability.py --currency   > /tmp/wr-currency.txt
+   python3 scripts/measure-link-reachability.py --entry E1 --mode refs > /tmp/wr-reach.txt
+   dangling_live=$(awk '/^dangling/{print $2}' /tmp/wr-links.txt)
+   wrong_status=$(grep -oE 'WRONG=[0-9]+' /tmp/wr-currency.txt | cut -d= -f2 | paste -sd+ | bc)
+   guidance=$(grep -oE 'guidance [0-9]+/[0-9]+' /tmp/wr-reach.txt | tail -1)
+   python3 scripts/test-measure-link-reachability.py >/dev/null && instrument=OK || instrument=BROKEN
+   ```
+   Three checks, each with a hard target.
+
+   **`dangling_live` must be 0.** Any non-zero value is a live document pointing at
+   something that is not there. This is the single most common way the corpus rots,
+   and deprecation and doc-removal are the two activities that cause it.
+
+   **`wrong_status` must be 0.** A file in the dead lane asserting `status: PRODUCTION`
+   is worse than an unmarked one: it defeats the check a careful reader runs. Seventeen
+   of these persisted for six months before anything looked.
+
+   **`guidance` must be `n/n`.** Read the *guidance* lane, never the corpus-wide
+   percentage — that denominator mixes prose with `.claude/` config the runtime loads
+   by its own rules and with frozen fixtures, neither of which owes the reader a
+   pointer. Reporting it undecomposed once produced a headline wrong by roughly a
+   factor of two.
+
+   `instrument=BROKEN` means the measurement itself is untrustworthy and the three
+   numbers above must not be recorded — the instrument shipped nondeterministic once
+   (a set literal let `PYTHONHASHSEED` pick the answer) and a single run cannot detect that.
+
+   **Scope note**: the style checks deliberately skip `archive/` (`markdownlint` via
+   `'!archive'`, `check-measurement-expiry.py` via its `analysis` default). Do not
+   "fix" that — you do not lint a tombstone. But the *currency* check above must keep
+   covering the dead lane, because a lane excluded from every check is exactly where
+   unverifiable claims accumulate.
+
 6. **Identify blockers**:
    - Any docs waiting for sources or primary verification?
    - Any skills needing validation?
@@ -81,9 +117,9 @@ Conduct the weekly review of project status and documentation currency. This pro
 
 9. **Print the self-test line.** The run must end by printing exactly one line in this shape, with every value derived during this run:
    ```bash
-   echo "WEEKLY-REVIEW SELF-TEST: routable=$routable readme-match=<yes|no> index-match=<yes|no> convergence-fields=<n>/$routable absorption-rows=$map_rows/$routable follows=$follows_docs lane-conflicts=$lane_conflicts map-verified=$map_verified sources-curated=<YYYY-MM-DD> expired-claims=<n> => <OK|DRIFT>"
+   echo "WEEKLY-REVIEW SELF-TEST: routable=$routable readme-match=<yes|no> index-match=<yes|no> convergence-fields=<n>/$routable absorption-rows=$map_rows/$routable follows=$follows_docs lane-conflicts=$lane_conflicts map-verified=$map_verified sources-curated=<YYYY-MM-DD> expired-claims=<n> dangling-live=$dangling_live wrong-status=$wrong_status guidance=$guidance instrument=$instrument => <OK|DRIFT>"
    ```
-   `OK` means every comparison matched and nothing is overdue; any mismatch or overdue item makes it `DRIFT` and the drifted checks must already appear in PLAN.md priorities from step 7. A non-zero `lane_conflicts` or a `map-verified` date older than 100 days also forces `DRIFT`. If the line cannot be printed with real values, the review did not actually run its checks.
+   `OK` means every comparison matched and nothing is overdue; any mismatch or overdue item makes it `DRIFT` and the drifted checks must already appear in PLAN.md priorities from step 7. A non-zero `lane_conflicts` or a `map-verified` date older than 100 days also forces `DRIFT`. So does a non-zero `dangling-live` or `wrong-status`, a `guidance` figure that is not `n/n`, or `instrument=BROKEN`. If the line cannot be printed with real values, the review did not actually run its checks.
 
 10. **Commit**:
     ```
@@ -94,4 +130,4 @@ Conduct the weekly review of project status and documentation currency. This pro
 
 ## Expected Outcome
 
-PLAN.md reflects the week's accomplishments and next week's priorities, the README corpus counts match what is on disk, SOURCES freshness and convergence-field coverage have been checked against the table above, the absorption map is row-consistent with per-doc frontmatter (step 5b), and the run printed its one-line self-test.
+PLAN.md reflects the week's accomplishments and next week's priorities, the README corpus counts match what is on disk, SOURCES freshness and convergence-field coverage have been checked against the table above, the absorption map is row-consistent with per-doc frontmatter (step 5b), the corpus has zero dangling live links and zero dead-lane files asserting a live status with the guidance lane fully reachable (step 5c), and the run printed its one-line self-test.

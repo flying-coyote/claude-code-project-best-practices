@@ -1,5 +1,7 @@
 # Recursive Context Management (RLM)
 
+> **ARCHIVED — not current guidance, and only partly succeeded.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. Superseded in part. The RLM thesis this doc carried lives on: `analysis/orchestration-comparison.md` § "RLM — Recursive Language Models (Emerging)" carries the REPL-variable mechanism (peek, grep, partition, recurse), the CodeQA 24%→62% figure, the RL-training/GPT-5-only limitations, and the framing of RLM as the explanation for why fresh-context orchestration works; `analysis/behavioral-insights.md` § "Context Rot (RLM Research, Zhang et al.)" carries the context-rot definition, its symptoms, and recursive decomposition as a ranked mitigation. Not carried forward into either successor: the crossover economics (~50KB threshold and the <15-file / 15-50-file / 50KB+ / 100KB+ ladder), both implementation approaches (skill-based RLM and the rand/rlm-claude-code integration with its 71% token-reduction claim), six of the seven anti-patterns (depth limits, silver-bullet, RLM-vs-GSD incompatibility, small-context integration, crossover economics, unvalidated community integrations), and the five-phase testing roadmap with hypothesis H-RLM-CYBER-01. The benchmark table and community-integration survey survive only in `SOURCES.md`. Consult this file for that operational material. Note also that two live cross-references — `orchestration-comparison.md:247` and `SOURCES.md:980` — still point at this doc's title but resolve to `behavioral-insights.md` and `harness-engineering.md` respectively; the latter contains no RLM content at all. Its v1-era specifics and dates are a snapshot, preserved as recorded — do not treat them as current. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Source**: [alexzhang13/rlm](https://github.com/alexzhang13/rlm) (Alex Zhang, MIT CSAIL)
 **Paper**: [arXiv:2512.24601](https://arxiv.org/abs/2512.24601) (Zhang, Kraska, Khattab)
 **Industry Analysis**: [Prime Intellect - "The Paradigm of 2026"](https://www.primeintellect.ai/blog/rlm)
@@ -596,7 +598,7 @@ Depth 3: Rare - only for deeply nested structures
 - [GSD Orchestration](./gsd-orchestration.md) - Manual implementation of fresh-context principles
 - [Context Engineering](./context-engineering.md) - Broader context management strategies
 - [Subagent Orchestration](./subagent-orchestration.md) - Current Claude Code parallel execution
-- [Framework Selection Guide](./framework-selection-guide.md) - When to use which approach
+- [Framework Selection Guide](../framework-selection-guide.md) - When to use which approach
 
 ---
 

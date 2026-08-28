@@ -1,5 +1,7 @@
 # Troubleshooting Guide
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live doc replaces it — the corpus has no symptom-to-fix surface at all, and there is no live hooks doc — so this remains the only prose here on hooks not firing, permission-prompt churn, context exhaustion, and team resistance to adoption, though its cross-links point into the archived patterns/ tree and its fetch-error entries name retired v1 prompt files. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Purpose**: Common issues and recovery paths when using Claude Code best practices
 
 ---
@@ -50,7 +52,7 @@
    - Known gotchas: 10 lines (things that caused 2+ mistakes)
    - Current focus: 2 lines
 
-**Related**: [context-engineering.md](patterns/context-engineering.md)
+**Related**: [context-engineering.md](../patterns-v1/context-engineering.md)
 
 ---
 
@@ -85,14 +87,14 @@
 
 **Quick Start Path** (3 patterns, 30 minutes reading):
 
-1. **[context-engineering.md](patterns/context-engineering.md)** - Foundation for everything
-2. **[spec-driven-development.md](patterns/spec-driven-development.md)** - The methodology (Specify→Plan→Tasks→Implement)
-3. **[project-infrastructure.md](patterns/project-infrastructure.md)** - Setup patterns (recommended + advanced)
+1. **[context-engineering.md](../patterns-v1/context-engineering.md)** - Foundation for everything
+2. **[spec-driven-development.md](../patterns-v1/spec-driven-development.md)** - The methodology (Specify→Plan→Tasks→Implement)
+3. **[project-infrastructure.md](../patterns-v1/project-infrastructure.md)** - Setup patterns (recommended + advanced)
 
 **Then choose by need**:
-- Solo developer working on features → [long-running-agent.md](patterns/long-running-agent.md)
-- Team lead setting standards → [evidence-tiers.md](patterns/evidence-tiers.md)
-- Production/security focus → [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md)
+- Solo developer working on features → [long-running-agent.md](../patterns-v1/long-running-agent.md)
+- Team lead setting standards → [evidence-tiers.md](../../analysis/evidence-tiers.md)
+- Production/security focus → [safety-and-sandboxing.md](../../analysis/safety-and-sandboxing.md)
 - Need more guidance → See [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md)
 
 **Principle**: You don't need all 36 patterns. Start with 3, add as needed.
@@ -103,13 +105,13 @@
 
 **Essential (read first)**:
 - [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) - The Big 3
-- [spec-driven-development.md](patterns/spec-driven-development.md) - Core methodology
-- [context-engineering.md](patterns/context-engineering.md) - Context over prompts
+- [spec-driven-development.md](../patterns-v1/spec-driven-development.md) - Core methodology
+- [context-engineering.md](../patterns-v1/context-engineering.md) - Context over prompts
 
 **High-value for most projects**:
-- [project-infrastructure.md](patterns/project-infrastructure.md) - Setup approach
-- [long-running-agent.md](patterns/long-running-agent.md) - Multi-session work
-- [progressive-disclosure.md](patterns/progressive-disclosure.md) - Skill architecture
+- [project-infrastructure.md](../patterns-v1/project-infrastructure.md) - Setup approach
+- [long-running-agent.md](../patterns-v1/long-running-agent.md) - Multi-session work
+- [progressive-disclosure.md](../patterns-v1/progressive-disclosure.md) - Skill architecture
 
 **Specialized (use when needed)**:
 - Everything else in patterns/ directory
@@ -259,7 +261,7 @@ cd claude-code-project-best-practices
 
 2. **JSON syntax** - Validate with `cat .claude/settings.json | jq .`:
    - Common errors: trailing commas, unquoted keys, wrong brackets
-   - Use [templates/settings.json.template](templates/settings.json.template) as reference
+   - Use templates/settings.json.template (`templates/` deleted 2026-07-10; its credential-boundary material folded into `analysis/safety-and-sandboxing.md`) as reference
 
 3. **Schema version** - Use current schema:
    ```json
@@ -354,7 +356,7 @@ echo "test" >> README.md
    ```
    This prompts instead of blocking outright.
 
-**Related**: [advanced-hooks.md](patterns/advanced-hooks.md)
+**Related**: [advanced-hooks.md](../patterns-v1/advanced-hooks.md)
 
 ---
 
@@ -393,11 +395,11 @@ echo "test" >> README.md
 1. **MCP server latency** - MCP adds 300-800ms per call:
    - **Fix**: Use native tools where possible
    - Read files: Native Read tool (fast) vs MCP file server (slow)
-   - See [mcp-vs-skills-economics.md](patterns/mcp-vs-skills-economics.md)
+   - See [mcp-vs-skills-economics.md](../../analysis/mcp-vs-skills-economics.md)
 
 2. **Bloated CLAUDE.md** - Large context = slower processing:
    - **Fix**: Audit CLAUDE.md, target <60 lines
-   - Use [progressive-disclosure.md](patterns/progressive-disclosure.md) for skills
+   - Use [progressive-disclosure.md](../patterns-v1/progressive-disclosure.md) for skills
 
 3. **Too many skills loaded**:
    - **Fix**: Skills consume context when loaded
@@ -431,7 +433,7 @@ echo "test" >> README.md
    - Remove large skills not used this session
    - Close unrelated files
 
-**Prevention**: Use [long-running-agent.md](patterns/long-running-agent.md) pattern
+**Prevention**: Use [long-running-agent.md](../patterns-v1/long-running-agent.md) pattern
 
 ---
 
@@ -472,9 +474,9 @@ echo "test" >> README.md
 2. **Check FOUNDATIONAL-PRINCIPLES.md** - Most issues trace to violating The Big 3
 
 3. **Review examples/** - See complete working implementations:
-   - [examples/coding-project/](examples/coding-project/)
-   - [examples/writing-project/](examples/writing-project/)
-   - [examples/research-project/](examples/research-project/)
+   - [examples/coding-project/](../examples-v1/coding-project/)
+   - [examples/writing-project/](../examples-v1/writing-project/)
+   - [examples/research-project/](../examples-v1/research-project/)
 
 4. **File an issue** - If problem isn't covered:
    - Repository: https://github.com/flying-coyote/claude-code-project-best-practices/issues

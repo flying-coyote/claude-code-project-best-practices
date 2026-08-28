@@ -34,43 +34,89 @@ jobs:
         run: |
           echo "has_broken_links=true" >> $GITHUB_OUTPUT
 
-      - name: Create issue for broken links
-        if: steps.link-check.outcome == 'failure' && github.event_name == 'schedule'
+      # Internal links are the actionable half and are checked deterministically
+      # by the repo's own instrument. External link rot is mostly not this repo's
+      # to fix, and conflating the two is what produced 916 untriaged issues.
+      - name: Check internal links (deterministic, actionable)
+        id: internal
+        run: |
+          python3 scripts/measure-link-reachability.py --links > /tmp/links.txt || true
+          cat /tmp/links.txt
+          DANGLING=$(awk '/^dangling/{print $2}' /tmp/links.txt)
+          echo "dangling_live=${DANGLING:-0}" >> "$GITHUB_OUTPUT"
+
+      - name: Fail the PR on a NEW broken internal link
+        if: github.event_name == 'pull_request' && steps.internal.outputs.dangling_live != '0'
+        run: |
+          echo "::error::${{ steps.internal.outputs.dangling_live }} dangling internal link(s) in the live lane."
+          echo "Run: python3 scripts/measure-link-reachability.py --links"
+          exit 1
+
+      # ONE standing issue, updated in place. The previous version filed a fresh
+      # issue every scheduled run: 916 open, zero comments, none ever triaged,
+      # while 214 links stayed broken. A firing check that nobody can act on is,
+      # in outcome, no check at all -- and this repo already deleted its RSS
+      # watchers for exactly that failure (Reduction Phase 6). Re-filing daily is
+      # what made it unactionable, so it now updates a single issue and closes it
+      # when the corpus goes clean.
+      - name: Update the standing broken-links issue
+        if: always() && github.event_name == 'schedule'
         uses: actions/github-script@v7
         with:
           script: |
-            const fs = require('fs');
+            const TITLE = '🔗 Standing report: broken links in documentation';
+            const failed = '${{ steps.link-check.outcome }}' === 'failure';
+            const dangling = '${{ steps.internal.outputs.dangling_live }}';
+            const run = `${context.payload.repository.html_url}/actions/runs/${context.runId}`;
 
-            const body = 'The daily link checker has detected broken links in the documentation.\n\n' +
-              '## Action Items\n' +
-              '- [ ] Review the [workflow run logs](' + context.payload.repository.html_url + '/actions/runs/' + context.runId + ') for details\n' +
-              '- [ ] Fix broken links in affected files\n' +
-              '- [ ] Update SOURCES.md if source URLs have changed\n' +
-              '- [ ] Consider updating evidence tiers if sources are no longer accessible\n' +
-              '- [ ] Check if archived/moved content needs alternative references\n\n' +
-              '## Common Causes\n' +
-              '- External websites moved or deleted content\n' +
-              '- GitHub repositories renamed or archived\n' +
-              '- Blog posts removed or URL structure changed\n' +
-              '- Documentation sites restructured\n\n' +
-              '## Fix Patterns\n' +
-              '- Update URL to new location\n' +
-              '- Use Internet Archive (web.archive.org) for historical references\n' +
-              '- Mark source as ⚠️ Stale in SOURCES.md if no longer maintained\n' +
-              '- Consider downgrading evidence tier if source quality declined\n\n' +
-              '**Automatically created by link-checker workflow**\n\n' +
-              '**Workflow run**: ' + context.payload.repository.html_url + '/actions/runs/' + context.runId;
-
-            // Read the link check output (it's in the logs, but we'll create a generic issue)
-            const issue = await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: '🔗 Broken links detected in documentation',
-              labels: ['documentation', 'bug'],
-              body: body
+            const found = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: 'documentation', per_page: 100,
             });
+            const existing = found.data.find(i => i.title === TITLE);
 
-            console.log('Created issue #' + issue.data.number);
+            if (!failed && dangling === '0') {
+              if (existing) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: existing.number,
+                  body: `All links clean as of ${new Date().toISOString().slice(0,10)}. Closing; this issue reopens automatically if links break again.\n\n${run}`,
+                });
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: existing.number, state: 'closed',
+                });
+              }
+              return;
+            }
+
+            const body = [
+              '**This is a standing issue, updated in place — not re-filed daily.**',
+              '',
+              `- Dangling **internal** links in the live lane: **${dangling}** ← actionable, fix these`,
+              `- External link check: **${failed ? 'failures present' : 'clean'}** ← mostly upstream rot, triage by exception`,
+              '',
+              '```',
+              'python3 scripts/measure-link-reachability.py --links   # internal, deterministic',
+              '```',
+              '',
+              'For external failures: update the URL, cite an Internet Archive snapshot, or mark the',
+              'source ⚠️ Stale in SOURCES.md and consider the evidence-tier implication.',
+              '',
+              `Last checked: ${new Date().toISOString()} — ${run}`,
+            ].join('\n');
+
+            if (existing) {
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: existing.number, body, state: 'open',
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title: TITLE, labels: ['documentation'], body,
+              });
+            }
 
   markdown-lint:
     runs-on: ubuntu-latest

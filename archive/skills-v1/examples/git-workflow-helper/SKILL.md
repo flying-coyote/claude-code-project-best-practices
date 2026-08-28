@@ -6,6 +6,8 @@ allowed-tools: Bash, Read, Grep
 
 # Git Workflow Helper
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live analysis doc covers commit or branching conventions — the repo's own conventions live in .claude/CLAUDE.md, and analysis/evidence-tiers.md records the companion `/commit-push-pr` slash command as deprecated in favour of natural-language git operations — so the guidance here has no successor. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 Ensure clean version control: meaningful commits, safe branching, proper collaboration workflows.
 
 ## Trigger Conditions

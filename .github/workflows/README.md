@@ -1,279 +1,81 @@
-# GitHub Actions Workflows
+# GitHub Workflows
 
-This directory contains automated workflows for maintaining the repository and monitoring external sources.
+> **Rewritten 2026-08-28.** The previous version documented `source-monitoring.yml`
+> and its four jobs (`check-anthropic-releases`, `check-awesome-lists`,
+> `check-anthropic-blog`, `check-practitioner-sources`) in detail. **That workflow
+> does not exist** — it was deleted in the 2026-07 Reduction (Phase 6) because its
+> issues sat unread. It also stated *"Secrets Required: None"* while
+> `claude-code.yml` uses `ANTHROPIC_API_KEY`; the 2026-06 self-audit flagged both
+> and neither was fixed. Roughly 40% of this file described machinery that had
+> been gone for six weeks.
+>
+> This is the failure [`analysis/prose-corpus-discoverability.md`](../../analysis/prose-corpus-discoverability.md)
+> measures: the prose stayed well-formed and confident after its subject was
+> deleted, and nothing checks for that — which is why this file is now short
+> enough to keep true.
 
-## Workflows
+## What actually exists
 
-### 1. claude-code.yml
-**Purpose**: Claude Code review for pull requests
+| File | Trigger | What it does |
+|---|---|---|
+| [`claude-code.yml`](claude-code.yml) | PR / issue comment | Claude Code review and `@claude` responses |
+| [`link-checker.yml`](link-checker.yml) | daily cron, PR touching `**.md`, manual | Internal + external link validation, markdown lint, Tier-A source reachability |
+| [`close-superseded-auto-issues.yml`](close-superseded-auto-issues.yml) | manual only | One-shot backlog drain for auto-filed, untriaged issues |
 
-**Triggers**:
-- Pull requests (opened, synchronized, reopened)
-- Issue comments containing `@.claude`
+Nothing else. If you are looking for source monitoring, it was deliberately
+retired — see DECISIONS.md Decision 11 and the Reduction Phase 6 notes.
 
-**What it does**:
-- Runs Claude Code review on PR changes
-- Uses context from CLAUDE.md, ARCHITECTURE.md, SOURCES.md
-- Posts review comments
+## link-checker.yml
 
-**Manual trigger**: Not available (PR/comment triggered only)
+Four jobs. The important structure is that **internal** and **external** link
+failures are treated differently, because only one of them is this repository's
+to fix.
 
----
+| Job | Blocks a PR? | Notes |
+|---|---|---|
+| `check-links` → internal | **yes** | `scripts/measure-link-reachability.py --links`. A new dangling internal link fails the PR. Deterministic and ours to fix. |
+| `check-links` → external | no | `markdown-link-check`. Mostly upstream rot; triaged by exception. |
+| `markdown-lint` | no (comments) | `npm run lint` |
+| `check-source-accessibility` | no | Probes a small set of critical Tier-A source URLs |
 
-### 2. source-monitoring.yml
-**Purpose**: Monitor external sources for updates
+On the scheduled run it maintains **one standing issue**, updated in place and
+closed automatically when the corpus is clean. It previously filed a fresh issue
+every day, which produced ~900 open, zero-comment issues while 214 links stayed
+broken — a check firing into a void. Do not revert that.
 
-**Triggers**:
-- Scheduled: Every day at 9am UTC
-- Manual: Via workflow_dispatch
+Config: [`../link-check-config.json`](../link-check-config.json) — ignore
+patterns, retry/timeout, and the status codes treated as alive.
 
-**Jobs**:
+## Secrets and permissions
 
-#### check-anthropic-releases
-Monitors Claude Code releases on GitHub:
-- Fetches latest release from anthropics/claude-code
-- Checks if documented in SOURCES.md
-- Creates issue if new release detected
+**Secrets required**: `ANTHROPIC_API_KEY` — used by `claude-code.yml` only.
+`GITHUB_TOKEN` is provided automatically by Actions.
 
-#### check-awesome-lists
-Monitors community curated lists:
-- Checks hesreallyhim/awesome-claude-code for recent commits
-- Creates issue if updates detected in last 7 days
-- Tracks star count
+**Permissions**, per workflow rather than blanket:
 
-#### check-anthropic-blog
-Monitors Anthropic Engineering Blog:
-- Scrapes latest blog post URL
-- Checks if documented in SOURCES.md
-- Creates issue for potential new posts
+- `claude-code.yml` — `contents: read`, `pull-requests: write`, `issues: write`
+- `link-checker.yml` — `contents: read`, `issues: write` (standing issue)
+- `close-superseded-auto-issues.yml` — `issues: write`
 
-#### check-practitioner-sources
-Creates daily checklist:
-- Runs every day at 9am UTC
-- Creates comprehensive review checklist
-- Covers all source tiers and maintenance tasks
+## Running a workflow manually
 
-**Manual trigger**:
 ```bash
-# Via GitHub UI: Actions → Source Monitoring → Run workflow
-# Or via gh CLI:
-gh workflow run source-monitoring.yml
-```
-
-**Configuration**:
-- Requires `issues: write` permission (already configured)
-- No secrets needed for public repository monitoring
-- Uses GitHub API without authentication (60 req/hour limit)
-
----
-
-### 3. link-checker.yml
-**Purpose**: Validate all markdown links
-
-**Triggers**:
-- Scheduled: Every day at midnight UTC
-- Manual: Via workflow_dispatch
-- Pull requests that modify .md files
-
-**Jobs**:
-
-#### check-links
-Validates all markdown links:
-- Uses `markdown-link-check` to scan all .md files
-- Follows config in `.github/link-check-config.json`
-- Creates issue if broken links found (scheduled runs only)
-- For PRs: Fails check but doesn't create issue
-
-#### markdown-lint
-Runs markdownlint:
-- Checks markdown formatting
-- Uses config from `.markdownlint.jsonc`
-- Comments on PR if lint fails
-
-#### check-source-accessibility
-Monitors critical Tier A sources:
-- Tests HTTP accessibility of primary sources
-- Focuses on Anthropic docs, GitHub Spec Kit, agentskills.io
-- Creates CRITICAL issue if Tier A sources are down
-
-**Manual trigger**:
-```bash
-# Via GitHub UI: Actions → Link Checker → Run workflow
-# Or via gh CLI:
 gh workflow run link-checker.yml
+gh workflow run close-superseded-auto-issues.yml -f apply=false -f limit=500   # dry run first
 ```
 
-**Configuration**:
-- Requires `issues: write` permission (already configured)
-- Uses link-check-config.json for retry/timeout settings
+Or via the Actions tab → select the workflow → **Run workflow**.
 
----
+`close-superseded-auto-issues.yml` is **dry-run by default** and never touches an
+issue that carries a human comment. Run it once with `apply=false`, read the
+list, then re-run with `apply=true`.
 
-## Configuration Files
+## Keeping this file true
 
-### link-check-config.json
-Configuration for markdown-link-check:
+This README documents machinery that changes. It went stale once, comprehensively,
+and nothing caught it. Two habits keep it honest:
 
-```json
-{
-  "ignorePatterns": [localhost URLs],
-  "timeout": "10s",
-  "retryOn429": true,
-  "retryCount": 3,
-  "aliveStatusCodes": [200, 203, ...]
-}
-```
-
-**Key settings**:
-- 10 second timeout per link
-- Retries 3 times on failure
-- Accepts 200-level, 300-level, and some 400-level codes (401/403 for auth-required)
-- Custom User-Agent for Anthropic domains
-
----
-
-## Monitoring Schedule
-
-| Workflow | Frequency | Day/Time | Purpose |
-|----------|-----------|----------|---------|
-| claude-code | On-demand | PR/comment | Code review |
-| source-monitoring | Daily | Every day 9am UTC | Check updates |
-| link-checker | Daily | Every day 12am UTC | Validate links |
-| link-checker (PR) | On-demand | PR with .md | Prevent broken links |
-
----
-
-## Issue Labels
-
-Workflows automatically create issues with these labels:
-
-| Label | Meaning |
-|-------|---------|
-| `documentation` | Documentation-related issue |
-| `source-update` | External source has updates |
-| `community` | Community source (awesome lists) |
-| `tier-a` | Primary authoritative source |
-| `maintenance` | Routine maintenance task |
-| `bug` | Something broken (links, accessibility) |
-| `critical` | Urgent - affects primary sources |
-
----
-
-## Manual Workflow Execution
-
-### Via GitHub UI
-1. Navigate to **Actions** tab
-2. Select workflow from left sidebar
-3. Click **Run workflow** button
-4. Choose branch (usually `master`)
-5. Click **Run workflow**
-
-### Via GitHub CLI
-```bash
-# List all workflows
-gh workflow list
-
-# Run source monitoring
-gh workflow run source-monitoring.yml
-
-# Run link checker
-gh workflow run link-checker.yml
-
-# View recent runs
-gh run list --workflow=source-monitoring.yml
-```
-
----
-
-## Troubleshooting
-
-### Rate Limiting
-If GitHub API rate limiting occurs:
-- Unauthenticated: 60 requests/hour
-- Authenticated: 5,000 requests/hour
-
-**Solution**: Add `GITHUB_TOKEN` secret (already available in Actions)
-
-### Link Checker False Positives
-Some sites block automated requests:
-- Add to `ignorePatterns` in link-check-config.json
-- Or add custom headers in `httpHeaders` section
-
-### Workflow Not Running
-Check:
-1. Workflow file syntax (YAML validation)
-2. Branch is `master` (cron only runs on default branch)
-3. Repository settings → Actions → Allow all actions
-
----
-
-## Maintenance
-
-### Updating Source Monitoring
-To monitor additional repositories:
-1. Edit `source-monitoring.yml`
-2. Add new job following `check-awesome-lists` pattern
-3. Use GitHub API: `https://api.github.com/repos/{owner}/{repo}`
-
-### Updating Link Checker
-To ignore additional patterns:
-1. Edit `.github/link-check-config.json`
-2. Add to `ignorePatterns` array
-3. Use regex patterns for flexible matching
-
-### Adding New Workflows
-1. Create `.github/workflows/your-workflow.yml`
-2. Follow existing patterns for issue creation
-3. Use appropriate labels
-4. Document in this README
-
----
-
-## Integration with PLAN.md
-
-Workflows align with review cadence in PLAN.md:110-115:
-
-| Source Type | PLAN.md Frequency | Workflow |
-|-------------|-------------------|----------|
-| Anthropic Blog | Daily | `check-anthropic-blog` (daily 9am UTC) |
-| awesome-claude-code | Daily | `check-practitioner-sources` (daily 9am UTC) |
-| SDD frameworks | Daily | `check-practitioner-sources` (daily 9am UTC) |
-
----
-
-## Security Considerations
-
-### Secrets Required
-- None currently (public repository monitoring only)
-
-### Permissions
-- `issues: write` - Create/update issues
-- `contents: read` - Read repository files
-- `pull-requests: write` - Comment on PRs
-
-### External APIs Used
-- GitHub API (api.github.com) - No auth for public repos
-- Anthropic website (www.anthropic.com) - Public HTTP access
-
-### Sensitive Data
-- No secrets or credentials in workflows
-- All monitored sources are public
-- Issue creation uses public data only
-
----
-
-## Future Enhancements
-
-Potential additions (from workflow recommendations):
-
-- [ ] Parse changelog for specific feature categories
-- [ ] Track star count trends over time
-- [ ] Summarize multiple new releases in single issue
-- [ ] Integrate with project board for triage
-- [ ] Add Slack/email notifications for critical issues
-- [ ] Dashboard visualization of source health
-
----
-
-**Last Updated**: February 2026
-**Reference**: SOURCES.md:1119-1127 for review cadence
+1. When you add, delete, or rename a workflow, edit this file **in the same
+   commit** — the checklist discipline in [`CONTRIBUTING.md`](../../CONTRIBUTING.md).
+2. `ls .github/workflows/*.yml` against the table above. If they disagree, the
+   table is wrong.

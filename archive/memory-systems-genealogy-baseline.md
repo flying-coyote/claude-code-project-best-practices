@@ -5,27 +5,29 @@ measurement-claims:
   - claim: "8 of 9 baseline queries (89%) returned DEFINITIVE answers using only CLAUDE.md + auto-memory + raw file navigation across the 3-project genealogy portfolio"
     source: "Sonnet subagent runs with self-classification, 2026-04-29; raw outputs in this doc"
     date: "2026-04-29"
-    revalidate: "2026-07-29"
+    revalidate: never  # frozen: cannot be re-measured (see the archival banner)
   - claim: "Tool-call cost is inversely correlated with availability of dedicated memory files, not directly correlated with corpus size"
     source: "dry-cross (3.3k md, 5 calls) vs genealogy (17k md, 9 calls) vs kindred (396 md, 14 calls)"
     date: "2026-04-29"
-    revalidate: "2026-07-29"
+    revalidate: never  # frozen: cannot be re-measured (see the archival banner)
   - claim: "Genealogy parent project's only PARTIAL answer (Q2 active brick walls) is attributable to absence of dedicated memory files for active research targets, not corpus size"
     source: "Direct comparison with dry-cross, which has dedicated memory files for resolved issues and scored DEFINITIVE on equivalent synthesis"
     date: "2026-04-29"
-    revalidate: "2026-07-29"
+    revalidate: never  # frozen: cannot be re-measured (see the archival banner)
   - claim: "Authoring 5 dedicated brick-wall memory files + a MEMORY.md flat-index entry per wall collapses Q2 from ~6-9 tool calls (PARTIAL) to 3 tool calls (DEFINITIVE) on the genealogy parent project"
     source: "Experiment #1, Sonnet subagent re-run 2026-04-29 against augmented memory; the rich one-line index entries in MEMORY.md were answer-sufficient without opening the dedicated files"
     date: "2026-04-29"
-    revalidate: "2026-07-29"
+    revalidate: never  # frozen: cannot be re-measured (see the archival banner)
 evidence-tier: B
 applies-to-signals: [memory-systems, second-brain, knowledge-base, md-corpus-large, md-corpus-very-large, project-type-research, vault-obsidian]
-revalidate-by: 2026-10-29
+revalidate-by: never  # frozen measurement — corpora private, baseline state mutated by Experiment #1; the per-claim 2026-07-29 dates below are historical, not a queue
 ---
 
 # Memory-System Baseline — Genealogy Trio
 
 > **ARCHIVED (2026-07-10, C1 Phase 3 memory-cluster fold).** Dated measurement — the claims are stamped 2026-04-29 with revalidate windows around 2026-07-29, and rather than re-run them the corpus keeps the raw record here and carries the *finding* forward: the headline result (8/9 DEFINITIVE on the unaugmented stack; disciplined memory authoring, not graph augmentation, is what retrieval quality rests on) lives on in `analysis/memory-systems-archetype-recommendations.md` §C-EC.6. This doc is out of the routed corpus; its `applies-to-signals` frontmatter is historical. Re-running the measurement (including the missing comparative arm, Gap 3) would supersede this snapshot.
+>
+> **Reclassified 2026-08-28 as a frozen measurement.** On revalidation the numbers were confirmed faithfully transcribed, but the measurement **cannot be re-run**: the measured corpora are private, and the baseline memory state was intentionally mutated by Experiment #1's 20 added brick-wall files. The per-claim `revalidate` dates were therefore changed from `2026-07-29` to `never`, so this stops re-entering the quarterly expiry queue as an item nobody can close. Read the headline as **8/9 DEFINITIVE, measured 2026-04-29; N=9, Sonnet, self-classified, single-arm, measurer-authored queries (~±10% binomial CI)** — a dated snapshot, not a standing finding.
 
 **Evidence Tier**: B (project-artifact based, direct measurement; N=9 query runs across 3 projects). Tool-specific quantitative claims about *augmented* stacks remain Tier C — this measurement covers baseline only.
 
@@ -218,9 +220,11 @@ Author a research-time query set with the user from real session questions (not 
 
 ## Sources
 
-### Tier A
+### Tier B
 
-- Direct empirical measurement (2026-04-29) — Sonnet subagent runs with self-classification across 3 genealogy projects (genealogy ~17k md files, genealogy-kindred 396 md, genealogy-dry-cross 3,290 md). N=9 queries. Raw outputs recorded in this doc. Source for all headline claims: 89% DEFINITIVE, tool-call cost inverse to dedicated memory file availability, Q2 PARTIAL attributable to absent brick-wall files.
+> **Heading corrected 2026-08-28.** This measurement sat under a `### Tier A` heading while the frontmatter graded the document `evidence-tier: B`. **B is the right grade** — uncorroborated single-practitioner evidence, self-classified, single-arm — so the heading was wrong, not the frontmatter.
+
+- Direct empirical measurement (2026-04-29) — Sonnet subagent runs with self-classification across 3 genealogy projects (genealogy ~17k md files, genealogy-kindred 396 md, genealogy-dry-cross 3,290 md). N=9 queries. **Summary results recorded in this doc; raw subagent outputs were not retained** — no transcripts exist anywhere in the repository, so what is here (classification, tool-call counts, wall times) is the full evidence layer, not an index into a deeper one. *(Phrasing corrected 2026-08-28; it previously read "Raw outputs recorded in this doc", which implied a recoverable layer that does not exist.)* Source for all headline claims: 89% DEFINITIVE, tool-call cost inverse to dedicated memory file availability, Q2 PARTIAL attributable to absent brick-wall files.
 - Experiment #1 validation (2026-04-29) — Fresh Sonnet subagent re-ran original Q2 query against augmented memory (5 then 20 dedicated brick-wall files). Source for the 3-call / DEFINITIVE / 44s post-experiment result vs. 6-9 calls / PARTIAL / 92s baseline.
 - [`memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md) §C-EC.6 Gap 2 — defined the Tier-D speculation this baseline was designed to resolve (the C-EC archetype folded into the consolidated doc 2026-07-10).
 
@@ -230,6 +234,6 @@ Author a research-time query set with the user from real session questions (not 
 
 - [`memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md) Archetype C section — non-PII variant of the second-brain archetype (folded 2026-07-10)
 - [`memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md) Archetype C-EC section — egress-constrained variant (renamed from C-PII; the genealogy-as-canonical-example framing was retired in the 2026-04-29 reframe; folded 2026-07-10)
-- [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across archetypes
-- [`memory-system-patterns.md`](memory-system-patterns.md) — earlier pattern survey
-- [`memory-systems-graphify-vs-understand-anything.md`](memory-systems-graphify-vs-understand-anything.md) — A/B comparison of LLM graph builders on the docs in *this* repo (not genealogy)
+- [`memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md) — index across archetypes
+- [`memory-system-patterns.md`](../analysis/memory-system-patterns.md) — earlier pattern survey
+- [`memory-systems-graphify-vs-understand-anything.md`](../analysis/memory-systems-graphify-vs-understand-anything.md) — A/B comparison of LLM graph builders on the docs in *this* repo (not genealogy)

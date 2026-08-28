@@ -28,6 +28,7 @@ class MeasurementExpiryChecker:
         self.patterns_dir = patterns_dir
         self.expired_claims = []
         self.expiring_soon = []  # Within 30 days
+        self.frozen_claims = []  # revalidate: never — deliberately unrepeatable
 
     def check_all_patterns(self) -> Dict:
         """Scan all pattern files for expired measurement claims."""
@@ -42,6 +43,7 @@ class MeasurementExpiryChecker:
             self._check_pattern_file(pattern_file, today)
 
         return {
+            "frozen": self.frozen_claims,
             "expired": self.expired_claims,
             "expiring_soon": self.expiring_soon,
             "checked_files": len(pattern_files),
@@ -103,6 +105,21 @@ class MeasurementExpiryChecker:
 
         if not revalidate_str:
             # No revalidate date, skip
+            return
+
+        # `revalidate: never` marks a measurement that CANNOT be re-run — the
+        # measured artifact is gone, private, or was mutated by a later step.
+        # Without this, such a claim expires every quarter and re-enters the
+        # queue forever as an item nobody can close, which trains readers to
+        # ignore the marker. Frozen is a verdict, not a missing date: it is
+        # reported separately, and it never counts as expired.
+        if str(revalidate_str).strip().lower() == "never":
+            self.frozen_claims.append({
+                "file": str(pattern_file),
+                "claim": claim_text,
+                "source": source,
+                "date": date_str,
+            })
             return
 
         try:
@@ -179,6 +196,21 @@ def generate_issue_body(results: Dict) -> str:
         body.append("\n**Upcoming Action**:\n")
         body.append("- Plan to re-validate these measurements before expiry\n")
         body.append("- Add to quarterly audit checklist (see DOGFOODING-GAPS.md)\n\n")
+
+    frozen = results.get("frozen", [])
+    if frozen:
+        body.append(f"### 🧊 Frozen — cannot be re-measured ({len(frozen)} claims)\n\n")
+        body.append("These carry `revalidate: never`. They are dated historical records whose\n")
+        body.append("underlying measurement is not repeatable. **No action is possible or expected.**\n\n")
+        body.append("| Claim | Source | Measured | File |\n")
+        body.append("|-------|--------|----------|------|\n")
+        for claim in frozen:
+            file_name = Path(claim["file"]).stem
+            claim_short = claim["claim"][:50]
+            if len(claim["claim"]) > 50:
+                claim_short += "..."
+            body.append(f"| {claim_short} | {claim['source']} | {claim['date']} | {file_name} |\n")
+        body.append("\n")
 
     if not expired and not expiring_soon:
         body.append("✅ All measurement claims are current. No action required.\n\n")

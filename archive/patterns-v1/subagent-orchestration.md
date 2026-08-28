@@ -21,7 +21,7 @@ last-verified: "2026-02-16"
 
 > **Meta-Guide Note**: This pattern synthesizes vendor documentation and adds 10 advanced orchestration patterns beyond official docs (fresh context per subagent, state externalization, multi-agent coordination). For authoritative subagent API and feature documentation, see [Claude Code official docs](https://code.claude.com/docs/en/sub-agents). For advanced patterns and architectural guidance, continue here.
 >
-> **This is the DEFAULT orchestration approach for Claude Code.** Native subagent patterns handle ~80% of work with zero additional setup. For specialized needs, see [Framework Selection Guide](./framework-selection-guide.md).
+> **This is the DEFAULT orchestration approach for Claude Code.** Native subagent patterns handle ~80% of work with zero additional setup. For specialized needs, see [Framework Selection Guide](../framework-selection-guide.md).
 
 ## Overview
 
@@ -842,10 +842,10 @@ Then implement sequentially in parent with full context.
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
 - [Progressive Disclosure](./progressive-disclosure.md) - Token-efficient methodology loading
 - [Context Engineering](./context-engineering.md) - Managing context effectively
-- [Agent Principles](./agent-principles.md) - Six foundational principles for agent design
+- Agent Principles (doc retired 2026-07-10 — official Anthropic best-practices carries this slice) - Six foundational principles for agent design
 - [Advanced Hooks](./advanced-hooks.md) - SubagentStart/Stop hooks for orchestration
-- [Safety and Sandboxing](./safety-and-sandboxing.md) - Security for multi-agent execution
-- [Agent Evaluation](./agent-evaluation.md) - Evaluating agent team performance
+- [Safety and Sandboxing](../../analysis/safety-and-sandboxing.md) - Security for multi-agent execution
+- [Agent Evaluation](../../analysis/agent-evaluation.md) - Evaluating agent team performance
 
 ---
 

@@ -358,7 +358,7 @@ jobs:
 
 - [Documentation Maintenance](./documentation-maintenance.md) - Team CLAUDE.md pattern
 - [Subagent Orchestration](./subagent-orchestration.md) - Background processing
-- [Plugins and Extensions](./plugins-and-extensions.md) - Permission configuration
+- [Plugins and Extensions](../../analysis/plugins-and-extensions.md) - Permission configuration
 
 ---
 

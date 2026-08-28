@@ -464,7 +464,7 @@ This multiplied effectiveness beyond what simple task distribution achieves.
 - [Subagent Orchestration](./subagent-orchestration.md) - In-session parallelism and agent teams
 - [Documentation Maintenance](./documentation-maintenance.md) - Team CLAUDE.md updates
 - [Long-Running Agent](./long-running-agent.md) - External artifacts for context bridging
-- [Safety and Sandboxing](./safety-and-sandboxing.md) - Security for parallel execution
+- [Safety and Sandboxing](../../analysis/safety-and-sandboxing.md) - Security for parallel execution
 
 ---
 

@@ -191,9 +191,9 @@ Memory is one of several ways context persists. Use the right mechanism:
 
 ## Related (from graph)
 
-- [`analysis/behavioral-insights.md`](analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
-- [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
-- [`INDEX.md`](INDEX.md) [EXTRACTED (1.00)] — references
-- [`analysis/domain-knowledge-architecture.md`](analysis/domain-knowledge-architecture.md) [INFERRED (0.70)] — semantically_similar_to
+- [`analysis/behavioral-insights.md`](behavioral-insights.md) [EXTRACTED (1.00)] — references
+- [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
+- [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
+- [`analysis/domain-knowledge-architecture.md`](domain-knowledge-architecture.md) [INFERRED (0.70)] — semantically_similar_to
 
 <!-- graphify-footer:end -->

@@ -1,5 +1,7 @@
 # Claude Code Best Practices Refactoring Plan
 
+> **ARCHIVED — a dated record, not guidance.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. A completed plan: its patterns either landed (GSD, Johari/SAAE, CAII and Claude-Flow in analysis/orchestration-comparison.md and analysis/behavioral-insights.md; economics in analysis/mcp-vs-skills-economics.md) or were dropped, and every file path it names predates the v2.0 patterns/→analysis/ repositioning. It records a point in time and needs no successor — nobody should be looking here for current guidance. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Created**: January 26, 2026
 **Status**: Planning
 **Triggered By**: Gap analysis from Second Brain LinkedIn captures and web research

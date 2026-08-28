@@ -1,5 +1,7 @@
 # Writing Project Example
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live document succeeds it — the analysis corpus covers only code, pipeline, and analysis repositories, so writing-project harness setup and the markdown authoring hooks shown here remain uncovered territory and this file is still the repo's only source on them. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Type**: Technical blog / content creation project
 
 **Demonstrates**: Claude Code setup for writing, research, and documentation work
@@ -232,10 +234,10 @@ After setting up:
 
 ## Related Patterns
 
-- [context-engineering.md](../../patterns/context-engineering.md) - Minimal CLAUDE.md principles
-- [evidence-tiers.md](../../patterns/evidence-tiers.md) - Research and claim validation
-- [documentation-maintenance.md](../../patterns/documentation-maintenance.md) - Long-term doc management
-- [FOUNDATIONAL-PRINCIPLES.md](../../FOUNDATIONAL-PRINCIPLES.md) - The Big 3
+- [context-engineering.md](../../patterns-v1/context-engineering.md) - Minimal CLAUDE.md principles
+- [evidence-tiers.md](../../../analysis/evidence-tiers.md) - Research and claim validation
+- [documentation-maintenance.md](../../patterns-v1/documentation-maintenance.md) - Long-term doc management
+- [FOUNDATIONAL-PRINCIPLES.md](../../docs-v1/FOUNDATIONAL-PRINCIPLES.md) - The Big 3
 
 ---
 
