@@ -1,27 +1,35 @@
 ---
 status: EMERGING
-last-verified: "2026-04-30"
+last-verified: "2026-08-28"
 measurement-claims:
   - claim: "Single-curator hand-curated KBs hit the wiki+graph+contradiction-lint payoff threshold around ~500 documents"
     source: "Working-memory-vs-relation-count math; not measured studies"
     date: "2026-04-28"
     revalidate: "2026-10-28"
-  - claim: "Three of four 'check repo' tools verified MIT (Pratiyush, MehmetGoekce, Lum1104); Rowboat is Apache 2.0"
-    source: "Direct fetch of LICENSE files via raw.githubusercontent.com"
-    date: "2026-04-28"
-    revalidate: "2026-07-28"
-  - claim: "Graphify has zero LLM SDK dependencies in pyproject.toml — Pass 2 LLM work happens via the invoking Claude Code session, not graphify-internal API calls"
-    source: "Direct read of safishamsi/graphify pyproject.toml on v1 branch"
-    date: "2026-04-28"
-    revalidate: "2026-07-28"
-  - claim: "The unaugmented stack (CLAUDE.md + auto-memory + raw file navigation) achieved 89% DEFINITIVE answers (8/9) on a baseline measurement across the genealogy trio"
-    source: "archive/memory-systems-genealogy-baseline.md (2026-04-29 measurement; archived 2026-07-10 as a dated measurement)"
+  - claim: "Three of four 'check repo' tools verified MIT (Pratiyush, MehmetGoekce, Egonex-AI/Understand-Anything - formerly Lum1104); Rowboat is Apache 2.0. Unchanged on re-verification."
+    source: "Direct fetch of LICENSE files via raw.githubusercontent.com + GitHub API licence field, two independent channels, 2026-08-28"
+    date: "2026-08-28"
+    revalidate: "2027-02-28"
+    tier: A  # direct primary observation of the LICENSE files; the doc-level `evidence-tier: C` scopes the tool *recommendations*, not these licence facts
+  # Split 2026-08-28: the two halves of the original single claim no longer have the same truth value.
+  - claim: "graphify 0.9.51 has zero LLM SDKs among its 29 required dependencies; anthropic/openai/tiktoken/boto3 appear only under optional provider extras"
+    source: "Direct read of Graphify-Labs/graphify pyproject.toml, version 0.9.51, 2026-08-28 (org moved from safishamsi/graphify, which no longer resolves; default branch now v8)"
+    date: "2026-08-28"
+    revalidate: "2026-11-28"
+    tier: A
+  - claim: "Pass 2 LLM work routes through the invoking Claude Code session ONLY on the /graphify skill path; headless `graphify extract` makes direct provider API calls via --backend with its own credentials"
+    source: "Direct read of Graphify-Labs/graphify skills/graphify/skill.md Part B (Agent-tool dispatch) + README backend chain, 2026-08-28"
+    date: "2026-08-28"
+    revalidate: "2026-11-28"
+    tier: A
+  - claim: "The unaugmented stack (CLAUDE.md + auto-memory + raw file navigation) achieved 89% DEFINITIVE answers (8/9) on a baseline measurement across the genealogy trio, measured 2026-04-29"
+    source: "archive/memory-systems-genealogy-baseline.md — N=9, Sonnet, self-classified, single-arm, measurer-authored queries (~±10% binomial CI). Frozen snapshot: the measured corpora are private, and the baseline memory state was intentionally mutated by Experiment #1's 20 added files."
     date: "2026-04-29"
-    revalidate: "2026-07-29"
-  - claim: "Lum1104/Understand-Anything via local Ollama as a Pass-2 substitute is untested in this repo"
-    source: "Repo search; no testbed evidence found"
-    date: "2026-04-30"
-    revalidate: "2026-07-30"
+    revalidate: never  # cannot be re-measured — corpora private, baseline state destroyed. Marked so it stops re-entering the expiry queue as an unresolvable action item.
+  - claim: "Understand-Anything (Egonex-AI, formerly Lum1104) via local Ollama as a Pass-2 substitute is untested in this repo"
+    source: "Repo search 2026-08-28: grep -ri ollama across tree, no .ua/ or .understand-anything/ dir, no research artifact, zero commits under git log -S ollama"
+    date: "2026-08-28"
+    revalidate: "2026-11-28"
 evidence-tier: C
 convergence: emerging  # AI-PKM caveat (B-F1 seed): emerging WITH license risk — Obsidian Smart Connections ~786K downloads but Jan-2026 proprietary switch (DR-6 verified)
 applies-to-signals: [memory-systems, knowledge-base, second-brain, wiki, graph, md-corpus-small, md-corpus-design-target, md-corpus-large, md-corpus-very-large, vault-obsidian, vault-karpathy, project-type-docs, project-type-research, typed-memory-no-registry, code-search, monorepo, cross-project-synchronization, federation, work-tracker, temporal, session-history, transcript-mining, team-shared-memory, multi-tool-concurrency, corpus-sensitive, pii, sensitive-content, healthcare-data, legal-data, journal-third-parties]
@@ -44,15 +52,14 @@ Calibrated to **~500-document curated knowledge bases** as the single-curator de
 >
 > **Citation note.** Paths under `project1/` name files on the author's machine, not in this repository. They are recorded as **provenance for a single-practitioner production deployment** — enough to identify what was inspected and when — and are deliberately not hyperlinks, because no reader of this repository can follow them. Treat every `project1/` claim at the Tier-B bar this repo gives uncorroborated single-project evidence.
 >
-> **⚠️ 4 expired measurement claims in this document** (checked 2026-08-28 with `python3 scripts/check-measurement-expiry.py`).
-> Per [`evidence-tiers.md`](evidence-tiers.md) § Expired but not invalid, an expired claim is **flagged, not deleted** — the measurement stands as a dated historical record and must not be cited as current until re-measured.
+> **Revalidated 2026-08-28.** All four expired claims were re-checked against primary sources, and each verdict was then adversarially re-checked. **Two of the four moved**, and one of those changes a recommendation in this document:
 >
-> - ⚠️ **NEEDS REVALIDATION** (expired 2026-07-28, 31 days overdue): Graphify has zero LLM SDK dependencies in pyproject.toml — Pass 2 LLM work happens via the invoking Claude Code session, not graphify-internal API cal…
-> - ⚠️ **NEEDS REVALIDATION** (expired 2026-07-28, 31 days overdue): Three of four 'check repo' tools verified MIT (Pratiyush, MehmetGoekce, Lum1104); Rowboat is Apache 2.0
-> - ⚠️ **NEEDS REVALIDATION** (expired 2026-07-29, 30 days overdue): The unaugmented stack (CLAUDE.md + auto-memory + raw file navigation) achieved 89% DEFINITIVE answers (8/9) on a baseline measurement across the genea…
-> - ⚠️ **NEEDS REVALIDATION** (expired 2026-07-30, 29 days overdue): Lum1104/Understand-Anything via local Ollama as a Pass-2 substitute is untested in this repo
+> - **Graphify dependencies — SUPERSEDED, claim split.** The original single claim bundled two facts that no longer share a truth value. The dependency half still reproduces (0.9.51: zero LLM SDKs among 29 required deps). The routing half does **not**: current graphify ships `--backend` provider support, so headless `graphify extract` egresses directly. The Claude-Code-session routing holds **only on the `/graphify` skill path**. The repo also moved (`safishamsi/graphify` no longer resolves → [`Graphify-Labs/graphify`](https://github.com/Graphify-Labs/graphify)) and relicensed. **This changes the C-EC guidance below** — see § Archetype C-EC.
+> - **Licences — CONFIRMED, unchanged.** Three MIT, Rowboat Apache 2.0, verified through two independent channels. Marked Tier A (direct primary observation) inside this Tier C doc. Watch trigger recorded: Understand-Anything transferred to `Egonex-AI` and its LICENSE now co-asserts a corporate holder.
+> - **Genealogy baseline — UNVERIFIABLE, frozen.** The 8/9 number is faithfully transcribed, but it can never be re-measured: the corpora are private and the baseline memory state was intentionally mutated by Experiment #1. Restamped as a dated snapshot with `revalidate: never` so it stops re-entering the expiry queue as an unresolvable item.
+> - **Ollama substitute — CONFIRMED.** Still untested here. But upstream *now documents* an Ollama path (added 2026-06-19, after this repo's v2.3.2 check), so the experiment got cheaper while the evidence gap stayed exactly the same size. See § Gap 1.
 >
-> Revalidation is tracked in [`PLAN.md`](../PLAN.md). Flagged rather than silently carried, because an expired claim presented without a marker is the exact currency failure [`prose-corpus-discoverability.md`](prose-corpus-discoverability.md) measures.
+> Per [`evidence-tiers.md`](evidence-tiers.md) § Expired but not invalid, this is what the expiry marker is for. Flagged rather than silently carried, because an expired claim presented without a marker is the exact currency failure [`prose-corpus-discoverability.md`](prose-corpus-discoverability.md) measures.
 
 **Constraints honored on every recommendation**:
 
@@ -69,7 +76,7 @@ Calibrated to **~500-document curated knowledge bases** as the single-curator de
 
 | # | Archetype                                  | Primary stack (one-line)                                                                                       | Where |
 |---|--------------------------------------------|----------------------------------------------------------------------------------------------------------------|--------|
-| A | Curated analytical knowledge base          | Lum1104 below ~200 docs; Graphify + footer-injection at the ~500-doc design target                              | [`memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md) (own file) |
+| A | Curated analytical knowledge base          | Understand-Anything below ~200 docs; Graphify + footer-injection at the ~500-doc design target                              | [`memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md) (own file) |
 | B | Code monorepo / large codebase             | Graphify alone under ~10k files; + claude-context above                                                          | [§ Archetype B](#archetype-b-code-monorepo) below |
 | C | Personal cross-domain second brain         | Karpathy LLM Wiki + Graphify (footer-injection) + Pratiyush adapters                                             | [§ Archetype C](#archetype-c-personal-cross-domain-second-brain) below |
 | **C-EC** | **Second brain — egress-constrained**       | **Karpathy convention + hand-curated wiki + wikilink graph + auto-memory; no vendor LLM egress**              | [§ Archetype C-EC](#archetype-c-ec-egress-constrained-second-brain) below |
@@ -157,7 +164,7 @@ The pairing worth carrying over to a personal vault: **OKF stores what you know;
 |-----------------------------------------------------|---------------------------------------------------------------------|--------------------------------------------------------------------|
 | + OpenBrain (post-compilation-agent ship)           | Cross-tool concurrency                                              | Switching frequently between Claude Code, Cursor, ChatGPT          |
 | + Rowboat sliver                                    | Capturing the temporal layer (deadlines, commitments) without polluting the structural wiki | Wiki accumulating "decided last Tuesday" pages                     |
-| + Lum1104 plugin                                    | Wiki-aware graph view that uses your `[[wikilinks]]`                | Once the wiki has dense cross-refs                                 |
+| + Understand-Anything plugin                        | Wiki-aware graph view that uses your `[[wikilinks]]`                | Once the wiki has dense cross-refs                                 |
 | + claude-video for "watch later" YouTube ingest     | Converts the dormant YouTube pile (conference talks, tutorials, podcasts) into searchable transcripts + frame summaries that feed `sources/` | Significant fraction of intake is video; "watch later" backlog has effectively become a write-only graveyard |
 | + Tolaria as the editor surface                     | Native UX over the markdown vault without Obsidian plugin sprawl    | You want a desktop app and AGENTS-file convention rather than rolling your own `CLAUDE.md` from scratch |
 | + SiYuan if block-level recombination dominates     | Block IDs and transclusion for atomic-note workflows                | Knowledge is heavily recombined across pages (Zettelkasten style)  |
@@ -219,7 +226,7 @@ The Archetype C primary stack (Karpathy LLM Wiki + Graphify Pass 2 + Pratiyush a
 |----------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
 | Graphify Pass 2 — LLM extracts concepts from each file                | Bulk content egress to Anthropic/OpenAI API on every changed file                          |
 | Pratiyush adapter — ingests session `.jsonl` to wiki                  | Sessions contain quoted sensitive content from the corpus; egress at ingest                |
-| Lum1104 wiki-aware graph — LLM agents discover implicit relationships | Same egress profile (Pass 2 calls go through invoking session)                              |
+| Understand-Anything wiki-aware graph — LLM agents discover implicit relationships | Same egress profile — but see the 2026-08-28 correction in C-EC.4: "goes through the invoking session" is a property of the skill path, not of the tool |
 | `claude-context` semantic search                                      | Code/text goes to embedding provider; chunks to Milvus/Zilliz                               |
 | Cloud embedding APIs (OpenAI, VoyageAI, Gemini)                        | Same                                                                                        |
 | claude-video skill (Whisper API + frame analysis)                      | Audio to Groq/OpenAI; frames + transcript to Claude — fine for public, not for private     |
@@ -260,7 +267,8 @@ What works on prose under egress constraint:
 1. **Wikilink graph extraction** — a deterministic ~50-line script that walks `*.md` files, parses `[[wikilink]]` references, and builds an adjacency list. No LLM. Output is a JSON edge list that footer-injection scripts can consume.
 2. **Frontmatter index** — extract `type:`, `tags:`, `subject:` fields from YAML frontmatter into a SQLite or JSON index. Also deterministic.
 3. **Heading-graph** — sibling/parent relationships across files based on heading-text matches. Brittle but local.
-4. **Lum1104 + local Ollama** for the LLM-derived layer (the C-EC.2 hybrid; **untested** in this repo).
+4. **Understand-Anything ([Egonex-AI](https://github.com/Egonex-AI/Understand-Anything), formerly Lum1104) + local Ollama** for the LLM-derived layer (the C-EC.2 hybrid; **untested** in this repo).
+5. **graphify `extract --backend ollama`** (added 2026-08-28). Current graphify documents a fully-local Ollama backend and an `OPENAI_BASE_URL` path for llama.cpp / vLLM / LM Studio. This is a genuine change to this archetype: graphify's Pass 2 is **no longer categorically disqualified** under an egress constraint — conditional on the explicit backend flag and the environment audit in C-EC.4 step 2. Untested here; quality against a local model is unmeasured (Gap 1 covers the same question).
 
 The Pass 1 line above keeps Graphify in the recommendation only because it does meaningful work on *mixed* corpora (some code + some prose). On pure-prose corpora, replace it with the wikilink-graph approach.
 
@@ -268,7 +276,8 @@ The Pass 1 line above keeps Graphify in the recommendation only because it does 
 
 | Hybrid                                              | What it adds                                                          | What you trade                                                                                   |
 |-----------------------------------------------------|-----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| + Lum1104/Understand-Anything via local Ollama       | LLM-derived implicit relationships without vendor egress              | Quality drops vs. Claude/GPT (Tier C inferred from inventory; **untested locally**); setup cost  |
+| + Understand-Anything ([Egonex-AI](https://github.com/Egonex-AI/Understand-Anything), formerly Lum1104) via local Ollama | LLM-derived implicit relationships without vendor egress              | Quality drops vs. Claude/GPT (Tier C inferred from inventory; **untested locally**); setup cost  |
+| + graphify `extract --backend ollama` *(new 2026-08-28)* | Graphify's own Pass 2, kept local — no longer a vendor-egress path | Explicit flag is load-bearing (the default chain reaches Ollama **last**); quality against a local model unmeasured; **untested here** |
 | + Pre-redaction filter for selective Pass 2          | Some Pass 2 benefit on non-sensitive subset                            | Brittle in practice; misses ~95% of corpus for genealogy; risk of leak from incomplete redaction |
 | + Local-only Whisper for audio sources               | Audio ingest of family interviews, recorded methodology               | Setup of `whisper.cpp` or `faster-whisper`; quality drop vs Groq Whisper                          |
 | + Block-level layer (SiYuan) running entirely local  | Block IDs + transclusion for atomic-note workflows                     | Heavier app; community MCP server only; AGPL-3.0                                                  |
@@ -285,10 +294,12 @@ The Pass 1 line above keeps Graphify in the recommendation only because it does 
 ## C-EC.4 Adoption order
 
 1. **Inventory the egress boundary.** List the paths whose content cannot egress. Document in `CLAUDE.md` (paths + tools-not-to-run + cross-project egress confirmation rule). Reversible.
-2. **Run `graphify .` configured to skip Pass 2.** Either via a flag or by running it without an active Claude Code session (Pass 2 is invoked through the invoking session — no session, no Pass 2). Get the Pass 1 topology. Verify no LLM calls were made. Reversible.
+2. **Run graphify with Pass 2 explicitly disabled: `--code-only`, or `--backend ollama` if you want a local Pass 2.** Get the Pass 1 topology. Verify no LLM calls were made. Reversible.
+
+   > **Corrected 2026-08-28 — the previous wording here was unsafe.** This step used to read "run it without an active Claude Code session (Pass 2 is invoked through the invoking session — no session, no Pass 2)." That was true of graphify v1 and is **false of current versions**. Headless `graphify extract` auto-detects a provider from the environment and walks a chain (Gemini → Kimi → Claude → OpenAI → DeepSeek → Azure → Bedrock → Ollama), so a host with any provider credential present **egresses silently** with no session involved. Worse, *absence of API keys is not sufficient either*: `--backend claude-cli` needs no key (it rides the Claude subscription) and Bedrock needs none (IAM via the ambient AWS provider chain). The precondition is an **explicit backend flag**, not an inferred one. Audit the environment as well, but do not rely on the audit alone.
 3. **Hand-curate the wiki layer.** Accept the velocity drop; that's the price. **Stop if** the curation cost exceeds recall benefit at the current corpus size — for under ~200 docs the manual approach may not earn its keep yet (consult Archetype A's tier-2 fallback).
 4. **Add auto-memory entries as you work.** Per [`memory-system-patterns.md`](memory-system-patterns.md).
-5. **Reconsider Lum1104 + local Ollama** only after you've maintained 50+ wiki pages by hand and want graph augmentation. **Run a measurement first** — see the evidence gaps below.
+5. **Reconsider a local-model Pass 2** — either Understand-Anything + Ollama, or graphify's own `--backend ollama` — only after you've maintained 50+ wiki pages by hand and want graph augmentation. **Run a measurement first** — see the evidence gaps below.
 6. **Reconsider claude-video** only for the public sources subset (methodology talks, conference recordings). Maintain strict separation: a `sources/public/` subdir that the ingestion skill is allowed to touch, distinct from `sources/private/` that it never reads.
 
 ## C-EC.5 Constraint check
@@ -302,9 +313,13 @@ The Pass 1 line above keeps Graphify in the recommendation only because it does 
 
 ## C-EC.6 Evidence gaps and what we now know
 
-**Gap 1 (still open): Lum1104 + local Ollama for the LLM-derived layer.** Untested in this repo. Highest-leverage experiment: take a 500-doc subset (synthetic clinical-note generator, or a redacted slice of a real journal corpus with permission); run Lum1104 against it with local Ollama (gemma3, qwen2.5, or llama3.3 — pick one and document); compare graph quality (edge precision, missed relationships, node naming consistency) vs. the same corpus with Claude/GPT Pass 2; document the quality degradation. *This is the missing evidence behind any local-LLM Pass 2 recommendation* — without it the C-EC.2 row is Tier D speculation, not C.
+**Gap 1 (still open): a local-model Pass 2 for the LLM-derived layer.** Untested in this repo. Highest-leverage experiment: take a 500-doc subset (synthetic clinical-note generator, or a redacted slice of a real journal corpus with permission); run Understand-Anything against it with local Ollama (gemma3, qwen2.5, or llama3.3 — pick one and document); compare graph quality (edge precision, missed relationships, node naming consistency) vs. the same corpus with Claude/GPT Pass 2; document the quality degradation. *This is the missing evidence behind any local-LLM Pass 2 recommendation* — without it the C-EC.2 row is Tier D speculation, not C.
 
-**Gap 2 (resolved + validated 2026-04-29): Is the unaugmented stack sufficient? Yes, when memory authorship is disciplined** — see [`archive/memory-systems-genealogy-baseline.md`](../archive/memory-systems-genealogy-baseline.md). The 9-query measurement scored 8/9 DEFINITIVE under the unaugmented stack alone; the PARTIAL was traced to a missing dedicated memory file for active brick walls, not to corpus size or augmentation absence. Experiment #1 validated the fix: authoring 5 dedicated brick-wall memory files (~6 min each) plus a flat-index entry per wall in `MEMORY.md` collapsed the failing query from 6-9 tool calls (PARTIAL) to **3 tool calls (DEFINITIVE)** — the validation subagent answered from `MEMORY.md`'s one-line index entries alone. Implications (Tier B from validated experiment):
+> **Revalidated 2026-08-28: cheaper to run, exactly as unevidenced.** Upstream now documents an Ollama path in the README Quick Start — added by commit `7f5a717` on **2026-06-19** ("docs: note local-model option and token-usage expectations in install steps"), i.e. *after* this repo's 2026-04-28/30 verification against v2.3.2. Graphify has since added `--backend ollama` too. So the experiment is materially cheaper than when this gap was written. **The evidence gap is unchanged in size**: neither project publishes quality data for the local path, and this is provider delegation rather than first-party integration. The C-EC.2 rows stay at **D-leaning-C**. Note also that the version tested here (v2.3.2) is now six minor versions stale against v2.9.4, which stales the `/understand-knowledge` Karpathy-gate verification recorded in [`DECISIONS.md`](../DECISIONS.md) and every `.understand-anything/` path reference in this cluster (upstream default is now `.ua/`, with the legacy directory still honoured — so those references are stale, not broken).
+
+**Gap 2 (resolved for this portfolio as of 2026-04-29, pending Gap 3's comparative arm): Is the unaugmented stack sufficient? Yes, when memory authorship is disciplined** — see [`archive/memory-systems-genealogy-baseline.md`](../archive/memory-systems-genealogy-baseline.md). The 9-query measurement scored 8/9 DEFINITIVE under the unaugmented stack alone; the PARTIAL was traced to a missing dedicated memory file for active brick walls, not to corpus size or augmentation absence.
+
+> **Read this as a dated snapshot, not a live finding (restamped 2026-08-28).** The measurement is **N=9, Sonnet, self-classified, single-arm, with measurer-authored queries** — roughly ±10% binomial CI on 8/9. It also **cannot be re-measured**: the corpora are private, and the baseline memory state was intentionally mutated by Experiment #1's 20 added brick-wall files. The claim is therefore marked `revalidate: never` in this document's frontmatter — frozen rather than expiring, so it stops re-entering the quarterly queue as an item nobody can close. Calling it "resolved + validated", as this heading did until 2026-08-28, was stronger than a nine-query single-arm measurement supports. Experiment #1 validated the fix: authoring 5 dedicated brick-wall memory files (~6 min each) plus a flat-index entry per wall in `MEMORY.md` collapsed the failing query from 6-9 tool calls (PARTIAL) to **3 tool calls (DEFINITIVE)** — the validation subagent answered from `MEMORY.md`'s one-line index entries alone. Implications (Tier B from validated experiment):
 
 - **Disciplined memory authoring** is what makes the unaugmented stack work, not augmentation per se. The pattern: `CLAUDE.md` routes; dedicated memory files behind a flat `MEMORY.md` index hold resolved-but-complex knowledge; rich one-line index summaries are answer-sufficient for list/synthesis queries.
 - The cheapest improvement is more dedicated memory files, not graph infrastructure. ~6-10 min per file. Tool-call reduction: 5-9 reads → 1-3 reads on synthesis queries; classification typically upgrades by a tier.
@@ -401,7 +416,7 @@ All met. Local-first holds for the markdown vault; Google services + optional Co
 
 # Archetype F (session-history archive)
 
-For **mining AI-tool session history into durable knowledge**: extracting recurring rules, decisions, and conclusions from Claude Code / Codex / Cursor / Gemini transcripts. Tier C — Pratiyush verified MIT at [pratiyushpathak/llm-wiki](https://github.com/pratiyushpathak/llm-wiki) (2026-04-28). Native session resume and `/rewind` cover part of this slice for single-session recovery; this archetype is for durable cross-session mining.
+For **mining AI-tool session history into durable knowledge**: extracting recurring rules, decisions, and conclusions from Claude Code / Codex / Cursor / Gemini transcripts. Tier C — Pratiyush verified MIT at [Pratiyush/llm-wiki](https://github.com/Pratiyush/llm-wiki) (re-verified 2026-08-28; the old `pratiyushpathak/` slug no longer resolves). Native session resume and `/rewind` cover part of this slice for single-session recovery; this archetype is for durable cross-session mining.
 
 ## F1. Primary stack
 
@@ -514,7 +529,7 @@ For **concurrent-write team shared memory** across multiple AI tools — where f
 | Combination                                                                                          | Failure                                                                                                                                                                                                |
 |------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Pratiyush + MehmetGoekce on the same vault                                                            | Both want to author/organize the same wiki pages with different conventions; ingest passes overwrite each other's structure                                                                            |
-| Graphify + Lum1104 on the same corpus *without designating one as authoritative*                       | Two topology layers with no defined merge; results disagree silently. Running both is fine if one explicitly drives the contradiction-lint and the other is read-only — pick which                      |
+| Graphify + Understand-Anything on the same corpus *without designating one as authoritative*                       | Two topology layers with no defined merge; results disagree silently. Running both is fine if one explicitly drives the contradiction-lint and the other is read-only — pick which                      |
 | `graphify --wiki` export + a hand-curated wiki on the same content                                     | Source-of-truth ambiguity; violates the graphify-feeds-wiki constraint                                                                                                                                 |
 | claude-context + OpenBrain pgvector                                                                    | Two embedding indexes over similar content; doubled cost, drift, no defined merge strategy                                                                                                              |
 | Rowboat + LLM Wiki on the same content scope                                                           | Page-per-topic vs typed-entity-per-event collide; backlinks point in conflicting directions                                                                                                            |
@@ -525,13 +540,13 @@ For **concurrent-write team shared memory** across multiple AI tools — where f
 | Tool                                                                       | License                                                                  | Egress                                                                                                  | Commercial reuse                                                                                                                              |
 |----------------------------------------------------------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
 | Karpathy gist                                                              | None stated                                                              | n/a (paradigm)                                                                                          | Convention only, not redistributable code                                                                                                    |
-| Graphify                                                                   | MIT ✅                                                                   | Pass 2 LLM calls go through invoking Claude Code session                                                | Free reuse; LLM cost via session; sensitive content leaves the box                                                                            |
-| Pratiyush/llm-wiki                                                         | MIT ✅ (verified 2026-04-28)                                              | Depends on LLM choice                                                                                   | Free reuse; redaction-by-default per inventory                                                                                               |
-| MehmetGoekce/llm-wiki                                                      | MIT ✅ (verified 2026-04-28)                                              | Depends on LLM choice                                                                                   | Free reuse                                                                                                                                    |
-| Lum1104/Understand-Anything                                                | MIT ✅ (verified 2026-04-28)                                              | Depends on LLM choice                                                                                   | Free reuse                                                                                                                                    |
+| Graphify ([Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify), was `safishamsi/`) | **v1: MIT. Current (`v8` default): Apache-2.0**, MIT retained in `license-files` — not a clean swap (verified 2026-08-28) | **Depends on the invocation path.** `/graphify` skill path: Pass 2 runs on the invoking Claude Code session. Headless `graphify extract`: direct provider egress unless `--code-only` or an explicit `--backend ollama` | Free reuse under either licence; LLM cost via session *or* via your own provider key; sensitive content leaves the box unless the backend is pinned local |
+| [Pratiyush/llm-wiki](https://github.com/Pratiyush/llm-wiki)                | MIT ✅ (re-verified 2026-08-28)                                           | Depends on LLM choice                                                                                   | Free reuse; redaction-by-default per inventory                                                                                               |
+| MehmetGoekce/llm-wiki                                                      | MIT ✅ (re-verified 2026-08-28)                                           | Depends on LLM choice                                                                                   | Free reuse                                                                                                                                    |
+| [Egonex-AI/Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) (formerly `Lum1104/`) | MIT ✅ (re-verified 2026-08-28) — LICENSE now co-asserts "Yuxiang Lin" **and** "Infinite Universe, Inc." | Depends on LLM choice                                                                                   | Free reuse. **Licence-change watch trigger**: org transfer + corporate copyright assignment is the Obsidian Smart Connections shape this doc's frontmatter already flags |
 | claude-context                                                             | MIT ✅ on code                                                            | Code → embedding provider; chunks → Milvus/Zilliz                                                       | Free reuse of code; recurring infra + provider cost; egress disqualifies for proprietary code unless Ollama + self-hosted Milvus              |
 | OpenBrain                                                                  | **FSL-1.1-MIT**                                                          | None if self-hosted + BYO model                                                                          | 2-year reciprocal restriction on competing managed services; converts to MIT after 2 years; internal commercial use fine                      |
-| Rowboat ([rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat))    | **Apache 2.0** ✅ (verified 2026-04-28)                                   | Google services (Gmail/Calendar/Drive) by default; optional Deepgram, ElevenLabs, Exa, Composio API keys | Free reuse with attribution; Google + optional-vendor egress; desktop app, not a library                                                      |
+| Rowboat ([rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat))    | **Apache 2.0** ✅ (re-verified 2026-08-28)                                | Google services (Gmail/Calendar/Drive) by default; optional Deepgram, ElevenLabs, Exa, Composio API keys | Free reuse with attribution; Google + optional-vendor egress; desktop app, not a library                                                      |
 | InfraNodus ([infranodus/](https://github.com/infranodus))                  | Proprietary SaaS (€12–66/mo); MIT MCP server + n8n nodes are open-source clients | Full content + GPT egress to InfraNodus servers                                                          | Subscription required for core; no self-hosted option; methodology is well-established (Paranyushkin / Nodus Labs, 10+ years)                 |
 | SiYuan                                                                     | AGPL-3.0                                                                 | None (local app); community MCP server only                                                              | AGPL copyleft applies; block-level local app                                                                                                  |
 
@@ -542,7 +557,7 @@ For **concurrent-write team shared memory** across multiple AI tools — where f
 | A         | Footer-injection script; contradiction lint                                   | ~50–100 lines Python; reads `graph.json` + walks `analysis/*.md`           |
 | B         | CI step to enforce reindex-on-PR                                              | One GitHub Action with `graphify .` + cache key                             |
 | C         | "Promote-to-wiki" agent (graphify finding → wiki page draft for human review) | Local script ~1 day                                                         |
-| C-EC      | Egress-boundary lint (catch a tool config that would egress flagged paths); Lum1104 + local Ollama testbed; baseline measurement script | ~1 day for the lint; testbed is a measurement project (baseline already done — see [`archive/memory-systems-genealogy-baseline.md`](../archive/memory-systems-genealogy-baseline.md)) |
+| C-EC      | Egress-boundary lint (catch a tool config that would egress flagged paths); local-Ollama Pass-2 testbed (Understand-Anything or graphify `--backend ollama`); baseline measurement script | ~1 day for the lint; testbed is a measurement project (baseline already done — see [`archive/memory-systems-genealogy-baseline.md`](../archive/memory-systems-genealogy-baseline.md)) |
 | D         | Federation index across per-repo `index.md` files                              | 50-line script                                                             |
 | E         | Temporal lint ("deadline shifted past today")                                  | Cron + small Python                                                         |
 | F         | Multi-agent dedup (same conclusion across 3 agents → single page)              | Pratiyush partially does this; verify and extend                            |
@@ -555,7 +570,7 @@ For **concurrent-write team shared memory** across multiple AI tools — where f
 | 1 | Graphify's 71.5× token-savings claim *(Tier C — vendor-reported, not independently benchmarked)*  | Reproduce on three corpora (pure code, pure prose, mixed); require ≥10× on at least two                                  |
 | 2 | Claude-context ~40% reduction *(Tier C — vendor-reported, not independently benchmarked)*          | Reproduce on a real proprietary repo at 5k / 20k / 50k file sizes with a fixed query set                                  |
 | 3 | Karpathy paradigm "compounding insight" benefit                        | Run a 6-month retention study on a real ~500-doc KB: does query latency on novel questions actually drop?                |
-| 4 | Lum1104 wiki-aware vs graphify-on-wiki quality                         | A/B on the same vault; have a human rate edge usefulness blind                                                            |
+| 4 | Understand-Anything wiki-aware vs graphify-on-wiki quality                         | A/B on the same vault; have a human rate edge usefulness blind                                                            |
 | 5 | OpenBrain compilation agent (not shipped)                              | Wait for release; until then this is Tier D speculation, not C                                                            |
 
 ---
@@ -564,8 +579,10 @@ For **concurrent-write team shared memory** across multiple AI tools — where f
 
 ### Tier A
 
-- Direct license verification (2026-04-28) — Raw fetch of LICENSE files from raw.githubusercontent.com. Confirms: Pratiyush/llm-wiki = MIT, MehmetGoekce/llm-wiki = MIT, Lum1104/Understand-Anything = MIT, Rowboat = Apache 2.0.
-- Direct read of safishamsi/graphify pyproject.toml (v1 branch, 2026-04-28) — Zero LLM SDK dependencies confirmed; Pass 2 LLM work happens via invoking Claude Code session.
+- Direct license verification (2026-04-28; **re-verified 2026-08-28** through two independent channels — raw LICENSE fetch plus the GitHub API licence field). Confirms, unchanged: Pratiyush/llm-wiki = MIT, MehmetGoekce/llm-wiki = MIT, Egonex-AI/Understand-Anything = MIT, Rowboat = Apache 2.0. **Tier A** (direct primary observation) despite this document's `evidence-tier: C`, which scopes the *tool recommendations*, not these licence facts.
+- Direct read of `safishamsi/graphify` pyproject.toml (v1 branch, 2026-04-28) — zero LLM SDK dependencies confirmed; Pass 2 LLM work happens via the invoking Claude Code session. **Superseded 2026-08-28**, see below.
+- Direct read of [`Graphify-Labs/graphify`](https://github.com/Graphify-Labs/graphify) pyproject.toml at 0.9.51 and `skills/graphify/skill.md` Part B (2026-08-28) — **Tier A**. Two findings, previously bundled as one claim: (a) zero LLM SDKs among the 29 *required* dependencies still holds (anthropic/openai/tiktoken/boto3 appear only under optional provider extras); (b) session routing is a property of the **skill path**, not of the package — `skill.md` Part B dispatches Pass 2 through the invoking session's Agent tool ("MANDATORY: You MUST use the Agent tool here"), while headless `graphify extract` has its own `--backend` provider chain. The old repo path no longer resolves; v1 is a frozen branch at 0.1.15.
+  - **Method note.** Absence of a dependency is *corroboration*, not proof of no-egress, and should not be modelled as a proof pattern elsewhere in this repo — graphify's own `claude-cli` backend is a zero-SDK-dependency direct-egress path. Cite the dispatch mechanism; use the dependency list to support it.
 - [archive/memory-systems-genealogy-baseline.md](../archive/memory-systems-genealogy-baseline.md) — Direct measurement across 3 genealogy projects, N=9 queries; 8/9 DEFINITIVE (89%) on the unaugmented stack; Tier B empirical evidence informing archetype C and C-EC. Archived 2026-07-10 as a dated measurement (claims dated 2026-04-29); the finding survives here and in §C-EC.6.
 - [memory-systems-recommendation-methodology.md](memory-systems-recommendation-methodology.md) — Methodology, threshold math, assumption challenges, applied corrections, and the owner-authorized-egress deciding rule that underpin all per-archetype recommendations.
 
@@ -581,9 +598,9 @@ For **concurrent-write team shared memory** across multiple AI tools — where f
 - OpenBrain $0.10–0.30/month cost estimate. **Vendor-reported — not independently benchmarked.**
 - InfraNodus subscription pricing (€12–66/mo) — Proprietary SaaS pricing as listed; not independently verified. **Vendor-reported — not independently benchmarked.**
 - [Google Cloud — Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) — Apache-2.0; [announced 2026-06-12](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing). Sole required frontmatter field is `type:`. Date/license/required-field verified against primary spec + blog (2026-06-21).
-- [rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat) — Apache 2.0, 13.1k stars, desktop app for Mac/Windows/Linux, verified 2026-04-28. Typed-entity files, background briefing agents, Composio BYO integrations. **Community-reported star count and capability claims — not independently benchmarked.**
-- [pratiyushpathak/llm-wiki](https://github.com/pratiyushpathak/llm-wiki) — MIT, verified 2026-04-28. Three-layer architecture (`raw/` → `wiki/` → `site/`), adapters for Claude Code, Codex, Cursor, Gemini, Obsidian, Copilot; redaction-by-default for keys/tokens. **Community-reported — not independently benchmarked.**
-- Lum1104/understand-anything + local Ollama — cited as the C-EC.2 hybrid for LLM-derived relationships without vendor egress; explicitly labeled **untested in this repo** (Tier D leaning C).
+- [rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat) — Apache 2.0, **~17.4k stars (2026-08-28**; the "13.1k" carried here since 2026-04-28 was stale by ~33% — star counts belong in their own dated clause, not inside a licence verification), desktop app for Mac/Windows/Linux, licence re-verified 2026-08-28. Typed-entity files, background briefing agents, Composio BYO integrations. **Community-reported star count and capability claims — not independently benchmarked.**
+- [Pratiyush/llm-wiki](https://github.com/Pratiyush/llm-wiki) — MIT, re-verified 2026-08-28. *(Slug corrected: `pratiyushpathak/llm-wiki` no longer resolves. Default branch is `master`.)* Three-layer architecture (`raw/` → `wiki/` → `site/`), adapters for Claude Code, Codex, Cursor, Gemini, Obsidian, Copilot; redaction-by-default for keys/tokens. **Community-reported — not independently benchmarked.**
+- [Egonex-AI/Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) (formerly `Lum1104/Understand-Anything`; transfer complete, verified 2026-08-28) + local Ollama — cited as the C-EC.2 hybrid for LLM-derived relationships without vendor egress; explicitly labeled **untested in this repo** (Tier D leaning C). Upstream documented the Ollama path in commit `7f5a717`, 2026-06-19 — after this repo's v2.3.2 check.
 - SiYuan — block-level local app (AGPL-3.0); cited as hybrid for atomic-note workflows; community MCP server only. **Community-reported — not independently benchmarked.**
 
 ---

@@ -50,7 +50,7 @@ Domain-heavy projects — security rule ecosystems, infrastructure-as-code, regu
 | **External memory** | File system | Reference docs, catalogs, prior decisions | When agent reads specific files | Per-read |
 | **Deep dive** | Subagents | Specialized investigation in fresh context | When delegated | Zero main context cost |
 
-This mirrors the pattern Manus discovered independently — file system as external memory — and it's why Claude Code's 4-tool design (read, write, edit, bash) works: the tools let the LLM *pull* context on demand instead of having it pushed into the window (Vercel's text-to-SQL experiment found this swap alone moved accuracy from 80% to 100% — see Sources). The two sections below — resource maps and typed knowledge — are the domain-heavy-specific patterns built on top of this stack; skills and CLAUDE.md are now covered by the official docs.
+This mirrors the pattern Manus discovered independently — file system as external memory — and it's why Claude Code's 4-tool design (read, write, edit, bash) works: the tools let the LLM *pull* context on demand instead of having it pushed into the window (Vercel's text-to-SQL experiment found this swap alone moved accuracy from 4/5 to 5/5 evaluation queries — **n=5, one query flipping**, so cite the direction, not the rate; see Sources). The two sections below — resource maps and typed knowledge — are the domain-heavy-specific patterns built on top of this stack; skills and CLAUDE.md are now covered by the official docs.
 
 ---
 
@@ -174,7 +174,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 ### Tier B (Validated / Production)
 
 - Manus: file system as external memory pattern — context engineering lessons (2025-2026)
-- Vercel: text-to-SQL experiment — general-purpose (pull) tools outperformed specialized (push) tools, 80% → 100% accuracy
+- Vercel: ["We removed 80% of our agent's tools"](https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools) (Andrew Qu, 2025-12-22, Tier A first-party) — general-purpose (pull) tools outperformed specialized (push) tools: ~15-18 tools → 2, accuracy 4/5 → 5/5 (**n=5**), tokens -37%, steps -42%, 3.5x faster. Re-sourced from a second-hand video citation 2026-08-28; the accuracy figure is one query, not a rate.
 - **OKF typed-substrate case study** (§Typed Knowledge as the Queryable Substrate) — single production vault (project1), firsthand: `_type-registry.md`, `okf.py`, `quality_gates.py:validate_okf_type`, `okf_health.py`, `okf_signals.py`. **One practitioner, one project, not independently corroborated.**
 
 ### Tier C (Vendor-Published Standard)

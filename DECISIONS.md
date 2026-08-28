@@ -562,7 +562,7 @@ Split into 7 per-archetype docs + recommendations index + methodology + comparis
 - Empirical Pass 1: 243 nodes / 427 edges, all from code; 0 of 38 prose docs received nodes (Tree-sitter is code-only).
 - Empirical Pass 2: 1187 nodes / 1651 edges / 67 communities / 88% EXTRACTED on a corpus the recommendations were calibrated to.
 - Hallucination spot-check (n=8 random EXTRACTED cross-file prose edges): ~25% hallucinated, ~12% mistagged-as-EXTRACTED-when-INFERRED, ~38% verified, ~25% indeterminate. Indicative not definitive at n=8.
-- Lum1104 `/understand-knowledge` Karpathy-gate verified against plugin v2.3.2 source — requires lowercase `index.md` + `raw/` + `log.md`; falls back to `/understand-anything:understand` otherwise.
+- Understand-Anything `/understand-knowledge` Karpathy-gate verified against plugin v2.3.2 source — requires lowercase `index.md` + `raw/` + `log.md`; falls back to `/understand-anything:understand` otherwise. **Stale as of 2026-08-28**: the plugin is now at v2.9.4 (six minor versions on), moved to [`Egonex-AI/Understand-Anything`](https://github.com/Egonex-AI/Understand-Anything), and its default state directory changed to `.ua/`. Re-verify the gate before relying on this.
 
 ### Trade-offs Accepted
 

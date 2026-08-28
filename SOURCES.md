@@ -1039,7 +1039,7 @@ Track these for production readiness:
   - Five middleware changes documented: `PreCompletionChecklistMiddleware` (self-verification loop), `LocalContextMiddleware` (directory/tooling map at startup), loop-detection middleware (per-file edit counts to catch doom loops), reasoning-budget allocation in a "reasoning sandwich" (xhigh-high-xhigh across plan/build/verify), time-budget warnings
   - Full TerminalBench traces published publicly
 - **Direct quote on harness purpose**: *"the purpose of the harness engineer: prepare and deliver context so agents can autonomously complete work."*
-- **Relevance**: Independent practitioner replication of the harness-as-multiplier effect with a reproducible artifact (traces). Sits alongside Meta-Harness (arXiv:2603.28052) and SWE-Bench Mobile (arXiv:2602.09540) as the third independent corroboration of H-HARNESS-01's headline class of result.
+- **Relevance**: Independent practitioner replication of the harness-as-multiplier effect with a reproducible artifact (traces). Sits alongside Meta-Harness (arXiv:2603.28052) and SWE-Bench Mobile (arXiv:2602.09540) as a third independent convergent result on H-HARNESS-01's headline class of finding. *(Wording corrected 2026-08-28: both LangChain's post and SWE-Bench Mobile predate Meta-Harness, so neither corroborates it after the fact. The 2026-05-24 changelog entry below preserves the original wording as a record.)*
 - **Pattern**: [Harness Engineering](analysis/harness-engineering.md) — H-HARNESS-01 practitioner replication.
 - **Evidence Tier**: B (Authoritative practitioner blog from an organization with deep agent-harness expertise; reproducible via public traces)
 
@@ -1084,14 +1084,15 @@ Track these for production readiness:
 - **Pattern**: [Behavioral Insights](analysis/behavioral-insights.md) (Document & Clear pattern refinement), [Memory System Patterns](analysis/memory-system-patterns.md) (context as accumulating playbook).
 - **Evidence Tier**: A (Peer-reviewed at ICLR 2026 — first top-venue paper explicitly validating context management as a measurable performance multiplier)
 
-### "SWE-Bench Mobile: Can LLM Agents Develop Industry-Level Mobile Apps?" (arXiv:2602.09540)
+### "SWE-Bench Mobile: Can Large Language Model Agents Develop Industry-Level Mobile Applications?" (arXiv:2602.09540)
 - **Authors**: Tian, Wang, Yang et al.
-- **Source**: [arXiv:2602.09540](https://arxiv.org/abs/2602.09540)
-- **Date**: 2026-02-10 (verified 2026-05-24)
+- **Source**: [arXiv:2602.09540](https://arxiv.org/abs/2602.09540); [DOI 10.1145/3770855.3818488](https://doi.org/10.1145/3770855.3818488)
+- **Date**: 2026-02-10 (verified 2026-05-24; revalidated 2026-08-28 — every load-bearing number reproduced verbatim against the paper)
 - **Description**: Mobile-app benchmark covering 22 agent-model configurations.
-- **Key Finding**: Same model (Opus 4.5) achieves 12% on Cursor vs. 2% on OpenCode — exactly 6× — purely from scaffold differences. Independent corroboration of the Meta-Harness "6× from harness alone" claim on a separate benchmark.
-- **Pattern**: [Harness Engineering](analysis/harness-engineering.md) — independent benchmark replication of H-HARNESS-01's headline figure.
-- **Evidence Tier**: B (Preprint with reproducible benchmark; not yet peer-reviewed)
+- **Key Finding**: Same model (Opus 4.5) achieves 12% on Cursor vs. 2% on OpenCode — 6× — purely from scaffold differences. An independent **convergent** finding on the Meta-Harness "6× from harness alone" claim, on a separate benchmark.
+- **Qualifications (added 2026-08-28)**: (1) SWE-Bench Mobile predates Meta-Harness by seven weeks, so it converges independently rather than corroborating afterward. (2) 6× is the table's **maximum**: Sonnet 4.5 gives 3×, GLM-4.6 gives 1.5×, and GPT-5.1's Cursor/OpenCode result is inverted (2% vs 6%, tabulated as ∞ because Codex scores 0). Abstract and Table 6 caption hedge to "up to 6×". (3) The 2% floor is OpenCode + Opus 4.5, which Table 3 also shows as the most expensive configuration tested ($9.33/task) — consistent with a mispaired scaffold rather than a clean quality gradient.
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md) — independent benchmark convergence with H-HARNESS-01's headline figure.
+- **Evidence Tier**: B (Peer-reviewed — published at KDD '26, ACM SIGKDD, Proceedings Vol. 2, pp. 8077–8087, 2026-08-08; DOI confirmed via Crossref publisher deposit). **Tier decision flagged for a human**: peer review is now established, so the only thing holding this at B is this scale's reservation of A for vendor-primary/direct observation — which sits in tension with the Agentic Context Engineering entry above (arXiv:2510.04618), promoted to A on "peer-reviewed at ICLR 2026".
 
 ### "Memanto: Typed Semantic Memory with Information-Theoretic Retrieval" (arXiv:2604.22085)
 - **Authors**: Abtahi, Rahnema, H. Patel, N. Patel, Fekri, Khani
@@ -1318,14 +1319,36 @@ Track these for production readiness:
 - **URL**: https://www.youtube.com/@engineerprompt
 - **Video**: ["The AI Model Doesn't Matter Anymore"](https://www.youtube.com/watch?v=1Ohf2aeSPFA) (February 2026)
 - **Key Thesis**: Raw model capability is commoditizing; the harness (infrastructure around the agent) determines outcomes. Introduces "harness engineering" as the defining discipline of 2026.
-- **Key Evidence Cited**:
-  - Frontier models: 90%+ on benchmarks, 24% on real professional tasks
-  - Vercel text-to-SQL: removing 80% of tools improved accuracy 80% → 100%, reduced tokens 60%, 3.5x speed
+- **Re-sourced 2026-08-28 — this entry is a discovery path, not evidence.** Both quantitative claims below were traced to their primaries; cite those, not the video. An unfetchable video standing in for the studies it cites is a Tier C/D chain that this file previously presented as Tier B.
+- **Key Evidence Cited** (each now pointing at its primary):
+  - "Frontier models: 90%+ on benchmarks, 24% on real professional tasks" → the 24% is **Vidgen et al., APEX-Agents, Mercor, [arXiv:2601.14242](https://arxiv.org/abs/2601.14242)** (see entry below): best agent 24.0% Pass@1 at the 2026-01 launch, max Pass@8 40.0%; ~57–61% by 2026-08-28. **The "90%+ on benchmarks" half is not in the study at all** — it is the video's rhetorical framing and has been dropped from the analysis docs rather than re-sourced.
+  - "Vercel text-to-SQL: 80% → 100% accuracy, tokens -60%, 3.5x speed" → **[Vercel engineering blog](https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools)**, Andrew Qu, 2025-12-22, Tier **A**. Corrected figures: ~15–18 tools → 2, accuracy **4/5 → 5/5 (n=5)**, tokens ~102k → ~61k (**-37%**, not -60% — the recorded figure was inverted), steps ~12 → ~7 (-42%), 274.8s → 77.4s (3.5x).
   - Manus: 5 rebuilds in 6 months, biggest gains from removing features
   - Three properties of a good harness: deterministic replay, observable boundaries, behavioral contracts
   - Richard Sutton's "Bitter Lesson" applied to agents: harness should get simpler as models improve
-- **Evidence Tier**: B (Detailed analysis with multiple cited studies and experiments)
+- **Evidence Tier**: C as a citation chain for quantitative claims (secondary, unfetchable, and demonstrably lossy — it dropped the sample size on Vercel and invented the 90% pairing). Retained at B only for the qualitative framing it originates: the harness thesis, the three harness properties, and the Bitter-Lesson application.
 - **Pattern**: [Harness Engineering](analysis/harness-engineering.md), [Domain Knowledge Architecture](analysis/domain-knowledge-architecture.md)
+
+### "APEX-Agents: AI Productivity Index for Agents" (arXiv:2601.14242)
+- **Authors**: Vidgen et al. (Mercor)
+- **Source**: [arXiv:2601.14242](https://arxiv.org/abs/2601.14242) (v1 2026-01-20, v3 2026-02-23); dataset CC-BY at [huggingface.co/datasets/mercor/apex-agents](https://huggingface.co/datasets/mercor/apex-agents)
+- **Date**: Registered 2026-08-28 — located as the primary behind the "24% on real professional tasks" figure that this repo had been citing to a YouTube video since 2026-02.
+- **Description**: 480 long-horizon investment-banking, consulting, and corporate-law tasks, each estimated at 1–2 hours of experienced professional time, graded against expert rubrics.
+- **Key Findings**: At launch, the best agent (Gemini 3 Flash, Thinking=High) reached **24.0% Pass@1** [20.7–27.3]; the best Pass@8 was **40.0%** [35.6–44.4] (GPT-5.2), and the paper concludes performance is "no more than 40% when measured with both Pass@8 and mean score." The dataset card's benchmark-wide average is **1.82 estimated professional hours** per task (IB 1.36, law 2.40, consulting 1.69) — the "1–2 hours" framing is accurate as written. Failure taxonomy: agents hit the 250-step cap "typically stuck in a loop", scored zero in at least 40% of runs, and made **5.66 more tool calls in unsuccessful than successful runs** ("repeatedly using unproductive tools").
+- **Currency (fetched 2026-08-28)**: the benchmark has moved a long way — top score now **~57–61%**. [Mercor's leaderboard](https://www.mercor.com/apex/apex-agents-leaderboard/): Opus 5 (Max) **60.6% ±3.6%**. [llm-stats](https://llm-stats.com/benchmarks/apex-agents): Grok 4.6 **57.5%** across 8 tracked models. Every figure in this entry was re-fetched directly from the abs page, dataset card, and both leaderboards on 2026-08-28 — none is carried from a summary. **Any number quoted from this benchmark must carry a date.** The 24% is a January-2026 snapshot, not a property of frontier models.
+- **What it does not say**: the paper makes **no** "90%+ on standard benchmarks" comparison. It argues the sim-to-real gap qualitatively ("Existing agentic evals have a large sim-to-real gap... often narrowly scoped, highly contrived"). The 90%/24% juxtaposition was the video's framing.
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md) — the failure taxonomy feeds the RETHINK-limb diagnostic; the score movement is a caveat on the "model doesn't matter" thesis, not support for it.
+- **Evidence Tier**: B (vendor-authored preprint by the benchmark's own creators, not peer-reviewed; open CC-BY dataset, independently tracked by third-party leaderboards)
+
+### Vercel: "We removed 80% of our agent's tools"
+- **Author**: Andrew Qu (Vercel)
+- **Source**: [vercel.com/blog/we-removed-80-percent-of-our-agents-tools](https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools)
+- **Date**: 2025-12-22 (registered 2026-08-28 — located as the primary behind a claim this repo had been citing to a YouTube video, dated to the video's 2026-02-01 rather than the measurement)
+- **Description**: Vercel's text-to-SQL agent, reduced from ~15–18 specialized tools to two (`ExecuteCommand`, `ExecuteSQL`). Run on Claude Opus 4.5 via the AI SDK, executing in Vercel Sandbox.
+- **Key Findings**: accuracy **4/5 → 5/5** evaluation queries; tokens **~102k → ~61k (-37%)**; steps **~12 → ~7 (-42%)**; wall time **274.8s → 77.4s (3.5x)**.
+- **Read narrowly**: the accuracy result is **one query in five** flipping, with no repeats and no variance reported. Cite the direction (fewer, more general tools beat many specialized ones), never "80% → 100%" as a rate. Note also that a dedicated SQL tool was **retained** — this was reduction to general-purpose capability, not elimination of domain tooling.
+- **Pattern**: [Harness Engineering](analysis/harness-engineering.md) § The "Less Is More" Evidence, [Domain Knowledge Architecture](analysis/domain-knowledge-architecture.md)
+- **Evidence Tier**: A (first-party vendor engineering blog reporting direct production measurement) — **confidence capped at MEDIUM** by n=5 with no variance reporting. Tier grades the source; it does not grade the sample.
 
 ---
 
@@ -2178,21 +2201,21 @@ These analysis documents define the evidence and scoring frameworks used through
 - **Pattern References**: [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md), [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md)
 - **Followed canon (`follows:` lane) as of 2026-07-16**: [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md) follows the LLM-wiki paradigm as its canon. Retained delta: the implementation evidence (graphify + footer discipline, typed-registry remediation). Advance trigger: the paradigm productized by a Supported tool covering the curated-KB archetype.
 - **Canon liveness (gist fetch-verified 2026-08-13)**: the gist shows **exactly one revision** since its 2026-04-04 creation — canon **STABLE**, the paradigm stands as originally published. Karpathy was active in-window but on model-capability topics only (two snippet-only Tier C items — a Fable 5 launch reaction and an agents-before-models warning; X unfetchable) — neither revises the wiki paradigm and neither is load-bearing here.
-- **Evidence Tier**: **B by author authority** (Karpathy is treated as a thought leader on par with Boris Cherny on Claude Code). Recency does not auto-downgrade an author-authority source. Tool-specific implementations of the paradigm (graphify, Pratiyush, MehmetGoekce, Lum1104) remain Tier C until independently reproduced.
+- **Evidence Tier**: **B by author authority** (Karpathy is treated as a thought leader on par with Boris Cherny on Claude Code). Recency does not auto-downgrade an author-authority source. Tool-specific implementations of the paradigm (graphify, Pratiyush, MehmetGoekce, Egonex-AI/Understand-Anything — formerly Lum1104) remain Tier C until independently reproduced.
 
 ### Memory & Knowledge Tools (Tier C — implementations of the Karpathy paradigm and adjacent ideas)
 
 | Tool | Repo | License (verified 2026-04-28) | Position |
 |---|---|---|---|
-| graphify | [safishamsi/graphify](https://github.com/safishamsi/graphify) | MIT | AST + Leiden topology builder. PyPI: `graphifyy`. **No LLM SDK deps** — Pass 2 LLM work via invoking Claude Code session. |
+| graphify | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) *(was `safishamsi/graphify`, which no longer resolves)* | **v1 branch: MIT. Current default branch `v8`: Apache-2.0**, with MIT retained in `license-files` (`LICENSE`, `LICENSE-MIT`, `NOTICE`) — not a clean MIT→Apache swap | AST + Leiden topology builder. PyPI: `graphifyy`. **"No LLM SDK deps" is true of v1 only.** Current versions ship provider backends (`--backend` for Gemini/Kimi/Claude/OpenAI/DeepSeek/Azure/Bedrock/Ollama), so headless `graphify extract` can egress directly. Pass 2 runs on the invoking Claude Code session **only on the `/graphify` skill path**. Re-verified 2026-08-28 (org move, default branch, and licence via GitHub API). |
 | Pratiyush/llm-wiki | [Pratiyush/llm-wiki](https://github.com/Pratiyush/llm-wiki) | MIT | Session-history mining → wiki. Adapters for Claude Code, Codex, Cursor, Gemini, Obsidian, Copilot. |
 | MehmetGoekce/llm-wiki | [MehmetGoekce/llm-wiki](https://github.com/MehmetGoekce/llm-wiki) | MIT | Karpathy wiki with L1/L2 cache hierarchy for context budget. |
-| Lum1104/Understand-Anything | [Lum1104/Understand-Anything](https://github.com/Lum1104/Understand-Anything) | MIT | Wiki-aware graph plugin; uses existing `[[wikilinks]]` as ground truth. |
+| Understand-Anything | [Egonex-AI/Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) *(formerly `Lum1104/Understand-Anything`; transfer complete — verified 2026-08-28, no standalone repo remains at the old path)* | MIT — but the LICENSE now co-asserts two holders, "Copyright (c) 2026 Yuxiang Lin" **and** "Copyright (c) 2026 Infinite Universe, Inc." | Wiki-aware graph plugin; uses existing `[[wikilinks]]` as ground truth. **Licence-change watch trigger**: org transfer plus corporate copyright assignment is the same shape as the Obsidian Smart Connections risk this cluster already flags. Still MIT as of 2026-08-28. Upstream default state dir moved `.understand-anything/` → `.ua/` (legacy honoured when present). |
 | zilliztech/claude-context | [zilliztech/claude-context](https://github.com/zilliztech/claude-context) | MIT | Semantic code search MCP (BM25 + vectors over Milvus). |
 | OpenBrain | [justSteve/OpenBrain](https://github.com/justSteve/OpenBrain) | FSL-1.1-MIT | Self-hosted shared memory (Postgres + pgvector + AI gateway). Compilation agent on roadmap (Tier D). |
-| Rowboat | [rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat) | Apache 2.0 | Desktop AI coworker; markdown knowledge graph from Google services (Gmail/Calendar/Drive). YC S24, ~13.1k stars. |
-| Tolaria | [refactoringhq/tolaria](https://github.com/refactoringhq/tolaria) | AGPL-3.0 (verified 2026-04-30) | Files-first markdown KB desktop app (Tauri/React, mac/win/linux). AGENTS-file convention for Claude Code / Codex / Gemini. ~8.5k stars; public launch 2026-04-23. |
-| SiYuan | [siyuan-note/siyuan](https://github.com/siyuan-note/siyuan) | AGPL-3.0 (verified 2026-04-30) | Block-level markdown KM with WYSIWYG editor and HTTP API. Self-hosted; community MCP servers (e.g. xgq18237 MIT). ~43k stars; mature since 2020. |
+| Rowboat | [rowboatlabs/rowboat](https://github.com/rowboatlabs/rowboat) | Apache 2.0 (re-verified 2026-08-28) | Desktop AI coworker; markdown knowledge graph from Google services (Gmail/Calendar/Drive). YC S24. **~17.4k stars (2026-08-28)** — the "~13.1k" carried here since 2026-04-28 was stale by ~33%. |
+| Tolaria | [refactoringhq/tolaria](https://github.com/refactoringhq/tolaria) | AGPL-3.0 (verified 2026-04-30) | Files-first markdown KB desktop app (Tauri/React, mac/win/linux). AGENTS-file convention for Claude Code / Codex / Gemini. **~19.6k stars (2026-08-28)** — was "~8.5k" at the 2026-04-30 inventory; public launch 2026-04-23. |
+| SiYuan | [siyuan-note/siyuan](https://github.com/siyuan-note/siyuan) | AGPL-3.0 (re-verified 2026-08-28) | Block-level markdown KM with WYSIWYG editor and HTTP API. Self-hosted; community MCP servers (e.g. xgq18237 MIT). **~46.0k stars (2026-08-28)**; mature since 2020. |
 | claude-video | [bradautomates/claude-video](https://github.com/bradautomates/claude-video) | (skill repo; deps under their licenses) | **Ingestion adapter**, not memory architecture. yt-dlp + ffmpeg + Whisper + Claude vision pipeline. Egresses audio to Groq/OpenAI; frames + transcript to Claude. PII-unsafe by default. |
 
 ### Luca Rossi — Refactoring + Tolaria

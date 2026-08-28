@@ -3,14 +3,14 @@ version-requirements:
   claude-code: "v2.1.0+"
 version-last-verified: "2026-03-30"
 measurement-claims:
-  - claim: "Frontier models score 90%+ on benchmarks but only 24% on real professional tasks"
-    source: "Prompt Engineering YouTube - The AI Model Doesn't Matter Anymore"
-    date: "2026-02-01"
-    revalidate: "2026-08-01"
-  - claim: "Vercel text-to-SQL: removing 80% of tools improved accuracy from 80% to 100%"
-    source: "Prompt Engineering YouTube (citing Vercel experiment)"
-    date: "2026-02-01"
-    revalidate: "2026-08-01"
+  - claim: "APEX-Agents at launch (2026-01): best agent 24.0% Pass@1, best Pass@8 40.0% on real professional tasks; by 2026-08-28 the top score had risen to ~57-61%"
+    source: "Vidgen et al., APEX-Agents, Mercor, arXiv:2601.14242 (v1 2026-01-20, v3 2026-02-23); dataset CC-BY at huggingface.co/datasets/mercor/apex-agents. Current leaderboard: mercor.com/apex + llm-stats, both read 2026-08-28"
+    date: "2026-08-28"
+    revalidate: "2026-11-28"
+  - claim: "Vercel text-to-SQL: cutting ~15-18 specialized tools to 2 moved accuracy 4/5 to 5/5 (n=5), tokens -37%, steps -42%, 3.5x faster"
+    source: "Andrew Qu, \"We removed 80% of our agent's tools\", vercel.com/blog/we-removed-80-percent-of-our-agents-tools, 2025-12-22"
+    date: "2025-12-22"
+    revalidate: "2027-02-28"
   - claim: "ECC (renamed from everything-claude-code): 136+ skills, 30 subagents as of the 2026-03-30 snapshot (star count dropped per the snapshot-stats convention; dated stats live in the SOURCES.md dossier)"
     source: "GitHub repository analysis"
     date: "2026-03-30"
@@ -35,10 +35,10 @@ measurement-claims:
     source: "Lee et al., Meta-Harness, arXiv:2603.28052 (paper's headline quote)"
     date: "2026-03-30"
     revalidate: "2026-09-30"
-  - claim: "Independent 6x corroboration: Opus 4.5 scores 12% on Cursor vs 2% on OpenCode"
-    source: "Tian et al., SWE-Bench Mobile, arXiv:2602.09540"
-    date: "2026-02-10"
-    revalidate: "2026-08-10"
+  - claim: "Independent convergent finding: Opus 4.5 scores 12% on Cursor vs 2% on OpenCode (6x) - but the same table gives 3x for Sonnet 4.5, 1.5x for GLM-4.6, and an inverted result for GPT-5.1; the paper hedges to \"up to 6x\""
+    source: "Tian et al., SWE-Bench Mobile, arXiv:2602.09540; published KDD '26, ACM SIGKDD Proceedings Vol. 2, pp. 8077-8087, 2026-08-08, DOI 10.1145/3770855.3818488"
+    date: "2026-08-28"
+    revalidate: "2027-08-28"
   - claim: "v2 DAW built in 4 hours for $125 after harness simplification"
     source: "Anthropic engineering blog"
     date: "2026-04-01"
@@ -58,14 +58,13 @@ revalidate-by: 2027-02-13
 >
 > **Citation note.** Paths under `project1/` name files on the author's machine, not in this repository. They are recorded as **provenance for a single-practitioner production deployment** — enough to identify what was inspected and when — and are deliberately not hyperlinks, because no reader of this repository can follow them. Treat every `project1/` claim at the Tier-B bar this repo gives uncorroborated single-project evidence.
 >
-> **⚠️ 3 expired measurement claims in this document** (checked 2026-08-28 with `python3 scripts/check-measurement-expiry.py`).
-> Per [`evidence-tiers.md`](evidence-tiers.md) § Expired but not invalid, an expired claim is **flagged, not deleted** — the measurement stands as a dated historical record and must not be cited as current until re-measured.
+> **Revalidated 2026-08-28.** All three expired claims in this document were re-checked against primary sources, and each verdict was then adversarially re-checked against the same sources. Two of the three had been mis-attributed to a YouTube video that was standing in for the actual study — that attribution chain, not the numbers, was the real defect.
 >
-> - ⚠️ **NEEDS REVALIDATION** (expired 2026-08-01, 27 days overdue): Frontier models score 90%+ on benchmarks but only 24% on real professional tasks
-> - ⚠️ **NEEDS REVALIDATION** (expired 2026-08-01, 27 days overdue): Vercel text-to-SQL: removing 80% of tools improved accuracy from 80% to 100%
-> - ⚠️ **NEEDS REVALIDATION** (expired 2026-08-10, 18 days overdue): Independent 6x corroboration: Opus 4.5 scores 12% on Cursor vs 2% on OpenCode
+> - **Frontier benchmark gap — SUPERSEDED.** The 24% traces to a real primary: Vidgen et al., *APEX-Agents*, Mercor, [arXiv:2601.14242](https://arxiv.org/abs/2601.14242). The number was transcribed correctly but is a January-2026 snapshot; the top score is now ~57-61%. The **"90%+ on benchmarks" half was never in the study** — it is the video's rhetorical framing, and has been dropped. See § The Harness Thesis.
+> - **Vercel text-to-SQL — CONFIRMED, with corrections.** Primary located: [Andrew Qu, "We removed 80% of our agent's tools"](https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools) (2025-12-22). Tier upgraded B → A. The token figure here was **inverted** (-60% recorded; the post says -37%) and the accuracy delta was a single query flipping in an n=5 set. Both fixed.
+> - **SWE-Bench Mobile — CONFIRMED.** Every number reproduced verbatim; now peer-reviewed (KDD '26, [DOI 10.1145/3770855.3818488](https://doi.org/10.1145/3770855.3818488)). But the 6× is the table's **maximum**, not its typical row, and it *predates* Meta-Harness by seven weeks — so "corroboration" was the wrong word. Both fixed.
 >
-> Revalidation is tracked in [`PLAN.md`](../PLAN.md). Flagged rather than silently carried, because an expired claim presented without a marker is the exact currency failure [`prose-corpus-discoverability.md`](prose-corpus-discoverability.md) measures.
+> Per [`evidence-tiers.md`](evidence-tiers.md) § Expired but not invalid, this is what an expiry marker is for: it surfaced three real defects that a silent re-date would have preserved. Flagged rather than silently carried, because an expired claim presented without a marker is the exact currency failure [`prose-corpus-discoverability.md`](prose-corpus-discoverability.md) measures.
 
 **Evidence Tier**: Mixed (A-B) — Anthropic engineering blog, expert practitioners, production-validated community frameworks
 
@@ -89,7 +88,13 @@ For domain-heavy projects (complex rule ecosystems, specialized tooling), see th
 > "The model is not the bottleneck; the harness is."
 > — Prompt Engineering, "The AI Model Doesn't Matter Anymore" (February 2026)
 
-The central claim: in 2026, raw model capability is becoming commoditized, so the infrastructure wrapped around the model — what it can see, what tools it can use, how it recovers from mistakes, how it tracks progress — determines whether an agent actually works. A study cited in that video found frontier models scoring 90%+ on standard benchmarks but only **24%** on real professional tasks (1-2 hours), rising to **~40%** after 8 attempts. Researchers traced the gap to execution and orchestration rather than model intelligence: agents got lost after too many steps, looped back to approaches already tried and failed, and lost track of their original objective. Those are harness problems, not model problems — the same three failure patterns recur later in this document as the RETHINK-limb diagnostic.
+The central claim: in 2026, raw model capability is becoming commoditized, so the infrastructure wrapped around the model — what it can see, what tools it can use, how it recovers from mistakes, how it tracks progress — determines whether an agent actually works.
+
+**The study behind the video, and what it does and does not say** (re-sourced 2026-08-28). The video's "24% on real professional tasks" figure comes from Vidgen et al., *APEX-Agents* ([arXiv:2601.14242](https://arxiv.org/abs/2601.14242), Vidgen et al., Mercor; v1 2026-01-20, v3 2026-02-23) — 480 long-horizon investment-banking, consulting and corporate-law tasks. The [dataset card](https://huggingface.co/datasets/mercor/apex-agents) gives a benchmark-wide average of **1.82 estimated professional hours** per task (IB 1.36, law 2.40, consulting 1.69). At the benchmark's January 2026 launch the best agent scored **24.0% Pass@1** [20.7–27.3] (Gemini 3 Flash, Thinking=High), and no agent exceeded **40.0% Pass@8** [35.6–44.4] (GPT-5.2). That number is a dated snapshot, not a standing property: as of **2026-08-28** the top score is **~57–61%** — [Mercor's own leaderboard](https://www.mercor.com/apex/apex-agents-leaderboard/) reads Opus 5 (Max) **60.6% ±3.6%**, and [llm-stats](https://llm-stats.com/benchmarks/apex-agents) reads Grok 4.6 **57.5%** across 8 tracked models. Both fetched directly on 2026-08-28. Cite this as a snapshot with a date, never as "frontier models score 24%."
+
+Two corrections to how this document used to present it. First, the **"90%+ on standard benchmarks" half of the pairing is not in the study** — the paper argues a sim-to-real gap qualitatively ("Existing agentic evals have a large sim-to-real gap... often narrowly scoped, highly contrived") and never makes that numerical comparison. The 90%/24% juxtaposition was the video's rhetorical framing, and has been dropped rather than re-sourced. Second, a 24% → ~60% move in seven months is partly **model capability**, which cuts against the strongest reading of this section's own thesis. Stated as inference rather than measurement, because the leaderboard runs on Mercor's Archipelago harness and trackers differ on variant — but the honest form of the thesis is that the harness is *a* major lever, not that the model is irrelevant. The section's load-bearing evidence is the controlled comparisons below (Meta-Harness [arXiv:2603.28052](https://arxiv.org/abs/2603.28052), NLH [arXiv:2603.25723](https://arxiv.org/abs/2603.25723)), which hold the model fixed.
+
+What survives from APEX-Agents unchanged is the **failure taxonomy**, which is the part this document actually builds on: agents hit the 250-step limit "typically stuck in a loop", scored zero in at least 40% of runs, and were "repeatedly using unproductive tools" (5.66 more tool calls in unsuccessful than successful runs). Those are harness problems, not model problems — the same three failure patterns recur later in this document as the RETHINK-limb diagnostic.
 
 ---
 
@@ -148,9 +153,11 @@ The Meta-Harness paper states it as the headline finding: *"Changing the harness
 
 **Specific replication with full citation**: LangChain's terminal-bench-2 submission moved from outside the top 30 to rank 5 by changing only the harness code. LangChain published the work as ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17): deepagents-cli went **52.8% → 66.5% on TerminalBench-2** (13.7 points) holding gpt-5.2-codex constant, via five documented middleware changes: (1) a self-verification loop (`PreCompletionChecklistMiddleware`), (2) startup directory/tooling mapping (`LocalContextMiddleware`), (3) per-file edit-count loop detection for "doom loops," (4) a "reasoning sandwich" effort allocation (xhigh-high-xhigh) across plan/build/verify, and (5) time-budget warnings.
 
-**Independent benchmark corroboration**: Tian et al. *SWE-Bench Mobile* ([arXiv:2602.09540](https://arxiv.org/abs/2602.09540), 2026-02-10) reports the same model (Opus 4.5) scoring **12% on Cursor vs 2% on OpenCode** across 22 agent-model configurations — exactly 6×, in a separate venue, on a separate benchmark, from scaffold differences alone.
+**Independent convergent finding**: Tian et al. *SWE-Bench Mobile* ([arXiv:2602.09540](https://arxiv.org/abs/2602.09540), 2026-02-10; published KDD '26, ACM SIGKDD Proceedings Vol. 2, pp. 8077-8087, [DOI 10.1145/3770855.3818488](https://doi.org/10.1145/3770855.3818488)) reports the same model (Opus 4.5) scoring **12% on Cursor vs 2% on OpenCode** across 22 agent-model configurations — 6×, in a separate and now peer-reviewed venue, on a separate benchmark, from scaffold differences alone.
 
-Source: Lee et al., Meta-Harness, arXiv:2603.28052 (primary); Tian et al., SWE-Bench Mobile, arXiv:2602.09540 (independent corroboration).
+> **Three qualifications, added 2026-08-28 on revalidation.** (1) *Convergent, not corroborating*: SWE-Bench Mobile (2026-02-10) **predates** Meta-Harness (2026-03-30) by seven weeks. It cannot corroborate a later finding; it independently converges on it. (2) *6× is the maximum row, not the typical one*: the same table gives **3× for Sonnet 4.5**, **1.5× for GLM-4.6**, and an **inverted** Cursor/OpenCode result for GPT-5.1 (2% vs 6%, tabulated as an ∞ gap because Codex scores 0). The paper's abstract and Table 6 caption both hedge to "up to 6×". (3) *The floor may be a misconfiguration, not a gradient*: Opus 4.5's spread across the three commercial agents alone is 3× (Cursor 12 / Claude Code 8 / Codex 4), and the 2% floor comes from OpenCode + Opus 4.5 — which Table 3 shows is also the **most expensive** configuration tested at $9.33/task. That shape suggests a badly-paired scaffold rather than a clean scaffold-quality gradient. This matters because the figure is deployed here as a general harness multiplier.
+
+Source: Lee et al., Meta-Harness, arXiv:2603.28052 (primary); Tian et al., SWE-Bench Mobile, arXiv:2602.09540 (independent convergent finding).
 
 ---
 
@@ -160,15 +167,22 @@ The strongest and most counterintuitive finding across all sources.
 
 ### The Vercel Experiment
 
-Vercel built a text-to-SQL agent with specialized tools: one for understanding database schemas, one for writing queries, one for validation. Complex error handling. It worked about 80% of the time.
+**Primary source located 2026-08-28**, replacing a second-hand video citation: [Andrew Qu, "We removed 80% of our agent's tools"](https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools), Vercel engineering blog, 2025-12-22. Tier **A** (vendor-primary, direct production measurement). Run conditions: Claude Opus 4.5 via the AI SDK, executing in Vercel Sandbox.
 
-Then they removed 80% of the agent's tools. They gave it basic capabilities — bash, grep, cat.
+Vercel's text-to-SQL agent carried **~15-18 specialized tools** (the post labels the set "15" but enumerates 17 names; ZenML's write-up counts 18 — "80%" is Vercel's own headline round-down). Complex error handling. It answered 4 of 5 evaluation queries correctly.
 
-| Metric | Specialized Tools | General-Purpose Tools | Change |
+They cut the set to **two** tools: `ExecuteCommand` and `ExecuteSQL`. Note that a dedicated SQL tool was *retained* — this was a reduction to general-purpose capability, not an elimination of domain tooling.
+
+| Metric | ~15-18 Specialized Tools | 2 General Tools | Change |
 |--------|------------------|----------------------|--------|
-| Accuracy | 80% | **100%** | +25% |
-| Token usage | Baseline | **40% of original** | -60% |
-| Speed | Baseline | **3.5x faster** | +250% |
+| Accuracy | 4/5 | **5/5** | +1 query (n=5) |
+| Token usage | ~102k | **~61k** | -37% |
+| Steps | ~12 | **~7** | -42% |
+| Speed | 274.8s | **77.4s** | 3.5x faster |
+
+> **Read the accuracy row narrowly.** The entire accuracy result is **one query out of five** flipping, with no repeats and no variance reported. The directional finding — fewer, more general tools beat many specialized ones — is what this document cites definitively; the "80% → 100%" figure is not a rate and should never be quoted as one. Confidence capped at **MEDIUM** despite the Tier A source, per [`evidence-tiers.md`](evidence-tiers.md): tier grades the *source*, not the sample size.
+>
+> The token row was recorded here as "40% of original / -60%" until 2026-08-28. That was **inverted**, and overstated the saving by 23 points. The post's stated figure is 37%; its own rounded endpoints give -40%, matching Vercel's tweet. Raw endpoints are shown above so a future revalidator does not re-flag the discrepancy as an error.
 
 ### The Manus Experience
 
@@ -292,15 +306,15 @@ Three community approaches sit at different points on the Bitter-Lesson spectrum
 | Evidence | Source | Tier |
 |----------|--------|------|
 | Harness design was the breakthrough for long-running agents | Anthropic engineering blog (Nov 2025) | A |
-| 90%+ on benchmarks / 24% on real tasks — the gap is harness | Research study cited in video | B |
-| Removing tools improved accuracy, speed, and cost (Vercel) | Vercel experiment cited in video | B |
+| Best agent 24.0% Pass@1 on real professional tasks at the 2026-01 launch (max Pass@8 40.0%); ~57-61% by 2026-08-28 — the *failure modes* are harness (loops, unproductive tool use), the *level* has moved | Vidgen et al., APEX-Agents, Mercor, [arXiv:2601.14242](https://arxiv.org/abs/2601.14242) (Jan 2026; leaderboard read 2026-08-28) | B |
+| Removing tools improved accuracy, speed, and cost (Vercel): ~15-18 tools → 2, tokens -37%, steps -42%, 3.5x faster; accuracy 4/5 → 5/5 on n=5 | [Vercel engineering blog](https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools), Andrew Qu, 2025-12-22 (first-party production measurement) | A (confidence capped MEDIUM: n=5) |
 | Removing features was the primary optimization (Manus) | Manus context engineering (5 rebuilds) | B |
 | Same harness works across Claude Code, Cursor, OpenCode, Codex | everything-claude-code cross-platform support | B |
 | Boris Cherny's success depends on parallel sessions, hooks, permissions — all harness | Boris Cherny interviews (March 2026) | A |
 | NLH representation: same harness logic, 30.4% → 47.2% perf + 1200 → 34 LLM calls | Pan et al. (Tsinghua + Harbin IT), [arXiv:2603.25723](https://arxiv.org/abs/2603.25723) (March 2026) | B |
 | Meta-Harness: Haiku 4.5 ranks #1 among Haiku agents on TerminalBench-2 via harness optimization alone | Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT), [arXiv:2603.28052](https://arxiv.org/abs/2603.28052) (March 2026) | B |
 | **"Changing the harness around a fixed LLM can produce a 6× performance gap on the same benchmark"** (paper's headline quote) | Lee et al., Meta-Harness, [arXiv:2603.28052](https://arxiv.org/abs/2603.28052) (March 2026) | B |
-| Independent corroboration: Opus 4.5 scores 12% on Cursor vs 2% on OpenCode — exactly 6×, scaffold-only | Tian et al., SWE-Bench Mobile, [arXiv:2602.09540](https://arxiv.org/abs/2602.09540) (Feb 2026) | B |
+| Independent convergent finding: Opus 4.5 scores 12% on Cursor vs 2% on OpenCode (6×, scaffold-only) — but the same table gives 3× for Sonnet 4.5, 1.5× for GLM-4.6, and an inverted Cursor/OpenCode result for GPT-5.1 (2% vs 6%, gap marked ∞ because Codex scores 0). The paper hedges to "up to 6×" | Tian et al., SWE-Bench Mobile, [arXiv:2602.09540](https://arxiv.org/abs/2602.09540) (Feb 2026; KDD '26, [DOI 10.1145/3770855.3818488](https://doi.org/10.1145/3770855.3818488)) | B |
 | v2 harness simplification: removed sprints/negotiation, DAW in 4h/$125 | Anthropic engineering blog (April 2026) | A |
 | **1000+ PRs in 3 weeks** with ~5 manual IDE edits — review-loop development | Nick Schrock, Dagster founder (Dec 2025) | B |
 | **3x velocity** with agents handling commits, changelogs, docs, releases — org transformation | Matthias Vallentin, Tenzir CEO (Dec 2025) | B |
@@ -370,7 +384,7 @@ This document's thesis is tracked across repositories as **H-HARNESS-01: Harness
 
 > Investing in agent harness architecture (orchestration, memory, verification, state management) yields larger, faster, and more reliable performance gains than waiting for the next model upgrade.
 
-**Current evidence-tier**: B+ leaning A. The Meta-Harness primary source ([arXiv:2603.28052](https://arxiv.org/abs/2603.28052), Lee/Nair/Zhang/Lee/Khattab/Finn, Stanford+MIT, 2026-03-30) and the Tsinghua NLH paper ([arXiv:2603.25723](https://arxiv.org/abs/2603.25723), Pan et al., 2026-03-26) are now both located and registered (resolution: 2026-05-24). The 6× orchestration-only figure is the Meta-Harness paper's headline quote and is independently corroborated by SWE-Bench Mobile ([arXiv:2602.09540](https://arxiv.org/abs/2602.09540), Opus 4.5: 12% Cursor / 2% OpenCode). Karpathy's independent convergence on meta-optimization (Authority 4/5) and Anthropic's v2 simplification with Opus 4.6 (Authority 5/5, Tier A) remain the strongest practitioner corroboration.
+**Current evidence-tier**: B+ leaning A. The Meta-Harness primary source ([arXiv:2603.28052](https://arxiv.org/abs/2603.28052), Lee/Nair/Zhang/Lee/Khattab/Finn, Stanford+MIT, 2026-03-30) and the Tsinghua NLH paper ([arXiv:2603.25723](https://arxiv.org/abs/2603.25723), Pan et al., 2026-03-26) are now both located and registered (resolution: 2026-05-24). The 6× orchestration-only figure is the Meta-Harness paper's headline quote, and SWE-Bench Mobile ([arXiv:2602.09540](https://arxiv.org/abs/2602.09540), Opus 4.5: 12% Cursor / 2% OpenCode) is an independent convergent finding seven weeks *earlier* — not a corroboration after the fact, and its 6× is the maximum row in a table whose other rows run 1.5×-3× (see the qualifications above). Karpathy's independent convergence on meta-optimization (Authority 4/5) and Anthropic's v2 simplification with Opus 4.6 (Authority 5/5, Tier A) remain the strongest practitioner corroboration.
 
 ### Falsifiability
 
@@ -431,10 +445,10 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 
 ### Tier B (Validated / Expert Practitioner)
 
-- Prompt Engineering: ["The AI Model Doesn't Matter Anymore"](https://www.youtube.com/watch?v=1Ohf2aeSPFA) (February 2026) — source for the Harness Thesis, Vercel, Manus, and Bitter Lesson material above
+- Prompt Engineering: ["The AI Model Doesn't Matter Anymore"](https://www.youtube.com/watch?v=1Ohf2aeSPFA) (February 2026) — **discovery path, not evidence.** Source for the Harness Thesis framing, Manus, and Bitter Lesson material above. The two quantitative claims it carried were re-sourced to their primaries on 2026-08-28: APEX-Agents ([arXiv:2601.14242](https://arxiv.org/abs/2601.14242), Tier B) and the [Vercel engineering blog](https://vercel.com/blog/we-removed-80-percent-of-our-agents-tools) (Tier A). An unfetchable video standing in for a study it cites is a Tier C/D attribution chain presented as better than it was.
 - Pan, Zou, Guo, Ni, Zheng (Tsinghua University + Harbin Institute of Technology): ["Natural-Language Agent Harnesses"](https://arxiv.org/abs/2603.25723) — arXiv:2603.25723, 2026-03-26. *(Previously cited as "Tingua NLH" — attribution corrected 2026-05-24.)*
 - Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT): ["Meta-Harness: End-to-End Optimization of Model Harnesses"](https://arxiv.org/abs/2603.28052) — arXiv:2603.28052, 2026-03-30. **Source for the "6× performance gap from harness changes alone" headline figure.**
-- Tian, Wang, Yang et al.: ["SWE-Bench Mobile: Can LLM Agents Develop Industry-Level Mobile Apps?"](https://arxiv.org/abs/2602.09540) — arXiv:2602.09540, 2026-02-10
+- Tian, Wang, Yang et al.: ["SWE-Bench Mobile: Can Large Language Model Agents Develop Industry-Level Mobile Applications?"](https://arxiv.org/abs/2602.09540) — arXiv:2602.09540, 2026-02-10. Published at KDD '26 (ACM SIGKDD, Proceedings Vol. 2, pp. 8077-8087, 2026-08-08; [DOI 10.1145/3770855.3818488](https://doi.org/10.1145/3770855.3818488), confirmed via Crossref publisher deposit). *(Title corrected and venue added 2026-08-28; previously rendered with an abbreviated title.)*
 - Sen, Kasturi, Lumer, Gulati, Subbiah (PwC US): ["Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"](https://arxiv.org/abs/2605.15184) — arXiv:2605.15184, May 2026. Tier B preprint, not yet peer-reviewed.
 - Andrej Karpathy: Meta-optimization of program.md (March 2026, No Priors podcast). Authority 4/5.
 - Andrej Karpathy: ["Sequoia Ascent 2026"](https://karpathy.bearblog.dev/sequoia-ascent-2026/) (2026-04-30). Authority 4/5.

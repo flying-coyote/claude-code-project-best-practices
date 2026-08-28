@@ -1,6 +1,6 @@
 ---
 status: EMERGING
-last-verified: "2026-04-28"
+last-verified: "2026-08-28"
 measurement-claims:
   - claim: "Karpathy's LLM Wiki paradigm rates Tier B by author authority, not Tier C, despite April 2026 publication date"
     source: "Author authority on par with Boris Cherny on Claude Code; user-stated criterion 2026-04-28"
@@ -10,10 +10,11 @@ measurement-claims:
     source: "Working-memory ~50-100 docs × cross-ref density K=3-5 → ~1,500-2,500 relations beyond mental tracking at 500 docs"
     date: "2026-04-28"
     revalidate: "2026-10-28"
-  - claim: "Graphify Pass 2 LLM work happens via the invoking Claude Code session, not via direct LLM SDK calls — confirmed by zero LLM SDK deps in pyproject.toml"
-    source: "Direct read of safishamsi/graphify pyproject.toml v1 branch"
-    date: "2026-04-28"
-    revalidate: "2026-07-28"
+  - claim: "Under the `/graphify` skill path, Pass 2 LLM work runs on the invoking Claude Code session's model via its Agent tool — graphify v1 has no API-key or backend path of its own"
+    source: "Direct read of safishamsi/graphify v1 skills/graphify/skill.md Part B (Agent-tool dispatch) + graphify/extract.py + pyproject.toml (zero LLM SDK deps, zero egress symbols), 2026-08-28"
+    date: "2026-08-28"
+    revalidate: "2026-11-28"
+    tier: A
   - claim: "Owner-authorized egress is the deciding constraint, not data category — public-source genealogy data with placeholder discipline can be opted-in (Wiley projects, 2026-04-29); same data without owner authorization or with un-anonymized living persons cannot"
     source: "User's reframe 2026-04-29; saved in feedback_genealogy_data_classification memory"
     date: "2026-04-29"
@@ -34,12 +35,11 @@ This is the methodology and self-critique companion to `analysis/memory-systems-
 > - `archive/memory-systems-architecture-axes.md` (research note, archived 2026-07-10) — 8 architectural axes
 > - `archive/memory-systems-project-archetypes.md` (research note, archived 2026-07-10) — 7 project archetypes A–G
 >
-> **⚠️ 1 expired measurement claim in this document** (checked 2026-08-28 with `python3 scripts/check-measurement-expiry.py`).
-> Per [`evidence-tiers.md`](evidence-tiers.md) § Expired but not invalid, an expired claim is **flagged, not deleted** — the measurement stands as a dated historical record and must not be cited as current until re-measured.
+> **Revalidated 2026-08-28 — the claim holds, but its *warrant* was unsound and one corollary is now false.** The conclusion (Pass 2 runs on the invoking session) is confirmed by direct mechanism evidence: `skills/graphify/skill.md` Part B dispatches Pass 2 through the invoking session's Agent tool — *"MANDATORY: You MUST use the Agent tool here"* — and there is no API-key or backend path in v1. But the reasoning recorded here was **"confirmed by zero LLM SDK deps"**, and absence of a dependency does not prove absence of egress: graphify's own current `claude-cli` backend is a zero-SDK-dependency direct-egress path. Cite the dispatch mechanism; use the dependency list only as corroboration.
 >
-> - ⚠️ **NEEDS REVALIDATION** (expired 2026-07-28, 31 days overdue): Graphify Pass 2 LLM work happens via the invoking Claude Code session, not via direct LLM SDK calls — confirmed by zero LLM SDK deps in pyproject.toml
+> Two consequences, both applied below: the claim is now **scoped to the `/graphify` skill path** (headless `graphify extract` has its own provider chain), and assumption #5's corollary that *"pointing graphify at a local model is not a documented configuration"* is **retired as false** — see § 5.
 >
-> Revalidation is tracked in [`PLAN.md`](../PLAN.md). Flagged rather than silently carried, because an expired claim presented without a marker is the exact currency failure [`prose-corpus-discoverability.md`](prose-corpus-discoverability.md) measures.
+> Per [`evidence-tiers.md`](evidence-tiers.md) § Expired but not invalid, this is what the expiry marker is for: it caught a reasoning defect that a silent re-date would have carried forward as a repo-wide proof pattern.
 
 ---
 
@@ -56,7 +56,7 @@ A single curator can hold ~50–100 docs in active mental review. With average c
 | Scale | Lint discipline | Recommendation |
 |---|---|---|
 | ≤ 50 docs | Excess | Plain markdown + manual cross-refs |
-| 50–200 docs | Optional | Wikilinks + Lum1104 plugin (if you want a graph view) |
+| 50–200 docs | Optional | Wikilinks + Understand-Anything plugin (if you want a graph view) |
 | 200–500 docs (single curator) | Increasingly load-bearing | Add graphify + footer-injection + contradiction lint |
 | ≥ 500 docs (single curator) | Load-bearing | Full design-target stack |
 | Multi-author or active automated ingestion | Threshold compresses to ~100–200 | Adopt earlier |
@@ -76,7 +76,7 @@ Projects 12×–40× the design target (6k–20k+ markdown vaults with active in
 | Recognized thought leaders, paradigm-level claims | **B** by author authority | Karpathy LLM Wiki paradigm; Boris Cherny on Claude Code |
 | Tool-specific quantitative benchmarks (vendor-reported) | **C** until reproduced | Graphify's 71.5× token claim; claude-context's ~40% reduction; OpenBrain's $0.10–0.30/month |
 | Roadmap claims (not shipped) | **D** | OpenBrain's compilation agent |
-| Verified factual claims (e.g., licenses) | **A** when directly verified | Pratiyush MIT, MehmetGoekce MIT, Lum1104 MIT, Rowboat Apache 2.0 (all dated 2026-04-28) |
+| Verified factual claims (e.g., licenses) | **A** when directly verified | Pratiyush MIT, MehmetGoekce MIT, Understand-Anything MIT, Rowboat Apache 2.0 (dated 2026-04-28; all four re-verified unchanged 2026-08-28) |
 
 **Important**: this corrects an earlier draft that downgraded Karpathy's paradigm to Tier C purely on recency. Recency does not auto-downgrade an author-authority source. The paradigm claim ("write-time wiki + ingest/query/lint workflows + bookkeeping-not-reading insight") is Tier B from publication; only the tool-specific implementations need independent reproduction to move from C to B.
 
@@ -98,7 +98,7 @@ These are pushbacks on the user-stated constraints and on my own framing — sur
 
 Graphify offers `--wiki` *export* (graph **generates** a wiki) and a hook system that fires on Glob/Grep. Neither of these is "feed findings into your existing markdown." The promotion path is custom glue (the footer-injection script in adoption step A4-3). If you don't write and maintain that script, you'll get the parallel-artifact failure your constraint is supposed to prevent.
 
-**Implication**: scope the footer-injection script as load-bearing infrastructure. If you don't have appetite to maintain it, prefer Lum1104 (which works *over* your existing wiki and wikilinks) over graphify (which assumes you'll write the bridge).
+**Implication**: scope the footer-injection script as load-bearing infrastructure. If you don't have appetite to maintain it, prefer Understand-Anything (which works *over* your existing wiki and wikilinks) over graphify (which assumes you'll write the bridge).
 
 ### 2. For prose-heavy corpora, graphify's "deterministic" pitch mostly evaporates
 
@@ -118,17 +118,21 @@ At 28 docs (this repo's scale), a contradiction-lint is excess. At ~500 docs (th
 
 Pass 1 (Tree-sitter) is local. Pass 2 (LLM concept extraction) is **not** — content goes to whatever LLM the invoking Claude Code session is using. On a prose KB, Pass 2 is *most of the signal*. So "graphify is local" reads as a privacy claim it doesn't make for prose.
 
-**Sub-finding from a 2026-04-28 source check**: graphify's `pyproject.toml` lists zero LLM SDK dependencies (no `anthropic`, `openai`, `litellm`). The README confirms it's "A Claude Code skill" — meaning LLM passes happen via the Claude Code session, not via graphify-internal API keys. **Pointing graphify at a local model (e.g., Gemma 4) is not a documented configuration**; it would require either skipping Pass 2 entirely (Tree-sitter only) or forking graphify to replace Claude-Code-skill calls with direct local-LLM calls.
+**Sub-finding, re-sourced 2026-08-28.** The mechanism, stated correctly: `skills/graphify/skill.md` Part B dispatches Pass 2 through the **invoking session's Agent tool** ("MANDATORY: You MUST use the Agent tool here"), and graphify v1 carries no API-key or backend path of its own. The `pyproject.toml` dependency list (zero `anthropic`, `openai`, `litellm`) **corroborates** this; it does not establish it. That distinction matters beyond this doc — do not model absence-of-dependency as a proof of no-egress anywhere in this repository, because graphify's own current `claude-cli` backend is a zero-SDK-dependency path that egresses.
+
+**Retired 2026-08-28 — this sub-finding used to end with a claim that is now false.** It read: *"Pointing graphify at a local model (e.g., Gemma 4) is not a documented configuration."* Current graphify documents `--backend ollama` as a fully-local path, ships an `ollama` extra, and documents `OPENAI_BASE_URL` for llama.cpp / vLLM / LM Studio. Local Pass 2 is now a **first-class documented configuration**, which *strengthens* rather than weakens the egress-constrained recommendation in the companion doc.
+
+> **But the local path is opt-in, and the default is not local.** `graphify extract` auto-detects a provider from the environment along a chain that reaches **Ollama last** (Gemini → Kimi → Claude → OpenAI → DeepSeek → Azure → Bedrock → Ollama), so a host with any provider credential present egresses silently. Absence of API keys is *not* a sufficient precondition either: `--backend claude-cli` needs no key (it rides the Claude subscription) and Bedrock needs none (IAM via the ambient AWS chain). State the finding as **"no longer categorically disqualified for egress-constrained prose corpora, conditional on an explicit `--backend ollama` and an environment audit"** — never as unconditional clearance.
 
 ### 6. Archetype purity is a useful frame but a misleading recommendation surface
 
 Most real projects mix archetypes (e.g., A+F, C+E, A+D+F). Recommending one primary stack per archetype is useful for *framing*; real adoption needs to layer two archetypes' stacks selectively. Treat the per-archetype primaries in the companion doc as orthogonal building blocks, not committed package deals.
 
-### 7. Lum1104's "wiki-aware" framing requires Karpathy filename conventions, not just `[[wikilinks]]` (added 2026-04-28)
+### 7. Understand-Anything's "wiki-aware" framing requires Karpathy filename conventions, not just `[[wikilinks]]` (added 2026-04-28)
 
 Verified 2026-04-28 against plugin v2.3.2: `/understand-knowledge`'s detector (`parse-knowledge-base.py`) gates on `index.md` (lowercase, at root or under `wiki/`) + ≥3 markdown files. `log.md`, `raw/`, and a root schema (`CLAUDE.md`/`AGENTS.md`) are detected but not required. Repos using `INDEX.md` uppercase, or routing schema to `.claude/CLAUDE.md` (this repo's case), fail detection.
 
-**Implication**: the archetype-A "Lum1104 alone over a hand-curated wiki" recommendation is conditional on Karpathy filename discipline, not just on having wikilinks. Renaming `INDEX.md` → `index.md` is a small change but breaks tooling that hardcodes the uppercase form (`automation/generate_index.py` here). The general `/understand-anything:understand` skill is the fallback for repos that don't match — but that's a different code path with its own assumptions, not a drop-in. Document the layout requirement at recommend-time, not at adoption-time.
+**Implication**: the archetype-A "Understand-Anything alone over a hand-curated wiki" recommendation is conditional on Karpathy filename discipline, not just on having wikilinks. Renaming `INDEX.md` → `index.md` is a small change but breaks tooling that hardcodes the uppercase form (`automation/generate_index.py` here). The general `/understand-anything:understand` skill is the fallback for repos that don't match — but that's a different code path with its own assumptions, not a drop-in. Document the layout requirement at recommend-time, not at adoption-time.
 
 ### 8. Graphify Pass 1 alone is not a topology layer for prose-heavy KBs (added 2026-04-28)
 
@@ -152,7 +156,7 @@ Empirical run, 2026-04-28, this repo at 38 analysis docs + supporting code, grap
 
 - **Reversibility framing on adoption-order step 1s**: deleting a graphify output folder undoes the local index, but Pass 2 has already shipped content to whatever LLM the invoking session uses, and that egress is not reversible. The companion doc now distinguishes "reversible-local" from "reversible-except-egress" but the broader pattern — that any LLM-touching tool's first run is egress-irreversible — applies across many recommendations and is not consistently flagged.
 
-- **The "never combine graphify + Lum1104" rule was overstated initially**. They're architecturally different: Lum1104 uses your `[[wikilinks]]` as ground truth; graphify discovers structure via AST + LLM passes. Running both *can* be coherent if one is explicitly authoritative and the other is read-only. The companion doc's never-combine entry has been softened to reflect this; the absolute version was wrong.
+- **The "never combine graphify + Understand-Anything" rule was overstated initially**. They're architecturally different: Understand-Anything uses your `[[wikilinks]]` as ground truth; graphify discovers structure via AST + LLM passes. Running both *can* be coherent if one is explicitly authoritative and the other is read-only. The companion doc's never-combine entry has been softened to reflect this; the absolute version was wrong.
 
 - **Evidence-gap list misses the foundational experiment**. The deepest unknown isn't graphify's 71× token claim — it's whether wiki + graph beats plain markdown + good cross-refs at 30-doc scale, at 500-doc scale, and at 5,000-doc scale. That requires 3+ months of A/B on real query patterns at each scale. Without it, every recommendation is sophisticated guessing about the payoff curve.
 
@@ -160,7 +164,7 @@ Empirical run, 2026-04-28, this repo at 38 analysis docs + supporting code, grap
 
 ## Two reframings worth considering
 
-- **Archetype A's right answer splits by scale.** Below ~200 docs: "good wikilinks + Lum1104, defer everything else" — Lum1104 respects existing wikilinks and is strictly downstream; manual cross-referencing is tractable. At ~500 docs: automated graphify becomes necessary, footer-injection glue is worth maintaining, contradiction-lint earns its keep. Don't over-generalize a small-scale recommendation to design-target projects, or vice versa.
+- **Archetype A's right answer splits by scale.** Below ~200 docs: "good wikilinks + Understand-Anything, defer everything else" — it respects existing wikilinks and is strictly downstream; manual cross-referencing is tractable. At ~500 docs: automated graphify becomes necessary, footer-injection glue is worth maintaining, contradiction-lint earns its keep. Don't over-generalize a small-scale recommendation to design-target projects, or vice versa.
 
 - **OpenBrain as the archetype-G primary is contingent on a feature that hasn't shipped.** Recommending OpenBrain *now* treats Tier D speculation as Tier C evidence. The honest archetype-G primary today is "wait for the compilation agent to ship and reproduce its claims, OR roll a minimal Postgres + pgvector + tiny MCP shim yourself." OpenBrain's full stack is recorded in the companion doc as a forward-planning state, not a current adoption.
 
@@ -172,13 +176,13 @@ The companion recommendations doc reflects these corrections from earlier drafts
 
 | Correction | What changed |
 |---|---|
-| Archetype A primary stack split by scale | Lum1104-only added as the explicit primary at <~200 docs; graphify+footer-injection remains the primary at ~500-doc design target |
+| Archetype A primary stack split by scale | Understand-Anything-only added as the explicit primary at <~200 docs; graphify+footer-injection remains the primary at ~500-doc design target |
 | Archetype G flagged as roadmap-contingent | "Wait or roll your own Postgres+pgvector+MCP" is the recommendation today; full OpenBrain stack captured as future state |
 | Adoption-order step 1s distinguish reversibility classes | Reversible-local vs reversible-except-egress; LLM Pass 2 = irreversible egress |
-| Never-combine graphify+Lum1104 softened | Allowed if one is explicitly authoritative |
+| Never-combine graphify+Understand-Anything softened | Allowed if one is explicitly authoritative |
 | Karpathy paradigm Tier B by author authority | Corrected from prior Tier C downgrade |
 | Threshold calibrated to ~500 docs | Earlier "200+" replaced with the more defensible single-curator threshold; 100–200 noted for multi-author or active-ingestion |
-| All four "check repo" licenses verified 2026-04-28 | Pratiyush, MehmetGoekce, Lum1104 = MIT; Rowboat = Apache 2.0 (rowboatlabs/rowboat) |
+| All four "check repo" licenses verified 2026-04-28 | Pratiyush, MehmetGoekce, Understand-Anything = MIT; Rowboat = Apache 2.0 (rowboatlabs/rowboat). Re-verified unchanged 2026-08-28 |
 | Rowboat description corrected | README lists Google Gmail/Calendar/Drive + optional Composio MCP (not Granola/Fireflies as the inventory had) |
 | InfraNodus added to license/cost table | Acknowledged as paradigm alternative (text network analysis) but doesn't fit local-first + markdown-substrate constraints |
 
@@ -196,9 +200,10 @@ The companion recommendations doc reflects these corrections from earlier drafts
 
 ### Tier A
 
-- Direct read of safishamsi/graphify pyproject.toml (v1 branch, 2026-04-28) — Confirmed zero LLM SDK dependencies. Source for assumption #5 sub-finding and assumption #8 egress framing.
-- Direct license verification (2026-04-28) — Raw fetch of LICENSE files: Pratiyush/llm-wiki = MIT, MehmetGoekce/llm-wiki = MIT, Lum1104/Understand-Anything = MIT, Rowboat/rowboat = Apache 2.0.
-- Lum1104 understand-anything v2.3.2 plugin detector verification (2026-04-28) — `parse-knowledge-base.py` gates on lowercase `index.md` at root or under `wiki/`; uppercase `INDEX.md` fails detection. Source for assumption #7.
+- Direct read of `safishamsi/graphify` v1 `skills/graphify/skill.md` Part B + `graphify/extract.py` + `pyproject.toml` (2026-08-28) — Pass 2 is dispatched through the invoking session's Agent tool; zero LLM SDK dependencies and zero egress symbols corroborate. **This supersedes the 2026-04-28 entry, which cited only the dependency list** and therefore recorded corroboration as if it were proof. Source for assumption #5 sub-finding and assumption #8 egress framing. Scope: the `/graphify` skill path only.
+- Current graphify ([`Graphify-Labs/graphify`](https://github.com/Graphify-Labs/graphify), default branch `v8`, 2026-08-28) — documents `--backend ollama` and `OPENAI_BASE_URL`; provider auto-detection chain reaches Ollama last. Source for the retirement of assumption #5's local-model corollary. The old `safishamsi/graphify` path no longer resolves; v1 is a frozen branch at 0.1.15.
+- Direct license verification (2026-04-28; re-verified 2026-08-28 via raw LICENSE fetch **and** the GitHub API licence field): Pratiyush/llm-wiki = MIT, MehmetGoekce/llm-wiki = MIT, Egonex-AI/Understand-Anything = MIT (formerly `Lum1104/`), Rowboat/rowboat = Apache 2.0. Unchanged.
+- Understand-Anything v2.3.2 plugin detector verification (2026-04-28) — `parse-knowledge-base.py` gates on lowercase `index.md` at root or under `wiki/`; uppercase `INDEX.md` fails detection. Source for assumption #7. **Stale as of 2026-08-28**: upstream is at v2.9.4, six minor versions on, and its default state directory moved to `.ua/`; re-verify before relying on the detector behaviour.
 - graphify v0.5.4 empirical run (2026-04-28) — Pass 1: 243 nodes / 427 edges / 0 analysis docs; Pass 2: 1187 nodes / 1651 edges / 67 communities / 251 nodes from analysis docs. Token benchmark: 57.5× vs naive full-corpus. Source for assumption #8 and the Pass-2-or-no-graphify decision.
 
 ### Tier B

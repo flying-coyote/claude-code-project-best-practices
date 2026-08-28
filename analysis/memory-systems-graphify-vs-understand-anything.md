@@ -22,7 +22,7 @@ measurement-claims:
 
 Both tools are LLM-driven knowledge-graph builders for code+docs corpora. Both came up as candidates in archetype A (curated analytical KB). The user-facing question is: *given the same repo, do they produce the same graph, or different ones?* If different, *which differences matter?*
 
-Ran both on this repo on 2026-04-28. graphify v0.5.4 (full Pass 1+2) over 162 files; Lum1104 understand-anything v2.3.2 `/understand-anything:understand` over 106 files (archive/ excluded by user choice).
+Ran both on this repo on 2026-04-28. graphify v0.5.4 (full Pass 1+2) over 162 files; Understand-Anything v2.3.2 (then `Lum1104/`, now [`Egonex-AI/Understand-Anything`](https://github.com/Egonex-AI/Understand-Anything)) `/understand-anything:understand` over 106 files (archive/ excluded by user choice).
 
 ## Top-line numbers
 
@@ -62,11 +62,11 @@ graphify Pass 2:
   4 concept nodes:
     - Archetype A — Curated Analytical Knowledge Base
     - Graphify (write-time topology)
-    - Lum1104 Plugin (wiki-aware graph)
+    - Understand-Anything Plugin (wiki-aware graph)
     - Footer-Injection Script
   2 cross-doc edges (both pointing to archetype C, both EXTRACTED):
     Graphify (write-time topology) --references--> Archetype C
-    Lum1104 Plugin (wiki-aware graph) --references--> Archetype C
+    Understand-Anything Plugin (wiki-aware graph) --references--> Archetype C
 ```
 
 The two tools' relationships for this doc are **disjoint**: understand-anything found 3 file-level "related" docs; graphify found 2 concept-level references. No overlap. Each is right about its own resolution; neither is wrong; they answer different questions.
@@ -103,7 +103,7 @@ For one-off use, graphify is materially easier to start. For a project that inte
 | Prose-heavy with internal cross-references (research vaults, KB-style analytical layers) | graphify Pass 2 (concept-level abstraction matches prose) |
 | New-reader onboarding artifact wanted                     | understand-anything (the tour is the deliverable)        |
 | Audit / surprise-finding workflow wanted                  | graphify (provenance tags + community detection)         |
-| Karpathy-pattern wiki                                      | Lum1104 `/understand-knowledge` (its actual purpose; this repo doesn't qualify — see methodology assumption #7) |
+| Karpathy-pattern wiki                                      | Understand-Anything `/understand-knowledge` (its actual purpose; this repo doesn't qualify — see methodology assumption #7) |
 | Sensitive content (LLM egress unacceptable)               | Neither: both ship full document content to the invoking session's LLM. Pass 1-only graphify is code-only and won't help prose. |
 
 Both tools could run on the same repo if you wanted complementary outputs (graphify's audit, understand-anything's tour), but the maintenance overhead of two graph systems is real — pick one as authoritative. Either way, the AI-PKM function these tools serve is externally *emerging*, not converged, so adopting one as standing infrastructure requires converged status or an explicit owner exception.
@@ -141,10 +141,10 @@ This is consistent with understand-anything's Phase 2 hallucinating 6 filenames 
 
 ### Tier A
 
-- Direct empirical run (2026-04-28) — graphify v0.5.4 (Pass 1+2) on 162 files; Lum1104 understand-anything v2.3.2 on 106 files (archive/ excluded). This repo. Source for all top-line numbers: nodes, edges, hyperedges, communities, output sizes. Source for the hallucination spot-check (n=8 EXTRACTED edges, ~25% hallucinated, ~38% verified).
+- Direct empirical run (2026-04-28) — graphify v0.5.4 (Pass 1+2) on 162 files; Understand-Anything v2.3.2 on 106 files (archive/ excluded). This repo. Source for all top-line numbers: nodes, edges, hyperedges, communities, output sizes. Source for the hallucination spot-check (n=8 EXTRACTED edges, ~25% hallucinated, ~38% verified).
 - Graphify Pass 1 code-only result (2026-04-28) — 243 nodes / 427 edges, 0 of 38 analysis docs received nodes; Tree-sitter is code-only. Confirms "Pass-2-or-no-graphify is the primary decision."
-- Direct read of safishamsi/graphify pyproject.toml (v1 branch, 2026-04-28) — Confirmed zero LLM SDK dependencies; LLM passes happen via invoking Claude Code session.
-- [memory-systems-recommendation-methodology.md](memory-systems-recommendation-methodology.md) — Methodology #7 (Lum1104 Karpathy gate, verified against plugin v2.3.2) and #8 (Pass 1 vs Pass 2 empirical) directly inform this comparison.
+- Direct read of `safishamsi/graphify` v1 `skills/graphify/skill.md` Part B + `pyproject.toml` (re-sourced 2026-08-28) — Pass 2 is dispatched through the **invoking session's Agent tool**, and v1 has no API-key or backend path of its own. The zero-LLM-SDK dependency list corroborates but does not establish this; the 2026-04-28 entry cited only the dependency list, which is not a sound warrant on its own (current graphify's `claude-cli` backend is a zero-SDK-dependency egress path). Scope: the `/graphify` skill path. Headless `graphify extract` has its own `--backend` provider chain, including a documented local `ollama` option — see [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) § 5.
+- [memory-systems-recommendation-methodology.md](memory-systems-recommendation-methodology.md) — Methodology #7 (Understand-Anything Karpathy gate, verified against plugin v2.3.2) and #8 (Pass 1 vs Pass 2 empirical) directly inform this comparison.
 
 ### Tier C
 
@@ -155,5 +155,5 @@ This is consistent with understand-anything's Phase 2 hallucinating 6 filenames 
 ## Related Analysis
 
 - [`memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md) — primary archetype-A recommendation, includes both tools
-- [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — methodology #7 (Lum1104 Karpathy gate) and #8 (Pass 1 vs Pass 2 empirical) inform this comparison
+- [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — methodology #7 (Understand-Anything Karpathy gate) and #8 (Pass 1 vs Pass 2 empirical) inform this comparison
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all archetypes
