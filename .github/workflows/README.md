@@ -59,16 +59,32 @@ patterns, retry/timeout, and the status codes treated as alive.
 
 ## Running a workflow manually
 
+**Use the Actions tab** → select the workflow → **Run workflow**. That is the
+path that actually works for everyone.
+
 ```bash
+# Requires the gh CLI, authenticated, with actions:write on this repo.
 gh workflow run link-checker.yml
 gh workflow run close-superseded-auto-issues.yml -f apply=false -f limit=500   # dry run first
 ```
 
-Or via the Actions tab → select the workflow → **Run workflow**.
-
 `close-superseded-auto-issues.yml` is **dry-run by default** and never touches an
 issue that carries a human comment. Run it once with `apply=false`, read the
 list, then re-run with `apply=true`.
+
+> **A Claude Code session cannot dispatch these workflows.** Verified 2026-08-28
+> against both the file name and the numeric workflow ID: `POST
+> /actions/workflows/{id}/dispatches` returns **403 "Resource not accessible by
+> integration"**. Claude Code on the web has no `gh` CLI and reaches GitHub only
+> through the GitHub MCP server, whose app grant does not include
+> `actions: write`. So `workflow_dispatch` is a **human-only trigger here**, and
+> any plan that ends in "then Claude runs the workflow" does not complete.
+>
+> This is worth writing down rather than rediscovering: an agent can *author* a
+> maintenance workflow and *not be able to fire it*, which is a quiet way for a
+> shipped mechanism to sit unused. If a job must be agent-triggerable, give it a
+> `schedule:` or a `repository_dispatch:` trigger, or have the agent do the work
+> directly through the API tools it does hold.
 
 ## Keeping this file true
 
