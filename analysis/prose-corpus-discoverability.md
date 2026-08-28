@@ -7,7 +7,7 @@ measurement-claims:
     source: "Contributor-reported three-day production run; not independently reproduced"
     date: "2026-08-28"
     revalidate: "2027-02-28"
-  - claim: "This repository: 171 of 181 markdown files (94.5%) reachable from the auto-loaded entry point, but of 96 archive/ files only 12 correctly declared themselves superseded, 17 asserted a live status in their own frontmatter, and 67 said nothing (the 17 were corrected in the same change; re-running today reports WRONG=0)"
+  - claim: "This repository: 169 of 181 markdown files (93.4%) reachable from the auto-loaded entry point, but only 92 of 179 once the generated INDEX.md is excluded — 77 files hang off that single edge. On currency, of 96 archive/ files 12 correctly declared themselves superseded, 17 asserted a live status in their own frontmatter, 67 said nothing; the 17 plus three executable v1 prompts were corrected in the same change, so re-running today reports correct=31 WRONG=0 absent=65"
     source: "Direct measurement, scripts/measure-link-reachability.py, with determinism regression test scripts/test-measure-link-reachability.py"
     date: "2026-08-28"
     revalidate: "2027-02-28"
@@ -101,20 +101,21 @@ Three entry tiers: `E1` auto-loaded (`.claude/CLAUDE.md` and root `CLAUDE.md`/`A
 |---|---|---|
 | Files | 703 markdown, 6.07M words | 181 markdown |
 | Session under measurement | 359,985 words, 191 commits | — |
-| **Reachable from session-loaded entry points** | **12 of 703 (1.7%)** | 171 of 181 (94.5%) |
+| **Reachable from session-loaded entry points** | **12 of 703 (1.7%)** (reported) | 169 of 181 (93.4%) (measured) |
+| — of which reachable *only* via a generated index | not reported | **77 files; excluding it, 92 of 179 (51%)** |
 | Frontmatter `type:` coverage | 96% | — |
 | **Dead-lane files correctly declaring supersession** | not measured | **12 of 96 (12%)** |
 | **Dead-lane files asserting a LIVE status** | not measured | **17** |
 | **Dead-lane files silent either way** | not measured | **67 of 96 (70%)** |
 | Project health check / lint | green after all 191 commits | green |
 
-Vault figures are contributor-reported from a three-day production run and are **not independently reproduced here**; they are recorded at the tier this repo gives single-practitioner production evidence. Repository figures are measured here and reproduce from a clean checkout.
+**Read the two columns as different kinds of evidence, not as one comparison.** They did not come from the same instrument. The vault's 12 is contributor-reported from a three-day production run, was not produced by this instrument, and is **not independently reproduced here** — it is one unverified number. The repository column is measured by the committed instrument and reproduces deterministically. Placing them in adjacent columns is a presentational convenience that overstates their comparability; the honest form of the contrast is *"a corpus can score near-zero on this property while every other health signal reads green"*, for which the vault is an existence claim and this repository is the worked measurement.
 
 The two rows that matter are the last two. **Every conventional health signal was green on both corpora, and both corpora had a real defect**, because neither signal measures either property. A green lint on a prose corpus tells you the markdown parses.
 
 ### What the repository got right, and it is not writing style
 
-94.5% reachability is not an accident of careful prose. It is produced by three *maintenance instruments*, and a project without them will not reproduce the result no matter how well it writes:
+93.4% reachability is not an accident of careful prose. It is produced by three *maintenance instruments*, and a project without them will not reproduce the result no matter how well it writes:
 
 | Mechanism | Effect on the pointer graph |
 |---|---|
@@ -135,10 +136,10 @@ archive/  n=96   correct=12 (12%)   WRONG=17   absent=67
 
 Meanwhile all 25 live `analysis/` docs carry `status:` and `last-verified:`, and 21 carry a collapse banner. **The discipline exists and is applied rigorously — to the lane that needs it least.** Two worked collisions:
 
-- `archive/patterns-v1/progressive-disclosure.md` carries `status: "PRODUCTION"`, `last-verified: "2026-02-16"`, and a `measurement-claims` block asserting "Token savings: 50-77%" with an unexpired `revalidate: 2026-11-01`. It is a `grep` hit for "progressive disclosure" alongside the live [`claude-md-progressive-disclosure.md`](claude-md-progressive-disclosure.md). Nothing in the returned text distinguishes them but the path.
+- `archive/patterns-v1/progressive-disclosure.md` carries `status: "PRODUCTION"`, `last-verified: "2026-02-16"`, and a `measurement-claims` block asserting "Token savings: 50-77%" with an unexpired `revalidate: 2026-11-01`. It is a `grep` hit for "progressive disclosure" alongside the live [`claude-md-progressive-disclosure.md`](claude-md-progressive-disclosure.md) — though "alongside" undersells it: that query returns **34 files, 18 of them in `archive/`**, so the reader is not choosing between two candidates but filtering a crowd. Nothing in the returned text distinguishes them but the path.
 - `archive/prompts-v1/AUDIT-EXISTING-PROJECT.md` is the *only* file in the repository matching "audit existing project". The live replacement, [`ONE-LINE-PROMPT.md`](../ONE-LINE-PROMPT.md), does not use that phrase. The obvious query returns exclusively superseded instructions, opening "Copy everything below the line and paste it into Claude Code."
 
-The seventeen are corrected in this change (`status: ARCHIVED` plus a tombstone banner, matching the convention already used on the docs evicted in 2026-07), along with the three `archive/prompts-v1/` files that adversarial review identified as the highest residual severity — unmarked, 348–810 lines, and **executable** rather than descriptive. `--currency` now reports `correct=32 WRONG=0 absent=64`. The 64 silent files are **not** fixed and remain the open item — the point of the measurement is the number, not the patch.
+The seventeen are corrected in this change (`status: ARCHIVED` plus a tombstone banner, matching the convention already used on the docs evicted in 2026-07), along with the three `archive/prompts-v1/` files that adversarial review identified as the highest residual severity — unmarked, 348–810 lines, and **executable** rather than descriptive. `--currency` now reports `correct=31 WRONG=0 absent=65` under the tightened banner test (25 by dead `status:`, only 6 by body banner). The 65 silent files are **not** fixed and remain the open item — the point of the measurement is the number, not the patch.
 
 The mechanism behind all of it splits in two, and the second half is the more useful finding.
 
@@ -186,7 +187,17 @@ Two conclusions, and they generalize past this repository:
 
 *Path inference is a real mitigation, and it degrades gracefully rather than failing cleanly.* An agent seeing `archive/patterns-v1/` in a result may well infer supersession, which makes the hazard probabilistic rather than certain. But it depends on the directory being legibly named, and it does not survive the cases that matter: a root-level `SOURCE-REFRESH-2026-07-09-cowork.md` gives no lifecycle signal from its path; `drafts/` and `research/` are ambiguous by construction; and Collision B above returns a single hit whose path an agent has no live alternative to compare against.
 
-*Reachability alone is a weak and gameable metric.* One generated index file takes any corpus to 100% while conveying nothing about authority — which is precisely what happened here: this repository scores 94.5% and still had seventeen files lying about their status. Report both numbers or neither. A single-number "discoverability score" would be worse than nothing.
+*Reachability alone is a weak and gameable metric — and adversarial review showed it is worse than the first draft admitted.* The claim used to be "one generated index file takes any corpus to 100%." A reviewer demonstrated that **one line** does: appending thirteen backticked paths to `.claude/CLAUDE.md` took this repo's figure to 100.0%, via a line no reader would ever act on.
+
+That is not hypothetical here. **Of this repository's 169 reachable files, 77 are reachable only through `INDEX.md`.** Exclude the generated inventory and the figure falls from 93.4% to **92 of 179 (51%)**. The instrument now reports both, always, because the headline flatters:
+
+```
+E1/refs: net of seeds 168/180 (93.3%) | excluding generated inventory 92/179 | hazard exposure 96
+```
+
+The metric is also **sign-inverted against its own thesis**: adding tombstones *raises* the score, and reaching a superseded file is a debit, not a credit — so hazard exposure is reported separately and never folded into the numerator. And seeds are not an achievement: they were loaded, not reached, so a net-of-seeds figure is reported too.
+
+The honest reading: this repository is well-*indexed*, which is a real and useful property, and only about half-*linked*, which is the property that carries authority. Report all three numbers or none. A single-number "discoverability score" would be worse than nothing.
 
 *The direction of first-party guidance is toward less upfront context, and this is consistent with that, not against it.* Anthropic removed over 80% of Claude Code's system prompt for the Claude 5 generation with no measured loss on coding evals, and names progressive disclosure a recommended shift. Pruning upfront context does not weaken this document's claim — it **raises the stakes on it**, because everything pruned now depends on the pointer graph and the currency marker to be recoverable and trustworthy. The remedy proposed here is not "load more"; it is "make the unloaded remainder actually reachable, and make it declare whether it is still true."
 
@@ -205,7 +216,7 @@ Two conclusions, and they generalize past this repository:
 ## Gaps
 
 - **Gap: n=2 corpora.** One measured directly, one contributor-reported. This repo's own bar for Tier B is production validation across 3+ projects, so the doc ships `EMERGING` and `Mixed`, not `PRODUCTION`/`B`. **Needs**: the instrument run against at least one more large prose corpus, ideally one not authored by a contributor to this repository.
-- **Gap: no calibrated threshold.** 1.7% is plainly bad and 94.5% is plainly fine; nothing here calibrates the middle, so the diagnostic table says "low" rather than naming a number. **Needs**: reachability distributions across ten or more prose corpora before any threshold is asserted.
+- **Gap: no calibrated threshold.** 1.7% is plainly bad and 93.4% is plainly fine; nothing here calibrates the middle, so the diagnostic table says "low" rather than naming a number. **Needs**: reachability distributions across ten or more prose corpora before any threshold is asserted.
 - **Gap: currency marking presupposes a live alternative.** Where the archived doc is the only coverage, marking it correctly removes the agent's only source and makes the answer worse. This document has no principled way to tell a currency gap from a coverage gap, and the diagnostic table does not distinguish them. **Needs**: a companion check that asks, for each dead-lane file, whether any live doc covers its subject — cheap to approximate (successor named and topic-terms present in the successor), and the thing that would have caught the false successor pointer this change first introduced.
 - **Gap: harm is argued, not measured.** The causal step — an agent retrieves superseded prose, and its answer is *worse* than it would have been — is demonstrated by construction (Collisions A and B) but never measured as an outcome. This is the weakest link in the argument and should be read as such. **Needs**: a paired eval — identical questions against the same corpus with and without supersession marking, scoring answer correctness — which is exactly the shape of instrument [`agent-evaluation.md`](agent-evaluation.md) describes.
 - **Gap: currency correctness is only checkable where the lane contradicts the file.** `--currency` catches a `PRODUCTION` marker inside `archive/` because the *path* supplies ground truth. It cannot tell whether a `last-verified: 2026-08-13` on a live doc is honest, which is the larger and harder question. **Needs**: a marker-vs-content check — comparing a doc's asserted verification date against the last substantive edit to the claims it verifies.
@@ -230,9 +241,9 @@ Two conclusions, and they generalize past this repository:
 
 ### Tier A (Primary / Direct Observation)
 
-- **This repository, measured 2026-08-28** — 181 markdown files; **171 reachable** under `E1/refs` (94.5%), 71 of 85 live-only (83.5%); of 96 `archive/` files **12 correct / 17 WRONG / 67 absent** on currency marking; 1,335 internal links classified (1,018 resolve, 71 root-relative-only, 28 outside-repo, 214 dangling) — link totals shift as these docs are edited, since they sit inside the corpus they measure, so read them against the commit. Instrument, test, and raw record: [`scripts/measure-link-reachability.py`](../scripts/measure-link-reachability.py), [`scripts/test-measure-link-reachability.py`](../scripts/test-measure-link-reachability.py), [`research/corpus-reachability-2026-08-28.md`](../research/corpus-reachability-2026-08-28.md).
+- **This repository, measured 2026-08-28** — 181 markdown files; **169 reachable** under `E1/refs` (93.4%) — 92 of 179 excluding the generated inventory — and 71 of 85 live-only (83.5%); of 96 `archive/` files **12 correct / 17 WRONG / 67 absent** on currency marking; 1,335 internal links classified (1,018 resolve, 71 root-relative-only, 28 outside-repo, 214 dangling) — link totals shift as these docs are edited, since they sit inside the corpus they measure, so read them against the commit. Instrument, test, and raw record: [`scripts/measure-link-reachability.py`](../scripts/measure-link-reachability.py), [`scripts/test-measure-link-reachability.py`](../scripts/test-measure-link-reachability.py), [`research/corpus-reachability-2026-08-28.md`](../research/corpus-reachability-2026-08-28.md).
   - **Reproducible, and that had to be earned.** The first figures published here came from a nondeterministic instrument (a set literal in `_resolve` let `PYTHONHASHSEED` decide which of two valid resolutions the BFS followed; repeated runs returned 168–171) against a stale corpus count that excluded this doc's own two files. Both are fixed and a regression test now runs the instrument under eight hash seeds, verified to fail against the pre-fix version. The episode is recorded rather than repaired silently because it is this document's own thesis one level up: an instrument that ran green and was not measuring what it claimed. See the correction notice at the top of the raw record.
-  - **The 17 `WRONG` files are a historical measurement, already remediated in-tree.** They were corrected in the same change that published this doc, so `--currency` reports `correct=32 WRONG=0 absent=64` today. Anyone re-running it now and expecting 17 will find zero; the pre-fix state is reproducible from git at the parent of that commit.
+  - **The 17 `WRONG` files are a historical measurement, already remediated in-tree.** They were corrected in the same change that published this doc, so `--currency` reports `correct=31 WRONG=0 absent=65` today. Anyone re-running it now and expecting 17 will find zero; the pre-fix state is reproducible from git at the parent of that commit.
 
 - Anthropic — [CLAUDE.md best practices](https://code.claude.com/docs/en/best-practices), § "Write an effective CLAUDE.md" (the ❌ Exclude column) and § "Provide rich content" (the fetch-on-demand bullet), **verified 2026-08-28**. Source of the *anything Claude can figure out by reading code* exclude guidance and the *let Claude fetch what it needs* discovery model this document scopes. The guidance is about CLAUDE.md authoring and makes no claim about prose corpora; this document scopes its warrant rather than disputing it.
 - Anthropic / Thariq Shihipar, ["The new rules of context engineering for Claude 5 generation models"](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models) (2026-07-24) — progressive disclosure named as a recommended shift; the 80%-system-prompt-reduction claim. **Mirror-verified 2026-08-13, direct fetch blocked**; inherits the sourcing caveat recorded in [`claude-md-progressive-disclosure.md`](claude-md-progressive-disclosure.md).

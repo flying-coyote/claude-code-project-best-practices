@@ -6,9 +6,9 @@ measurement-claims:
   - claim: "Token savings: 50-77% reduction from progressive disclosure"
     source: "Production testing on 4 skills"
     date: "2025-11-01"
-    revalidate: "2026-11-01"
+    revalidate: "RETIRED — v1-era claim, not revalidated; see status: ARCHIVED"
 status: ARCHIVED
-last-verified: "2026-02-16"
+last-verified: "2026-02-16"   # v1-era; the doc is ARCHIVED, do not read this as current verification
 notes: "Apply only for skills >200 lines; default to single ~60 line file per Anthropic guidance"
 ---
 

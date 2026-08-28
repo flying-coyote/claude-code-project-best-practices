@@ -50,13 +50,16 @@ def main():
     # 3. Monotonicity: each mode counts at least as much as the previous.
     txt = run(["--include-archive", "--entry", "E1"])
     vals = {ln.split()[0].split("/")[1]: int(ln.split()[1])
-            for ln in txt.splitlines() if ln.startswith("E1/")}
+            for ln in txt.splitlines()
+            if ln.startswith("E1/") and not ln.startswith("E1/refs:")
+            and ":" not in ln.split()[0]}
     ok &= check("modes are cumulative (links <= refs <= dirs)",
                 vals["links"] <= vals["refs"] <= vals["dirs"], str(vals))
 
     # 4. Monotonicity across entry tiers at a fixed mode.
     tiers = {t: int([ln for ln in run(["--include-archive", "--mode", "refs", "--entry", t])
-                     .splitlines() if ln.startswith(t + "/")][0].split()[1])
+                     .splitlines()
+                     if ln.startswith(t + "/") and ":" not in ln.split()[0]][0].split()[1])
              for t in ("E1", "E2", "E3")}
     ok &= check("entry tiers are cumulative (E1 <= E2 <= E3)",
                 tiers["E1"] <= tiers["E2"] <= tiers["E3"], str(tiers))
@@ -67,6 +70,14 @@ def main():
     got = sum(int(line.split(f"{k}=")[1].split()[0].split("(")[0])
               for k in ("correct", "WRONG", "absent"))
     ok &= check("currency buckets sum to the lane size", got == n, f"{got} vs n={n}")
+
+    # 6. The gameability disclosure must be present -- the headline percentage
+    #    is not publishable without it.
+    txt = run(["--include-archive", "--entry", "E1", "--mode", "refs"])
+    ok &= check("reports the generated-inventory-excluded figure",
+                "excluding generated inventory" in txt)
+    ok &= check("reports hazard exposure separately from the numerator",
+                "hazard exposure" in txt)
 
     print("\nAll tests passed." if ok else "\nFAILURES above.")
     return 0 if ok else 1

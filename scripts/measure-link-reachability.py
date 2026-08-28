@@ -118,8 +118,20 @@ def entry_points(root: Path, corpus: set[str], kinds: list[str]) -> set[str]:
             if cand in corpus:
                 found.add(cand)
     if "config" in kinds:
+        # Only surfaces the harness itself presents: rule files (path-triggered),
+        # skill/agent/command DEFINITIONS (descriptions always in context). NOT
+        # second-level progressive-disclosure bodies -- a skill's workflows/ or
+        # references/ leaf is reached only if the skill body reads it, so
+        # seeding it would be the single-loading-surface error this instrument
+        # exists to reject, inverted.
         for f in corpus:
-            if f.startswith(".claude/") and f not in {".claude/CLAUDE.md"}:
+            if not f.startswith(".claude/") or f == ".claude/CLAUDE.md":
+                continue
+            parts = f.split("/")
+            if parts[1] == "rules":
+                found.add(f)
+            elif parts[1] in ("skills", "agents", "commands") and (
+                    parts[-1] in ("SKILL.md", "AGENT.md") or len(parts) == 3):
                 found.add(f)
     if "front" in kinds:
         if "README.md" in corpus:
@@ -157,11 +169,40 @@ def _resolve(src: str, target: str, corpus: set[str], dirs: set[str]) -> tuple[s
     return set(), False
 
 
+FENCE = re.compile(r"^```.*?^```", re.M | re.S)
+INLINE_CODE = re.compile(r"`[^`\n]*`")
+PLACEHOLDER = re.compile(r"\{|XXX|YYY|ZZZ|path/to/|^doc-name\.md$|^file\.md$")
+
+
+def strip_fences(text: str) -> str:
+    """Remove fenced blocks only, keeping inline code spans.
+
+    For reachability this is the right cut: a path inside a fenced example is
+    an illustration, not a pointer, but a BACKTICKED path in prose is exactly
+    how this repo's own CLAUDE.md points at things -- it is what `refs` mode
+    exists to follow. Stripping inline spans here would delete the edges.
+    """
+    return FENCE.sub(lambda m: "\n" * m.group(0).count("\n"), text)
+
+
+def strip_code(text: str) -> str:
+    """Remove fenced blocks and inline code before extracting links.
+
+    Without this, prose that *describes* link syntax -- a doc explaining
+    `[t](p)` -- is scored as a broken link. Fences collapse to newlines so
+    line numbers survive.
+    """
+    text = FENCE.sub(lambda m: "\n" * m.group(0).count("\n"), text)
+    return INLINE_CODE.sub("", text)
+
+
 def outgoing(src: str, root: Path, corpus: set[str], dirs: set[str], mode: str
              ) -> tuple[set[str], set[str]]:
     """(md files pointed at, directories pointed at) from one source file."""
     try:
-        text = (root / src).read_text(encoding="utf-8", errors="replace")
+        # Same code-span stripping as --links: a doc that *describes* a path in a
+        # fenced example is not pointing at it.
+        text = strip_fences((root / src).read_text(encoding="utf-8", errors="replace"))
     except OSError:
         return set(), set()
 
@@ -211,12 +252,21 @@ def reachable(root: Path, corpus: set[str], entries: set[str], mode: str) -> set
     return seen & corpus
 
 
+BANNER_SCAN_LINES = 8   # a self-declaration sits at the top, not buried at line 39
 LIVE_STATUS = {"PRODUCTION", "EMERGING", "REFERENCE", "STABLE", "ACTIVE", "CURRENT"}
 DEAD_STATUS = {"ARCHIVED", "RETIRED", "RETIRING", "DEPRECATED", "SUPERSEDED"}
-BANNER = re.compile(
+# A banner must be a SELF-REFERENTIAL DECLARATION near the top -- a leading
+# blockquote or bold run in the first few lines -- not merely a keyword
+# anywhere in the first 40. The loose version over-credited exactly where it
+# was applied: a deprecation archive is the corpus most likely to contain
+# "superseded"/"deprecated" for reasons unrelated to self-declaration. Three of
+# four banner-only "correct" verdicts were false positives: a doc *about*
+# supersession, a legend row in a status-key table, and a template placeholder.
+BANNER_WORDS = re.compile(
     r"(?i)\b(archived|superseded|retired|tombstone|do not use|no longer current"
-    r"|historical (record|value|comparison)|merged into|replaced by"
-    r"|evicted to archive|collapsed)\b")
+    r"|not current guidance|historical (record|value|comparison)|merged into"
+    r"|replaced by|evicted to archive|collapsed)\b")
+BANNER_FORM = re.compile(r"^\s{0,3}(>|\*\*|__)")
 STATUS_FIELD = re.compile(r"^status:\s*[\"']?([A-Za-z]+)", re.M)
 
 
@@ -235,25 +285,20 @@ def classify_currency(text: str) -> str:
     status = m.group(1).upper() if m else None
     if status in LIVE_STATUS:
         return "WRONG"
-    if status in DEAD_STATUS or BANNER.search("\n".join(text.splitlines()[:40])):
+    if status in DEAD_STATUS:
         return "correct"
+    # Body banner: a declaration, in declarative form, in the first few lines
+    # after any frontmatter and the H1.
+    body = text.splitlines()
+    if body and body[0].startswith("---"):
+        for i, ln in enumerate(body[1:], 1):
+            if ln.startswith("---"):
+                body = body[i + 1:]
+                break
+    for ln in body[:BANNER_SCAN_LINES]:
+        if BANNER_FORM.match(ln) and BANNER_WORDS.search(ln):
+            return "correct"
     return "absent"
-
-
-FENCE = re.compile(r"^```.*?^```", re.M | re.S)
-INLINE_CODE = re.compile(r"`[^`\n]*`")
-PLACEHOLDER = re.compile(r"\{|XXX|YYY|ZZZ|path/to/|^doc-name\.md$|^file\.md$")
-
-
-def strip_code(text: str) -> str:
-    """Remove fenced blocks and inline code before extracting links.
-
-    Without this, prose that *describes* link syntax -- a doc explaining
-    `[t](p)` -- is scored as a broken link. Fences collapse to newlines so
-    line numbers survive.
-    """
-    text = FENCE.sub(lambda m: "\n" * m.group(0).count("\n"), text)
-    return INLINE_CODE.sub("", text)
 
 
 def report_links(root: Path, corpus: set[str]) -> int:
@@ -325,7 +370,9 @@ def report_currency(root: Path, lanes: list[str]) -> int:
         if not d.is_dir():
             continue
         any_lane = True
-        files = sorted(d.rglob("*.md"))
+        tracked = repo_markdown(root, include_archive=True)
+        files = sorted(root / f for f in tracked
+                       if f == lane or f.startswith(lane.rstrip("/") + "/"))
         counts = {"correct": 0, "WRONG": 0, "absent": 0}
         for f in files:
             try:
@@ -409,6 +456,33 @@ def main() -> int:
     print(f"{'entry/mode'.ljust(width)}  reachable  of corpus")
     for k, v in results.items():
         print(f"{k.ljust(width)}  {str(v['reachable']).rjust(9)}  {str(v['pct']).rjust(6)}%")
+
+    # Three disclosures the headline percentage hides. Reported always, because
+    # each one moves the number in a direction the headline flatters.
+    print()
+    for k, v in results.items():
+        tier = k.split("/")[0]
+        seeds = set(v["entry_points"])
+        reach = set(corpus) - set(v["unreachable"])
+        net_n, net_d = len(reach - seeds), len(corpus) - len(seeds)
+        # (a) seeds are not an achievement: they were loaded, not reached.
+        line = (f"{k}: net of seeds {net_n}/{net_d} "
+                f"({round(100 * net_n / net_d, 1) if net_d else 0}%)")
+        # (b) a generated inventory can carry the whole corpus on one edge, so
+        #     the metric is gameable by one line nobody will ever act on.
+        inv = {f for f in corpus if Path(f).name in
+               ("INDEX.md", "SUMMARY.md", "TOC.md")}
+        if inv:
+            without = reachable(root, corpus - inv, seeds & (corpus - inv),
+                                k.split("/")[1])
+            line += (f" | excluding generated inventory "
+                     f"{len(without - seeds)}/{len(corpus - inv - seeds)}")
+        # (c) reaching a tombstone is a debit, not a credit. Never folded in.
+        dead = {f for f in reach if f.startswith("archive/")}
+        if dead:
+            line += f" | hazard exposure (reachable dead-lane files) {len(dead)}"
+        print(line)
+        del tier
 
     if args.list_unreachable:
         for k, v in results.items():

@@ -12,7 +12,12 @@ convergence: single-source
 >
 > Both are fixed. `_resolve` now iterates an ordered list preferring relative-to-source (correct markdown semantics), the corpus is counted at the tree being measured, and a regression test runs the instrument under eight hash seeds and fails if any two disagree — verified to fail against the pre-fix version. **All figures below are the corrected ones.** The pre-correction figures are preserved in git.
 >
-> This is worth stating plainly rather than quietly repairing, because it is exactly the failure this document describes one level up: an instrument that ran green, looked authoritative, and was not measuring what it claimed. A single run could not detect it.
+> **Second correction, same day, after a further adversarial pass.** Three more defects, each moving the number down:
+> - **The banner test over-credited.** `correct` accepted any supersession keyword in the first 40 lines. In a *deprecation archive* that is the corpus most likely to contain such words for unrelated reasons — a doc *about* supersession, a legend row in a status-key table, a template placeholder. It now requires a self-referential declaration in declarative form (leading blockquote or bold) in the first 8 lines.
+> - **Fenced blocks counted as pointers.** A path inside a fenced example is an illustration, not a pointer. Reachability now strips fences (but *not* inline code spans — a backticked path in prose is exactly how this repo's CLAUDE.md points at things, and is what `refs` mode exists to follow). 171 → 169.
+> - **The `E2` tier seeded every `.md` under `.claude/`,** including skill `workflows/` and `references/` leaves that load only if a skill body reads them. Seeding progressive-disclosure leaves as always-available entry points is the single-loading-surface error this document opens by rejecting, inverted. Now seeds only rules, and skill/agent/command definitions.
+>
+> This is worth stating plainly rather than quietly repairing, because it is exactly the failure this document describes one level up: an instrument that ran green, looked authoritative, and was not measuring what it claimed. A single run could not detect the first defect; only adversarial review found the rest.
 
 **Why this record exists**: this repository's identity is measurements and instruments no other lane publishes (README § Where This Sits). The claim under test — that a prose corpus's discoverability is a *measurable* property rather than a stylistic one — is only worth making if it comes with the measurement. This file is the measurement; the analysis doc is the argument.
 
@@ -77,19 +82,29 @@ corpus: 181 markdown files
 
 entry/mode  reachable  of corpus
 E1/links          1     0.6%
-E1/refs         171    94.5%
-E1/dirs         172    95.0%
-E2/links        177    97.8%
-E2/refs         181   100.0%
-E2/dirs         181   100.0%
-E3/links        177    97.8%
-E3/refs         181   100.0%
-E3/dirs         181   100.0%
+E1/refs         169    93.4%
+E1/dirs         170    93.9%
+E2/links        169    93.4%
+E2/refs         177    97.8%
+E2/dirs         177    97.8%
+E3/links        169    93.4%
+E3/refs         177    97.8%
+E3/dirs         177    97.8%
+
+E1/refs: net of seeds 168/180 (93.3%) | excluding generated inventory 92/179 | hazard exposure (reachable dead-lane files) 96
 ```
 
-Excluding `archive/` (85 live files): E1/links 1 (1.2%), E1/refs **71 (83.5%)**, E2/refs 85 (100%).
+Excluding `archive/` (85 live files): E1/links 1 (1.2%), E1/refs **71 (83.5%)**, and excluding the generated inventory, **54 of 83**.
 
-**Headline: 171 of 181 files (94.5%) are reachable from the auto-loaded entry point alone.** Against the vault's 12 of 703 (1.7%), this repository does not have the disease at the reachability level.
+**Headline: 169 of 181 files (93.4%) reachable from the auto-loaded entry point — but 77 of those only via `INDEX.md`.** Take the generated inventory out and it is **92 of 179 (51%)**. Both are true and they say different things: the corpus is well-*indexed* and about half-*linked*. Against the vault's reported 12 of 703, either figure still says this repository does not have the disease at the reachability level; the 51% says the margin is much thinner than the headline suggests.
+
+Three disclosures now print on every run, because each moves the number in a direction the headline flatters:
+
+| Disclosure | Why |
+|---|---|
+| net of seeds | entry points were *loaded*, not *reached*; counting them inflates the numerator |
+| excluding generated inventory | one generated file can carry the corpus on a single edge. A reviewer took this repo to **100.0%** by appending one line of thirteen backticked paths to `.claude/CLAUDE.md` — a line no reader would ever act on |
+| hazard exposure | reaching a superseded file is a **debit**, not a credit. 96 of the reachable files are in the dead lane. Never folded into the numerator |
 
 Note which half moved under the determinism fix: the live-only figure was **stable at 71/85 across every run, before and after**. All the variance lived inside `archive/`, in three `archive/examples-v1/*/README.md` files whose backticked `` `.claude/CLAUDE.md` `` resolves both to their own nested copy and to the repo-root one. The ambiguity was real; the coin-flip resolution of it was the bug.
 
@@ -177,10 +192,10 @@ The departure is historical, not deliberate. These files were moved into `archiv
 
 ```
 $ python3 scripts/measure-link-reachability.py --currency
-archive/  n=96   correct=32 (33%)   WRONG=0   absent=64
+archive/  n=96   correct=31 (32%)   WRONG=0   absent=65
 ```
 
-Three of the newly-marked files are `archive/prompts-v1/`, added after adversarial review flagged them as the highest residual severity in the corpus: they are unmarked, 348–810 lines, and **executable copy-paste prompts** rather than descriptive prose, so acting on them means applying retired v1 methodology to a live project. The remaining 64 `absent` files are **not** fixed by this change and remain the open item. The pre-remediation state stays reproducible from git:
+Under the tightened banner test, 25 of the 31 `correct` verdicts come from a dead `status:` value and only 6 from a body banner. Three of the newly-marked files are `archive/prompts-v1/`, added after adversarial review flagged them as the highest residual severity in the corpus: they are unmarked, 348–810 lines, and **executable copy-paste prompts** rather than descriptive prose, so acting on them means applying retired v1 methodology to a live project. The remaining 65 `absent` files are **not** fixed by this change and remain the open item. The pre-remediation state stays reproducible from git:
 
 ```
 git worktree add --detach /tmp/pre <commit-before-this-change>
@@ -264,7 +279,8 @@ Three sub-findings in the live lane:
 
 | | vault (703 files) | this repo (179 files) |
 |---|---|---|
-| Reachable from session-loaded entry points | **12 of 703 (1.7%)** | 171 of 181 (94.5%) |
+| Reachable from session-loaded entry points | **12 of 703 (1.7%)** (reported, not reproduced) | 169 of 181 (93.4%) (measured) |
+| — excluding the generated inventory | not reported | **92 of 179 (51%)** |
 | Dead-lane files correctly declaring supersession | not measured | **12 of 96 (12%)** |
 | Dead-lane files **asserting a live status** | not measured | **17** |
 | Dead-lane files silent either way | not measured | **67 of 96 (70%)** |
