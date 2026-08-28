@@ -102,9 +102,9 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 
 ---
 
-## Core Analysis (25 files)
+## Core Analysis (26 files)
 
-*The `analysis/` directory contains 25 `.md` files: 24 routable analysis docs plus `CANONICAL-DOC-TEMPLATE.md`, a non-routable template excluded from the count (post the 2026-07-16 absorption wave: one retirement in progress, two merges).*
+*The `analysis/` directory contains 26 `.md` files: 25 routable analysis docs plus `CANONICAL-DOC-TEMPLATE.md`, a non-routable template excluded from the count (post the 2026-07-16 absorption wave: one retirement in progress, two merges; `prose-corpus-discoverability.md` added 2026-08-28).*
 
 | Document | What It Covers |
 |----------|---------------|
@@ -132,6 +132,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 | [evidence-based-revalidation.md](analysis/evidence-based-revalidation.md) | Hypothesis confidence tracking, revalidation before demos |
 | [automated-config-assessment.md](analysis/automated-config-assessment.md) | Baseline-deviation-remediation pattern + Hoosier 12/12 ground-truth measurement |
 | [cross-project-synchronization.md](analysis/cross-project-synchronization.md) | Cross-repo dependency cascading, 4-phase enrichment cascade |
+| [prose-corpus-discoverability.md](analysis/prose-corpus-discoverability.md) | Why "let Claude fetch what it needs" is a code assumption: link-reachability and currency-marking as measured corpus properties, with the instrument and this repo's own self-audit result (EMERGING) |
 
 ### Meta and Source Files
 
@@ -196,7 +197,7 @@ Full database: [SOURCES.md](SOURCES.md).
 
 ## Project Status
 
-**v2.1** — 24 routable analysis docs (44→27 in the 2026-07-10 Reduction Phases 0-6; 27→25 files in the 2026-07-16 absorption wave — first third-party sweep, five docs entered the follow lane, one retirement toward `/usage`, two merges; see ABSORPTION-MAP.md) with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Claude 5-family migration readiness (Fable 5 / Opus 5 / Sonnet 5, with Opus 4.8 as Legacy; refreshed 2026-08-13), unattended-execution primitives (`/loop`, `/goal`, Routines, scheduled tasks) plus the "loop engineering" framing, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
+**v2.1** — 25 routable analysis docs (44→27 in the 2026-07-10 Reduction Phases 0-6; 27→25 files in the 2026-07-16 absorption wave — first third-party sweep, five docs entered the follow lane, one retirement toward `/usage`, two merges; see ABSORPTION-MAP.md) with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Claude 5-family migration readiness (Fable 5 / Opus 5 / Sonnet 5, with Opus 4.8 as Legacy; refreshed 2026-08-13), unattended-execution primitives (`/loop`, `/goal`, Routines, scheduled tasks) plus the "loop engineering" framing, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
 
 **Archive**: Prior v1 patterns (24 docs) live in `archive/patterns-v1/` — preserved for historical comparison, not active guidance. See [ARCHIVE.md](ARCHIVE.md).
 
