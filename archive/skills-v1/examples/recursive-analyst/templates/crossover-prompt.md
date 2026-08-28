@@ -1,5 +1,7 @@
 # Crossover Prompt Template
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live successor covers this file. analysis/orchestration-comparison.md names the crossover-synthesis step in a single cost-table row ("Best elements merged", ~13x total) but carries none of this template's substance: the fill-in prompt text, the four synthesis instructions, the conflict-reconciliation rule favouring higher-scored candidates, the prescribed output format, and the task-type weighting table have no counterpart anywhere in analysis/ (greps for "reconcile", "{query}", "{candidate", "Unique Strengths", "Agreement Areas", and "Merged Result" all return zero live hits). The technique survives as a cost line item; the instrument that performs it exists only here. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 Minimal template for synthesizing multiple candidate outputs into a superior merged result.
 
 ---

@@ -1,5 +1,7 @@
 # Hybrid Preset
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. Archived v1 material with no live successor. analysis/agent-driven-development.md and analysis/harness-engineering.md carry only this preset's generic "start minimal, add infrastructure when specific friction forces it" heuristic — they do not cover what this document is for: classifying mixed-purpose (code + content + research) projects, the tier-keyed starter component table (permissions.allow, Stop/Session hooks, GitHub Actions), the Quality Standards and Git Workflow CLAUDE.md blocks, or when to switch to a specialized preset. No live analysis document discusses mixed-purpose project classification; the four-preset scheme is retired v1 design (DECISIONS.md Decision 2), and this document's own pointer, archive/patterns-v1/project-infrastructure.md, is archived as well. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 For mixed-purpose projects combining code, content, and/or research.
 
 ## When to Use

@@ -6,6 +6,8 @@ allowed-tools: Read, Grep, Glob, Bash
 
 # Systematic Debugger
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live doc teaches a debugging methodology — the only live mentions are analysis/memory-system-patterns.md ruling that debugging fixes belong in git history rather than memory — so this is uncovered territory here, with the file's own pointer to obra/superpowers the nearest external home. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 Replace ad-hoc debugging with systematic REPRODUCE-ISOLATE-UNDERSTAND-FIX protocol.
 
 > 🔗 **Production Framework**: For advanced debugging with strict enforcement, see [obra/superpowers](https://github.com/obra/superpowers) which provides production-grade debugging frameworks and multi-agent orchestration patterns. This skill demonstrates **Claude Code skill integration** of systematic debugging principles.

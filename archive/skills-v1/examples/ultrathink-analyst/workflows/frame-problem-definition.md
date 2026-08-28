@@ -1,5 +1,7 @@
 # FRAME: Problem Definition Workflow
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. Nothing live carries a problem-framing protocol — analysis/intent-alignment-audit.md asks a fixed intent-audit question bank, not a general problem-definition method — so this phase workflow, like its parent skill, is uncovered territory. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Purpose**: Systematically define and understand the problem before exploring solutions. Use this workflow when starting a new UltraThink analysis to establish baseline understanding.
 
 ---

@@ -6,6 +6,8 @@ allowed-tools: Read, Grep, Glob, Bash, Write
 
 # TDD Enforcer
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. The closest live material, analysis/agent-driven-development.md § Test-Driven Progression, measures test growth as an infrastructure-maturity signal rather than teaching test-first practice, so the RED-GREEN-REFACTOR cycle here has no live successor and the file's own pointer to obra/superpowers is the nearest external home. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 Enforce tests BEFORE implementation using RED-GREEN-REFACTOR cycle.
 
 > 🔗 **Production Framework**: For strict TDD enforcement in production projects, see [obra/superpowers](https://github.com/obra/superpowers) which provides battle-tested, production-grade TDD enforcement with deeper integration. This skill is a **lightweight learning alternative** for understanding TDD principles and integrating with Claude Code's native skill system.

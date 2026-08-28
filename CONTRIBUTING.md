@@ -127,6 +127,7 @@ replacement-by: "<replacement> (<support tier>, <GA date>) — <what it covers>.
 - [ ] Register the replacement in `SOURCES.md` with its evidence tier and an explicit boundary (what it does / does not do versus this project).
 - [ ] Update `AUDIT-CONTEXT.md` routing so the relevant signals **defer to the replacement** and fetch the doc only for the retained slice.
 - [ ] Note the retirement in the `SOURCES.md` refresh log and in `PLAN.md`.
+- [ ] **Verify the successor before naming it.** Grep the doc you are about to call "the live successor" for the retiring doc's distinctive terms and require a real hit. Topic adjacency is not coverage. When 65 archived files were marked in 2026-08, an adversarial pass **overturned 35 of 39 successor claims** — a doc named for the right area routinely turns out to have kept a different slice. If nothing live covers the subject, the banner must say **uncovered**, never *superseded*: a confident false successor sends the reader to a live, well-formed doc and lets them conclude the material is covered when it is not, which is worse than leaving the file unmarked.
 
 **First application**: `analysis/session-quality-tools.md` (2026-06-04) → first-party `/insights` + native `claude doctor`; **completed and archived 2026-07-10** (`archive/session-quality-tools.md`). See its frontmatter and banner for the pattern.
 

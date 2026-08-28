@@ -1,5 +1,7 @@
 # Skill Templates
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live doc in this repo contains a skill template — analysis/CANONICAL-DOC-TEMPLATE.md templates this repo's own analysis documents, not SKILL.md files — so this is uncovered territory here, and the current authority is Anthropic's official skills documentation. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 ## Minimal Template (Anthropic Recommended)
 
 Per [Anthropic guidance](https://code.claude.com/docs/en/best-practices), skills should be ~60 lines and concise. Use this template for most skills.

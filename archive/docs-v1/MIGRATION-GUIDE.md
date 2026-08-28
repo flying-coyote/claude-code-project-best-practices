@@ -1,5 +1,7 @@
 # Migration Guide
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. Archived, not superseded — no live successor covers this material. The adaptive routing audit (README § Quick Start, ONE-LINE-PROMPT.md, AUDIT-CONTEXT.md) replaces only the first step of Scenario 1, the compliance-report generation. Everything else is a live coverage gap: the Cursor/.cursorrules translation (zero `cursorrules` hits anywhere outside `archive/`), the Aider/Copilot/OpenHands migration notes, the team-standardization levels and shared settings/preset templates, the phased adoption sequence and validation checklist, the version-upgrade procedure, the migration pitfalls, and the rollback plan. Read here for historical reference only; the audit diagnoses a project's current state, it does not guide a transition into Claude Code from another tool or across a team. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Purpose**: Adopt best practices from existing setups without starting from scratch
 
 ---

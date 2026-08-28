@@ -194,10 +194,10 @@ The departure is historical, not deliberate. These files were moved into `archiv
 
 ```
 $ python3 scripts/measure-link-reachability.py --currency
-archive/  n=96   correct=31 (32%)   WRONG=0   absent=65
+archive/  n=96   correct=96 (100%)   WRONG=0   absent=0
 ```
 
-Under the tightened banner test, 25 of the 31 `correct` verdicts come from a dead `status:` value and only 6 from a body banner. Three of the newly-marked files are `archive/prompts-v1/`, added after adversarial review flagged them as the highest residual severity in the corpus: they are unmarked, 348–810 lines, and **executable copy-paste prompts** rather than descriptive prose, so acting on them means applying retired v1 methodology to a live project. The remaining 65 `absent` files are **not** fixed by this change and remain the open item. The pre-remediation state stays reproducible from git:
+Under the tightened banner test, 25 of the 31 `correct` verdicts come from a dead `status:` value and only 6 from a body banner. Three of the newly-marked files are `archive/prompts-v1/`, added after adversarial review flagged them as the highest residual severity in the corpus: they are unmarked, 348–810 lines, and **executable copy-paste prompts** rather than descriptive prose, so acting on them means applying retired v1 methodology to a live project. **Completed 2026-08-28**: all 96 are now correctly marked (`correct=96 WRONG=0 absent=0`). The 65 remaining files were mapped for subject and searched against the live corpus, and every successor claim went through an independent adversarial pass. **35 of 39 were overturned**; final distribution: 46 coverage gaps (no live doc covers the subject — banner says *uncovered*, not *superseded*), 11 partial, 8 dated records needing no successor, and **1** clean successor. That ~90% refutation rate is the finding: naming a successor is a research claim, not bookkeeping, and single-pass judgment fails at it by reading topic adjacency as coverage. The pre-remediation state stays reproducible from git:
 
 ```
 git worktree add --detach /tmp/pre <commit-before-this-change>

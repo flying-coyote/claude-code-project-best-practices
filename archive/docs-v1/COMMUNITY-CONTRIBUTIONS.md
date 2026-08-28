@@ -1,5 +1,7 @@
 # Community Contribution Strategy
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live doc replaces it: outbound contribution strategy is uncovered territory in the current repo, which documents only what it absorbs from other lanes (ABSORPTION-MAP.md) and what it accepts inbound (CONTRIBUTING.md), never what it sends upstream. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Purpose**: How this project can give back to the community projects we curate
 
 **Last Updated**: March 6, 2026

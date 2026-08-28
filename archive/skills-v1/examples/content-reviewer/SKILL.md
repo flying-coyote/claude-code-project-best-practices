@@ -6,6 +6,8 @@ allowed-tools: Read, Grep, Glob
 
 # Content Reviewer
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live successor covers this file. `analysis/evidence-tiers.md` absorbs only the evidence dimension and re-expresses the confidence-language gradient on the Tier A-D / HIGH-MEDIUM-LOW axis (the archived Tier 1-5 table is superseded by owner ruling B-F7, 2026-07-12); it does not carry the four-dimension publication gate itself. The Voice and Balance dimensions have no home anywhere in `analysis/` — "active voice", "marketing hype", "professional voice", "intellectual honesty" and "balanced perspective" all return zero hits — and the trigger conditions, ❌/✅ hype-to-measurement rewrites, PASS/NEEDS WORK/FAIL output format and Don't list are unreplaced. The `publication-quality-checker` named in evidence-tiers.md § Integration with Skills does not exist as a skill file, so that section documents the gap rather than filling it. Retain this file as the reference for the editorial review gate until a real successor is written. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 Review content for publication readiness: evidence quality, intellectual honesty, professional voice, balanced perspective.
 
 ## Trigger Conditions

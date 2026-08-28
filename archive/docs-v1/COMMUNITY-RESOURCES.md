@@ -1,5 +1,7 @@
 # Community Resources Directory
 
+> **ARCHIVED — not current guidance, and only partly succeeded.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. **Partially superseded (verify before relying on this file).** README § Where This Sits carries forward the lane map and the "what this project uniquely provides" statement, and SOURCES.md retains per-resource dossiers with evidence tiers. Three parts have no successor: the per-resource "What they do best / What we add / When to use" profiles (README relates to *lanes*, not individual resources), the 7-row Need → Primary Resource decision matrix, and the deprecation-tracking process (link rot, breaking changes, superseded tools) — ABSORPTION-MAP.md tracks the opposite relation, whether external canons absorb *our* docs. Two of the five profiled resources, shanraisshan and valgard, appear in neither README nor ABSORPTION-MAP and survive only as SOURCES.md entries explicitly annotated SUPERSEDED-BUT-KEPT and "Historical baseline." The linked QUARTERLY-REVIEW.md and DEPRECATIONS.md are also archived. Its v1-era specifics and dates are a snapshot, preserved as recorded — do not treat them as current. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Last Updated**: March 6, 2026
 
 ---

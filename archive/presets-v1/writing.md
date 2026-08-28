@@ -1,5 +1,7 @@
 # Writing Preset
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live document succeeds it — the analysis corpus is built entirely on code and data repositories, so content-project harness configuration is uncovered territory and this preset remains the repo's only prose on it. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 For content creation projects: books, blogs, documentation.
 
 ## When to Use

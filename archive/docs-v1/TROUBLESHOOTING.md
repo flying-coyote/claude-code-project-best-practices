@@ -1,5 +1,7 @@
 # Troubleshooting Guide
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live doc replaces it — the corpus has no symptom-to-fix surface at all, and there is no live hooks doc — so this remains the only prose here on hooks not firing, permission-prompt churn, context exhaustion, and team resistance to adoption, though its cross-links point into the archived patterns/ tree and its fetch-error entries name retired v1 prompt files. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Purpose**: Common issues and recovery paths when using Claude Code best practices
 
 ---

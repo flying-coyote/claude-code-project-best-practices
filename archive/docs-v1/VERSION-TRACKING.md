@@ -1,5 +1,7 @@
 # Version Tracking
 
+> **ARCHIVED — a dated record, not guidance.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. A dated (March 2026) version snapshot that no longer describes the ecosystem and needs no successor: cross-version behavioral guidance lives in analysis/model-migration-anti-patterns.md through the Opus 5 era, and per-doc currency is now carried by last-verified / revalidate-by frontmatter with scripts/check-measurement-expiry.py. It records a point in time and needs no successor — nobody should be looking here for current guidance. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Last Updated**: 2026-03-23
 
 This document tracks current versions of Claude Code and models to support version requirement validation across patterns.

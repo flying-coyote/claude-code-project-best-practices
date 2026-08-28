@@ -1,5 +1,7 @@
 # Best Practices MCP Server
 
+> **ARCHIVED — a dated record, not guidance.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. This documents a decommissioned in-repo component — its source sits beside it in archive/mcp-server-v1/ and the live .mcp.json now registers no servers — so no successor is needed; the validation and sync duties it describes are handled today by the repo's .claude skills and scripts/. It records a point in time and needs no successor — nobody should be looking here for current guidance. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 MCP server for validating and syncing Claude Code best practices documentation.
 
 ## Overview

@@ -1,4 +1,6 @@
 # Tools & Patterns Tracker
+> **ARCHIVED — a dated record, not guidance.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. A dated (2026-03-26) machine-generated inventory of the archived patterns/ corpus whose generator script was itself deleted in the 2026-07 reduction; its one durable function, the measurement-claims registry, runs live as scripts/check-measurement-expiry.py, cited from analysis/evidence-tiers.md. It records a point in time and needs no successor — nobody should be looking here for current guidance. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Last Updated**: 2026-03-26
 **Auto-generated**: By `scripts/generate-tools-tracker.py`
 **Purpose**: Single source of truth for all Claude Code tool/pattern recommendations

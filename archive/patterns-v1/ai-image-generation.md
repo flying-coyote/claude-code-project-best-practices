@@ -1,5 +1,7 @@
 # AI Image Generation for Development
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No live doc succeeds it and none is planned — `SOURCES.md` records this pattern's former home (`analysis/tool-ecosystem.md`) as retired 2026-07-10 with **no successor doc** — so this file is the repo's only prose on generating visual assets for documentation and prototypes; the judgment below (good-fit/poor-fit split, style templates for consistency, pipeline-not-on-demand generation) is what still carries, while the named CLI, API keys, and install steps are a v1-era snapshot. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Source**: [google-image-gen-api-starter](https://github.com/AI-Engineer-Skool/google-image-gen-api-starter), production experience
 **Evidence Tier**: C (Community tool, production-validated)
 

@@ -1,5 +1,7 @@
 # Research Project Example
 
+> **ARCHIVED — but nothing live replaces it.** Archived in the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) or a later reduction. No successor covers this file. analysis/evidence-tiers.md shares only the A-D tier vocabulary; it does not carry this file's substance — the .claude/ scaffold and file-structure layout, the 37-line CLAUDE.md exemplar, the settings.json permission sets, the SessionStart/Stop hooks and the citation-validator, hypothesis-count, and evidence-tier-check hook recipes, the HYP-NNN hypothesis-tracking convention, the qualitative and meta-analysis field variants, the DOI/bibliography/consent citation rules, the setup validation checklist, or the literature-review/analysis/validation workflow phases. Archived without replacement; treat as a coverage gap, not a superseded doc. This is a **coverage gap, not a currency gap** — the material is unreplaced, not merely out of date, so a reader who discards it is left with nothing. Its specifics are v1-era; its subject is still uncovered. (Marked 2026-08-28; successor determined by mapping plus adversarial verification, which overturned 35 of 39 successor claims — see `analysis/prose-corpus-discoverability.md`.)
+
 **Type**: Systematic literature review / research and analysis project
 
 **Demonstrates**: Claude Code setup for research, hypothesis tracking, and evidence synthesis
