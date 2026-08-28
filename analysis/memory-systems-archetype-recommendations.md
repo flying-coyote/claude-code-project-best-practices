@@ -43,6 +43,16 @@ Calibrated to **~500-document curated knowledge bases** as the single-curator de
 > - `archive/memory-systems-project-archetypes.md` (research note, archived 2026-07-10) — 7 archetypes A–G with axis profiles
 >
 > **Citation note.** Paths under `project1/` name files on the author's machine, not in this repository. They are recorded as **provenance for a single-practitioner production deployment** — enough to identify what was inspected and when — and are deliberately not hyperlinks, because no reader of this repository can follow them. Treat every `project1/` claim at the Tier-B bar this repo gives uncorroborated single-project evidence.
+>
+> **⚠️ 4 expired measurement claims in this document** (checked 2026-08-28 with `python3 scripts/check-measurement-expiry.py`).
+> Per [`evidence-tiers.md`](evidence-tiers.md) § Expired but not invalid, an expired claim is **flagged, not deleted** — the measurement stands as a dated historical record and must not be cited as current until re-measured.
+>
+> - ⚠️ **NEEDS REVALIDATION** (expired 2026-07-28, 31 days overdue): Graphify has zero LLM SDK dependencies in pyproject.toml — Pass 2 LLM work happens via the invoking Claude Code session, not graphify-internal API cal…
+> - ⚠️ **NEEDS REVALIDATION** (expired 2026-07-28, 31 days overdue): Three of four 'check repo' tools verified MIT (Pratiyush, MehmetGoekce, Lum1104); Rowboat is Apache 2.0
+> - ⚠️ **NEEDS REVALIDATION** (expired 2026-07-29, 30 days overdue): The unaugmented stack (CLAUDE.md + auto-memory + raw file navigation) achieved 89% DEFINITIVE answers (8/9) on a baseline measurement across the genea…
+> - ⚠️ **NEEDS REVALIDATION** (expired 2026-07-30, 29 days overdue): Lum1104/Understand-Anything via local Ollama as a Pass-2 substitute is untested in this repo
+>
+> Revalidation is tracked in [`PLAN.md`](../PLAN.md). Flagged rather than silently carried, because an expired claim presented without a marker is the exact currency failure [`prose-corpus-discoverability.md`](prose-corpus-discoverability.md) measures.
 
 **Constraints honored on every recommendation**:
 

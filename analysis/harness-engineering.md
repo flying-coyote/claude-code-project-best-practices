@@ -57,6 +57,15 @@ revalidate-by: 2027-02-13
 > **Collapsed 2026-07-10 (Reduction Phase 4).** The harness-design mechanism half is now first-party — Anthropic's official best-practices page (2026 rewrite) and "How Claude Code works in large codebases" (2026-05-14). This doc keeps the delta the official docs don't carry: the Bitter-Lesson diagnostic, the accretion heuristics, and the portfolio's measured evidence.
 >
 > **Citation note.** Paths under `project1/` name files on the author's machine, not in this repository. They are recorded as **provenance for a single-practitioner production deployment** — enough to identify what was inspected and when — and are deliberately not hyperlinks, because no reader of this repository can follow them. Treat every `project1/` claim at the Tier-B bar this repo gives uncorroborated single-project evidence.
+>
+> **⚠️ 3 expired measurement claims in this document** (checked 2026-08-28 with `python3 scripts/check-measurement-expiry.py`).
+> Per [`evidence-tiers.md`](evidence-tiers.md) § Expired but not invalid, an expired claim is **flagged, not deleted** — the measurement stands as a dated historical record and must not be cited as current until re-measured.
+>
+> - ⚠️ **NEEDS REVALIDATION** (expired 2026-08-01, 27 days overdue): Frontier models score 90%+ on benchmarks but only 24% on real professional tasks
+> - ⚠️ **NEEDS REVALIDATION** (expired 2026-08-01, 27 days overdue): Vercel text-to-SQL: removing 80% of tools improved accuracy from 80% to 100%
+> - ⚠️ **NEEDS REVALIDATION** (expired 2026-08-10, 18 days overdue): Independent 6x corroboration: Opus 4.5 scores 12% on Cursor vs 2% on OpenCode
+>
+> Revalidation is tracked in [`PLAN.md`](../PLAN.md). Flagged rather than silently carried, because an expired claim presented without a marker is the exact currency failure [`prose-corpus-discoverability.md`](prose-corpus-discoverability.md) measures.
 
 **Evidence Tier**: Mixed (A-B) — Anthropic engineering blog, expert practitioners, production-validated community frameworks
 

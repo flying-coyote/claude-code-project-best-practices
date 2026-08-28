@@ -33,6 +33,13 @@ This is the methodology and self-critique companion to `analysis/memory-systems-
 > - `archive/memory-systems-tools-inventory.md` (research note, archived 2026-07-10) — factual catalog of 8 tools with verified licenses
 > - `archive/memory-systems-architecture-axes.md` (research note, archived 2026-07-10) — 8 architectural axes
 > - `archive/memory-systems-project-archetypes.md` (research note, archived 2026-07-10) — 7 project archetypes A–G
+>
+> **⚠️ 1 expired measurement claim in this document** (checked 2026-08-28 with `python3 scripts/check-measurement-expiry.py`).
+> Per [`evidence-tiers.md`](evidence-tiers.md) § Expired but not invalid, an expired claim is **flagged, not deleted** — the measurement stands as a dated historical record and must not be cited as current until re-measured.
+>
+> - ⚠️ **NEEDS REVALIDATION** (expired 2026-07-28, 31 days overdue): Graphify Pass 2 LLM work happens via the invoking Claude Code session, not via direct LLM SDK calls — confirmed by zero LLM SDK deps in pyproject.toml
+>
+> Revalidation is tracked in [`PLAN.md`](../PLAN.md). Flagged rather than silently carried, because an expired claim presented without a marker is the exact currency failure [`prose-corpus-discoverability.md`](prose-corpus-discoverability.md) measures.
 
 ---
 
