@@ -131,8 +131,18 @@ def _normalise(raw: str) -> str | None:
 def _resolve(src: str, target: str, corpus: set[str], dirs: set[str]) -> tuple[set[str], bool]:
     """Resolve one reference. Returns (md files hit, whether it named a directory)."""
     base = Path(src).parent
-    for cand in ({os.path.normpath(base / target), os.path.normpath(target)}
-                 if not target.startswith("/") else {target.lstrip("/")}):
+    # An ORDERED list, never a set. A set literal here made the whole instrument
+    # nondeterministic: when a reference resolves both relative-to-source and
+    # relative-to-repo-root, set iteration order depends on PYTHONHASHSEED, so
+    # which target the BFS followed changed between runs on an unchanged tree
+    # (observed spread: 168-171 reachable). Relative-to-source is correct
+    # markdown semantics and is tried first; repo-root is the fallback that
+    # rescues generated footers written with root-relative paths.
+    if target.startswith("/"):
+        candidates = [target.lstrip("/")]
+    else:
+        candidates = [os.path.normpath(base / target), os.path.normpath(target)]
+    for cand in candidates:
         cand = cand.replace(os.sep, "/")
         if cand in corpus:
             return {cand}, False
@@ -224,6 +234,82 @@ def classify_currency(text: str) -> str:
     return "absent"
 
 
+FENCE = re.compile(r"^```.*?^```", re.M | re.S)
+INLINE_CODE = re.compile(r"`[^`\n]*`")
+PLACEHOLDER = re.compile(r"\{|XXX|YYY|ZZZ|path/to/|^doc-name\.md$|^file\.md$")
+
+
+def strip_code(text: str) -> str:
+    """Remove fenced blocks and inline code before extracting links.
+
+    Without this, prose that *describes* link syntax -- a doc explaining
+    `[t](p)` -- is scored as a broken link. Fences collapse to newlines so
+    line numbers survive.
+    """
+    text = FENCE.sub(lambda m: "\n" * m.group(0).count("\n"), text)
+    return INLINE_CODE.sub("", text)
+
+
+def report_links(root: Path, corpus: set[str]) -> int:
+    """Classify every internal markdown link. Counts are reproducible.
+
+    Buckets, in precedence order:
+      resolves       target exists relative to the containing file
+      root-relative  only resolves if read as repo-root-relative (a generated
+                     footer written with root paths, dropped into a subdir)
+      outside-repo   file:// or a path escaping the repo -- unresolvable to
+                     any other reader
+      placeholder    a template stand-in ({target}, path/to/file.md)
+      dangling       target exists nowhere
+    """
+    counts = {k: {"live": 0, "archive": 0}
+              for k in ("resolves", "root-relative", "outside-repo",
+                        "placeholder", "dangling")}
+    dangling_live: list[str] = []
+    total = 0
+    for f in sorted(corpus):
+        lane = "archive" if f.startswith("archive/") else "live"
+        try:
+            text = strip_code((root / f).read_text(encoding="utf-8", errors="replace"))
+        except OSError:
+            continue
+        for raw in MD_LINK.findall(text):
+            tgt = raw.strip().strip("<>").split("#", 1)[0].split("?", 1)[0].strip()
+            if not tgt or tgt.startswith(("http://", "https://", "mailto:", "#")):
+                continue
+            total += 1
+            cand = os.path.normpath(Path(f).parent / tgt).replace(os.sep, "/")
+            # outside-repo means exactly that: a file:// URL, or a path that
+            # still escapes the repo root once normalised. A "../../x.md" that
+            # lands back INSIDE the repo at a path that does not exist is a
+            # plain dangling link (wrong relative depth), not an external one.
+            if tgt.startswith("file://") or cand.startswith(".."):
+                counts["outside-repo"][lane] += 1
+                continue
+            if cand in corpus or (root / cand).exists():
+                counts["resolves"][lane] += 1
+            elif PLACEHOLDER.search(tgt):
+                counts["placeholder"][lane] += 1
+            elif os.path.normpath(tgt).replace(os.sep, "/") in corpus:
+                counts["root-relative"][lane] += 1
+            else:
+                counts["dangling"][lane] += 1
+                if lane == "live":
+                    dangling_live.append(f"{f}  ->  {tgt}")
+
+    print(f"internal markdown links (code spans stripped): {total}\n")
+    print(f"{'class':16}{'live':>8}{'archive':>10}{'total':>8}")
+    for k, v in counts.items():
+        print(f"{k:16}{v['live']:>8}{v['archive']:>10}{v['live'] + v['archive']:>8}")
+    if dangling_live:
+        uniq = sorted(set(dangling_live))
+        print(f"\ndangling in live docs: {len(dangling_live)} "
+              f"({len(uniq)} distinct source->target pairs):")
+        for d in uniq:
+            print(f"  {d}")
+    return 0
+
+
 def report_currency(root: Path, lanes: list[str]) -> int:
     """Classify every markdown file in each named dead lane."""
     any_lane = False
@@ -268,6 +354,9 @@ def main() -> int:
                     help="count archive/ as part of the live corpus")
     ap.add_argument("--list-unreachable", action="store_true",
                     help="print the unreachable files for the selected cell")
+    ap.add_argument("--links", action="store_true",
+                    help="instead of reachability, classify every internal markdown "
+                         "link (resolves / root-relative / outside-repo / dangling)")
     ap.add_argument("--currency", nargs="*", metavar="LANE",
                     help="instead of reachability, classify currency markers in these dead "
                          "lanes (default: archive old deprecated legacy)")
@@ -280,7 +369,10 @@ def main() -> int:
         return report_currency(root, args.currency or
                                ["archive", "old", "deprecated", "legacy"])
 
-    corpus = repo_markdown(root, args.include_archive)
+    corpus = repo_markdown(root, args.include_archive or args.links)
+    if args.links:
+        return report_links(root, corpus)
+
     if not corpus:
         print("no markdown found", file=sys.stderr)
         return 1
@@ -321,4 +413,9 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    # Piping to `head` closes stdout early; exit quietly rather than tracebacking.
+    try:
+        raise SystemExit(main())
+    except BrokenPipeError:
+        os.dup2(os.open(os.devnull, os.O_WRONLY), sys.stdout.fileno())
+        raise SystemExit(0)

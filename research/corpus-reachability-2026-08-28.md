@@ -6,7 +6,13 @@ convergence: single-source
 
 **Purpose**: Raw measurement record behind [`analysis/prose-corpus-discoverability.md`](../analysis/prose-corpus-discoverability.md). Two corpora measured with the same instrument: an external 703-file prose vault (contributor-reported) and this repository (measured here, reproducible by anyone who clones it).
 
-**Instrument**: [`scripts/measure-link-reachability.py`](../scripts/measure-link-reachability.py), committed with this record. Every number below is reproducible from a clean checkout at commit-time HEAD.
+**Instrument**: [`scripts/measure-link-reachability.py`](../scripts/measure-link-reachability.py), committed with this record, with a determinism regression test at [`scripts/test-measure-link-reachability.py`](../scripts/test-measure-link-reachability.py).
+
+> **Correction, 2026-08-28 (same day, post-review).** The figures first published here were produced by a **nondeterministic** instrument and were wrong by 1–3 files. `_resolve` iterated a two-element *set* of candidate paths, so when a reference resolved both relative-to-source and relative-to-repo-root, which one the BFS followed depended on `PYTHONHASHSEED`: repeated runs on an unchanged tree returned 168, 169, 170, or 171. The published `168` was one draw from that distribution. The corpus size was also stale — `179` counted the tree *before* this record and its analysis doc were added, so the measurement silently excluded itself.
+>
+> Both are fixed. `_resolve` now iterates an ordered list preferring relative-to-source (correct markdown semantics), the corpus is counted at the tree being measured, and a regression test runs the instrument under eight hash seeds and fails if any two disagree — verified to fail against the pre-fix version. **All figures below are the corrected ones.** The pre-correction figures are preserved in git.
+>
+> This is worth stating plainly rather than quietly repairing, because it is exactly the failure this document describes one level up: an instrument that ran green, looked authoritative, and was not measuring what it claimed. A single run could not detect it.
 
 **Why this record exists**: this repository's identity is measurements and instruments no other lane publishes (README § Where This Sits). The claim under test — that a prose corpus's discoverability is a *measurable* property rather than a stylistic one — is only worth making if it comes with the measurement. This file is the measurement; the analysis doc is the argument.
 
@@ -61,29 +67,31 @@ The pairing is the finding: 96% type coverage and 191/191 green health checks, a
 
 ## 3. Corpus 2 — this repository (measured 2026-08-28, Tier A, reproducible)
 
-Commit-time state: 179 tracked markdown files (25 `analysis/`, 96 `archive/`, 16 `.claude/`, 23 `research/`, 14 root, 4 `drafts/`, 1 `.github/`).
+Measured at the tree that contains this record: **181 tracked markdown files** (26 `analysis/`, 96 `archive/`, 16 `.claude/`, 24 `research/`, 14 root, 4 `drafts/`, 1 `.github/`). The earlier `179` counted the parent commit and so excluded this file and its analysis doc.
 
 ### 3.1 Reachability — the repository passes
 
 ```
 $ python3 scripts/measure-link-reachability.py --include-archive
-corpus: 179 markdown files
+corpus: 181 markdown files
 
 entry/mode  reachable  of corpus
 E1/links          1     0.6%
-E1/refs         168    93.9%
-E1/dirs         170    95.0%
-E2/links        175    97.8%
-E2/refs         178    99.4%
-E2/dirs         179   100.0%
-E3/links        175    97.8%
-E3/refs         178    99.4%
-E3/dirs         179   100.0%
+E1/refs         171    94.5%
+E1/dirs         172    95.0%
+E2/links        177    97.8%
+E2/refs         181   100.0%
+E2/dirs         181   100.0%
+E3/links        177    97.8%
+E3/refs         181   100.0%
+E3/dirs         181   100.0%
 ```
 
-Excluding `archive/` (83 live files): E1/links 1 (1.2%), E1/refs 69 (83.1%), E2/refs 83 (100%).
+Excluding `archive/` (85 live files): E1/links 1 (1.2%), E1/refs **71 (83.5%)**, E2/refs 85 (100%).
 
-**Headline: 168 of 179 files (94%) are reachable from the auto-loaded entry point alone.** Against the vault's 12 of 703 (1.7%), this repository does not have the disease at the reachability level.
+**Headline: 171 of 181 files (94.5%) are reachable from the auto-loaded entry point alone.** Against the vault's 12 of 703 (1.7%), this repository does not have the disease at the reachability level.
+
+Note which half moved under the determinism fix: the live-only figure was **stable at 71/85 across every run, before and after**. All the variance lived inside `archive/`, in three `archive/examples-v1/*/README.md` files whose backticked `` `.claude/CLAUDE.md` `` resolves both to their own nested copy and to the repo-root one. The ambiguity was real; the coin-flip resolution of it was the bug.
 
 Three mechanisms explain the gap, and all three are *maintenance instruments*, not writing style:
 
@@ -102,7 +110,7 @@ $ grep -oE '\[[^]]*\]\([^)]*\)' .claude/CLAUDE.md | wc -l
 0
 ```
 
-Its Resource Map points by backticked bare path instead — `ABSORPTION-MAP.md`, `SOURCES.md`, `AUDIT-CONTEXT.md`, `DECISIONS.md`, `SOURCES-QUICK-REFERENCE.md`, `.claude/review-protocol.md`, `analysis/`, `archive/` (8 resolvable references, verified). An agent follows those fine, which is why `E1/refs` is 168. The number is recorded because it fixes the instrument's calibration: *strict* link-reachability understates a corpus that points by path, so `refs` — not `links` — is the mode to report, and any threshold must be set against `refs`.
+Its Resource Map points by backticked bare path instead — `ABSORPTION-MAP.md`, `SOURCES.md`, `AUDIT-CONTEXT.md`, `DECISIONS.md`, `SOURCES-QUICK-REFERENCE.md`, `.claude/review-protocol.md`, `analysis/`, `archive/` (8 resolvable references, verified). An agent follows those fine, which is why `E1/refs` is 171. The number is recorded because it fixes the instrument's calibration: *strict* link-reachability understates a corpus that points by path, so `refs` — not `links` — is the mode to report, and any threshold must be set against `refs`.
 
 ### 3.3 Currency marking — the repository fails
 
@@ -222,25 +230,33 @@ So the link checker has been reporting for months into a queue nobody reads. Thi
 
 Two things follow, and they are the useful part:
 
-1. **A firing check is not a working check.** An alarm that cannot be acted on is indistinguishable, in outcome, from no alarm. The 215 dangling internal links in §3.7 have been individually detectable, daily, for months.
+1. **A firing check is not a working check.** An alarm that cannot be acted on is indistinguishable, in outcome, from no alarm. The 214 dangling internal links in §3.7 have been individually detectable, daily, for months.
 2. **The link checker cannot see the thing that matters anyway.** It asks whether a link *resolves* — a mechanical property, and precisely the code-like property that *does* survive the translation to prose. It cannot ask whether the target is *authoritative*. A link to `archive/patterns-v1/progressive-disclosure.md` resolves perfectly and is green every single day; the file it resolves to spent six months asserting `status: PRODUCTION`. Link resolution and link authority are different questions, and only the first has a checker.
 
 ### 3.7 Pointer decay in the live lane
 
-Of 1,275 internal markdown links, classified by whether the target resolves from the containing file:
+Reproducible with `python3 scripts/measure-link-reachability.py --links`. Fenced blocks and inline code are stripped first, so prose that *describes* link syntax is not scored as a broken link — without that, this very record self-reports two false positives.
 
-| Class | live docs | `archive/` | total |
-|---|---:|---:|---:|
-| resolves only if read as repo-root-relative | 54 | 17 | 71 |
-| truly dangling (target exists nowhere) | 12 | 203 | 215 |
-| points outside the repository | 27 | 0 | 27 |
-| template placeholder (benign) | 2 | 5 | 7 |
+```
+internal markdown links (code spans stripped): 1331
+
+class               live   archive   total
+resolves             835       179    1014
+root-relative         54        17      71
+outside-repo          28         0      28
+placeholder            1         3       4
+dangling              11       203     214
+```
+
+`root-relative` resolves only if read as repo-root-relative; `outside-repo` is a `file://` URL or a path that still escapes the repo root after normalisation.
+
+The totals move as this record is edited — it is inside the corpus it measures, so adding a link here increments the count. That is not noise to suppress but a property of self-measurement worth naming: quote these figures with the commit they were taken at, never as standing constants.
 
 Three sub-findings in the live lane:
 
 - **54 root-relative links in 19 of 25 `analysis/` docs are emitted by this repo's own footer injector.** [`scripts/graphify_footer_inject.py:114`](../scripts/graphify_footer_inject.py) renders `` [`{target}`]({target}) `` where `target` is repo-root-relative (per its own comment at line 145), but writes it into files under `analysis/`. So `analysis/behavioral-insights.md` inside `analysis/domain-knowledge-architecture.md` resolves to `analysis/analysis/behavioral-insights.md`. The mechanism built to *enrich* the pointer graph is emitting pointers that do not resolve. A one-line `os.path.relpath` fixes it.
-- **27 links in five live `analysis/` docs point outside the repository** — `file:///home/jerem/project1/...` and `../../project1/...`. These are the OKF and loop-engineering case-study citations. They are honest provenance for the author and unresolvable for every other reader of a public repository.
-- **12 truly dangling links in live files**, including `SOURCES.md` → `analysis/dapr-durable-agents.md`, `analysis/mcp-client-integration.md`, `analysis/agent-principles.md` (docs removed in the 2026-07 reduction) and `CONTRIBUTING.md` → `AUDIT-2026-02-27.md` (moved to `archive/`).
+- **28 links point outside the repository** — `file:///home/jerem/project1/...` and `../../project1/...`. These are the OKF and loop-engineering case-study citations. They are honest provenance for the author and unresolvable for every other reader of a public repository.
+- **11 dangling links in live files** (10 distinct source→target pairs): `SOURCES.md` → `analysis/dapr-durable-agents.md`, `analysis/mcp-client-integration.md`, `analysis/agent-principles.md`, `research/memory-systems-tools-inventory.md` (all removed in the 2026-07 reduction); `CONTRIBUTING.md` → `AUDIT-2026-02-27.md` (moved to `archive/`); and five in `.claude/skills/*/SKILL.md` written at the wrong relative depth (`../../analysis/…` from a two-deep skill directory lands at `.claude/analysis/…`).
 
 ---
 
@@ -248,7 +264,7 @@ Three sub-findings in the live lane:
 
 | | vault (703 files) | this repo (179 files) |
 |---|---|---|
-| Reachable from session-loaded entry points | **12 (1.7%)** | 168 (94%) |
+| Reachable from session-loaded entry points | **12 of 703 (1.7%)** | 171 of 181 (94.5%) |
 | Dead-lane files correctly declaring supersession | not measured | **12 of 96 (12%)** |
 | Dead-lane files **asserting a live status** | not measured | **17** |
 | Dead-lane files silent either way | not measured | **67 of 96 (70%)** |
@@ -261,11 +277,15 @@ Neither corpus's existing health signals reported either failure, because neithe
 ## 5. Reproduction
 
 ```bash
-python3 scripts/measure-link-reachability.py --include-archive
-python3 scripts/measure-link-reachability.py --entry E1 --mode refs --list-unreachable
-python3 scripts/measure-link-reachability.py --currency
-grep -oE '\[[^]]*\]\([^)]*\)' .claude/CLAUDE.md | wc -l          # expect 0
+python3 scripts/measure-link-reachability.py --include-archive        # 171/181
+python3 scripts/measure-link-reachability.py                          # live only, 71/85
+python3 scripts/measure-link-reachability.py --currency               # correct/WRONG/absent
+python3 scripts/measure-link-reachability.py --links                  # link classification
+python3 scripts/test-measure-link-reachability.py                     # determinism + invariants
+grep -coE '\[[^]]*\]\([^)]*\)' .claude/CLAUDE.md                    # expect 0
 ```
+
+Run the test before trusting any figure above. It executes the instrument under eight `PYTHONHASHSEED` values and fails if any two disagree — the check that would have caught the original defect, and which fails against the pre-fix instrument.
 
 ---
 

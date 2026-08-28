@@ -7,8 +7,8 @@ measurement-claims:
     source: "Contributor-reported three-day production run; not independently reproduced"
     date: "2026-08-28"
     revalidate: "2027-02-28"
-  - claim: "This repository: 168 of 179 markdown files (94%) reachable from the auto-loaded entry point, but of 96 archive/ files only 12 correctly declared themselves superseded, 17 asserted a live status in their own frontmatter, and 67 said nothing"
-    source: "Direct measurement, scripts/measure-link-reachability.py, reproducible from a clean checkout"
+  - claim: "This repository: 171 of 181 markdown files (94.5%) reachable from the auto-loaded entry point, but of 96 archive/ files only 12 correctly declared themselves superseded, 17 asserted a live status in their own frontmatter, and 67 said nothing (the 17 were corrected in the same change; re-running today reports WRONG=0)"
+    source: "Direct measurement, scripts/measure-link-reachability.py, with determinism regression test scripts/test-measure-link-reachability.py"
     date: "2026-08-28"
     revalidate: "2027-02-28"
 status: EMERGING
@@ -99,9 +99,9 @@ Three entry tiers: `E1` auto-loaded (`.claude/CLAUDE.md` and root `CLAUDE.md`/`A
 
 | | External vault | This repository |
 |---|---|---|
-| Files | 703 markdown, 6.07M words | 179 markdown |
+| Files | 703 markdown, 6.07M words | 181 markdown |
 | Session under measurement | 359,985 words, 191 commits | — |
-| **Reachable from session-loaded entry points** | **12 (1.7%)** | 168 (94%) |
+| **Reachable from session-loaded entry points** | **12 of 703 (1.7%)** | 171 of 181 (94.5%) |
 | Frontmatter `type:` coverage | 96% | — |
 | **Dead-lane files correctly declaring supersession** | not measured | **12 of 96 (12%)** |
 | **Dead-lane files asserting a LIVE status** | not measured | **17** |
@@ -114,7 +114,7 @@ The two rows that matter are the last two. **Every conventional health signal wa
 
 ### What the repository got right, and it is not writing style
 
-94% reachability is not an accident of careful prose. It is produced by three *maintenance instruments*, and a project without them will not reproduce the result no matter how well it writes:
+94.5% reachability is not an accident of careful prose. It is produced by three *maintenance instruments*, and a project without them will not reproduce the result no matter how well it writes:
 
 | Mechanism | Effect on the pointer graph |
 |---|---|
@@ -144,7 +144,7 @@ The mechanism behind all of it splits in two, and the second half is the more us
 
 **The currency checks are scoped to the live lane.** `markdownlint` excludes `archive` by glob; `check-measurement-expiry.py` defaults to `analysis`; the stop hook checks two root files' mtimes. Each exclusion is individually sensible — you do not lint a tombstone. The aggregate is that nothing checks whether the dead lane says it is dead. In a code project that lane self-reports; here it went unreported for the six months since the v2.0 repositioning moved those files.
 
-**But the check that does cover everything fires into a void.** `.github/workflows/link-checker.yml` runs daily across *all* markdown, `archive/` included. It is not live-lane-scoped, and it works. As of 2026-08-28 the repository carries **916 open issues labelled `documentation`**; the ten most recent are the same auto-filed "🔗 Broken links detected" issue, one per day, **each with zero comments and no edit since creation**. Meanwhile 215 internal links stay dangling.
+**But the check that does cover everything fires into a void.** `.github/workflows/link-checker.yml` runs daily across *all* markdown, `archive/` included. It is not live-lane-scoped, and it works. As of 2026-08-28 the repository carries **916 open issues labelled `documentation`**; the ten most recent are the same auto-filed "🔗 Broken links detected" issue, one per day, **each with zero comments and no edit since creation**. Meanwhile 214 internal links stay dangling.
 
 Two conclusions, and they generalize past this repository:
 
@@ -186,7 +186,7 @@ Two conclusions, and they generalize past this repository:
 
 *Path inference is a real mitigation, and it degrades gracefully rather than failing cleanly.* An agent seeing `archive/patterns-v1/` in a result may well infer supersession, which makes the hazard probabilistic rather than certain. But it depends on the directory being legibly named, and it does not survive the cases that matter: a root-level `SOURCE-REFRESH-2026-07-09-cowork.md` gives no lifecycle signal from its path; `drafts/` and `research/` are ambiguous by construction; and Collision B above returns a single hit whose path an agent has no live alternative to compare against.
 
-*Reachability alone is a weak and gameable metric.* One generated index file takes any corpus to 100% while conveying nothing about authority — which is precisely what happened here: this repository scores 94% and still had seventeen files lying about their status. Report both numbers or neither. A single-number "discoverability score" would be worse than nothing.
+*Reachability alone is a weak and gameable metric.* One generated index file takes any corpus to 100% while conveying nothing about authority — which is precisely what happened here: this repository scores 94.5% and still had seventeen files lying about their status. Report both numbers or neither. A single-number "discoverability score" would be worse than nothing.
 
 *The direction of first-party guidance is toward less upfront context, and this is consistent with that, not against it.* Anthropic removed over 80% of Claude Code's system prompt for the Claude 5 generation with no measured loss on coding evals, and names progressive disclosure a recommended shift. Pruning upfront context does not weaken this document's claim — it **raises the stakes on it**, because everything pruned now depends on the pointer graph and the currency marker to be recoverable and trustworthy. The remedy proposed here is not "load more"; it is "make the unloaded remainder actually reachable, and make it declare whether it is still true."
 
@@ -197,7 +197,7 @@ Two conclusions, and they generalize past this repository:
 ## Gaps
 
 - **Gap: n=2 corpora.** One measured directly, one contributor-reported. This repo's own bar for Tier B is production validation across 3+ projects, so the doc ships `EMERGING` and `Mixed`, not `PRODUCTION`/`B`. **Needs**: the instrument run against at least one more large prose corpus, ideally one not authored by a contributor to this repository.
-- **Gap: no calibrated threshold.** 1.7% is plainly bad and 94% is plainly fine; nothing here calibrates the middle, so the diagnostic table says "low" rather than naming a number. **Needs**: reachability distributions across ten or more prose corpora before any threshold is asserted.
+- **Gap: no calibrated threshold.** 1.7% is plainly bad and 94.5% is plainly fine; nothing here calibrates the middle, so the diagnostic table says "low" rather than naming a number. **Needs**: reachability distributions across ten or more prose corpora before any threshold is asserted.
 - **Gap: harm is argued, not measured.** The causal step — an agent retrieves superseded prose, and its answer is *worse* than it would have been — is demonstrated by construction (Collisions A and B) but never measured as an outcome. This is the weakest link in the argument and should be read as such. **Needs**: a paired eval — identical questions against the same corpus with and without supersession marking, scoring answer correctness — which is exactly the shape of instrument [`agent-evaluation.md`](agent-evaluation.md) describes.
 - **Gap: currency correctness is only checkable where the lane contradicts the file.** `--currency` catches a `PRODUCTION` marker inside `archive/` because the *path* supplies ground truth. It cannot tell whether a `last-verified: 2026-08-13` on a live doc is honest, which is the larger and harder question. **Needs**: a marker-vs-content check — comparing a doc's asserted verification date against the last substantive edit to the claims it verifies.
 - **Gap: the index-file confound is unquantified.** Reachability-via-generated-index and reachability-via-curated-pointers are counted identically, and they are not equally useful to a reader. **Needs**: a mode that reports reachability with the generated inventory excluded from the edge set.
@@ -221,7 +221,10 @@ Two conclusions, and they generalize past this repository:
 
 ### Tier A (Primary / Direct Observation)
 
-- **This repository, measured 2026-08-28** — 179 markdown files; 168 reachable under `E1/refs`; 80 of 179 carrying a currency marker; 30 of 96 in `archive/`; 17 `archive/` files asserting a live frontmatter status; 1,275 internal links classified. Instrument and raw record: [`scripts/measure-link-reachability.py`](../scripts/measure-link-reachability.py), [`research/corpus-reachability-2026-08-28.md`](../research/corpus-reachability-2026-08-28.md). **Reproducible from a clean checkout** — this is the strongest form of evidence available for a claim about a public corpus.
+- **This repository, measured 2026-08-28** — 181 markdown files; **171 reachable** under `E1/refs` (94.5%), 71 of 85 live-only (83.5%); of 96 `archive/` files **12 correct / 17 WRONG / 67 absent** on currency marking; 1,331 internal links classified (1,014 resolve, 71 root-relative-only, 28 outside-repo, 214 dangling) — link totals shift as these docs are edited, since they sit inside the corpus they measure, so read them against the commit. Instrument, test, and raw record: [`scripts/measure-link-reachability.py`](../scripts/measure-link-reachability.py), [`scripts/test-measure-link-reachability.py`](../scripts/test-measure-link-reachability.py), [`research/corpus-reachability-2026-08-28.md`](../research/corpus-reachability-2026-08-28.md).
+  - **Reproducible, and that had to be earned.** The first figures published here came from a nondeterministic instrument (a set literal in `_resolve` let `PYTHONHASHSEED` decide which of two valid resolutions the BFS followed; repeated runs returned 168–171) against a stale corpus count that excluded this doc's own two files. Both are fixed and a regression test now runs the instrument under eight hash seeds, verified to fail against the pre-fix version. The episode is recorded rather than repaired silently because it is this document's own thesis one level up: an instrument that ran green and was not measuring what it claimed. See the correction notice at the top of the raw record.
+  - **The 17 `WRONG` files are a historical measurement, already remediated in-tree.** They were corrected in the same change that published this doc, so `--currency` reports `correct=29 WRONG=0 absent=67` today. Anyone re-running it now and expecting 17 will find zero; the pre-fix state is reproducible from git at the parent of that commit.
+
 - Anthropic — official CLAUDE.md guidance (include/exclude table, imports, child files, "prune ruthlessly") and `/init`. Source of the *anything Claude can figure out by reading code* exclude guidance and the *let Claude fetch what it needs* discovery model that this document scopes.
 - Anthropic / Thariq Shihipar, ["The new rules of context engineering for Claude 5 generation models"](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models) (2026-07-24) — progressive disclosure named as a recommended shift; the 80%-system-prompt-reduction claim. **Mirror-verified 2026-08-13, direct fetch blocked**; inherits the sourcing caveat recorded in [`claude-md-progressive-disclosure.md`](claude-md-progressive-disclosure.md).
 
