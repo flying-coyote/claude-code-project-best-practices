@@ -1,9 +1,11 @@
 ---
-status: "EMERGING"
+status: ARCHIVED
 last-verified: "2026-02-27"
 ---
 
 # Productivity Tooling for Claude Code
+
+> **ARCHIVED — not current guidance.** This is a v1 pattern doc, superseded by the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) and retained for historical comparison only. The live successor is `analysis/plugins-and-extensions.md`. Its `measurement-claims` and dates below are the v1-era snapshot, preserved as recorded — do not treat them as current. (Status corrected 2026-08-28: this file previously asserted a live `status:` in its own frontmatter, so retrieval surfaced it as current. See `analysis/prose-corpus-discoverability.md`.)
 
 🔗 **Community Source**: [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice)
 

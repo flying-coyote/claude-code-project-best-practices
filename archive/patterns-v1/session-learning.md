@@ -11,11 +11,13 @@ measurement-claims:
     source: "Coding benchmarks research"
     date: "2025-09-01"
     revalidate: "2026-09-01"
-status: "PRODUCTION"
+status: ARCHIVED
 last-verified: "2026-02-16"
 ---
 
 # Session Learning Pattern
+
+> **ARCHIVED — not current guidance.** This is a v1 pattern doc, superseded by the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) and retained for historical comparison only. The live successor is `analysis/memory-system-patterns.md`. Its `measurement-claims` and dates below are the v1-era snapshot, preserved as recorded — do not treat them as current. (Status corrected 2026-08-28: this file previously asserted a live `status:` in its own frontmatter, so retrieval surfaced it as current. See `analysis/prose-corpus-discoverability.md`.)
 
 **Source**: Claude Diary (Lance Martin), Generative Agents paper, Yohei Nakajima research
 **Evidence Tier**: B (Expert practitioner implementations + academic research)

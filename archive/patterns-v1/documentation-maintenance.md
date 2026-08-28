@@ -2,12 +2,14 @@
 version-requirements:
   claude-code: "v2.0.0+"  # PostToolUse hook support
 version-last-verified: "2026-02-27"
-status: "PRODUCTION"
+status: ARCHIVED
 last-verified: "2026-02-16"
 notes: "Implements PostToolUse hook for automatic INDEX.md regeneration"
 ---
 
 # Documentation Maintenance System
+
+> **ARCHIVED — not current guidance.** This is a v1 pattern doc, superseded by the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) and retained for historical comparison only. The live successor is `analysis/evidence-based-revalidation.md`. Its `measurement-claims` and dates below are the v1-era snapshot, preserved as recorded — do not treat them as current. (Status corrected 2026-08-28: this file previously asserted a live `status:` in its own frontmatter, so retrieval surfaced it as current. See `analysis/prose-corpus-discoverability.md`.)
 
 **Source**: Production-validated pattern from 12+ projects
 **Evidence Tier**: B (Production validated)
