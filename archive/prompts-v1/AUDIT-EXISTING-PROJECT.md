@@ -1,5 +1,7 @@
 # Audit Existing Project Prompt
 
+> **ARCHIVED — do not run this prompt.** This is a v1 prompt superseded by the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer). It is **executable copy-paste instructions**, not descriptive prose, so running it applies retired v1 methodology to a live project — the most consequential form of acting on superseded content in this repository. [`ONE-LINE-PROMPT.md`](../../ONE-LINE-PROMPT.md) is the live replacement — the adaptive routing audit, which does not use the phrase "audit existing project" and so does not surface for the obvious query. (Marked 2026-08-28; see `analysis/prose-corpus-discoverability.md`.)
+
 Copy everything below the line and paste it into Claude Code to review your project against AI-driven development best practices.
 
 ---

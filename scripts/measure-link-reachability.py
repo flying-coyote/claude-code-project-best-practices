@@ -66,9 +66,15 @@ import sys
 from collections import deque
 from pathlib import Path
 
-# Directories excluded from the measured corpus. archive/ is excluded by default
-# because it is explicitly a tombstone store, not live advice; --include-archive
-# puts it back.
+# Directories excluded from the measured corpus.
+#
+# archive/ is excluded by default as a convenience, NOT on the theory that it is
+# a tombstone store. In the repository this was built against that theory turned
+# out to be false: nine live docs link into archive/ across ~130 links, and one
+# cites an archived doc as "the foundational methodology". Treat the default as
+# "the lane you are probably not asking about", and pass --include-archive
+# whenever the question is about the whole corpus. A lane excluded from the
+# currency checks accumulates unverifiable claims whether or not it is dead.
 DEFAULT_EXCLUDES = {".git", "node_modules", ".graphify-venv", "graphify-out",
                     ".understand-anything", ".venv"}
 

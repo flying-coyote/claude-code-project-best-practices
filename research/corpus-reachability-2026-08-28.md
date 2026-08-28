@@ -177,10 +177,10 @@ The departure is historical, not deliberate. These files were moved into `archiv
 
 ```
 $ python3 scripts/measure-link-reachability.py --currency
-archive/  n=96   correct=29 (30%)   WRONG=0   absent=67
+archive/  n=96   correct=32 (33%)   WRONG=0   absent=64
 ```
 
-The 67 `absent` files are **not** fixed by this change and remain the open item. The pre-remediation state stays reproducible from git:
+Three of the newly-marked files are `archive/prompts-v1/`, added after adversarial review flagged them as the highest residual severity in the corpus: they are unmarked, 348–810 lines, and **executable copy-paste prompts** rather than descriptive prose, so acting on them means applying retired v1 methodology to a live project. The remaining 64 `absent` files are **not** fixed by this change and remain the open item. The pre-remediation state stays reproducible from git:
 
 ```
 git worktree add --detach /tmp/pre <commit-before-this-change>
@@ -238,10 +238,10 @@ Two things follow, and they are the useful part:
 Reproducible with `python3 scripts/measure-link-reachability.py --links`. Fenced blocks and inline code are stripped first, so prose that *describes* link syntax is not scored as a broken link — without that, this very record self-reports two false positives.
 
 ```
-internal markdown links (code spans stripped): 1331
+internal markdown links (code spans stripped): 1335
 
 class               live   archive   total
-resolves             835       179    1014
+resolves             836       182    1018
 root-relative         54        17      71
 outside-repo          28         0      28
 placeholder            1         3       4
