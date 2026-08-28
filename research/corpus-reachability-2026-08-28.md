@@ -30,7 +30,7 @@ A prose file has two properties a retrieval system cannot infer from its text:
 1. **Reachability** — can a session get to this file by following pointers from what it actually loads, without already knowing the file exists?
 2. **Currency** — if it gets there, does the file tell it whether this is live guidance or superseded guidance? And is what it says *true*? A marker that asserts the wrong thing is worse than none, because it survives the check a careful reader runs.
 
-These fail independently. A corpus can be almost fully reachable and yet barely marked (this repository), or well-typed and unreachable (the vault). Both failures are invisible to the checks a code project would run, for the reason set out in the analysis doc: superseded prose stays well-formed.
+These fail independently. A corpus can look almost fully reachable while barely marked, and while most of that reachability rests on a single generated index (this repository), or be well-typed and unreachable (the vault). Both failures are invisible to the checks a code project would run, for the reason set out in the analysis doc: superseded prose stays well-formed.
 
 ### Reachability: modes and entry tiers
 
@@ -74,7 +74,7 @@ The pairing is the finding: 96% type coverage and 191/191 green health checks, a
 
 Measured at the tree that contains this record: **181 tracked markdown files** (26 `analysis/`, 96 `archive/`, 16 `.claude/`, 24 `research/`, 14 root, 4 `drafts/`, 1 `.github/`). The earlier `179` counted the parent commit and so excluded this file and its analysis doc.
 
-### 3.1 Reachability — the repository passes
+### 3.1 Reachability — passes on the headline, halves on the honest reading
 
 ```
 $ python3 scripts/measure-link-reachability.py --include-archive
