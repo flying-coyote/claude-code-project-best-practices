@@ -495,7 +495,7 @@ If migration causes issues:
 
 - **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common migration issues
 - **[PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md)** - Which patterns to adopt first
-- **[AUDIT-EXISTING-PROJECT.md](prompts/AUDIT-EXISTING-PROJECT.md)** - Compliance check
+- **[AUDIT-EXISTING-PROJECT.md](../prompts-v1/AUDIT-EXISTING-PROJECT.md)** - Compliance check
 - **[FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md)** - The Big 3 principles
 
 **Questions?** File an issue: https://github.com/flying-coyote/claude-code-project-best-practices/issues

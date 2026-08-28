@@ -310,5 +310,5 @@ The two frameworks are complementary:
 ## Related Patterns
 
 - [Secure Code Generation](../patterns/secure-code-generation.md) - CodeGuard for secure AI-generated code
-- [Progressive Disclosure](../patterns/progressive-disclosure.md) - Workflow routing includes security context
-- [Memory Architecture](../patterns/memory-architecture.md) - Storage security considerations
+- [Progressive Disclosure](../patterns-v1/progressive-disclosure.md) - Workflow routing includes security context
+- [Memory Architecture](../patterns-v1/memory-architecture.md) - Storage security considerations

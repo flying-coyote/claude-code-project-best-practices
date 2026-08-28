@@ -32,7 +32,7 @@ Choose this preset when your project:
 | Post-tool hook | 2 | Optional | Auto-update indexes if used |
 | GitHub Actions | 3 | For teams | @.claude content reviews |
 
-See [Project Infrastructure Pattern](../patterns/project-infrastructure.md) for the full tiered approach.
+See [Project Infrastructure Pattern](../patterns-v1/project-infrastructure.md) for the full tiered approach.
 
 ## Git Workflow
 

@@ -177,7 +177,7 @@ See: [evidence-tiers.md](patterns/evidence-tiers.md)
 - Integration with native Claude Code features
 - Multi-session continuity patterns
 
-See: [spec-driven-development.md](patterns/spec-driven-development.md)
+See: [spec-driven-development.md](../patterns-v1/spec-driven-development.md)
 
 ---
 
@@ -189,7 +189,7 @@ Mathematical analysis of context budget with:
 - "Correctness Over Compression" principle
 - Production patterns for 200K token budgets
 
-See: [context-engineering.md](patterns/context-engineering.md)
+See: [context-engineering.md](../patterns-v1/context-engineering.md)
 
 ---
 
@@ -225,7 +225,7 @@ Example: "Context7 + Sequential Thinking: 25K tokens (12.5% of context) - revali
 - State externalization patterns
 - Multi-agent coordination
 
-See: [subagent-orchestration.md](patterns/subagent-orchestration.md), [gsd-orchestration.md](patterns/gsd-orchestration.md)
+See: [subagent-orchestration.md](../patterns-v1/subagent-orchestration.md), [gsd-orchestration.md](../patterns-v1/gsd-orchestration.md)
 
 ---
 
@@ -237,7 +237,7 @@ Decision matrices and comparative frameworks:
 - Framework selection (Native vs GSD vs CAII)
 - Tool ecosystem comparisons (Claude Code vs alternatives)
 
-See: [plugins-and-extensions.md](patterns/plugins-and-extensions.md), [framework-selection-guide.md](patterns/framework-selection-guide.md)
+See: [plugins-and-extensions.md](patterns/plugins-and-extensions.md), [framework-selection-guide.md](../framework-selection-guide.md)
 
 ---
 
@@ -299,9 +299,9 @@ We stand on the shoulders of giants. Our role: curate, validate, integrate.
 
 ## Related Documentation
 
-- [SOURCES.md](SOURCES.md) - Full source database with evidence tiers
-- [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) - Top 20 Tier A/B sources
-- [ARCHITECTURE.md](ARCHITECTURE.md) - Project philosophy and meta-guide approach
+- [SOURCES.md](../../SOURCES.md) - Full source database with evidence tiers
+- [SOURCES-QUICK-REFERENCE.md](../../SOURCES-QUICK-REFERENCE.md) - Top 20 Tier A/B sources
+- [ARCHITECTURE.md](../../ARCHITECTURE.md) - Project philosophy and meta-guide approach
 - [evidence-tiers.md](patterns/evidence-tiers.md) - Evidence tier assessment framework
 
 ---

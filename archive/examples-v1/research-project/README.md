@@ -298,9 +298,9 @@ After setting up:
 ## Related Patterns
 
 - [evidence-tiers.md](../../patterns/evidence-tiers.md) - Dual tier system for claims
-- [confidence-scoring.md](../../patterns/confidence-scoring.md) - HIGH/MEDIUM/LOW assessment
-- [context-engineering.md](../../patterns/context-engineering.md) - External artifacts as memory
-- [FOUNDATIONAL-PRINCIPLES.md](../../FOUNDATIONAL-PRINCIPLES.md) - The Big 3
+- [confidence-scoring.md](../../confidence-scoring.md) - HIGH/MEDIUM/LOW assessment
+- [context-engineering.md](../../patterns-v1/context-engineering.md) - External artifacts as memory
+- [FOUNDATIONAL-PRINCIPLES.md](../../docs-v1/FOUNDATIONAL-PRINCIPLES.md) - The Big 3
 
 ---
 

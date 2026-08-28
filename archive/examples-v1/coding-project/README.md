@@ -227,10 +227,10 @@ After setting up:
 ---
 
 ## Related Patterns
-[project-infrastructure.md](archive/patterns-v1/project-infrastructure.md)
-[advanced-hooks.md](archive/patterns-v1/advanced-hooks.md)
-[advanced-hooks.md](archive/patterns-v1/advanced-hooks.md)
-[context-engineering.md](archive/patterns-v1/context-engineering.md)
+[project-infrastructure.md](../../patterns-v1/project-infrastructure.md)
+[advanced-hooks.md](../../patterns-v1/advanced-hooks.md)
+[advanced-hooks.md](../../patterns-v1/advanced-hooks.md)
+[context-engineering.md](../../patterns-v1/context-engineering.md)
 
 ---
 

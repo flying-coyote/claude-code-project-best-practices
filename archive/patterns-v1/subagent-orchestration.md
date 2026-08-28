@@ -21,7 +21,7 @@ last-verified: "2026-02-16"
 
 > **Meta-Guide Note**: This pattern synthesizes vendor documentation and adds 10 advanced orchestration patterns beyond official docs (fresh context per subagent, state externalization, multi-agent coordination). For authoritative subagent API and feature documentation, see [Claude Code official docs](https://code.claude.com/docs/en/sub-agents). For advanced patterns and architectural guidance, continue here.
 >
-> **This is the DEFAULT orchestration approach for Claude Code.** Native subagent patterns handle ~80% of work with zero additional setup. For specialized needs, see [Framework Selection Guide](./framework-selection-guide.md).
+> **This is the DEFAULT orchestration approach for Claude Code.** Native subagent patterns handle ~80% of work with zero additional setup. For specialized needs, see [Framework Selection Guide](../framework-selection-guide.md).
 
 ## Overview
 

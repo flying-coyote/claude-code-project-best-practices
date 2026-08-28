@@ -313,8 +313,8 @@ git push origin master
 - [VERSION-TRACKING.md](VERSION-TRACKING.md) - Current versions and beta headers
 - [DOGFOODING-GAPS.md](DOGFOODING-GAPS.md) - Self-compliance tracking
 - [DEPRECATIONS.md](DEPRECATIONS.md) - Deprecated patterns and migration paths
-- [AUDIT-2026-02-27.md](AUDIT-2026-02-27.md) - Initial audit that prompted this process
-- [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
+- [AUDIT-2026-02-27.md](../AUDIT-2026-02-27.md) - Initial audit that prompted this process
+- [CONTRIBUTING.md](../../CONTRIBUTING.md) - Contribution guidelines
 
 ---
 

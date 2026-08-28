@@ -320,7 +320,7 @@ Projects may need additional features. Common additions:
 
 **Apply recommended setup to current project**:
 
-See [QUICKSTART.md](../QUICKSTART.md) for complete bash commands to set up:
+See [QUICKSTART.md](../docs-v1/QUICKSTART.md) for complete bash commands to set up:
 - `.claude/settings.json` (permissions, hooks)
 - `.claude/CLAUDE.md` (project context)
 - `.claude/hooks/session-start.sh` (git status display)

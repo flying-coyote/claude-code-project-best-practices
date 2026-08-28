@@ -118,7 +118,7 @@ You are a [role] who [core capability]. Your role is to [primary function]. You 
 
 ## WORKFLOW ROUTING (SYSTEM PROMPT)
 
-For skills using [progressive disclosure](../patterns/progressive-disclosure.md), choose routing format based on complexity:
+For skills using [progressive disclosure](../patterns-v1/progressive-disclosure.md), choose routing format based on complexity:
 
 ### Simple Routing (For skills with 1-3 workflows)
 

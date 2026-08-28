@@ -289,4 +289,4 @@ We consciously accept:
 
 **Template Version**: 1.0
 **Based on**: Michael Nygard ADR format + Evidence Tier integration
-**See**: [architecture-decision-records.md](../patterns/architecture-decision-records.md) for guidance
+**See**: [architecture-decision-records.md](../patterns-v1/architecture-decision-records.md) for guidance

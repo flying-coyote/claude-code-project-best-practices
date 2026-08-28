@@ -255,15 +255,19 @@ Two things follow, and they are the useful part:
 Reproducible with `python3 scripts/measure-link-reachability.py --links`. Fenced blocks and inline code are stripped first, so prose that *describes* link syntax is not scored as a broken link — without that, this very record self-reports two false positives.
 
 ```
-internal markdown links (code spans stripped): 1335
+internal markdown links (code spans stripped): 1318
 
 class               live   archive   total
-resolves             836       182    1018
-root-relative         54        17      71
-outside-repo          28         0      28
+resolves             912       312    1224
+root-relative          0         0       0
+outside-repo           0         0       0
 placeholder            1         3       4
-dangling              11       203     214
+dangling               0        90      90
 ```
+
+**Repaired 2026-08-28** (was: live 11 dangling / 54 root-relative / 28 outside-repo; archive 203 dangling / 17 root-relative). The live lane is now clean on all three classes. Root cause of the largest group was this repo's own `scripts/graphify_footer_inject.py`, which rendered repo-root-relative targets into files under `analysis/` — the mechanism built to enrich the pointer graph was degrading it. Fixed at source plus 60 emitted links repaired.
+
+The 90 remaining are all in the dead lane and split deliberately: **70** would point an archived v1 doc at a *live* successor, which changes what the historical record says and is the same false-successor judgment that needs verification rather than a mechanical rewrite; **20** name documents deleted outright (`tool-ecosystem`, `agent-principles`, `execution-management`); **3** are ambiguous. Left as-is and recorded, rather than guessed.
 
 `root-relative` resolves only if read as repo-root-relative; `outside-repo` is a `file://` URL or a path that still escapes the repo root after normalisation.
 

@@ -271,6 +271,6 @@ Patterns removed from active documentation but preserved for historical referenc
 
 ---
 
-**Questions?** See [CONTRIBUTING.md](./CONTRIBUTING.md) or file an issue.
+**Questions?** See [CONTRIBUTING.md](../../CONTRIBUTING.md) or file an issue.
 
 **Next Review**: 2026-02-23 (weekly automated check via `tools-evolution-tracker.yml`)

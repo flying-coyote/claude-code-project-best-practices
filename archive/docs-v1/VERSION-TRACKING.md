@@ -187,8 +187,8 @@ Track breaking changes that require pattern updates.
 
 ## Related Documentation
 
-- [SOURCES.md - Claude Code Changelog](SOURCES.md#claude-code-changelog) - Detailed feature list
-- [AUDIT-2026-02-27.md](AUDIT-2026-02-27.md) - Version tracking audit findings
+- [SOURCES.md - Claude Code Changelog](../../SOURCES.md#claude-code-changelog) - Detailed feature list
+- [AUDIT-2026-02-27.md](../AUDIT-2026-02-27.md) - Version tracking audit findings
 - [Anthropic Releases](https://github.com/anthropics/claude-code/releases) - Official release notes
 
 ---

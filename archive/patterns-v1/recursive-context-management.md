@@ -596,7 +596,7 @@ Depth 3: Rare - only for deeply nested structures
 - [GSD Orchestration](./gsd-orchestration.md) - Manual implementation of fresh-context principles
 - [Context Engineering](./context-engineering.md) - Broader context management strategies
 - [Subagent Orchestration](./subagent-orchestration.md) - Current Claude Code parallel execution
-- [Framework Selection Guide](./framework-selection-guide.md) - When to use which approach
+- [Framework Selection Guide](../framework-selection-guide.md) - When to use which approach
 
 ---
 

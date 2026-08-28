@@ -286,7 +286,7 @@ ultrathink-analyst/
 | 500-1000 lines | 3-5 operations | Multi-workflow | ultrathink-analyst |
 | 1000+ lines | 5+ operations | Multi-workflow | git-workflow-helper |
 
-**Reference**: See [progressive-disclosure.md](../patterns/progressive-disclosure.md) for full pattern
+**Reference**: See [progressive-disclosure.md](../patterns-v1/progressive-disclosure.md) for full pattern
 
 ---
 
@@ -405,9 +405,9 @@ Test if skills trigger correctly:
 - [SECURITY-GUIDELINES.md](./SECURITY-GUIDELINES.md) - Security framework
 
 **Patterns**:
-- [Progressive Disclosure](../patterns/progressive-disclosure.md) - 3-tier token optimization
+- [Progressive Disclosure](../patterns-v1/progressive-disclosure.md) - 3-tier token optimization
 - [Evidence Tiers](../patterns/evidence-tiers.md) - Source quality classification
-- [Confidence Scoring](../patterns/confidence-scoring.md) - Hypothesis confidence levels
+- [Confidence Scoring](../confidence-scoring.md) - Hypothesis confidence levels
 
 ---
 

@@ -50,7 +50,7 @@
    - Known gotchas: 10 lines (things that caused 2+ mistakes)
    - Current focus: 2 lines
 
-**Related**: [context-engineering.md](patterns/context-engineering.md)
+**Related**: [context-engineering.md](../patterns-v1/context-engineering.md)
 
 ---
 
@@ -85,12 +85,12 @@
 
 **Quick Start Path** (3 patterns, 30 minutes reading):
 
-1. **[context-engineering.md](patterns/context-engineering.md)** - Foundation for everything
-2. **[spec-driven-development.md](patterns/spec-driven-development.md)** - The methodology (Specify→Plan→Tasks→Implement)
-3. **[project-infrastructure.md](patterns/project-infrastructure.md)** - Setup patterns (recommended + advanced)
+1. **[context-engineering.md](../patterns-v1/context-engineering.md)** - Foundation for everything
+2. **[spec-driven-development.md](../patterns-v1/spec-driven-development.md)** - The methodology (Specify→Plan→Tasks→Implement)
+3. **[project-infrastructure.md](../patterns-v1/project-infrastructure.md)** - Setup patterns (recommended + advanced)
 
 **Then choose by need**:
-- Solo developer working on features → [long-running-agent.md](patterns/long-running-agent.md)
+- Solo developer working on features → [long-running-agent.md](../patterns-v1/long-running-agent.md)
 - Team lead setting standards → [evidence-tiers.md](patterns/evidence-tiers.md)
 - Production/security focus → [safety-and-sandboxing.md](patterns/safety-and-sandboxing.md)
 - Need more guidance → See [PATTERN-LEARNING-PATH.md](PATTERN-LEARNING-PATH.md)
@@ -103,13 +103,13 @@
 
 **Essential (read first)**:
 - [FOUNDATIONAL-PRINCIPLES.md](FOUNDATIONAL-PRINCIPLES.md) - The Big 3
-- [spec-driven-development.md](patterns/spec-driven-development.md) - Core methodology
-- [context-engineering.md](patterns/context-engineering.md) - Context over prompts
+- [spec-driven-development.md](../patterns-v1/spec-driven-development.md) - Core methodology
+- [context-engineering.md](../patterns-v1/context-engineering.md) - Context over prompts
 
 **High-value for most projects**:
-- [project-infrastructure.md](patterns/project-infrastructure.md) - Setup approach
-- [long-running-agent.md](patterns/long-running-agent.md) - Multi-session work
-- [progressive-disclosure.md](patterns/progressive-disclosure.md) - Skill architecture
+- [project-infrastructure.md](../patterns-v1/project-infrastructure.md) - Setup approach
+- [long-running-agent.md](../patterns-v1/long-running-agent.md) - Multi-session work
+- [progressive-disclosure.md](../patterns-v1/progressive-disclosure.md) - Skill architecture
 
 **Specialized (use when needed)**:
 - Everything else in patterns/ directory
@@ -354,7 +354,7 @@ echo "test" >> README.md
    ```
    This prompts instead of blocking outright.
 
-**Related**: [advanced-hooks.md](patterns/advanced-hooks.md)
+**Related**: [advanced-hooks.md](../patterns-v1/advanced-hooks.md)
 
 ---
 
@@ -397,7 +397,7 @@ echo "test" >> README.md
 
 2. **Bloated CLAUDE.md** - Large context = slower processing:
    - **Fix**: Audit CLAUDE.md, target <60 lines
-   - Use [progressive-disclosure.md](patterns/progressive-disclosure.md) for skills
+   - Use [progressive-disclosure.md](../patterns-v1/progressive-disclosure.md) for skills
 
 3. **Too many skills loaded**:
    - **Fix**: Skills consume context when loaded
@@ -431,7 +431,7 @@ echo "test" >> README.md
    - Remove large skills not used this session
    - Close unrelated files
 
-**Prevention**: Use [long-running-agent.md](patterns/long-running-agent.md) pattern
+**Prevention**: Use [long-running-agent.md](../patterns-v1/long-running-agent.md) pattern
 
 ---
 
