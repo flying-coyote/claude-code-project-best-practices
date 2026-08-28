@@ -24,8 +24,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/credential-scan.sh",
-            "timeout": 5000
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/credential-scan.sh\"",
+            "timeout": 10
           }
         ]
       }
