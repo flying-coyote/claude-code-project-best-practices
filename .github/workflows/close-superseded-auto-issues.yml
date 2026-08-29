@@ -37,6 +37,29 @@ name: Close Superseded Auto-Filed Issues
 # - Dry-run by default. You must pass apply=true to actually close anything.
 # - Closes as `not_planned`, which is the honest reason: these were never
 #   planned work, they were unread machine output.
+#
+# RATE LIMITS — why this runs in batches
+# --------------------------------------
+# Measured 2026-08-29 on the first dry run: 935 open issues, 878 matching.
+# Closing one issue costs 2 API calls (comment + close), and the comment is a
+# "content-generating" request. GITHUB_TOKEN in Actions is limited to roughly
+# 1,000 requests/hour per repo, with a secondary limit near 80 content-generating
+# requests/minute and 500/hour.
+#
+# The first version of this loop fired all of them back-to-back with retries:0.
+# At 878 matches that bursts straight through the per-minute ceiling, throws a
+# 403, and fails the job mid-drain with no record of how far it got. So:
+#
+#   - `delay_ms` paces the loop (default 1000ms = 60/min, under the 80/min cap).
+#   - `limit` defaults to 250, which fits inside one hour's content budget.
+#   - A rate-limit error STOPS the run cleanly and reports the count instead of
+#     throwing. Progress is never lost.
+#   - The job is IDEMPOTENT and meant to be re-run: each run re-scans and only
+#     sees issues that are still open. Repeat until a dry run reports 0 matched.
+#   - `comment: false` skips the explanation, halving the calls and removing the
+#     content-generating limit entirely — one pass drains everything. Prefer
+#     leaving it true: an unexplained mass-close is the same opaque machine
+#     output this cleanup exists to undo.
 
 on:
   workflow_dispatch:
@@ -46,9 +69,17 @@ on:
         required: true
         default: 'false'
       limit:
-        description: 'Max issues to close in this run'
+        description: 'Max issues to close in this run (keep <=250 while commenting; see RATE LIMITS in the header)'
         required: true
-        default: '500'
+        default: '250'
+      comment:
+        description: 'Post the explanatory comment before closing (false = close silently, ~2x faster, no explanation left behind)'
+        required: true
+        default: 'true'
+      delay_ms:
+        description: 'Pause between issues, milliseconds. Throttles under the secondary rate limit.'
+        required: true
+        default: '1000'
 
 permissions:
   issues: write
@@ -61,7 +92,9 @@ jobs:
         with:
           script: |
             const APPLY = context.payload.inputs.apply === 'true';
-            const LIMIT = parseInt(context.payload.inputs.limit || '500', 10);
+            const LIMIT = parseInt(context.payload.inputs.limit || '250', 10);
+            const COMMENT = (context.payload.inputs.comment || 'true') === 'true';
+            const DELAY_MS = parseInt(context.payload.inputs.delay_ms || '1000', 10);
 
             // Titles produced by generators that no longer exist, plus the
             // superseded link-checker stream. Anchored to the start of the
@@ -126,21 +159,58 @@ jobs:
             core.info(`skipped ${skippedCommented} that carry a human comment`);
 
             if (!APPLY) {
-              core.notice(`DRY RUN — would close ${Math.min(toClose.length, LIMIT)} issues. Re-run with apply=true.`);
+              const thisRun = Math.min(toClose.length, LIMIT);
+              const runsNeeded = toClose.length ? Math.ceil(toClose.length / LIMIT) : 0;
+              core.notice(
+                `DRY RUN — ${toClose.length} match; this run would close ${thisRun} (limit=${LIMIT}), ` +
+                `so ~${runsNeeded} run(s) to drain. Re-run with apply=true.`
+              );
               core.info(toClose.slice(0, 50).join(', ') + (toClose.length > 50 ? ' …' : ''));
               return;
             }
 
-            for (const number of toClose.slice(0, LIMIT)) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner, repo: context.repo.repo,
-                issue_number: number, body: closeNote,
-              });
-              await github.rest.issues.update({
-                owner: context.repo.owner, repo: context.repo.repo,
-                issue_number: number, state: 'closed', state_reason: 'not_planned',
-              });
-              closed++;
-              if (closed % 25 === 0) core.info(`closed ${closed}…`);
+            const sleep = ms => new Promise(r => setTimeout(r, ms));
+            const isRateLimit = e => {
+              const s = e && e.status;
+              const m = String((e && e.message) || '');
+              return s === 429 || (s === 403 && /rate limit|abuse|secondary/i.test(m));
+            };
+
+            const batch = toClose.slice(0, LIMIT);
+            let stoppedEarly = false;
+
+            for (const number of batch) {
+              try {
+                if (COMMENT) {
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner, repo: context.repo.repo,
+                    issue_number: number, body: closeNote,
+                  });
+                }
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: number, state: 'closed', state_reason: 'not_planned',
+                });
+                closed++;
+                if (closed % 25 === 0) core.info(`closed ${closed}…`);
+              } catch (e) {
+                if (isRateLimit(e)) {
+                  // Stop cleanly rather than throwing. Everything closed so far
+                  // stays closed, and the next run re-scans and picks up the rest.
+                  core.warning(`Rate limit hit after ${closed} closes (issue #${number}): ${e.message}`);
+                  stoppedEarly = true;
+                  break;
+                }
+                core.warning(`Skipped #${number}: ${e.message}`);
+              }
+              if (DELAY_MS > 0) await sleep(DELAY_MS);
             }
-            core.notice(`Closed ${closed} superseded auto-filed issues.`);
+
+            const remaining = toClose.length - closed;
+            core.notice(
+              `Closed ${closed} superseded auto-filed issues.` +
+              (remaining > 0
+                ? ` ${remaining} still match and are untouched — re-run this workflow to continue` +
+                  (stoppedEarly ? ' (stopped early on a rate limit; wait ~an hour).' : '.')
+                : ' Nothing left matching — the backlog is drained.')
+            );
