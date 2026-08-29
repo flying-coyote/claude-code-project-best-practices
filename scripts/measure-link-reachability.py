@@ -444,6 +444,19 @@ def main() -> int:
 
     root = Path(args.root).resolve()
 
+    # --json is only implemented for the default reachability report. It used to
+    # be accepted here and SILENTLY IGNORED in --links and --currency, both of
+    # which return before the `if args.json:` branch further down — so a caller
+    # piping `--links --json` into a parser got a plain-text table and no
+    # indication anything was wrong. Fail loudly instead of handing back the
+    # wrong shape.
+    if args.json and (args.links or args.currency is not None):
+        mode = "--links" if args.links else "--currency"
+        print(f"error: --json is not implemented for {mode} (only for the default "
+              f"reachability report). Parse the table, or open an issue if you need "
+              f"JSON here — do not assume this flag did something.", file=sys.stderr)
+        return 2
+
     if args.currency is not None:
         return report_currency(root, args.currency or
                                ["archive", "old", "deprecated", "legacy"])

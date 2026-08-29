@@ -191,7 +191,7 @@ Granular dated entries for each milestone above. Summary bullets in `## Complete
 
 ### Medium Priority (Mostly Complete)
 - ✅ Community: Accept contributions (CONTRIBUTING.md created)
-- ⚠️ Examples: Update example projects (partially complete)
+- ✅ Examples: Update example projects — resolved by removal, not completion. `examples/` was archived to `archive/examples-v1/` in the 2026-07 Reduction Phase 0; there is no live examples tree to update. *(This read "⚠️ partially complete" from 2026-05-24 until 2026-08-29 — the only ⚠️ in the file, describing work on a directory that stopped existing a month before.)*
 
 ### Low Priority (Addressed)
 - ✅ Automation: Hook patterns documented (3 hooks)
@@ -217,12 +217,16 @@ Granular dated entries for each milestone above. Summary bullets in `## Complete
 
 These items were evaluated and consciously deferred:
 
-| Item | Reason | Revisit When |
-|------|--------|--------------|
-| MCP server for pattern lookup | Requires design decisions (transport, operations, hosting) | When design is clarified |
-| Video walkthrough | External infrastructure required | Out of scope |
-| Fabric integration guide | Low priority (Tier C source) | Community demand |
-| Cross-project skill sync | Needs real use cases first | Community feedback |
+> **Re-checked 2026-08-29.** This table was written 2026-05-24 and never revisited. One row was outright false and the rest have triggers nobody observes.
+
+| Item | Reason | Revisit When | Status 2026-08-29 |
+|------|--------|--------------|-------------------|
+| MCP server for pattern lookup | Requires design decisions (transport, operations, hosting) | When design is clarified | **Row was false.** It was designed, built, and shipped — source is at `archive/mcp-server-v1/` — then decommissioned, its 73 MB of residue deleted in Reduction Phase 0 (`4875ed5`). Not deferred; done and undone. |
+| Video walkthrough | External infrastructure required | Out of scope | Still out of scope. The only row whose "revisit when" is honest — it never revisits. |
+| Fabric integration guide | Low priority (Tier C source) | Community demand | Trigger unobservable: nothing measures community demand, and no issue has ever requested it (974 issues enumerated 2026-08-29 — all machine-filed bar three). |
+| Cross-project skill sync | Needs real use cases first | Community feedback | Trigger unobservable, same reason. `analysis/cross-project-synchronization.md` covers the analysis; the *sync tooling* is what stayed deferred. |
+
+A "revisit when" that names no observer is a deferral with no way back — the item cannot be reconsidered because nothing will ever notice the condition. Two of these four are that shape.
 
 ---
 
