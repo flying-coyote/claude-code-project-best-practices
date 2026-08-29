@@ -182,15 +182,25 @@ Use a PreToolUse hook to catch hardcoded credentials before they're written:
 #!/bin/bash
 # Scan for hardcoded credentials in generated code
 
-read -r input
-TOOL=$(echo "$input" | jq -r '.tool // "unknown"')
+# Read the ENTIRE stdin payload. `read -r input` keeps only the first line, so a
+# pretty-printed payload reaches jq as truncated JSON: the parse fails, TOOL comes
+# back empty, and the hook exits 0 at the guard below having scanned nothing.
+input=$(cat)
+
+# `.tool_name` / `.tool_input`, NOT `.tool` / `.parameters` — the hook payload's
+# keys are session_id, prompt_id, transcript_path, cwd, permission_mode,
+# hook_event_name, tool_name, tool_input, tool_use_id. This example shipped the
+# wrong two from 2026-05 to 2026-08-29, which made TOOL always "unknown", failed
+# the guard below, and exited 0 without scanning anything. A credential scanner
+# that cannot block is worse than none: it reads as coverage.
+TOOL=$(echo "$input" | jq -r '.tool_name // "unknown"')
 
 # Only check Write and Edit operations
 if [ "$TOOL" != "Write" ] && [ "$TOOL" != "Edit" ]; then
     exit 0
 fi
 
-CONTENT=$(echo "$input" | jq -r '.parameters.content // .parameters.new_string // ""')
+CONTENT=$(echo "$input" | jq -r '.tool_input.content // .tool_input.new_string // ""')
 
 # Check for common credential patterns
 PATTERNS=(
@@ -204,7 +214,17 @@ PATTERNS=(
 )
 
 for PATTERN in "${PATTERNS[@]}"; do
-    if echo "$CONTENT" | grep -qP "$PATTERN"; then
+    # Three separate fixes on this one line, all found by RUNNING it:
+    #   -qE not -qP  — BSD/macOS grep has no -P, so on that platform every
+    #                  pattern errored and the loop fell through, passing
+    #                  everything. These patterns need no PCRE-only syntax.
+    #   --           — end-of-options. The private-key pattern begins with
+    #                  `-----`, so without this grep parses it as flags and
+    #                  reports "unrecognized option", again passing everything.
+    #                  This one survived the -P/-E fix and was only caught by
+    #                  executing the extracted script against a real payload.
+    #   -e "$PATTERN" is the alternative; `--` is the smaller change.
+    if echo "$CONTENT" | grep -qE -- "$PATTERN"; then
         echo "Potential hardcoded credential detected (pattern: $PATTERN)"
         echo "Use environment variables or a secrets manager instead."
         exit 2  # Block the operation

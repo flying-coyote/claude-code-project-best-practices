@@ -12,8 +12,10 @@ only running under several hash seeds can.
 Usage:  python3 scripts/test-measure-link-reachability.py
 """
 
+import re
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -84,6 +86,64 @@ def main():
     #    a factor of two in the direction of alarm.
     ok &= check("reports the by-lane decomposition", "by lane, index excluded" in txt)
     ok &= check("names the guidance lane explicitly", "guidance" in txt)
+
+    # 8. The CI gate's own parser, against real instrument output.
+    #
+    # This suite had ZERO coverage of how link-checker.yml reads this
+    # instrument, and that gap hid a real defect for a day: the gate used
+    # `awk '/^dangling/{print $2}'`, while the instrument prints a SECOND line
+    # starting with "dangling" -- the detail header -- but only when the live
+    # lane actually has a broken link. So the gate parsed correctly in the
+    # healthy case and broke in the one case it exists for, reporting the
+    # INSTRUMENT as unparseable while the instrument was fine and the CORPUS
+    # was broken.
+    #
+    # The awk is extracted from the workflow rather than copied, so this test
+    # guards the shipped command. A copy would have passed while the real gate
+    # stayed broken -- the same class of mistake one level up.
+    wf = (ROOT / ".github" / "workflows" / "link-checker.yml").read_text()
+    m = re.search(r"DANGLING=\$\(awk ('[^']*') /tmp/links\.txt\)", wf)
+    ok &= check("the gate's awk is extractable from the workflow", bool(m))
+
+    if m:
+        awk_prog = m.group(1)[1:-1]
+
+        def gate_count(instrument_output):
+            """Run the workflow's awk over instrument output, then its guard."""
+            got = subprocess.run(["awk", awk_prog], input=instrument_output,
+                                 capture_output=True, text=True).stdout.strip()
+            return got
+
+        # 8a. Healthy corpus: one `dangling` row, no detail header.
+        clean = run(["--links"])
+        got = gate_count(clean)
+        ok &= check("gate parses a clean corpus to a bare integer",
+                    re.fullmatch(r"[0-9]+", got) is not None, f"got {got!r}")
+        ok &= check("gate reads 0 on a corpus with no dangling live links",
+                    got == "0", f"got {got!r}")
+
+        # 8b. Broken corpus: the detail header is present. Built as a fixture
+        #     rather than by copying the repo, so it stays fast and hermetic.
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / ".claude").mkdir()
+            (root / ".claude" / "CLAUDE.md").write_text("# seed\n\n[a](../a.md)\n")
+            (root / "a.md").write_text("# a\n\n[gone](nowhere-at-all.md)\n")
+            broken = subprocess.run(
+                [sys.executable, str(SCRIPT), "--root", str(root), "--links"],
+                capture_output=True, text=True, check=True).stdout
+
+            header_lines = [ln for ln in broken.splitlines()
+                            if ln.startswith("dangling")]
+            ok &= check("a broken corpus really does print two 'dangling' lines",
+                        len(header_lines) == 2, f"{len(header_lines)} line(s)")
+
+            got = gate_count(broken)
+            ok &= check("gate parses a BROKEN corpus to a bare integer "
+                        "(the defect: used to yield '1\\nin')",
+                        re.fullmatch(r"[0-9]+", got) is not None, f"got {got!r}")
+            ok &= check("gate reports a non-zero count so the PR-failing step fires",
+                        got not in ("", "0"), f"got {got!r}")
 
     print("\nAll tests passed." if ok else "\nFAILURES above.")
     return 0 if ok else 1

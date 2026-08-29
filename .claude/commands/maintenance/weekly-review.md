@@ -156,7 +156,20 @@ Conduct the weekly review of project status and documentation currency. This pro
      [ -f "$f" ] || continue
      # OLDEST marker in the file, not the newest. SOURCES.md carried a fresh
      # header and a 16-day-stale footer at the same time; taking the max hid it.
-     oldest=$(grep -oiE 'last (updated|curated)[^0-9]{0,4}(([0-9]{4}-[0-9]{2}-[0-9]{2})|([A-Z][a-z]+ [0-9]{1,2}, [0-9]{4}))' "$f" \
+     #
+     # ANCHORED to line start (`^[*_ ]*`). Unanchored, this grep also harvested
+     # dates out of PROSE that merely quotes a marker -- PLAN.md:26 and :47 both
+     # narrate "Last curated 2026-08-29" inside a table cell, and SOURCES.md:2497
+     # quotes the phrase inside its own correction note. Those three passed only
+     # because every quoted date happened to equal that day's date. Since the
+     # check compares the oldest match against `git log -1`, the next commit to
+     # PLAN.md dated later -- which step 8 of THIS review makes every week --
+     # would have frozen those prose dates into false STALE hits and forced a
+     # DRIFT verdict on a repo with nothing wrong. Anchoring selects exactly the
+     # five real markers (DECISIONS.md, AUDIT-CONTEXT.md, SOURCES.md x2,
+     # PLAN.md) and zero prose, while keeping the fresh-header/stale-footer
+     # catch that motivated the oldest-match rule in the first place.
+     oldest=$(grep -oiE '^[*_ ]*\*{0,2}last (updated|curated)[^0-9]{0,6}(([0-9]{4}-[0-9]{2}-[0-9]{2})|([A-Z][a-z]+ [0-9]{1,2}, [0-9]{4}))' "$f" \
               | grep -oE '([0-9]{4}-[0-9]{2}-[0-9]{2})|([A-Z][a-z]+ [0-9]{1,2}, [0-9]{4})' \
               | while read -r d; do date -d "$d" +%Y-%m-%d 2>/dev/null; done | sort | head -1)
      [ -z "$oldest" ] && continue          # no marker is fine; a WRONG one is not
@@ -172,7 +185,9 @@ Conduct the weekly review of project status and documentation currency. This pro
    checking currency the careful way is the one it misleads. Note the date formats
    differ across these files (`2026-08-29` vs `August 29, 2026`) — that is why the
    loop normalises through `date -d` instead of comparing strings, and it is why a
-   naive ISO-only grep missed PLAN.md's marker entirely.
+   naive ISO-only grep missed PLAN.md's marker entirely. The `^[*_ ]*` anchor is
+   equally load-bearing: without it the grep reads prose that quotes a marker as
+   if it were one (see the comment in the loop).
 
    Two of these are load-bearing beyond this repo. **AUDIT-CONTEXT.md** is fetched
    by the audit prompt into *other* repositories, so its marker is a claim made to

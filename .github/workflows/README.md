@@ -27,9 +27,12 @@ retired — see DECISIONS.md Decision 11 and the Reduction Phase 6 notes.
 
 ## link-checker.yml
 
-Four jobs. The important structure is that **internal** and **external** link
-failures are treated differently, because only one of them is this repository's
-to fix.
+Five jobs (`check-internal-links`, `check-links`, `markdown-lint`,
+`test-instruments`, `check-source-accessibility`). Said "Four" until 2026-08-29 —
+the internal check became its own job in the 2026-08-29 split and this line was
+not updated with it. The important structure is that **internal** and **external**
+link failures are treated differently, because only one of them is this
+repository's to fix.
 
 > **None of these actually block a merge.** `master` is **unprotected**
 > (`protected: false`, checked against the API 2026-08-29), so GitHub has no
@@ -39,14 +42,21 @@ to fix.
 >
 > To make it true: **Settings → Branches → Add branch protection rule** for
 > `master` → *Require status checks to pass before merging* → select
-> `test-instruments` and `check-links`. Until then, read the table as reporting,
+> `test-instruments` and **`check-internal-links`** — not `check-links`. The
+> deterministic internal gate has been its own job since the 2026-08-29 split;
+> `check-links` is now the ~7-minute external scan whose failing step carries
+> `continue-on-error: true`, so on a PR it cannot go red, and requiring it buys
+> merge latency and no gating. Both jobs sit behind this workflow's
+> `pull_request: paths:` filter, and a required check that never reports holds a
+> PR at *Expected* forever — widen that filter before turning protection on.
+> Until then, read the table as reporting,
 > not gating. This correction exists because the repo asserted the stronger claim
 > for a day — the exact defect it documents, committed by the person documenting it.
 
 | Job | Fails on error? | Notes |
 |---|---|---|
-| `check-links` → internal | **yes** | `scripts/measure-link-reachability.py --links`. A new dangling internal link fails the job. Deterministic and ours to fix. |
-| `check-links` → external | no | `markdown-link-check`. Mostly upstream rot; triaged by exception. |
+| `check-internal-links` | **yes** | `scripts/measure-link-reachability.py --links`. A new dangling internal link fails the job. Deterministic and ours to fix. Its own job since 2026-08-29; reports in seconds. |
+| `check-links` (external) | no | `markdown-link-check`. Mostly upstream rot; triaged by exception. `continue-on-error: true`, so it cannot fail a PR. |
 | `markdown-lint` | no (comments) | `npm run lint` |
 | `test-instruments` | **yes** | Both instrument test suites — see below |
 | `check-source-accessibility` | no | Probes a small set of critical Tier-A source URLs |
@@ -66,8 +76,8 @@ patterns, retry/timeout, and the status codes treated as alive.
 
 **Permissions**, per workflow rather than blanket:
 
-- `claude-code.yml` — `contents: read`, `pull-requests: write`, `issues: write`
-- `link-checker.yml` — `contents: read`, `issues: write` (standing issue)
+- `claude-code.yml` — **`contents: write`**, `pull-requests: write`, `issues: write`, **`id-token: write`**, set at workflow level. This bullet claimed `contents: read` and omitted `id-token` entirely until 2026-08-29; the workflow has carried `contents: write` since it was added, so the line was **never true** — and a reviewer checking permissions here before approving the `@claude` trigger fix would have judged that fix far lower-risk than it was. `claude-review` inherits the workflow block deliberately: `contents: write` is what lets `@claude` on a PR actually change files. `daily-review-check` narrows to `contents: read` + `issues: write`, since posting a comment is its only output. **`process-source-update` was deleted 2026-08-29** — it was the externally-reachable write-scoped job the 2026-06 self-audit logged as Finding #1, and its only feeder (`source-monitoring.yml`) had been removed in `d9e484d`, so nothing had filed its trigger issues since. **Residual**: `claude-review` passes no `claude_args` — no `--allowedTools`, no `--max-turns` — so the `author_association` gate is the only control on that path.
+- `link-checker.yml` — **no workflow-level block.** `contents: read` + `issues: write` are declared per job, on `check-links` (standing issue) and `check-source-accessibility` only. `check-internal-links`, `markdown-lint` and `test-instruments` declare nothing and run with the repository's default token permissions.
 - `close-superseded-auto-issues.yml` — `issues: write`
 
 ## Running a workflow manually
@@ -129,7 +139,8 @@ lost.
 > back-to-back with `retries: 0`. At 878 matches it bursts the per-minute
 > ceiling in seconds, 403s, and fails the job mid-drain. `scripts/test-close-superseded-workflow.js`
 > now extracts the inline script straight from this YAML and runs it against a
-> simulated 935-issue repo — 16 checks, including the four that actually matter
+> simulated 935-issue repo — the suite prints its own total (44 at time of
+> writing), including the four checks that actually matter
 > (never close a human issue, the standing issue, a commented issue, or a PR).
 > It was verified to **fail against the pre-fix version** with the same
 > unhandled 403 that would have hit production.

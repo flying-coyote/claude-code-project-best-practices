@@ -136,8 +136,9 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = fa
 }
 
 (async () => {
-  let fail = 0;
+  let fail = 0, total = 0;
   const check = (name, cond, extra='') => {
+    total++;
     console.log(`${cond ? 'PASS' : 'FAIL'}  ${name}${extra ? '  ' + extra : ''}`);
     if (!cond) fail++;
   };
@@ -228,6 +229,7 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = fa
   check('rate limit notice says stopped early + wait', /stopped early on a rate limit/.test(rl.notices[0]), rl.notices[0]);
   check('progress preserved (741 remain)', /741 still match/.test(rl.notices[0]));
 
-  console.log(fail ? `\n${fail} FAILED` : '\nAll checks passed.');
+  console.log(fail ? `\n${fail} of ${total} FAILED`
+                   : `\nAll ${total} checks passed.`);
   process.exit(fail ? 1 : 0);
 })();

@@ -68,7 +68,24 @@ jobs:
           # error message dead code for the exact case it was written for.
           # Plain awk exits 0 on no-match, leaving DANGLING empty, and the regex
           # below rejects it *with* the message. Same safety, better diagnosis.
-          DANGLING=$(awk '/^dangling/{print $2}' /tmp/links.txt)
+          #
+          # `$1=="dangling"` and `exit`, NOT `/^dangling/`. The instrument prints
+          # a SECOND line beginning with "dangling" -- the detail header
+          # "dangling in live docs: N (M distinct source->target pairs):" -- but
+          # only when the live lane actually has one. So the loose regex matched
+          # both lines, awk emitted "1\nin", the guard below rejected it, and the
+          # step died claiming the INSTRUMENT was unparseable at the exact moment
+          # the instrument was working and the CORPUS was broken. The gate was
+          # therefore self-testing green (0 dangling -> one line -> fine) and
+          # misfiring only in the one case it exists for. Two further harms it
+          # caused: the "Fail the PR" step below, which prints the remediation
+          # command, was skipped because it keys off dangling_live; and
+          # dangling_live was never written, so the scheduled run rendered
+          # "Dangling internal links in the live lane: ****" into the standing
+          # issue on the day the number mattered. Reproduced on a copy of master
+          # by appending one broken link to PLAN.md; guarded by
+          # test-measure-link-reachability.py's gate-parse checks.
+          DANGLING=$(awk '$1=="dangling"{print $2; exit}' /tmp/links.txt)
           if ! [[ "$DANGLING" =~ ^[0-9]+$ ]]; then
             echo "::error::instrument produced no parseable 'dangling' row (got: '${DANGLING}') — refusing to report a count."
             exit 1
@@ -256,11 +273,15 @@ jobs:
       - name: Test the reachability instrument
         run: python3 scripts/test-measure-link-reachability.py
 
-      # 43 checks incl. the four unrecoverable ones: never close a human issue,
-      # the standing issue, a commented issue, or a PR. (Comment said 16 until
-      # 2026-08-29; the suite grew 16 -> 28 -> 38 -> 43 and the count beside it
-      # did not, which is the same stale-prose defect this repo audits for, in
-      # a comment guarding the guard.)
+      # Guards the four unrecoverable invariants: never close a human issue,
+      # the standing issue, a commented issue, or a PR.
+      #
+      # No check count here on purpose. Four files hand-copied that number and
+      # three of them were wrong: this comment said 16, then 43; scripts/README
+      # and PLAN said 43; the real total was 44, and 43 was a mis-transcription
+      # at birth that got propagated the same day. A growth ladder written
+      # beside it ("16 -> 28 -> 38 -> 43") was invented outright. The suite now
+      # prints its own total ("All N checks passed."), so read it from the run.
       - name: Test the backlog-drain workflow
         run: node scripts/test-close-superseded-workflow.js
 
