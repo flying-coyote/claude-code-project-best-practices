@@ -156,6 +156,35 @@ jobs:
               body: body
             });
 
+  # The instruments themselves. `check-links` GATES PRs on
+  # measure-link-reachability.py, and the drain workflow closes issues in bulk —
+  # but until 2026-08-29 nothing in CI ran either one's test suite. A gate whose
+  # instrument is unverified is the same defect this repo keeps documenting: the
+  # check fires, so it looks like it works.
+  #
+  # This job FAILS the PR. That is deliberate — a broken instrument invalidates
+  # the numbers every other job reports.
+  test-instruments:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 11 checks incl. determinism across 8 PYTHONHASHSEED values. A `set`
+      # literal in the resolver once made this instrument return 168-171 links
+      # depending on the hash seed, while the docs called it reproducible.
+      - name: Test the reachability instrument
+        run: python3 scripts/test-measure-link-reachability.py
+
+      # 16 checks incl. the four unrecoverable ones: never close a human issue,
+      # the standing issue, a commented issue, or a PR.
+      - name: Test the backlog-drain workflow
+        run: node scripts/test-close-superseded-workflow.js
+
   check-source-accessibility:
     runs-on: ubuntu-latest
     permissions:
