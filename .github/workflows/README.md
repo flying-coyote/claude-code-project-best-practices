@@ -78,10 +78,24 @@ Measured on the first dry run (2026-08-29): **935 open issues, 878 matching, 2
 skipped for carrying a human comment, 55 human issues untouched.**
 
 **Set the `Mode` dropdown to `APPLY - actually close the matched issues`.** It
-defaults to dry-run, and dry-run closes nothing. This began life as a text box
-pre-filled with `false`, which produced three consecutive accidental dry runs
-before anyone noticed the field — hence the dropdown, and hence the dry-run
-notice now saying in as many words that nothing was closed.
+defaults to dry-run, and dry-run closes nothing.
+
+> **Five consecutive runs came out as dry runs.** First as a text box pre-filled
+> with `false` (easy to scroll past), then as a dropdown — and still dry. The
+> matcher was verified byte-for-byte against the option string, so the remaining
+> question was whether the value ever reached the script, and **the logs could not
+> answer it.** The run now prints what it received from both input paths and the
+> mode it resolved:
+>
+> ```
+> input apply -> inputs context: "APPLY - actually close the matched issues"; event payload: null
+> resolved mode: APPLY (will close issues)
+> ```
+>
+> If a run is unexpectedly a dry run, read those two lines first. `null` from both
+> sources means the value never arrived; a populated value with `resolved mode:
+> DRY RUN` would be a matcher bug. An input you cannot observe is an input you
+> cannot debug.
 
 Closing one issue costs two API calls, and the comment is a *content-generating*
 request — GitHub caps those near **80/minute and 500/hour**. So the job is built
