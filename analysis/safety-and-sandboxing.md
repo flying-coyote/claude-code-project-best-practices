@@ -190,7 +190,11 @@ A checklist is only a reminder unless something enforces it. A `PreToolUse` hook
 `.claude/hooks/scan-credentials.sh`:
 ```bash
 #!/bin/bash
-read -r input
+# `input=$(cat)`, not `read -r input`: read stops at the first newline, so a
+# pretty-printed payload arrives as truncated JSON and the scan silently passes.
+# This doc had the SCHEMA right and the read wrong; secure-code-generation.md had
+# both wrong. Third instance of the same truncation bug in this repo.
+input=$(cat)
 cmd=$(echo "$input" | jq -r '.tool_input.command // ""')
 [[ "$cmd" == *"git commit"* ]] || exit 0
 git diff --cached | grep -EqI '(AKIA[0-9A-Z]{16}|-----BEGIN[A-Z ]*PRIVATE KEY-----|(api|secret)[_-]?key\s*=)' \
