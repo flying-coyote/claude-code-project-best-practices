@@ -31,11 +31,24 @@ Four jobs. The important structure is that **internal** and **external** link
 failures are treated differently, because only one of them is this repository's
 to fix.
 
-| Job | Blocks a PR? | Notes |
+> **None of these actually block a merge.** `master` is **unprotected**
+> (`protected: false`, checked against the API 2026-08-29), so GitHub has no
+> required-status-check list to enforce. A failing job turns the check red and
+> nothing else — #999 was merged while `test-instruments` was still *running*.
+> The "yes" column below means **the job fails**, not that the merge is stopped.
+>
+> To make it true: **Settings → Branches → Add branch protection rule** for
+> `master` → *Require status checks to pass before merging* → select
+> `test-instruments` and `check-links`. Until then, read the table as reporting,
+> not gating. This correction exists because the repo asserted the stronger claim
+> for a day — the exact defect it documents, committed by the person documenting it.
+
+| Job | Fails on error? | Notes |
 |---|---|---|
-| `check-links` → internal | **yes** | `scripts/measure-link-reachability.py --links`. A new dangling internal link fails the PR. Deterministic and ours to fix. |
+| `check-links` → internal | **yes** | `scripts/measure-link-reachability.py --links`. A new dangling internal link fails the job. Deterministic and ours to fix. |
 | `check-links` → external | no | `markdown-link-check`. Mostly upstream rot; triaged by exception. |
 | `markdown-lint` | no (comments) | `npm run lint` |
+| `test-instruments` | **yes** | Both instrument test suites — see below |
 | `check-source-accessibility` | no | Probes a small set of critical Tier-A source URLs |
 
 On the scheduled run it maintains **one standing issue**, updated in place and

@@ -156,14 +156,24 @@ jobs:
               body: body
             });
 
-  # The instruments themselves. `check-links` GATES PRs on
+  # The instruments themselves. `check-links` reports on
   # measure-link-reachability.py, and the drain workflow closes issues in bulk —
-  # but until 2026-08-29 nothing in CI ran either one's test suite. A gate whose
+  # but until 2026-08-29 nothing in CI ran either one's test suite. A check whose
   # instrument is unverified is the same defect this repo keeps documenting: the
   # check fires, so it looks like it works.
   #
-  # This job FAILS the PR. That is deliberate — a broken instrument invalidates
-  # the numbers every other job reports.
+  # This job FAILS on a broken instrument, deliberately, with no
+  # continue-on-error — a bad instrument invalidates the numbers every other job
+  # reports.
+  #
+  # CORRECTION 2026-08-29: this comment used to say "FAILS the PR", and the
+  # workflows README claimed the internal-link check blocks a merge. Neither is
+  # true. `master` is unprotected (`protected: false` via the API), so no status
+  # check is required and a red job stops nothing — #999 merged while this very
+  # job was still running. Failing the job is all this does until someone adds
+  # branch protection with `test-instruments` and `check-links` as required
+  # checks. Overclaiming a gate is worse than not having one, because it stops
+  # anyone from noticing the gate is missing.
   test-instruments:
     runs-on: ubuntu-latest
     steps:
