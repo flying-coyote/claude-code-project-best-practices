@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-08-28 07:24*
+*Auto-generated: 2026-08-29 09:59*
 
 ## Summary
 
-**Total documents**: 161
+**Total documents**: 162
 
 | Directory | Count |
 |-----------|-------|
@@ -35,7 +35,7 @@
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
 | drafts | 4 |
-| research | 3 |
+| research | 4 |
 | research/artifacts/2026-07-18-realistic-ladder | 5 |
 | research/artifacts/2026-07-18-realistic-ladder/golden | 2 |
 | research/artifacts/2026-07-18-realistic-ladder/guides-as-read | 7 |
@@ -64,6 +64,7 @@
 
 - [corpus-reachability-2026-08-28.md](research/corpus-reachability-2026-08-28.md)
 - [fable-probe-session-2026-07-16.md](research/fable-probe-session-2026-07-16.md)
+- [opus5-system-card-extraction-2026-08-29.md](research/opus5-system-card-extraction-2026-08-29.md)
 - [probe-session-2026-07-18.md](research/probe-session-2026-07-18.md)
 ## Research / Self-Audit-2026-06
 
