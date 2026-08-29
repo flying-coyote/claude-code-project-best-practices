@@ -7,7 +7,21 @@ on:
   workflow_dispatch:  # Allow manual triggering
   pull_request:
     paths:
+      # Markdown, because that is what the link check reads.
       - '**.md'
+      # ...and the machinery itself. Until 2026-08-29 this list was '**.md'
+      # ALONE, which meant the `test-instruments` job — added specifically to
+      # guard these files — never ran when any of them changed. PR #1002 edited
+      # link-checker.yml and triggered NOTHING; #1001 only triggered because it
+      # happened to touch PLAN.md as well. A guard that is deaf to changes in
+      # the thing it guards is the same defect one layer out again.
+      - '.github/workflows/link-checker.yml'
+      - '.github/workflows/close-superseded-auto-issues.yml'
+      - 'scripts/measure-link-reachability.py'
+      - 'scripts/test-measure-link-reachability.py'
+      - 'scripts/test-close-superseded-workflow.js'
+      - 'scripts/check-measurement-expiry.py'
+      - 'scripts/graphify_footer_inject.py'
 
 jobs:
   check-links:
@@ -52,9 +66,14 @@ jobs:
           set -euo pipefail
           python3 scripts/measure-link-reachability.py --links > /tmp/links.txt
           cat /tmp/links.txt
-          DANGLING=$(awk '/^dangling/{print $2; found=1} END{exit !found}' /tmp/links.txt)
+          # No `END{exit !found}` here: under `set -e` a non-zero awk would abort
+          # the step before the check below could explain why, which made the
+          # error message dead code for the exact case it was written for.
+          # Plain awk exits 0 on no-match, leaving DANGLING empty, and the regex
+          # below rejects it *with* the message. Same safety, better diagnosis.
+          DANGLING=$(awk '/^dangling/{print $2}' /tmp/links.txt)
           if ! [[ "$DANGLING" =~ ^[0-9]+$ ]]; then
-            echo "::error::instrument produced no parseable 'dangling' row — refusing to report a count."
+            echo "::error::instrument produced no parseable 'dangling' row (got: '${DANGLING}') — refusing to report a count."
             exit 1
           fi
           echo "dangling_live=${DANGLING}" >> "$GITHUB_OUTPUT"
