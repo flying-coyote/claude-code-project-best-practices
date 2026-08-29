@@ -7,12 +7,23 @@ of all documentation files, organized by directory.
 
 Usage:
     python3 automation/generate_index.py
+    python3 automation/generate_index.py --output /tmp/INDEX.md
+    python3 automation/generate_index.py --root some/subdir
 
 The script is called automatically by the PostToolUse hook
 when file structure changes are detected.
+
+Note: until 2026-08-29 this had no CLI layer at all. `generate_index()` was
+called with zero arguments unconditionally, so every argv element was SILENTLY
+DISCARDED — `--dry-run` or `--output elsewhere.md` would overwrite INDEX.md
+anyway, quietly doing the opposite of what was asked. The two parameters below
+already existed; they were simply unreachable. Unknown flags are now an error
+rather than a no-op.
 """
 
+import argparse
 import os
+import sys
 from pathlib import Path
 from datetime import datetime
 
@@ -117,6 +128,26 @@ def generate_index(root_dir: str = ".", output_file: str = "INDEX.md"):
     print(f"Generated {output_file} with {sum(dir_counts.values())} documents")
 
 
-if __name__ == "__main__":
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Generate INDEX.md from the current file structure.",
+    )
+    parser.add_argument(
+        "--root", default=".",
+        help="directory to scan, relative to the repository root (default: the repo root)",
+    )
+    parser.add_argument(
+        "--output", default="INDEX.md",
+        help="file to write, relative to the repository root (default: INDEX.md)",
+    )
+    # parse_args (not parse_known_args) on purpose: an unrecognised flag must
+    # fail loudly. Silently ignoring it is the defect this CLI exists to fix.
+    args = parser.parse_args(argv)
+
     os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    generate_index()
+    generate_index(root_dir=args.root, output_file=args.output)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -37,14 +37,22 @@ CLAIM_PATTERNS = [
 ]
 
 
-def load_graph(path: Path) -> dict:
+def load_graph(path: Path) -> dict | None:
+    """Load the graph, or return None when it is absent.
+
+    Returns None rather than an empty graph ON PURPOSE. This used to return
+    `{"edges": []}` after printing "Skipping (no-op)", and main() carried
+    straight on into the scan — so with no graph the ground truth was empty,
+    EVERY extracted claim looked unsupported, and the lint printed 32
+    confident "candidate contradiction(s)" built from nothing, exiting 0.
+
+    A check that manufactures findings when its evidence is missing is worse
+    than one that does not run: the output is indistinguishable from a real
+    result. The sibling graphify_footer_inject.py has always exited on this
+    condition instead. Skipping now means skipping.
+    """
     if not path.exists():
-        print(
-            f"graph file not found: {path}\n"
-            "Lint requires graphify-out/graph.json. Skipping (no-op).",
-            file=sys.stderr,
-        )
-        return {"edges": []}
+        return None
     with path.open() as f:
         return json.load(f)
 
@@ -101,9 +109,32 @@ def main() -> int:
     p.add_argument("--graph", type=Path, default=DEFAULT_GRAPH)
     p.add_argument("--target", type=Path, default=DEFAULT_TARGET)
     p.add_argument("--json", action="store_true", help="emit JSON output")
+    p.add_argument(
+        "--require-graph",
+        action="store_true",
+        help="exit non-zero when the graph is missing, instead of skipping",
+    )
     args = p.parse_args()
 
     graph = load_graph(args.graph)
+    if graph is None:
+        msg = (
+            f"graph file not found: {args.graph}\n"
+            "This lint compares prose claims against EXTRACTED graph edges; with no "
+            "graph there is nothing to compare against, so it is SKIPPED rather than "
+            "run against an empty ground truth. Run `graphify .` first (or pass "
+            "--graph). If graphify has not been run for egress reasons, this script "
+            "is a no-op by design."
+        )
+        if args.require_graph:
+            print(msg, file=sys.stderr)
+            return 2
+        print(msg, file=sys.stderr)
+        if args.json:
+            print(json.dumps({"skipped": True, "reason": "graph-missing",
+                              "ground_truth_size": 0, "findings": []}, indent=2))
+        return 0
+
     ground_truth = extracted_edges(graph)
 
     findings: list[dict] = []
