@@ -185,7 +185,8 @@ Combining them adds complexity and makes each less focused.
 
 ## Future Considerations
 
-These were considered but deferred:
+These were considered but deferred (written for v1; the four bullets below are
+preserved verbatim as the original record):
 
 1. **MCP Server Integration**: Could provide tools for project management. Deferred until clearer use case emerges.
 
@@ -194,6 +195,24 @@ These were considered but deferred:
 3. **Version Migration**: Updating projects when best practices change. Need real usage patterns first.
 
 4. **Team Features**: Shared conventions across team members. Scope creep for v1.
+
+> **Re-checked 2026-08-29.** Unrevisited since the file entered git. Three of the
+> four did not stay deferred — they happened, and in two cases were then
+> superseded — so the section read as a live statement of open scope while
+> describing work that had already been done and undone. The bullets are kept
+> above; the correction is here.
+
+| Deferral | What actually happened |
+|---|---|
+| 1. MCP Server Integration | **Built, then decommissioned.** Full source at [`archive/mcp-server-v1/`](archive/mcp-server-v1/), including the project-management surface the bullet says was never designed (`tools/validate_patterns.py`, `tools/sync_documentation.py`, the pattern and source registries). Live [`.mcp.json`](.mcp.json) is `{"mcpServers": {}}`; the 73 MB working copy was deleted in Reduction Phase 0 (`4875ed5`, 2026-07-10). Not awaiting a use case — tried, and the answer came back. Same row, same verdict, in [`ARCHIVE.md`](ARCHIVE.md) § Deferred Items. |
+| 2. Cross-Project Sync | **Analysed and shipped as analysis**, not as tooling: [`analysis/cross-project-synchronization.md`](analysis/cross-project-synchronization.md), `status: PRODUCTION`. It was itself collapsed on 2026-07-10 because the multi-session mechanics went first-party (agent teams v2 + worktrees). The *sync tooling* is what stayed deferred — and that narrower reading is the one ARCHIVE.md records. |
+| 3. Version Migration | **Covered four ways**, none of which existed when the bullet was written: the [`analysis-version-updater`](.claude/skills/pattern-version-updater/SKILL.md) skill, [`model-migration-anti-patterns.md`](analysis/model-migration-anti-patterns.md), [`evidence-based-revalidation.md`](analysis/evidence-based-revalidation.md), and the `revalidate-by` frontmatter that [`scripts/check-measurement-expiry.py`](scripts/check-measurement-expiry.py) enforces over `analysis/`. "Need real usage patterns first" was satisfied and the bullet never noticed. |
+| 4. Team Features | **Genuinely never built** — the only one of the four still accurate as a statement of fact, though not as a statement of scope: the v1 product it was scoped against no longer exists (presets, prompts and templates are all under [`archive/`](archive/)). Deferred against a thing that is gone. |
+
+Kept rather than deleted, for the same reason the struck-through PLAN row is:
+this is the cheapest available instance of the failure mode the repo audits
+other projects for — confident, well-formed prose about the present that stopped
+being true and had no reader to notice.
 
 ---
 
@@ -562,7 +581,7 @@ Split into 7 per-archetype docs + recommendations index + methodology + comparis
 - Empirical Pass 1: 243 nodes / 427 edges, all from code; 0 of 38 prose docs received nodes (Tree-sitter is code-only).
 - Empirical Pass 2: 1187 nodes / 1651 edges / 67 communities / 88% EXTRACTED on a corpus the recommendations were calibrated to.
 - Hallucination spot-check (n=8 random EXTRACTED cross-file prose edges): ~25% hallucinated, ~12% mistagged-as-EXTRACTED-when-INFERRED, ~38% verified, ~25% indeterminate. Indicative not definitive at n=8.
-- Understand-Anything `/understand-knowledge` Karpathy-gate verified against plugin v2.3.2 source — requires lowercase `index.md` + `raw/` + `log.md`; falls back to `/understand-anything:understand` otherwise. **Stale as of 2026-08-28**: the plugin is now at v2.9.4 (six minor versions on), moved to [`Egonex-AI/Understand-Anything`](https://github.com/Egonex-AI/Understand-Anything), and its default state directory changed to `.ua/`. Re-verify the gate before relying on this.
+- Understand-Anything `/understand-knowledge` Karpathy-gate verified against plugin v2.3.2 source — requires lowercase `index.md` + `raw/` + `log.md`; falls back to `/understand-anything:understand` otherwise. **Re-verified 2026-08-29 and superseded** (this is the 2026-08-28 stale-flag's re-verification, performed rather than left standing). The plugin is at v2.9.4, moved to [`Egonex-AI/Understand-Anything`](https://github.com/Egonex-AI/Understand-Anything), and the gate is now `has_index and md_count >= 3` **only** — `index.md` resolves case-insensitively, and `raw/`, `log.md` and the root schema are collected as signals but not gated on. So the `+ raw/ + log.md` half of this row does not hold against v2.9.4, and neither does the lowercase requirement. Executed against this repo — uppercase `INDEX.md`, no `raw/`, no `log.md` — v2.9.4 returns `detected: true, format: karpathy`. The v2.3.2 reading stands as a dated record only: its source is not retrievable (the tag 404s on raw.githubusercontent, and the GitHub API is outside this session's repo scope), so whether it was right at the time cannot be decided from here.
 
 ### Trade-offs Accepted
 
