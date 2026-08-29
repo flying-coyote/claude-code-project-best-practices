@@ -7,7 +7,21 @@ on:
   workflow_dispatch:  # Allow manual triggering
   pull_request:
     paths:
+      # Markdown, because that is what the link check reads.
       - '**.md'
+      # ...and the machinery itself. Until 2026-08-29 this list was '**.md'
+      # ALONE, which meant the `test-instruments` job — added specifically to
+      # guard these files — never ran when any of them changed. PR #1002 edited
+      # link-checker.yml and triggered NOTHING; #1001 only triggered because it
+      # happened to touch PLAN.md as well. A guard that is deaf to changes in
+      # the thing it guards is the same defect one layer out again.
+      - '.github/workflows/link-checker.yml'
+      - '.github/workflows/close-superseded-auto-issues.yml'
+      - 'scripts/measure-link-reachability.py'
+      - 'scripts/test-measure-link-reachability.py'
+      - 'scripts/test-close-superseded-workflow.js'
+      - 'scripts/check-measurement-expiry.py'
+      - 'scripts/graphify_footer_inject.py'
 
 jobs:
   check-links:
