@@ -29,6 +29,23 @@ Conduct the weekly review of project status and documentation currency. This pro
    - Confirm SOURCES-QUICK-REFERENCE.md's "Last Updated" footer names the same curation pass as SOURCES.md; if they diverge, flag which one is behind.
    - Skim the **Unverified / pending revalidation** section at the end of SOURCES.md for items whose stated revalidation condition has come due this week.
    - Run `python3 scripts/check-measurement-expiry.py` and note any expired measurement claims.
+   - **Read the upstream release surfaces for anything new since the last review.**
+     PLAN.md's Review Cadence table has always named this step as the mechanism for
+     "Anthropic engineering blog + changelog, weekly", and until 2026-08-29 this step
+     did not do it — the row pointed here from the day it was written, and the RSS
+     watcher it replaced had been deleted in Reduction Phase 6 for the unread-issue
+     problem. So the cadence table asserted weekly coverage that nothing performed.
+     The `check-source-accessibility` CI job is not it either: it curls
+     `anthropic.com/engineering` for an HTTP code, which proves the page is up, not
+     that anyone read it.
+     - <https://www.anthropic.com/engineering> and <https://www.anthropic.com/news> —
+       new posts since the date recorded in SOURCES.md's `**Last curated**` line.
+     - <https://code.claude.com/docs/en/release-notes> — Claude Code releases since
+       the version SOURCES.md last registered.
+     Register anything load-bearing in SOURCES.md with its tier, and open a PLAN row
+     for anything that contradicts a live claim. Finding nothing is a valid outcome
+     and does not need recording; asserting the check happened without running it is
+     the failure this bullet exists to end.
 
 5. **Convergence-field upkeep** (owner ruling 2026-07-12: every routable analysis doc carries a `convergence:` frontmatter field):
    ```bash
