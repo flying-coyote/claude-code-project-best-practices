@@ -12,9 +12,9 @@ measurement-claims:
     date: "2026-03-01"
     revalidate: "2026-09-01"
   - claim: "MCP servers add 300-800ms baseline latency"
-    source: "MCP patterns analysis"
-    date: "2026-03-01"
-    revalidate: "2026-09-01"
+    source: "Nate B. Jones, via analysis/mcp-patterns.md — this doc restates that figure, it does not measure it. Corrected 2026-08-29: the entry previously read source 'MCP patterns analysis' with date 2026-03-01, i.e. it cited a sibling doc and re-dated the figure four months FORWARD of the original 2025-10-15 measurement, so the derived copy looked fresher than its own source and carried an earlier revalidate date than the claim it depends on. Dates and source now inherited from the original."
+    date: "2025-10-15"
+    revalidate: "2026-10-15"
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: Mixed
@@ -146,7 +146,7 @@ When domain knowledge lives in external systems, MCP servers provide live lookup
 | Stable, manageable size | No | Yes (much faster) |
 | Needs to work offline | No | Yes |
 
-**Decision principle**: MCP for data that's dynamic or authoritative-at-source, file-based for stable reference material. MCP adds 300-800ms latency per call — fine for lookups, not for high-frequency access.
+**Decision principle**: MCP for data that's dynamic or authoritative-at-source, file-based for stable reference material. MCP adds 300-800ms latency per call — fine for lookups, not for high-frequency access. (The 300-800ms figure is Nate B. Jones's, restated here from [`mcp-patterns.md`](mcp-patterns.md) — this doc does not measure it. Until 2026-08-29 the frontmatter entry cited *"MCP patterns analysis"* and dated the figure 2026-03-01, four months **later** than the 2025-10-15 original, so the restatement carried a fresher date than the measurement it depends on. A worked instance of the citation-cascade drift [`evidence-tiers.md`](evidence-tiers.md) § Calibration Gaps describes in the abstract.)
 
 ---
 

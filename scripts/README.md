@@ -11,7 +11,7 @@ assume it is inert when its output is committed content.
 | [`measure-link-reachability.py`](measure-link-reachability.py) | **Yes** — `check-links` job, every PR touching the paths in `link-checker.yml` | stdout only; the job gates on the `dangling` count |
 | [`test-measure-link-reachability.py`](test-measure-link-reachability.py) | **Yes** — `test-instruments` job | 11 checks, ~2m20s |
 | [`test-close-superseded-workflow.js`](test-close-superseded-workflow.js) | **Yes** — `test-instruments` job | 43 checks, instant |
-| [`check-measurement-expiry.py`](check-measurement-expiry.py) | **No** — manual only | stdout; `--create-issue` writes a gitignored file nothing reads |
+| [`check-measurement-expiry.py`](check-measurement-expiry.py) | **Yes** — `test-instruments` job, since 2026-08-29 (manual-only before that) | exits 1 on expired claims, 0 otherwise; expiring-soon is printed, not failed. `--create-issue` writes a gitignored file nothing reads |
 | [`graphify_footer_inject.py`](graphify_footer_inject.py) | **No** — operator-run generator | **Committed content.** Emits the `<!-- graphify-footer:start -->` blocks in **20 of 26** `analysis/` docs |
 | [`graphify_contradiction_lint.py`](graphify_contradiction_lint.py) | **No** — advisory, operator-run | stdout only; no committed output anywhere |
 | [`list-declared-gaps.py`](list-declared-gaps.py) | **No** — weekly review step 5d, operator-run | stdout or `--json`; enumerates the `**Needs**:` gap declarations in `analysis/` |
