@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-08-29 09:59*
+*Auto-generated: 2026-08-29 16:58*
 
 ## Summary
 
-**Total documents**: 162
+**Total documents**: 163
 
 | Directory | Count |
 |-----------|-------|
@@ -41,6 +41,7 @@
 | research/artifacts/2026-07-18-realistic-ladder/guides-as-read | 7 |
 | research/self-audit-2026-06 | 7 |
 | root | 14 |
+| scripts | 1 |
 
 ---
 
@@ -95,6 +96,9 @@
 - [GUIDE-200-as-read-by-opus-K200-r3b.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-200-as-read-by-opus-K200-r3b.md)
 - [GUIDE-25-as-read-by-fable-K25-r1.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-25-as-read-by-fable-K25-r1.md)
 - [GUIDE-50-as-read-by-fable-K50-r1.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-50-as-read-by-fable-K50-r1.md)
+## Scripts
+
+- [README.md](scripts/README.md)
 ## Drafts
 
 - [ABSORPTION-SCAN-2026-07.md](drafts/ABSORPTION-SCAN-2026-07.md)

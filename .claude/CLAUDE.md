@@ -14,23 +14,23 @@ Commit prefixes:
 - 🔧 Configuration and infrastructure
 
 ## Project Structure
-- `analysis/` - 26 files: 25 routable evidence-based analysis docs + the canonical template (the core content)
-- `archive/` - Prior v1 patterns, skills, templates (preserved for reference)
-- `SOURCES.md` - Comprehensive source database with evidence tiers
+- [`analysis/`](../analysis/) - 26 files: 25 routable evidence-based analysis docs + the canonical template (the core content)
+- [`archive/`](../archive/) - Prior v1 patterns, skills, templates (preserved for reference)
+- [`SOURCES.md`](../SOURCES.md) - Comprehensive source database with evidence tiers
 
 ## Adding New Analysis
 1. Identify authoritative source (Tier A or B required per SOURCES.md)
 2. Document in analysis/ with source attribution and evidence tier
 3. Update SOURCES.md with new reference
-4. Wire into routing — add a row to `AUDIT-CONTEXT.md` and matching `applies-to-signals` frontmatter, or the audit cannot reach the doc (the Dapr doc was missed here once)
+4. Wire into routing — add a row to [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) and matching `applies-to-signals` frontmatter, or the audit cannot reach the doc (the Dapr doc was missed here once)
 5. Focus on evaluation and comparison, not implementation how-to
 
 ## Resource Map
-- Analysis documents: `analysis/` (25 routable evidence-based evaluations)
-- Absorption ledger: `ABSORPTION-MAP.md` (per-doc external absorbers, lanes, deltas, triggers — derived; frontmatter is canonical)
-- Source database: `SOURCES.md` + `SOURCES-QUICK-REFERENCE.md`
-- Architecture decisions: `DECISIONS.md`
-- v1 archive: `archive/` (patterns, skills, templates — reference only)
+- Analysis documents: [`analysis/`](../analysis/) (25 routable evidence-based evaluations)
+- Absorption ledger: [`ABSORPTION-MAP.md`](../ABSORPTION-MAP.md) (per-doc external absorbers, lanes, deltas, triggers — derived; frontmatter is canonical)
+- Source database: [`SOURCES.md`](../SOURCES.md) + [`SOURCES-QUICK-REFERENCE.md`](../SOURCES-QUICK-REFERENCE.md)
+- Architecture decisions: [`DECISIONS.md`](../DECISIONS.md)
+- v1 archive: [`archive/`](../archive/) (patterns, skills, templates — reference only)
 
 ## Known Gotchas
 - Settings schema uses `permissions.allow`, not `allowedTools`
@@ -42,4 +42,4 @@ v2.1 — 25 routable analysis docs (44→27 in the 2026-07 reduction, Decision 1
 
 Note: This project uses emoji prefixes (documentation project). Code repos in the portfolio use conventional commits (`feat:`, `fix:`, `docs:`).
 
-Portfolio-review program (2026-07): see `.claude/review-protocol.md` before any review-program session.
+Portfolio-review program (2026-07): see [`review-protocol.md`](review-protocol.md) before any review-program session.

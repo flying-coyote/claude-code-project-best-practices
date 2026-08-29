@@ -103,7 +103,7 @@ For one-off use, graphify is materially easier to start. For a project that inte
 | Prose-heavy with internal cross-references (research vaults, KB-style analytical layers) | graphify Pass 2 (concept-level abstraction matches prose) |
 | New-reader onboarding artifact wanted                     | understand-anything (the tour is the deliverable)        |
 | Audit / surprise-finding workflow wanted                  | graphify (provenance tags + community detection)         |
-| Karpathy-pattern wiki                                      | Understand-Anything `/understand-knowledge` (its actual purpose; this repo doesn't qualify — see methodology assumption #7) |
+| Karpathy-pattern wiki                                      | Understand-Anything `/understand-knowledge` (its actual purpose; this repo **does** qualify as of plugin v2.9.4 — the *doesn't qualify* here was true only of the v2.3.2 gate, corrected 2026-08-29; see methodology assumption #7) |
 | Sensitive content (LLM egress unacceptable)               | Neither: both ship full document content to the invoking session's LLM. Pass 1-only graphify is code-only and won't help prose. |
 
 Both tools could run on the same repo if you wanted complementary outputs (graphify's audit, understand-anything's tour), but the maintenance overhead of two graph systems is real — pick one as authoritative. Either way, the AI-PKM function these tools serve is externally *emerging*, not converged, so adopting one as standing infrastructure requires converged status or an explicit owner exception.

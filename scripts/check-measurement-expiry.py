@@ -179,7 +179,12 @@ def generate_issue_body(results: Dict) -> str:
         body.append("1. Re-run benchmarks/tests with current Claude Code version\n")
         body.append("2. Update measurement claim if result changed\n")
         body.append("3. Update `revalidate` date to 1 year from today\n")
-        body.append("4. If measurement no longer valid, mark as historical (see DEPRECATIONS.md)\n\n")
+        body.append(
+            "4. If the measurement is no longer valid, mark it historical rather than deleting it "
+            "— see `analysis/evidence-tiers.md` \u00a7 Expired but not invalid. If it can never be "
+            "re-run, use `revalidate: never` (same section). If the whole doc is going, "
+            "`CONTRIBUTING.md` \u00a7 Retiring a Doc.\n\n"
+        )
 
     if expiring_soon:
         body.append(f"### ⏰ Expiring Soon ({len(expiring_soon)} claims)\n\n")
@@ -195,7 +200,9 @@ def generate_issue_body(results: Dict) -> str:
 
         body.append("\n**Upcoming Action**:\n")
         body.append("- Plan to re-validate these measurements before expiry\n")
-        body.append("- Add to quarterly audit checklist (see DOGFOODING-GAPS.md)\n\n")
+        body.append(
+            "- Add to the review cadence: `.claude/commands/maintenance/weekly-review.md` step 4\n\n"
+        )
 
     frozen = results.get("frozen", [])
     if frozen:
@@ -250,11 +257,16 @@ def main():
     issue_body = generate_issue_body(results)
 
     if args.create_issue:
-        # Write issue body to file (GitHub Actions will create issue from this)
+        # NOTE: nothing consumes this file automatically. `grep -rn
+        # "measurement-expiry" .github/` returns zero hits — no workflow reads it,
+        # and no workflow runs this script at all. The flag writes a body for a
+        # human to paste. It said "GitHub Actions will create issue from this
+        # file" until 2026-08-29, which was never true in this repo.
         issue_file = Path("measurement-expiry-issue.md")
         issue_file.write_text(issue_body)
         print(f"\n✅ Issue body written to {issue_file}")
-        print("   GitHub Actions will create issue from this file")
+        print("   Nothing reads this automatically — no workflow runs this script.")
+        print("   Paste it into a new issue by hand, or pipe it somewhere useful.")
     else:
         print("\n📝 Issue Body Preview:")
         print("=" * 60)

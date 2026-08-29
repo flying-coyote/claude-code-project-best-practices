@@ -84,6 +84,36 @@ When you add a new analysis doc, these files must be updated in the same PR. Mis
 
 **Canonical template**: start every new doc from [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md). It includes the exact frontmatter schema, section order, citation format, counter-evidence pattern, and gap-statement format.
 
+### Declaring a Gap
+
+When a doc's thesis rests on something you could not verify, say so in the doc,
+in the format [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md)
+defines:
+
+```markdown
+- **Gap: {topic}.** {What is unknown, and why it matters to the claims above.}
+  **Needs**: {the specific evidence or instrument that would close it.}
+```
+
+The `**Needs**:` clause is the load-bearing half — it is what turns "we are
+unsure" into something a later contributor can act on. Write it as a concrete
+next step (a study design, a corpus, an instrument, an upstream release), not as
+a restatement of the doubt.
+
+Declared gaps are enumerable:
+
+```bash
+python3 scripts/list-declared-gaps.py            # all of them, grouped by doc
+python3 scripts/list-declared-gaps.py --json     # machine-readable
+```
+
+The weekly review reads that list (step 5d) but **does not gate on its size**.
+Declaring a gap and leaving it open is a legitimate outcome; a target would only
+create pressure to delete the declaration instead of closing the gap. Until
+2026-08-29 nothing read these at all — twenty declarations sat in five documents,
+findable only by opening each one, which is the unreachability this repo measures
+in other corpora.
+
 ### Renaming or Removing an Analysis Document
 
 Same coordination burden, reversed:

@@ -169,7 +169,7 @@ Confidence should evolve as evidence accumulates: LOW (theoretical only) → MED
 
 - **Threshold calibration.** The HIGH >80% / MEDIUM 50-80% / LOW <50% bands are cognitive anchors, not empirically derived. **Needs**: a study correlating band assignment to outcome accuracy across a corpus of labeled claims. Without this, "HIGH" and "MEDIUM" measure reviewer calibration more than reality.
 - **Tier → confidence mapping.** Mapping Tier A source quality to HIGH confidence assumes primary sources are consistently correct; Anthropic's own disclosed "eval awareness" and "self-evaluation rationalization" failure modes (see [agent-evaluation.md](agent-evaluation.md)) show that even Tier A sources can carry systematic errors. **Needs**: explicit Tier A source-reliability audit before promoting claims to HIGH.
-- **Confidence inflation over time.** As a claim accumulates citations, confidence scores drift upward (citation cascades), and this framework has no mechanism to detect or correct the inflation. **Needs**: periodic downward-revalidation where highly-confident claims are deliberately stress-tested against counter-evidence.
+- **Confidence inflation over time.** As a claim accumulates citations, confidence scores drift upward (citation cascades), and this framework has no mechanism to detect or correct the inflation. **Needs**: periodic downward-revalidation where highly-confident claims are deliberately stress-tested against counter-evidence. **Half closed, and the other half has no substrate (2026-08-29).** The *correct* half ran on 2026-08-28: eight expired measurement claims were re-checked against primary sources with every verdict adversarially re-checked, and only one held as written — 2 SUPERSEDED, 4 CONFIRMED-with-correction, 1 CONFIRMED, 1 frozen as unrepeatable — including one claim revised *downward* against a Tier A source. That is the stress-test this gap asks for, on a real corpus rather than a designed one, and the cadence behind it is `scripts/check-measurement-expiry.py` over `revalidate:` dates. Note it is a **manual** cadence: no workflow runs the checker — it appears in `link-checker.yml` only inside the `paths:` trigger, which starts CI when it changes rather than executing it. The *detect* half cannot be built as written, because the quantity it describes is not recorded anywhere: `analysis/` carries **zero** `confidence:` frontmatter fields and **zero** `Confidence: HIGH|MEDIUM|LOW` prose assertions, so there is no series for a score to drift along. Either the framework's bands get stored per claim — which is a real cost, and would reintroduce the second axis Decision 12 retired — or this gap is honestly restated as *the bands are applied by a reader in the moment and never persisted*, which is what is actually true today. **Needs**: an owner ruling on which of those two it is, before any detector is worth building.
 
 These gaps don't invalidate the framework — they are the framework applied to itself. See [session-quality-tools.md](../archive/session-quality-tools.md) (archived 2026-07-10) for an exemplar of full gap-statement usage.
 
@@ -289,6 +289,21 @@ Example:
 - Status: Chrome extension deprecated 2026-01-10 (historical ledger: archive/docs-v1/DEPRECATIONS.md)
 - Current: Playwright now sole recommendation (no comparison needed)
 ```
+
+**Corpus-internal figures carry a commit, not a date** (added 2026-08-29). A date is the
+right granularity for a measurement of the outside world — an upstream version, a
+benchmark score, a published figure — because that thing does not change between your
+morning and your afternoon. It is the wrong granularity for a measurement *of this
+repository*, which does. `prose-corpus-discoverability.md` published a re-measurement
+stamped `2026-08-29` and it was stale within hours: the same day's commits added a file to
+the lane it counted, moving the mechanism figure 4/16 → 5/16 while the sentence claiming
+4/16 sat in the diff. In the document about prose going stale.
+
+So: any figure derived by running an instrument over this corpus is quoted with **the
+commit it was measured at** (`measured at 1000541`), which stays checkable forever, rather
+than with a day-stamp that was already ambiguous before the day ended. External
+measurements keep their dates. Neither rule makes an older figure wrong — a dated or
+commit-stamped record only ever claims to have been true when taken.
 
 **Frozen: `revalidate: never`** (added 2026-08-28). A separate case from expired. Some
 measurements *cannot* be re-run — the measured corpus was private, the artifact is gone,

@@ -3,3 +3,9 @@ node_modules/
 graphify-out/
 .understand-anything/
 __pycache__/
+
+# Written by `scripts/check-measurement-expiry.py --create-issue`. Nothing
+# consumes it — it is a body for a human to paste into an issue — so it should
+# never be committed. It was previously untracked AND unignored, so it showed up
+# as a stray working-tree change after every run of that flag.
+measurement-expiry-issue.md

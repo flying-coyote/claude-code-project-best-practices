@@ -8,7 +8,7 @@ measurement-claims:
     date: "2026-04-06"
     revalidate: "2026-10-06"
   - claim: "~150 instruction cap for CLAUDE.md validated by Boris Cherny; excessive instructions degrade adherence below 80%"
-    source: "Boris Cherny interviews (March 2026) + behavioral-insights.md"
+    source: "Boris Cherny interviews (March 2026) + behavioral-insights.md. Caveat added 2026-08-29: the doc this cites carries a standing re-measure flag on this exact threshold (behavioral-insights.md — Opus-era measurement, and an open Gap saying the cap for realistic prose instructions is still unlocated after two Fable ablation rounds that both hit ceiling). Asserting it here as 'validated' without that flag let a reader routed to this doc get the confident half of a claim the source doc hedges."
     date: "2026-04-06"
     revalidate: "2026-10-06"
 status: PRODUCTION

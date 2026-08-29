@@ -444,11 +444,34 @@ def main() -> int:
 
     root = Path(args.root).resolve()
 
+    # --json is only implemented for the default reachability report. It used to
+    # be accepted here and SILENTLY IGNORED in --links and --currency, both of
+    # which return before the `if args.json:` branch further down — so a caller
+    # piping `--links --json` into a parser got a plain-text table and no
+    # indication anything was wrong. Fail loudly instead of handing back the
+    # wrong shape.
+    if args.json and (args.links or args.currency is not None):
+        mode = "--links" if args.links else "--currency"
+        print(f"error: --json is not implemented for {mode} (only for the default "
+              f"reachability report). Parse the table, or open an issue if you need "
+              f"JSON here — do not assume this flag did something.", file=sys.stderr)
+        return 2
+
     if args.currency is not None:
         return report_currency(root, args.currency or
                                ["archive", "old", "deprecated", "legacy"])
 
-    corpus = repo_markdown(root, args.include_archive or args.links)
+    # --links ALWAYS spans the archive, because report_links splits its output
+    # into live/archive/total columns and cannot produce that split from a
+    # live-only corpus. So --include-archive cannot change anything in this
+    # mode. That was previously expressed as `args.include_archive or args.links`,
+    # which silently swallowed the flag: `--links` and `--links --include-archive`
+    # are byte-identical, and nothing said so. Say so instead.
+    if args.links and args.include_archive:
+        print("note: --include-archive is redundant with --links — the links table "
+              "always spans both lanes and reports them as separate columns.",
+              file=sys.stderr)
+    corpus = repo_markdown(root, include_archive=args.include_archive or args.links)
     if args.links:
         return report_links(root, corpus)
 
