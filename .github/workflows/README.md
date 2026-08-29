@@ -129,7 +129,8 @@ lost.
 > back-to-back with `retries: 0`. At 878 matches it bursts the per-minute
 > ceiling in seconds, 403s, and fails the job mid-drain. `scripts/test-close-superseded-workflow.js`
 > now extracts the inline script straight from this YAML and runs it against a
-> simulated 935-issue repo — 16 checks, including the four that actually matter
+> simulated 935-issue repo — the suite prints its own total (44 at time of
+> writing), including the four checks that actually matter
 > (never close a human issue, the standing issue, a commented issue, or a PR).
 > It was verified to **fail against the pre-fix version** with the same
 > unhandled 403 that would have hit production.
