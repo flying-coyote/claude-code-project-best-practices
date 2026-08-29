@@ -8,7 +8,7 @@ assume it is inert when its output is committed content.
 
 | Script | Runs automatically? | Output |
 |---|---|---|
-| [`measure-link-reachability.py`](measure-link-reachability.py) | **Yes** — `check-links` job, every PR touching the paths in `link-checker.yml` | stdout only; the job gates on the `dangling` count |
+| [`measure-link-reachability.py`](measure-link-reachability.py) | **Yes** — `check-internal-links` job, every PR touching the paths in `link-checker.yml` | stdout only; the job gates on the `dangling` count. Its own job since 2026-08-29 — it used to sit behind a 7–15 min external scan inside `check-links` |
 | [`test-measure-link-reachability.py`](test-measure-link-reachability.py) | **Yes** — `test-instruments` job | 11 checks, ~2m20s |
 | [`test-close-superseded-workflow.js`](test-close-superseded-workflow.js) | **Yes** — `test-instruments` job | 43 checks, instant |
 | [`check-measurement-expiry.py`](check-measurement-expiry.py) | **Yes** — `test-instruments` job, since 2026-08-29 (manual-only before that) | exits 1 on expired claims, 0 otherwise; expiring-soon is printed, not failed. `--create-issue` writes a gitignored file nothing reads |

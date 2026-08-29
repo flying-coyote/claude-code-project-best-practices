@@ -24,35 +24,28 @@ on:
       - 'scripts/graphify_footer_inject.py'
 
 jobs:
-  check-links:
+  # Split out of `check-links` on 2026-08-29. The deterministic internal check
+  # runs in about a second, and it was sequenced BEHIND a 7-15 minute
+  # network-bound external scan in the same job -- so the actionable gate, the
+  # one this repo wrote and depends on, reported a quarter of an hour late for
+  # no reason. Worse, `continue-on-error: true` on the external action protects
+  # against that action FAILING, not against it HANGING: a hung scan takes the
+  # job to its timeout and the internal check never runs at all, producing no
+  # verdict rather than a bad one. Observed live: step 4 of that job ran 7
+  # minutes on one commit and was still going at 14 on the next.
+  #
+  # As its own job it reports in seconds, cannot be starved by an unrelated
+  # network step, and lets the expensive scan be skipped on a PR whose internal
+  # links are already broken (see the `if:` on check-links).
+  check-internal-links:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      contents: read
-
+    outputs:
+      dangling_live: ${{ steps.internal.outputs.dangling_live }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check links in markdown files
-        id: link-check
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
-        with:
-          config-file: '.github/link-check-config.json'
-          use-quiet-mode: 'no'
-          use-verbose-mode: 'yes'
-        continue-on-error: true
-
-      - name: Get link check results
-        if: steps.link-check.outcome == 'failure'
-        id: results
-        run: |
-          echo "has_broken_links=true" >> $GITHUB_OUTPUT
-
-      # Internal links are the actionable half and are checked deterministically
-      # by the repo's own instrument. External link rot is mostly not this repo's
-      # to fix, and conflating the two is what produced 916 untriaged issues.
       # FAILS OPEN NO LONGER. This step used to end the instrument call with
-      # `|| true` and default a missing count to 0 — so a renamed script, an
+      # `|| true` and default a missing count to 0 -- so a renamed script, an
       # import error, or a mid-run traceback produced `dangling_live=0` and the
       # gate below reported PASS. Both crash paths were reproduced 2026-08-29.
       # `|| true` was not even load-bearing for the happy path: the instrument
@@ -85,6 +78,42 @@ jobs:
           echo "Run: python3 scripts/measure-link-reachability.py --links"
           exit 1
 
+  check-links:
+    runs-on: ubuntu-latest
+    needs: check-internal-links
+    # On a PR, skip the 7-15 minute external scan when the fast internal gate is
+    # already red — the PR cannot merge on those grounds either way, and the
+    # scan is pure cost. On schedule and workflow_dispatch it runs regardless,
+    # so a red internal gate still updates the standing issue; without the
+    # `always()` a failed `needs` would skip this job silently there too.
+    if: always() && (github.event_name != 'pull_request' || needs.check-internal-links.result == 'success')
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links in markdown files
+        id: link-check
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          config-file: '.github/link-check-config.json'
+          use-quiet-mode: 'no'
+          use-verbose-mode: 'yes'
+        continue-on-error: true
+
+      - name: Get link check results
+        if: steps.link-check.outcome == 'failure'
+        id: results
+        run: |
+          echo "has_broken_links=true" >> $GITHUB_OUTPUT
+
+      # Internal links are the actionable half and are checked deterministically
+      # by the repo's own instrument, in the `check-internal-links` job above.
+      # External link rot is mostly not this repo's to fix, and conflating the
+      # two is what produced 916 untriaged issues.
+
       # ONE standing issue, updated in place. The previous version filed a fresh
       # issue every scheduled run: 916 open, zero comments, none ever triaged,
       # while 214 links stayed broken. A firing check that nobody can act on is,
@@ -99,7 +128,7 @@ jobs:
           script: |
             const TITLE = '🔗 Standing report: broken links in documentation';
             const failed = '${{ steps.link-check.outcome }}' === 'failure';
-            const dangling = '${{ steps.internal.outputs.dangling_live }}';
+            const dangling = '${{ needs.check-internal-links.outputs.dangling_live }}';
             const run = `${context.payload.repository.html_url}/actions/runs/${context.runId}`;
 
             const found = await github.rest.issues.listForRepo({
