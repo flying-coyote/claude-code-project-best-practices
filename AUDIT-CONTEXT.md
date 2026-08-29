@@ -303,6 +303,27 @@ In the final audit, every **Recommendation** must include:
 
 Where a Recommendation proposes adopting new infrastructure (a drift gate, an intent instrument, a registry + guard), the binding rule applies: adoption requires converged status for the practice or an explicit owner exception (this doc itself carries `convergence: single-source`).
 
+**What an "owner exception" is, and how one is obtained** (added 2026-08-29). The clause
+gates adoption in **15 analysis docs** — 17 occurrences, `orchestration-comparison.md`
+carrying it twice — plus README, ONE-LINE-PROMPT and this file, and until now it named a
+decision procedure that did not exist: no register of exceptions granted or refused, no
+statement of who grants one, and no route for asking. A gate whose only documented state
+is "closed" is not a gate; it is a sentence.
+
+- **Who grants it**: the repository owner, for this repo. In a consuming project, whoever
+  owns the surface the recommendation would change — the audit does not grant its own
+  exceptions, and an agent running the audit must not treat its own judgement as one.
+- **How to ask**: state the recommendation, the doc and tier behind it, the
+  `convergence:` value that failed the bar, and what adopting anyway would cost if the
+  practice does not converge. That last part is the point of the gate — `single-source`
+  means *one project has done this*, so the question is whether you can afford to be the
+  second.
+- **Where it lands**: a dated entry in [`DECISIONS.md`](DECISIONS.md) § Owner Exceptions,
+  naming the recommendation, the doc, and the reasoning. A granted exception that is not
+  written down cannot be distinguished later from a bar that was never applied.
+- **Standing count**: zero. No exception has been granted or refused since the rule was
+  written. Read that as the bar holding, not as the process working — nothing had asked.
+
 Example:
 
 ```markdown

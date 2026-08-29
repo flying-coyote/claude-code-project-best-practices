@@ -737,4 +737,22 @@ Analysis corpus 27 → 25 files (24 routable + template); routing bloat down one
 
 ---
 
+## Owner Exceptions
+
+The register the `convergence`-gate clause points at. AUDIT-CONTEXT.md § Recommendation
+Format states the binding rule — *adoption requires converged status for the practice or
+an explicit owner exception* — and 15 analysis docs repeat it. Until 2026-08-29 there was
+nowhere for the exception to land, so this section exists as the destination.
+
+| Date | Recommendation | Doc + tier | `convergence:` at the time | Ruling | Reasoning |
+|---|---|---|---|---|---|
+| — | — | — | — | — | **No exception has been granted or refused.** Empty is the honest state, not an oversight: the gate has never been invoked. |
+
+An entry is added when the owner grants **or refuses** one — refusals are the more useful
+half of the record, since they are what tells a later reader the bar has teeth. Ratified
+convergence *upgrades* are not exceptions and do not belong here; those ride the
+weekly-review function table and the doc's own frontmatter.
+
+---
+
 *Last updated: 2026-08-29* *(was 2026-07-16 — the file's only currency marker, and it was not touched by the substantive 2026-08-28 edit at Decision §565 that it sits below. A currency marker that a content edit does not update is worse than none: it certifies the staleness it is hiding.)*
