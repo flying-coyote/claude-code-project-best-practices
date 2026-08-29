@@ -67,7 +67,7 @@ function makeRepo() {
   return issues;
 }
 
-async function run({apply, limit, comment, delay_ms, rateLimitAfter}) {
+async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = false}) {
   const repo = makeRepo();
   const open = new Map(repo.map(i => [i.number, i]));
   const closedSet = new Set(); const commented = new Set();
@@ -91,12 +91,28 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter}) {
       closedSet.add(issue_number);
     },
   }}};
-  const context = {repo: {owner: 'o', repo: 'r'}, payload: {inputs: {apply, limit, comment, delay_ms}}};
+  // viaEnv models the `inputs.*` context (passed through step env); otherwise the
+  // value arrives only on the event payload. Both paths must behave identically.
+  const envKeys = ['APPLY_INPUT', 'LIMIT_INPUT', 'COMMENT_INPUT', 'DELAY_INPUT'];
+  const saved = envKeys.map(k => [k, process.env[k]]);
+  for (const k of envKeys) delete process.env[k];
+  if (viaEnv) {
+    if (apply !== undefined) process.env.APPLY_INPUT = apply;
+    if (limit !== undefined) process.env.LIMIT_INPUT = limit;
+    if (comment !== undefined) process.env.COMMENT_INPUT = comment;
+    if (delay_ms !== undefined) process.env.DELAY_INPUT = delay_ms;
+  }
+  const context = {repo: {owner: 'o', repo: 'r'},
+    payload: {inputs: viaEnv ? {} : {apply, limit, comment, delay_ms}}};
   const core = {
     info: m => infos.push(m), notice: m => notices.push(m), warning: m => warnings.push(m),
   };
   const fn = new Function('github', 'context', 'core', `return (async () => { ${BODY} })()`);
-  await fn(github, context, core);
+  try {
+    await fn(github, context, core);
+  } finally {
+    for (const [k, v] of saved) { if (v === undefined) delete process.env[k]; else process.env[k] = v; }
+  }
 
   const closedTitles = [...closedSet].map(nn => open.get(nn).title);
   return {
@@ -105,6 +121,7 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter}) {
     closedStanding: closedTitles.some(t => /Standing report/.test(t)),
     closedWithComments: [...closedSet].some(nn => open.get(nn).comments > 0),
     closedPR: [...closedSet].some(nn => open.get(nn).pull_request),
+    infos,
   };
 }
 
@@ -131,6 +148,27 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter}) {
     const r = await run({apply: v, limit: '3', comment: 'true', delay_ms: '0'});
     check(`applies for apply=${JSON.stringify(v)}`, r.closed === 3, `closed=${r.closed}`);
   }
+
+  // The `inputs.*` context path must behave exactly like the event-payload path.
+  // Five production runs were dry runs with no way to tell which source was live.
+  for (const v of ['APPLY - actually close the matched issues', 'true']) {
+    const r = await run({apply: v, limit: '3', comment: 'true', delay_ms: '0', viaEnv: true});
+    check(`env path applies for ${JSON.stringify(v)}`, r.closed === 3, `closed=${r.closed}`);
+  }
+  for (const v of ['dry-run (list only, closes nothing)', 'apply=false']) {
+    const r = await run({apply: v, limit: '250', comment: 'true', delay_ms: '0', viaEnv: true});
+    check(`env path inert for ${JSON.stringify(v)}`, r.closed === 0, `closed=${r.closed}`);
+  }
+  // Missing everywhere must be a dry run, not a crash.
+  const none = await run({limit: '250', comment: 'true', delay_ms: '0', viaEnv: true});
+  check('absent input is a dry run, not a crash', none.closed === 0);
+
+  // The diagnostic that ends the ambiguity: log both sources and the resolved mode.
+  const diag = await run({apply: 'APPLY - actually close the matched issues', limit: '2', comment: 'true', delay_ms: '0', viaEnv: true});
+  check('logs both input sources', diag.infos.some(m => /input apply ->.*inputs context.*event payload/.test(m)),
+        diag.infos.find(m => /input apply/.test(m)) || '(missing)');
+  check('logs the resolved mode', diag.infos.some(m => /resolved mode: APPLY/.test(m)),
+        diag.infos.find(m => /resolved mode/.test(m)) || '(missing)');
 
   const dry = await run({apply: 'dry-run (list only, closes nothing)', limit: '250', comment: 'true', delay_ms: '0'});
   check('dry run closes nothing', dry.closed === 0);

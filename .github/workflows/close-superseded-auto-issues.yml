@@ -98,18 +98,46 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v7
+        # Inputs are passed BOTH ways on purpose. `inputs.*` is the documented
+        # context for workflow_dispatch; `context.payload.inputs` is what the
+        # script originally read. Five consecutive runs came out as dry runs with
+        # no way to tell from the logs whether the operator left the dropdown
+        # alone or the value never arrived — so now the script reads whichever is
+        # populated and LOGS BOTH. An input you cannot observe is an input you
+        # cannot debug.
+        env:
+          APPLY_INPUT: ${{ inputs.apply }}
+          LIMIT_INPUT: ${{ inputs.limit }}
+          COMMENT_INPUT: ${{ inputs.comment }}
+          DELAY_INPUT: ${{ inputs.delay_ms }}
         with:
           script: |
-            // EXACT matches only. A prefix test like /^apply/i looks friendlier but
-            // reads "apply=false" as APPLY — the one direction that must never
-            // misfire. Anything unrecognised falls through to a dry run, so the
-            // safe mode is also the failure mode.
-            const APPLY_OPTION = 'apply - actually close the matched issues';
-            const rawApply = String(context.payload.inputs.apply ?? '').trim().toLowerCase();
-            const APPLY = rawApply === APPLY_OPTION || rawApply === 'true' || rawApply === 'apply';
-            const LIMIT = parseInt(context.payload.inputs.limit || '250', 10);
-            const COMMENT = (context.payload.inputs.comment || 'true') === 'true';
-            const DELAY_MS = parseInt(context.payload.inputs.delay_ms || '1000', 10);
+            const payload = context.payload.inputs || {};
+            const pick = (envName, key) => {
+              const fromEnv = process.env[envName];
+              const fromPayload = payload[key];
+              const value = (fromEnv != null && fromEnv !== '') ? fromEnv : fromPayload;
+              return { value, fromEnv, fromPayload };
+            };
+
+            const a = pick('APPLY_INPUT', 'apply');
+            core.info(
+              `input apply -> inputs context: ${JSON.stringify(a.fromEnv ?? null)}; ` +
+              `event payload: ${JSON.stringify(a.fromPayload ?? null)}`
+            );
+
+            // Matching is deliberately narrow. A prefix test like /^apply/i looks
+            // friendlier but reads "apply=false" as APPLY — the one direction that
+            // must never misfire. The two accepted prefixes below cover the dropdown
+            // option (with whitespace/case drift) without ever matching "apply=false".
+            const rawApply = String(a.value ?? '').trim().toLowerCase();
+            const APPLY = rawApply.startsWith('apply -') || rawApply.startsWith('apply-')
+                       || rawApply === 'true' || rawApply === 'apply';
+            core.info(`resolved mode: ${APPLY ? 'APPLY (will close issues)' : 'DRY RUN (closes nothing)'}`);
+
+            const LIMIT = parseInt(pick('LIMIT_INPUT', 'limit').value || '250', 10);
+            const COMMENT = String(pick('COMMENT_INPUT', 'comment').value ?? 'true') !== 'false';
+            const DELAY_MS = parseInt(pick('DELAY_INPUT', 'delay_ms').value || '1000', 10);
 
             // Titles produced by generators that no longer exist, plus the
             // superseded link-checker stream. Anchored to the start of the
