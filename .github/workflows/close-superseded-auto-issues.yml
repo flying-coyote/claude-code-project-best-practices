@@ -64,10 +64,19 @@ name: Close Superseded Auto-Filed Issues
 on:
   workflow_dispatch:
     inputs:
+      # A `string` input renders as a text box pre-filled with its default, which
+      # is easy to walk straight past — this shipped as apply/'false' and produced
+      # THREE consecutive accidental dry runs before anyone noticed the field.
+      # `type: choice` renders a dropdown whose options say what they do, so the
+      # destructive mode has to be chosen on purpose rather than merely not-skipped.
       apply:
-        description: 'Actually close issues (false = dry run, list only)'
+        description: 'Mode — pick APPLY to actually close issues'
         required: true
-        default: 'false'
+        type: choice
+        default: 'dry-run (list only, closes nothing)'
+        options:
+          - 'dry-run (list only, closes nothing)'
+          - 'APPLY - actually close the matched issues'
       limit:
         description: 'Max issues to close in this run (keep <=250 while commenting; see RATE LIMITS in the header)'
         required: true
@@ -91,7 +100,13 @@ jobs:
       - uses: actions/github-script@v7
         with:
           script: |
-            const APPLY = context.payload.inputs.apply === 'true';
+            // EXACT matches only. A prefix test like /^apply/i looks friendlier but
+            // reads "apply=false" as APPLY — the one direction that must never
+            // misfire. Anything unrecognised falls through to a dry run, so the
+            // safe mode is also the failure mode.
+            const APPLY_OPTION = 'apply - actually close the matched issues';
+            const rawApply = String(context.payload.inputs.apply ?? '').trim().toLowerCase();
+            const APPLY = rawApply === APPLY_OPTION || rawApply === 'true' || rawApply === 'apply';
             const LIMIT = parseInt(context.payload.inputs.limit || '250', 10);
             const COMMENT = (context.payload.inputs.comment || 'true') === 'true';
             const DELAY_MS = parseInt(context.payload.inputs.delay_ms || '1000', 10);
@@ -162,8 +177,10 @@ jobs:
               const thisRun = Math.min(toClose.length, LIMIT);
               const runsNeeded = toClose.length ? Math.ceil(toClose.length / LIMIT) : 0;
               core.notice(
-                `DRY RUN — ${toClose.length} match; this run would close ${thisRun} (limit=${LIMIT}), ` +
-                `so ~${runsNeeded} run(s) to drain. Re-run with apply=true.`
+                `DRY RUN — nothing was closed. ${toClose.length} match; this run would close ${thisRun} ` +
+                `(limit=${LIMIT}), so ~${runsNeeded} run(s) to drain. ` +
+                `To actually close them: Run workflow → set Mode to ` +
+                `"APPLY - actually close the matched issues".`
               );
               core.info(toClose.slice(0, 50).join(', ') + (toClose.length > 50 ? ' …' : ''));
               return;
