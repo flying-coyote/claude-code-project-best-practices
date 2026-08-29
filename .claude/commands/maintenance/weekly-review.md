@@ -109,6 +109,69 @@ Conduct the weekly review of project status and documentation currency. This pro
    covering the dead lane, because a lane excluded from every check is exactly where
    unverifiable claims accumulate.
 
+5d. **Declared-gap inventory** (enumerative, deliberately non-gating):
+   ```bash
+   python3 scripts/list-declared-gaps.py
+   declared_gaps=$(python3 scripts/list-declared-gaps.py --json | python3 -c 'import json,sys; print(json.load(sys.stdin)["count"])')
+   ```
+   `analysis/CANONICAL-DOC-TEMPLATE.md` defines a `**Needs**:` convention for
+   declaring what a document does not know. Twenty declarations followed it across
+   five docs and, until 2026-08-29, **nothing read them** — no script, no workflow,
+   no hook, and no step of this review. Each was discoverable only by opening the
+   document that contained it, which is the same unreachability
+   [`analysis/prose-corpus-discoverability.md`](../../../analysis/prose-corpus-discoverability.md)
+   measures in the corpus at large, applied to the repo's own record of its open
+   questions.
+
+   **This check has no target and never forces `DRIFT`.** A rising count is not a
+   defect: declaring a gap and choosing not to close it is a legitimate, honest
+   outcome, and gating on the number would reward deleting the declaration over
+   doing the work. Read the list, decide whether any gap has become closable since
+   last week (a new source, a shipped instrument, an upstream release), and route
+   those into step 7. `--untracked` filters to gaps whose topic words are absent
+   from PLAN.md, but it is word overlap and not semantics, so treat a hit as
+   "probably mentioned somewhere" and never as "tracked".
+
+5e. **Root-doc currency markers** (mechanical; compare each marker to git, not to itself):
+   ```bash
+   stale_markers=0
+   for f in DECISIONS.md AUDIT-CONTEXT.md SOURCES.md PLAN.md CONTRIBUTING.md README.md; do
+     [ -f "$f" ] || continue
+     # OLDEST marker in the file, not the newest. SOURCES.md carried a fresh
+     # header and a 16-day-stale footer at the same time; taking the max hid it.
+     oldest=$(grep -oiE 'last (updated|curated)[^0-9]{0,4}(([0-9]{4}-[0-9]{2}-[0-9]{2})|([A-Z][a-z]+ [0-9]{1,2}, [0-9]{4}))' "$f" \
+              | grep -oE '([0-9]{4}-[0-9]{2}-[0-9]{2})|([A-Z][a-z]+ [0-9]{1,2}, [0-9]{4})' \
+              | while read -r d; do date -d "$d" +%Y-%m-%d 2>/dev/null; done | sort | head -1)
+     [ -z "$oldest" ] && continue          # no marker is fine; a WRONG one is not
+     edited=$(git log -1 --format=%ad --date=short -- "$f")
+     if [[ "$oldest" < "$edited" ]]; then
+       echo "STALE MARKER  $f  says $oldest, last edited $edited"
+       stale_markers=$((stale_markers + 1))
+     fi
+   done
+   ```
+   `stale_markers` must be 0. A currency marker that a content edit does not update
+   is worse than no marker: it certifies the staleness it is hiding, and a reader
+   checking currency the careful way is the one it misleads. Note the date formats
+   differ across these files (`2026-08-29` vs `August 29, 2026`) — that is why the
+   loop normalises through `date -d` instead of comparing strings, and it is why a
+   naive ISO-only grep missed PLAN.md's marker entirely.
+
+   Two of these are load-bearing beyond this repo. **AUDIT-CONTEXT.md** is fetched
+   by the audit prompt into *other* repositories, so its marker is a claim made to
+   consumers; it sat at 2026-07-16 through ten commits, six of them substantive.
+   **SOURCES.md** carries two markers — `**Last curated**` at line 11 and the
+   changelog footer — and line 11 is authoritative when they disagree. All three
+   root markers were repaired on 2026-08-29; this check exists so the next drift is
+   caught in a week rather than in six. It was verified failure-capable before being
+   written down — replayed against the three real pre-repair states (`2026-07-16` ISO,
+   the fresh-header/stale-footer pair, and the `August 28, 2026` prose form) it flags
+   3 of 3. A guard that has only ever returned 0 has not been tested.
+
+   `ABSORPTION-MAP.md` is deliberately excluded: its "Last verified sweep" dates a
+   *sweep*, not the file, so an edit that does not re-sweep should not touch it.
+   Step 5b applies the right check there (>100 days ⇒ DRIFT).
+
 6. **Identify blockers**:
    - Any docs waiting for sources or primary verification?
    - Any skills needing validation?
@@ -128,9 +191,9 @@ Conduct the weekly review of project status and documentation currency. This pro
 
 9. **Print the self-test line.** The run must end by printing exactly one line in this shape, with every value derived during this run:
    ```bash
-   echo "WEEKLY-REVIEW SELF-TEST: routable=$routable readme-match=<yes|no> index-match=<yes|no> convergence-fields=<n>/$routable absorption-rows=$map_rows/$routable follows=$follows_docs lane-conflicts=$lane_conflicts map-verified=$map_verified sources-curated=<YYYY-MM-DD> expired-claims=<n> dangling-live=$dangling_live wrong-status=$wrong_status guidance=$guidance instrument=$instrument => <OK|DRIFT>"
+   echo "WEEKLY-REVIEW SELF-TEST: routable=$routable readme-match=<yes|no> index-match=<yes|no> convergence-fields=<n>/$routable absorption-rows=$map_rows/$routable follows=$follows_docs lane-conflicts=$lane_conflicts map-verified=$map_verified sources-curated=<YYYY-MM-DD> expired-claims=<n> dangling-live=$dangling_live wrong-status=$wrong_status guidance=$guidance instrument=$instrument declared-gaps=$declared_gaps stale-markers=$stale_markers => <OK|DRIFT>"
    ```
-   `OK` means every comparison matched and nothing is overdue; any mismatch or overdue item makes it `DRIFT` and the drifted checks must already appear in PLAN.md priorities from step 7. A non-zero `lane_conflicts` or a `map-verified` date older than 100 days also forces `DRIFT`. So does a non-zero `dangling-live` or `wrong-status`, a `guidance` figure that is not `n/n`, or `instrument=BROKEN`. If the line cannot be printed with real values, the review did not actually run its checks.
+   `OK` means every comparison matched and nothing is overdue; any mismatch or overdue item makes it `DRIFT` and the drifted checks must already appear in PLAN.md priorities from step 7. A non-zero `lane_conflicts` or a `map-verified` date older than 100 days also forces `DRIFT`. So does a non-zero `dangling-live` or `wrong-status`, a `guidance` figure that is not `n/n`, or `instrument=BROKEN`. `declared-gaps` is reported, never gated — see step 5d for why a target there would be counterproductive. A non-zero `stale-markers` forces `DRIFT`. If the line cannot be printed with real values, the review did not actually run its checks.
 
 10. **Commit**:
     ```
@@ -141,4 +204,4 @@ Conduct the weekly review of project status and documentation currency. This pro
 
 ## Expected Outcome
 
-PLAN.md reflects the week's accomplishments and next week's priorities, the README corpus counts match what is on disk, SOURCES freshness and convergence-field coverage have been checked against the table above, the absorption map is row-consistent with per-doc frontmatter (step 5b), the corpus has zero dangling live links and zero dead-lane files asserting a live status with the guidance lane fully reachable (step 5c), and the run printed its one-line self-test.
+PLAN.md reflects the week's accomplishments and next week's priorities, the README corpus counts match what is on disk, SOURCES freshness and convergence-field coverage have been checked against the table above, the absorption map is row-consistent with per-doc frontmatter (step 5b), the corpus has zero dangling live links and zero dead-lane files asserting a live status with the guidance lane fully reachable (step 5c), the repository's own declared evidence gaps have been enumerated and read rather than left to sit unread in the documents that declare them (step 5d), no root doc claims a currency date its own later edits have passed (step 5e), and the run printed its one-line self-test.

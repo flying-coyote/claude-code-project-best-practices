@@ -14,6 +14,7 @@ assume it is inert when its output is committed content.
 | [`check-measurement-expiry.py`](check-measurement-expiry.py) | **No** — manual only | stdout; `--create-issue` writes a gitignored file nothing reads |
 | [`graphify_footer_inject.py`](graphify_footer_inject.py) | **No** — operator-run generator | **Committed content.** Emits the `<!-- graphify-footer:start -->` blocks in **20 of 26** `analysis/` docs |
 | [`graphify_contradiction_lint.py`](graphify_contradiction_lint.py) | **No** — advisory, operator-run | stdout only; no committed output anywhere |
+| [`list-declared-gaps.py`](list-declared-gaps.py) | **No** — weekly review step 5d, operator-run | stdout or `--json`; enumerates the `**Needs**:` gap declarations in `analysis/` |
 | [`../automation/generate_index.py`](../automation/generate_index.py) | **Yes** — `.claude/hooks/post-tool-use.sh` on structure change | Rewrites `INDEX.md` |
 
 ## The two that look alike and are not
