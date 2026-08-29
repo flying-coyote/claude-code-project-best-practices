@@ -52,9 +52,14 @@ jobs:
           set -euo pipefail
           python3 scripts/measure-link-reachability.py --links > /tmp/links.txt
           cat /tmp/links.txt
-          DANGLING=$(awk '/^dangling/{print $2; found=1} END{exit !found}' /tmp/links.txt)
+          # No `END{exit !found}` here: under `set -e` a non-zero awk would abort
+          # the step before the check below could explain why, which made the
+          # error message dead code for the exact case it was written for.
+          # Plain awk exits 0 on no-match, leaving DANGLING empty, and the regex
+          # below rejects it *with* the message. Same safety, better diagnosis.
+          DANGLING=$(awk '/^dangling/{print $2}' /tmp/links.txt)
           if ! [[ "$DANGLING" =~ ^[0-9]+$ ]]; then
-            echo "::error::instrument produced no parseable 'dangling' row — refusing to report a count."
+            echo "::error::instrument produced no parseable 'dangling' row (got: '${DANGLING}') — refusing to report a count."
             exit 1
           fi
           echo "dangling_live=${DANGLING}" >> "$GITHUB_OUTPUT"
