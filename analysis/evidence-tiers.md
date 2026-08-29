@@ -290,6 +290,21 @@ Example:
 - Current: Playwright now sole recommendation (no comparison needed)
 ```
 
+**Corpus-internal figures carry a commit, not a date** (added 2026-08-29). A date is the
+right granularity for a measurement of the outside world — an upstream version, a
+benchmark score, a published figure — because that thing does not change between your
+morning and your afternoon. It is the wrong granularity for a measurement *of this
+repository*, which does. `prose-corpus-discoverability.md` published a re-measurement
+stamped `2026-08-29` and it was stale within hours: the same day's commits added a file to
+the lane it counted, moving the mechanism figure 4/16 → 5/16 while the sentence claiming
+4/16 sat in the diff. In the document about prose going stale.
+
+So: any figure derived by running an instrument over this corpus is quoted with **the
+commit it was measured at** (`measured at 1000541`), which stays checkable forever, rather
+than with a day-stamp that was already ambiguous before the day ended. External
+measurements keep their dates. Neither rule makes an older figure wrong — a dated or
+commit-stamped record only ever claims to have been true when taken.
+
 **Frozen: `revalidate: never`** (added 2026-08-28). A separate case from expired. Some
 measurements *cannot* be re-run — the measured corpus was private, the artifact is gone,
 or a later step mutated the state that was measured. Marking those with a rolling
