@@ -77,6 +77,12 @@ list, then re-run with `apply=true`.
 Measured on the first dry run (2026-08-29): **935 open issues, 878 matching, 2
 skipped for carrying a human comment, 55 human issues untouched.**
 
+**Set the `Mode` dropdown to `APPLY - actually close the matched issues`.** It
+defaults to dry-run, and dry-run closes nothing. This began life as a text box
+pre-filled with `false`, which produced three consecutive accidental dry runs
+before anyone noticed the field — hence the dropdown, and hence the dry-run
+notice now saying in as many words that nothing was closed.
+
 Closing one issue costs two API calls, and the comment is a *content-generating*
 request — GitHub caps those near **80/minute and 500/hour**. So the job is built
 to run **repeatedly**, not once:

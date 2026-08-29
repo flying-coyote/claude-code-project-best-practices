@@ -115,11 +115,29 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter}) {
     if (!cond) fail++;
   };
 
-  const dry = await run({apply: 'false', limit: '250', comment: 'true', delay_ms: '0'});
+  // The apply input is a dropdown. Every value that is NOT the apply option must
+  // be inert — this shipped as a text box defaulting to 'false' and produced three
+  // consecutive accidental dry runs, so the safe side is the one worth pinning.
+  // 'apply=false' is the one that matters: a prefix match on /^apply/ reads it as
+  // APPLY and mass-closes when the operator plainly meant not to.
+  for (const v of ['dry-run (list only, closes nothing)', 'false', '', 'FALSE', 'yes',
+                   'apply=false', 'apply=true', 'applyx', 'no', 'dry-run']) {
+    const r = await run({apply: v, limit: '250', comment: 'true', delay_ms: '0'});
+    check(`inert for apply=${JSON.stringify(v)}`, r.closed === 0, `closed=${r.closed}`);
+  }
+  // ...and every value that IS the apply option must work, including the legacy string.
+  for (const v of ['APPLY - actually close the matched issues',
+                   '  apply - ACTUALLY close the matched issues  ', 'true', 'apply']) {
+    const r = await run({apply: v, limit: '3', comment: 'true', delay_ms: '0'});
+    check(`applies for apply=${JSON.stringify(v)}`, r.closed === 3, `closed=${r.closed}`);
+  }
+
+  const dry = await run({apply: 'dry-run (list only, closes nothing)', limit: '250', comment: 'true', delay_ms: '0'});
   check('dry run closes nothing', dry.closed === 0);
   check('dry run reports true match total + runs needed', /878 match/.test(dry.notices[0]) && /~4 run\(s\)/.test(dry.notices[0]), dry.notices[0]);
+  check('dry run says nothing was closed and names the Mode option', /nothing was closed/.test(dry.notices[0]) && /Mode/.test(dry.notices[0]), dry.notices[0]);
 
-  const one = await run({apply: 'true', limit: '250', comment: 'true', delay_ms: '0'});
+  const one = await run({apply: 'APPLY - actually close the matched issues', limit: '250', comment: 'true', delay_ms: '0'});
   check('closes exactly the limit', one.closed === 250, `closed=${one.closed}`);
   check('comments on each', one.commented === 250);
   check('never closes a human issue', !one.closedHumanIssue);
@@ -128,12 +146,12 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter}) {
   check('never closes a PR', !one.closedPR);
   check('reports remaining + re-run', /628 still match/.test(one.notices[0]) && /re-run/i.test(one.notices[0]), one.notices[0]);
 
-  const nc = await run({apply: 'true', limit: '900', comment: 'false', delay_ms: '0'});
+  const nc = await run({apply: 'APPLY - actually close the matched issues', limit: '900', comment: 'false', delay_ms: '0'});
   check('comment=false closes all 878 in one pass', nc.closed === 878, `closed=${nc.closed}`);
   check('comment=false posts no comments', nc.commented === 0);
   check('drained message when nothing remains', /backlog is drained/.test(nc.notices[0]), nc.notices[0]);
 
-  const rl = await run({apply: 'true', limit: '900', comment: 'true', delay_ms: '0', rateLimitAfter: 137});
+  const rl = await run({apply: 'APPLY - actually close the matched issues', limit: '900', comment: 'true', delay_ms: '0', rateLimitAfter: 137});
   check('rate limit stops cleanly, does not throw', rl.closed === 137, `closed=${rl.closed}`);
   check('rate limit warns with the count', rl.warnings.some(w => /Rate limit hit after 137/.test(w)));
   check('rate limit notice says stopped early + wait', /stopped early on a rate limit/.test(rl.notices[0]), rl.notices[0]);
