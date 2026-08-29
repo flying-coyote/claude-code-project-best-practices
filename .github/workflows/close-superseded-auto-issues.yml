@@ -93,6 +93,15 @@ on:
 permissions:
   issues: write
 
+# Runs 8 and 9 on 2026-08-29 OVERLAPPED (02:39:26-02:43:05). Two drains at once
+# double the content-creation rate, which is the one thing `delay_ms` exists to
+# hold down — the throttle is per-run, so concurrency silently defeats it. That
+# overlap cost 25 issues (see the 422 handling below). Queue instead of cancel:
+# a half-finished drain should complete, not be killed.
+concurrency:
+  group: close-superseded-auto-issues
+  cancel-in-progress: false
+
 jobs:
   close:
     runs-on: ubuntu-latest
@@ -215,14 +224,23 @@ jobs:
             }
 
             const sleep = ms => new Promise(r => setTimeout(r, ms));
+            // 422 belongs here. When the two concurrent runs on 2026-08-29 blew
+            // through the content-creation cap, GitHub surfaced it as
+            // "422 Validation Failed" — not 429, not 403 — so this predicate
+            // missed it, the generic handler swallowed each error, and the loop
+            // plowed on skipping 25 issues instead of stopping. Silently
+            // continuing past a throttle signal is the fail-open shape again.
             const isRateLimit = e => {
               const s = e && e.status;
               const m = String((e && e.message) || '');
-              return s === 429 || (s === 403 && /rate limit|abuse|secondary/i.test(m));
+              return s === 429
+                || s === 422
+                || (s === 403 && /rate limit|abuse|secondary/i.test(m));
             };
 
             const batch = toClose.slice(0, LIMIT);
-            let stoppedEarly = false;
+            let stopReason = null;   // 'rate-limit' | 'repeated-failures'
+            let consecutiveFailures = 0;
 
             for (const number of batch) {
               try {
@@ -237,16 +255,26 @@ jobs:
                   issue_number: number, state: 'closed', state_reason: 'not_planned',
                 });
                 closed++;
+                consecutiveFailures = 0;
                 if (closed % 25 === 0) core.info(`closed ${closed}…`);
               } catch (e) {
                 if (isRateLimit(e)) {
                   // Stop cleanly rather than throwing. Everything closed so far
                   // stays closed, and the next run re-scans and picks up the rest.
-                  core.warning(`Rate limit hit after ${closed} closes (issue #${number}): ${e.message}`);
-                  stoppedEarly = true;
+                  core.warning(`Rate limit hit after ${closed} closes (issue #${number}): ${e.status} ${e.message}`);
+                  stopReason = 'rate-limit';
                   break;
                 }
-                core.warning(`Skipped #${number}: ${e.message}`);
+                consecutiveFailures++;
+                core.warning(`Skipped #${number}: ${e.status || '?'} ${e.message}`);
+                // Never grind through a systemic fault one issue at a time. If
+                // several in a row fail, something is wrong with the run, not
+                // with those particular issues.
+                if (consecutiveFailures >= 5) {
+                  core.warning(`Stopping after ${consecutiveFailures} consecutive failures.`);
+                  stopReason = 'repeated-failures';
+                  break;
+                }
               }
               if (DELAY_MS > 0) await sleep(DELAY_MS);
             }
@@ -256,6 +284,10 @@ jobs:
               `Closed ${closed} superseded auto-filed issues.` +
               (remaining > 0
                 ? ` ${remaining} still match and are untouched — re-run this workflow to continue` +
-                  (stoppedEarly ? ' (stopped early on a rate limit; wait ~an hour).' : '.')
+                  (stopReason === 'rate-limit'
+                    ? ' (stopped early on a rate limit; wait ~an hour).'
+                    : stopReason === 'repeated-failures'
+                      ? ' (stopped early after repeated failures — check the warnings above before re-running).'
+                      : '.')
                 : ' Nothing left matching — the backlog is drained.')
             );

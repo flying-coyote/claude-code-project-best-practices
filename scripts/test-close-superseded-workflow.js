@@ -67,7 +67,8 @@ function makeRepo() {
   return issues;
 }
 
-async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = false}) {
+async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = false,
+                    failAfter, failStatus, failMessage, failEvery}) {
   const repo = makeRepo();
   const open = new Map(repo.map(i => [i.number, i]));
   const closedSet = new Set(); const commented = new Set();
@@ -83,6 +84,15 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = fa
       contentCalls++;
       if (rateLimitAfter && contentCalls > rateLimitAfter) {
         const e = new Error('You have exceeded a secondary rate limit'); e.status = 403; throw e;
+      }
+      // Arbitrary-status injection: the 2026-08-29 overlap surfaced the content
+      // cap as 422 Validation Failed, which the original predicate missed.
+      if (failAfter && contentCalls > failAfter) {
+        const e = new Error(failMessage || 'Validation Failed'); e.status = failStatus || 422; throw e;
+      }
+      // Scattered independent failures, for the circuit breaker.
+      if (failEvery && contentCalls % failEvery !== 0) {
+        const e = new Error('Some unrelated per-issue error'); e.status = 500; throw e;
       }
       commented.add(issue_number);
     },
@@ -121,7 +131,7 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = fa
     closedStanding: closedTitles.some(t => /Standing report/.test(t)),
     closedWithComments: [...closedSet].some(nn => open.get(nn).comments > 0),
     closedPR: [...closedSet].some(nn => open.get(nn).pull_request),
-    infos,
+    infos, warningsList: warnings,
   };
 }
 
@@ -188,6 +198,29 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = fa
   check('comment=false closes all 878 in one pass', nc.closed === 878, `closed=${nc.closed}`);
   check('comment=false posts no comments', nc.commented === 0);
   check('drained message when nothing remains', /backlog is drained/.test(nc.notices[0]), nc.notices[0]);
+
+  // 422 Validation Failed is how GitHub surfaced the content cap when two drains
+  // ran concurrently on 2026-08-29. Treating it as an ordinary per-issue error
+  // meant the loop skipped 25 issues and reported success.
+  const rl422 = await run({apply: 'APPLY - actually close the matched issues', limit: '900',
+                           comment: 'true', delay_ms: '0', failAfter: 60, failStatus: 422,
+                           failMessage: 'Validation Failed'});
+  check('422 is treated as a rate limit and stops the run', rl422.closed === 60, `closed=${rl422.closed}`);
+  check('422 stop is reported as stopped-early', /stopped early on a rate limit/.test(rl422.notices[0]), rl422.notices[0]);
+
+  // A systemic non-throttle fault should trip the breaker, not grind through.
+  const brk = await run({apply: 'APPLY - actually close the matched issues', limit: '900',
+                         comment: 'true', delay_ms: '0', failEvery: 1000});
+  check('5 consecutive unrelated failures trip the breaker', brk.closed === 0, `closed=${brk.closed}`);
+  check('breaker says why', brk.warningsList.some(w => /Stopping after 5 consecutive failures/.test(w)),
+        brk.warningsList.slice(-1)[0] || '(none)');
+  check('breaker does not claim the backlog is drained',
+        !/backlog is drained/.test(brk.notices[0] || ''), brk.notices[0]);
+  // The stop reason must be the REAL one. A breaker trip is not a rate limit,
+  // and a notice that says otherwise sends the operator to wait out an hour
+  // for a fault that will still be there.
+  check('breaker notice names repeated failures, not a rate limit',
+        /repeated failures/.test(brk.notices[0]) && !/rate limit/.test(brk.notices[0]), brk.notices[0]);
 
   const rl = await run({apply: 'APPLY - actually close the matched issues', limit: '900', comment: 'true', delay_ms: '0', rateLimitAfter: 137});
   check('rate limit stops cleanly, does not throw', rl.closed === 137, `closed=${rl.closed}`);
