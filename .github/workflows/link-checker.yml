@@ -37,13 +37,27 @@ jobs:
       # Internal links are the actionable half and are checked deterministically
       # by the repo's own instrument. External link rot is mostly not this repo's
       # to fix, and conflating the two is what produced 916 untriaged issues.
+      # FAILS OPEN NO LONGER. This step used to end the instrument call with
+      # `|| true` and default a missing count to 0 — so a renamed script, an
+      # import error, or a mid-run traceback produced `dangling_live=0` and the
+      # gate below reported PASS. Both crash paths were reproduced 2026-08-29.
+      # `|| true` was not even load-bearing for the happy path: the instrument
+      # has no sys.exit of its own, so it only ever swallowed crashes.
+      #
+      # A check that reports "clean" when its instrument is broken is worse than
+      # no check, because it manufactures the evidence that nothing is wrong.
       - name: Check internal links (deterministic, actionable)
         id: internal
         run: |
-          python3 scripts/measure-link-reachability.py --links > /tmp/links.txt || true
+          set -euo pipefail
+          python3 scripts/measure-link-reachability.py --links > /tmp/links.txt
           cat /tmp/links.txt
-          DANGLING=$(awk '/^dangling/{print $2}' /tmp/links.txt)
-          echo "dangling_live=${DANGLING:-0}" >> "$GITHUB_OUTPUT"
+          DANGLING=$(awk '/^dangling/{print $2; found=1} END{exit !found}' /tmp/links.txt)
+          if ! [[ "$DANGLING" =~ ^[0-9]+$ ]]; then
+            echo "::error::instrument produced no parseable 'dangling' row — refusing to report a count."
+            exit 1
+          fi
+          echo "dangling_live=${DANGLING}" >> "$GITHUB_OUTPUT"
 
       - name: Fail the PR on a NEW broken internal link
         if: github.event_name == 'pull_request' && steps.internal.outputs.dangling_live != '0'
