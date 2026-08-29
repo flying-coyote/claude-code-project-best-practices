@@ -72,6 +72,39 @@ gh workflow run close-superseded-auto-issues.yml -f apply=false -f limit=500   #
 issue that carries a human comment. Run it once with `apply=false`, read the
 list, then re-run with `apply=true`.
 
+### Draining the backlog, in batches
+
+Measured on the first dry run (2026-08-29): **935 open issues, 878 matching, 2
+skipped for carrying a human comment, 55 human issues untouched.**
+
+Closing one issue costs two API calls, and the comment is a *content-generating*
+request — GitHub caps those near **80/minute and 500/hour**. So the job is built
+to run **repeatedly**, not once:
+
+| Input | Default | Why |
+|---|---|---|
+| `limit` | `250` | Fits inside one hour's content budget. ~4 passes to drain 878. |
+| `delay_ms` | `1000` | 60 requests/min, under the 80/min ceiling. |
+| `comment` | `true` | Set `false` to close silently — halves the calls, drains in **one** pass, but leaves no explanation behind. Prefer `true`. |
+
+It is **idempotent**: each run re-scans and only sees issues that are still open,
+so repeat until a dry run reports `0 match`. A rate-limit error **stops the run
+cleanly** and reports how many closed, rather than throwing — progress is never
+lost.
+
+> The first version of this loop had none of that: it fired all ~1,756 calls
+> back-to-back with `retries: 0`. At 878 matches it bursts the per-minute
+> ceiling in seconds, 403s, and fails the job mid-drain. `scripts/test-close-superseded-workflow.js`
+> now extracts the inline script straight from this YAML and runs it against a
+> simulated 935-issue repo — 16 checks, including the four that actually matter
+> (never close a human issue, the standing issue, a commented issue, or a PR).
+> It was verified to **fail against the pre-fix version** with the same
+> unhandled 403 that would have hit production.
+
+```bash
+node scripts/test-close-superseded-workflow.js
+```
+
 > **A Claude Code session cannot dispatch these workflows.** Verified 2026-08-28
 > against both the file name and the numeric workflow ID: `POST
 > /actions/workflows/{id}/dispatches` returns **403 "Resource not accessible by
@@ -95,3 +128,6 @@ and nothing caught it. Two habits keep it honest:
    commit** — the checklist discipline in [`CONTRIBUTING.md`](../../CONTRIBUTING.md).
 2. `ls .github/workflows/*.yml` against the table above. If they disagree, the
    table is wrong.
+3. `node scripts/test-close-superseded-workflow.js` after touching the
+   backlog-drain script. A workflow that closes hundreds of issues is not
+   something to debug in production.
