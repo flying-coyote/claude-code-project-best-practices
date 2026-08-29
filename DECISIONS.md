@@ -718,4 +718,4 @@ Analysis corpus 27 → 25 files (24 routable + template); routing bloat down one
 
 ---
 
-*Last updated: 2026-07-16*
+*Last updated: 2026-08-29* *(was 2026-07-16 — the file's only currency marker, and it was not touched by the substantive 2026-08-28 edit at Decision §565 that it sits below. A currency marker that a content edit does not update is worse than none: it certifies the staleness it is hiding.)*

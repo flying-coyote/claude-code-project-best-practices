@@ -448,7 +448,17 @@ def main() -> int:
         return report_currency(root, args.currency or
                                ["archive", "old", "deprecated", "legacy"])
 
-    corpus = repo_markdown(root, args.include_archive or args.links)
+    # --links ALWAYS spans the archive, because report_links splits its output
+    # into live/archive/total columns and cannot produce that split from a
+    # live-only corpus. So --include-archive cannot change anything in this
+    # mode. That was previously expressed as `args.include_archive or args.links`,
+    # which silently swallowed the flag: `--links` and `--links --include-archive`
+    # are byte-identical, and nothing said so. Say so instead.
+    if args.links and args.include_archive:
+        print("note: --include-archive is redundant with --links — the links table "
+              "always spans both lanes and reports them as separate columns.",
+              file=sys.stderr)
+    corpus = repo_markdown(root, include_archive=args.include_archive or args.links)
     if args.links:
         return report_links(root, corpus)
 

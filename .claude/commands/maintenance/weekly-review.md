@@ -58,7 +58,12 @@ Conduct the weekly review of project status and documentation currency. This pro
    follows_docs=$(grep -l "^follows:" analysis/*.md 2>/dev/null | grep -v CANONICAL-DOC-TEMPLATE | wc -l)
    retiring_docs=$(grep -l "^replacement-by:" analysis/*.md 2>/dev/null | grep -v CANONICAL-DOC-TEMPLATE | wc -l)
    lane_conflicts=$(grep -l "^follows:" analysis/*.md 2>/dev/null | grep -v CANONICAL-DOC-TEMPLATE | xargs -r grep -l "^replacement-by:" | wc -l)
-   map_verified=$(grep -m1 "Last verified sweep" ABSORPTION-MAP.md | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
+   # head -1 is load-bearing. That ABSORPTION-MAP line carries TWO dates (the
+   # sweep, then an interim liveness refresh), so grep -oE emitted both and
+   # map_verified became the two-line string '2026-07-16\n2026-08-13' — which
+   # parses as no date at all, so the ">100 days old" check below could never
+   # fire. Dead since the line was authored 2026-07-16; fixed 2026-08-29.
+   map_verified=$(grep -m1 "Last verified sweep" ABSORPTION-MAP.md | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' | head -1)
    ```
    Checks, all mechanical: `map_rows` must equal `$routable` (one row per routable doc); every doc with `follows:` must have a `follow`-lane row and every `replacement-by:` doc a `retire-toward`-lane row (spot-check names against the map, not just counts); `lane_conflicts` must be 0 (`follows:` and `replacement-by:` are mutually exclusive — see CONTRIBUTING.md § Following a Canon); and if `map_verified` is more than 100 days old, add "absorption sweep" to next week's priorities. The map is derived — on any conflict, per-doc frontmatter wins and the map gets corrected to match it, never the reverse.
 
@@ -70,6 +75,12 @@ Conduct the weekly review of project status and documentation currency. This pro
    dangling_live=$(awk '/^dangling/{print $2}' /tmp/wr-links.txt)
    wrong_status=$(grep -oE 'WRONG=[0-9]+' /tmp/wr-currency.txt | cut -d= -f2 | paste -sd+ | bc)
    guidance=$(grep -oE 'guidance [0-9]+/[0-9]+' /tmp/wr-reach.txt | tail -1)
+   # ~2m20s: 11 checks x 8 PYTHONHASHSEED values x 5 modes over the whole corpus.
+   # That is past a 120s foreground tool timeout, so RUN IT IN THE BACKGROUND and
+   # read the result when it lands. Do not shorten it to fit — the 8-seed sweep is
+   # the determinism guard, and a `set` literal in the resolver once made this
+   # instrument return 168-171 links depending on the hash seed while the docs
+   # called it reproducible.
    python3 scripts/test-measure-link-reachability.py >/dev/null && instrument=OK || instrument=BROKEN
    ```
    Three checks, each with a hard target.

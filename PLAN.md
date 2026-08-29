@@ -23,7 +23,7 @@ convergence: single-source
 | Analysis files | 26 (25 routable + template; 44→27 Reduction 2026-07-10, 27→25 absorption wave 2026-07-16, +1 2026-08-28 `prose-corpus-discoverability`) |
 | Absorption lanes | 16 none-found (KEEP-SOLE) / 5 follow / 1 retire-toward (mcp-vs-skills-economics → `/usage`) / 2 merged / 1 staged (plugins-and-extensions) |
 | Archived v1 patterns | 24 |
-| Source database | Last curated 2026-07-16 (absorption-wave sweep: superpowers/ECC re-verified, AGENTS.md-LF + ClaudeLog + CodeGuard-integration + Ronacher/Ng added, negative dossiers for frozen/stale/abandoned absorbers) |
+| Source database | Last curated **2026-08-29** (per `SOURCES.md` line 11 — Opus 5 system card read in full + ClaudeLog liveness re-sweep, landed by a parallel session). Four curation events since the 2026-07-16 absorption-wave sweep (superpowers/ECC re-verified, AGENTS.md-LF + ClaudeLog + CodeGuard-integration + Ronacher/Ng added, negative dossiers for frozen/stale/abandoned absorbers): a full sweep 2026-08-13 (Claude 5 family + thought-leader refresh), a delta 2026-08-19 (DeepSeek Harness), the expired-claim revalidation 2026-08-28 (APEX-Agents + Vercel registered, SWE-Bench Mobile venue added, memory-tool rows re-verified), and the 2026-08-29 system-card/canon sweep. *(This row said 2026-07-16 until 2026-08-29 — stale by a full sweep and two deltas. Read `SOURCES.md` line 11 rather than trusting this cell: it went stale again within the hour of being corrected, because another session curated while this one was writing.)* |
 
 ---
 
@@ -86,4 +86,6 @@ Dated activity log lives in [ARCHIVE.md](ARCHIVE.md) — "Detailed Activity Log"
 ## Next Review
 
 **When**: weekly cadence (`/weekly-review`); next judgment sweep ~2026-09-30 (September revalidation batch + the two staged retirements) and the quarterly Phase F pass ~2026-10.
-**Focus**: complete the economics-doc retirement; execute the plugins staged retirement after residual migration; run the Fable re-measure and the v2.1.121 token-economics session; put the four staged owner rulings in front of the owner; watch the AGENTS.md ecosystem for data-backed sizing guidance (the advance trigger on claude-md-progressive-disclosure's absorption row) and mem0/Letta docs for archetype-style guidance (the flip trigger on memory-systems-archetype-recommendations).
+**Focus**: complete the economics-doc retirement; execute the plugins staged retirement after residual migration; watch the AGENTS.md ecosystem for data-backed sizing guidance (the advance trigger on claude-md-progressive-disclosure's absorption row) and mem0/Letta docs for archetype-style guidance (the flip trigger on memory-systems-archetype-recommendations).
+
+*(Corrected 2026-08-29. This line was last rewritten 2026-07-16 and three of its five clauses were contradicted by rows in this same file: "run the Fable re-measure" — the Fable-window program closed 2026-07-16 and the realistic-prose ladder ran 2026-07-18; "the v2.1.121 token-economics session" — executed 2026-07-18, raw record in `research/probe-session-2026-07-18.md`; "put the four staged owner rulings in front of the owner" — all five were ruled 2026-07-16, recorded in the Owner rulings table above. A focus line that names finished work as upcoming sends the next session at already-closed items, and it sat two rows below the table that closed them.)*
