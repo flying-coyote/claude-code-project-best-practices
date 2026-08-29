@@ -7,7 +7,7 @@ measurement-claims:
     source: "Contributor-reported three-day production run; not independently reproduced"
     date: "2026-08-28"
     revalidate: "2027-02-28"
-  - claim: "This repository: 169 of 181 markdown files (93.4%) reachable from the auto-loaded entry point. Decomposed by lane with the generated INDEX.md excluded — the only reading that means anything — guidance prose is 50 of 50 (100%), while mechanism (2/16), data (1/14) and scratch (2/4) are link-unreachable by design. On currency, of 96 archive/ files 12 correctly declared themselves superseded, 17 asserted a live status in their own frontmatter, 67 said nothing; the 17 plus three executable v1 prompts were corrected (taking the lane to correct=31 WRONG=0 absent=65), and a follow-up commit the same day marked the remaining 65 silent files, so the instrument reports correct=96 (100%) WRONG=0 absent=0 as of 2026-08-29"
+  - claim: "This repository, measured 2026-08-28: 169 of 181 markdown files (93.4%) reachable from the auto-loaded entry point. Decomposed by lane with the generated INDEX.md excluded — the only reading that means anything — guidance prose is 50 of 50 (100%), while mechanism (2/16), data (1/14) and scratch (2/4) are link-unreachable by design. On currency, of 96 archive/ files 12 correctly declared themselves superseded, 17 asserted a live status in their own frontmatter, 67 said nothing; the 17 plus three executable v1 prompts were corrected (taking the lane to correct=31 WRONG=0 absent=65), and a follow-up commit the same day marked the remaining 65 silent files, so the instrument reports correct=96 (100%) WRONG=0 absent=0 as of 2026-08-29"
     source: "Direct measurement, scripts/measure-link-reachability.py, with determinism regression test scripts/test-measure-link-reachability.py"
     date: "2026-08-28"
     revalidate: "2027-02-28"
@@ -101,8 +101,8 @@ Three entry tiers: `E1` auto-loaded (`.claude/CLAUDE.md` and root `CLAUDE.md`/`A
 |---|---|---|
 | Files | 703 markdown, 6.07M words | 181 markdown |
 | Session under measurement | 359,985 words, 191 commits | — |
-| **Reachable from session-loaded entry points** | **12 of 703 (1.7%)** (reported) | 169 of 181 (93.4%) (measured) |
-| — guidance prose only, generated index excluded | not reported | **50 of 50 (100%)** |
+| **Reachable from session-loaded entry points** | **12 of 703 (1.7%)** (reported) | 169 of 181 (93.4%) (measured 2026-08-28) |
+| — guidance prose only, generated index excluded | not reported | **50 of 50 (100%)** (2026-08-28) |
 | Frontmatter `type:` coverage | 96% | — |
 | **Dead-lane files correctly declaring supersession** | not measured | **12 of 96 (12%)** |
 | **Dead-lane files asserting a LIVE status** | not measured | **17** |
@@ -190,6 +190,10 @@ Two conclusions, and they generalize past this repository:
 *Path inference is a real mitigation, and it degrades gracefully rather than failing cleanly.* An agent seeing `archive/patterns-v1/` in a result may well infer supersession, which makes the hazard probabilistic rather than certain. But it depends on the directory being legibly named, and it does not survive the cases that matter: a root-level `SOURCE-REFRESH-2026-07-09-cowork.md` gives no lifecycle signal from its path; `drafts/` and `research/` are ambiguous by construction; and Collision B above returns a single hit whose path an agent has no live alternative to compare against.
 
 *Reachability alone is a weak and gameable metric.* A reviewer took this repo to **100.0%** by appending *one line* of thirteen backticked paths to `.claude/CLAUDE.md` — a line no reader would ever act on. The metric is also **sign-inverted against its own thesis** (adding tombstones *raises* it), so hazard exposure is reported separately and never folded into the numerator, and seeds are excluded from it since they were loaded rather than reached.
+
+> **Re-measured 2026-08-29, one day later: 174 of 183 (95.1%), guidance 52/52, mechanism 4/16.** Every figure in this section moved, because the corpus gained two files and the link repairs landed. Nothing here is wrong — each number carries its date — but the drift rate is the point worth naming: **a reachability figure is a property of a corpus at an instant, not of a repository.** Quote it with its date or do not quote it.
+>
+> This also exposes a limit in the repo's own machinery. `check-measurement-expiry.py` is pure date arithmetic — it reads `revalidate:` and compares to today, and never re-runs the instrument. So a measurement claim whose numbers drift is **invisible to it** until the revalidate date arrives, here 2027-02-28. The checker catches claims that are *overdue*, not claims that are *wrong*. Those are different failures and only one of them is automated.
 
 *And the corpus-wide percentage was itself the metric's worst distortion — corrected 2026-08-28.* This document previously reported "**92 of 179 (51%)** excluding the generated inventory" and read it as *the corpus is well-indexed and about half-linked, which is the property that carries authority*. **That reading was wrong**, because a single denominator lumped together files with completely different reachability obligations. Decomposed:
 
