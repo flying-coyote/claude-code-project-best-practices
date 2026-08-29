@@ -25,14 +25,18 @@ on:
 
 jobs:
   # Split out of `check-links` on 2026-08-29. The deterministic internal check
-  # runs in about a second, and it was sequenced BEHIND a 7-15 minute
+  # runs in under a second, and it was sequenced BEHIND a ~7-8 minute
   # network-bound external scan in the same job -- so the actionable gate, the
-  # one this repo wrote and depends on, reported a quarter of an hour late for
-  # no reason. Worse, `continue-on-error: true` on the external action protects
+  # one this repo wrote and depends on, reported eight minutes late for no
+  # reason. Worse, `continue-on-error: true` on the external action protects
   # against that action FAILING, not against it HANGING: a hung scan takes the
   # job to its timeout and the internal check never runs at all, producing no
-  # verdict rather than a bad one. Observed live: step 4 of that job ran 7
-  # minutes on one commit and was still going at 14 on the next.
+  # verdict rather than a bad one.
+  #
+  # Measured across completed runs, not from an in-progress reading: the
+  # external step took 6m53s on fc9f425 and 8m20s on 8639de4, and on that
+  # second run the internal check did not report until 8m20s into the job.
+  # Under this split it reported in 3 seconds on 72bd427.
   #
   # As its own job it reports in seconds, cannot be starved by an unrelated
   # network step, and lets the expensive scan be skipped on a PR whose internal
