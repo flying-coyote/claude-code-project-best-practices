@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-08-29 16:58*
+*Auto-generated: 2026-08-30 22:24*
 
 ## Summary
 
-**Total documents**: 163
+**Total documents**: 175
 
 | Directory | Count |
 |-----------|-------|
@@ -34,11 +34,14 @@
 | archive/skills-v1/examples/ultrathink-analyst/workflows | 3 |
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
-| drafts | 4 |
-| research | 4 |
+| drafts | 5 |
+| research | 5 |
 | research/artifacts/2026-07-18-realistic-ladder | 5 |
 | research/artifacts/2026-07-18-realistic-ladder/golden | 2 |
 | research/artifacts/2026-07-18-realistic-ladder/guides-as-read | 7 |
+| research/artifacts/2026-08-30-claude5-ladder | 4 |
+| research/artifacts/2026-08-30-claude5-ladder/golden | 2 |
+| research/artifacts/2026-08-30-claude5-ladder/guides | 4 |
 | research/self-audit-2026-06 | 7 |
 | root | 14 |
 | scripts | 1 |
@@ -67,6 +70,7 @@
 - [fable-probe-session-2026-07-16.md](research/fable-probe-session-2026-07-16.md)
 - [opus5-system-card-extraction-2026-08-29.md](research/opus5-system-card-extraction-2026-08-29.md)
 - [probe-session-2026-07-18.md](research/probe-session-2026-07-18.md)
+- [probe-session-2026-08-30.md](research/probe-session-2026-08-30.md)
 ## Research / Self-Audit-2026-06
 
 - [AUDIT-FINDINGS.md](research/self-audit-2026-06/AUDIT-FINDINGS.md)
@@ -96,12 +100,29 @@
 - [GUIDE-200-as-read-by-opus-K200-r3b.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-200-as-read-by-opus-K200-r3b.md)
 - [GUIDE-25-as-read-by-fable-K25-r1.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-25-as-read-by-fable-K25-r1.md)
 - [GUIDE-50-as-read-by-fable-K50-r1.md](research/artifacts/2026-07-18-realistic-ladder/guides-as-read/GUIDE-50-as-read-by-fable-K50-r1.md)
+## Research / Artifacts / 2026-08-30-Claude5-Ladder
+
+- [ADJUDICATION.md](research/artifacts/2026-08-30-claude5-ladder/ADJUDICATION.md)
+- [PREREG.md](research/artifacts/2026-08-30-claude5-ladder/PREREG.md)
+- [PROMPT.md](research/artifacts/2026-08-30-claude5-ladder/PROMPT.md)
+- [PROVENANCE.md](research/artifacts/2026-08-30-claude5-ladder/PROVENANCE.md)
+## Research / Artifacts / 2026-08-30-Claude5-Ladder / Golden
+
+- [CHANGELOG.md](research/artifacts/2026-08-30-claude5-ladder/golden/CHANGELOG.md)
+- [README.md](research/artifacts/2026-08-30-claude5-ladder/golden/README.md)
+## Research / Artifacts / 2026-08-30-Claude5-Ladder / Guides
+
+- [GUIDE-100.md](research/artifacts/2026-08-30-claude5-ladder/guides/GUIDE-100.md)
+- [GUIDE-200.md](research/artifacts/2026-08-30-claude5-ladder/guides/GUIDE-200.md)
+- [GUIDE-25.md](research/artifacts/2026-08-30-claude5-ladder/guides/GUIDE-25.md)
+- [GUIDE-50.md](research/artifacts/2026-08-30-claude5-ladder/guides/GUIDE-50.md)
 ## Scripts
 
 - [README.md](scripts/README.md)
 ## Drafts
 
 - [ABSORPTION-SCAN-2026-07.md](drafts/ABSORPTION-SCAN-2026-07.md)
+- [FAILURE-CAPABLE-LADDER-DESIGN.md](drafts/FAILURE-CAPABLE-LADDER-DESIGN.md)
 - [REDUCTION-PROPOSAL-2026-07.md](drafts/REDUCTION-PROPOSAL-2026-07.md)
 - [loop-eng-BCDE-2026-06-16-DRAFT.md](drafts/loop-eng-BCDE-2026-06-16-DRAFT.md)
 - [loop-eng-carry-forwards-2026-06-16-RESULTS.md](drafts/loop-eng-carry-forwards-2026-06-16-RESULTS.md)

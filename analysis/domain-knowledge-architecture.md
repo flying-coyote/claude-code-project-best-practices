@@ -7,10 +7,10 @@ measurement-claims:
     source: "Anthropic documentation"
     date: "2026-03-19"
     revalidate: "2026-09-19"
-  - claim: "Quality degrades at 60% context capacity"
-    source: "Boris Cherny (March 2026)"
-    date: "2026-03-01"
-    revalidate: "2026-09-01"
+  - claim: "60% context fill is a practitioner intervention trigger, not a measured degradation onset. Superseded wording, preserved: 'Quality degrades at 60% context capacity' (Boris Cherny, March 2026) — RECLASSIFIED 2026-05-30 in behavioral-insights.md, which restates the onset as beginning far below the advertised window (~16-64k tokens) and model-specific. This doc restates that reclassification; it does not measure it."
+    source: "analysis/behavioral-insights.md Gaps section (reclassified 2026-05-30), restating Boris Cherny (March 2026) — Tier C practitioner heuristic. Corrected 2026-08-30: this entry carried the pre-reclassification wording for three months after the sibling doc corrected it, the same derivative-drift shape as the MCP-latency entry below. Date and revalidate now inherited from the reclassification and its home doc."
+    date: "2026-05-30"
+    revalidate: "2027-02-13"
   - claim: "MCP servers add 300-800ms baseline latency"
     source: "Nate B. Jones, via analysis/mcp-patterns.md — this doc restates that figure, it does not measure it. Corrected 2026-08-29: the entry previously read source 'MCP patterns analysis' with date 2026-03-01, i.e. it cited a sibling doc and re-dated the figure four months FORWARD of the original 2025-10-15 measurement, so the derived copy looked fresher than its own source and carried an earlier revalidate date than the claim it depends on. Dates and source now inherited from the original."
     date: "2025-10-15"
@@ -35,7 +35,7 @@ This is the companion document to [Harness Engineering](./harness-engineering.md
 
 ## The Problem, In Brief
 
-Domain-heavy projects — security rule ecosystems, infrastructure-as-code, regulatory compliance — fail in three ways: the LLM can't find resources that already exist and reinvents them; loading enough domain knowledge to be useful pushes context past the ~60% capacity threshold where quality degrades ([Behavioral Insights](./behavioral-insights.md)); and different sessions produce different approaches to the same problem absent an enforced methodology. Skills and CLAUDE.md now solve the top-level split (methodology vs. always-on context) by default. What's left unsolved is *findability inside a domain* — pointing an agent at the right rule file, typed note, or live lookup without loading the domain into context up front. That's what the rest of this document covers.
+Domain-heavy projects — security rule ecosystems, infrastructure-as-code, regulatory compliance — fail in three ways: the LLM can't find resources that already exist and reinvents them; loading enough domain knowledge to be useful pushes context past the ~60% fill mark at which practitioners intervene — a Tier C intervention heuristic, not a measured degradation onset, and independent benchmarks put the onset earlier still ([Behavioral Insights](./behavioral-insights.md)); and different sessions produce different approaches to the same problem absent an enforced methodology. Skills and CLAUDE.md now solve the top-level split (methodology vs. always-on context) by default. What's left unsolved is *findability inside a domain* — pointing an agent at the right rule file, typed note, or live lookup without loading the domain into context up front. That's what the rest of this document covers.
 
 ---
 
@@ -168,7 +168,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 
 ### Tier A (Primary Vendor / Expert Practitioner)
 
-- Boris Cherny: context capacity threshold (~60%) — March 2026
+- Boris Cherny: context-fill intervention trigger (~60%) — March 2026; reclassified 2026-05-30 as a practitioner heuristic, not a degradation onset ([Behavioral Insights](./behavioral-insights.md))
 - Anthropic: skills documentation (~2% context budget per skill); ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025)
 
 ### Tier B (Validated / Production)
