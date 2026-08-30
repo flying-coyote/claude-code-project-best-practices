@@ -23,10 +23,11 @@ measurement-claims:
     source: "self-measured (research/probe-session-2026-07-18.md; versions unpinned, single-day snapshot)"
     date: "2026-07-18"
     revalidate: "2027-01-18"
-  - claim: "15% of OpenClaw skills contain harmful instructions"
-    source: "Jenova Research"
-    date: "2026-03-01"
-    revalidate: "2026-09-01"
+  - claim: "OpenClaw/ClawHub skill marketplace poisoning, measured Feb 2026: ~12% of audited skills actively malicious (386/2,857 McCarty; 341/2,857 Koi Security), ~17% carrying malicious payloads in the platform's first weeks (Bitdefender). Previously carried here as a flat '15%' attributed to a source that does not exist."
+    source: "Semgrep OpenClaw security cheat sheet (relaying McCarty + Koi Security, Feb 2026) and Unit 42 2026-06-23 (relaying Bitdefender Labs). Re-sourced 2026-08-29: the prior attribution 'Jenova Research' is not a findable organisation and had no SOURCES.md entry."
+    date: "2026-02-01"
+    revalidate: "2027-02-01"
+    tier: B
   - claim: "MCP tool definitions consumed 81,986 tokens at startup (41% of a 200K context window) (historical static-loading data point; re-measure executed 2026-07-18 — deferred loading is the current default, see the wire-measurement row)"
     source: "valgard production analysis"
     date: "2026-01"
@@ -283,7 +284,9 @@ Based on [OWASP's Practical Guide](https://genai.owasp.org/resource/cheatsheet-a
 
 **Source**: H-AGENT-SECURITY-01 hypothesis
 
-The supply chain risk extends beyond MCP servers to skills specifically. Jenova Research (March 2026) found that 15% of OpenClaw skills contain harmful instructions. In a single week, 230 malicious plugins were published on ClawHub using the ClickFix technique — embedding malicious instructions that appear benign during casual review.
+The supply chain risk extends beyond MCP servers to skills specifically. Independent audits of the ClawHub marketplace in February 2026 put roughly **12% of audited skills actively malicious** (386 of 2,857 per Paul McCarty; 341 of 2,857 per Koi Security, both relayed by [Semgrep](https://semgrep.dev/blog/2026/openclaw-security-engineers-cheat-sheet/)), while Bitdefender Labs measured **~17% carrying malicious payloads** across the platform's first weeks ([Unit 42](https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk/), 2026-06-23). Over **230 malicious plugins** were published to ClawHub and GitHub in under a week (2026-01-27 to 02-01) using the **ClickFix** technique — embedding malicious instructions in long documentation that appear benign during casual review, so the victim runs them by following an install guide. That week was the opening of the **ClawHavoc** campaign, which reached 1,184 malicious skills by mid-February per the joint Koi Security / Cisco / Snyk / Antiy CERT / VirusTotal count.
+
+> **Re-sourced 2026-08-29.** This figure was carried as *"15% of OpenClaw skills contain harmful instructions (Jenova Research, March 2026)"*. **No such source exists**: a web search for "Jenova Research" in connection with OpenClaw returns an unrelated AI product (jenova.ai) and a Final Fantasy VII character, and SOURCES.md never carried an entry for it — so a security statistic shipped in two live docs, one of them audit-routed, with no URL, no tier, and an attribution that cannot be checked. **15% is also not any published figure.** The real, retrievable ones bracket it: **~12% actively malicious** (386/2,857 per Paul McCarty, 341/2,857 per Koi Security, Feb 2026, relayed by [Semgrep](https://semgrep.dev/blog/2026/openclaw-security-engineers-cheat-sheet/)) and **~17% carrying malicious payloads** in the platform's first weeks (Bitdefender Labs, early Feb 2026, relayed by [Unit 42](https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk/), 2026-06-23). Note *actively malicious* is a stronger and different property than *contains harmful instructions*; separate academic work puts **26%** of agent skills at one-or-more vulnerability (8,126/31,132).
 
 This is distinct from the MCP server command injection rate documented under Kitchen Sink Server Pattern above: MCP vulnerabilities are implementation flaws in server code, while skill supply chain attacks are intentional hostile instructions embedded in skill definitions that the model follows faithfully.
 
@@ -308,7 +311,7 @@ Before adding any MCP server or skill, answer:
 
 5. [Skills only] Have you reviewed the instruction content for hidden directives?
    └── NO → Read every instruction line before installing
-   └── 15% of community skills contain harmful instructions (Jenova Research, March 2026)
+   └── ~12% of audited ClawHub skills were actively malicious (Feb 2026; ~17% in the first weeks)
 ```
 
 ---
@@ -369,7 +372,9 @@ See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard
 - [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) (Tier A for its own docs — MCP client transports in `docs/config-catalog.md`; added 2026-08-19)
 - H-MCP-CONTEXT-01 hypothesis (5/5 confidence, validated April 2026)
 - H-AGENT-SECURITY-01 hypothesis (skill supply chain risk)
-- Jenova Research: OpenClaw skill security analysis (March 2026)
+- [Semgrep — OpenClaw Security Engineer's Cheat Sheet](https://semgrep.dev/blog/2026/openclaw-security-engineers-cheat-sheet/) (relaying McCarty + Koi Security audits, Feb 2026) — Tier B
+- [Unit 42 — OpenClaw's Skill Marketplace and the Emerging AI Supply Chain Threat](https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk/) (2026-06-23, relaying Bitdefender Labs) — Tier B
+- ~~Jenova Research: OpenClaw skill security analysis (March 2026)~~ — **withdrawn 2026-08-29, source does not exist** (see the re-sourcing note above)
 - Speakeasy Dynamic Toolsets: input schema token overhead analysis
 - [microsoft/playwright-cli](https://github.com/microsoft/playwright-cli) (Tier B for the qualitative claim only — the repo publishes no token figures; checked current + commit fa6f6bc, 2026-07-18)
 - [Outpost/Ranger — The Hidden Cost of Fewer Tokens](https://outpost.ranger.net/post/the-hidden-cost-of-fewer-tokens/) (2026-04-03, Tier B — the one independent CLI-vs-MCP benchmark found: ~2x tokens, MCP ~2x faster wall-clock)

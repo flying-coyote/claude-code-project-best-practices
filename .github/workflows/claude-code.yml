@@ -53,6 +53,25 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Bounded 2026-08-29. This job passed NO claude_args at all, so once
+          # the `@claude` comment path started working (it never had — see the
+          # typo note on the gate above) the author_association gate would have
+          # been the ONLY control on an agent holding contents: write and a live
+          # API key. A turn cap is not an authorization control and does not
+          # replace the gate; it bounds blast radius and spend if a run goes
+          # wrong, which is the cheap half of the 2026-06 self-audit's
+          # recommendation.
+          #
+          # 30, matching what the deleted source-update job used for a
+          # heavier author-and-open-a-PR task; the sibling comment-only job uses
+          # 15. `claude_args` is verified valid on this action version by that
+          # sibling, which has shipped with it.
+          #
+          # NOT added: --allowedTools. The self-audit recommends an allowlist too,
+          # but a review needs to read widely and guessing the set risks silently
+          # truncating reviews. That stays open and deliberate rather than
+          # guessed at.
+          claude_args: "--max-turns 30"
 
   # ─── Job 3: Daily Review URL Checker ───────────────────────────────
   daily-review-check:

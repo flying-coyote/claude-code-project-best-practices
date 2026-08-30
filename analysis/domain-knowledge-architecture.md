@@ -7,10 +7,11 @@ measurement-claims:
     source: "Anthropic documentation"
     date: "2026-03-19"
     revalidate: "2026-09-19"
-  - claim: "60% context fill is a practitioner intervention trigger, not a measured degradation onset. Superseded wording, preserved: 'Quality degrades at 60% context capacity' (Boris Cherny, March 2026) — RECLASSIFIED 2026-05-30 in behavioral-insights.md, which restates the onset as beginning far below the advertised window (~16-64k tokens) and model-specific. This doc restates that reclassification; it does not measure it."
-    source: "analysis/behavioral-insights.md Gaps section (reclassified 2026-05-30), restating Boris Cherny (March 2026) — Tier C practitioner heuristic. Corrected 2026-08-30: this entry carried the pre-reclassification wording for three months after the sibling doc corrected it, the same derivative-drift shape as the MCP-latency entry below. Date and revalidate now inherited from the reclassification and its home doc."
+  - claim: "60% context fill is a practitioner INTERVENTION HEURISTIC, not a measured degradation onset. Published benchmarks put onset far earlier and model-specific — roughly 16-64k tokens, ~20-50% on a 1M-context model. Carried here as 'Quality degrades at 60% context capacity' until 2026-08-29, which is precisely the misreading behavioral-insights.md corrected on 2026-05-30."
+    source: "Boris Cherny (March 2026, Tier C usage heuristic; the originally-cited page now 403s). Reclassification and benchmark basis: analysis/behavioral-insights.md 'Revalidation (2026-05-30)' — arXiv:2601.15300, Fiction.liveBench, NoLiMa (ICML 2025), arXiv:2510.05381. Same derivative-drift shape as the MCP-latency entry below, corrected 2026-08-29 for the same reason: a sibling doc's correction that this doc never read."
     date: "2026-05-30"
-    revalidate: "2027-02-13"
+    revalidate: "2026-11-30"
+    tier: C
   - claim: "MCP servers add 300-800ms baseline latency"
     source: "Nate B. Jones, via analysis/mcp-patterns.md — this doc restates that figure, it does not measure it. Corrected 2026-08-29: the entry previously read source 'MCP patterns analysis' with date 2026-03-01, i.e. it cited a sibling doc and re-dated the figure four months FORWARD of the original 2025-10-15 measurement, so the derived copy looked fresher than its own source and carried an earlier revalidate date than the claim it depends on. Dates and source now inherited from the original."
     date: "2025-10-15"
@@ -168,7 +169,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 
 ### Tier A (Primary Vendor / Expert Practitioner)
 
-- Boris Cherny: context-fill intervention trigger (~60%) — March 2026; reclassified 2026-05-30 as a practitioner heuristic, not a degradation onset ([Behavioral Insights](./behavioral-insights.md))
+- Boris Cherny: context capacity threshold (~60%) — March 2026. **Reclassified 2026-05-30 in [behavioral-insights.md](behavioral-insights.md), propagated here 2026-08-29**: it is an *intervention heuristic* (Tier C), not a measured degradation onset, and the originally-cited page now 403s. Independent benchmarks put onset far earlier and model-specific. Also under a standing Claude-5 re-measure flag with a tokenizer confound — the tokenizer confound is now measured in-harness (2026-08-30): Opus 5, Sonnet 5 and Fable 5 share one tokenizer generation, costing ~+35-43% (English prose) and ~+15% (Python) more tokens than Haiku 4.5 for identical bytes, so a percent-of-window threshold is not comparable across that boundary. This doc carried the pre-revalidation wording for three months after the correction was published in a sibling doc. The body prose went uncorrected even by that pass and was fixed 2026-08-30.
 - Anthropic: skills documentation (~2% context budget per skill); ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025)
 
 ### Tier B (Validated / Production)

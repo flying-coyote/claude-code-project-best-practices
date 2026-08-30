@@ -2203,6 +2203,40 @@ These analysis documents define the evidence and scoring frameworks used through
 
 ---
 
+## Skill-Marketplace Supply-Chain Sources (Tier B)
+
+Registered 2026-08-29, closing a gap that should never have opened: the 15%-harmful-skills
+statistic was cited in **two live analysis docs** — `mcp-patterns.md` and the audit-routed
+`safety-and-sandboxing.md` — attributed to *"Jenova Research"*, with **no entry in this file
+at all**. CONTRIBUTING.md's integration checklist makes a SOURCES entry mandatory for every
+analysis doc, so the missing entry was itself the detectable symptom. "Jenova Research"
+is not a findable organisation on this subject (searching returns an unrelated AI product
+and a Final Fantasy VII character), and **15% is not any published figure**.
+
+### Semgrep — OpenClaw Security Engineer's Cheat Sheet
+
+- **Source**: [semgrep.dev/blog/2026/openclaw-security-engineers-cheat-sheet](https://semgrep.dev/blog/2026/openclaw-security-engineers-cheat-sheet/) (published Feb 2026; fetched and quoted 2026-08-29)
+- **Key figures**: *"approximately 12% of audited ClawHub skills were actively malicious"* — 386/2,857 (Paul McCarty) and 341/2,857 (Koi Security). Separately, academic work puts **26%** of agent skills at one-or-more vulnerability (8,126/31,132). The post distinguishes the two: malicious skills *"harm you simply by being installed"*, vulnerable ones require exploitation.
+- **Role**: Replaces the withdrawn "Jenova Research" attribution. Note *actively malicious* is a stronger and narrower property than *contains harmful instructions* — the swap is not like-for-like and the prose says so.
+- **Pattern References**: [mcp-patterns.md](analysis/mcp-patterns.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)
+- **Evidence Tier**: **B** — security vendor relaying two independent named audits, with sample sizes.
+
+### Unit 42 (Palo Alto Networks) — OpenClaw's Skill Marketplace and the Emerging AI Supply Chain Threat
+
+- **Source**: [unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk](https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk/) (2026-06-23; Seetharam, Mohamed, Melicher, Starov)
+- **Key figures**: relays **Bitdefender Labs ~17%** of OpenClaw skills analysed in the platform's first weeks carrying malicious payloads (early Feb 2026); cites Koi Security's ClawHavoc disclosure of **341** malicious skills.
+- **Verified negative**: this report does **not** mention ClickFix and does **not** carry the "230 plugins in a single week" figure — checked directly, so that half is sourced elsewhere rather than to Unit 42.
+- **Pattern References**: [mcp-patterns.md](analysis/mcp-patterns.md)
+- **Evidence Tier**: **B** — vendor threat-intel team, named authors, relaying an attributed measurement.
+
+### ClawHavoc campaign — the 230-plugins/ClickFix week
+
+- **Measured**: **over 230** malicious script plugins published to ClawHub and GitHub between **2026-01-27 and 02-01** using the **ClickFix** technique (malicious instructions embedded in long documentation so the victim executes them by following an install guide). The campaign reached **1,184** malicious skills by mid-February per a joint Koi Security / Cisco / Snyk / Antiy CERT / VirusTotal count.
+- **Role**: `safety-and-sandboxing.md` already attributed this half correctly to **Cisco/Kaspersky, February 2026** while `mcp-patterns.md` attributed it to the non-existent Jenova — a corpus self-disagreement that survived because neither doc had a SOURCES entry to reconcile against.
+- **Evidence Tier**: **B** — multiple independent vendor disclosures agreeing on the window and technique.
+
+---
+
 ## Memory & Knowledge System Sources (Mixed Tiers)
 
 ### Andrej Karpathy — LLM Wiki Paradigm

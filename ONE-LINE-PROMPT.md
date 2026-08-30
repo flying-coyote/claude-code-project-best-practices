@@ -8,6 +8,18 @@ Copy-paste this prompt into Claude Code in **any project** to get an evidence-ba
 
 **Expectation-setting**: This is one prompt, but not one network call. The audit fetches a routing map (1 request) plus 4–8 analysis docs (4–8 requests) via `WebFetch`. Typical round-trip: 6–10 requests, 1–5 minutes depending on connection. If that's too much, narrow the scope with one of the Customization flags at the bottom.
 
+**What it runs on your machine**: step 1 tells your agent to fetch
+[`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) and run the commands in its *Signal Collection
+Commands* section. Those are **shell commands that execute locally**, and that file
+lives on a mutable `master` URL. They are read-only today — `ls`, `cat`, `grep`,
+`git log`, `wc`, `find`, and one `npx -y claude-doctor` — but you are trusting a
+remote file to stay that way, which is the *fetch-and-execute* shape this repo's own
+[`analysis/safety-and-sandboxing.md`](analysis/safety-and-sandboxing.md) flags as a
+`hard_deny` example. **[Read the command list first](AUDIT-CONTEXT.md#signal-collection-commands-run-before-routing)**;
+it is short. Disclosed 2026-08-29 per `research/self-audit-2026-06/lens-4-security.md`
+Finding #3 — the honest fix is telling you what you are about to run and where to
+check it, not removing the capability.
+
 ## The Prompt
 
 ```
