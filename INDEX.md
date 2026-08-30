@@ -1,10 +1,10 @@
 # Index
 
-*Auto-generated: 2026-08-29 16:58*
+*Auto-generated: 2026-08-30 01:38*
 
 ## Summary
 
-**Total documents**: 163
+**Total documents**: 164
 
 | Directory | Count |
 |-----------|-------|
@@ -34,7 +34,7 @@
 | archive/skills-v1/examples/ultrathink-analyst/workflows | 3 |
 | archive/specs-v1 | 1 |
 | archive/templates-v1 | 1 |
-| drafts | 4 |
+| drafts | 5 |
 | research | 4 |
 | research/artifacts/2026-07-18-realistic-ladder | 5 |
 | research/artifacts/2026-07-18-realistic-ladder/golden | 2 |
@@ -103,6 +103,7 @@
 
 - [ABSORPTION-SCAN-2026-07.md](drafts/ABSORPTION-SCAN-2026-07.md)
 - [REDUCTION-PROPOSAL-2026-07.md](drafts/REDUCTION-PROPOSAL-2026-07.md)
+- [RESEARCH-PROMPT-claude5-remeasure.md](drafts/RESEARCH-PROMPT-claude5-remeasure.md)
 - [loop-eng-BCDE-2026-06-16-DRAFT.md](drafts/loop-eng-BCDE-2026-06-16-DRAFT.md)
 - [loop-eng-carry-forwards-2026-06-16-RESULTS.md](drafts/loop-eng-carry-forwards-2026-06-16-RESULTS.md)
 ## Analysis
