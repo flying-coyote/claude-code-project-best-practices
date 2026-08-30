@@ -42,7 +42,20 @@ const BODY = extractScript(fs.readFileSync(YAML, 'utf8'));
 
 function makeRepo() {
   const issues = [];
-  // 878 auto-filed matching, 2 with a human comment, 55 human issues, 5 PRs
+  // 878 auto-filed matching, 2 with a human comment, 54 genuinely-human + 1
+  // standing, 5 PRs.
+  //
+  // The two families added to autoTitles on 2026-08-29 are the ones the real
+  // backlog is actually made of and no pattern matched: 49 "Community
+  // engagement triage" and 6 "Expired Measurement Claims Detected". Both are
+  // machine output (github-actions[bot]), yet this fixture's 54
+  // "Real human issue about N" entries encoded the belief that the residue was
+  // human — the same wrong assumption PLAN.md and .github/workflows/README.md
+  // carried. The fixture kept the suite passing while the real drain matched 0
+  // of 61 and reported the backlog drained.
+  //
+  // The warning sign is U+26A0 U+FE0F. Verified against the real title fetched
+  // from the API: a bare U+26A0 matches nothing.
   let n = 1000;
   const autoTitles = [
     '🔗 Broken links detected in documentation',
@@ -54,6 +67,8 @@ function makeRepo() {
     '📋 Weekly source review 2026-03-01',
     '✅ Self-compliance audit 2026-02-01',
     '🚨 CRITICAL: Tier A sources inaccessible',
+    '🤝 Community engagement triage - May 12, 2026',
+    '⚠️ Expired Measurement Claims Detected',
   ];
   for (let i = 0; i < 878; i++)
     issues.push({number: n--, title: autoTitles[i % autoTitles.length], comments: 0});
@@ -68,8 +83,11 @@ function makeRepo() {
 }
 
 async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = false,
-                    failAfter, failStatus, failMessage, failEvery}) {
-  const repo = makeRepo();
+                    failAfter, failStatus, failMessage, failEvery, issues}) {
+  // `issues` overrides the default fixture, so a test can exercise a repo shape
+  // makeRepo() does not produce — e.g. one where nothing is unmatched, which is
+  // the only way to prove the all-clear branch is still reachable.
+  const repo = issues || makeRepo();
   const open = new Map(repo.map(i => [i.number, i]));
   const closedSet = new Set(); const commented = new Set();
   let contentCalls = 0;
@@ -198,7 +216,17 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = fa
   const nc = await run({apply: 'APPLY - actually close the matched issues', limit: '900', comment: 'false', delay_ms: '0'});
   check('comment=false closes all 878 in one pass', nc.closed === 878, `closed=${nc.closed}`);
   check('comment=false posts no comments', nc.commented === 0);
-  check('drained message when nothing remains', /backlog is drained/.test(nc.notices[0]), nc.notices[0]);
+  // The fixture's 54 genuinely-human issues match nothing, which is CORRECT --
+  // so the completion notice must reconcile rather than claim a bare all-clear.
+  // Before 2026-08-29 this asserted /backlog is drained/ unconditionally, and
+  // that expectation is exactly what let the real drain print "the backlog is
+  // drained" on a run that matched 0 of 61 open issues.
+  check('completion notice reconciles unmatched issues instead of claiming drained',
+        /54 open issue\(s\) matched no pattern/.test(nc.notices[0]) &&
+        !/every open issue was accounted for/.test(nc.notices[0]), nc.notices[0]);
+  check('the notice names both readings of an unmatched issue',
+        /right outcome if they are human/.test(nc.notices[0]) &&
+        /missing generator/.test(nc.notices[0]));
 
   // 422 Validation Failed is how GitHub surfaced the content cap when two drains
   // ran concurrently on 2026-08-29. Treating it as an ordinary per-issue error
@@ -228,6 +256,47 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = fa
   check('rate limit warns with the count', rl.warnings.some(w => /Rate limit hit after 137/.test(w)));
   check('rate limit notice says stopped early + wait', /stopped early on a rate limit/.test(rl.notices[0]), rl.notices[0]);
   check('progress preserved (741 remain)', /741 still match/.test(rl.notices[0]));
+
+  // The other side of the reconciliation: when every open issue IS accounted
+  // for, the all-clear must still be reachable. A check that can only ever say
+  // "not drained" is as useless as the one that could only ever say "drained".
+  {
+    const onlyAuto = [];
+    let m = 500;
+    for (let i = 0; i < 12; i++)
+      onlyAuto.push({number: m--, title: '\u{1F91D} Community engagement triage - May 12, 2026', comments: 0});
+    onlyAuto.push({number: m--, title: '\u{1F517} Standing report: broken links in documentation', comments: 0});
+    const clean = await run({apply: 'APPLY - actually close the matched issues', limit: '900',
+                             comment: 'false', delay_ms: '0', issues: onlyAuto});
+    check('all-clear IS reachable when nothing is unmatched',
+          /every open issue was accounted for/.test(clean.notices[0]), clean.notices[0]);
+    check('the standing issue alone does not block the all-clear',
+          clean.closed === 12, `closed=${clean.closed}`);
+  }
+
+  // The two families that made up 55 of the real 61-issue backlog and that no
+  // pattern matched until 2026-08-29. Asserted against titles fetched from the
+  // API, so a future edit that drops a pattern — or that retypes the warning
+  // sign without its U+FE0F variation selector — fails here instead of silently
+  // reporting "the backlog is drained" again.
+  {
+    const y = fs.readFileSync(YAML, 'utf8');
+    const blk = y.split('const PATTERNS = [')[1].split('];')[0];
+    const pats = blk.split('\n').map(l => l.trim())
+                    .filter(l => l.startsWith('/^'))
+                    .map(l => eval(l.replace(/,$/, '')));
+    const real = [
+      ['\u{1F91D} Community engagement triage - June 5, 2026', 'triage family'],
+      ['\u26A0\uFE0F Expired Measurement Claims Detected', 'expiry family (U+26A0 U+FE0F)'],
+    ];
+    for (const [title, label] of real)
+      check(`PATTERNS matches the ${label}`, pats.some(p => p.test(title)), JSON.stringify(title));
+
+    // And the standing issue must still be refused by KEEP, not matched away.
+    const standing = '\u{1F517} Standing report: broken links in documentation';
+    check('the standing issue is still never matched for closure',
+          !pats.some(p => p.test(standing)));
+  }
 
   console.log(fail ? `\n${fail} of ${total} FAILED`
                    : `\nAll ${total} checks passed.`);
