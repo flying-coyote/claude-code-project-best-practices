@@ -7,10 +7,11 @@ measurement-claims:
     source: "Anthropic documentation"
     date: "2026-03-19"
     revalidate: "2026-09-19"
-  - claim: "Quality degrades at 60% context capacity"
-    source: "Boris Cherny (March 2026)"
-    date: "2026-03-01"
-    revalidate: "2026-09-01"
+  - claim: "60% context fill is a practitioner INTERVENTION HEURISTIC, not a measured degradation onset. Published benchmarks put onset far earlier and model-specific — roughly 16-64k tokens, ~20-50% on a 1M-context model. Carried here as 'Quality degrades at 60% context capacity' until 2026-08-29, which is precisely the misreading behavioral-insights.md corrected on 2026-05-30."
+    source: "Boris Cherny (March 2026, Tier C usage heuristic; the originally-cited page now 403s). Reclassification and benchmark basis: analysis/behavioral-insights.md 'Revalidation (2026-05-30)' — arXiv:2601.15300, Fiction.liveBench, NoLiMa (ICML 2025), arXiv:2510.05381."
+    date: "2026-05-30"
+    revalidate: "2026-11-30"
+    tier: C
   - claim: "MCP servers add 300-800ms baseline latency"
     source: "Nate B. Jones, via analysis/mcp-patterns.md — this doc restates that figure, it does not measure it. Corrected 2026-08-29: the entry previously read source 'MCP patterns analysis' with date 2026-03-01, i.e. it cited a sibling doc and re-dated the figure four months FORWARD of the original 2025-10-15 measurement, so the derived copy looked fresher than its own source and carried an earlier revalidate date than the claim it depends on. Dates and source now inherited from the original."
     date: "2025-10-15"
@@ -168,7 +169,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 
 ### Tier A (Primary Vendor / Expert Practitioner)
 
-- Boris Cherny: context capacity threshold (~60%) — March 2026
+- Boris Cherny: context capacity threshold (~60%) — March 2026. **Reclassified 2026-05-30 in [behavioral-insights.md](behavioral-insights.md), propagated here 2026-08-29**: it is an *intervention heuristic* (Tier C), not a measured degradation onset, and the originally-cited page now 403s. Independent benchmarks put onset far earlier and model-specific. Also under a standing Claude-5 re-measure flag with a tokenizer confound — Sonnet 5 emits ~30% more tokens for the same text, so a percent-of-window threshold is not comparable across that boundary. This doc carried the pre-revalidation wording for three months after the correction was published in a sibling doc.
 - Anthropic: skills documentation (~2% context budget per skill); ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025)
 
 ### Tier B (Validated / Production)
