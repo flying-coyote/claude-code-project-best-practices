@@ -142,7 +142,7 @@ Record the answers in the audit output and treat them as Tier-B evidence (human 
 | Fetch | Signal key | Why |
 |---|---|---|
 | `analysis/evidence-tiers.md` | `audit-always-fetch` | You need the tier definitions to cite recommendations correctly. |
-| `analysis/behavioral-insights.md` | `audit-always-fetch` | Quantified behavioral thresholds (80% CLAUDE.md adherence, 60% context quality threshold, prompt-sensitivity table across model versions) apply to every project. |
+| `analysis/behavioral-insights.md` | `audit-always-fetch` | Quantified behavioral thresholds (80% CLAUDE.md adherence, the 60% context-fill intervention trigger, prompt-sensitivity table across model versions) apply to every project. |
 | `analysis/evidence-based-revalidation.md` | `audit-always-fetch` | Every claim has a half-life; any audit should surface stale-claim risk. |
 
 ## Fetch on Model Version Signal

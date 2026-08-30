@@ -1,0 +1,100 @@
+{
+ "per_probe": {
+  "opus5-rep1": {
+   "served": "claude-opus-5",
+   "EN-small.txt": 4165,
+   "EN-large.txt": 19662,
+   "PY-small.txt": 4098,
+   "PY-large.txt": 24921
+  },
+  "opus5-rep2": {
+   "served": "claude-opus-5",
+   "EN-small.txt": 4158,
+   "EN-large.txt": 19484,
+   "PY-small.txt": 4098,
+   "PY-large.txt": 24921
+  },
+  "sonnet5-rep1": {
+   "served": "claude-sonnet-5",
+   "EN-small.txt": 4821,
+   "EN-large.txt": 19269,
+   "PY-small.txt": 4125,
+   "PY-large.txt": 24937
+  },
+  "sonnet5-rep2": {
+   "served": "claude-sonnet-5",
+   "EN-small.txt": 4497,
+   "EN-large.txt": 19347,
+   "PY-small.txt": 4139,
+   "PY-large.txt": 24937
+  },
+  "fable5-rep1": {
+   "served": "claude-fable-5",
+   "EN-small.txt": 4149,
+   "EN-large.txt": 19232,
+   "PY-small.txt": 4098,
+   "PY-large.txt": 24921
+  },
+  "fable5-rep2": {
+   "served": "claude-fable-5",
+   "EN-small.txt": 4149,
+   "EN-large.txt": 19328,
+   "PY-small.txt": 4098,
+   "PY-large.txt": 24921
+  },
+  "haiku45-rep1": {
+   "served": "claude-haiku-4-5-20251001",
+   "EN-small.txt": 3484,
+   "EN-large.txt": 14277,
+   "PY-small.txt": 3620,
+   "PY-large.txt": 21611
+  },
+  "haiku45-rep2": {
+   "served": "claude-haiku-4-5-20251001",
+   "EN-small.txt": 3585,
+   "EN-large.txt": 14305,
+   "PY-small.txt": 3622,
+   "PY-large.txt": 21596
+  }
+ },
+ "estimates": {
+  "opus5": {
+   "EN_large": 19573,
+   "EN_paired": 15411.5,
+   "PY_large": 24921,
+   "PY_paired": 20823,
+   "served": "claude-opus-5",
+   "n": 2
+  },
+  "sonnet5": {
+   "EN_large": 19308,
+   "EN_paired": 14649,
+   "PY_large": 24937,
+   "PY_paired": 20805,
+   "served": "claude-sonnet-5",
+   "n": 2
+  },
+  "fable5": {
+   "EN_large": 19280,
+   "EN_paired": 15131,
+   "PY_large": 24921,
+   "PY_paired": 20823,
+   "served": "claude-fable-5",
+   "n": 2
+  },
+  "haiku45": {
+   "EN_large": 14291,
+   "EN_paired": 10756.5,
+   "PY_large": 21603.5,
+   "PY_paired": 17982.5,
+   "served": "claude-haiku-4-5-20251001",
+   "n": 2
+  }
+ },
+ "fixture_bytes": {
+  "EN-small.txt": 8000,
+  "EN-large.txt": 48000,
+  "PY-small.txt": 8000,
+  "PY-large.txt": 48000
+ }
+}

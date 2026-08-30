@@ -1,0 +1,287 @@
+#!/usr/bin/env python3
+"""Score a ladder output directory against selected rules. Mechanical only.
+
+Verdict per rule: SAT / VIOL / NA (not applicable) / ERR (artifact missing or
+unparseable — reported, excluded from adherence denominators).
+Usage: score_ladder.py <outdir> [rung|ALL]
+"""
+import ast
+import io
+import json
+import re
+import sys
+import tokenize
+from pathlib import Path
+
+LKEY = json.load(open(Path(__file__).parent / "guides" / "ladder_key.json"))
+
+
+def strip_md_code(text):
+    """Remove fenced blocks, then inline code spans, then URLs."""
+    out, in_fence = [], False
+    for line in text.splitlines():
+        if re.match(r"^\s*(```|~~~)", line):
+            in_fence = not in_fence
+            continue
+        if not in_fence:
+            out.append(line)
+    t = "\n".join(out)
+    t = re.sub(r"`[^`\n]*`", "", t)
+    t = re.sub(r"\]\([^)\n]*\)", "](", t)
+    t = re.sub(r"<?https?://\S+>?", "", t)
+    return t
+
+
+def fences(text):
+    """Return list of (lang, body_lines)."""
+    res, cur, lang, in_f = [], [], None, False
+    for line in text.splitlines():
+        m = re.match(r"^\s*```(\S*)\s*$", line) or re.match(r"^\s*```(\S*)", line)
+        if m and not in_f:
+            in_f, lang, cur = True, m.group(1), []
+        elif re.match(r"^\s*```\s*$", line) and in_f:
+            in_f = False
+            res.append((lang, cur))
+        elif in_f:
+            cur.append(line)
+    return res
+
+
+class Ctx:
+    def __init__(self, outdir):
+        self.dir = Path(outdir)
+        self.files = [p for p in self.dir.rglob("*")
+                      if p.is_file() and not p.name.startswith("_score")]
+        self.readme = self._read("README.md")
+        self.changelog = self._read("CHANGELOG.md")
+        self.pys = sorted(p for p in self.files if p.suffix == ".py")
+        self.py = self.pys[0].read_text(errors="replace") if self.pys else None
+        self.tree = None
+        if self.py is not None:
+            try:
+                self.tree = ast.parse(self.py)
+            except SyntaxError:
+                self.tree = None
+
+    def _read(self, name):
+        p = self.dir / name
+        for c in self.files:
+            if c.name == name:
+                p = c
+                break
+        return p.read_text(errors="replace") if p.exists() else None
+
+    def md(self, spec):
+        for f in spec.split(","):
+            t = self.readme if f == "README.md" else self.changelog
+            yield f, t
+
+
+def h2s(text):
+    return [m.group(1).strip() for m in re.finditer(r"^## (.+)$", text, re.M)]
+
+
+def section(text, name):
+    m = re.search(rf"^## {re.escape(name)}\s*$(.*?)(?=^## |\Z)", text, re.M | re.S)
+    return m.group(1) if m else None
+
+
+# ------------------------------------------------------------- custom checks
+def cap_lumen(c):
+    if not c.readme:
+        return "ERR"
+    bad = 0
+    for _, t in c.md("README.md,CHANGELOG.md"):
+        if t is None:
+            continue
+        p = strip_md_code(t)
+        bad += len(re.findall(r"(?<![\w.$/-])lumen(?![\w.-])", p))
+    return "VIOL" if bad else "SAT"
+
+
+def one_h1_lumen(c):
+    if not c.readme:
+        return "ERR"
+    h1 = re.findall(r"^# (.+)$", c.readme, re.M)
+    return "SAT" if len(h1) == 1 and h1[0].strip() == "Lumen" else "VIOL"
+
+
+def h1_first_line(c):
+    if not c.readme:
+        return "ERR"
+    lines = [ln for ln in c.readme.splitlines() if ln.strip()]
+    return "SAT" if lines and lines[0].startswith("# ") and c.readme.splitlines()[0].startswith("# ") else "VIOL"
+
+
+REQ7 = ["Overview", "Installation", "Usage examples", "Options", "Exit codes", "Development", "License"]
+
+
+def section_order(c):
+    if not c.readme:
+        return "ERR"
+    seq = [t for t in h2s(c.readme) if t in REQ7]
+    return "SAT" if seq == REQ7 else "VIOL"
+
+
+def make_has_h2(name):
+    def f(c):
+        if not c.readme:
+            return "ERR"
+        return "SAT" if name in h2s(c.readme) else "VIOL"
+    return f
+
+
+def ends_license(c):
+    if not c.readme:
+        return "ERR"
+    hs = h2s(c.readme)
+    return "SAT" if hs and hs[-1] == "License" else "VIOL"
+
+
+def options_is_table(c):
+    if not c.readme:
+        return "ERR"
+    sec = section(c.readme, "Options")
+    if sec is None:
+        return "VIOL"
+    return "SAT" if re.search(r"^\s*\|", sec, re.M) else "VIOL"
+
+
+def options_3col(c):
+    if not c.readme:
+        return "ERR"
+    sec = section(c.readme, "Options")
+    if sec is None:
+        return "VIOL"
+    for line in sec.splitlines():
+        if line.strip().startswith("|") and "---" not in line:
+            cells = [x.strip() for x in line.strip().strip("|").split("|")]
+            return "SAT" if cells == ["Option", "Argument", "Description"] else "VIOL"
+    return "VIOL"
+
+
+def three_invocations(c):
+    if not c.readme:
+        return "ERR"
+    n = 0
+    for lang, body in fences(c.readme):
+        for ln in body:
+            if re.match(r"^\s*(\$\s+)?(python3?\s+)?(lumen|\./lumen\.py|lumen\.py)\b", ln):
+                n += 1
+    return "SAT" if n >= 3 else "VIOL"
+
+
+def bullets_star(c):
+    star = dash = 0
+    for _, t in c.md("README.md,CHANGELOG.md"):
+        if t is None:
+            continue
+        out, in_f = [], False
+        for line in t.splitlines():
+            if re.match(r"^\s*```", line):
+                in_f = not in_f
+                continue
+            if in_f:
+                continue
+            if re.match(r"^\s*\* ", line):
+                star += 1
+            if re.match(r"^\s*- ", line):
+                dash += 1
+    if star + dash == 0:
+        return "NA"
+    return "SAT" if dash == 0 else "VIOL"
+
+
+def fences_have_lang(c):
+    total = missing = 0
+    for _, t in c.md("README.md,CHANGELOG.md"):
+        if t is None:
+            continue
+        for lang, _b in fences(t):
+            total += 1
+            if not lang:
+                missing += 1
+    if total == 0:
+        return "NA"
+    return "SAT" if missing == 0 else "VIOL"
+
+
+SHELLISH = {"bash", "sh", "shell", "zsh", "shell-session"}
+
+
+def fences_console(c):
+    if not c.readme:
+        return "ERR"
+    langs = [lang for lang, _ in fences(c.readme)] + ([lang for lang, _ in fences(c.changelog)] if c.changelog else [])
+    if any(l in SHELLISH for l in langs):
+        return "VIOL"
+    return "SAT" if "console" in langs else "NA"
+
+
+def prompt_marker(c):
+    if not c.readme:
+        return "ERR"
+    seen = ok = 0
+    for lang, body in fences(c.readme):
+        if lang in SHELLISH or lang == "console":
+            seen += 1
+            first = next((ln for ln in body if ln.strip()), "")
+            if first.startswith("$ "):
+                ok += 1
+    if seen == 0:
+        return "NA"
+    return "SAT" if ok == seen else "VIOL"
+
+
+def output_text_fence(c):
+    if not c.readme:
+        return "ERR"
+    langs = [lang for lang, _ in fences(c.readme)]
+    if "text" in langs:
+        return "SAT"
+    if "" in langs:
+        return "VIOL"
+    return "NA"
+
+
+def no_html(c):
+    for _, t in c.md("README.md,CHANGELOG.md"):
+        if t is None:
+            continue
+        p = strip_md_code(t)
+        if re.search(r"<(?!https?:)[a-zA-Z][^>\n]*>", p):
+            return "VIOL"
+    return "SAT"
+
+
+def filenames_backticked(c):
+    if not c.readme:
+        return "ERR"
+    p = strip_md_code(c.readme)
+    return "VIOL" if re.search(r"(?<![`\w/])(lumen\.py|CHANGELOG\.md|README\.md)\b", p) else "SAT"
+
+
+def table_align_colons(c):
+    found = bad = 0
+    for _, t in c.md("README.md,CHANGELOG.md"):
+        if t is None:
+            continue
+        for line in t.splitlines():
+            if re.match(r"^\s*\|[\s:|-]+\|\s*$", line) and "-" in line:
+                found += 1
+                if ":" not in line:
+                    bad += 1
+    if not found:
+        return "NA"
+    return "SAT" if bad == 0 else "VIOL"
+
+
+def line_length_100(c):
+    if not c.readme:
+        return "ERR"
+    in_f = False
+    for line in c.readme.splitlines():
+        if re.match(r"^\s*```", line):
+            in_f = not in_f
+            continue
+        if in_f or "|" in line or

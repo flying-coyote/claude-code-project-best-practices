@@ -153,7 +153,7 @@ See [ONE-LINE-PROMPT.md](ONE-LINE-PROMPT.md) for the full output format, worked-
 ## Key Findings (Selected)
 
 - **CLAUDE.md is followed ~80% of the time** — use hooks for 100% enforcement (Boris Cherny, March 2026).
-- **Context quality degrades at 60% capacity, not when full** — proactive intervention saves quality.
+- **60% context fill is an intervention trigger, not a measured degradation onset** — reclassified 2026-05-30; independent benchmarks put the onset earlier and model-specific ([Behavioral Insights](analysis/behavioral-insights.md)).
 - **Opus 4.7 interprets prompts literally, and the posture persists through Opus 5** — 4.6-tuned prompts with vague descriptors, edge-case gestures, or unanchored triggers may silently no-op ([Anthropic migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide), April 2026). Opus 5 (July 2026) then *reverses* two 4.x-era remediations: it delegates to subagents readily (cap it explicitly) and self-verifies without instruction (delete carried-over verification scaffolding).
 - **Skills were 50% cheaper than equivalent MCP in Tenzir's pre-tool-search A/B** (January 2026, historical) — the live per-category cost signal is first-party `/usage` now; the durable point is the controlled same-workflow comparison an observational monitor can't produce.
 - **Auto mode approves 93% of tool calls** — viable for most workflows (Anthropic, March 2026).
