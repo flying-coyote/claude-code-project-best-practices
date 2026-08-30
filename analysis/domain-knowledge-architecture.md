@@ -8,7 +8,7 @@ measurement-claims:
     date: "2026-03-19"
     revalidate: "2026-09-19"
   - claim: "60% context fill is a practitioner INTERVENTION HEURISTIC, not a measured degradation onset. Published benchmarks put onset far earlier and model-specific — roughly 16-64k tokens, ~20-50% on a 1M-context model. Carried here as 'Quality degrades at 60% context capacity' until 2026-08-29, which is precisely the misreading behavioral-insights.md corrected on 2026-05-30."
-    source: "Boris Cherny (March 2026, Tier C usage heuristic; the originally-cited page now 403s). Reclassification and benchmark basis: analysis/behavioral-insights.md 'Revalidation (2026-05-30)' — arXiv:2601.15300, Fiction.liveBench, NoLiMa (ICML 2025), arXiv:2510.05381."
+    source: "Boris Cherny (March 2026, Tier C usage heuristic; the originally-cited page now 403s). Reclassification and benchmark basis: analysis/behavioral-insights.md 'Revalidation (2026-05-30)' — arXiv:2601.15300, Fiction.liveBench, NoLiMa (ICML 2025), arXiv:2510.05381. Same derivative-drift shape as the MCP-latency entry below, corrected 2026-08-29 for the same reason: a sibling doc's correction that this doc never read."
     date: "2026-05-30"
     revalidate: "2026-11-30"
     tier: C
@@ -36,7 +36,7 @@ This is the companion document to [Harness Engineering](./harness-engineering.md
 
 ## The Problem, In Brief
 
-Domain-heavy projects — security rule ecosystems, infrastructure-as-code, regulatory compliance — fail in three ways: the LLM can't find resources that already exist and reinvents them; loading enough domain knowledge to be useful pushes context past the ~60% capacity threshold where quality degrades ([Behavioral Insights](./behavioral-insights.md)); and different sessions produce different approaches to the same problem absent an enforced methodology. Skills and CLAUDE.md now solve the top-level split (methodology vs. always-on context) by default. What's left unsolved is *findability inside a domain* — pointing an agent at the right rule file, typed note, or live lookup without loading the domain into context up front. That's what the rest of this document covers.
+Domain-heavy projects — security rule ecosystems, infrastructure-as-code, regulatory compliance — fail in three ways: the LLM can't find resources that already exist and reinvents them; loading enough domain knowledge to be useful pushes context past the ~60% fill mark at which practitioners intervene — a Tier C intervention heuristic, not a measured degradation onset, and independent benchmarks put the onset earlier still ([Behavioral Insights](./behavioral-insights.md)); and different sessions produce different approaches to the same problem absent an enforced methodology. Skills and CLAUDE.md now solve the top-level split (methodology vs. always-on context) by default. What's left unsolved is *findability inside a domain* — pointing an agent at the right rule file, typed note, or live lookup without loading the domain into context up front. That's what the rest of this document covers.
 
 ---
 
@@ -169,7 +169,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 
 ### Tier A (Primary Vendor / Expert Practitioner)
 
-- Boris Cherny: context capacity threshold (~60%) — March 2026. **Reclassified 2026-05-30 in [behavioral-insights.md](behavioral-insights.md), propagated here 2026-08-29**: it is an *intervention heuristic* (Tier C), not a measured degradation onset, and the originally-cited page now 403s. Independent benchmarks put onset far earlier and model-specific. Also under a standing Claude-5 re-measure flag with a tokenizer confound — Sonnet 5 emits ~30% more tokens for the same text, so a percent-of-window threshold is not comparable across that boundary. This doc carried the pre-revalidation wording for three months after the correction was published in a sibling doc.
+- Boris Cherny: context capacity threshold (~60%) — March 2026. **Reclassified 2026-05-30 in [behavioral-insights.md](behavioral-insights.md), propagated here 2026-08-29**: it is an *intervention heuristic* (Tier C), not a measured degradation onset, and the originally-cited page now 403s. Independent benchmarks put onset far earlier and model-specific. Also under a standing Claude-5 re-measure flag with a tokenizer confound — the tokenizer confound is now measured in-harness (2026-08-30): Opus 5, Sonnet 5 and Fable 5 share one tokenizer generation, costing ~+35-43% (English prose) and ~+15% (Python) more tokens than Haiku 4.5 for identical bytes, so a percent-of-window threshold is not comparable across that boundary. This doc carried the pre-revalidation wording for three months after the correction was published in a sibling doc. The body prose went uncorrected even by that pass and was fixed 2026-08-30.
 - Anthropic: skills documentation (~2% context budget per skill); ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025)
 
 ### Tier B (Validated / Production)

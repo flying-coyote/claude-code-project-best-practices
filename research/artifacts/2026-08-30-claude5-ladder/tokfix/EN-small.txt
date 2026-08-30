@@ -1,0 +1,87 @@
+evidence-tier: Mixed
+
+measurement-claims:
+
+    source: "Controlled probe session, this repo — raw record research/fable-probe-session-2026-07-16.md"
+
+    date: "2026-07-16"
+
+    revalidate: "2027-01-16"
+
+    source: "Controlled probe session, this repo — raw record research/probe-session-2026-07-18.md Part 3"
+
+    date: "2026-07-18"
+
+    revalidate: "2027-01-18"
+
+    source: "Controlled probe session, this repo — raw record research/fable-probe-session-2026-07-16.md (2026-07-17 addendum)"
+
+    date: "2026-07-17"
+
+    revalidate: "2027-01-17"
+
+applies-to-signals: [audit-always-fetch, model-version-migration, model-version-4-8, model-version-opus-5, model-version-sonnet-5]
+
+convergence: single-source
+
+last-verified: 2026-08-29
+
+revalidate-by: 2027-02-13
+
+status: PRODUCTION
+
+follows: "ClaudeLog (claudelog.com, community Claude Code mechanics documentation by InventorBlack — Anthropic Developer Ambassador; Tier C with author-authority note, verified 2026-08-29: site ALIVE — changelog current through 2026-08-23 and v2.1.2xx features covered, but the foundational Mechanics pillar pages this lane leans on are stale at Jan–Feb 2026, not yet rewritten for the Claude 5 era) — the 'how Claude Code behaves' mechanics-explainer lane. Bar status: fails Supported-as-replacement (docs site, no release discipline; uneven update cadence between changelog/FAQ and Mechanics pillars). Delta kept here: the quantified measurements — 80% CLAUDE.md adherence, 60% context threshold, ~150-instruction budget (all Opus-4.x-era; first bounded Fable data point 2026-07-16, realistic-diversity re-measure delivered 2026-07-18, and no Claude 5-family — Opus 5 / Sonnet 5 — arm run at all). Advance trigger: ClaudeLog or Anthropic publishing measured adherence/threshold data — re-checked 2026-08-29, NOT fired (still no percentages/thresholds anywhere on the site)."
+
+**Evidence Tier**: Mixed (A-B) — Quantified claims from Boris Cherny, Anthropic engineering blog, and practitioner observation
+
+This document collects **quantified behavioral observations** about Claude Code that aren't obvious from documentation alone. These are the "gotchas" and calibration points that distinguish effective usage from naive usage.
+
+**Convergence note**: the frontmatter rates this doc's function `single-source`; where a recommendation here would drive new infrastructure adoption rather than calibrating native Claude Code usage, adoption requires converged status or an explicit owner exception.
+
+**Key insight**: Quality degrades *before* the context window fills. The 60% mark is where Boris recommends proactive intervention (pre-Fable measurement, March 2026 — re-measure open).
+
+"Context rot" = performance degradation as context fills, *beyond what benchmarks capture*. Standard benchmarks test needle-in-haystack retrieval, not holistic reasoning over accumulated context.
+
+**Observable symptoms**:
+
+**Mitigation approaches** (ranked by validation):
+
+1. **Fresh sessions** — Most validated (GSD pattern, Anthropic guidance)
+
+2. **Document & Clear** — Externalize findings, then start fresh (Boris Cherny)
+
+3. **Subagent delegation** — Offload work to fresh-context subagents
+
+4. **Recursive decomposition** — Process context in partitioned chunks (RLM-inspired, not yet Claude-validated)
+
+Boris Cherny reports CLAUDE.md instructions are followed approximately 80% of the time (pre-Fable measurement, March 2026 — re-measure open). This means:
+
+AI conversations suffer from four knowledge quadrants (adapted from CAII/skribblez2718):
+
+**Practical implication**: For complex tasks (3+ files, architecture decisions), explicitly surface assumptions *before* implementation. The SAAE protocol (Share-Ask-Acknowledge-Explore) reduces "that's not what I meant" rework.
+
+**Implication**: Choose your AI tool based on how well you can specify the task, not just which tool is "better."
+
+The ~150 instruction cap is now independently validated by multiple high-authority sources (pre-Fable measurement — re-measure open):
+
+This upgrades the claim from single-source expert guidance to **convergent practitioner evidence** — different practitioners, different data sources, same conclusion. The cap appears to be a genuine behavioral boundary, not an artifact of one person's workflow.
+
+**Recommendations**:
+
+Prompt sensitivity is not uniform across the Opus family — what works on one version can silently degrade on the next, and one release's remediation can become the next release's defect. Cross-version diagnostic table:
+
+**Sonnet 5 note (Tier A)** — Sonnet 5 (`claude-sonnet-5`) is the Claude Code default model and is priced $2/$10 per MTok permanently as of 2026-08-10. Two items bear on *this* doc rather than on prompt phrasing:
+
+1. **New tokenizer, ~30% more tokens.** Verbatim: "The same input text produces approximately 30% more tokens than on Claude Sonnet 4.6." This shifts every token-denominated threshold — including the 60% context-fill heuristic, whose denominator is tokens — so percent-of-window figures measured before the tokenizer change are not like-for-like with figures measured after it. Source: [What's new — Sonnet 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5) (Tier A, fetched 2026-08-13); independently corroborated by Willison's own counts (~1.4x English, 1.33x Spanish, 1.28x Python — Tier B, [simonwillison.net, 2026-06-30](https://simonwillison.net/2026/Jun/30/claude-sonnet-5/)).
+
+2. **Sampling parameters locked.** Non-default `temperature` / `top_p` / `top_k` return 400. A harness that tuned determinism or variety through `temperature` must steer by prompt instead.
+
+**Harness-side note (Tier A, Claude Code v2.1.219, 2026-07-24)** — the release that made Opus 5 the default Opus model also raised **nested subagent depth from 1 to 3 by default**. The readier-delegation behavior in the Opus 5 row therefore compounds with a harness that now lets subagents spawn subagents two levels deeper than before: state the delegation cap in prompt text *and* check it against the harness setting.
+
+The Anthropic migration guide states explicitly:
+
+The [4.8 docs](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8) describe 4.8 as targeting "better tool triggering" ("less likely to skip a tool call the task required, an issue some users reported on Claude Opus 4.7") and "better compaction handling and long-context quality" ("long agentic traces stay on task with fewer derailments after compaction"). 4.8 is a calibration release on top of the 4.7 posture, not a reversal of it.
+
+**Selective literalism caveat** (Willison, April 18, 2026): 4.7 is tuned to be *less* literal about clarifying-question behavior — the leaked system prompt instructs Claude to "make a reasonable attempt now, not... be interviewed first." Audits that treat literalism as uniform will over-correct.
+
+**Sycophancy on 4.8 — direction is contested, and the tiers point opposite ways.** Launch-day user reports (Reddit / AI-newsletter anecdote) flagged *sharper* sycophancy on 4.8 (Tier C, anecdotal, no benchmark). Anthropic's own evals report the **opposite** direction: 4.8 is "an improvement over Opus 4.7 on most alignment measures," honesty in agentic settings "markedly improved," and in the third-party Petri 3.0 run it was "the best-aligned publicly accessible model by nearly all these metrics" (Tier A, Opus 4.8 system card; the launch news adds that misaligned behavior is "substantially lower than Opus 4.7"). The *only* "up" signal in Anthropic's own material is a qualitative pilot-feedback line noting "Mild sycophancy," which the card explicitly flags as **not consistent with the quantitative trends**. Net: do **not** assert a numeric sycophancy increase on 4.8. The honest statement is "launch-day user reports flagged sharper sycophancy (Tier C, anecdotal); Anthropic's own evals report the opposite direction (Tier A)." **Opus 5 direction resolved from the card (read 2026-08-29, Tier A)**: the automated behavioral audit's 

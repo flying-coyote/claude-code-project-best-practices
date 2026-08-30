@@ -1,0 +1,767 @@
+{
+ "fable5-K100-r1": {
+  "models": {
+   "claude-fable-5": 14
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 14
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 3,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-K100-r2": {
+  "models": {
+   "claude-fable-5": 20
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 20
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 3,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-K100-r3": {
+  "models": {
+   "claude-fable-5": 16
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 16
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 5,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-K200-r1": {
+  "models": {
+   "claude-fable-5": 15
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 15
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 2,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-K200-r2": {
+  "models": {
+   "claude-fable-5": 14
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 14
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 4,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-K200-r3": {
+  "models": {
+   "claude-fable-5": 17
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 17
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 4,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-K25-r1": {
+  "models": {
+   "claude-fable-5": 13
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 13
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 2,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-K25-r2": {
+  "models": {
+   "claude-fable-5": 13
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 13
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 1,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-K25-r3": {
+  "models": {
+   "claude-fable-5": 13
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 13
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 2,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-K50-r1": {
+  "models": {
+   "claude-fable-5": 12
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 12
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 2,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-K50-r2": {
+  "models": {
+   "claude-fable-5": 12
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 12
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 2,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-K50-r3": {
+  "models": {
+   "claude-fable-5": 18
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 18
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 3,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-base-r1": {
+  "models": {
+   "claude-fable-5": 10
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 10
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 0,
+  "assist_text_blocks": 3,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-base-r2": {
+  "models": {
+   "claude-fable-5": 13
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 13
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 0,
+  "assist_text_blocks": 4,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "fable5-base-r3": {
+  "models": {
+   "claude-fable-5": 11
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 11
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 0,
+  "assist_text_blocks": 3,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K100-r1": {
+  "models": {
+   "claude-opus-5": 25
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 25
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 5,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K100-r2": {
+  "models": {
+   "claude-opus-5": 28
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 28
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 8,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K100-r3": {
+  "models": {
+   "claude-opus-5": 23
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 23
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 4,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K200-r1": {
+  "models": {
+   "claude-opus-5": 37
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 37
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 4,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K200-r2": {
+  "models": {
+   "claude-opus-5": 21
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 21
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 4,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K200-r3": {
+  "models": {
+   "claude-opus-5": 18
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 18
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 3,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K25-r1": {
+  "models": {
+   "claude-opus-5": 26
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 26
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 3,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K25-r2": {
+  "models": {
+   "claude-opus-5": 30
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 30
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 4,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K25-r3": {
+  "models": {
+   "claude-opus-5": 28
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 28
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 5,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K50-r1": {
+  "models": {
+   "claude-opus-5": 22
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 22
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 4,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K50-r2": {
+  "models": {
+   "claude-opus-5": 25
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 25
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 6,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-K50-r3": {
+  "models": {
+   "claude-opus-5": 24
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 24
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 0,
+  "assist_text_blocks": 5,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-base-r1": {
+  "models": {
+   "claude-opus-5": 39
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 39
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 0,
+  "assist_text_blocks": 4,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-base-r2": {
+  "models": {
+   "claude-opus-5": 20
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 20
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 0,
+  "assist_text_blocks": 2,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "opus5-base-r3": {
+  "models": {
+   "claude-opus-5": 50
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 50
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 0,
+  "assist_text_blocks": 12,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K100-r1": {
+  "models": {
+   "claude-sonnet-5": 36
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 36
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 3,
+  "n_writes": 1,
+  "assist_text_blocks": 6,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K100-r2": {
+  "models": {
+   "claude-sonnet-5": 41
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 41
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 6,
+  "n_writes": 5,
+  "assist_text_blocks": 5,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K100-r3": {
+  "models": {
+   "claude-sonnet-5": 45
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 45
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 4,
+  "n_writes": 6,
+  "assist_text_blocks": 9,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K200-r1": {
+  "models": {
+   "claude-sonnet-5": 43
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 43
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 2,
+  "n_writes": 4,
+  "assist_text_blocks": 4,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K200-r2": {
+  "models": {
+   "claude-sonnet-5": 41
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 41
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 3,
+  "n_writes": 2,
+  "assist_text_blocks": 3,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K200-r3": {
+  "models": {
+   "claude-sonnet-5": 38
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 38
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 4,
+  "n_writes": 1,
+  "assist_text_blocks": 9,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K25-r1": {
+  "models": {
+   "claude-sonnet-5": 43
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 43
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 4,
+  "n_writes": 8,
+  "assist_text_blocks": 8,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K25-r2": {
+  "models": {
+   "claude-sonnet-5": 38
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 38
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 3,
+  "n_writes": 5,
+  "assist_text_blocks": 8,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K25-r3": {
+  "models": {
+   "claude-sonnet-5": 31
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 31
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 4,
+  "assist_text_blocks": 8,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K50-r1": {
+  "models": {
+   "claude-sonnet-5": 35
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 35
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 3,
+  "n_writes": 6,
+  "assist_text_blocks": 4,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K50-r2": {
+  "models": {
+   "claude-sonnet-5": 27
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 27
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 3,
+  "assist_text_blocks": 7,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-K50-r3": {
+  "models": {
+   "claude-sonnet-5": 22
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 22
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 2,
+  "n_writes": 1,
+  "assist_text_blocks": 1,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-base-r1": {
+  "models": {
+   "claude-sonnet-5": 22
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 22
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 1,
+  "n_writes": 2,
+  "assist_text_blocks": 5,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-base-r2": {
+  "models": {
+   "claude-sonnet-5": 12
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 12
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 0,
+  "assist_text_blocks": 2,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ },
+ "sonnet5-base-r3": {
+  "models": {
+   "claude-sonnet-5": 10
+  },
+  "all_expected_model": true,
+  "effort": {
+   "xhigh": 10
+  },
+  "guide_read_ok": true,
+  "baseline_guide_contamination": false,
+  "n_reads": 0,
+  "n_writes": 0,
+  "assist_text_blocks": 2,
+  "compaction_markers": [],
+  "missing_deliverables": [],
+  "GATE": "PASS"
+ }
+}
