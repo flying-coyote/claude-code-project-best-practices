@@ -112,6 +112,27 @@ now in `PATTERNS`, both feeders were already deleted (`d9e484d`, `4875ed5`) so
 nothing refills them, and the completion notice now reconciles unmatched issues
 against the repo instead of only against what it matched.
 
+**Second correction (2026-08-31) — the reconciliation was still not enough.** The
+apply run closed 55 and reported *"every open issue was accounted for — the backlog
+is drained."* It was not. That run **scanned 56 of 61** open issues; a re-run
+scanned **1 of 6**, and both missed the *same five* (#689, #683, #646, #561, #554 —
+all matching a pattern, all comment-free, all untouched since May 2026). The
+2026-08-29 reconciliation compares *matched* against *scanned*, so when the listing
+under-returns, `unmatched` is 0, every internal count agrees, and the all-clear is
+vacuous — the same pathology one level below where it was just fixed.
+
+The completion notice now cross-checks against a **different endpoint**:
+`repos.get().open_issues_count` minus the open PR count is how many open issues the
+repository itself reports. If the listing returned fewer, the run says so, names the
+shortfall, and **never** claims the backlog is drained; if that endpoint is
+unavailable, it says completeness could not be verified rather than implying it was.
+Proven failure-capable: neutralise the check and 3 of 58 tests fail, with the notice
+reverting to the exact false all-clear seen in production.
+
+**The cause of the listing shortfall is not established.** The check deliberately
+does not depend on knowing it — it only has to refuse to declare a victory it cannot
+verify. The five issues above are still open.
+
 **Set the `Mode` dropdown to `APPLY - actually close the matched issues`.** It
 defaults to dry-run, and dry-run closes nothing.
 
