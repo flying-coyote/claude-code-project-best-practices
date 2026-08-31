@@ -258,6 +258,60 @@ jobs:
             core.info(`skipped ${skippedCommented} that carry a human comment`);
             core.info(`unmatched by any pattern: ${unmatched} (standing issue kept: ${keptStanding})`);
 
+            // INDEPENDENT COMPLETENESS CHECK — added 2026-08-31.
+            //
+            // Everything above is derived from ONE listing. `unmatched` reconciles
+            // matched-against-scanned, which is only meaningful if `scanned` is the
+            // whole repo. It is not always: on 2026-08-31 run 13 scanned 56 of 61
+            // open issues and run 14 scanned 1 of 6, missing the SAME five both
+            // times (#689, #683, #646, #561, #554 — all pattern-matching, all
+            // comment-free, all untouched since May 2026). Both runs printed
+            // "every open issue was accounted for — the backlog is drained".
+            //
+            // That is the same all-clear-that-cannot-see-its-subject pathology this
+            // workflow exists to cure, one level below where 2026-08-29 fixed it:
+            // when the listing under-returns, every internal count agrees with every
+            // other and the reconciliation is vacuous.
+            //
+            // So reconcile against a DIFFERENT code path. repos.get() reports
+            // open_issues_count (issues + PRs) from a separate endpoint; subtract the
+            // open PRs and the remainder is how many open issues the repo believes it
+            // has. If the listing returned fewer, it is incomplete and NOTHING below
+            // may claim the backlog is drained.
+            //
+            // The cause of the shortfall is NOT established. This check does not
+            // depend on knowing it — it only has to refuse to declare victory it
+            // cannot verify.
+            let expectedIssues = null, shortfall = 0;
+            try {
+              const { data: repoMeta } = await github.rest.repos.get({
+                owner: context.repo.owner, repo: context.repo.repo,
+              });
+              let openPRs = 0;
+              for (let pp = 1; pp <= 30; pp++) {
+                const { data } = await github.rest.pulls.list({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  state: 'open', per_page: 100, page: pp,
+                });
+                if (!data.length) break;
+                openPRs += data.length;
+              }
+              expectedIssues = repoMeta.open_issues_count - openPRs;
+              shortfall = expectedIssues - scanned;
+              core.info(`repo reports ${expectedIssues} open issue(s) (${repoMeta.open_issues_count} incl. ${openPRs} PR(s)); listing returned ${scanned}`);
+            } catch (e) {
+              // Unverifiable is not the same as verified. Say so, and suppress the
+              // all-clear either way.
+              core.warning(`Could not verify listing completeness: ${e.status || '?'} ${e.message}`);
+              expectedIssues = null;
+            }
+            if (expectedIssues !== null && shortfall > 0) {
+              core.warning(
+                `LISTING INCOMPLETE: the repository reports ${expectedIssues} open issue(s) but ` +
+                `the issues listing returned only ${scanned}. ${shortfall} open issue(s) were never ` +
+                `scanned, so they were neither matched nor closed. Do not treat this run as a drain.`);
+            }
+
             if (!APPLY) {
               const thisRun = Math.min(toClose.length, LIMIT);
               const runsNeeded = toClose.length ? Math.ceil(toClose.length / LIMIT) : 0;
@@ -357,5 +411,14 @@ jobs:
                       'family in PATTERNS if they are not — this workflow matches on titles ' +
                       'and cannot tell the two apart. Read them before concluding the backlog ' +
                       'is drained.'
-                    : ' Nothing left matching, and every open issue was accounted for — the backlog is drained.'))
+                    : (expectedIssues === null
+                        ? ' Nothing left matching among the issues this run could see, but listing' +
+                          ' completeness could NOT be verified (see the warning above) — this is not' +
+                          ' an all-clear.'
+                        : shortfall > 0
+                          ? ` Nothing left matching among the ${scanned} issue(s) this run could see —` +
+                            ` but the repository reports ${expectedIssues} open, so ${shortfall} were` +
+                            ' never scanned. The backlog is NOT drained; re-run, and if the shortfall' +
+                            ' persists the listing itself is dropping issues.'
+                          : ' Nothing left matching, and every open issue was accounted for — the backlog is drained.')))
             );

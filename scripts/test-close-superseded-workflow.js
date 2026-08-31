@@ -83,7 +83,14 @@ function makeRepo() {
 }
 
 async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = false,
-                    failAfter, failStatus, failMessage, failEvery, issues}) {
+                    failAfter, failStatus, failMessage, failEvery, issues,
+                    // Listing-completeness knobs, added 2026-08-31. `hideFromListing`
+                    // makes listForRepo silently omit the last N open issues while
+                    // repos.get() still counts them — which is exactly what the real
+                    // API did on runs 13 and 14 (56 of 61, then 1 of 6, the same five
+                    // missing both times). `repoMetaThrows` models the endpoint being
+                    // unavailable, where "unverified" must not read as "verified".
+                    hideFromListing = 0, repoMetaThrows = false}) {
   // `issues` overrides the default fixture, so a test can exercise a repo shape
   // makeRepo() does not produce — e.g. one where nothing is unmatched, which is
   // the only way to prove the all-clear branch is still reachable.
@@ -93,9 +100,26 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = fa
   let contentCalls = 0;
   const notices = [], warnings = [], infos = [];
 
-  const github = {rest: {issues: {
+  const liveIssues = () => repo.filter(i => !closedSet.has(i.number) && !i.pull_request);
+  const livePRs = () => repo.filter(i => !closedSet.has(i.number) && i.pull_request);
+  const github = {rest: {
+    repos: {
+      get: async () => {
+        if (repoMetaThrows) { const e = new Error('Not Found'); e.status = 404; throw e; }
+        // open_issues_count counts issues AND pull requests, and it is derived
+        // from the repository record rather than from the issues listing — which
+        // is the whole point of using it to cross-check.
+        return {data: {open_issues_count: liveIssues().length + livePRs().length}};
+      },
+    },
+    pulls: {
+      list: async ({per_page, page}) => ({data: livePRs().slice((page-1)*per_page, page*per_page)}),
+    },
+    issues: {
     listForRepo: async ({per_page, page}) => {
-      const live = repo.filter(i => !closedSet.has(i.number));
+      let live = repo.filter(i => !closedSet.has(i.number));
+      // Drop the tail so the listing under-returns while repos.get() does not.
+      if (hideFromListing > 0) live = live.slice(0, Math.max(0, live.length - hideFromListing));
       return {data: live.slice((page-1)*per_page, page*per_page)};
     },
     createComment: async ({issue_number}) => {
@@ -272,6 +296,59 @@ async function run({apply, limit, comment, delay_ms, rateLimitAfter, viaEnv = fa
           /every open issue was accounted for/.test(clean.notices[0]), clean.notices[0]);
     check('the standing issue alone does not block the all-clear',
           clean.closed === 12, `closed=${clean.closed}`);
+  }
+
+  // LISTING COMPLETENESS — added 2026-08-31, from a defect observed in production.
+  //
+  // Runs 13 and 14 of this workflow scanned 56 of 61 and then 1 of 6 open issues,
+  // missing the SAME five both times (#689, #683, #646, #561, #554: all
+  // pattern-matching, all comment-free, all untouched since May 2026). Both runs
+  // printed "every open issue was accounted for — the backlog is drained".
+  //
+  // The 2026-08-29 reconciliation could not catch it: it compares matched against
+  // scanned, and when the listing under-returns, `unmatched` is 0 and every
+  // internal count agrees. Only a cross-check against a DIFFERENT endpoint sees it.
+  {
+    const mk = () => {
+      const arr = []; let m = 700;
+      for (let i = 0; i < 10; i++)
+        arr.push({number: m--, title: '\u{1F91D} Community engagement triage - May 12, 2026', comments: 0});
+      arr.push({number: m--, title: '\u{1F517} Standing report: broken links in documentation', comments: 0});
+      return arr;
+    };
+    const APPLY = 'APPLY - actually close the matched issues';
+
+    // Listing hides 4 open issues that repos.get() still counts.
+    const blind = await run({apply: APPLY, limit: '900', comment: 'false', delay_ms: '0',
+                             issues: mk(), hideFromListing: 4});
+    check('under-returning listing does NOT claim the backlog is drained',
+          !/backlog is drained/.test(blind.notices[0] || ''), blind.notices[0]);
+    check('under-returning listing names the unscanned count',
+          /never scanned/.test(blind.notices[0] || ''), blind.notices[0]);
+    check('under-returning listing raises a LISTING INCOMPLETE warning',
+          blind.warningsList.some(w => /LISTING INCOMPLETE/.test(w)),
+          JSON.stringify(blind.warningsList));
+
+    // Unverifiable must not read as verified.
+    const unver = await run({apply: APPLY, limit: '900', comment: 'false', delay_ms: '0',
+                             issues: mk(), repoMetaThrows: true});
+    check('unverifiable completeness does NOT claim the backlog is drained',
+          !/backlog is drained/.test(unver.notices[0] || ''), unver.notices[0]);
+    check('unverifiable completeness says so explicitly',
+          /could NOT be verified/i.test(unver.notices[0] || ''), unver.notices[0]);
+    check('unverifiable completeness warns',
+          unver.warningsList.some(w => /Could not verify listing completeness/.test(w)),
+          JSON.stringify(unver.warningsList));
+
+    // ...and the check must not fire when the listing IS complete, or it would be
+    // a check that can only ever say "not drained".
+    const ok = await run({apply: APPLY, limit: '900', comment: 'false', delay_ms: '0',
+                          issues: mk()});
+    check('complete listing still reaches the all-clear',
+          /every open issue was accounted for/.test(ok.notices[0] || ''), ok.notices[0]);
+    check('complete listing raises no completeness warning',
+          !ok.warningsList.some(w => /LISTING INCOMPLETE|Could not verify/.test(w)),
+          JSON.stringify(ok.warningsList));
   }
 
   // The two families that made up 55 of the real 61-issue backlog and that no
