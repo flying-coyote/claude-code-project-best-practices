@@ -86,6 +86,11 @@ Bulleted list of what triggered each fetch. Example:
 - [ ] ~/.claude/scheduled-tasks/ — {count — Desktop scheduled tasks, host-level}
 - [ ] .claude/worktrees/ or worktree.bgIsolation — {yes/no — background-session isolation}
 - [ ] .claude/workflows/*.js — {count — saved dynamic-workflow scripts}
+- [ ] .mcp.json servers — {N total: pinned / unpinned (`npx`/`uvx` without exact version or `@latest`) / remote (`url`)}
+- [ ] repo self-approval or API redirect — {`enableAllProjectMcpServers`/`enabledMcpjsonServers`/`ANTHROPIC_BASE_URL` in committed settings: yes/no}
+- [ ] hooks with network or shell-pipe commands — {N}; any `onFailure: "block"` — {yes/no}
+- [ ] skills/commands with `allowed-tools: Bash` or `` !`cmd` `` — {N}; hidden Unicode hits — {N}
+- [ ] agents with no `tools:` (inherit all) — {N}
 
 ## Session Quality (`/insights` + `claude doctor`, both first-party)
 
@@ -193,7 +198,7 @@ Routing via [AUDIT-CONTEXT.md](AUDIT-CONTEXT.md) fixes all three: advisories mat
 
 Append one of these to narrow the audit:
 
-- `...focus on security patterns` — bias routing toward `safety-and-sandboxing.md`, `secure-code-generation.md`, `mcp-patterns.md`.
+- `...focus on security patterns` — bias routing toward `safety-and-sandboxing.md`, `secure-code-generation.md`, `mcp-patterns.md`, `ai-tool-vetting.md`.
 - `...focus on agent architecture` — bias routing toward `harness-engineering.md`, `orchestration-comparison.md`, `agent-evaluation.md`.
 - `...focus on Opus 5 / Opus 5.5 migration readiness` — force-fetch `model-migration-anti-patterns.md` and `safety-and-sandboxing.md` regardless of model-version detection. Useful for pre-upgrade audits (Opus 5 keeps the literal-interpretation anti-patterns but *reverses* the explicit-dispatch and add-verification remediations — cap delegation, delete carried-over verification scaffolding — and hard-fails `thinking: disabled` at effort `xhigh`/`max`; Opus 5.5 keeps the Opus 5 posture, defaults to `medium` effort and rejects `thinking: disabled` at every effort; 4.8-era audits: 4.8 keeps 4.7's anti-patterns, adds an extended-thinking-budget 400 break, and regressed on prompt-injection robustness).
 - `...compare against {other repo path}` — runs the audit twice and produces a diff.

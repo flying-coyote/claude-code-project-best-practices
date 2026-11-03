@@ -78,6 +78,8 @@ Curated, but not Anthropic-vetted — apply the checklist below before installin
 
 Apply the same skepticism to plugins: an unvetted community source can bundle arbitrary hooks, MCP servers, and shell access alongside whatever it's actually marketed for, so the checklist above is a gate, not a formality — run it before installing, not after something looks wrong.
 
+For the full lifecycle beyond this checklist (reach tiers per component, pinning by source type, re-review triggers, removal, and repo-file detection), see [AI Tool Vetting](./ai-tool-vetting.md).
+
 ### A worked example: Project CodeGuard
 
 [CoSAI Project CodeGuard](https://github.com/cosai-oasis/project-codeguard) is an open-source security framework that embeds secure coding rules into AI agent workflows, with a `.claude-plugin/` directory for direct Claude Code integration. It provides 23 security rules covering cryptography, input validation, authentication, authorization, supply chain, cloud security, platform security, and data protection — worth naming here as a concrete pass against the checklist above (known author/organization, active maintenance, documented rules, minimal scope) rather than leaving that checklist abstract. Three integration depths, in increasing order of commitment: add 3 mandatory rules directly to CLAUDE.md (5 min), build a security skill with progressive disclosure (15 min), or install the full plugin (30 min). See [Secure Code Generation](./secure-code-generation.md) for the detailed integration instructions.
@@ -136,6 +138,7 @@ For the mechanism documentation itself, start with the official docs linked in P
 - [Secure Code Generation](./secure-code-generation.md) — CodeGuard integration for secure AI-generated code
 - [Harness Engineering](./harness-engineering.md) — Diagnostic framework for choosing the right extension mechanism
 - [Domain Knowledge Architecture](./domain-knowledge-architecture.md) — How to structure domain knowledge using these extension mechanisms without overwhelming context
+- [AI Tool Vetting](./ai-tool-vetting.md) — Risk-tiered intake, pinning, re-review and removal for plugins and every component a plugin can bundle
 
 ## Sources
 

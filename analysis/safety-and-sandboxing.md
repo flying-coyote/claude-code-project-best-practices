@@ -61,6 +61,8 @@ MCP servers introduce additional attack surfaces. Key risks from [OWASP MCP Top 
 
 **See**: [MCP Patterns](./mcp-patterns.md) for comprehensive MCP security guidance.
 
+**See also**: [AI Tool Vetting](./ai-tool-vetting.md) — hooks, MCP servers, monitors and LSP servers run outside the Bash sandbox (Tier A, plugin security docs), so containment for those is a vetting decision, not a sandbox setting.
+
 ---
 
 ## Model-Level Prompt-Injection Robustness Across Model Versions
@@ -229,6 +231,7 @@ exit 0
 - [Advanced Hooks](../archive/patterns-v1/advanced-hooks.md) - Hook patterns for security and quality gates
 - [MCP Patterns](./mcp-patterns.md) - MCP security framework and OWASP compliance
 - [Agent-Driven Development](./agent-driven-development.md) - PreToolUse security hooks and permission matrices from production repos (mndr-review-automation case study)
+- [AI Tool Vetting](./ai-tool-vetting.md) - What to check before an agent may use a tool, and when to check again
 
 ---
 
