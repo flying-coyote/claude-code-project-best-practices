@@ -40,7 +40,7 @@ status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: A
 convergence: converged  # vendor-native MCP support (Claude Code v2.0.0+) + independent standards work (OWASP MCP Top 10, OASIS CoSAI CodeGuard) + multi-client adoption
-applies-to-signals: [harness-mcp, commit-security-paths]
+applies-to-signals: [harness-mcp, commit-security-paths, tool-mcp-unpinned]
 revalidate-by: 2026-10-15
 ---
 
@@ -291,6 +291,8 @@ The supply chain risk extends beyond MCP servers to skills specifically. Indepen
 This is distinct from the MCP server command injection rate documented under Kitchen Sink Server Pattern above: MCP vulnerabilities are implementation flaws in server code, while skill supply chain attacks are intentional hostile instructions embedded in skill definitions that the model follows faithfully.
 
 > **Implication**: the Quick Security Assessment below was designed for MCP servers. Skill vetting requires additional scrutiny of instruction content, not just permission scope — a malicious skill can cause harm using only the permissions you explicitly grant it.
+>
+> For a per-tool-type intake that covers skills, hooks, plugins, subagents and CLIs alongside MCP, plus re-review triggers such as tool-description changes, see [AI Tool Vetting](./ai-tool-vetting.md).
 
 ### Quick Security Assessment
 
@@ -360,7 +362,8 @@ See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard
 - [Plugins and Extensions](./plugins-and-extensions.md) — when to use MCP vs alternatives
 - [Safety and Sandboxing](./safety-and-sandboxing.md) — OS-level security for MCP servers
 - [Secure Code Generation](./secure-code-generation.md) — CodeGuard framework for secure AI-generated code
-- [MCP vs Skills Economics](./mcp-vs-skills-economics.md) — token efficiency comparison across MCP and skills
+- [MCP vs Skills Economics (archived 2026-11-03)](../archive/mcp-vs-skills-economics.md) — token efficiency comparison across MCP and skills
+- [AI Tool Vetting](./ai-tool-vetting.md) — Before/after adoption lifecycle; remote MCP and OAuth intake against the 2026-07-28 spec; repo-file detection signals
 
 `mcp-daily-essentials.md` is retired — its still-true content is absorbed here 2026-07-10. `mcp-client-integration.md` (client-side JSON-RPC session lifecycle, retry patterns) was deleted in an earlier 2026-07 reduction pass; the official MCP docs now cover connection mechanics.
 
@@ -395,7 +398,7 @@ See [Secure Code Generation](./secure-code-generation.md) for the full CodeGuard
 ## Related (from graph)
 
 - [`analysis/behavioral-insights.md`](behavioral-insights.md) [EXTRACTED (1.00)] — references
-- [`analysis/mcp-vs-skills-economics.md`](mcp-vs-skills-economics.md) [EXTRACTED (1.00)] — references
+- [`archive/mcp-vs-skills-economics.md`](../archive/mcp-vs-skills-economics.md) [EXTRACTED (1.00)] — references
 - [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
 - [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
 

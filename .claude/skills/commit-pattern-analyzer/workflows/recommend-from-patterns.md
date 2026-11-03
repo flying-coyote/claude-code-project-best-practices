@@ -17,7 +17,7 @@ Raw commit analysis output from `analyze-recent-commits.md`.
 | Large commits (>500 lines) | harness-engineering.md | One feature at a time, external artifact checkpoints |
 | No CLAUDE.md changes in 14 days | claude-md-progressive-disclosure.md | Review if config matches current workflow |
 | Missing test commits | agent-evaluation.md | Task-based evals, test co-location |
-| Frequent skill/rule edits | mcp-vs-skills-economics.md | Skills preferred over MCP for cost |
+| Frequent skill/rule edits | ai-tool-vetting.md + mcp-patterns.md | Re-review changed skills (tool grants, shell-at-load lines, bundled scripts); live cost via first-party `/usage` |
 | Same file changed 5+ times | behavioral-insights.md | Context rot risk, may need refactoring |
 | Config/YAML heavy changes | domain-knowledge-architecture.md | Verify domain knowledge encoding |
 | Cross-repo commits same day | cross-project-sync.md | Check dependency cascading |

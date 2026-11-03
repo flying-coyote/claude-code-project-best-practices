@@ -6,7 +6,7 @@ convergence: single-source
 
 **Purpose**: Fast lookup for the most commonly referenced sources with authority + recency weighting
 
-**For complete source database**: See [SOURCES.md](SOURCES.md) (comprehensive; last curated 2026-08-13 — Claude 5 family + thought-leader refresh: Opus 5 registered (launch + What's-New + prompting guide + fast mode; system card existence-only), Sonnet 5 ID verified + $2/$10 permanent, Opus 4.8 → Legacy, changelog v2.1.216/v2.1.219, Willison per-release dossier across the full 5 family, Ronacher/Osmani/Ng/Husain-Shankar/Karpathy liveness sweep; includes a dedicated **Unverified / pending revalidation** section at the end)
+**For complete source database**: See [SOURCES.md](SOURCES.md) (comprehensive; last curated 2026-11-03 — Claude 5.5 family + Fable 5.1, `/doctor prompt-audit`, changelog through v2.1.317; this quick reference's own top-30 list was not re-ranked in that pass. Prior: 2026-08-13 — Claude 5 family + thought-leader refresh: Opus 5 registered (launch + What's-New + prompting guide + fast mode; system card existence-only), Sonnet 5 ID verified + $2/$10 permanent, Opus 4.8 → Legacy, changelog v2.1.216/v2.1.219, Willison per-release dossier across the full 5 family, Ronacher/Osmani/Ng/Husain-Shankar/Karpathy liveness sweep; includes a dedicated **Unverified / pending revalidation** section at the end)
 
 **Authority Scale (0-5)**: 5=Foundational (built it), 4=Authoritative (core team/peer-reviewed), 3=Practitioner (production metrics), 2=Commentator (blog/YouTube), 1=Unverified, 0=Rejected
 
@@ -14,7 +14,7 @@ convergence: single-source
 
 ---
 
-## Top 41 Sources (Authority-Weighted)
+## Top 44 Sources (Authority-Weighted)
 
 ### 1. Boris Cherny (Claude Code Creator) — Authority: 5 (Foundational)
 **Role**: Engineering Manager at Anthropic, Claude Code creator
@@ -64,7 +64,7 @@ convergence: single-source
 **Source**: https://owasp.org/www-project-mcp-top-10/
 **Date**: 2025 | **Foundational**: No | **Effective Weight**: 0.60 (0.85 x 0.7)
 **Key Insights**: 10 critical MCP security risks, mitigation strategies
-**Referenced in**: [mcp-patterns.md](analysis/mcp-patterns.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)
+**Referenced in**: [mcp-patterns.md](analysis/mcp-patterns.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md), [ai-tool-vetting.md](analysis/ai-tool-vetting.md) (status re-checked 2026-11-03: still Phase 3 beta)
 
 ### 9. Nate B. Jones (Agent Principles) — Authority: 3 (Practitioner)
 **Source**: [Production AI Engineering Best Practices](https://www.linkedin.com/posts/nathaniel-b-jones-phd_my-6-principles-for-production-ai-engineering-activity-7279554697086738432-UYvG)
@@ -113,7 +113,7 @@ convergence: single-source
 **Source**: [Tenzir: "We Did MCP Wrong"](https://tenzir.com/blog/we-did-mcp-wrong) (Jan 2026)
 **Date**: January 2026 | **Foundational**: No | **Effective Weight**: 0.49 (0.65 x 0.75)
 **Key Data**: Skills 50% cheaper than MCP, production cost comparison
-**Referenced in**: [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md), [plugins-and-extensions.md](analysis/plugins-and-extensions.md)
+**Referenced in**: [mcp-vs-skills-economics.md (archived 2026-11-03)](archive/mcp-vs-skills-economics.md), [plugins-and-extensions.md](analysis/plugins-and-extensions.md)
 
 ### 17. Agentic Retrieval vs RAG — Authority: 2 (Commentator)
 **Source**: [LlamaIndex Blog](https://www.llamaindex.ai/blog/rag-is-dead-long-live-agentic-retrieval)
@@ -283,6 +283,25 @@ convergence: single-source
 **⚠️ Opus 5 system card**: existence verified only (PDF dated 2026-07-24); **not read** — no card-content citations permitted; Cherny's "least prompt injectable model yet" line is a Tier B relay via Willison.
 **Referenced in**: [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md), [behavioral-insights.md](analysis/behavioral-insights.md), [harness-engineering.md](analysis/harness-engineering.md), [orchestration-comparison.md](analysis/orchestration-comparison.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md), [agent-evaluation.md](analysis/agent-evaluation.md)
 
+
+### 42. MCP Specification, Security Best Practices + Authorization (rev. 2026-07-28) — Authority: 4 (Authoritative)
+**Source**: [Security Best Practices](https://modelcontextprotocol.io/specification/latest/basic/security_best_practices), [Authorization](https://modelcontextprotocol.io/specification/latest/basic/authorization), [Tools](https://modelcontextprotocol.io/specification/latest/server/tools)
+**Date**: revision 2026-07-28, fetched 2026-11-03 | **Foundational**: No | **Effective Weight**: 0.85 (0.85 x 1.0) — Tier A (protocol specification)
+**Key Insights**: Confused deputy and token passthrough ("MCP servers MUST NOT accept or transit any other tokens"); SSRF during OAuth discovery; local-server consent must show the exact command untruncated; scope minimization; "clients MUST consider tool annotations to be untrusted unless they come from trusted servers"
+**Referenced in**: [ai-tool-vetting.md](analysis/ai-tool-vetting.md)
+
+### 43. Check Point Research — Claude Code Project-File CVEs — Authority: 3 (Practitioner)
+**Source**: [RCE and API Token Exfiltration Through Claude Code Project Files](https://research.checkpoint.com/2026/rce-and-api-token-exfiltration-through-claude-code-project-files-cve-2025-59536/) (Donenfeld & Vanunu)
+**Date**: 2026-02-25 | **Foundational**: No | **Effective Weight**: 0.65 (0.65 x 1.0) — Tier B (vendor research, coordinated disclosure, flag bias)
+**Key Insights**: A cloned repo's `.claude/settings.json` reached collaborators before trust three ways: hooks (GHSA-ph6w-f82w-28w6), MCP self-approval (CVE-2025-59536), `ANTHROPIC_BASE_URL` (CVE-2026-21852); all patched by 2025-12-28
+**Referenced in**: [ai-tool-vetting.md](analysis/ai-tool-vetting.md)
+
+### 44. Trail of Bits — "Jumping the line" (MCP line jumping) — Authority: 3 (Practitioner)
+**Source**: [blog.trailofbits.com](https://blog.trailofbits.com/2025/04/21/jumping-the-line-how-mcp-servers-can-attack-you-before-you-ever-use-them/)
+**Date**: 2025-04-21 | **Foundational**: No | **Effective Weight**: 0.46 (0.65 x 0.7; recency factor for a 2025 source set by analogy with #8, since the scale defines no age bands) — Tier B
+**Key Insights**: Tool descriptions enter context at connection, so a server can attack "before any tool is even invoked"; recommends trust-on-first-use alerts when a tool is added or its description changes
+**Referenced in**: [ai-tool-vetting.md](analysis/ai-tool-vetting.md)
+
 ---
 
 ## By Analysis Category
@@ -311,10 +330,11 @@ convergence: single-source
 15. **MCP Daily Essentials**: Optimal plugin configuration (Tier B) — *absorbed into MCP Patterns (#12), 2026-07-10*
 16. **Plugins & Extensions**: Skills vs MCP vs Hooks decision (Tier B)
 
-### Security & Infrastructure (3)
+### Security & Infrastructure (4)
 17. **Safety & Sandboxing**: 4-layer security stack (Tier A)
 18. **Secure Code Generation**: OWASP-aware patterns (Tier A)
 19. **Automated Config Assessment**: Baseline-deviation-remediation (Tier A)
+- **AI Tool Vetting**: before/after-adoption review of skills, MCP, plugins, hooks, agents, CLIs, browser use (Mixed; added 2026-11-03, unnumbered to keep the list's existing numbering)
 
 ### Orchestration & Architecture (4)
 20. **Orchestration Comparison**: GSD vs CAII vs Native (Tier B)
@@ -337,6 +357,7 @@ convergence: single-source
 | Agent-driven development | 7-Repo Portfolio Analysis | A |
 | Context management | Anthropic Context Engineering Blog | A |
 | Security guidance | OWASP MCP Top 10 + Anthropic Security | A |
+| Vetting a tool before an agent uses it | Claude Code plugin security + managed MCP docs, MCP spec 2026-07-28 | A |
 | MCP architecture | InspectorClient + TmePlaybookClient analysis | A |
 | Cost optimization | Tenzir MCP vs Skills, Federated Query TCO | A/B |
 | Config assessment | health-inventory baseline-deviation pattern | A |
@@ -350,7 +371,9 @@ convergence: single-source
 
 **For detailed citations, methodology, and complete source database**: See [SOURCES.md](SOURCES.md)
 
-**Last Updated**: August 13, 2026 — Claude 5 family + thought-leader refresh: added #41 (Claude Opus 5 — launch + What's-New + prompting guide + fast mode, Tier A, all fetched 2026-08-13; system card existence-only, not read); marked #31 SUPERSEDED-FOR-CURRENCY (Opus 4.8 → Legacy as of 2026-07-24, kept as historical record); annotated #34 (Sonnet 5 model ID `claude-sonnet-5` verified against primary, $2/$10 made permanent per 2026-08-10 — see #41 for the current lineup); extended #28 to per-release analyses spanning the full 5 family (Apr–Aug 2026; headline additions: the Sonnet 5 tokenizer post and the Opus 5 intro); #2's changelog feed gained v2.1.216 (`prompt-audit`) + v2.1.219 (Opus 5 default, nested depth 1→3, fast mode). Ronacher's headline artifact is now "Better Models: Worse Tools" (2026-07-04, schema-non-neutrality counter-signal — full dossier in SOURCES.md; he remains below this file's numbered cut). The thought-leader liveness sweep (Willison/Ronacher/Osmani/Ng/Husain-Shankar/Karpathy), the two mirror-verified first-party posts (verification loops; Claude-5 context engineering), and the new Unverified quarantine lines live in the full [SOURCES.md](SOURCES.md). Count: 40 → 41.
+**Last Updated**: November 3, 2026 — ai-tool-vetting delta: added #42 (MCP spec security + authorization, rev. 2026-07-28, Authority 4), #43 (Check Point Claude Code project-file CVEs, Authority 3), #44 (Trail of Bits line jumping, Authority 3); #8 OWASP MCP Top 10 re-checked (still beta) and back-linked; count 41 → 44.
+
+Prior: August 13, 2026 — Claude 5 family + thought-leader refresh: added #41 (Claude Opus 5 — launch + What's-New + prompting guide + fast mode, Tier A, all fetched 2026-08-13; system card existence-only, not read); marked #31 SUPERSEDED-FOR-CURRENCY (Opus 4.8 → Legacy as of 2026-07-24, kept as historical record); annotated #34 (Sonnet 5 model ID `claude-sonnet-5` verified against primary, $2/$10 made permanent per 2026-08-10 — see #41 for the current lineup); extended #28 to per-release analyses spanning the full 5 family (Apr–Aug 2026; headline additions: the Sonnet 5 tokenizer post and the Opus 5 intro); #2's changelog feed gained v2.1.216 (`prompt-audit`) + v2.1.219 (Opus 5 default, nested depth 1→3, fast mode). Ronacher's headline artifact is now "Better Models: Worse Tools" (2026-07-04, schema-non-neutrality counter-signal — full dossier in SOURCES.md; he remains below this file's numbered cut). The thought-leader liveness sweep (Willison/Ronacher/Osmani/Ng/Husain-Shankar/Karpathy), the two mirror-verified first-party posts (verification loops; Claude-5 context engineering), and the new Unverified quarantine lines live in the full [SOURCES.md](SOURCES.md). Count: 40 → 41.
 
 Prior: July 16, 2026 — absorption-wave sweep (`drafts/ABSORPTION-SCAN-2026-07.md`): added #37 (obra/superpowers v6.1.1 — GitHub-API-dated stats + the compared-object substance check), #38 (affaan-m/ECC — rename recorded, naming hazard, component counts quarantined), #39 (AGENTS.md standard, AAIF/Linux Foundation, Tier A), #40 (CoSAI Project CodeGuard — first-party marketplace plugin + critical-triad correction). Follow-lane pointers, negative dossiers (HumanLayer 12-factor/ACE, disler hooks-mastery, efij security list), and the 4 new quarantine lines live in the full [SOURCES.md](SOURCES.md). Count: 36 → 40.
 

@@ -96,6 +96,23 @@ URL: https://www.anthropic.com/engineering/...
 Date: November 24, 2025
 ```
 
+**Point at IDs and headings, not line numbers** (practitioner observation, added 2026-11-03).
+The maintainer's long-running, multi-session project found that line anchors went stale within
+the hour once several sessions edited the same file, and moved to citing a row ID, a decision
+number or a heading instead (Tier B, single practitioner, not independently corroborated; no
+public source found). This repo's own PLAN.md cites `file:line` anchors in more than a dozen
+places, so it carries the exposure the observation describes.
+
+**Open question for the owner: how much provenance belongs in the sentence?** (added
+2026-11-03, convention unchanged). The format above, and much of this repo's prose, puts the
+tier, source and verification date inside or beside the claim. The same practitioner's
+retrospective judged that recording provenance inside every sentence, early, made pages hard
+to read, and proposed keeping provenance in one place (a notes section or log), the clean
+claim in the body, and only a short tier marker inline. The repo's case for inline provenance
+is that a reader of one paragraph can weigh it without leaving the page; the case against is
+readability and the drift that comes from restating provenance in many places. PLAN.md and
+ABSORPTION-MAP.md are the clearest instances of the cost. Left for the owner to rule on.
+
 ## Contradiction Handling
 
 When sources conflict:
@@ -289,6 +306,19 @@ Example:
 - Status: Chrome extension deprecated 2026-01-10 (historical ledger: archive/docs-v1/DEPRECATIONS.md)
 - Current: Playwright now sole recommendation (no comparison needed)
 ```
+
+**Open question for the owner: preserve corrections inline, or fix in place?** (added
+2026-11-03, convention unchanged). This repo keeps the superseded claim visible next to the
+new one, as in the example above, the struck-through PLAN.md rows and the demoted `Prior:`
+chains, so a reader can see what changed and when without opening git. The maintainer's
+long-running, multi-session project came to the opposite practice (Tier B, single
+practitioner, not independently corroborated): rewrite the claim so the page reads cleanly
+now, let git hold the history, and keep a one-sentence correction note only when the earlier
+version circulated and someone may have acted on it. The repo's case is auditability; the
+practitioner's case is that layered correction blocks make the current claim harder to find,
+which is the failure [prose-corpus-discoverability.md](prose-corpus-discoverability.md)
+measures from the other side. The two views may both hold, with inline history for measurement claims a reader needs to
+audit and fix-in-place for guidance prose, but that split is a proposal, not a ruling.
 
 **Corpus-internal figures carry a commit, not a date** (added 2026-08-29). A date is the
 right granularity for a measurement of the outside world — an upstream version, a
@@ -522,9 +552,11 @@ Example:
 - Production validation across 12+ documentation projects
 - Confidence framework (merged 2026-07-16 from confidence-scoring.md): synthesis methodology validated in cybersecurity research projects; internal evidence cross-refs [agent-evaluation.md](agent-evaluation.md) (Tier A — eval-awareness failure modes cited in the calibration gaps) and [session-quality-tools.md](../archive/session-quality-tools.md) (archived gap-statement exemplar)
 
+- Maintainer's own long-running, multi-session Claude Code project (direct observation, recorded 2026-11-03) — line anchors rotting under concurrent edits, and the fix-in-place and less-inline-provenance views recorded as open questions. Tier B, single practitioner, not independently corroborated.
+
 **Evidence Tier**: B (Adapted from peer-reviewed methodology frameworks)
 
-*Last updated: 2026-07-16 (confidence-scoring merge + retired-axis extraction + dead-reference prune)*
+*Last updated: 2026-11-03 (IDs and headings over line numbers; two open questions for the owner on fix-in-place corrections and inline provenance, convention unchanged). Prior: 2026-07-16 (confidence-scoring merge + retired-axis extraction + dead-reference prune)*
 
 <!-- graphify-footer:start -->
 

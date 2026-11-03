@@ -746,7 +746,7 @@ nowhere for the exception to land, so this section exists as the destination.
 
 | Date | Recommendation | Doc + tier | `convergence:` at the time | Ruling | Reasoning |
 |---|---|---|---|---|---|
-| — | — | — | — | — | **No exception has been granted or refused.** Empty is the honest state, not an oversight: the gate has never been invoked. |
+| 2026-11-03 | Adopt eleven `tool-*` audit signals (AUDIT-CONTEXT.md § Fetch on Tool Configuration) with their collection commands, each weighted PROBLEM / REVIEW / INVENTORY; drop the twelfth proposed key, `tool-unpinned-instructions`, as too fuzzy (deferred in PLAN.md) | `analysis/ai-tool-vetting.md`, evidence-tier Mixed, `status: EMERGING` | `single-source` (each component practice has first-party backing; the integrated lifecycle and the repo-file signals are this repo's synthesis) | **Granted** by the repository owner. Ruling text: "get Claude code best practices repo updated as much as possible including advice on researched best practices around validating ai tools." Same-day follow-up ruling set the weights, narrowed the hidden-Unicode check to zero-width, bidi-control and Tag characters, and required host-level state to be reported as "not checked", never "clean" | The cost of adopting before convergence is bounded: the commands are read-only greps over committed files and were fixture-tested (positive and clean-negative cases); the cluster adds about one fetch to an audit because its extra docs are already fetched by `harness-*` rows; and only PROBLEM-weight signals produce recommendations, so a practice that fails to converge costs review time, not a wrong change in a consuming repo. What would prove this wrong: audits where the PROBLEM signals mostly flag configurations the operator meant and could defend, which would argue for demoting them to REVIEW. |
 
 An entry is added when the owner grants **or refuses** one — refusals are the more useful
 half of the record, since they are what tells a later reader the bar has teeth. Ratified
@@ -755,4 +755,4 @@ weekly-review function table and the doc's own frontmatter.
 
 ---
 
-*Last updated: 2026-08-29* *(was 2026-07-16 — the file's only currency marker, and it was not touched by the substantive 2026-08-28 edit at Decision §565 that it sits below. A currency marker that a content edit does not update is worse than none: it certifies the staleness it is hiding.)*
+*Last updated: 2026-11-03 (first Owner Exceptions entry: the `tool-*` audit signals on `analysis/ai-tool-vetting.md`).* *Prior: 2026-08-29 (was 2026-07-16 — the file's only currency marker, and it was not touched by the substantive 2026-08-28 edit at Decision §565 that it sits below. A currency marker that a content edit does not update is worse than none: it certifies the staleness it is hiding.)*

@@ -322,7 +322,7 @@ Three community approaches sit at different points on the Bitter-Lesson spectrum
 
 ### Production-Scale Agent-Driven Development (New Evidence, April 2026)
 
-Two practitioners give the production-scale version of the table rows above, and both attribute the gains to the harness rather than the model. **Nick Schrock (Dagster)** merged 1,000+ PRs in 3 weeks with about 5 manual IDE edits, via a local-dev -> cloud-review -> agent-applies-feedback loop where CI errors are downloaded and fixed automatically ("This isn't vibe coding. The process is still software engineering forward."). **Matthias Vallentin (Tenzir)** got a 3x velocity improvement with agents handling commits, changelogs, docs, and releases, framed as org transformation rather than individual productivity — the same team whose MCP vs Skills production data ([MCP vs Skills Economics](./mcp-vs-skills-economics.md)) showed a 50% cost reduction through architecture choices.
+Two practitioners give the production-scale version of the table rows above, and both attribute the gains to the harness rather than the model. **Nick Schrock (Dagster)** merged 1,000+ PRs in 3 weeks with about 5 manual IDE edits, via a local-dev -> cloud-review -> agent-applies-feedback loop where CI errors are downloaded and fixed automatically ("This isn't vibe coding. The process is still software engineering forward."). **Matthias Vallentin (Tenzir)** got a 3x velocity improvement with agents handling commits, changelogs, docs, and releases, framed as org transformation rather than individual productivity — the same team whose MCP vs Skills production data ([MCP vs Skills Economics (archived 2026-11-03)](../archive/mcp-vs-skills-economics.md)) showed a 50% cost reduction through architecture choices.
 
 ### DeepSeek Harness and SANS Find Evil! (New Evidence, 2026-08-19)
 
@@ -469,7 +469,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 
 - [Behavioral Insights](./behavioral-insights.md) — Context thresholds, CLAUDE.md adherence, prompt sensitivity
 - [Domain Knowledge Architecture](./domain-knowledge-architecture.md) — Companion document for domain-heavy projects
-- [MCP vs Skills Economics](./mcp-vs-skills-economics.md) — Cost trade-offs the Schrock/Vallentin evidence draws on
+- [MCP vs Skills Economics (archived 2026-11-03)](../archive/mcp-vs-skills-economics.md) — Cost trade-offs the Schrock/Vallentin evidence draws on
 - [Model Migration Anti-Patterns](./model-migration-anti-patterns.md) — Prompt anti-patterns that break on Opus 4.7 (carry forward to 4.8); split between harness (simpler) and prompt (more explicit); 4.8 net-deltas table
 - [Scheduled & Looping Primitives](./scheduled-and-looping-primitives.md) — the scheduling-facing companion: `/loop`, `/goal`, Routines, Desktop scheduled tasks, the Ralph lineage, and the "loop engineering" framing turned into audit signals; carries the matching "weak RETHINK limb" treatment from the scheduling side plus the `project1` case study
 - [Intent-Alignment Audit](./intent-alignment-audit.md) — the RETHINK companion: the standing "does each mechanism still match its intent?" pass, of which an absent loop RETHINK limb is one instance

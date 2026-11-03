@@ -100,7 +100,7 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 **Optional additions**:
 - [Plugins and Extensions](../../analysis/plugins-and-extensions.md) - When Skills vs MCP vs Hooks
 - [Framework Selection Guide](../framework-selection-guide.md) - Choose orchestration
-- [MCP vs Skills Economics](../../analysis/mcp-vs-skills-economics.md) - Cost tradeoffs
+- [MCP vs Skills Economics](../mcp-vs-skills-economics.md) - Cost tradeoffs
 
 **Outcome**: Evidence-based team standards with clear documentation
 
@@ -196,7 +196,7 @@ Read these 3 patterns first. They're foundational - everything else builds on th
 
 **Quick path** (45 minutes):
 1. [Plugins and Extensions](../../analysis/plugins-and-extensions.md) - Decision framework
-2. [MCP vs Skills Economics](../../analysis/mcp-vs-skills-economics.md) - Cost/performance tradeoffs
+2. [MCP vs Skills Economics](../mcp-vs-skills-economics.md) - Cost/performance tradeoffs
 3. [MCP Patterns](../../analysis/mcp-patterns.md) - Failure modes + security
 4. [Progressive Disclosure](../patterns-v1/progressive-disclosure.md) - Skill architecture
 5. [Advanced Hooks](../patterns-v1/advanced-hooks.md) - Quality gates
@@ -252,7 +252,7 @@ Once you've completed a learning path, you can explore the full catalog organize
 - Agent Principles (doc retired 2026-07-10 — official Anthropic best-practices carries this slice)
 - [Agent Evaluation](../../analysis/agent-evaluation.md)
 - [MCP Patterns](../../analysis/mcp-patterns.md)
-- [MCP vs Skills Economics](../../analysis/mcp-vs-skills-economics.md)
+- [MCP vs Skills Economics](../mcp-vs-skills-economics.md)
 - [Plugins and Extensions](../../analysis/plugins-and-extensions.md)
 - [Safety and Sandboxing](../../analysis/safety-and-sandboxing.md)
 - [GSD Orchestration](../patterns-v1/gsd-orchestration.md)

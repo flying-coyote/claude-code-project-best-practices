@@ -69,4 +69,4 @@ Map harness gaps to analysis docs:
 - Missing CLAUDE.md -> `claude-md-progressive-disclosure.md` (start with Tier 1 template)
 - No rules -> `domain-knowledge-architecture.md` (encode domain knowledge)
 - No hooks -> `harness-engineering.md` (lifecycle management)
-- No skills -> `mcp-vs-skills-economics.md` (skills preferred for cost)
+- No skills -> `mcp-patterns.md` (CLI+Skill pattern; for live skills-vs-MCP cost, first-party `/usage`)

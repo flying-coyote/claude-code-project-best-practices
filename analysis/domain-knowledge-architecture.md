@@ -188,7 +188,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 - [Harness Engineering](./harness-engineering.md) — Umbrella concept, diagnostic framework, philosophy comparison
 - [Behavioral Insights](./behavioral-insights.md) — Context thresholds, CLAUDE.md adherence, instruction processing
 - [Plugins & Extensions](./plugins-and-extensions.md) — Extension mechanism selection (skills vs MCP vs hooks vs rules)
-- [MCP vs Skills Economics](./mcp-vs-skills-economics.md) — Cost analysis for mechanism selection
+- [MCP vs Skills Economics (archived 2026-11-03)](../archive/mcp-vs-skills-economics.md) — Cost analysis for mechanism selection
 - [Safety & Sandboxing](./safety-and-sandboxing.md) — Security constraints as domain knowledge
 
 ---
@@ -200,7 +200,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 ## Related (from graph)
 
 - [`analysis/behavioral-insights.md`](behavioral-insights.md) [EXTRACTED (1.00)] — references
-- [`analysis/mcp-vs-skills-economics.md`](mcp-vs-skills-economics.md) [EXTRACTED (1.00)] — references
+- [`archive/mcp-vs-skills-economics.md`](../archive/mcp-vs-skills-economics.md) [EXTRACTED (1.00)] — references
 - [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
 - [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
 
