@@ -678,7 +678,7 @@ Registered 2026-11-03. The models overview now lists Fable 5.1, Opus 5.5, Sonnet
 - **Title**: "How we built our multi-agent research system"
 - **Source**: Anthropic Engineering Blog
 - **Date**: June 13, 2025
-- **URL**: https://www.anthropic.com/engineering/how-we-built-our-multi-agent-research-system
+- **URL**: https://www.anthropic.com/engineering/multi-agent-research-system
 - **Key Insights**:
   - Multi-agent architecture for research tasks
   - Lead/worker agent coordination patterns

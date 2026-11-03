@@ -155,6 +155,18 @@ Twelve rows, 32 total. The CI step that runs this check is reporting-only while 
 
 ---
 
+## 6a. Practitioner observations added the same day
+
+The maintainer's own observations from a long-running, multi-session Claude Code project were added to the analysis docs, each labelled Tier B, single practitioner, not independently corroborated, and placed next to the public source where one exists:
+
+- `analysis/orchestration-comparison.md` — a dissenting delegation default under § When Not to Orchestrate; phase-whole resume under § GSD; per-spawn model/effort and read-only finder scoping; pathspec commits, rules-before-the-second-session and single-writer logs beside the #90943 paragraph; a new subsection on briefing a session that shares none of your context (Anthropic's multi-agent research post for the structure, practitioner habits for claim-carrying briefs).
+- `analysis/safety-and-sandboxing.md` — stop-and-report on a denied command; a new subsection on byte-dump tools and stopping only self-started processes.
+- `analysis/claude-md-progressive-disclosure.md` — the path-scoped-rule load condition as hit in practice.
+- `analysis/agent-evaluation.md` — a refute-pass-vs-baseline row and the repair-round observations.
+- `analysis/memory-system-patterns.md` — two anti-pattern rows (rule without reason; memory duplicating a rules file).
+- `analysis/prose-corpus-discoverability.md` — folders laid out by rate of change; archiving spent prompts.
+- `analysis/evidence-tiers.md` — IDs and headings over line numbers, plus two open questions for the owner (fix in place vs inline corrections; how much provenance belongs in the sentence). Conventions unchanged; both questions are also items (8) and (9) in PLAN.md's 2026-11-03 owner-rulings row.
+
 ## 7. Not found, not verified, or corrected during verification
 
 - **Fable 5.1 / Mythos 5.1 and Opus 5.5 system cards** were not read. No 5.5-family injection or behavioral figures are recorded anywhere in the repo.
@@ -163,6 +175,7 @@ Twelve rows, 32 total. The CI step that runs this check is reporting-only while 
 - **Sonnet 5.5 cache-read price**: the changelog first said $0.20 (v2.1.284) and corrected it to $0.10 (v2.1.296); the migration guide says $0.10. A bundled reference cached 2026-10-06 still said $0.20, which is why the primary was used.
 - **"Router, not encyclopedia" wording for CLAUDE.md**: community posts only; the first-party substance is the 200-line target and path-scoped rules, cited instead.
 - **Auto-mode fallback after repeated blocks ("3 in a row or 20 per session")**: search-snippet only.
+- **Multi-agent research post URL**: SOURCES.md listed `/engineering/how-we-built-our-multi-agent-research-system`, which returned 404 on 2026-11-03; the live path is `/engineering/multi-agent-research-system`, now used in SOURCES.md and orchestration-comparison.md.
 - **Agent Skills donation to the Agentic AI Foundation (2026-10-22)**: index-only, body not read.
 
 ---

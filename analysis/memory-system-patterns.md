@@ -160,6 +160,10 @@ Memory is one of several ways context persists. Use the right mechanism:
 | Single large memory file | Hard to update; partial staleness | One file per topic; update/remove individually |
 | Saving debugging solutions | Memory recommends fix for bug that's already fixed | Let git history be the record; save only the "why" if surprising |
 | Never updating memory | Corrections accumulate but memories stay stale | Review and prune when correcting agent behavior |
+| Saving the rule without the reason | Months later nobody can tell whether an edge case falls inside the rule | Give each memory the rule, a "why" and a "how to apply" (practitioner observation, below) |
+| Memory duplicating a rules file | The two copies drift and the agent follows whichever loaded | Shrink the memory to a pointer at the rules file |
+
+The last two rows come from the maintainer's long-running, multi-session project, which kept one fact per memory file with a name, a one-line description, the rule, a "why" and a "how to apply," plus an index file listing each with a short hook (Tier B, single practitioner, not independently corroborated). The reasoning for the "why" is that it is the only part of the entry that lets a later session, or the person who wrote it, judge a case the rule did not anticipate.
 
 ---
 
@@ -176,6 +180,7 @@ Memory is one of several ways context persists. Use the right mechanism:
 - Anthropic Claude Code auto-memory documentation — Type taxonomy, frontmatter format, MEMORY.md index
 - Boris Cherny (March 2026) — "CLAUDE.md is advisory (~80% adherence)" applies to memory instructions equally
 - OKF typed-memory pattern (project1 second-brain vault) — Tier B, single practitioner, not independently corroborated. Full case study: [archetype-A](memory-systems-archetype-a-curated-kb.md) §A1b.
+- Maintainer's own long-running, multi-session Claude Code project (direct observation, recorded 2026-11-03) — one fact per file with a recorded "why," duplicates shrunk to pointers. Tier B, single practitioner, not independently corroborated.
 
 ### Related Analysis
 
@@ -185,7 +190,7 @@ Memory is one of several ways context persists. Use the right mechanism:
 
 ---
 
-*Last updated: April 2026 — collapsed 2026-07-10 (Reduction Phase 4)*
+*Last updated: 2026-11-03 (two anti-pattern rows from a single-practitioner observation: rule without reason, memory duplicating a rules file). Prior: April 2026 — collapsed 2026-07-10 (Reduction Phase 4)*
 
 <!-- graphify-footer:start -->
 

@@ -180,6 +180,8 @@ Two conclusions, and they generalize past this repository:
 | A link checker read as a discoverability check | green link check, superseded prose still returned as current | Link *resolution* is mechanical and checkable; link *authority* is neither. Check both, and do not let the first stand in for the second |
 | A generated index counted as discoverability | 100% reachability, zero authority signal | Report reachability *and* marking; one without the other is theatre |
 
+**Lanes by rate of change (practitioner observation, added 2026-11-03).** The maintainer's long-running, multi-session project carried the lane idea above one step further, laying out folders by how fast their contents change, each with its own editing rule: stable topic pages updated in place, running logs appended to, one file per meeting with prep on top and debrief below, a working folder for analyses and drafts, and a frozen archive (Tier B, single practitioner, not independently corroborated). The benefit it reported is that a session can tell which editing rule applies from the folder path alone, before reading the file. The same project found that spent prompts and handoff files piled up in the working folder and started to read as live, and moved each one to the archive once its session had run, which is the archive-by-moving case in the table above and still needs the in-file marker. No public source found so far states the folder-per-edit-rule pattern.
+
 ---
 
 ## Counter-Evidence / What This Does *Not* Mean
@@ -279,6 +281,7 @@ This matters beyond tidiness. A confident false successor is the hazard this doc
 ### Tier B (Validated / Expert Practitioner)
 
 - **External prose vault, three-day production run** — 703 markdown files, 6.07M words, 359,985 words added across 191 commits; 12 files reachable by link from any entry point a session loads; 96% frontmatter `type:` coverage; health check green after every commit. **One practitioner, one project, contributor-reported, not independently reproduced here.** Recorded at the same tier this repository gives other single-practitioner production evidence (cf. the project1 OKF case study in `memory-systems-archetype-a-curated-kb.md` §A1b).
+- **Maintainer's own long-running, multi-session Claude Code project** (direct observation, recorded 2026-11-03) — folders laid out by rate of change with an editing rule per folder; spent prompts moved to the archive after their session ran. One practitioner, one project, not independently corroborated.
 - Sen, Kasturi, Lumer, Gulati, Subbiah, ["Is Grep All You Need? How Agent Harnesses Reshape Agentic Search"](https://arxiv.org/abs/2605.15184) (arXiv:2605.15184, 2026-05-14) — cited here as **counter-evidence**: grep generally outperforms vector retrieval across harnesses. Used to scope this document's claim to authority-blindness rather than retrieval accuracy. Preprint, not peer-reviewed.
 
 ### Tier C (Vendor-Published Standard)
@@ -287,4 +290,4 @@ This matters beyond tidiness. A confident false successor is the hazard this doc
 
 ---
 
-*Last updated: 2026-08-28 (initial).*
+*Last updated: 2026-11-03 (single-practitioner observation on folders laid out by rate of change and archiving spent prompts). Prior: 2026-08-28 (initial).*
