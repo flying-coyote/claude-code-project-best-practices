@@ -395,7 +395,7 @@ echo "test" >> README.md
 1. **MCP server latency** - MCP adds 300-800ms per call:
    - **Fix**: Use native tools where possible
    - Read files: Native Read tool (fast) vs MCP file server (slow)
-   - See [mcp-vs-skills-economics.md](../../analysis/mcp-vs-skills-economics.md)
+   - See [mcp-vs-skills-economics.md](../mcp-vs-skills-economics.md)
 
 2. **Bloated CLAUDE.md** - Large context = slower processing:
    - **Fix**: Audit CLAUDE.md, target <60 lines

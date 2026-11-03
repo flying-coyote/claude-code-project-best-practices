@@ -1,7 +1,7 @@
 ---
 evidence-tier: Mixed
 convergence: single-source
-applies-to-signals: [harness-mcp, harness-skills, harness-hooks, harness-custom-agents]
+applies-to-signals: [harness-mcp, harness-skills, harness-hooks, harness-custom-agents, tool-mcp-unpinned, tool-mcp-remote, tool-repo-self-approval, tool-project-env-redirect, tool-hook-network, tool-hook-fail-open, tool-skill-grants-tools, tool-hidden-unicode, tool-agent-inherits-all, tool-plugin-marketplace-declared, tool-broad-grants]
 last-verified: 2026-11-03
 revalidate-by: 2027-02-03
 status: EMERGING
@@ -22,7 +22,7 @@ measurement-claims:
 
 **Evidence Tier**: Mixed (A for Claude Code docs and changelog, the MCP specification 2026-07-28, OWASP, NIST and vendor security bulletins; B for disclosed-method research from Invariant Labs, Trail of Bits, Check Point, Snyk, JFrog, Willison and Rehberger; C for relayed incident reporting). Per-claim tiers are inline; the verification trail is [research/ai-tool-vetting-sources-2026-11-03.md](../research/ai-tool-vetting-sources-2026-11-03.md).
 
-> **Convergence note.** Each component practice here (review before install, pin, least privilege, sandbox, re-review) has independent first-party backing: Anthropic's [plugin security page](https://code.claude.com/docs/en/plugins/security), the MCP specification's consent and authorization rules, OWASP's third-party MCP guide, and NIST AI 600-1 GV-6.1-007. The integrated per-tool-type lifecycle and the repo-file detection signals below are this repo's synthesis, which is why `convergence: single-source` and `status: EMERGING`. Adopting the register or the signals as infrastructure needs an owner exception under the rule in [AUDIT-CONTEXT.md](../AUDIT-CONTEXT.md).
+> **Convergence note.** Each component practice here (review before install, pin, least privilege, sandbox, re-review) has independent first-party backing: Anthropic's [plugin security page](https://code.claude.com/docs/en/plugins/security), the MCP specification's consent and authorization rules, OWASP's third-party MCP guide, and NIST AI 600-1 GV-6.1-007. The integrated per-tool-type lifecycle and the repo-file detection signals below are this repo's synthesis, which is why `convergence: single-source` and `status: EMERGING`. Adopting the register or the signals as infrastructure needs an owner exception under the rule in [AUDIT-CONTEXT.md](../AUDIT-CONTEXT.md); the owner granted one for the `tool-*` audit signals on 2026-11-03 ([DECISIONS.md § Owner Exceptions](../DECISIONS.md#owner-exceptions)), which does not change this doc's `convergence:` value.
 
 ## Purpose
 
@@ -183,7 +183,7 @@ These checks are what an audit of a project can see without running anything fro
 | 7 | Project re-enables hooks the user disabled | `"disableAllHooks": false` in committed settings |
 | 8 | Skill or command grants tools or runs shell at load | `allowed-tools` containing `Bash`, or a `` !`cmd` `` line |
 | 9 | Skill ships executable code | `scripts/` under a skill directory |
-| 10 | Hidden instructions | Unicode Tag, zero-width or bidi code points in agent-read files (emoji variation selectors are a common benign hit, per Rehberger) |
+| 10 | Hidden instructions | Unicode Tag (U+E0000–E007F), zero-width (U+200B, U+2060, U+FEFF) or bidi-control (U+202A–202E, U+2066–2069) code points in agent-read files; ZWJ/ZWNJ and LRM/RLM are left out because emoji and non-English text use them, and subdivision flag emoji are a known benign hit |
 | 11 | Subagent inherits every tool | Agent file whose first frontmatter block has no `tools:` |
 | 12 | Subagent brings its own servers or mode | `mcpServers:` or `permissionMode:` in agent frontmatter |
 | 13 | Repo declares plugin marketplaces or plugins | `extraKnownMarketplaces` / `additionalMarketplaces` / `enabledPlugins` in committed settings; check each git source for a `sha` |
@@ -212,8 +212,8 @@ grep -n '"disableAllHooks" *: *false' .claude/settings.json 2>/dev/null
 grep -rnE '^allowed-tools:.*Bash|(^|[[:space:]])!`' .claude/skills .claude/commands 2>/dev/null
 # 9 skill ships executable code
 ls -d .claude/skills/*/scripts 2>/dev/null
-# 10 hidden instructions (GNU grep; on macOS use ggrep)
-LC_ALL=C.UTF-8 grep -rlP '[\x{200B}-\x{200F}\x{202A}-\x{202E}\x{2060}-\x{2064}\x{FEFF}\x{E0000}-\x{E007F}]' .claude/ .mcp.json CLAUDE.md AGENTS.md 2>/dev/null
+# 10 hidden instructions: zero-width, bidi-control and Tag characters only (GNU grep; on macOS use ggrep)
+LC_ALL=C.UTF-8 grep -rlP '[\x{200B}\x{2060}\x{FEFF}\x{202A}-\x{202E}\x{2066}-\x{2069}\x{E0000}-\x{E007F}]' .claude/ .mcp.json CLAUDE.md AGENTS.md 2>/dev/null
 # 11 subagent inherits every tool (parses the FIRST frontmatter block only)
 for f in .claude/agents/*.md; do [ -f "$f" ] || continue; \
   awk '/^---[[:space:]]*$/{n++; if(n==2) exit; next} n==1' "$f" | grep -qE '^tools:' || echo "INHERITS-ALL $f"; done
@@ -229,7 +229,9 @@ grep -nE '"mcp__[^"]*__\*"|"Bash\((curl|wget|npx|uvx)' .claude/settings.json .cl
 grep -nE 'npx -y [^@ ]+( |$)|curl[^|]*[|] *(ba)?sh' CLAUDE.md .claude/CLAUDE.md AGENTS.md .claude/skills/*/SKILL.md 2>/dev/null
 ```
 
-Every command except 14 was run against planted fixtures, with a clean-line negative check for 5 (see the evidence log). Command 5 also hits `curl` inside allow rules, which is noise to read past rather than a bug. The proposed AUDIT-CONTEXT signal keys for these rows are in the hub handoff and are not yet part of the routing vocabulary; until they are, this doc routes through `harness-mcp`, `harness-skills`, `harness-hooks`, `harness-custom-agents` and `commit-security-paths`.
+Every command was run against planted fixtures (14 on 2026-11-03, after the rest), with clean negative checks for 5, 15 and 16 (see the evidence log). Command 10 was narrowed on 2026-11-03 by owner ruling and re-tested: it hit planted Tag, zero-width, bidi-override and bidi-isolate fixtures and did not hit a clean file of emoji (including ZWJ family and rainbow-flag sequences), Persian text with ZWNJ, Hindi with ZWJ, Hebrew with RLM/LRM, or CJK text; the one benign hit left is a subdivision flag (England), which is built from Tag characters. Command 5 also hits `curl` inside allow rules, which is noise to read past rather than a bug.
+
+These rows are routing signals in [AUDIT-CONTEXT.md](../AUDIT-CONTEXT.md) § Fetch on Tool Configuration since 2026-11-03: rows 1–2 are `tool-mcp-unpinned` and `tool-mcp-remote`, 3 `tool-repo-self-approval`, 4 `tool-project-env-redirect`, 5 `tool-hook-network`, 6–7 `tool-hook-fail-open`, 8–9 `tool-skill-grants-tools`, 10 `tool-hidden-unicode`, 11–12 `tool-agent-inherits-all`, 13–14 `tool-plugin-marketplace-declared` and 15 `tool-broad-grants`, with row 16 dropped as too fuzzy to report on and row 17 left to the intent interview. **Weights**: a PROBLEM signal (self-approval, env redirect, unpinned MCP, inherits-all agent, fail-open hook, broad grants) is reported as a finding with a recommendation, a REVIEW signal (skill grants, network hook with its command shown, hidden Unicode) is listed for a human to read because it is often intended, and an INVENTORY signal (remote MCP, declared marketplaces) is only counted.
 
 ## Counter-Evidence / What This Does Not Mean
 
@@ -293,4 +295,4 @@ Full entries, what was verified on each page, and the not-verified list: [resear
 
 ---
 
-*Last updated: 2026-11-03 (new doc; evidence log in research/ai-tool-vetting-sources-2026-11-03.md).*
+*Last updated: 2026-11-03 (owner ruling: the rows above became `tool-*` routing signals with PROBLEM / REVIEW / INVENTORY weights, command 10 narrowed and re-tested, command 14 fixture-tested, row 16 dropped as a signal; `applies-to-signals` extended to match). Prior same-day: 2026-11-03 (new doc; evidence log in research/ai-tool-vetting-sources-2026-11-03.md).*

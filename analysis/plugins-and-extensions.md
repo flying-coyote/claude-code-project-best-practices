@@ -11,12 +11,14 @@ status: PRODUCTION
 last-verified: "2026-07-18"
 evidence-tier: B
 convergence: converged
-applies-to-signals: [harness-skills, harness-mcp]
+applies-to-signals: [harness-skills, harness-mcp, tool-plugin-marketplace-declared]
 revalidate-by: 2026-09-30
 ---
 
 # Claude Code Plugins and Extension Mechanisms
 
+> **Kept, now the entry point to [AI Tool Vetting](./ai-tool-vetting.md) (owner ruling 2026-11-03).** The staged retirement approved 2026-07-16 is cancelled rather than executed: this doc carries the pre-install checklist and hands off to `ai-tool-vetting.md` for the full lifecycle, and first-party `/skill-doctor`, the `/doctor` extension checks and `claude plugin eval` report on installed tools but do not tell a reader what to check before installing one.
+>
 > **Collapsed 2026-07-10 (Reduction Phase 4).** Mechanism documentation is now first-party (official plugins/skills docs, /plugin marketplace, nested skills v2.1.157). Kept delta: marketplace evaluation and the measured token economics.
 
 **Evidence Tier**: B (Validated secondary — community + expert practitioner)
@@ -127,14 +129,14 @@ The choice between MCP and Skills is a cost decision as much as a capability one
 - **Measured comparison** *(corrected 2026-07-18)*: the widely-quoted "Microsoft-measured 4x (114K → 27K)" Playwright figure is unsupported — it appears in no Microsoft source, and traces to a Medium-post citation loop. Community benchmarks put the CLI's token reduction at roughly 2-3.7x, task-dependent, with the one independent run also finding the MCP roughly 2x faster wall-clock (the CLI needed 2-3x more tool calls). The prior stale-pending-remeasure flag here was also misapplied: tool search defers tool *definitions* at load time, while CLI-vs-MCP cuts tool *output* per call, so the two levers are orthogonal. See [MCP Patterns — CLI vs MCP](./mcp-patterns.md#cli-vs-mcp-the-token-efficiency-case) for the full corrected comparison.
 - Simon Willison draws the same conclusion from the CLI-tool angle: "Almost everything achievable with an MCP can be handled by a CLI tool instead. LLMs know how to call `cli-tool --help`... Skills have exactly the same advantage, only now you don't even need to implement a new CLI tool — you can just drop a Markdown file describing how to do a task instead." — [Simon Willison](https://simonwillison.net/2025/Oct/16/claude-skills/), also the source behind this doc's frontmatter measurement-claim.
 
-For the fuller MCP-vs-Skills cost comparison — Tenzir's production numbers ($10.27 vs $20.78 per task, 50% cheaper, 38% slower, 55% less cached tokens) — see [MCP vs Skills Economics](./mcp-vs-skills-economics.md); that's a dedicated measurement doc, not duplicated here. Both documents converge on the same directional finding from independent evidence (Willison's practitioner analysis here, Tenzir's production telemetry there): Skills win on token cost, MCP sometimes wins on wall-clock speed, and the right choice depends on which one you're optimizing for.
+For the fuller MCP-vs-Skills cost comparison — Tenzir's production numbers ($10.27 vs $20.78 per task, 50% cheaper, 38% slower, 55% less cached tokens) — see [MCP vs Skills Economics](../archive/mcp-vs-skills-economics.md), a dated pre-tool-search record that was retired and archived 2026-11-03; for your own live cost mix use first-party `/usage`, which attributes usage to skills, plugins and individual MCP servers. Both documents converge on the same directional finding from independent evidence (Willison's practitioner analysis here, Tenzir's production telemetry there): Skills win on token cost, MCP sometimes wins on wall-clock speed, and the right choice depends on which one you're optimizing for.
 
 ## Related Patterns
 
 For the mechanism documentation itself, start with the official docs linked in Purpose above. These are the companion analysis docs for what isn't first-party yet:
 
 - [MCP Patterns](./mcp-patterns.md) — Failure modes + positive patterns + security
-- [MCP vs Skills Economics](./mcp-vs-skills-economics.md) — The fuller measured cost comparison referenced above
+- [MCP vs Skills Economics (archived 2026-11-03)](../archive/mcp-vs-skills-economics.md) — The fuller measured cost comparison referenced above, now a historical record
 - [Secure Code Generation](./secure-code-generation.md) — CodeGuard integration for secure AI-generated code
 - [Harness Engineering](./harness-engineering.md) — Diagnostic framework for choosing the right extension mechanism
 - [Domain Knowledge Architecture](./domain-knowledge-architecture.md) — How to structure domain knowledge using these extension mechanisms without overwhelming context
@@ -150,7 +152,7 @@ For the mechanism documentation itself, start with the official docs linked in P
 
 ---
 
-*Last updated: 2026-07-18 (token-economics corrections: Playwright 114K/27K attribution corrected to community benchmarks ~2-3.7x with the misapplied stale flag removed, the withdrawn trustworthy-count quote replaced with BlueRock 2026 scan data, tool-search version pegs corrected, wire-measurement data point added; verification trail in research/probe-session-2026-07-18.md). Prior: 2026-07-10.*
+*Last updated: 2026-11-03 (owner ruling: staged retirement cancelled, kept as the entry point to `ai-tool-vetting.md`; the archived `mcp-vs-skills-economics.md` links repointed to `archive/`; cross-links to `ai-tool-vetting.md` added earlier the same day). Prior: 2026-07-18 (token-economics corrections: Playwright 114K/27K attribution corrected to community benchmarks ~2-3.7x with the misapplied stale flag removed, the withdrawn trustworthy-count quote replaced with BlueRock 2026 scan data, tool-search version pegs corrected, wire-measurement data point added; verification trail in research/probe-session-2026-07-18.md). Prior: 2026-07-10.*
 
 <!-- graphify-footer:start -->
 
@@ -158,7 +160,7 @@ For the mechanism documentation itself, start with the official docs linked in P
 
 - [`analysis/mcp-patterns.md`](mcp-patterns.md) [EXTRACTED (1.00)] — references
 - [`analysis/domain-knowledge-architecture.md`](domain-knowledge-architecture.md) [EXTRACTED (1.00)] — references
-- [`analysis/mcp-vs-skills-economics.md`](mcp-vs-skills-economics.md) [EXTRACTED (1.00) ×2] — references
+- [`archive/mcp-vs-skills-economics.md`](../archive/mcp-vs-skills-economics.md) [EXTRACTED (1.00) ×2] — references
 - [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
 - [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
 

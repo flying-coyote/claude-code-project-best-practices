@@ -13,7 +13,7 @@ Claude Code best-practice content is scattered across vendor docs, interviews, b
 1. **Trust** — a recommendation from the Claude Code creator and a recommendation from a random blog post both read as "best practice." You cannot tell which to act on without doing the triage yourself.
 2. **Applicability** — advice that is load-bearing for an agent-heavy data pipeline is noise for a static site generator. Generic best-practice lists waste attention; project-specific recommendations do not.
 
-This project solves both by pairing an **evidence-tier system** (every source labelled A–D — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 26 routable analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
+This project solves both by pairing an **evidence-tier system** (every source labelled A–D — so authority is visible, not asserted) with an **adaptive routing audit**: one copy-paste prompt that inspects *your* repo and conditionally fetches only the 4–8 of 25 routable analysis docs that match what it found. Every recommendation cites signal + source + tier, so you can verify or ignore it.
 
 The audit runs in two passes that complement each other. The first is the **INSPECT** pass — the presence/absence and count checks that ask what a project *has* (does a `CLAUDE.md` exist, is `.mcp.json` present, which model version is pinned), and it routes those signals to the matching docs. That pass is good at telling you which conventions you are missing and weak at telling you whether the conventions you already have are the right ones, because a presence check passes the moment a mechanism exists regardless of whether it still serves its purpose. The second pass — **RETHINK** — is the intent-alignment layer that closes that gap: for each central mechanism the project already has, it asks what the mechanism is *for* and checks the mechanism against that stated intent, so the audit catches intent-mechanism drift, the case where what a project has (a glob still pointing at a moved directory, an ARCHITECTURE.md frozen at an outgrown doc count, a write-scoped permission nobody decided to keep) has come apart from why it has it. This repo's own self-audit surfaced exactly this drift in itself, which is why the RETHINK pass is first-class rather than an afterthought; the routing and per-mechanism intent checks live in [`AUDIT-CONTEXT.md`](AUDIT-CONTEXT.md) and [`analysis/intent-alignment-audit.md`](analysis/intent-alignment-audit.md).
 
@@ -23,7 +23,7 @@ Convergence status: the drift/staleness detection this audit performs is **singl
 
 | Capability | Why It Matters | Where Else? |
 |-----------|---------------|-------------|
-| **Adaptive routing audit** (signal → 4–8 docs of 26) | Your project's context determines which advice you get | No packaged equivalent found; the instrument is ours |
+| **Adaptive routing audit** (signal → 4–8 docs of 25) | Your project's context determines which advice you get | No packaged equivalent found; the instrument is ours |
 | **Intent-alignment pass** (RETHINK: each mechanism vs its stated *why*) | Catches intent-mechanism drift the presence checks miss — a stale glob, an outgrown doc count, an unintended permission | Inspired by Daniel Miessler's diagnosis; the instrument is ours |
 | **Evidence tier system** (A–D source tiers; the 1–5 claim-strength axis is RETIRED as of 2026-07-12) | Know which advice to trust | Adapted from evidence-based-medicine tier systems; the application here is ours |
 | **Quantified behavioral insights** (80% CLAUDE.md adherence, 60% context threshold) | Calibrate expectations from data, not vibes | Scattered across interviews |
@@ -49,7 +49,7 @@ If you cannot verify a recommendation against the cited doc, the audit failed �
 
 ## Who It Is For
 
-- **Practitioners with a specific repo**: run the one-prompt audit; get 4–8 cited recommendations scoped to your project rather than 26 docs to read.
+- **Practitioners with a specific repo**: run the one-prompt audit; get 4–8 cited recommendations scoped to your project rather than 25 docs to read.
 - **Evaluators weighing claims from any AI tooling source**: the evidence-tier system (A–D source quality) applies to any claim, not just claims in this repo.
 - **Teams standardizing practice across multiple Claude Code projects**: the audit output is structured and comparable — diff two repos' audits to surface drift.
 
@@ -75,7 +75,7 @@ The ecosystem now has seven distinguishable lanes, and this project deliberately
 
 ## Quick Start: Adaptive Routing Audit (one copy-paste)
 
-Copy-paste this into Claude Code in **any project**. It collects signals, fetches the [routing map](AUDIT-CONTEXT.md), and conditionally fetches 4–8 of the 26 routable analysis docs based on what it observes. One prompt; 9–13 network fetches (the map, ONE-LINE-PROMPT.md for the output format, three Always Fetch docs, 4–8 routed docs); 1–5 minutes typical round-trip.
+Copy-paste this into Claude Code in **any project**. It collects signals, fetches the [routing map](AUDIT-CONTEXT.md), and conditionally fetches 4–8 of the 25 routable analysis docs based on what it observes. One prompt; 9–13 network fetches (the map, ONE-LINE-PROMPT.md for the output format, three Always Fetch docs, 4–8 routed docs); 1–5 minutes typical round-trip.
 
 ```
 Audit this project with the adaptive routing protocol at
@@ -105,25 +105,24 @@ The prompt above is kept identical to the one in ONE-LINE-PROMPT.md (synced 2026
 
 ---
 
-## Core Analysis (27 files)
+## Core Analysis (26 files)
 
-*The `analysis/` directory contains 27 `.md` files: 26 routable analysis docs plus `CANONICAL-DOC-TEMPLATE.md`, a non-routable template excluded from the count (post the 2026-07-16 absorption wave: one retirement in progress, two merges; `prose-corpus-discoverability.md` added 2026-08-28; `ai-tool-vetting.md` added 2026-11-03).*
+*The `analysis/` directory contains 26 `.md` files: 25 routable analysis docs plus `CANONICAL-DOC-TEMPLATE.md`, a non-routable template excluded from the count (post the 2026-07-16 absorption wave: one retirement in progress, two merges; `prose-corpus-discoverability.md` added 2026-08-28; `ai-tool-vetting.md` added 2026-11-03; `mcp-vs-skills-economics.md` retired and moved to `archive/` 2026-11-03, completing the 2026-07-16 retirement).*
 
 | Document | What It Covers |
 |----------|---------------|
 | [evidence-tiers.md](analysis/evidence-tiers.md) | A–D source-tier classification + HIGH/MEDIUM/LOW confidence framework (merged 2026-07-16; the 1–5 claim-strength axis is retired) |
 | [intent-alignment-audit.md](analysis/intent-alignment-audit.md) | The RETHINK layer: nine why-questions a presence/absence audit can't ask (EMERGING) |
 | [behavioral-insights.md](analysis/behavioral-insights.md) | Quantified Claude Code behavior: context thresholds, instruction adherence, prompt sensitivity across model versions |
-| [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md) | Cross-version diagnostic matrix, Opus 4.5 → Opus 5: the 4.7 silent no-ops, the 4.8 recovery, and Opus 5's delegation/verification reversals |
+| [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md) | Cross-version diagnostic matrix, Opus 4.5 → Opus 5: the 4.7 silent no-ops, the 4.8 recovery, and Opus 5's delegation/verification reversals (RETIRING toward first-party `/doctor prompt-audit` since 2026-11-03; the matrix and probe rows stay) |
 | [harness-engineering.md](analysis/harness-engineering.md) | Harness philosophy, diagnostic framework, infrastructure patterns |
 | [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md) | Unattended execution: `/loop`, `/goal`, Routines, Desktop scheduled tasks, the Ralph lineage, and the "loop engineering" framing (EMERGING) |
-| [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md) | 3-tier CLAUDE.md evolution across 6 repos, ~150 instruction budget |
+| [claude-md-progressive-disclosure.md](analysis/claude-md-progressive-disclosure.md) | 3-tier CLAUDE.md evolution across 6 repos, ~150 instruction budget (follows the first-party memory docs since 2026-11-03; keeps the measured sizing data) |
 | [agent-driven-development.md](analysis/agent-driven-development.md) | Agent-driven methodology with 7-repo quantified evidence |
 | [agent-evaluation.md](analysis/agent-evaluation.md) | Eval methodology from Anthropic engineering |
 | [orchestration-comparison.md](analysis/orchestration-comparison.md) | When to use native subagents vs GSD vs CAII vs agent teams + framework-selection decision table (merged 2026-07-16) |
 | [mcp-patterns.md](analysis/mcp-patterns.md) | The single MCP doc: OWASP security mapping + 4-plugin/2-MCP sweet-spot evidence (absorbed mcp-daily-essentials 2026-07-10) |
-| [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md) | RETIRING toward first-party `/usage` — historical Tenzir A/B record + the controlled-comparison instrument |
-| [plugins-and-extensions.md](analysis/plugins-and-extensions.md) | Skills vs MCP vs Hooks vs Commands decision framework |
+| [plugins-and-extensions.md](analysis/plugins-and-extensions.md) | Pre-install checklist for plugins and skills, community marketplaces, team pinning governance; the entry point to ai-tool-vetting.md |
 | [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md) | 4-layer security stack, auto mode analysis, sandbox architecture |
 | [secure-code-generation.md](analysis/secure-code-generation.md) | OWASP-aware code generation patterns |
 | [domain-knowledge-architecture.md](analysis/domain-knowledge-architecture.md) | Domain knowledge encoding for LLM-assisted development |
@@ -201,7 +200,7 @@ Full database: [SOURCES.md](SOURCES.md).
 
 ## Project Status
 
-**v2.1** — 26 routable analysis docs (44→27 in the 2026-07-10 Reduction Phases 0-6; 27→25 files in the 2026-07-16 absorption wave; 25→26 with `ai-tool-vetting.md` on 2026-11-03 — first third-party sweep, five docs entered the follow lane, one retirement toward `/usage`, two merges; see ABSORPTION-MAP.md) with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Claude 5-family migration readiness (Fable 5 / Opus 5 / Sonnet 5, with Opus 4.8 as Legacy; refreshed 2026-08-13), unattended-execution primitives (`/loop`, `/goal`, Routines, scheduled tasks) plus the "loop engineering" framing, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
+**v2.1** — 25 routable analysis docs (44→27 in the 2026-07-10 Reduction Phases 0-6; 27→25 files in the 2026-07-16 absorption wave; 25→26 with `ai-tool-vetting.md` and 26→25 with `mcp-vs-skills-economics.md` archived, both on 2026-11-03 — first third-party sweep, five docs entered the follow lane, one retirement toward `/usage`, two merges; see ABSORPTION-MAP.md) with production evidence from a 7-repo portfolio, covering agent-driven development, security data pipelines, federated query architecture, cross-project synchronization, session quality diagnostics, Claude 5-family migration readiness (Fable 5 / Opus 5 / Sonnet 5, with Opus 4.8 as Legacy; refreshed 2026-08-13), unattended-execution primitives (`/loop`, `/goal`, Routines, scheduled tasks) plus the "loop engineering" framing, and 7 memory-system archetypes (curated KB through team-shared memory) with empirical Pass-2 testbed findings on this repo (graphify vs understand-anything A/B + ~25% EXTRACTED-edge hallucination spot-check).
 
 **Archive**: Prior v1 patterns (24 docs) live in `archive/patterns-v1/` — preserved for historical comparison, not active guidance. See [ARCHIVE.md](ARCHIVE.md).
 

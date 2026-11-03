@@ -12,7 +12,7 @@ measurement-claims:
   - claim: "Skills used 55% less cached tokens (4.0M vs 8.8M) — HISTORICAL pre-tool-search measurement (2026-01), deferred 2026-07-16; kept as the controlled A/B record, not live guidance"
     source: "Tenzir production data"
     date: "2026-01-15"
-status: RETIRING
+status: RETIRED
 replacement-by: "Anthropic /usage per-category breakdown (first-party, GA — code.claude.com/docs/en/costs, Pro/Max/Team/Enterprise) — live cost attribution to skills, subagents, plugins, and per-MCP-server as % of plan usage (24h/7d, local-machine, approximate). Bar PARTIAL: first-party + GA + citeable clear; covers-slice only partly — supersedes the stale absolute Tenzir cost figures as the live cost signal. Retained here: the controlled same-workflow A/B instrument (identical task via MCP vs Skills, incl. duration and cached-token dimensions) that /usage cannot produce from your own usage mix. Relocated 2026-07-16: the multi-source CLI+Skill pattern → mcp-patterns.md (not a /usage concern)."
 last-verified: "2026-07-16"
 evidence-tier: B
@@ -23,7 +23,9 @@ revalidate-by: 2026-09-30
 
 # MCP vs Skills Economics
 
-> **Replacement status: RETIRING (2026-07-16, Absorption Scan 2026-07 §2.1).** The live cost-signal function is first-party now: `/usage` attributes recent usage to skills, subagents, plugins, and individual MCP servers as a percentage of the total ([code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)). Use `/usage` for current numbers — every figure below is a pre-tool-search January-2026 snapshot kept as a historical record. The one thing this doc still uniquely carries is methodological: the controlled same-workflow A/B instrument (see below), which an observational monitor cannot produce. The CLI+Skill pattern moved to [`mcp-patterns.md`](mcp-patterns.md). Expected completion: RETIRED + archived at the 2026-09-30 review.
+> **Replacement status: RETIRED + ARCHIVED (2026-11-03; RETIRING since 2026-07-16).** Retirement completed under the 2026-07-16 ruling, which scheduled it for the 2026-09-30 review; it ran late, at the 2026-11-03 refresh ([SOURCE-REFRESH-2026-11-03.md](../SOURCE-REFRESH-2026-11-03.md) §4). Since the RETIRING banner below was written, first-party `/usage` gained a Loops breakdown (v2.1.243) and warnings for always-on context and large tool results (v2.1.299), and `/doctor` folds `/usage` recommendations into its report (v2.1.305), so the live cost signal for skills, plugins and individual MCP servers is fully first-party. The controlled same-workflow A/B instrument this doc retained is archived with it rather than relocated: it is a method note for a build-vs-borrow decision, and the CLI+Skill pattern it once carried already lives in [`mcp-patterns.md`](../analysis/mcp-patterns.md). This doc is out of the routed corpus; its `applies-to-signals` frontmatter is historical. Original RETIRING banner follows.
+>
+> **Replacement status: RETIRING (2026-07-16, Absorption Scan 2026-07 §2.1).** The live cost-signal function is first-party now: `/usage` attributes recent usage to skills, subagents, plugins, and individual MCP servers as a percentage of the total ([code.claude.com/docs/en/costs](https://code.claude.com/docs/en/costs)). Use `/usage` for current numbers — every figure below is a pre-tool-search January-2026 snapshot kept as a historical record. The one thing this doc still uniquely carries is methodological: the controlled same-workflow A/B instrument (see below), which an observational monitor cannot produce. The CLI+Skill pattern moved to [`mcp-patterns.md`](../analysis/mcp-patterns.md). Expected completion: RETIRED + archived at the 2026-09-30 review.
 
 **Source**: [Tenzir Blog - "We Did MCP Wrong"](https://tenzir.com/blog/we-did-mcp-wrong) (Matthias Vallentin, January 2026)
 **Evidence Tier**: B (Production data from active project; historical record)
@@ -66,13 +68,13 @@ The MCP run relied on three custom tools (`run_pipeline`, `docs_read`, `run_test
 
 **First-party replacement (Tier A)**: [Manage costs effectively — /usage per-category breakdown](https://code.claude.com/docs/en/costs) — verified 2026-07-16.
 
-*Last updated: 2026-07-16 (RETIRING — live cost signal deferred to /usage; CLI+Skill pattern relocated to mcp-patterns.md; Tenzir figures marked historical).*
+*Last updated: 2026-11-03 (RETIRED and moved to `archive/`; see the banner). Prior: 2026-07-16 (RETIRING — live cost signal deferred to /usage; CLI+Skill pattern relocated to mcp-patterns.md; Tenzir figures marked historical).*
 
 <!-- graphify-footer:start -->
 
 ## Related (from graph)
 
-- [`analysis/behavioral-insights.md`](behavioral-insights.md) [EXTRACTED (1.00)] — references
+- [`analysis/behavioral-insights.md`](../analysis/behavioral-insights.md) [EXTRACTED (1.00)] — references
 - [`AUDIT-CONTEXT.md`](../AUDIT-CONTEXT.md) [EXTRACTED (1.00)] — references
 - [`INDEX.md`](../INDEX.md) [EXTRACTED (1.00)] — references
 

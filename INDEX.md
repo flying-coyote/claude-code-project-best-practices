@@ -1,6 +1,6 @@
 # Index
 
-*Auto-generated: 2026-11-03 05:36*
+*Auto-generated: 2026-11-03 05:58*
 
 ## Summary
 
@@ -8,8 +8,8 @@
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 27 |
-| archive | 21 |
+| analysis | 26 |
+| archive | 22 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
 | archive/examples-v1/coding-project | 1 |
@@ -81,7 +81,6 @@
 - [harness-engineering.md](analysis/harness-engineering.md)
 - [intent-alignment-audit.md](analysis/intent-alignment-audit.md)
 - [mcp-patterns.md](analysis/mcp-patterns.md)
-- [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md)
 - [memory-system-patterns.md](analysis/memory-system-patterns.md)
 - [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md)
 - [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md)
@@ -166,6 +165,7 @@
 - [federated-query-architecture.md](archive/federated-query-architecture.md)
 - [framework-selection-guide.md](archive/framework-selection-guide.md)
 - [local-cloud-llm-orchestration.md](archive/local-cloud-llm-orchestration.md)
+- [mcp-vs-skills-economics.md](archive/mcp-vs-skills-economics.md)
 - [memory-systems-architecture-axes.md](archive/memory-systems-architecture-axes.md)
 - [memory-systems-genealogy-baseline.md](archive/memory-systems-genealogy-baseline.md)
 - [memory-systems-project-archetypes.md](archive/memory-systems-project-archetypes.md)

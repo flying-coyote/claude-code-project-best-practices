@@ -233,7 +233,7 @@ The portfolio patterns are independently validated by two high-credibility pract
 
 **Nick Schrock (Dagster)** — Merged 1,000+ PRs in 3 weeks with approximately 5 manual IDE edits. His review-loop workflow (local dev → cloud code review → one command → agent applies feedback → CI errors → agent fixes) mirrors the burst-and-validate pattern above at enterprise scale. Key quote: "This isn't vibe coding. The process is still software engineering forward." (Tier B: December 2025)
 
-**Matthias Vallentin (Tenzir)** — 3x velocity improvement with agents handling commits, changelogs, docs, and releases. Framed as engineering organization transformation, not individual productivity. Same team whose production data showed 50% cost reduction through MCP architecture choices (see [MCP vs Skills Economics](./mcp-vs-skills-economics.md)). (Tier B: December 2025)
+**Matthias Vallentin (Tenzir)** — 3x velocity improvement with agents handling commits, changelogs, docs, and releases. Framed as engineering organization transformation, not individual productivity. Same team whose production data showed 50% cost reduction through MCP architecture choices (see [MCP vs Skills Economics](../archive/mcp-vs-skills-economics.md), archived 2026-11-03). (Tier B: December 2025)
 
 Both practitioners emphasize that velocity gains came from harness engineering (review loops, CI integration, permission management) — not from model improvements. This corroborates the portfolio evidence that infrastructure maturity, not model capability, determines agent-driven development effectiveness.
 

@@ -1,7 +1,7 @@
 ---
 evidence-tier: A
 convergence: emerging
-applies-to-signals: [harness-hooks, commit-security-paths, model-version-opus-5, model-version-sonnet-5, model-version-4-8, harness-loop-config, harness-scheduled-agent, ci-scheduled-agent, second-runtime-present]
+applies-to-signals: [harness-hooks, commit-security-paths, model-version-opus-5, model-version-sonnet-5, model-version-4-8, harness-loop-config, harness-scheduled-agent, ci-scheduled-agent, second-runtime-present, tool-repo-self-approval, tool-project-env-redirect, tool-hook-network, tool-hook-fail-open]
 last-verified: 2026-08-29
 revalidate-by: 2026-11-30
 status: PRODUCTION

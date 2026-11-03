@@ -36,7 +36,7 @@ The audit engine has two passes that work together. The **INSPECT** pass is the 
 - v1.0: Initial patterns from Anthropic (Nov 2025)
 - v1.1-v1.4: Pattern expansion to 36 patterns (Nov 2025 - Mar 2026)
 - v2.0: Repositioned as analytical layer; 36 patterns → 14 analysis documents (Mar 2026)
-- v2.1: Expanded to 26 docs with 7-repo portfolio evidence (Apr 2026); grew to 44 files, then the 2026-07-10 reduction collapsed to delta vs first-party (44→27, Decision 11); the 2026-07-16 absorption wave ran the first third-party sweep (27→25 files, Decision 12: absorption map + follow lane + one retirement + two merges)
+- v2.1: Expanded to 26 docs with 7-repo portfolio evidence (Apr 2026); grew to 44 files, then the 2026-07-10 reduction collapsed to delta vs first-party (44→27, Decision 11); the 2026-07-16 absorption wave ran the first third-party sweep (27→25 files, Decision 12: absorption map + follow lane + one retirement + two merges); 2026-11-03 added `ai-tool-vetting.md` and archived the retired `mcp-vs-skills-economics.md` (25 routable docs)
 
 ---
 

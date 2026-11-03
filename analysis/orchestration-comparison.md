@@ -1,7 +1,7 @@
 ---
 evidence-tier: Mixed
 convergence: single-source
-applies-to-signals: [harness-custom-agents, harness-background-tasks, harness-dynamic-workflows, project-type-framework-selection, harness-comprehensive]
+applies-to-signals: [harness-custom-agents, harness-background-tasks, harness-dynamic-workflows, project-type-framework-selection, harness-comprehensive, tool-agent-inherits-all]
 last-verified: 2026-08-13
 revalidate-by: 2026-12-15
 status: PRODUCTION

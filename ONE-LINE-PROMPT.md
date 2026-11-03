@@ -86,11 +86,33 @@ Bulleted list of what triggered each fetch. Example:
 - [ ] ~/.claude/scheduled-tasks/ — {count — Desktop scheduled tasks, host-level}
 - [ ] .claude/worktrees/ or worktree.bgIsolation — {yes/no — background-session isolation}
 - [ ] .claude/workflows/*.js — {count — saved dynamic-workflow scripts}
-- [ ] .mcp.json servers — {N total: pinned / unpinned (`npx`/`uvx` without exact version or `@latest`) / remote (`url`)}
-- [ ] repo self-approval or API redirect — {`enableAllProjectMcpServers`/`enabledMcpjsonServers`/`ANTHROPIC_BASE_URL` in committed settings: yes/no}
-- [ ] hooks with network or shell-pipe commands — {N}; any `onFailure: "block"` — {yes/no}
-- [ ] skills/commands with `allowed-tools: Bash` or `` !`cmd` `` — {N}; hidden Unicode hits — {N}
-- [ ] agents with no `tools:` (inherit all) — {N}
+- [ ] .mcp.json servers — {N total}
+
+## Tool Vetting (`tool-*` signals, weighted)
+
+Fill from the `# Tool vetting` commands in AUDIT-CONTEXT.md. Each signal is reported by its weight (owner ruling 2026-11-03); see AUDIT-CONTEXT.md § Fetch on Tool Configuration.
+
+**Problems** (PROBLEM weight: each one observed becomes a Recommendation below, citing signal + `analysis/ai-tool-vetting.md` + its `evidence-tier`):
+
+- [ ] `tool-repo-self-approval` — {file:line, or "not observed"}
+- [ ] `tool-project-env-redirect` — {file:line, or "not observed"}
+- [ ] `tool-mcp-unpinned` — {server name + args, or "not observed"}
+- [ ] `tool-agent-inherits-all` — {agent files, or "not observed"}
+- [ ] `tool-hook-fail-open` — {file, or "not observed"}
+- [ ] `tool-broad-grants` — {allow rules, or "not observed"}
+
+**For human review** (REVIEW weight: listed, not a defect; no Recommendation unless the reviewer finds one):
+
+- [ ] `tool-skill-grants-tools` — {skill/command file:line with the `allowed-tools` or `` !`cmd` `` line, or "none"}
+- [ ] `tool-hook-network` — {the full hook command, quoted, for each hit, or "none"}
+- [ ] `tool-hidden-unicode` — {files with zero-width, bidi-control or Unicode Tag characters, or "none"}
+
+**Inventory** (INVENTORY weight: count only):
+
+- [ ] `tool-mcp-remote` — {N remote MCP servers}
+- [ ] `tool-plugin-marketplace-declared` — {N declared marketplaces/plugins; marketplace.json present yes/no}
+
+**Host-level tool state: not checked.** User-scope MCP servers, installed plugins, OAuth tokens, claude.ai connectors and managed settings live outside the repository, so this audit did not check them. Write exactly that; never write "clean" or "no issues" for them, even when every line above is "not observed".
 
 ## Session Quality (`/insights` + `claude doctor`, both first-party)
 

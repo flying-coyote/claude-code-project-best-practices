@@ -113,7 +113,7 @@ convergence: single-source
 **Source**: [Tenzir: "We Did MCP Wrong"](https://tenzir.com/blog/we-did-mcp-wrong) (Jan 2026)
 **Date**: January 2026 | **Foundational**: No | **Effective Weight**: 0.49 (0.65 x 0.75)
 **Key Data**: Skills 50% cheaper than MCP, production cost comparison
-**Referenced in**: [mcp-vs-skills-economics.md](analysis/mcp-vs-skills-economics.md), [plugins-and-extensions.md](analysis/plugins-and-extensions.md)
+**Referenced in**: [mcp-vs-skills-economics.md (archived 2026-11-03)](archive/mcp-vs-skills-economics.md), [plugins-and-extensions.md](analysis/plugins-and-extensions.md)
 
 ### 17. Agentic Retrieval vs RAG — Authority: 2 (Commentator)
 **Source**: [LlamaIndex Blog](https://www.llamaindex.ai/blog/rag-is-dead-long-live-agentic-retrieval)
