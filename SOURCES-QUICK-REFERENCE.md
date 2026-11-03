@@ -6,7 +6,7 @@ convergence: single-source
 
 **Purpose**: Fast lookup for the most commonly referenced sources with authority + recency weighting
 
-**For complete source database**: See [SOURCES.md](SOURCES.md) (comprehensive; last curated 2026-08-13 — Claude 5 family + thought-leader refresh: Opus 5 registered (launch + What's-New + prompting guide + fast mode; system card existence-only), Sonnet 5 ID verified + $2/$10 permanent, Opus 4.8 → Legacy, changelog v2.1.216/v2.1.219, Willison per-release dossier across the full 5 family, Ronacher/Osmani/Ng/Husain-Shankar/Karpathy liveness sweep; includes a dedicated **Unverified / pending revalidation** section at the end)
+**For complete source database**: See [SOURCES.md](SOURCES.md) (comprehensive; last curated 2026-11-03 — Claude 5.5 family + Fable 5.1, `/doctor prompt-audit`, changelog through v2.1.317; this quick reference's own top-30 list was not re-ranked in that pass. Prior: 2026-08-13 — Claude 5 family + thought-leader refresh: Opus 5 registered (launch + What's-New + prompting guide + fast mode; system card existence-only), Sonnet 5 ID verified + $2/$10 permanent, Opus 4.8 → Legacy, changelog v2.1.216/v2.1.219, Willison per-release dossier across the full 5 family, Ronacher/Osmani/Ng/Husain-Shankar/Karpathy liveness sweep; includes a dedicated **Unverified / pending revalidation** section at the end)
 
 **Authority Scale (0-5)**: 5=Foundational (built it), 4=Authoritative (core team/peer-reviewed), 3=Practitioner (production metrics), 2=Commentator (blog/YouTube), 1=Unverified, 0=Rejected
 

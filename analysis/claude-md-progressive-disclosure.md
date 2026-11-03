@@ -148,6 +148,20 @@ Shifts 3 and 5 (progressive disclosure, auto-memory) presuppose a model that **f
 
 ---
 
+## Currency (2026-11-03) — First-Party Carries the Sizing Prescription and the Checks
+
+Three first-party changes since the 2026-08-13 section above, all Tier A:
+
+- **A size target.** The memory docs now say "target under 200 lines per CLAUDE.md file. Longer files consume more context and reduce adherence," and that `@path` imports "help you organize a long file but don't reduce its context cost" ([memory docs § Write effective instructions](https://code.claude.com/docs/en/memory#write-effective-instructions)). That is a first-party number in the same range as this doc's measured Tier 3 band (166–209 lines), arrived at independently.
+- **A check that does the migration.** `/doctor` now flags "checked-in CLAUDE.md content Claude could derive from the codebase" and offers to move always-loaded guidance "into skills and nested CLAUDE.md files that load on demand" ([skills docs § Check your setup with /doctor](https://code.claude.com/docs/en/skills#check-your-setup-with-/doctor)); v2.1.281 made the large-CLAUDE.md startup notice "count instruction files together, so many mid-sized files and @-imports are caught" (changelog). `/doctor prompt-audit` (v2.1.283) adds stale-path and contradiction checks across the same files.
+- **AGENTS.md as a fallback.** Since v2.1.277, "in a project with no CLAUDE.md, Claude Code reads AGENTS.md instead" (changelog), which narrows the split-brain case in § AGENTS.md Interop to projects that carry both files.
+
+### When a path-scoped rule does not load
+
+Moving partial-scope instructions into `.claude/rules/` with a `paths:` filter is the first-party remedy for an oversized CLAUDE.md, and it has a load condition worth knowing before you rely on it: "A path-scoped rule loads when Claude uses the Read, Write, or Edit tool on a matching file," or views one with a Bash read such as `cat` ([memory docs § Path-specific rules](https://code.claude.com/docs/en/memory#path-specific-rules)). So a turn that never touches a matching file never sees the rule, which is fine for a style rule about `src/api/` and wrong for anything that must hold in every turn. `paths` is also the only frontmatter field Claude Code reads from a rule, and frontmatter that fails to parse makes the rule load unconditionally rather than not at all. Path scoping is therefore a context-cost tool, not an adherence tool. Where adherence has to be guaranteed, this doc's existing answer still applies: hooks, not instructions, are the 100% layer (Cherny's ~80%-vs-hooks figure and the PostCompact re-injection pattern in [SOURCES.md](../SOURCES.md) § Boris Cherny), and the [hooks docs](https://code.claude.com/docs/en/hooks) note that `SessionStart` and `UserPromptSubmit` hooks can add context through `additionalContext`. The audit has no signal for this today; a candidate is a `paths:` rule whose body uses MUST/NEVER language, which is the shape where the load condition bites.
+
+**Absorption reading (updated).** The 2026-08-13 flag said first-party carried the *concept*; it now also carries a size target and a checker that performs the progressive-disclosure migration. What first-party still does not publish is the measured 42–209-line 6-repo dataset and the three-tier rationale. I think this row is ready to move from `none` to `follow` (first-party memory docs as the followed canon, the dataset as the kept delta) at the next absorption sweep; recommended in [`SOURCE-REFRESH-2026-11-03.md`](../SOURCE-REFRESH-2026-11-03.md), not applied.
+
 ## Sources
 
 ### Tier A (Direct Production Observation)
@@ -165,7 +179,7 @@ Shifts 3 and 5 (progressive disclosure, auto-memory) presuppose a model that **f
 
 ---
 
-*Last updated: 2026-08-19 (AGENTS.md interop extended — DeepSeek Harness reads both files natively with a maxBytes budget, a second budget-bounded-loading data point). Prior: 2026-08-13 (currency section on Anthropic's Claude 5-generation context-engineering post — first-party adoption of "progressive disclosure" by name, the 80%-system-prompt-reduction claim, the six shifts, `/doctor`; mirror-verified with direct-fetch-blocked caveat; partial-absorption signal flagged for the next sweep without touching status/lane frontmatter; model-side counterpoint on reference-following enforcement; `last-verified` → 2026-08-13). Prior: 2026-07-16 (added AGENTS.md interop note; `repo-has-agents-md` added to applies-to-signals). Prior: July 2026.*
+*Last updated: 2026-11-03 (Currency section: first-party 200-line target, `/doctor` derivable-content and on-demand migration checks, v2.1.277 AGENTS.md fallback, path-scoped-rule load condition; lane change to `follow` recommended, not applied). Prior: 2026-08-19 (AGENTS.md interop extended — DeepSeek Harness reads both files natively with a maxBytes budget, a second budget-bounded-loading data point). Prior: 2026-08-13 (currency section on Anthropic's Claude 5-generation context-engineering post — first-party adoption of "progressive disclosure" by name, the 80%-system-prompt-reduction claim, the six shifts, `/doctor`; mirror-verified with direct-fetch-blocked caveat; partial-absorption signal flagged for the next sweep without touching status/lane frontmatter; model-side counterpoint on reference-following enforcement; `last-verified` → 2026-08-13). Prior: 2026-07-16 (added AGENTS.md interop note; `repo-has-agents-md` added to applies-to-signals). Prior: July 2026.*
 <!-- graphify-footer:start -->
 
 ## Related (from graph)
