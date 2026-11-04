@@ -4,7 +4,7 @@ version-requirements:
 version-last-verified: "2026-03-23"
 measurement-claims:
   - claim: "Skills are 4x more token-efficient than MCP for methodology (definitions-layer claim; partially re-measured 2026-07-18 — with tool search engaged (default since v2.1.7) MCP definitions defer to ~11 est. tokens/tool names-only, narrowing the static-loading gap this figure was measured against; treat as a static-loading comparison)"
-    source: "Simon Willison analysis"
+    source: "Simon Willison analysis. Re-checked 2026-11-04: the cited post (simonwillison.net/2025/Oct/16/claude-skills/) gives no multiplier, only 'a few dozen extra tokens' per skill against GitHub's MCP consuming 'tens of thousands of tokens'; no primary for the 4x was located. Left expired."
     date: "2025-10-16"
     revalidate: "2026-10-16"
 status: PRODUCTION

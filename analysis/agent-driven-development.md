@@ -4,25 +4,25 @@ version-requirements:
 version-last-verified: "2026-04-06"
 measurement-claims:
   - claim: "100% agent co-authored commits across 81 commits in third-brain knowledge management hub"
-    source: "Direct git history analysis — third-brain repository"
+    source: "Direct git history analysis — third-brain repository. Re-verified 2026-11-04: git log through 2026-04-06 00:57 -0400 reproduces 81 commits (the 81st commit is 00:57; the next lands 05:08), all carrying a Co-Authored-By trailer; full history now 201/202, repo dormant since 2026-06-22. Counts only; the repo is private."
     date: "2026-04-06"
-    revalidate: "2026-10-06"
+    revalidate: "2027-11-04"
   - claim: "95% agent co-authored commits (83/87) with PreToolUse security enforcement in mndr-review-automation"
-    source: "Direct git history analysis — mndr-review-automation repository"
+    source: "Direct git history analysis — mndr-review-automation repository. Frozen 2026-11-04: mndr-review-automation is not reachable from the maintainer's accounts (gh repo view fails under flying-coyote and JW-Corelight) and no local clone exists, so the count cannot be re-run. Dated snapshot; cite with its date."
     date: "2026-04-06"
-    revalidate: "2026-10-06"
+    revalidate: never   # unrepeatable — source repo unreachable
   - claim: "22 commits in a single day during focused agent session (mndr-review-automation, 2026-03-31)"
-    source: "Direct git history analysis — mndr-review-automation repository"
+    source: "Direct git history analysis — mndr-review-automation repository. Frozen 2026-11-04: mndr-review-automation is not reachable from the maintainer's accounts (gh repo view fails under flying-coyote and JW-Corelight) and no local clone exists, so the count cannot be re-run. Dated snapshot; cite with its date."
     date: "2026-04-06"
-    revalidate: "2026-10-06"
+    revalidate: never   # unrepeatable — source repo unreachable
   - claim: "Progressive infrastructure maturity from 0 harness components (tme-mcp-server, 10% co-authored) to full harness (mndr-review-automation, 95% co-authored)"
-    source: "Direct portfolio analysis — 7 repositories"
+    source: "Direct portfolio analysis — 7 repositories. Frozen 2026-11-04: both endpoints of the comparison (tme-mcp-server, mndr-review-automation) are unreachable from the maintainer's accounts and have no local clone, so the rates cannot be re-run. Dated snapshot; cite with its date."
     date: "2026-04-06"
-    revalidate: "2026-10-06"
+    revalidate: never   # unrepeatable — source repos unreachable
   - claim: "Hub-spoke cross-repo coordination tracking 4 repos with 120 commits in 14 days"
-    source: "Direct analysis — third-brain cross-repo-progress.json"
+    source: "Direct analysis — third-brain cross-repo-progress.json. Re-verified 2026-11-04 against the file as committed at dfb1294 (timestamp 2026-04-03): summary.total_repos 4, total_recent_commits 120."
     date: "2026-04-06"
-    revalidate: "2026-10-06"
+    revalidate: "2027-11-04"
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: Mixed
@@ -263,7 +263,7 @@ Both practitioners emphasize that velocity gains came from harness engineering (
 
 ---
 
-*Last updated: 2026-07-16 (added Osmani Agentic Autonomy Levels crosswalk near the maturity-model section). Prior: April 2026.*
+*Last updated: 2026-11-04 (measurement-claims expiry sweep: two third-brain figures re-verified from git, three mndr/tme figures frozen as unreachable). Prior: 2026-07-16 (added Osmani Agentic Autonomy Levels crosswalk near the maturity-model section). Prior: April 2026.*
 
 <!-- graphify-footer:start -->
 

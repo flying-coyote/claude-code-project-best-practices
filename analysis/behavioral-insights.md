@@ -373,7 +373,7 @@ These gaps do not invalidate the claims — they scope them. Practitioner-observ
 | ~150 instruction cap for CLAUDE.md | Boris Cherny + Dexter Horthy (convergent, pre-Fable) | **High** (upgraded: convergent evidence) |
 | Auto mode 93% approval rate | Anthropic blog (March 2026) | High (Tier A) |
 | Extended thinking = 2-3x latency | Boris Cherny (March 2026) | High |
-| Skills use ~2% context budget each | Anthropic docs | High (Tier A) |
+| Skills use ~2% context budget each (⚠️ corrected 2026-11-04: current docs budget the whole skill listing at 1% of context, not 2% per skill; see domain-knowledge-architecture.md) | Anthropic docs | High (Tier A) |
 | Jaggedness: verifiable domains improve, non-verifiable stagnate | Karpathy (March 2026) | Medium-High (Authority 4/5, conceptual framework) |
 | Self-evaluation: identifies then rationalizes issues away | Anthropic engineering blog | High (Tier A, vendor self-disclosure) |
 | Monitor tool requires explicit prompting for interrupt-based mode | Anthropic (April 2026) | High (Tier A) |

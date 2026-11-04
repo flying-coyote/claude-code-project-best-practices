@@ -1139,8 +1139,8 @@ Track these for production readiness:
 - **Authors**: Linyue Pan, Lexiao Zou, Shuo Guo, Jingchen Ni, Hai-Tao Zheng (Tsinghua University, Shenzhen International Graduate School + Harbin Institute of Technology)
 - **Source**: [arXiv:2603.25723](https://arxiv.org/abs/2603.25723)
 - **Date**: 2026-03-26 (verified 2026-05-24)
-- **Attribution correction**: This paper was previously cited in the repo as "Tingua NLH" — a garbled spelling of Tsinghua. Ablation numbers and the NLH vs. native-code table (30.4% → 47.2%, 1,200 → 34 LLM calls) match the citations exactly; same paper, corrected attribution.
-- **Key Findings**: Verifier ablation -0.8 SWE-bench / -8.4 OSWorld; multi-candidate search -2.4 SWE-bench / -5.6 OSWorld; self-evolution +4.8 / +2.7. NLH (expressing harness logic in natural language vs. native code) lifts 30.4% → 47.2% and cuts LLM calls from 1,200 to 34. Self-evolution is the only consistently helpful ablated module.
+- **Attribution correction**: This paper was previously cited in the repo as "Tingua NLH" — a garbled spelling of Tsinghua. Ablation numbers and the NLH vs. native-code table (30.4% → 47.2%, 1,200 → 34 LLM calls) match the citations exactly; same paper, corrected attribution. ⚠️ That match is to v1 (2026-03-26): v2 (2026-05-18, 'revise paper') drops the NLH vs. native-code table and re-runs the ablation from a new baseline where the verifier row is +0.2 SWE-bench / +8.4 OSWorld (re-checked 2026-11-04).
+- **Key Findings** (v1; see the v2 note above): Verifier ablation -0.8 SWE-bench / -8.4 OSWorld; multi-candidate search -2.4 SWE-bench / -5.6 OSWorld; self-evolution +4.8 / +2.7. NLH (expressing harness logic in natural language vs. native code) lifts 30.4% → 47.2% and cuts LLM calls from 1,200 to 34. Self-evolution is the only consistently helpful ablated module.
 - **Pattern**: [Harness Engineering](analysis/harness-engineering.md) — verifier-modules anti-pattern, NLH as orthogonal optimization axis.
 - **Evidence Tier**: B (Preprint with reproducible ablations on public benchmarks; not yet peer-reviewed)
 

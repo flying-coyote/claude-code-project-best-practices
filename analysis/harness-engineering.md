@@ -12,37 +12,37 @@ measurement-claims:
     date: "2025-12-22"
     revalidate: "2027-02-28"
   - claim: "ECC (renamed from everything-claude-code): 136+ skills, 30 subagents as of the 2026-03-30 snapshot (star count dropped per the snapshot-stats convention; dated stats live in the SOURCES.md dossier)"
-    source: "GitHub repository analysis"
+    source: "GitHub repository analysis. Re-verified 2026-11-04 via the GitHub trees API: affaan-m/everything-claude-code (now ECC) at e68233c, the last commit on or before 2026-03-30, has 136 skills/*/SKILL.md and 30 agents/*.md; main on 2026-11-04 has 314 and 71."
     date: "2026-03-30"
-    revalidate: "2026-09-30"
-  - claim: "superpowers: 294K+ installs, 7-stage mandatory workflow"
-    source: "Claude plugin directory + GitHub repository"
-    date: "2026-03-30"
-    revalidate: "2026-09-30"
-  - claim: "NLH representation: 30.4% to 47.2% performance, 1200 to 34 LLM calls"
-    source: "Pan et al. (Tsinghua + Harbin IT), arXiv:2603.25723"
+    revalidate: "2027-05-04"
+  - claim: "superpowers: ~1.0M installs (1,009,371), 7-stage mandatory workflow"
+    source: "claude.com/plugins/superpowers install counter + obra/superpowers README 'The Basic Workflow' (seven numbered stages, 'Mandatory workflows, not suggestions'), both read 2026-11-04, latest release v7.0.2. Prior (2026-03-30): 294K+ installs."
+    date: "2026-11-04"
+    revalidate: "2027-05-04"
+  - claim: "NLH representation: 30.4% to 47.2% performance, 1200 to 34 LLM calls (arXiv v1 only; not in v2)"
+    source: "Pan et al. (Tsinghua + Harbin IT), arXiv:2603.25723v1 Table 2. ⚠️ NEEDS REVALIDATION 2026-11-04: these are v1 figures (2026-03-26). v2 (2026-05-18, 'revise paper') drops the OS-Symphony code-vs-NLAH comparison entirely and re-runs the ablation from a different Basic (73.0 SWE / 44.4 OSWorld), where the verifier row reads +0.2 SWE / +8.4 OSWorld, a gain. The doc body has not yet been re-argued on v2."
     date: "2026-03-26"
     revalidate: "2026-09-26"
-  - claim: "Verifiers hurt performance: -0.8 SWE-bench, -8.4 OS World"
-    source: "Pan et al. (Tsinghua + Harbin IT), arXiv:2603.25723"
+  - claim: "Verifiers hurt performance: -0.8 SWE-bench, -8.4 OS World (arXiv v1 only; v2 reverses the sign)"
+    source: "Pan et al. (Tsinghua + Harbin IT), arXiv:2603.25723v1 Table 3. ⚠️ NEEDS REVALIDATION 2026-11-04: these are v1 figures (2026-03-26). v2 (2026-05-18, 'revise paper') drops the OS-Symphony code-vs-NLAH comparison entirely and re-runs the ablation from a different Basic (73.0 SWE / 44.4 OSWorld), where the verifier row reads +0.2 SWE / +8.4 OSWorld, a gain. The doc body has not yet been re-argued on v2."
     date: "2026-03-26"
     revalidate: "2026-09-26"
   - claim: "Meta-Harness: Rank 1 TerminalBench 2 with Haiku 4.5 via harness optimization"
-    source: "Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT), arXiv:2603.28052"
+    source: "Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT), arXiv:2603.28052. Re-verified 2026-11-04: still v1 only; §4.3 says it ranks '#1 among all Haiku 4.5 agents' on TerminalBench-2 (scope is Haiku 4.5 agents, not overall; with Opus 4.6 it ranks #2)."
     date: "2026-03-30"
-    revalidate: "2026-09-30"
+    revalidate: "2027-11-04"
   - claim: "6x performance gap from harness changes alone on the same benchmark"
-    source: "Lee et al., Meta-Harness, arXiv:2603.28052 (paper's headline quote)"
+    source: "Lee et al., Meta-Harness, arXiv:2603.28052 (paper's headline quote). Re-verified 2026-11-04 in v1 (the only version): 'Changing the harness around a fixed large language model (LLM) can produce a 6× performance gap on the same benchmark.'"
     date: "2026-03-30"
-    revalidate: "2026-09-30"
+    revalidate: "2027-11-04"
   - claim: "Independent convergent finding: Opus 4.5 scores 12% on Cursor vs 2% on OpenCode (6x) - but the same table gives 3x for Sonnet 4.5, 1.5x for GLM-4.6, and an inverted result for GPT-5.1; the paper hedges to \"up to 6x\""
     source: "Tian et al., SWE-Bench Mobile, arXiv:2602.09540; published KDD '26, ACM SIGKDD Proceedings Vol. 2, pp. 8077-8087, 2026-08-08, DOI 10.1145/3770855.3818488"
     date: "2026-08-28"
     revalidate: "2027-08-28"
   - claim: "v2 DAW built in 4 hours for $125 after harness simplification"
-    source: "Anthropic engineering blog"
+    source: "Anthropic engineering blog — Rajasekaran, 'Designing a harness for long-running application development' (anthropic.com/engineering/harness-design-long-running-apps, published 2026-03-24). Re-verified 2026-11-04: 'about 4 hours and $124 in token costs'; the run table totals 3 hr 50 min and $124.70, so $125 is a rounding."
     date: "2026-04-01"
-    revalidate: "2026-10-01"
+    revalidate: "2027-11-04"
 status: PRODUCTION
 follows: "Willison 'designing agentic loops' canon (simonwillison.net/tags/coding-agents/) + Ronacher inner-vs-outer-loop essays (lucumr.pocoo.org — 'The Coming Loop', 2026-06-23) + Osmani own-the-outer-loop (addyosmani.com/blog/agentic-engineering/) (Tier B practitioner canons, verified 2026-07-16) — the harness-design commentary layer. Bar status: fails Supported (blog-form canons). Delta kept here: the Bitter-Lesson diagnostic, accretion heuristics, and portfolio measurements — verified 2026-07-16 that no canon or framework carries these (superpowers v6.1.1: zero 'bitter lesson' hits; the diagnostic is applied TO it in this doc). Advance trigger: a Supported harness-design guide (first-party or maintained community) absorbing the diagnostic function."
 last-verified: "2026-08-13"
@@ -104,6 +104,8 @@ Research from March 2026 shows that **how** a harness is expressed and optimized
 
 ### Natural Language Harness (NLH) Representation Gains
 
+> ⚠️ **NEEDS REVALIDATION (2026-11-04).** The figures in this section are from arXiv:2603.25723 **v1** (2026-03-26). The authors' v2 (2026-05-18) drops the OS-Symphony code-vs-NLAH comparison and re-runs the module ablation from a different baseline, where the verifier row turns positive (+0.2 SWE Verified, +8.4 OSWorld). The v1 numbers are preserved as a dated record; the conclusions drawn from them below have not yet been re-argued on v2.
+
 Migrating OS Symfony's native code harness into a Natural Language Harness representation produced dramatic improvements:
 
 | Metric | Native Code Harness | NLH Representation | Change |
@@ -117,6 +119,8 @@ The harness did the same thing in both cases — the representation changed. Thi
 Source: Pan, Zou, Guo, Ni, Zheng (Tsinghua University + Harbin Institute of Technology), ["Natural-Language Agent Harnesses"](https://arxiv.org/abs/2603.25723), 2026-03-26.
 
 ### Ablation Evidence: Verifiers Hurt, Self-Evolution Helps
+
+> ⚠️ **NEEDS REVALIDATION (2026-11-04).** The figures in this section are from arXiv:2603.25723 **v1** (2026-03-26). The authors' v2 (2026-05-18) drops the OS-Symphony code-vs-NLAH comparison and re-runs the module ablation from a different baseline, where the verifier row turns positive (+0.2 SWE Verified, +8.4 OSWorld). The v1 numbers are preserved as a dated record; the conclusions drawn from them below have not yet been re-argued on v2.
 
 The same Tsinghua/Harbin paper (Pan et al., arXiv:2603.25723) ran ablation studies on harness modules:
 
@@ -253,7 +257,7 @@ This is the sharpest instance yet of the Bitter Lesson landing on a real harness
 
 | Opus 5 delta (Tier A) | Harness-layer implication |
 |---|---|
-| **Self-verifies without being told**; guidance explicitly says to remove carried-over verification instructions, which *"cause over-verification"* | Textbook accretion debt: delete the verification scaffolding added for older models — checklists that re-read files, "now double-check your work" tails, self-review skill stages. This converges with the Pan et al. ablation above (explicit verifier modules scored **-0.8** SWE-bench / **-8.4** OS World): model-side self-correction absorbed the module, and now the vendor says so. Keep *separate-evaluator* verification (the Rajasekaran generator/evaluator split) — that is not the thing being deleted; self-report tails are. |
+| **Self-verifies without being told**; guidance explicitly says to remove carried-over verification instructions, which *"cause over-verification"* | Textbook accretion debt: delete the verification scaffolding added for older models — checklists that re-read files, "now double-check your work" tails, self-review skill stages. This converges with the Pan et al. ablation above (explicit verifier modules scored **-0.8** SWE-bench / **-8.4** OS World (⚠️ arXiv v1 figure; v2 of 2026-05-18 reverses the verifier result to +0.2 SWE / +8.4 OSWorld, see the banner in Ablation Evidence above)): model-side self-correction absorbed the module, and now the vendor says so. Keep *separate-evaluator* verification (the Rajasekaran generator/evaluator split) — that is not the thing being deleted; self-report tails are. |
 | **Delegates to subagents more readily** in multi-agent frameworks; **nested depth 3 by default** in Claude Code v2.1.219 (was 1) | Invert the 4.7-era instruction. Where 4.7 needed an explicit *dispatch mechanism declared* to get subagents used at all, Opus 5 needs an explicit **cap** — say how many subagents, how deep, and what stays in the main loop. The [prompting guide](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) (Tier A) states this directly: cap subagent delegation explicitly. Depth-3-by-default also multiplies the blast radius of any unattended loop — see [Safety & Sandboxing](safety-and-sandboxing.md). |
 | **Longer default user-facing responses and written deliverables; narrates progress more often in agentic sessions** | Prompt explicitly for response length (per the same guide). The 4.7-era *verbosity directives* — added because 4.7 under-explained — now need re-tuning in the opposite direction. Narration also inflates transcript size on long agentic traces: re-measure context-consumption heuristics rather than porting 4.8's. |
 | **Effort ladder gains `max`; thinking is on by default; `thinking: disabled` at `xhigh`/`max` returns 400** | A second hard break in the same family as 4.8's budget-token 400. Any harness that disables thinking while requesting top-end effort now fails outright. The "reasoning sandwich" effort-allocation pattern (LangChain, above) gains a rung — but re-measure before spending `max` everywhere; more effort is a cost lever, not a free upgrade. |
@@ -280,7 +284,7 @@ Ronacher's ["The Coming Loop"](https://lucumr.pocoo.org/2026/6/23/the-coming-loo
 
 ## Three Harness Philosophies: The Bitter-Lesson Read
 
-Three community approaches sit at different points on the Bitter-Lesson spectrum. ECC (renamed from everything-claude-code) is batteries-included — 136+ skills, 30 subagents, 60+ commands as of the 2026-03-30 snapshot, an Anthropic hackathon winner, mass-adopted (dated stats: SOURCES.md dossier) — and ranks lowest on Bitter-Lesson alignment: its runtime profiles (`ECC_HOOK_PROFILE=minimal`) let you dial complexity down, but the default trajectory adds tooling with each release, working against the Vercel/Manus evidence above. Superpowers is methodology-enforced — a mandatory 7-stage workflow, ~14 skills, 294K+ installs — and ranks in the middle: it enforces process without adding tools, so it doesn't accrete the way ECC does, though the ceremony has a real cost on small tasks. Anthropic's own minimal approach (CLAUDE.md + progress file, a 2-agent architecture, external artifacts as memory) ranks highest: it's the one most clearly built for deletion. GitHub stars and plugin installs are different metrics measuring different things — useful within their own claim, not comparable to each other.
+Three community approaches sit at different points on the Bitter-Lesson spectrum. ECC (renamed from everything-claude-code) is batteries-included — 136+ skills, 30 subagents, 60+ commands as of the 2026-03-30 snapshot, an Anthropic hackathon winner, mass-adopted (dated stats: SOURCES.md dossier) — and ranks lowest on Bitter-Lesson alignment: its runtime profiles (`ECC_HOOK_PROFILE=minimal`) let you dial complexity down, but the default trajectory adds tooling with each release, working against the Vercel/Manus evidence above. Superpowers is methodology-enforced — a mandatory 7-stage workflow, ~14 skills, 294K+ installs at the 2026-03-30 snapshot (~1.0M by 2026-11-04) — and ranks in the middle: it enforces process without adding tools, so it doesn't accrete the way ECC does, though the ceremony has a real cost on small tasks. Anthropic's own minimal approach (CLAUDE.md + progress file, a 2-agent architecture, external artifacts as memory) ranks highest: it's the one most clearly built for deletion. GitHub stars and plugin installs are different metrics measuring different things — useful within their own claim, not comparable to each other.
 
 ---
 
@@ -311,7 +315,7 @@ Three community approaches sit at different points on the Bitter-Lesson spectrum
 | Removing features was the primary optimization (Manus) | Manus context engineering (5 rebuilds) | B |
 | Same harness works across Claude Code, Cursor, OpenCode, Codex | everything-claude-code cross-platform support | B |
 | Boris Cherny's success depends on parallel sessions, hooks, permissions — all harness | Boris Cherny interviews (March 2026) | A |
-| NLH representation: same harness logic, 30.4% → 47.2% perf + 1200 → 34 LLM calls | Pan et al. (Tsinghua + Harbin IT), [arXiv:2603.25723](https://arxiv.org/abs/2603.25723) (March 2026) | B |
+| NLH representation: same harness logic, 30.4% → 47.2% perf + 1200 → 34 LLM calls (⚠️ arXiv v1 only; v2 drops this comparison) | Pan et al. (Tsinghua + Harbin IT), [arXiv:2603.25723](https://arxiv.org/abs/2603.25723) (March 2026) | B |
 | Meta-Harness: Haiku 4.5 ranks #1 among Haiku agents on TerminalBench-2 via harness optimization alone | Lee, Nair, Zhang, Lee, Khattab, Finn (Stanford + MIT), [arXiv:2603.28052](https://arxiv.org/abs/2603.28052) (March 2026) | B |
 | **"Changing the harness around a fixed LLM can produce a 6× performance gap on the same benchmark"** (paper's headline quote) | Lee et al., Meta-Harness, [arXiv:2603.28052](https://arxiv.org/abs/2603.28052) (March 2026) | B |
 | Independent convergent finding: Opus 4.5 scores 12% on Cursor vs 2% on OpenCode (6×, scaffold-only) — but the same table gives 3× for Sonnet 4.5, 1.5× for GLM-4.6, and an inverted Cursor/OpenCode result for GPT-5.1 (2% vs 6%, gap marked ∞ because Codex scores 0). The paper hedges to "up to 6×" | Tian et al., SWE-Bench Mobile, [arXiv:2602.09540](https://arxiv.org/abs/2602.09540) (Feb 2026; KDD '26, [DOI 10.1145/3770855.3818488](https://doi.org/10.1145/3770855.3818488)) | B |
@@ -344,13 +348,13 @@ The same week, SANS' **Find Evil!** autonomous-IR hackathon reached its finalist
 | Sonnet 5's tokenizer emits ~30% more tokens than Sonnet 4.6 — token thresholds, context triggers, and cost models calibrated on 4.6 under-count | Anthropic Sonnet 5 model docs (price confirmed permanent $2/$10, 2026-08-10) | A |
 | 1M context window fundamentally changes context management strategies (4.8 default on API/Bedrock/Vertex; 200k Microsoft Foundry; Opus 5 ships 1M, cutoff May 2026) | Anthropic model release; 4.8 docs; [What's new in Opus 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) | A |
 | Specification gap: model architecture determines task feasibility | Nate B. Jones (2026) | B |
-| Explicit verifier modules hurt benchmark performance (-0.8 SWE, -8.4 OS World) | Pan et al. (Tsinghua + Harbin IT), [arXiv:2603.25723](https://arxiv.org/abs/2603.25723) (March 2026) | B |
+| Explicit verifier modules hurt benchmark performance (-0.8 SWE, -8.4 OS World) (⚠️ arXiv v1 figure; v2 of 2026-05-18 reverses the verifier result to +0.2 SWE / +8.4 OSWorld, see the banner in Ablation Evidence above) | Pan et al. (Tsinghua + Harbin IT), [arXiv:2603.25723](https://arxiv.org/abs/2603.25723) (March 2026) | B |
 
 **Practical implication of the nuancing evidence**: The "harness simplifies as models improve" thesis holds, but three specific decisions should be hedged:
 
 1. **Don't strip harness for lower-tier models.** If your project routes some tasks to Haiku for cost reasons, the harness those tasks need is *not* the same as the harness Opus needs. Keep fallback scaffolding for cheaper models rather than optimizing for the top tier only.
 2. **Retune prompts on every model release, even if the harness is unchanged.** Opus 4.6 → 4.7 is the canonical case: the harness did not need to change, but prompt idioms that assumed inferred intent silently regressed. See [model-migration-anti-patterns.md](model-migration-anti-patterns.md).
-3. **Don't add verifier modules prophylactically — and delete the ones you added for older models.** The Pan et al. ablation (arXiv:2603.25723) is narrow but pointed: explicit verifiers hurt benchmark performance. Opus 5's own guidance now makes the second half explicit (remove carried-over verification instructions; they cause over-verification). Reserve verification for where you have evidence the agent is getting it wrong, and keep it in a *separate evaluator* rather than a self-report tail.
+3. **Don't add verifier modules prophylactically — and delete the ones you added for older models.** The Pan et al. ablation (arXiv:2603.25723) is narrow but pointed: explicit verifiers hurt benchmark performance (⚠️ arXiv v1 figure; v2 of 2026-05-18 reverses the verifier result to +0.2 SWE / +8.4 OSWorld, see the banner in Ablation Evidence above). Opus 5's own guidance now makes the second half explicit (remove carried-over verification instructions; they cause over-verification). Reserve verification for where you have evidence the agent is getting it wrong, and keep it in a *separate evaluator* rather than a self-report tail.
 4. **Don't assume your tool schemas are model-neutral.** Ronacher's Opus 4.8 / Sonnet 5 observation (above) is one practitioner's finding, but the mitigation is nearly free: mirror Claude Code's own tool-argument conventions in custom tool definitions rather than inventing a house style, and validate arguments instead of trusting schema adherence.
 
 ### Verdict
@@ -396,7 +400,7 @@ Such a result would invalidate the "harness is the multiplier" framing — if a 
 
 ### Provenance
 
-An academic-source sweep on 2026-05-24 closed all three previously-tracked provenance gaps: the 6× figure is the Meta-Harness paper's own headline quote, not a transcript paraphrase (Lee et al., [arXiv:2603.28052](https://arxiv.org/abs/2603.28052), 2026-03-30, corrected result quantification: 76.4% Opus 4.6 / 37.6% Haiku 4.5 on TerminalBench-2); and "Tingua NLH" was a misspelling of Tsinghua — the paper is Pan, Zou, Guo, Ni, Zheng (Tsinghua + Harbin Institute of Technology), [arXiv:2603.25723](https://arxiv.org/abs/2603.25723), 2026-03-26, whose ablation numbers in this doc (verifiers -0.8 SWE / -8.4 OSWorld; multi-candidate search -2.4 / -5.6; self-evolution +4.8 / +2.7) match the published paper exactly. Net effect: H-HARNESS-01 moves from "B+ with three outstanding gaps" to "B+ with primary sources verified."
+An academic-source sweep on 2026-05-24 closed all three previously-tracked provenance gaps: the 6× figure is the Meta-Harness paper's own headline quote, not a transcript paraphrase (Lee et al., [arXiv:2603.28052](https://arxiv.org/abs/2603.28052), 2026-03-30, corrected result quantification: 76.4% Opus 4.6 / 37.6% Haiku 4.5 on TerminalBench-2); and "Tingua NLH" was a misspelling of Tsinghua — the paper is Pan, Zou, Guo, Ni, Zheng (Tsinghua + Harbin Institute of Technology), [arXiv:2603.25723](https://arxiv.org/abs/2603.25723), 2026-03-26, whose ablation numbers in this doc (verifiers -0.8 SWE / -8.4 OSWorld; multi-candidate search -2.4 / -5.6; self-evolution +4.8 / +2.7) match the published paper exactly (true of v1; ⚠️ v2 of 2026-05-18 revised them, see the NLH and Ablation banners above). Net effect: H-HARNESS-01 moves from "B+ with three outstanding gaps" to "B+ with primary sources verified."
 
 ### Cross-Repository Tracking
 
@@ -462,7 +466,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 - `project1` (security-data research portfolio), `"SDW Loop Engineering"` (2026-06-15) + `BENCH-LOOP-STATE.md` / `CONSOLE-LOOP-STATE.md` — single-source, bias-flagged; cites Arike et al., AIES 2025, on emergent goal-drift
 - LangChain DeepAgents team: ["Improving Deep Agents with Harness Engineering"](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (2026-02-17). Authority 4/5.
 - [ECC](https://github.com/affaan-m/everything-claude-code) (renamed from everything-claude-code) — Anthropic hackathon winner; dated adoption stats in the SOURCES.md dossier
-- [superpowers](https://github.com/obra/superpowers) — 294K+ installs
+- [superpowers](https://github.com/obra/superpowers) — 294K+ installs at the 2026-03-30 snapshot; 1,009,371 on the plugin directory 2026-11-04
 - Richard Sutton: "The Bitter Lesson"
 
 ### Related Analysis
@@ -478,7 +482,7 @@ The most counterintuitive finding: developers expect failures in agent logic (ba
 
 ---
 
-*Last updated: 2026-08-19 (delta only, per the follow-lane freeze: DeepSeek Harness v0.1 and SANS Find Evil! adoption evidence added to the thesis evaluation; new bounded Cross-Harness Portability section, the refresh brief's new-doc question resolved as a section per the shrinking-corpus charter; `second-runtime-present` added to applies-to-signals; frontmatter last-verified left unchanged because no full-doc reverification ran — additions are date-stamped inline). Prior: 2026-08-13 (Opus 5 sweep — added the "Opus 5 update (2026-07-24)" block: self-verification means carried-over verification instructions must be **deleted** (accretion debt named by the vendor), readier delegation + depth-3 nesting means delegation **caps** replace 4.7-era dispatch nudges, longer outputs/narration need explicit length prompts, and `thinking: disabled` at `xhigh`/`max` is a new 400; Fast mode logged as a serving-speed lever, not a harness lever; Sonnet 5 tokenizer +~30% flagged as a re-baselining trigger for token thresholds. New counter-signal section from Ronacher's "Better Models: Worse Tools" — tool-schema shape is model-specific on Anthropic models, a named exception to the cross-model-transfer result — plus "The Coming Loop" harness-loops framing and "The Tower Keeps Rising". Willison canon-home note (Agentic Engineering Patterns; no "Designing agentic loops" sequel) + "Judgement" + the raccoon-heist one-shot. Nuancing table gained four rows and the practical-implications list a fourth item; Sources extended Tier A (Opus 5 what's-new, Opus 5 prompting guide, Fast mode) and Tier B (three Ronacher, four Willison). Osmani leg untouched — separate sweep.) Prior: 2026-07-16 (follows: Willison/Ronacher/Osmani harness canons added — doc now tracks those canons for harness-design commentary, keeps the Bitter-Lesson diagnostic, accretion heuristics, and portfolio measurements as delta; added Ronacher's "The Coming Loop" to Sources). Prior: 2026-07-10 (Reduction Phase 4 — collapsed the harness-design mechanism half now carried by Anthropic's official best-practices page and "How Claude Code works in large codebases"; kept the Bitter-Lesson diagnostic, the accretion heuristics, and all measured/portfolio evidence; cut the 6-layer harness stack, the harness-toolkit changelog table, the philosophy feature-comparison detail, the symptom-to-mechanism diagnostic router, the task-complexity decision tree, and the standalone Resource Map — all now owned by the two first-party sources; confirmed no surviving links to the docs retired elsewhere in this pass). Prior: 2026-06-21 (RETHINK limb elevated). Prior: 2026-06-15 (loop-engineering framing + `/goal` version/claim fix + Rajasekaran and Scaling Managed Agents primary citations + Karpathy Sequoia Ascent). Prior: May 2026 (Opus 4.8 harness-layer deltas).*
+*Last updated: 2026-11-04 (measurement-claims expiry sweep: ECC, Meta-Harness and DAW figures re-verified; superpowers installs re-measured; NLH figures found superseded by arXiv v2, which reverses the verifier result, flagged NEEDS REVALIDATION pending an owner re-argument). Prior: 2026-08-19 (delta only, per the follow-lane freeze: DeepSeek Harness v0.1 and SANS Find Evil! adoption evidence added to the thesis evaluation; new bounded Cross-Harness Portability section, the refresh brief's new-doc question resolved as a section per the shrinking-corpus charter; `second-runtime-present` added to applies-to-signals; frontmatter last-verified left unchanged because no full-doc reverification ran — additions are date-stamped inline). Prior: 2026-08-13 (Opus 5 sweep — added the "Opus 5 update (2026-07-24)" block: self-verification means carried-over verification instructions must be **deleted** (accretion debt named by the vendor), readier delegation + depth-3 nesting means delegation **caps** replace 4.7-era dispatch nudges, longer outputs/narration need explicit length prompts, and `thinking: disabled` at `xhigh`/`max` is a new 400; Fast mode logged as a serving-speed lever, not a harness lever; Sonnet 5 tokenizer +~30% flagged as a re-baselining trigger for token thresholds. New counter-signal section from Ronacher's "Better Models: Worse Tools" — tool-schema shape is model-specific on Anthropic models, a named exception to the cross-model-transfer result — plus "The Coming Loop" harness-loops framing and "The Tower Keeps Rising". Willison canon-home note (Agentic Engineering Patterns; no "Designing agentic loops" sequel) + "Judgement" + the raccoon-heist one-shot. Nuancing table gained four rows and the practical-implications list a fourth item; Sources extended Tier A (Opus 5 what's-new, Opus 5 prompting guide, Fast mode) and Tier B (three Ronacher, four Willison). Osmani leg untouched — separate sweep.) Prior: 2026-07-16 (follows: Willison/Ronacher/Osmani harness canons added — doc now tracks those canons for harness-design commentary, keeps the Bitter-Lesson diagnostic, accretion heuristics, and portfolio measurements as delta; added Ronacher's "The Coming Loop" to Sources). Prior: 2026-07-10 (Reduction Phase 4 — collapsed the harness-design mechanism half now carried by Anthropic's official best-practices page and "How Claude Code works in large codebases"; kept the Bitter-Lesson diagnostic, the accretion heuristics, and all measured/portfolio evidence; cut the 6-layer harness stack, the harness-toolkit changelog table, the philosophy feature-comparison detail, the symptom-to-mechanism diagnostic router, the task-complexity decision tree, and the standalone Resource Map — all now owned by the two first-party sources; confirmed no surviving links to the docs retired elsewhere in this pass). Prior: 2026-06-21 (RETHINK limb elevated). Prior: 2026-06-15 (loop-engineering framing + `/goal` version/claim fix + Rajasekaran and Scaling Managed Agents primary citations + Karpathy Sequoia Ascent). Prior: May 2026 (Opus 4.8 harness-layer deltas).*
 <!-- graphify-footer:start -->
 
 ## Related (from graph)

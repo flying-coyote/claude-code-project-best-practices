@@ -1,9 +1,9 @@
 ---
 measurement-claims:
   - claim: "12/12 known configuration issues detected in Hoosier Energy ground truth (100% detection rate, target >=80%)"
-    source: "Direct analysis — health-inventory tests/test_engine.py"
+    source: "Direct analysis — health-inventory tests/test_engine.py. Frozen 2026-11-04: health-inventory is unreachable from the maintainer's accounts and has no local clone, so the test cannot be re-run. The third-brain H-CONFIG-01 confidence history (2026-04-04 row) records the same 12/12, which corroborates the record but is not a re-run."
     date: "2026-04-06"
-    revalidate: "2026-10-06"
+    revalidate: never   # unrepeatable — source repo unreachable
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: A

@@ -145,7 +145,7 @@ The defensible response leans on the concrete, auditable controls the primitives
 |---|---|
 | Forgotten recurring loop runs for a week | `/loop` recurring tasks auto-expire 7 days after creation |
 | Scheduler running at all | `CLAUDE_CODE_DISABLE_CRON=1` disables `/loop`, the cron tools, and scheduled tasks |
-| Cloud Routine acts with no approval | Cloud Routines run with **no permission prompts** — scope them deliberately and confirm with the operator; they may leave no on-disk footprint to audit |
+| Cloud Routine acts with no approval | Cloud Routines (now cloud scheduled tasks) start in **auto mode**, where a classifier rather than a person approves actions (this row said "no permission prompts" until 2026-11-04) — scope them deliberately and confirm with the operator; they may leave no on-disk footprint to audit |
 | Desktop task touches uncommitted work | Runs against the working dir *including uncommitted changes* unless worktree isolation is on |
 | Autonomous CI agent commits/PRs | Scope `GITHUB_TOKEN`/workflow permissions; require human review on agent-authored PRs |
 

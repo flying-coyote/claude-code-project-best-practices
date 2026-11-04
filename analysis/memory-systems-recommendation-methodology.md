@@ -8,11 +8,11 @@ measurement-claims:
     revalidate: "2026-11-29"
     tier: A
   - claim: "Karpathy's LLM Wiki paradigm rates Tier B by author authority, not Tier C, despite April 2026 publication date"
-    source: "Author authority on par with Boris Cherny on Claude Code; user-stated criterion 2026-04-28"
+    source: "Author authority on par with Boris Cherny on Claude Code; user-stated criterion 2026-04-28. Left expired 2026-11-04 for the owner: this is a ruling or napkin estimate, not a measurement, so there is nothing to re-run; decide whether it belongs in measurement-claims at all."
     date: "2026-04-28"
     revalidate: "2026-10-28"
   - claim: "Wiki+graph+contradiction-lint discipline starts paying back at ~500 docs for single-curator hand-curated KBs (rough working-memory math, not measured)"
-    source: "Working-memory ~50-100 docs × cross-ref density K=3-5 → ~1,500-2,500 relations beyond mental tracking at 500 docs"
+    source: "Working-memory ~50-100 docs × cross-ref density K=3-5 → ~1,500-2,500 relations beyond mental tracking at 500 docs. Left expired 2026-11-04 for the owner: this is a ruling or napkin estimate, not a measurement, so there is nothing to re-run; decide whether it belongs in measurement-claims at all."
     date: "2026-04-28"
     revalidate: "2026-10-28"
   - claim: "Under the `/graphify` skill path, Pass 2 LLM work runs on the invoking Claude Code session's model via its Agent tool — graphify v1 has no API-key or backend path of its own"
@@ -21,7 +21,7 @@ measurement-claims:
     revalidate: "2026-11-28"
     tier: A
   - claim: "Owner-authorized egress is the deciding constraint, not data category — public-source genealogy data with placeholder discipline can be opted-in (Wiley projects, 2026-04-29); same data without owner authorization or with un-anonymized living persons cannot"
-    source: "User's reframe 2026-04-29; saved in feedback_genealogy_data_classification memory"
+    source: "User's reframe 2026-04-29; saved in feedback_genealogy_data_classification memory. Left expired 2026-11-04 for the owner: this is a ruling or napkin estimate, not a measurement, so there is nothing to re-run; decide whether it belongs in measurement-claims at all."
     date: "2026-04-29"
     revalidate: "2026-10-29"
 evidence-tier: C
