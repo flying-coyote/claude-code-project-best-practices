@@ -3,17 +3,17 @@ version-requirements:
   claude-code: "v2.1.0+"
 version-last-verified: "2026-03-30"
 measurement-claims:
-  - claim: "Skills consume ~2% of context budget each"
-    source: "Anthropic documentation"
-    date: "2026-03-19"
-    revalidate: "2026-09-19"
+  - claim: "The skill listing (every skill's name plus description) is budgeted at 1% of the model's context window in total, not per skill; each entry's description text is capped at 1,536 characters; the budget is raisable via skillListingBudgetFraction"
+    source: "Claude Code docs — Skills § Skill descriptions are cut short (code.claude.com/docs/en/skills), read 2026-11-04. Prior (2026-03-19): 'Skills consume ~2% of context budget each', citing 'Anthropic documentation'; the current page gives 1% for the whole listing and uses 2% only as an example of raising it."
+    date: "2026-11-04"
+    revalidate: "2027-05-04"
   - claim: "60% context fill is a practitioner INTERVENTION HEURISTIC, not a measured degradation onset. Published benchmarks put onset far earlier and model-specific — roughly 16-64k tokens, ~20-50% on a 1M-context model. Carried here as 'Quality degrades at 60% context capacity' until 2026-08-29, which is precisely the misreading behavioral-insights.md corrected on 2026-05-30."
     source: "Boris Cherny (March 2026, Tier C usage heuristic; the originally-cited page now 403s). Reclassification and benchmark basis: analysis/behavioral-insights.md 'Revalidation (2026-05-30)' — arXiv:2601.15300, Fiction.liveBench, NoLiMa (ICML 2025), arXiv:2510.05381. Same derivative-drift shape as the MCP-latency entry below, corrected 2026-08-29 for the same reason: a sibling doc's correction that this doc never read."
     date: "2026-05-30"
     revalidate: "2026-11-30"
     tier: C
   - claim: "MCP servers add 300-800ms baseline latency"
-    source: "Nate B. Jones, via analysis/mcp-patterns.md — this doc restates that figure, it does not measure it. Corrected 2026-08-29: the entry previously read source 'MCP patterns analysis' with date 2026-03-01, i.e. it cited a sibling doc and re-dated the figure four months FORWARD of the original 2025-10-15 measurement, so the derived copy looked fresher than its own source and carried an earlier revalidate date than the claim it depends on. Dates and source now inherited from the original."
+    source: "Nate B. Jones, via analysis/mcp-patterns.md — this doc restates that figure, it does not measure it. Corrected 2026-08-29: the entry previously read source 'MCP patterns analysis' with date 2026-03-01, i.e. it cited a sibling doc and re-dated the figure four months FORWARD of the original 2025-10-15 measurement, so the derived copy looked fresher than its own source and carried an earlier revalidate date than the claim it depends on. Dates and source now inherited from the original. Left expired 2026-11-04: no cheap primary re-check exists for a Tier C latency figure; needs a measurement or a located primary."
     date: "2025-10-15"
     revalidate: "2026-10-15"
 status: PRODUCTION
@@ -46,7 +46,7 @@ Domain-heavy projects — security rule ecosystems, infrastructure-as-code, regu
 |-------|-----------|-----------------|---------------|-------------|
 | **Always-on** | CLAUDE.md | Project purpose, key commands, resource map | Every session | ~60 lines (minimal) |
 | **Path-triggered** | `.claude/rules/` | Domain-specific conventions per file type | When working with matching files | Per-file, on demand |
-| **On-demand** | Skills | Methodology for specific task types | When task matches skill description | ~2% context each |
+| **On-demand** | Skills | Methodology for specific task types | When task matches skill description | listing of all skill descriptions budgeted at 1% of context in total (docs, 2026-11-04; was ~2% each) |
 | **Lookup** | MCP servers | Live access to databases, APIs, registries | When explicitly called | Per-query |
 | **External memory** | File system | Reference docs, catalogs, prior decisions | When agent reads specific files | Per-read |
 | **Deep dive** | Subagents | Specialized investigation in fresh context | When delegated | Zero main context cost |
@@ -170,7 +170,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 ### Tier A (Primary Vendor / Expert Practitioner)
 
 - Boris Cherny: context capacity threshold (~60%) — March 2026. **Reclassified 2026-05-30 in [behavioral-insights.md](behavioral-insights.md), propagated here 2026-08-29**: it is an *intervention heuristic* (Tier C), not a measured degradation onset, and the originally-cited page now 403s. Independent benchmarks put onset far earlier and model-specific. Also under a standing Claude-5 re-measure flag with a tokenizer confound — the tokenizer confound is now measured in-harness (2026-08-30): Opus 5, Sonnet 5 and Fable 5 share one tokenizer generation, costing ~+35-43% (English prose) and ~+15% (Python) more tokens than Haiku 4.5 for identical bytes, so a percent-of-window threshold is not comparable across that boundary. This doc carried the pre-revalidation wording for three months after the correction was published in a sibling doc. The body prose went uncorrected even by that pass and was fixed 2026-08-30.
-- Anthropic: skills documentation (~2% context budget per skill); ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025)
+- Anthropic: skills documentation (skill listing budgeted at 1% of the context window in total, read 2026-11-04; this line said ~2% per skill until then); ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025)
 
 ### Tier B (Validated / Production)
 
@@ -193,7 +193,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 
 ---
 
-*Last updated: March 2026 (collapsed 2026-07-10)*
+*Last updated: 2026-11-04 (measurement-claims expiry sweep: skill-listing budget corrected to the current docs figure, 1% of context for the whole listing). Prior: March 2026 (collapsed 2026-07-10)*
 
 <!-- graphify-footer:start -->
 

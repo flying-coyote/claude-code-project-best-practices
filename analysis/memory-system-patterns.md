@@ -4,17 +4,17 @@ version-requirements:
 version-last-verified: "2026-04-06"
 measurement-claims:
   - claim: "Memory system active in 5 of 7 repos, with file counts ranging from 2 (minimal) to 13 (comprehensive hub)"
-    source: "Direct analysis — ~/.claude/projects/*/memory/ directories"
+    source: "Direct analysis — ~/.claude/projects/*/memory/ directories. Frozen 2026-11-04: auto-memory directories are unversioned local state, and this one was measured on a since-retired macOS workstation (paths under /Users/jeremy.wiley); the state no longer exists to re-read. Dated snapshot; cite with its date."
     date: "2026-04-06"
-    revalidate: "2026-10-06"
+    revalidate: never   # unrepeatable — measured state gone
   - claim: "Four memory types observed: user (role/preferences), project (active work), reference (external pointers), feedback (corrections/validations)"
-    source: "Direct analysis — memory file frontmatter across 5 project directories"
+    source: "Direct analysis — memory file frontmatter across 5 project directories. Frozen 2026-11-04: auto-memory directories are unversioned local state, and this one was measured on a since-retired macOS workstation (paths under /Users/jeremy.wiley); the state no longer exists to re-read. Dated snapshot; cite with its date."
     date: "2026-04-06"
-    revalidate: "2026-10-06"
+    revalidate: never   # unrepeatable — measured state gone
   - claim: "Memory sizing correlates with project type: knowledge hubs (13 files), pipelines (2-3 files), simple projects (0 files)"
-    source: "Direct analysis — 7 repository memory directories"
+    source: "Direct analysis — 7 repository memory directories. Frozen 2026-11-04: auto-memory directories are unversioned local state, and this one was measured on a since-retired macOS workstation (paths under /Users/jeremy.wiley); the state no longer exists to re-read. Dated snapshot; cite with its date."
     date: "2026-04-06"
-    revalidate: "2026-10-06"
+    revalidate: never   # unrepeatable — measured state gone
 status: PRODUCTION
 last-verified: "2026-07-10"
 evidence-tier: A
@@ -190,7 +190,7 @@ The last two rows come from the maintainer's long-running, multi-session project
 
 ---
 
-*Last updated: 2026-11-03 (two anti-pattern rows from a single-practitioner observation: rule without reason, memory duplicating a rules file). Prior: April 2026 — collapsed 2026-07-10 (Reduction Phase 4)*
+*Last updated: 2026-11-04 (measurement-claims expiry sweep: three portfolio memory figures frozen, measured state no longer exists). Prior: 2026-11-03 (two anti-pattern rows from a single-practitioner observation: rule without reason, memory duplicating a rules file). Prior: April 2026 — collapsed 2026-07-10 (Reduction Phase 4)*
 
 <!-- graphify-footer:start -->
 

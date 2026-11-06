@@ -3,7 +3,7 @@ status: EMERGING
 last-verified: "2026-08-28"
 measurement-claims:
   - claim: "Single-curator hand-curated KBs hit the wiki+graph+contradiction-lint payoff threshold around ~500 documents"
-    source: "Working-memory-vs-relation-count math; not measured studies"
+    source: "Working-memory-vs-relation-count math; not measured studies. Left expired 2026-11-04 for the owner: this is a ruling or napkin estimate, not a measurement, so there is nothing to re-run; decide whether it belongs in measurement-claims at all."
     date: "2026-04-28"
     revalidate: "2026-10-28"
   - claim: "Three of four 'check repo' tools verified MIT (Pratiyush, MehmetGoekce, Egonex-AI/Understand-Anything - formerly Lum1104); Rowboat is Apache 2.0. Unchanged on re-verification."

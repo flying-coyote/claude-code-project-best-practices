@@ -4,13 +4,13 @@ version-requirements:
 version-last-verified: "2026-04-06"
 measurement-claims:
   - claim: "H-CONFIG-01 confidence advanced from 3.0/5 to 4.7/5 over 3 days through 5 explicit revalidation events"
-    source: "Direct analysis — third-brain H-CONFIG-01-evidence.md confidence history"
+    source: "Direct analysis — third-brain H-CONFIG-01-evidence.md confidence history. Re-verified 2026-11-04 against the file at 254a4a9: five history rows, 3.0 (2026-04-04) to 4.7 (2026-04-06)."
     date: "2026-04-06"
-    revalidate: "2026-10-06"
+    revalidate: "2027-11-04"
   - claim: "H-NDR-FEDERATION-01 confidence at 4.6/5 after 4 milestones (M1-M4) each with production-scale benchmarks"
-    source: "Direct analysis — third-brain H-NDR-FEDERATION-01-evidence.md"
+    source: "Direct analysis — third-brain H-NDR-FEDERATION-01-evidence.md. Re-verified 2026-11-04 against the file at df596df: Confidence 4.6/5, M1-M4 all marked COMPLETE 2026-04-04."
     date: "2026-04-06"
-    revalidate: "2026-10-06"
+    revalidate: "2027-11-04"
 status: PRODUCTION
 last-verified: "2026-04-06"
 evidence-tier: A

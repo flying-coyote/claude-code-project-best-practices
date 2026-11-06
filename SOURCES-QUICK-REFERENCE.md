@@ -170,7 +170,7 @@ convergence: single-source
 ### 25. Tsinghua NLH Papers (Pan et al.) — Authority: 3 (Practitioner)
 **Source**: Pan, Zou, Guo, Ni, Zheng (Tsinghua University + Harbin Institute of Technology), "Natural-Language Agent Harnesses" — [arXiv:2603.25723](https://arxiv.org/abs/2603.25723) (2026-03-26)
 **Date**: March 2026 | **Foundational**: No | **Effective Weight**: 0.59 (0.65 x 0.9)
-**Key Insights**: Ablation data on verifiers (explicit verifier modules actively hurt benchmark performance: −0.8 SWE, −8.4 OSWorld) and NLH-representation gains (same harness logic 30.4% → 47.2% at 1200 → 34 LLM calls). Challenges verification-always-helps. (Earlier "Tingua" was a misspelling of Tsinghua; paper located and registered 2026-05-24.)
+**Key Insights**: Ablation data on verifiers that changed sign between versions: v2 (2026-05-18) +0.2 SWE / +8.4 OSWorld from a new baseline, v1 (2026-03-26) −0.8 / −8.4, so verifier value reads as mixed and baseline-dependent (re-argued 2026-11-05). The NLH-representation gain (30.4% → 47.2% at 1200 → 34 LLM calls) is a dated v1 record that v2 withdrew. Challenges both verification-always-helps and verification-never-helps. (Earlier "Tingua" was a misspelling of Tsinghua; paper located and registered 2026-05-24.)
 **Referenced in**: [agent-evaluation.md](analysis/agent-evaluation.md), [harness-engineering.md](analysis/harness-engineering.md)
 
 ### 26. Anthropic Harness v2 Blog Update — Authority: 5 (Foundational)
