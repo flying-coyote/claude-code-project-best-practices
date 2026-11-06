@@ -737,6 +737,40 @@ Analysis corpus 27 → 25 files (24 routable + template); routing bloat down one
 
 ---
 
+## Decision 13: Where provenance lives, and how corrections are kept (2026-11-05)
+
+### Context
+
+`analysis/evidence-tiers.md` recorded two open questions on 2026-11-03, both raised by the maintainer's long-running, multi-session project (Tier B, single practitioner). The first was how much provenance belongs inside the sentence: the citation format and much of the corpus put source, tier and verification date beside every claim, which a reader of one paragraph can weigh without leaving the page but which reads badly and drifts when the same provenance is restated in several places. The second was whether corrections stay inline (struck rows, `Prior:` chains) or are fixed in place with git holding the history. PR #1013 made the cost concrete the next day: re-checking arXiv:2603.25723 against its v2 put the same v1/v2 provenance paragraph in five places in `harness-engineering.md`, and left a recommendation that v2 had reversed sitting under warning banners rather than re-argued.
+
+### Alternatives Considered
+
+1. **Keep the status quo (inline provenance and inline history everywhere).** Rejected: it is the arrangement that produced the five-way restatement, and correction layers on guidance prose bury the current advice, the failure `prose-corpus-discoverability.md` measures.
+2. **Fix everything in place and let git hold all history.** Rejected for measurements: a reader auditing a figure should not need git to see that the number changed, when, and against which source version.
+3. **Provenance in a per-doc notes section or log.** Rejected because `measurement-claims` frontmatter already exists, is machine-read by `scripts/check-measurement-expiry.py`, and carries `date` / `revalidate`; a second home would recreate the drift.
+4. **Chosen: the split below.**
+
+### Decision
+
+Ruled by the repository owner, 2026-11-05.
+
+- **A. Provenance.** The `measurement-claims` frontmatter is the single home for provenance. Body prose carries the claim plus a short tier/date marker pointing to it. Claims with no frontmatter entry keep their inline citation.
+- **B. Corrections.** Measurement claims a reader needs to audit keep inline history (struck rows, `Prior:` chains, dated prior blocks). Guidance prose is fixed in place and git holds the history, with a one-line note added only when the old version was circulated.
+
+`evidence-tiers.md` now states both as convention. First application: `harness-engineering.md` (NLH ablation re-argued on v2, practical implication #3 rewritten, same PR).
+
+### Trade-offs Accepted
+
+- A reader of one paragraph now follows a pointer to the frontmatter to see the full source; the tier/date marker is meant to be enough to weigh the claim on the page.
+- Older docs, PLAN.md and ABSORPTION-MAP.md included, are converted when next edited rather than in a sweep, so the corpus is mixed for a while.
+- "Circulated" is a judgment call; the default is no note unless the old version was published or relied on.
+
+### Impact
+
+One place to update when a source revises, which is the case the expiry checker exists to catch, and recommendations that read as current advice rather than as a stack of corrections.
+
+---
+
 ## Owner Exceptions
 
 The register the `convergence`-gate clause points at. AUDIT-CONTEXT.md § Recommendation
@@ -755,4 +789,4 @@ weekly-review function table and the doc's own frontmatter.
 
 ---
 
-*Last updated: 2026-11-03 (first Owner Exceptions entry: the `tool-*` audit signals on `analysis/ai-tool-vetting.md`).* *Prior: 2026-08-29 (was 2026-07-16 — the file's only currency marker, and it was not touched by the substantive 2026-08-28 edit at Decision §565 that it sits below. A currency marker that a content edit does not update is worse than none: it certifies the staleness it is hiding.)*
+*Last updated: 2026-11-05 (Decision 13: provenance in `measurement-claims` frontmatter; inline history for audited measurements, fix-in-place for guidance prose).* *Prior: 2026-11-03 (first Owner Exceptions entry: the `tool-*` audit signals on `analysis/ai-tool-vetting.md`).* *Prior: 2026-08-29 (was 2026-07-16 — the file's only currency marker, and it was not touched by the substantive 2026-08-28 edit at Decision §565 that it sits below. A currency marker that a content edit does not update is worse than none: it certifies the staleness it is hiding.)*

@@ -103,15 +103,19 @@ number or a heading instead (Tier B, single practitioner, not independently corr
 public source found). This repo's own PLAN.md cites `file:line` anchors in more than a dozen
 places, so it carries the exposure the observation describes.
 
-**Open question for the owner: how much provenance belongs in the sentence?** (added
-2026-11-03, convention unchanged). The format above, and much of this repo's prose, puts the
-tier, source and verification date inside or beside the claim. The same practitioner's
-retrospective judged that recording provenance inside every sentence, early, made pages hard
-to read, and proposed keeping provenance in one place (a notes section or log), the clean
-claim in the body, and only a short tier marker inline. The repo's case for inline provenance
-is that a reader of one paragraph can weigh it without leaving the page; the case against is
-readability and the drift that comes from restating provenance in many places. PLAN.md and
-ABSORPTION-MAP.md are the clearest instances of the cost. Left for the owner to rule on.
+**Provenance lives in one place: the `measurement-claims` frontmatter** (owner ruling
+2026-11-05, DECISIONS.md Decision 13A; raised 2026-11-03). For a measured claim, the
+frontmatter entry is the single home for provenance: the source, what was read and when, the
+`date`, the `revalidate` date and any `Prior:` chain. Body prose carries the claim itself
+plus a short tier/date marker that points back to it, for example *(Tier B; v2 2026-05-18;
+provenance in frontmatter)*, and does not restate the source paragraph. The citation format
+above still describes what a frontmatter entry must contain; the ruling moves where it is
+written down. The reason is the drift the maintainer's long-running project hit (Tier B,
+single practitioner): provenance restated in many sentences reads badly and goes stale
+unevenly, which `harness-engineering.md` showed on 2026-11-04 when the same v1/v2 paragraph
+sat in five places at once. A claim that has no frontmatter entry (guidance prose, a
+qualitative source) keeps its inline citation as before. PLAN.md and ABSORPTION-MAP.md
+predate the ruling and are converted when next edited, not in a sweep.
 
 ## Contradiction Handling
 
@@ -307,18 +311,27 @@ Example:
 - Current: Playwright now sole recommendation (no comparison needed)
 ```
 
-**Open question for the owner: preserve corrections inline, or fix in place?** (added
-2026-11-03, convention unchanged). This repo keeps the superseded claim visible next to the
-new one, as in the example above, the struck-through PLAN.md rows and the demoted `Prior:`
-chains, so a reader can see what changed and when without opening git. The maintainer's
-long-running, multi-session project came to the opposite practice (Tier B, single
-practitioner, not independently corroborated): rewrite the claim so the page reads cleanly
-now, let git hold the history, and keep a one-sentence correction note only when the earlier
-version circulated and someone may have acted on it. The repo's case is auditability; the
-practitioner's case is that layered correction blocks make the current claim harder to find,
-which is the failure [prose-corpus-discoverability.md](prose-corpus-discoverability.md)
-measures from the other side. The two views may both hold, with inline history for measurement claims a reader needs to
-audit and fix-in-place for guidance prose, but that split is a proposal, not a ruling.
+**Corrections: inline history for audited measurements, fix-in-place for guidance** (owner
+ruling 2026-11-05, DECISIONS.md Decision 13B; raised 2026-11-03). The split is by what the
+text is:
+
+- A measurement claim a reader needs to audit keeps its history inline, the way the list
+  above and its example describe: the superseded figure stays visible and dated, as a struck
+  row, a `Prior:` chain in the frontmatter `source`, or a dated prior block in the body.
+- Guidance prose (recommendations, how-to, framing) is rewritten in place so the page reads
+  cleanly now, and git holds the history.
+- A guidance rewrite gets a one-line correction note only when the earlier version
+  circulated and someone may have acted on it, for example a published recommendation that
+  reversed.
+
+The repo's case for inline history is auditability, and it is strongest for figures a reader
+might re-derive; the maintainer's long-running project (Tier B, single practitioner) found
+that layered correction blocks on guidance make the current advice harder to find, which is
+the failure [prose-corpus-discoverability.md](prose-corpus-discoverability.md) measures from
+the other side. `harness-engineering.md` practical implication #3 (2026-11-05) is the first
+application of both halves: the ablation figures keep their v1 prior inline, and the
+recommendation was rewritten with a one-line note because the old version had been
+circulated.
 
 **Corpus-internal figures carry a commit, not a date** (added 2026-08-29). A date is the
 right granularity for a measurement of the outside world — an upstream version, a
@@ -552,11 +565,11 @@ Example:
 - Production validation across 12+ documentation projects
 - Confidence framework (merged 2026-07-16 from confidence-scoring.md): synthesis methodology validated in cybersecurity research projects; internal evidence cross-refs [agent-evaluation.md](agent-evaluation.md) (Tier A — eval-awareness failure modes cited in the calibration gaps) and [session-quality-tools.md](../archive/session-quality-tools.md) (archived gap-statement exemplar)
 
-- Maintainer's own long-running, multi-session Claude Code project (direct observation, recorded 2026-11-03) — line anchors rotting under concurrent edits, and the fix-in-place and less-inline-provenance views recorded as open questions. Tier B, single practitioner, not independently corroborated.
+- Maintainer's own long-running, multi-session Claude Code project (direct observation, recorded 2026-11-03) — line anchors rotting under concurrent edits, and the fix-in-place and less-inline-provenance views, raised as open questions and ruled by the owner 2026-11-05 (DECISIONS.md Decision 13). Tier B, single practitioner, not independently corroborated.
 
 **Evidence Tier**: B (Adapted from peer-reviewed methodology frameworks)
 
-*Last updated: 2026-11-03 (IDs and headings over line numbers; two open questions for the owner on fix-in-place corrections and inline provenance, convention unchanged). Prior: 2026-07-16 (confidence-scoring merge + retired-axis extraction + dead-reference prune)*
+*Last updated: 2026-11-05 (both open questions ruled by the owner and restated as convention: provenance lives in `measurement-claims` frontmatter with a short tier/date marker in the body; inline history for audited measurements, fix-in-place for guidance prose; DECISIONS.md Decision 13). Prior: 2026-11-03 (IDs and headings over line numbers; two open questions for the owner on fix-in-place corrections and inline provenance, convention unchanged). Prior: 2026-07-16 (confidence-scoring merge + retired-axis extraction + dead-reference prune)*
 
 <!-- graphify-footer:start -->
 
