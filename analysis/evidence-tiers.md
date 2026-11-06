@@ -113,7 +113,7 @@ above still describes what a frontmatter entry must contain; the ruling moves wh
 written down. The reason is the drift the maintainer's long-running project hit (Tier B,
 single practitioner): provenance restated in many sentences reads badly and goes stale
 unevenly, which `harness-engineering.md` showed on 2026-11-04 when the same v1/v2 paragraph
-sat in five places at once. A claim that has no frontmatter entry (guidance prose, a
+sat in eight places at once. A claim that has no frontmatter entry (guidance prose, a
 qualitative source) keeps its inline citation as before. PLAN.md and ABSORPTION-MAP.md
 predate the ruling and are converted when next edited, not in a sweep.
 
