@@ -12,10 +12,10 @@ follows: "Husain/Shankar evals canon — 'LLM Evals: Everything You Need to Know
 
 **Sources**:
 
-- [Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) (Evidence Tier A)
-- [Designing AI-Resistant Technical Evaluations](https://www.anthropic.com/engineering/AI-resistant-technical-evaluations) (Evidence Tier A)
-- [Quantifying Infrastructure Noise in Agentic Coding Evals](https://www.anthropic.com/engineering/infrastructure-noise) (Evidence Tier A)
-- [Eval Awareness in BrowseComp](https://www.anthropic.com/engineering/eval-awareness-browsecomp) (Evidence Tier A)
+- [Demystifying Evals for AI Agents](https://www.anthropic.com/research/demystifying-evals-for-ai-agents) (Evidence Tier A)
+- [Designing AI-Resistant Technical Evaluations](https://www.anthropic.com/research/AI-resistant-technical-evaluations) (Evidence Tier A)
+- [Quantifying Infrastructure Noise in Agentic Coding Evals](https://www.anthropic.com/research/infrastructure-noise) (Evidence Tier A)
+- [Eval Awareness in BrowseComp](https://www.anthropic.com/research/eval-awareness-browsecomp) (Evidence Tier A)
 - Hamel Husain & Shreya Shankar — followed evals canon (Evidence Tier B; see Sources below)
 
 **Evidence Tier**: A (first-party Anthropic engineering posts), with a Tier B followed practitioner canon
@@ -34,10 +34,10 @@ follows: "Husain/Shankar evals canon — 'LLM Evals: Everything You Need to Know
 
 The methodology walkthrough this doc used to carry — when to start, grader and pattern selection, infrastructure controls, saturation-resistant design, skill success metrics, eval-awareness risk — restated the posts below, so go to them first-party:
 
-- [Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) (Anthropic Engineering, 2026-01-09, Tier A) — start with 20-50 simple tasks drawn from real failures; three grader types (code-based, model-based, human); `pass@k` / `pass^k` for non-deterministic agents; per-agent-type eval mapping
-- [Designing AI-Resistant Technical Evaluations](https://www.anthropic.com/engineering/AI-resistant-technical-evaluations) (Anthropic Engineering, 2026-01-21, Tier A) — saturation-resistant design via problem novelty, reduced realism, longer time horizons, and insight over code volume
-- [Quantifying Infrastructure Noise in Agentic Coding Evals](https://www.anthropic.com/engineering/infrastructure-noise) (Anthropic Engineering, 2026-02-05, Tier A) — resource configuration as a first-class experimental variable; infra error rate falls 5.8% to 0.5% from strict enforcement to uncapped resources
-- [Eval Awareness in BrowseComp](https://www.anthropic.com/engineering/eval-awareness-browsecomp) (Anthropic Engineering, 2026-03-06, Tier A) — an eval-aware agent located and decrypted the benchmark answer key; unintended solutions ran 3.7x higher in multi-agent (0.87%) than single-agent (0.24%) configurations
+- [Demystifying Evals for AI Agents](https://www.anthropic.com/research/demystifying-evals-for-ai-agents) (Anthropic Engineering, 2026-01-09, Tier A) — start with 20-50 simple tasks drawn from real failures; three grader types (code-based, model-based, human); `pass@k` / `pass^k` for non-deterministic agents; per-agent-type eval mapping
+- [Designing AI-Resistant Technical Evaluations](https://www.anthropic.com/research/AI-resistant-technical-evaluations) (Anthropic Engineering, 2026-01-21, Tier A) — saturation-resistant design via problem novelty, reduced realism, longer time horizons, and insight over code volume
+- [Quantifying Infrastructure Noise in Agentic Coding Evals](https://www.anthropic.com/research/infrastructure-noise) (Anthropic Engineering, 2026-02-05, Tier A) — resource configuration as a first-class experimental variable; infra error rate falls 5.8% to 0.5% from strict enforcement to uncapped resources
+- [Eval Awareness in BrowseComp](https://www.anthropic.com/research/eval-awareness-browsecomp) (Anthropic Engineering, 2026-03-06, Tier A) — an eval-aware agent located and decrypted the benchmark answer key; unintended solutions ran 3.7x higher in multi-agent (0.87%) than single-agent (0.24%) configurations
 - [The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (Anthropic, January 2026, Tier A) — skill-specific quantitative and qualitative success metrics plus the with/without-skill baseline-comparison template
 - [Building verification loops in Claude Code with skills](https://claude.com/blog/building-verification-loops-in-claude-code-with-skills) (Anthropic, Delba de Oliveira, 2026-07-22, **Tier A source, mirror-verified 2026-08-13 — direct fetch blocked**) — the workflow-pattern companion to the eval posts: "A verification loop is a workflow where Claude inspects its own work before responding, and if there is a problem, it goes back to fix it." Four patterns: **one-off** (ad-hoc check), **embedded** (the check lives inside the skill that does the work), **chained** (one skill's output feeds the next skill's check), **permanent PR fixtures** (the loop runs as repo infrastructure on every pull request). This is the in-harness sibling of an eval suite — evals grade a change *offline* against a fixed task set, a verification loop gates work *inline* on every run — so an audit finding "no eval suite" should check for verification loops before recording an absence, and vice versa. ⚠️ **Sourcing caveat**: `claude.com/blog` was unreachable directly on 2026-08-13 (login-wall redirect); content and quote were confirmed via a third-party mirror. Treat as Tier A by publisher, mirror-verified by retrieval — **do not cite as direct-fetch-verified**, and re-verify against the canonical URL when the login wall lifts.
 
@@ -95,10 +95,10 @@ The generic anti-patterns (happy-path-only suites, single-run evaluation, ignori
 
 ## Sources
 
-- [Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) (Anthropic Engineering, 2026-01-09, Tier A)
-- [Designing AI-Resistant Technical Evaluations](https://www.anthropic.com/engineering/AI-resistant-technical-evaluations) (Anthropic Engineering, 2026-01-21, Tier A)
-- [Quantifying Infrastructure Noise in Agentic Coding Evals](https://www.anthropic.com/engineering/infrastructure-noise) (Anthropic Engineering, 2026-02-05, Tier A)
-- [Eval Awareness in BrowseComp](https://www.anthropic.com/engineering/eval-awareness-browsecomp) (Anthropic Engineering, 2026-03-06, Tier A) - Eval awareness phenomenon, multi-agent amplification
+- [Demystifying Evals for AI Agents](https://www.anthropic.com/research/demystifying-evals-for-ai-agents) (Anthropic Engineering, 2026-01-09, Tier A)
+- [Designing AI-Resistant Technical Evaluations](https://www.anthropic.com/research/AI-resistant-technical-evaluations) (Anthropic Engineering, 2026-01-21, Tier A)
+- [Quantifying Infrastructure Noise in Agentic Coding Evals](https://www.anthropic.com/research/infrastructure-noise) (Anthropic Engineering, 2026-02-05, Tier A)
+- [Eval Awareness in BrowseComp](https://www.anthropic.com/research/eval-awareness-browsecomp) (Anthropic Engineering, 2026-03-06, Tier A) - Eval awareness phenomenon, multi-agent amplification
 - [Anthropic: The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (January 2026, Tier A) - Skill success metrics framework
 - [Building verification loops in Claude Code with skills](https://claude.com/blog/building-verification-loops-in-claude-code-with-skills) (Anthropic, Delba de Oliveira, 2026-07-22) - **Tier A source, mirror-verified 2026-08-13 (direct fetch blocked by a `claude.com/blog` login-wall redirect; content confirmed via third-party mirror — not direct-fetch-verified).** Four verification-loop patterns (one-off, embedded, chained, permanent PR fixtures); the inline-gating sibling of an offline eval suite
 - Hamel Husain & Shreya Shankar, ["LLM Evals: Everything You Need to Know"](https://hamel.dev/blog/posts/evals-faq/) (2026-01-15, **modified 2026-07-18**, Tier B) - Followed canon: error analysis before infrastructure (~20-50 outputs reviewed per significant change, ~100+ traces for saturation); binary evaluations over Likert scales; the custom annotation tool as the single most impactful investment. **2026-07-18 modification** (verified 2026-08-13): a substantial agentic-systems section adding the two-phase eval — black-box task-success grading first, then step-level diagnostics via a transition failure matrix — referencing Claude Code's agentic search. Co-authored, so it also serves as the liveness evidence for Shankar's half of the canon

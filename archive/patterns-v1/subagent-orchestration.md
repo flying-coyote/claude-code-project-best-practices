@@ -948,7 +948,7 @@ CAII organizes by cognitive function, not domain:
 
 **Primary (Tier A)**:
 - [Claude Code Sub-agents Documentation](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
-- [Anthropic Engineering Blog: Effective Harnesses](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
+- [Anthropic Engineering Blog: Effective Harnesses](https://www.anthropic.com/research/effective-harnesses-for-long-running-agents)
 - [Agent Teams Documentation](https://code.claude.com/docs/en/agent-teams)
 - [Building a C Compiler with Parallel Claudes](https://www.anthropic.com/engineering/building-a-c-compiler-with-parallel-claudes) (February 2026)
 - [How We Built Our Multi-Agent Research System](https://www.anthropic.com/engineering/how-we-built-our-multi-agent-research-system) (June 2025)

@@ -28,7 +28,7 @@ Next liveness check rides with this doc's `revalidate-by` (2026-10-28).
 
 Per-archetype recommendation for **curated, hand-edited analytical knowledge bases**: domain-expertise wikis, evidence-tiered frameworks, research-synthesis vaults where each doc is hand-written and cited.
 
-Calibrated to the **~500-document single-curator design target**. See [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) for threshold math.
+Calibrated to the **~500-document single-curator design target**. See [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) § Methodology and self-critique for threshold math.
 
 ## A1. Primary stack — splits by scale
 
@@ -125,7 +125,7 @@ One honest note on the guard: the live deployment makes the canonical-type check
 
 ## Sources
 
-Inherits source rubric and tier methodology from [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md).
+Inherits source rubric and tier methodology from [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) § Methodology and self-critique (the methodology doc was folded in there 2026-11-07).
 
 ### Tier B
 
@@ -149,7 +149,7 @@ Inherits source rubric and tier methodology from [`memory-systems-recommendation
 ## Related Analysis
 
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all 7 archetypes + cross-cutting sections (migration, never-combine, license)
-- [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — framing and self-critique behind these recommendations
+- [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) § Methodology and self-critique — framing and self-critique behind these recommendations (folded in from the former methodology doc 2026-11-07)
 - [`memory-system-patterns.md`](memory-system-patterns.md) — earlier pattern survey
 
 ---

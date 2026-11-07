@@ -33,12 +33,12 @@ last-verified: "2026-02-16"
 > **ARCHIVED — not current guidance.** This is a v1 pattern doc, superseded by the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) and retained for historical comparison only. The live successor is `analysis/claude-md-progressive-disclosure.md and analysis/harness-engineering.md`. Its `measurement-claims` and dates below are the v1-era snapshot, preserved as recorded — do not treat them as current. (Status corrected 2026-08-28: this file previously asserted a live `status:` in its own frontmatter, so retrieval surfaced it as current. See `analysis/prose-corpus-discoverability.md`.)
 
 📚 **Primary Sources**:
-- [Anthropic Engineering Blog - Effective Context Engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Tier A)
+- [Anthropic Engineering Blog - Effective Context Engineering](https://www.anthropic.com/research/effective-context-engineering-for-ai-agents) (Tier A)
 - [Nate B. Jones - Beyond the Perfect Prompt](https://natesnewsletter.substack.com/p/beyond-the-perfect-prompt-the-definitive) (Tier B)
 
 **Evidence Tier**: A (Primary vendor documentation)
 
-> **Meta-Guide Note**: This pattern synthesizes Anthropic's research with Nate B. Jones's production patterns and adds our unique contribution: **"Correctness Over Compression" principle**, mathematical analysis for 200K token budgets, and production patterns from 12+ projects. For foundational research, see [Anthropic Engineering Blog](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents). For practical implementation and Claude Code-specific guidance, continue here.
+> **Meta-Guide Note**: This pattern synthesizes Anthropic's research with Nate B. Jones's production patterns and adds our unique contribution: **"Correctness Over Compression" principle**, mathematical analysis for 200K token budgets, and production patterns from 12+ projects. For foundational research, see [Anthropic Engineering Blog](https://www.anthropic.com/research/effective-context-engineering-for-ai-agents). For practical implementation and Claude Code-specific guidance, continue here.
 
 **SDD Phase**: Specify (context as specification artifacts)
 
@@ -628,7 +628,7 @@ From the official [Extend Claude Code](https://code.claude.com/docs/en/features-
 ## Sources
 
 - [Anthropic - Claude Code Best Practices](https://code.claude.com/docs/en/best-practices) (Canonical - 2025)
-- [Anthropic - Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (September 2025)
+- [Anthropic - Effective Context Engineering for AI Agents](https://www.anthropic.com/research/effective-context-engineering-for-ai-agents) (September 2025)
 - [Anthropic - Extend Claude Code (Features Overview)](https://code.claude.com/docs/en/features-overview) (March 2026) - Context cost analysis
 - [Anthropic - Compaction API](https://platform.claude.com/docs/en/build-with-claude/compaction) (2026)
 - [Anthropic - Opus 4.6 Announcement](https://www.anthropic.com/claude/opus) (February 2026)

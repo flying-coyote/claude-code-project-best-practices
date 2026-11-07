@@ -240,7 +240,7 @@ The same failure shows up in single-practitioner evidence. The maintainer's long
 
 ### Briefing a Session That Shares None of Your Context (added 2026-11-03)
 
-A prompt written for a fresh session, a subagent, or any agent that cannot see your conversation is a handoff to a reader with none of your context. Anthropic's write-up of its research system states the structural half: "Each subagent needs an objective, an output format, guidance on the tools and sources to use, and clear task boundaries," because "without detailed task descriptions, agents duplicate work, leave gaps, or fail to find necessary information" (["How we built our multi-agent research system"](https://www.anthropic.com/engineering/multi-agent-research-system), Tier A, quotes re-fetched 2026-11-03).
+A prompt written for a fresh session, a subagent, or any agent that cannot see your conversation is a handoff to a reader with none of your context. Anthropic's write-up of its research system states the structural half: "Each subagent needs an objective, an output format, guidance on the tools and sources to use, and clear task boundaries," because "without detailed task descriptions, agents duplicate work, leave gaps, or fail to find necessary information" (["How we built our multi-agent research system"](https://www.anthropic.com/research/multi-agent-research-system), Tier A, quotes re-fetched 2026-11-03).
 
 The maintainer's long-running project adds habits for briefs that carry claims to be checked (Tier B, single practitioner, not independently corroborated):
 
@@ -365,7 +365,7 @@ Two data points survive from the now-superseded native-mechanism sections for sc
 **Tier A (Vendor)**:
 - [Claude Code Sub-agents Documentation](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
 - [Agent Teams Documentation](https://code.claude.com/docs/en/agent-teams)
-- [How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) (2025-06-13; quotes re-fetched 2026-11-03) — each subagent needs "an objective, an output format, guidance on the tools and sources to use, and clear task boundaries"
+- [How we built our multi-agent research system](https://www.anthropic.com/research/multi-agent-research-system) (2025-06-13; quotes re-fetched 2026-11-03) — each subagent needs "an objective, an output format, guidance on the tools and sources to use, and clear task boundaries"
 - [Building a C Compiler with Parallel Claudes](https://www.anthropic.com/engineering/building-a-c-compiler-with-parallel-claudes)
 - Boris Cherny: premature-orchestration principle (March 2026)
 - Anthropic: Advisor strategy benchmark claims (April 2026)

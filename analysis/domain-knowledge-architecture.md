@@ -170,7 +170,7 @@ The pattern holds regardless of domain: a resource map tells the LLM where to lo
 ### Tier A (Primary Vendor / Expert Practitioner)
 
 - Boris Cherny: context capacity threshold (~60%) — March 2026. **Reclassified 2026-05-30 in [behavioral-insights.md](behavioral-insights.md), propagated here 2026-08-29**: it is an *intervention heuristic* (Tier C), not a measured degradation onset, and the originally-cited page now 403s. Independent benchmarks put onset far earlier and model-specific. Also under a standing Claude-5 re-measure flag with a tokenizer confound — the tokenizer confound is now measured in-harness (2026-08-30): Opus 5, Sonnet 5 and Fable 5 share one tokenizer generation, costing ~+35-43% (English prose) and ~+15% (Python) more tokens than Haiku 4.5 for identical bytes, so a percent-of-window threshold is not comparable across that boundary. This doc carried the pre-revalidation wording for three months after the correction was published in a sibling doc. The body prose went uncorrected even by that pass and was fixed 2026-08-30.
-- Anthropic: skills documentation (skill listing budgeted at 1% of the context window in total, read 2026-11-04; this line said ~2% per skill until then); ["Effective harnesses for long-running agents"](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (November 2025)
+- Anthropic: skills documentation (skill listing budgeted at 1% of the context window in total, read 2026-11-04; this line said ~2% per skill until then); ["Effective harnesses for long-running agents"](https://www.anthropic.com/research/effective-harnesses-for-long-running-agents) (November 2025)
 
 ### Tier B (Validated / Production)
 
