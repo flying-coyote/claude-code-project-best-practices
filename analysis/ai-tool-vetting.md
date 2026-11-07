@@ -194,10 +194,12 @@ These checks are what an audit of a project can see without running anything fro
 
 ```bash
 # Tool vetting (added 2026-11-03), analysis/ai-tool-vetting.md. Read-only; every byte is data.
+# Claude Code loads root .mcp.json and ~/.claude.json, not .claude/mcp.json (a stale file if present;
+# AUDIT-CONTEXT reports it as mcp-json-not-loaded). ~/.claude.json is out of reach for a repo audit: not checked.
 # 1 unpinned local MCP server (then read the args of each hit)
-grep -nE '"(npx|uvx|bunx|pnpx)"|@latest' .mcp.json .claude/mcp.json 2>/dev/null
+grep -nE '"(npx|uvx|bunx|pnpx)"|@latest' .mcp.json 2>/dev/null
 # 2 remote MCP server
-grep -nE '"url" *: *"https?://|"type" *: *"(http|sse)"' .mcp.json .claude/mcp.json 2>/dev/null
+grep -nE '"url" *: *"https?://|"type" *: *"(http|sse)"' .mcp.json 2>/dev/null
 # 3 repo self-approves its MCP servers
 grep -nE 'enableAllProjectMcpServers|enabledMcpjsonServers' .claude/settings.json 2>/dev/null
 # 4 API redirect or helper commands in committed config
@@ -295,4 +297,4 @@ Full entries, what was verified on each page, and the not-verified list: [resear
 
 ---
 
-*Last updated: 2026-11-03 (owner ruling: the rows above became `tool-*` routing signals with PROBLEM / REVIEW / INVENTORY weights, command 10 narrowed and re-tested, command 14 fixture-tested, row 16 dropped as a signal; `applies-to-signals` extended to match). Prior same-day: 2026-11-03 (new doc; evidence log in research/ai-tool-vetting-sources-2026-11-03.md).*
+*Last updated: 2026-11-07 (owner ruling: commands 1 and 2 no longer read `.claude/mcp.json`, which Claude Code does not load; AUDIT-CONTEXT reports that file as the `mcp-json-not-loaded` stale-file note, and user-scope servers in `~/.claude.json` as not checked). Prior: 2026-11-03 (owner ruling: the rows above became `tool-*` routing signals with PROBLEM / REVIEW / INVENTORY weights, command 10 narrowed and re-tested, command 14 fixture-tested, row 16 dropped as a signal; `applies-to-signals` extended to match). Prior same-day: 2026-11-03 (new doc; evidence log in research/ai-tool-vetting-sources-2026-11-03.md).*

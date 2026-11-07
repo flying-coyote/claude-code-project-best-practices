@@ -31,25 +31,25 @@ convergence: single-source
 **Referenced in**: claude-md-progressive-disclosure, behavioral-insights, 10+ analysis docs
 
 ### 3. Long-Running Agent Harness — Authority: 5 (Foundational)
-**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (Nov 2025)
+**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/research/effective-harnesses-for-long-running-agents) (Nov 2025)
 **Date**: November 2025 | **Foundational**: Yes | **Effective Weight**: 0.70 (1.0 x 0.7 floor)
 **Key Insights**: External artifacts as memory, one feature at a time, structured task lists
 **Referenced in**: [harness-engineering.md](analysis/harness-engineering.md), [agent-driven-development.md](analysis/agent-driven-development.md)
 
 ### 4. Context Engineering for AI Agents — Authority: 5 (Foundational)
-**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sep 2025)
+**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/research/effective-context-engineering-for-ai-agents) (Sep 2025)
 **Date**: September 2025 | **Foundational**: Yes | **Effective Weight**: 0.70 (1.0 x 0.7 floor)
 **Key Insights**: Context engineering > prompt engineering, context rot, 54% benchmark gains from scratchpad
 **Referenced in**: [behavioral-insights.md](analysis/behavioral-insights.md), [harness-engineering.md](analysis/harness-engineering.md)
 
 ### 5. Advanced Tool Use — Authority: 5 (Foundational)
-**Source**: [Anthropic Dev Blog](https://www.anthropic.com/engineering/advanced-tool-use) (Nov 24, 2025)
+**Source**: [Anthropic Dev Blog](https://www.anthropic.com/research/advanced-tool-use) (Nov 24, 2025)
 **Date**: November 2025 | **Foundational**: Yes | **Effective Weight**: 0.70 (1.0 x 0.7 floor)
 **Key Features**: Tool search (85% token reduction), programmatic calling (37% token reduction), input examples
 **Referenced in**: [plugins-and-extensions.md](analysis/plugins-and-extensions.md)
 
 ### 6. Agent Evaluation Patterns — Authority: 5 (Foundational)
-**Source**: [Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents), [Eval Awareness in BrowseComp](https://www.anthropic.com/engineering/eval-awareness-browsecomp) (Mar 2026)
+**Source**: [Demystifying Evals for AI Agents](https://www.anthropic.com/research/demystifying-evals-for-ai-agents), [Eval Awareness in BrowseComp](https://www.anthropic.com/research/eval-awareness-browsecomp) (Mar 2026)
 **Date**: March 2026 | **Foundational**: Yes | **Effective Weight**: 0.90 (1.0 x 0.9)
 **Key Insights**: Task-based evals, LLM-as-judge, infrastructure noise quantification, eval awareness phenomenon (model identifies benchmark), multi-agent amplification risk (3.7x higher unintended solution rate)
 **Referenced in**: [agent-evaluation.md](analysis/agent-evaluation.md)
@@ -85,7 +85,7 @@ convergence: single-source
 **Referenced in**: [harness-engineering.md](analysis/harness-engineering.md)
 
 ### 12. Parallel Claude Development (C Compiler) — Authority: 5 (Foundational)
-**Source**: [Building a C compiler with a team of parallel Claudes](https://www.anthropic.com/engineering/building-c-compiler) (Feb 2026)
+**Source**: [Building a C compiler with a team of parallel Claudes](https://www.anthropic.com/research/building-c-compiler) (Feb 2026)
 **Date**: February 2026 | **Foundational**: Yes | **Effective Weight**: 0.75 (1.0 x 0.75)
 **Key Patterns**: Git-based task claiming, LLM-aware design (minimal output, machine-readable errors), agent specialization, `--fast` mode for deterministic test sampling
 **Results**: 2,000+ sessions, $20K cost, 100K-line compiler builds Linux 6.9 on x86/ARM/RISC-V
@@ -174,7 +174,7 @@ convergence: single-source
 **Referenced in**: [agent-evaluation.md](analysis/agent-evaluation.md), [harness-engineering.md](analysis/harness-engineering.md)
 
 ### 26. Anthropic Harness v2 Blog Update — Authority: 5 (Foundational)
-**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (March 2026 update to November 2025 blog)
+**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/research/effective-harnesses-for-long-running-agents) (March 2026 update to November 2025 blog)
 **Date**: March 2026 | **Foundational**: Yes | **Effective Weight**: 0.90 (1.0 x 0.9)
 **Key Insights**: v2 simplification data ($125/4hrs with Opus 4.6). "Context anxiety" concept — overloading context to prevent mistakes actually degrades performance. Candid admission of poor self-evaluation by agents. Updates the foundational harness blog with production cost data.
 **Referenced in**: [harness-engineering.md](analysis/harness-engineering.md), behavioral insights
@@ -206,7 +206,7 @@ convergence: single-source
 **Date**: April 2026 | **Foundational**: No | **Effective Weight**: 0.85 (0.85 x 1.0) — Tier B by author authority
 **Key Insight**: Three-layer write-time wiki (lowercase `index.md` content catalog + `raw/` immutable sources + `log.md` chronological operations log + root schema like `CLAUDE.md`/`AGENTS.md`) calibrated for LLM-driven knowledge work. Distinguishes "write-time wiki" (curator does the bookkeeping; LLM reads) from "read-time wiki" (LLM generates against unstructured corpus).
 **Caveat**: Tool-specific implementations (graphify, Understand-Anything, Pratiyush, etc.) are independent of the paradigm and remain Tier C until reproduced. Empirical run on this repo's testbed surfaced ~25% hallucination rate on graphify EXTRACTED edges — paradigm is sound; implementation discipline matters.
-**Referenced in**: [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md), [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md), [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md), [memory-systems-graphify-vs-understand-anything.md](analysis/memory-systems-graphify-vs-understand-anything.md)
+**Referenced in**: [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md), [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md), [memory-systems-graphify-vs-understand-anything.md](analysis/memory-systems-graphify-vs-understand-anything.md)
 
 ### 31. Anthropic Opus 4.8 Re-Validation — Authority: 5 (Foundational)
 **📌 SUPERSEDED-FOR-CURRENCY (2026-08-13)**: Opus 4.8 is a Legacy model as of the Opus 5 launch (2026-07-24) — current-generation guidance lives in #41. Kept as the 4.7→4.8 historical record.
@@ -371,7 +371,7 @@ convergence: single-source
 
 **For detailed citations, methodology, and complete source database**: See [SOURCES.md](SOURCES.md)
 
-**Last Updated**: November 3, 2026 — ai-tool-vetting delta: added #42 (MCP spec security + authorization, rev. 2026-07-28, Authority 4), #43 (Check Point Claude Code project-file CVEs, Authority 3), #44 (Trail of Bits line jumping, Authority 3); #8 OWASP MCP Top 10 re-checked (still beta) and back-linked; count 41 → 44.
+**Last Updated**: November 7, 2026 — `/engineering/*` → `/research/*` link repoint (curl-verified) and the methodology reference folded into archetype-recommendations (owner rulings). Prior: November 3, 2026 — ai-tool-vetting delta: added #42 (MCP spec security + authorization, rev. 2026-07-28, Authority 4), #43 (Check Point Claude Code project-file CVEs, Authority 3), #44 (Trail of Bits line jumping, Authority 3); #8 OWASP MCP Top 10 re-checked (still beta) and back-linked; count 41 → 44.
 
 Prior: August 13, 2026 — Claude 5 family + thought-leader refresh: added #41 (Claude Opus 5 — launch + What's-New + prompting guide + fast mode, Tier A, all fetched 2026-08-13; system card existence-only, not read); marked #31 SUPERSEDED-FOR-CURRENCY (Opus 4.8 → Legacy as of 2026-07-24, kept as historical record); annotated #34 (Sonnet 5 model ID `claude-sonnet-5` verified against primary, $2/$10 made permanent per 2026-08-10 — see #41 for the current lineup); extended #28 to per-release analyses spanning the full 5 family (Apr–Aug 2026; headline additions: the Sonnet 5 tokenizer post and the Opus 5 intro); #2's changelog feed gained v2.1.216 (`prompt-audit`) + v2.1.219 (Opus 5 default, nested depth 1→3, fast mode). Ronacher's headline artifact is now "Better Models: Worse Tools" (2026-07-04, schema-non-neutrality counter-signal — full dossier in SOURCES.md; he remains below this file's numbered cut). The thought-leader liveness sweep (Willison/Ronacher/Osmani/Ng/Husain-Shankar/Karpathy), the two mirror-verified first-party posts (verification loops; Claude-5 context engineering), and the new Unverified quarantine lines live in the full [SOURCES.md](SOURCES.md). Count: 40 → 41.
 

@@ -1,5 +1,5 @@
 ---
-status: EMERGING
+status: ARCHIVED
 last-verified: "2026-08-28"
 measurement-claims:
   - claim: "Understand-Anything v2.9.4 `/understand-knowledge` gates on `has_index and md_count >= 3` only, resolving `index.md` case-insensitively; uppercase `INDEX.md` detects, and `raw/`, `log.md` and the root schema are signals but not gate conditions"
@@ -32,6 +32,8 @@ revalidate-by: 2026-10-28
 
 # Memory & Knowledge Recommendations: Methodology and Self-Critique
 
+> **MERGED INTO memory-systems-archetype-recommendations.md (2026-11-07, fold-in approved by owner ruling 2026-07-16).** One memory-recommendations doc instead of a doc plus its methodology companion; the content lives on in that doc's § Methodology and self-critique, with its measurement claims carried intact. This copy is the pre-merge snapshot, kept for history.
+
 This is the methodology and self-critique companion to `analysis/memory-systems-archetype-recommendations.md`. It captures *why* the recommendations were calibrated to ~500-document curated KBs, what assumptions in the underlying user constraints are weaker than they look, where the analysis itself is structurally weak, and what corrections were applied during iteration.
 
 > **Companion docs**:
@@ -44,7 +46,7 @@ This is the methodology and self-critique companion to `analysis/memory-systems-
 >
 > Two consequences, both applied below: the claim is now **scoped to the `/graphify` skill path** (headless `graphify extract` has its own provider chain), and assumption #5's corollary that *"pointing graphify at a local model is not a documented configuration"* is **retired as false** — see § 5.
 >
-> Per [`evidence-tiers.md`](evidence-tiers.md) § Expired but not invalid, this is what the expiry marker is for: it caught a reasoning defect that a silent re-date would have carried forward as a repo-wide proof pattern.
+> Per [`evidence-tiers.md`](../analysis/evidence-tiers.md) § Expired but not invalid, this is what the expiry marker is for: it caught a reasoning defect that a silent re-date would have carried forward as a repo-wide proof pattern.
 
 ---
 
@@ -91,7 +93,7 @@ Projects 12×–40× the design target (6k–20k+ markdown vaults with active in
 
 The constraint that routes a project to the C-EC archetype is **whether the owner has authorized vendor-LLM egress of the corpus**, not what category the data falls in. The proof case: the Wiley genealogy projects were originally framed as PII-constrained (the archetype was even named C-PII), but the owner reframed them on 2026-04-29 — living-person names use anonymized placeholders, the remaining content is public-source (FamilySearch, Ancestry, WikiTree, Find a Grave), so vendor-LLM egress is acceptable *at the owner's choice*. The same data without that authorization, or with un-anonymized living persons, cannot egress. Data category predicts where the constraint is likely; owner authorization is what actually decides it, so ask for the ruling rather than inferring it from content type.
 
-The fine-grained sensitivity tags (`pii`, `sensitive-content`, `healthcare-data`, `legal-data`, `journal-third-parties`) refine the coarse `corpus-sensitive` signal *within* the C-EC section of [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md); the coarse row remains the top-level routing gate for the LLM-egress decision.
+The fine-grained sensitivity tags (`pii`, `sensitive-content`, `healthcare-data`, `legal-data`, `journal-third-parties`) refine the coarse `corpus-sensitive` signal *within* the C-EC section of [`memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md); the coarse row remains the top-level routing gate for the LLM-egress decision.
 
 ---
 
@@ -234,8 +236,8 @@ The companion recommendations doc reflects these corrections from earlier drafts
 
 ## Related (from graph)
 
-- [`analysis/evidence-tiers.md`](evidence-tiers.md) [EXTRACTED (1.00)] — references
-- [`analysis/memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md) [EXTRACTED (1.00)] — references
-- [`analysis/memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) [EXTRACTED (1.00)] — references
+- [`analysis/evidence-tiers.md`](../analysis/evidence-tiers.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-a-curated-kb.md`](../analysis/memory-systems-archetype-a-curated-kb.md) [EXTRACTED (1.00)] — references
+- [`analysis/memory-systems-archetype-recommendations.md`](../analysis/memory-systems-archetype-recommendations.md) [EXTRACTED (1.00)] — references
 
 <!-- graphify-footer:end -->

@@ -8,8 +8,8 @@
 
 | Directory | Count |
 |-----------|-------|
-| analysis | 26 |
-| archive | 22 |
+| analysis | 25 |
+| archive | 23 |
 | archive/community-contributions-v1 | 3 |
 | archive/docs-v1 | 13 |
 | archive/examples-v1/coding-project | 1 |
@@ -85,7 +85,6 @@
 - [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md)
 - [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md)
 - [memory-systems-graphify-vs-understand-anything.md](analysis/memory-systems-graphify-vs-understand-anything.md)
-- [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md)
 - [model-migration-anti-patterns.md](analysis/model-migration-anti-patterns.md)
 - [orchestration-comparison.md](analysis/orchestration-comparison.md)
 - [plugins-and-extensions.md](analysis/plugins-and-extensions.md)
@@ -169,6 +168,7 @@
 - [memory-systems-architecture-axes.md](archive/memory-systems-architecture-axes.md)
 - [memory-systems-genealogy-baseline.md](archive/memory-systems-genealogy-baseline.md)
 - [memory-systems-project-archetypes.md](archive/memory-systems-project-archetypes.md)
+- [memory-systems-recommendation-methodology.md](archive/memory-systems-recommendation-methodology.md)
 - [memory-systems-tools-inventory.md](archive/memory-systems-tools-inventory.md)
 - [rethink-memory-stack-prompt.md](archive/rethink-memory-stack-prompt.md)
 - [security-data-pipeline.md](archive/security-data-pipeline.md)

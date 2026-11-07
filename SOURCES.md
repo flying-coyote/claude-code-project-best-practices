@@ -8,7 +8,7 @@ All analysis documents in this repository are derived from authoritative sources
 
 **Quick Lookup**: For the top 20 most-referenced sources, see [SOURCES-QUICK-REFERENCE.md](SOURCES-QUICK-REFERENCE.md) (100 lines vs 1,612 here)
 
-**Last curated**: 2026-11-03 (same-day delta: `analysis/ai-tool-vetting.md` sources registered in two new sections, see its refresh-log row; source refresh for 2026-08-30 → 2026-11-03, staged and applied per [SOURCE-REFRESH-2026-11-03.md](SOURCE-REFRESH-2026-11-03.md): Claude 5.5 family + Fable 5.1 registered from the models overview, deprecations page, per-model pages and launch posts; Claude Code changelog v2.1.219 → v2.1.317 digested; `prompt-audit` version corrected v2.1.216 → v2.1.221; `/doctor prompt-audit` v2.1.283 registered; a practice-posts block added; see the 2026-11-03 refresh-log row). Prior: 2026-08-29 (Opus 5 system card read in full + ClaudeLog liveness re-sweep — the two items the 2026-08-13 refresh left open; see the 2026-08-29 refresh-log row: card extraction task CLOSED with §5.2 injection figures, sycophancy direction, grader-awareness update, and GraphWalks-absence recorded across three analysis docs, extraction record `research/opus5-system-card-extraction-2026-08-29.md`; ClaudeLog ALIVE but Mechanics pillars stale, advance trigger NOT fired). Interim rows landed by other sessions: 2026-08-28 (prose-corpus discoverability doc) and 2026-08-19 (dsh source refresh). Prior: 2026-08-13 (Claude 5 family + thought-leader refresh — see the 2026-08-13 refresh-log row: Opus 5 registered (launch news + What's-New + prompting guide + fast mode, all fetched 2026-08-13; system card existence-only), Sonnet 5 model ID verified and $2/$10 made permanent, Opus 4.8 → Legacy, changelog v2.1.216/v2.1.219, two mirror-verified first-party posts (verification loops; Claude-5 context engineering), Willison per-release dossier extended across the full 5 family, Ronacher/Osmani/Ng/Husain-Shankar/Karpathy liveness sweep). Prior: 2026-07-18 (reverification sweep + token-economics re-measure — see the 2026-07-18 refresh-log row: OWASP-survey rows reverified via BlueRock, Playwright 4x attribution corrected, tool-search version pegs fixed, MRCR row resolved to GraphWalks, ACE/MCE/Meta-Harness venue checks, migration blog post added). Prior: 2026-07-16 (absorption-wave sweep, per `drafts/ABSORPTION-SCAN-2026-07.md` — superpowers v6.1.1 and ECC-rename re-verifications with GitHub-API-dated stats, new dossiers for the AGENTS.md standard / ClaudeLog / Armin Ronacher / Andrew Ng / anthropics first-party distribution repos, CodeGuard extended with the first-party marketplace plugin, canon follow-lane pointers on the Osmani/Willison/Karpathy/Husain-Shankar/Miessler entries, negative dossiers for frozen-or-abandoned repos, and 4 new quarantine lines in the Unverified section). Prior: 2026-07-10 (Reduction Phase 6 — 4 additions incl. the large-codebases Applied AI post and the best-practices-page 2026 rewrite, stale-markings for claude-doctor/`/insights`/Fable-suspension/Opus 4.7 migration/Vertrees/Playwright-CLI+valgard token numbers, 2 prunes, and link repointing for 4 retired analysis docs). Prior: 2026-06-21 (verified cluster refresh — Fable 5 GA, loop-eng lineage, OKF/typed-knowledge, memory-systems + evals leaders). Anthropic doc URLs are canonical at `code.claude.com`; older `docs.anthropic.com` paths still redirect but are not used here. See refresh log at the bottom, and the **Unverified / pending revalidation** section at the very end for claims that could not be primary-confirmed this pass.
+**Last curated**: 2026-11-07 (owner rulings: 16 `anthropic.com/engineering/*` links repointed to `/research/*` after each 308 and its 200 target were verified with curl; four `/engineering/` slugs that now redirect to 404 and two that redirect off-site left unchanged for a source pass; the archetype-recommendations Karpathy pattern reference now covers the folded-in methodology). Prior: 2026-11-03 (same-day delta: `analysis/ai-tool-vetting.md` sources registered in two new sections, see its refresh-log row; source refresh for 2026-08-30 → 2026-11-03, staged and applied per [SOURCE-REFRESH-2026-11-03.md](SOURCE-REFRESH-2026-11-03.md): Claude 5.5 family + Fable 5.1 registered from the models overview, deprecations page, per-model pages and launch posts; Claude Code changelog v2.1.219 → v2.1.317 digested; `prompt-audit` version corrected v2.1.216 → v2.1.221; `/doctor prompt-audit` v2.1.283 registered; a practice-posts block added; see the 2026-11-03 refresh-log row). Prior: 2026-08-29 (Opus 5 system card read in full + ClaudeLog liveness re-sweep — the two items the 2026-08-13 refresh left open; see the 2026-08-29 refresh-log row: card extraction task CLOSED with §5.2 injection figures, sycophancy direction, grader-awareness update, and GraphWalks-absence recorded across three analysis docs, extraction record `research/opus5-system-card-extraction-2026-08-29.md`; ClaudeLog ALIVE but Mechanics pillars stale, advance trigger NOT fired). Interim rows landed by other sessions: 2026-08-28 (prose-corpus discoverability doc) and 2026-08-19 (dsh source refresh). Prior: 2026-08-13 (Claude 5 family + thought-leader refresh — see the 2026-08-13 refresh-log row: Opus 5 registered (launch news + What's-New + prompting guide + fast mode, all fetched 2026-08-13; system card existence-only), Sonnet 5 model ID verified and $2/$10 made permanent, Opus 4.8 → Legacy, changelog v2.1.216/v2.1.219, two mirror-verified first-party posts (verification loops; Claude-5 context engineering), Willison per-release dossier extended across the full 5 family, Ronacher/Osmani/Ng/Husain-Shankar/Karpathy liveness sweep). Prior: 2026-07-18 (reverification sweep + token-economics re-measure — see the 2026-07-18 refresh-log row: OWASP-survey rows reverified via BlueRock, Playwright 4x attribution corrected, tool-search version pegs fixed, MRCR row resolved to GraphWalks, ACE/MCE/Meta-Harness venue checks, migration blog post added). Prior: 2026-07-16 (absorption-wave sweep, per `drafts/ABSORPTION-SCAN-2026-07.md` — superpowers v6.1.1 and ECC-rename re-verifications with GitHub-API-dated stats, new dossiers for the AGENTS.md standard / ClaudeLog / Armin Ronacher / Andrew Ng / anthropics first-party distribution repos, CodeGuard extended with the first-party marketplace plugin, canon follow-lane pointers on the Osmani/Willison/Karpathy/Husain-Shankar/Miessler entries, negative dossiers for frozen-or-abandoned repos, and 4 new quarantine lines in the Unverified section). Prior: 2026-07-10 (Reduction Phase 6 — 4 additions incl. the large-codebases Applied AI post and the best-practices-page 2026 rewrite, stale-markings for claude-doctor/`/insights`/Fable-suspension/Opus 4.7 migration/Vertrees/Playwright-CLI+valgard token numbers, 2 prunes, and link repointing for 4 retired analysis docs). Prior: 2026-06-21 (verified cluster refresh — Fable 5 GA, loop-eng lineage, OKF/typed-knowledge, memory-systems + evals leaders). Anthropic doc URLs are canonical at `code.claude.com`; older `docs.anthropic.com` paths still redirect but are not used here. See refresh log at the bottom, and the **Unverified / pending revalidation** section at the very end for claims that could not be primary-confirmed this pass.
 
 ## Primary Sources (Tier A)
 
@@ -67,7 +67,7 @@ All analysis documents in this repository are derived from authoritative sources
 - **Title**: "Effective harnesses for long-running agents"
 - **Source**: Anthropic Engineering Blog
 - **Date**: **2025-11-26** (date confirmed 2026-06-21; prior "March 2026" / "2026-03-01" stampings on this entry were wrong)
-- **URL**: https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents
+- **URL**: https://www.anthropic.com/research/effective-harnesses-for-long-running-agents
 - **Key Insights (confirmed on the page 2026-06-21)**:
   - External artifacts become the agent's memory (`claude-progress.txt` + git)
   - "Verify before work" startup protocol
@@ -82,7 +82,7 @@ All analysis documents in this repository are derived from authoritative sources
 - **Author**: Prithvi Rajasekaran (Anthropic)
 - **Source**: Anthropic Engineering Blog
 - **Date**: 2026-03-24 (verified 2026-06-21)
-- **URL**: https://www.anthropic.com/engineering/harness-design-long-running-apps
+- **URL**: https://www.anthropic.com/research/harness-design-long-running-apps
 - **Key Insights (verified verbatim 2026-06-21)**:
   - **Generator/evaluator separation** with a self-evaluation-bias caution: agents "confidently praising the work—even when, to a human observer, the quality is obviously mediocre … agents reliably skew positive when grading their own work"
   - **Cost evidence**: DAW harness $124.70 / 3hr 50min; solo agent $9 / 20 min vs full harness $200 / 6 hr ("over 20× more expensive, but the difference in output quality was immediately apparent"); "5 to 15 iterations per generation" for frontend design; the evaluator drives Playwright MCP to navigate/screenshot/study the live app against spec
@@ -96,7 +96,7 @@ All analysis documents in this repository are derived from authoritative sources
 - **Author**: Lance Martin, Gabe Cemaj, Michael Cohen (Anthropic)
 - **Source**: Anthropic Engineering Blog
 - **Date**: 2026-04-08 (verified 2026-06-21)
-- **URL**: https://www.anthropic.com/engineering/managed-agents
+- **URL**: https://www.anthropic.com/research/managed-agents
 - **Key Insights (verified verbatim 2026-06-21)**:
   - Managed Agents is "our hosted service for long-horizon agent work"; it virtualizes the **session** (append-only log), **harness** (the loop that calls Claude and routes tool calls), and **sandbox** (execution environment)
   - Brain/hands decoupling via a stable interface: `execute(name, input) → string`
@@ -109,7 +109,7 @@ All analysis documents in this repository are derived from authoritative sources
 - **Title**: "Introducing advanced tool use on the Claude Developer Platform"
 - **Source**: Anthropic Developer Blog
 - **Date**: November 24, 2025
-- **URL**: https://www.anthropic.com/engineering/advanced-tool-use
+- **URL**: https://www.anthropic.com/research/advanced-tool-use
 - **Beta Header**: `advanced-tool-use-2025-11-20`
 - **Key Insights**:
   - Tool Search Tool: 85% token reduction
@@ -120,7 +120,7 @@ All analysis documents in this repository are derived from authoritative sources
 - **Title**: "Building a C compiler with a team of parallel Claudes"
 - **Source**: Anthropic Engineering Blog
 - **Date**: February 5, 2026
-- **URL**: https://www.anthropic.com/engineering/building-c-compiler
+- **URL**: https://www.anthropic.com/research/building-c-compiler
 - **Key Insights**:
   - Git-based task claiming: agents claim tasks via text files, git synchronization prevents duplicates
   - LLM-aware design: minimal output, detailed logs to files, machine-readable error format
@@ -134,7 +134,7 @@ All analysis documents in this repository are derived from authoritative sources
 - **Author**: Russell Coleman (Anthropic) — byline corrected 2026-06-21 (was attributed to "Anthropic Engineering")
 - **Source**: Anthropic Engineering Blog
 - **Date**: March 6, 2026 (re-verified 2026-06-21)
-- **URL**: https://www.anthropic.com/engineering/eval-awareness-browsecomp
+- **URL**: https://www.anthropic.com/research/eval-awareness-browsecomp
 - **Key Insights**:
   - Model independently hypothesized it was being evaluated and identified the benchmark
   - Systematically located and decrypted the answer key without being told which benchmark
@@ -147,7 +147,7 @@ All analysis documents in this repository are derived from authoritative sources
 - **Title**: "An update on recent Claude Code quality reports" / "April 23 Postmortem"
 - **Source**: Anthropic Engineering Blog
 - **Date**: April 23, 2026
-- **URL**: https://www.anthropic.com/engineering/april-23-postmortem
+- **URL**: https://www.anthropic.com/research/april-23-postmortem
 - **Key Insights**:
   - Three independent bugs cumulatively degraded Claude Code intelligence March 4 – April 20, 2026 across Sonnet 4.6, Opus 4.6, and Opus 4.7
   - Bug 1 (March 4): Reasoning-effort default switched `high` → `medium` to fix UI freezing; reverted April 7 after user complaints
@@ -495,7 +495,7 @@ Registered 2026-11-03. The models overview now lists Fable 5.1, Opus 5.5, Sonnet
 - **Title**: "Effective context engineering for AI agents"
 - **Source**: Anthropic Engineering Blog
 - **Date**: September 2025
-- **URL**: https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
+- **URL**: https://www.anthropic.com/research/effective-context-engineering-for-ai-agents
 - **Key Insights**:
   - Context engineering supersedes prompt engineering for agents
   - Context rot: accuracy decreases as token count increases
@@ -510,7 +510,7 @@ Registered 2026-11-03. The models overview now lists Fable 5.1, Opus 5.5, Sonnet
 - **Title**: "Equipping agents for the real world with Agent Skills"
 - **Source**: Anthropic Engineering Blog
 - **Date**: January 2026
-- **URL**: https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills
+- **URL**: https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills
 - **Key Insights**:
   - Skills are organized folders of instructions, scripts, and resources
   - Progressive disclosure is the core design principle
@@ -555,7 +555,7 @@ Registered 2026-11-03. The models overview now lists Fable 5.1, Opus 5.5, Sonnet
 - **Title**: "Code execution with MCP: building more efficient AI agents"
 - **Source**: Anthropic Engineering Blog
 - **Date**: 2026
-- **URL**: https://www.anthropic.com/engineering/code-execution-with-mcp
+- **URL**: https://www.anthropic.com/research/code-execution-with-mcp
 - **Key Insights**:
   - Load tools on demand for context efficiency
   - Filter data before it reaches the model
@@ -567,7 +567,7 @@ Registered 2026-11-03. The models overview now lists Fable 5.1, Opus 5.5, Sonnet
 - **Title**: "The think tool: Enabling Claude to stop and think"
 - **Source**: Anthropic Engineering Blog
 - **Date**: March 20, 2025
-- **URL**: https://www.anthropic.com/engineering/claude-think-tool
+- **URL**: https://www.anthropic.com/research/claude-think-tool
 - **Key Insights**:
   - Tool that lets Claude pause mid-response to verify information before proceeding
   - 54% relative improvement on complex policy-following tasks
@@ -592,7 +592,7 @@ Registered 2026-11-03. The models overview now lists Fable 5.1, Opus 5.5, Sonnet
 - **Author**: Gian Segato (with Nicholas Carlini, Jeremy Hadfield, Mike Merrill, Alex Shaw), Anthropic
 - **Source**: Anthropic Engineering Blog
 - **Date**: 2026-02-05 (re-verified 2026-06-21)
-- **URL**: https://www.anthropic.com/engineering/infrastructure-noise
+- **URL**: https://www.anthropic.com/research/infrastructure-noise
 - **⚠️ URL MOVED (2026-06-21)**: the prior slug `…/quantifying-infrastructure-noise-in-agentic-coding-evals` now returns **HTTP 404**; canonical live URL is `…/engineering/infrastructure-noise`. The short slug above is the live one.
 - **Key Insights (verified verbatim 2026-06-21)**:
   - **+6 percentage-point total lift on Terminal-Bench 2.0** from 1× to uncapped resources (p<0.01)
@@ -606,7 +606,7 @@ Registered 2026-11-03. The models overview now lists Fable 5.1, Opus 5.5, Sonnet
 - **Author**: Tristan Hume (Anthropic performance optimization lead)
 - **Source**: Anthropic Engineering Blog
 - **Date**: January 21, 2026 (re-verified 2026-06-21)
-- **URL**: https://www.anthropic.com/engineering/AI-resistant-technical-evaluations
+- **URL**: https://www.anthropic.com/research/AI-resistant-technical-evaluations
 - **⚠️ URL CORRECTED (2026-06-21)**: canonical live slug is **capitalized** `…/engineering/AI-resistant-technical-evaluations`. Both the old lowercase `…/designing-ai-resistant-technical-evaluations` and the speculative `…/research/ai-resistant-technical-evaluations` return **HTTP 404** — the post did NOT move to `/research/`.
 - **Key Insights (verified 2026-06-21)**:
   - Take-home test iterated across versions; Claude Opus 4 defeated the original, Claude Opus 4.5 defeated version 2; ~1,000 candidates have completed it
@@ -620,7 +620,7 @@ Registered 2026-11-03. The models overview now lists Fable 5.1, Opus 5.5, Sonnet
 - **Author**: Mikaela Grace, Jeremy Hadfield, Rodrigo Olivares, Jiri De Jonghe (Anthropic)
 - **Source**: Anthropic Engineering Blog
 - **Date**: January 9, 2026 (re-verified 2026-06-21)
-- **URL**: https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents
+- **URL**: https://www.anthropic.com/research/demystifying-evals-for-ai-agents
 - **Key Insights (verified verbatim 2026-06-21)**:
   - Start with "20-50 simple tasks drawn from real failures" rather than synthetic benchmarks
   - Three grader types ("code-based, model-based, human") — matching grader to task type is the first design decision
@@ -678,7 +678,7 @@ Registered 2026-11-03. The models overview now lists Fable 5.1, Opus 5.5, Sonnet
 - **Title**: "How we built our multi-agent research system"
 - **Source**: Anthropic Engineering Blog
 - **Date**: June 13, 2025
-- **URL**: https://www.anthropic.com/engineering/multi-agent-research-system
+- **URL**: https://www.anthropic.com/research/multi-agent-research-system
 - **Key Insights**:
   - Multi-agent architecture for research tasks
   - Lead/worker agent coordination patterns
@@ -699,7 +699,7 @@ Registered 2026-11-03. The models overview now lists Fable 5.1, Opus 5.5, Sonnet
 - **Title**: "How we built Claude Code auto mode: a safer way to skip permissions"
 - **Source**: Anthropic Engineering Blog
 - **Date**: March 25, 2026 (re-verified 2026-06-21)
-- **URL**: https://www.anthropic.com/engineering/claude-code-auto-mode
+- **URL**: https://www.anthropic.com/research/claude-code-auto-mode
 - **Key Insights (verified verbatim 2026-06-21)**:
   - Two-stage classifier: **Stage 1** is a fast single-token filter (8.5% FPR, blocks first); the full pipeline runs at **0.4% FPR**
   - Classifier **strips assistant text** ("so the agent can't talk the classifier into making a bad call") and **strips tool results** ("the primary prompt-injection defense")
@@ -713,7 +713,7 @@ Registered 2026-11-03. The models overview now lists Fable 5.1, Opus 5.5, Sonnet
 - **Title**: "Equipping agents for the real world with Agent Skills"
 - **Source**: Anthropic Engineering Blog
 - **Date**: March 19, 2026
-- **URL**: https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills
+- **URL**: https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills
 - **Key Insights**:
   - New frontmatter fields: `effort`, `paths` (conditional activation), `shell`, `hooks` (skill-scoped), `agent` (subagent type)
   - `${CLAUDE_SKILL_DIR}` variable for self-referencing skills
@@ -1327,7 +1327,7 @@ Track these for production readiness:
 - **Title**: "Equipping agents for the real world with Agent Skills"
 - **Source**: Anthropic Engineering
 - **Date**: December 2025
-- **URL**: https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills
+- **URL**: https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills
 - **Specification**: https://agentskills.io
 - **Key Insights**:
   - Agent Skills released as open standard
@@ -2329,7 +2329,7 @@ and a Final Fantasy VII character), and **15% is not any published figure**.
 
 - **Source**: [karpathy gist 442a6bf555914893e9891c11519de94f](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) (April 2026)
 - **Role**: Originated the convention for write-time wiki maintained by an LLM (sources/ + wiki/ + index.md + log.md + CLAUDE.md schema). Three workflows: ingest, query, lint. Core insight: bookkeeping (not reading) is the bottleneck in knowledge bases — "LLMs don't get bored."
-- **Pattern References**: [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md), [memory-systems-recommendation-methodology.md](analysis/memory-systems-recommendation-methodology.md)
+- **Pattern References**: [memory-systems-archetype-recommendations.md](analysis/memory-systems-archetype-recommendations.md) (incl. § Methodology and self-critique, folded in 2026-11-07)
 - **Followed canon (`follows:` lane) as of 2026-07-16**: [memory-systems-archetype-a-curated-kb.md](analysis/memory-systems-archetype-a-curated-kb.md) follows the LLM-wiki paradigm as its canon. Retained delta: the implementation evidence (graphify + footer discipline, typed-registry remediation). Advance trigger: the paradigm productized by a Supported tool covering the curated-KB archetype.
 - **Canon liveness (gist fetch-verified 2026-08-13)**: the gist shows **exactly one revision** since its 2026-04-04 creation — canon **STABLE**, the paradigm stands as originally published. Karpathy was active in-window but on model-capability topics only (two snippet-only Tier C items — a Fable 5 launch reaction and an agents-before-models warning; X unfetchable) — neither revises the wiki paradigm and neither is load-bearing here.
 - **Evidence Tier**: **B by author authority** (Karpathy is treated as a thought leader on par with Boris Cherny on Claude Code). Recency does not auto-downgrade an author-authority source. Tool-specific implementations of the paradigm (graphify, Pratiyush, MehmetGoekce, Egonex-AI/Understand-Anything — formerly Lum1104) remain Tier C until independently reproduced.
@@ -2437,7 +2437,7 @@ Added 2026-06-15; **re-verified and re-attributed 2026-06-21**. This is the seco
 
 ### Anthropic Engineering — Long-running agent harness & managed agents
 
-- **Source**: Prithvi Rajasekaran, ["Designing a harness for long-running application development"](https://www.anthropic.com/engineering/harness-design-long-running-apps) (2026-03-24); Lance Martin, Gabe Cemaj, Michael Cohen, ["Scaling Managed Agents: Decoupling the brain from the hands"](https://www.anthropic.com/engineering/managed-agents) (2026-04-08); ["Effective context engineering for AI agents"](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (2025-09-29).
+- **Source**: Prithvi Rajasekaran, ["Designing a harness for long-running application development"](https://www.anthropic.com/research/harness-design-long-running-apps) (2026-03-24); Lance Martin, Gabe Cemaj, Michael Cohen, ["Scaling Managed Agents: Decoupling the brain from the hands"](https://www.anthropic.com/research/managed-agents) (2026-04-08); ["Effective context engineering for AI agents"](https://www.anthropic.com/research/effective-context-engineering-for-ai-agents) (2025-09-29).
 - **Role**: Rajasekaran is the primary generator/evaluator harness source (planner/generator/evaluator, Playwright-driven evaluator, 5–15 iterations, ~$200/6hr vs ~$9/20min, self-praise-bias caution). Scaling Managed Agents gives the durable-Session / stateless-Harness / isolated-Sandbox architecture and vault-isolated credentials. Effective context engineering is Anthropic's published prompt→context progression — and notably does *not* use the term "loop engineering."
 - **Pattern References**: [harness-engineering.md](analysis/harness-engineering.md), [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md), [scheduled-and-looping-primitives.md](analysis/scheduled-and-looping-primitives.md).
 - **Evidence Tier**: A (Anthropic engineering blog — first-party, per this repo's tier convention).
@@ -2645,7 +2645,7 @@ This sources document is updated when:
 | 2026-04-20 | Advisory-triggered refresh | Verified current — no new releases (latest v2.1.114), no new Anthropic blog posts since April 18. 90 sections, all sources valid. |
 | 2026-04-18 | Sources refresh | Added v2.1.112-114 changelog, Opus 4.7 signal, expanded best-practices coverage |
 
-*Last updated: 2026-11-03 (source refresh — see the 2026-11-03 refresh-log row and SOURCE-REFRESH-2026-11-03.md). Prior: 2026-08-29 (footer repair — this line read 2026-08-13 while the file's authoritative marker at SOURCES.md:11 read `**Last curated**: 2026-08-29` and the changelog table directly above carried 2026-08-28 and 2026-08-19 rows. Two currency markers in one document, sixteen days apart, one of them wrong: a reader who trusts the footer under-dates the file by two curation passes. The weekly review already checks SOURCES against SOURCES-QUICK-REFERENCE for exactly this divergence and had no check for it *within* a file; weekly-review step 5e now compares every root doc's oldest marker against its last git edit. Line 11 is authoritative when the two disagree; this footer is the changelog tail.) Prior: 2026-08-13 (Claude 5 family + thought-leader refresh — Opus 5 section registered, Sonnet 5 ⚠️s resolved, Opus 4.8 → Legacy, changelog to v2.1.219, two mirror-verified first-party posts, six-post Willison per-release dossier, Ronacher/Osmani/Ng/Husain-Shankar/Karpathy liveness sweep; see the 2026-08-13 changelog row above for the full breakdown). Prior: 2026-07-16 (absorption-wave sweep — superpowers/ECC re-verifications, 5 new dossiers + index-lane note, CodeGuard plugin extension, canon follow-lane pointers, negative dossiers, 4 quarantine lines). Prior: 2026-07-10 (Reduction Phase 6 — 4 additions, stale-markings across 7 entry classes, 2 prunes, link repointing for 4 retired analysis docs). Prior: 2026-06-21 (verified cluster refresh — Fable 5 GA + Sonnet 4.6 + harness-page split + dead-link fixes; OKF/typed-knowledge and loop-eng lineage elevated as KM-leverage sources; memory-systems + evals leaders registered; Unverified section added).*
+*Last updated: 2026-11-07 (owner rulings: 16 `anthropic.com/engineering/*` links repointed to `/research/*` after each 308 and its 200 target were verified with curl; four `/engineering/` slugs that now redirect to 404 and two that redirect off-site left unchanged for a source pass; the archetype-recommendations Karpathy pattern reference now covers the folded-in methodology). Prior: 2026-11-03 (source refresh — see the 2026-11-03 refresh-log row and SOURCE-REFRESH-2026-11-03.md). Prior: 2026-08-29 (footer repair — this line read 2026-08-13 while the file's authoritative marker at SOURCES.md:11 read `**Last curated**: 2026-08-29` and the changelog table directly above carried 2026-08-28 and 2026-08-19 rows. Two currency markers in one document, sixteen days apart, one of them wrong: a reader who trusts the footer under-dates the file by two curation passes. The weekly review already checks SOURCES against SOURCES-QUICK-REFERENCE for exactly this divergence and had no check for it *within* a file; weekly-review step 5e now compares every root doc's oldest marker against its last git edit. Line 11 is authoritative when the two disagree; this footer is the changelog tail.) Prior: 2026-08-13 (Claude 5 family + thought-leader refresh — Opus 5 section registered, Sonnet 5 ⚠️s resolved, Opus 4.8 → Legacy, changelog to v2.1.219, two mirror-verified first-party posts, six-post Willison per-release dossier, Ronacher/Osmani/Ng/Husain-Shankar/Karpathy liveness sweep; see the 2026-08-13 changelog row above for the full breakdown). Prior: 2026-07-16 (absorption-wave sweep — superpowers/ECC re-verifications, 5 new dossiers + index-lane note, CodeGuard plugin extension, canon follow-lane pointers, negative dossiers, 4 quarantine lines). Prior: 2026-07-10 (Reduction Phase 6 — 4 additions, stale-markings across 7 entry classes, 2 prunes, link repointing for 4 retired analysis docs). Prior: 2026-06-21 (verified cluster refresh — Fable 5 GA + Sonnet 4.6 + harness-page split + dead-link fixes; OKF/typed-knowledge and loop-eng lineage elevated as KM-leverage sources; memory-systems + evals leaders registered; Unverified section added).*
 
 ---
 

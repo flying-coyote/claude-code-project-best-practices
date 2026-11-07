@@ -67,7 +67,7 @@ Analyze the commit data for:
 - **Test co-location**: Are tests committed alongside features?
 
 ### Step 3: Cross-Reference Against Analysis Docs
-Map observed patterns to the 25 routable analysis documents in `analysis/`:
+Map observed patterns to the 24 routable analysis documents in `analysis/`:
 - High AI co-authoring → `agent-driven-development.md` patterns
 - CLAUDE.md changes → `claude-md-progressive-disclosure.md`
 - Skill/workflow changes → `ai-tool-vetting.md` (re-review triggers) + `mcp-patterns.md`

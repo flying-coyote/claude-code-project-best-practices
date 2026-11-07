@@ -144,7 +144,7 @@ This is consistent with understand-anything's Phase 2 hallucinating 6 filenames 
 - Direct empirical run (2026-04-28) — graphify v0.5.4 (Pass 1+2) on 162 files; Understand-Anything v2.3.2 on 106 files (archive/ excluded). This repo. Source for all top-line numbers: nodes, edges, hyperedges, communities, output sizes. Source for the hallucination spot-check (n=8 EXTRACTED edges, ~25% hallucinated, ~38% verified).
 - Graphify Pass 1 code-only result (2026-04-28) — 243 nodes / 427 edges, 0 of 38 analysis docs received nodes; Tree-sitter is code-only. Confirms "Pass-2-or-no-graphify is the primary decision."
 - Direct read of `safishamsi/graphify` v1 `skills/graphify/skill.md` Part B + `pyproject.toml` (re-sourced 2026-08-28) — Pass 2 is dispatched through the **invoking session's Agent tool**, and v1 has no API-key or backend path of its own. The zero-LLM-SDK dependency list corroborates but does not establish this; the 2026-04-28 entry cited only the dependency list, which is not a sound warrant on its own (current graphify's `claude-cli` backend is a zero-SDK-dependency egress path). Scope: the `/graphify` skill path. Headless `graphify extract` has its own `--backend` provider chain, including a documented local `ollama` option — see [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) § 5.
-- [memory-systems-recommendation-methodology.md](memory-systems-recommendation-methodology.md) — Methodology #7 (Understand-Anything Karpathy gate, verified against plugin v2.3.2) and #8 (Pass 1 vs Pass 2 empirical) directly inform this comparison.
+- [memory-systems-archetype-recommendations.md](memory-systems-archetype-recommendations.md) § Methodology and self-critique (folded in 2026-11-07 from the former methodology doc) — Methodology #7 (Understand-Anything Karpathy gate, verified against plugin v2.3.2) and #8 (Pass 1 vs Pass 2 empirical) directly inform this comparison.
 
 ### Tier C
 
@@ -155,5 +155,5 @@ This is consistent with understand-anything's Phase 2 hallucinating 6 filenames 
 ## Related Analysis
 
 - [`memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md) — primary archetype-A recommendation, includes both tools
-- [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — methodology #7 (Understand-Anything Karpathy gate) and #8 (Pass 1 vs Pass 2 empirical) inform this comparison
+- [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) § Methodology and self-critique — methodology #7 (Understand-Anything Karpathy gate) and #8 (Pass 1 vs Pass 2 empirical) inform this comparison
 - [`memory-systems-archetype-recommendations.md`](memory-systems-archetype-recommendations.md) — index across all archetypes

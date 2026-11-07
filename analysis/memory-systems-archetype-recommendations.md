@@ -30,17 +30,40 @@ measurement-claims:
     source: "Repo search 2026-08-28: grep -ri ollama across tree, no .ua/ or .understand-anything/ dir, no research artifact, zero commits under git log -S ollama"
     date: "2026-08-28"
     revalidate: "2026-11-28"
+  # Merged 2026-11-07 from memory-systems-recommendation-methodology.md (fold-in, owner ruling 2026-07-16), carried intact including the entries left expired for the owner.
+  - claim: "Understand-Anything v2.9.4 `/understand-knowledge` gates on `has_index and md_count >= 3` only, resolving `index.md` case-insensitively; uppercase `INDEX.md` detects, and `raw/`, `log.md` and the root schema are signals but not gate conditions"
+    source: "Direct execution of upstream `parse-knowledge-base.py` (fetched at Egonex-AI/Understand-Anything main, plugin.json version 2.9.4) against this repo, 2026-08-29: detected=true, format=karpathy, has_log=false, has_raw=false, md_count=345"
+    date: "2026-08-29"
+    revalidate: "2026-11-29"
+    tier: A
+  - claim: "Karpathy's LLM Wiki paradigm rates Tier B by author authority, not Tier C, despite April 2026 publication date"
+    source: "Author authority on par with Boris Cherny on Claude Code; user-stated criterion 2026-04-28. Left expired 2026-11-04 for the owner: this is a ruling or napkin estimate, not a measurement, so there is nothing to re-run; decide whether it belongs in measurement-claims at all."
+    date: "2026-04-28"
+    revalidate: "2026-10-28"
+  - claim: "Wiki+graph+contradiction-lint discipline starts paying back at ~500 docs for single-curator hand-curated KBs (rough working-memory math, not measured)"
+    source: "Working-memory ~50-100 docs × cross-ref density K=3-5 → ~1,500-2,500 relations beyond mental tracking at 500 docs. Left expired 2026-11-04 for the owner: this is a ruling or napkin estimate, not a measurement, so there is nothing to re-run; decide whether it belongs in measurement-claims at all."
+    date: "2026-04-28"
+    revalidate: "2026-10-28"
+  - claim: "Under the `/graphify` skill path, Pass 2 LLM work runs on the invoking Claude Code session's model via its Agent tool — graphify v1 has no API-key or backend path of its own"
+    source: "Direct read of safishamsi/graphify v1 skills/graphify/skill.md Part B (Agent-tool dispatch) + graphify/extract.py + pyproject.toml (zero LLM SDK deps, zero egress symbols), 2026-08-28"
+    date: "2026-08-28"
+    revalidate: "2026-11-28"
+    tier: A
+  - claim: "Owner-authorized egress is the deciding constraint, not data category — public-source genealogy data with placeholder discipline can be opted-in (Wiley projects, 2026-04-29); same data without owner authorization or with un-anonymized living persons cannot"
+    source: "User's reframe 2026-04-29; saved in feedback_genealogy_data_classification memory. Left expired 2026-11-04 for the owner: this is a ruling or napkin estimate, not a measurement, so there is nothing to re-run; decide whether it belongs in measurement-claims at all."
+    date: "2026-04-29"
+    revalidate: "2026-10-29"
 evidence-tier: C
 convergence: emerging  # AI-PKM caveat (B-F1 seed): emerging WITH license risk — Obsidian Smart Connections ~786K downloads but Jan-2026 proprietary switch (DR-6 verified)
-applies-to-signals: [memory-systems, knowledge-base, second-brain, wiki, graph, md-corpus-small, md-corpus-design-target, md-corpus-large, md-corpus-very-large, vault-obsidian, vault-karpathy, project-type-docs, project-type-research, typed-memory-no-registry, code-search, monorepo, cross-project-synchronization, federation, work-tracker, temporal, session-history, transcript-mining, team-shared-memory, multi-tool-concurrency, corpus-sensitive, pii, sensitive-content, healthcare-data, legal-data, journal-third-parties]
+applies-to-signals: [memory-systems, methodology, evidence-tiering, knowledge-base, second-brain, wiki, graph, md-corpus-small, md-corpus-design-target, md-corpus-large, md-corpus-very-large, vault-obsidian, vault-karpathy, project-type-docs, project-type-research, typed-memory-no-registry, code-search, monorepo, cross-project-synchronization, federation, work-tracker, temporal, session-history, transcript-mining, team-shared-memory, multi-tool-concurrency, corpus-sensitive, pii, sensitive-content, healthcare-data, legal-data, journal-third-parties]
 revalidate-by: 2026-10-28
 ---
 
 # Memory & Knowledge System Recommendations
 
-One consolidated doc (folded 2026-07-10; formerly a two-level index over seven per-archetype files): the per-archetype table routes to sections *in this document* for archetypes B through G, while **Archetype A keeps its own file** ([`memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md)) as the heavily-routed primary. Cross-cutting sections (migration paths, never-combine list, license/cost gotchas, build-vs-borrow, evidence gaps) follow the archetype sections.
+One consolidated doc (folded 2026-07-10; formerly a two-level index over seven per-archetype files): the per-archetype table routes to sections *in this document* for archetypes B through G, while **Archetype A keeps its own file** ([`memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md)) as the heavily-routed primary. Cross-cutting sections (migration paths, never-combine list, license/cost gotchas, build-vs-borrow, evidence gaps) follow the archetype sections, and the methodology and self-critique section (merged in 2026-11-07) comes last before the sources.
 
-Calibrated to **~500-document curated knowledge bases** as the single-curator design target. See [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) for the framing, threshold math, self-critique, and applied corrections behind these recommendations — including the **owner-authorized-egress deciding rule** that governs the C-EC archetype.
+Calibrated to **~500-document curated knowledge bases** as the single-curator design target. See § Methodology and self-critique (near the end of this document; merged in 2026-11-07) for the framing, threshold math, self-critique, and applied corrections behind these recommendations — including the **owner-authorized-egress deciding rule** that governs the C-EC archetype.
 
 **Convergence status**: `emerging` (AI-PKM function, per the 2026-07-12 convergence review), so the binding rule applies: adopting infrastructure from these recommendations requires converged status or an explicit owner exception.
 
@@ -205,7 +228,7 @@ All six met when graphify Pass 2 stays on a model you accept egress to (or is sk
 
 # Archetype C-EC (egress-constrained second brain)
 
-Variant of Archetype C for projects where the **owner has chosen not to authorize vendor-LLM egress** of corpus content. The constraint is policy, not data category — the deciding rule and its provenance live in [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md). Tier C overall; Karpathy paradigm is **B by author authority**; the local-LLM-Pass-2 substitute is **D-leaning-C** (untested in this repo); the 89%-baseline finding is **B** (project-artifact-based; see [`archive/memory-systems-genealogy-baseline.md`](../archive/memory-systems-genealogy-baseline.md)).
+Variant of Archetype C for projects where the **owner has chosen not to authorize vendor-LLM egress** of corpus content. The constraint is policy, not data category — the deciding rule and its provenance live in § Methodology and self-critique → The egress deciding rule, below. Tier C overall; Karpathy paradigm is **B by author authority**; the local-LLM-Pass-2 substitute is **D-leaning-C** (untested in this repo); the 89%-baseline finding is **B** (project-artifact-based; see [`archive/memory-systems-genealogy-baseline.md`](../archive/memory-systems-genealogy-baseline.md)).
 
 > **Naming note**: originally `archetype-c-pii.md` with genealogy as the canonical example; renamed 2026-04-30 to reflect the actual constraint axis (owner-authorized vendor egress, not data-category PII) after the owner reframed the Wiley-genealogy projects' egress posture on 2026-04-29.
 
@@ -575,6 +598,169 @@ For **concurrent-write team shared memory** across multiple AI tools — where f
 
 ---
 
+# Methodology and self-critique
+
+> **Merged 2026-11-07** from `memory-systems-recommendation-methodology.md` (fold-in approved by owner ruling 2026-07-16, batched to the 2026-09-30 session, executed 2026-11-07). The pre-merge snapshot is at [`archive/memory-systems-recommendation-methodology.md`](../archive/memory-systems-recommendation-methodology.md). This section explains *why* the recommendations above are calibrated to ~500-document curated KBs, which assumptions in the underlying constraints are weaker than they look, where the analysis is structurally weak, and what corrections were applied during iteration.
+>
+> **Revalidated 2026-08-28 (methodology claims) — the claim holds, but its *warrant* was unsound and one corollary is now false.** The conclusion (Pass 2 runs on the invoking session) is confirmed by direct mechanism evidence: `skills/graphify/skill.md` Part B dispatches Pass 2 through the invoking session's Agent tool — *"MANDATORY: You MUST use the Agent tool here"* — and there is no API-key or backend path in v1. But the reasoning recorded here was **"confirmed by zero LLM SDK deps"**, and absence of a dependency does not prove absence of egress: graphify's own current `claude-cli` backend is a zero-SDK-dependency direct-egress path. Cite the dispatch mechanism; use the dependency list only as corroboration.
+>
+> Two consequences, both applied below: the claim is now **scoped to the `/graphify` skill path** (headless `graphify extract` has its own provider chain), and assumption #5's corollary that *"pointing graphify at a local model is not a documented configuration"* is **retired as false** — see assumption #5 below.
+>
+> Per [`evidence-tiers.md`](evidence-tiers.md) § Expired but not invalid, this is what the expiry marker is for: it caught a reasoning defect that a silent re-date would have carried forward as a repo-wide proof pattern.
+
+## What this analysis is FOR
+
+The recommendations target **~500-document curated knowledge bases** — the scale at which the wiki + graph + contradiction-lint discipline starts paying back for a single curator without active automated ingestion. This is the design target, not the only valid scale.
+
+**Convergence gate**: the function this analysis serves (AI-PKM) is rated `emerging` in this document's frontmatter, and because infrastructure adoption requires converged status or an explicit owner exception, the recommendations here calibrate the adoption decision without clearing that gate.
+
+### Why ~500?
+
+A single curator can hold ~50–100 docs in active mental review. With average cross-reference density K=3–5 per doc, 500 docs implies 1,500–2,500 relations to keep coherent — beyond mental tracking. The lint goes from "nice-to-have" at 28 to "load-bearing" at 500 over roughly an order of magnitude.
+
+| Scale | Lint discipline | Recommendation |
+|---|---|---|
+| ≤ 50 docs | Excess | Plain markdown + manual cross-refs |
+| 50–200 docs | Optional | Wikilinks + Understand-Anything plugin (if you want a graph view) |
+| 200–500 docs (single curator) | Increasingly load-bearing | Add graphify + footer-injection + contradiction lint |
+| ≥ 500 docs (single curator) | Load-bearing | Full design-target stack |
+| Multi-author or active automated ingestion | Threshold compresses to ~100–200 | Adopt earlier |
+
+**Caveat on the ~500 number**: this is rough working-memory-vs-relation-count math, not measured studies. Treat with ±50% confidence interval. An earlier draft of this methodology cited "200+ docs"; ~500 is more defensible as the *single-curator* threshold, while 200 is closer for multi-author or active-ingestion projects.
+
+### Far-larger projects
+
+Projects 12×–40× the design target (6k–20k+ markdown vaults with active ingestion and federation) run on heavily customized stacks tailored to their specifics. The archetype recommendations here are useful as upper-bound sanity checks but are not the calibration scale.
+
+---
+
+## Tier discipline
+
+| Source class | Tier | Examples |
+|---|---|---|
+| Recognized thought leaders, paradigm-level claims | **B** by author authority | Karpathy LLM Wiki paradigm; Boris Cherny on Claude Code |
+| Tool-specific quantitative benchmarks (vendor-reported) | **C** until reproduced | Graphify's 71.5× token claim; claude-context's ~40% reduction; OpenBrain's $0.10–0.30/month |
+| Roadmap claims (not shipped) | **D** | OpenBrain's compilation agent |
+| Verified factual claims (e.g., licenses) | **A** when directly verified | Pratiyush MIT, MehmetGoekce MIT, Understand-Anything MIT, Rowboat Apache 2.0 (dated 2026-04-28; all four re-verified unchanged 2026-08-28) |
+
+**Important**: this corrects an earlier draft that downgraded Karpathy's paradigm to Tier C purely on recency. Recency does not auto-downgrade an author-authority source. The paradigm claim ("write-time wiki + ingest/query/lint workflows + bookkeeping-not-reading insight") is Tier B from publication; only the tool-specific implementations need independent reproduction to move from C to B.
+
+---
+
+## The egress deciding rule (owner authorization, not data category)
+
+The constraint that routes a project to the C-EC archetype is **whether the owner has authorized vendor-LLM egress of the corpus**, not what category the data falls in. The proof case: the Wiley genealogy projects were originally framed as PII-constrained (the archetype was even named C-PII), but the owner reframed them on 2026-04-29 — living-person names use anonymized placeholders, the remaining content is public-source (FamilySearch, Ancestry, WikiTree, Find a Grave), so vendor-LLM egress is acceptable *at the owner's choice*. The same data without that authorization, or with un-anonymized living persons, cannot egress. Data category predicts where the constraint is likely; owner authorization is what actually decides it, so ask for the ruling rather than inferring it from content type.
+
+The fine-grained sensitivity tags (`pii`, `sensitive-content`, `healthcare-data`, `legal-data`, `journal-third-parties`) refine the coarse `corpus-sensitive` signal *within* § Archetype C-EC above; the coarse row remains the top-level routing gate for the LLM-egress decision.
+
+---
+
+## Eight assumptions worth challenging before adopting
+
+These are pushbacks on the user-stated constraints and on my own framing — surfaced upfront so a reader can apply judgment rather than treating the recommendations as decided.
+
+### 1. "Graphify feeds wiki" is a feature you have to build, not one graphify ships
+
+Graphify offers `--wiki` *export* (graph **generates** a wiki) and a hook system that fires on Glob/Grep. Neither of these is "feed findings into your existing markdown." The promotion path is custom glue (the footer-injection script in adoption step A4-3). If you don't write and maintain that script, you'll get the parallel-artifact failure your constraint is supposed to prevent.
+
+**Implication**: scope the footer-injection script as load-bearing infrastructure. If you don't have appetite to maintain it, prefer Understand-Anything (which works *over* your existing wiki and wikilinks) over graphify (which assumes you'll write the bridge).
+
+### 2. For prose-heavy corpora, graphify's "deterministic" pitch mostly evaporates
+
+Tree-sitter Pass 1 (the deterministic, EXTRACTED-tag pass) returns ~nothing useful from `.md` files containing argumentation. The provenance discipline collapses to mostly INFERRED for an analytical-prose KB. The contradiction lint then has very little EXTRACTED bedrock to anchor against. **Determinism is for code corpora, not for prose corpora.** The inventory and axes docs don't make this distinction sharply enough.
+
+### 3. The contradiction discipline scales sharply — calibrate to ~500 docs, not your local scale
+
+At 28 docs (this repo's scale), a contradiction-lint is excess. At ~500 docs (the design target), the math flips: 1,500–2,500 relations, beyond mental tracking, silent drift inevitable. Multi-author or active automated ingestion compresses the threshold to ~100–200.
+
+**Implication**: write recommendations for the ~500-doc design target, not for whatever scale you happen to be testing at. The lint is correct at 500 even where it's over-engineered at 28.
+
+### 4. Karpathy's paradigm is Tier B by author authority
+
+(See "Tier discipline" above.) An earlier draft downgraded it to Tier C on recency grounds. That was wrong — Karpathy is a recognized authority and his paradigm carries author-weight. Tool-specific quantitative claims still stay Tier C until independently reproduced; the paradigm itself does not.
+
+### 5. "Local-first" for graphify is a half-truth on prose
+
+Pass 1 (Tree-sitter) is local. Pass 2 (LLM concept extraction) is **not** — content goes to whatever LLM the invoking Claude Code session is using. On a prose KB, Pass 2 is *most of the signal*. So "graphify is local" reads as a privacy claim it doesn't make for prose.
+
+**Sub-finding, re-sourced 2026-08-28.** The mechanism, stated correctly: `skills/graphify/skill.md` Part B dispatches Pass 2 through the **invoking session's Agent tool** ("MANDATORY: You MUST use the Agent tool here"), and graphify v1 carries no API-key or backend path of its own. The `pyproject.toml` dependency list (zero `anthropic`, `openai`, `litellm`) **corroborates** this; it does not establish it. That distinction matters beyond this doc — do not model absence-of-dependency as a proof of no-egress anywhere in this repository, because graphify's own current `claude-cli` backend is a zero-SDK-dependency path that egresses.
+
+**Retired 2026-08-28 — this sub-finding used to end with a claim that is now false.** It read: *"Pointing graphify at a local model (e.g., Gemma 4) is not a documented configuration."* Current graphify documents `--backend ollama` as a fully-local path, ships an `ollama` extra, and documents `OPENAI_BASE_URL` for llama.cpp / vLLM / LM Studio. Local Pass 2 is now a **first-class documented configuration**, which *strengthens* rather than weakens the egress-constrained recommendation in § Archetype C-EC above.
+
+> **But the local path is opt-in, and the default is not local.** `graphify extract` auto-detects a provider from the environment along a chain that reaches **Ollama last** (Gemini → Kimi → Claude → OpenAI → DeepSeek → Azure → Bedrock → Ollama), so a host with any provider credential present egresses silently. Absence of API keys is *not* a sufficient precondition either: `--backend claude-cli` needs no key (it rides the Claude subscription) and Bedrock needs none (IAM via the ambient AWS chain). State the finding as **"no longer categorically disqualified for egress-constrained prose corpora, conditional on an explicit `--backend ollama` and an environment audit"** — never as unconditional clearance.
+
+### 6. Archetype purity is a useful frame but a misleading recommendation surface
+
+Most real projects mix archetypes (e.g., A+F, C+E, A+D+F). Recommending one primary stack per archetype is useful for *framing*; real adoption needs to layer two archetypes' stacks selectively. Treat the per-archetype primaries above as orthogonal building blocks, not committed package deals.
+
+### 7. Understand-Anything's "wiki-aware" framing requires Karpathy filename conventions, not just `[[wikilinks]]` (added 2026-04-28)
+
+Verified 2026-04-28 against plugin v2.3.2: `/understand-knowledge`'s detector (`parse-knowledge-base.py`) gates on `index.md` (lowercase, at root or under `wiki/`) + ≥3 markdown files. `log.md`, `raw/`, and a root schema (`CLAUDE.md`/`AGENTS.md`) are detected but not required. Repos using `INDEX.md` uppercase, or routing schema to `.claude/CLAUDE.md` (this repo's case), fail detection. **No longer true upstream (re-verified 2026-08-29 against v2.9.4).** The detector now resolves `index.md` case-insensitively (`find_markdown_case_insensitive`, exact match wins), and the gate is `has_index and md_count >= 3` alone — `has_log`, `has_raw` and `has_schema` are collected as signals but not gated on, so the schema-location half was never load-bearing. Executed against this repo, which has only uppercase `INDEX.md`, v2.9.4 returns `detected: true, format: karpathy` (md_count 345). The v2.3.2 reading above stays as a dated record: its source could not be retrieved to re-check it (the tag 404s on raw.githubusercontent and the GitHub API is outside this session's repo scope), so whether it was accurate then is not decidable from here — only that it does not describe the current plugin.
+
+**Implication**: the archetype-A "Understand-Anything alone over a hand-curated wiki" recommendation is conditional on Karpathy filename discipline, not just on having wikilinks. Renaming `INDEX.md` → `index.md` is a small change but breaks tooling that hardcodes the uppercase form (`automation/generate_index.py` here). **That rename is no longer needed** — v2.9.4 resolves the name case-insensitively, so the cost/benefit this sentence weighed has gone to zero on one side. The assumption's *substance* survives the correction and is why it is kept: a recommendation resting on an undocumented filename gate was fragile in exactly the way that mattered, and the gate moved. What changed is the direction of the failure, not whether recommend-time layout checks are worth doing. The general `/understand-anything:understand` skill is the fallback for repos that don't match — but that's a different code path with its own assumptions, not a drop-in. Document the layout requirement at recommend-time, not at adoption-time.
+
+### 8. Graphify Pass 1 alone is not a topology layer for prose-heavy KBs (added 2026-04-28)
+
+Empirical run, 2026-04-28, this repo at 38 analysis docs + supporting code, graphify v0.5.4. **Pass 1** (`graphify update .`, Tree-sitter only, zero LLM calls): 243 nodes / 427 edges / 73% EXTRACTED — but **0 of 38 `analysis/*.md` docs received nodes**. Pass 1's extraction model is code-only.
+
+**Pass 2** run later the same day (8 parallel general-purpose subagents over 162 files, ~22 files/chunk): **1187 nodes / 1651 edges / 67 communities / 88% EXTRACTED / 24 hyperedges**. 251 nodes were anchored to `analysis/*.md` docs (≈6.6 concept nodes per analysis doc). Token-reduction benchmark on the resulting graph: **57.5× vs naive full-corpus** (graphify's marketing claim is 71×; this run hit 57.5× on the real corpus). Footer-injection re-run after Pass 2 found cross-file edges for **33 of 38 analysis docs** (file-level aggregation; node-level lookup returned zero — see implication below).
+
+**Implications**:
+
+1. **Pass-2-or-no-graphify is the primary decision**, not a footnote. Without Pass 2, graphify is a code-only AST tool with no awareness of prose; with it, graphify becomes a topology layer that captures explicit cross-references and surfaces non-obvious semantic similarities (e.g., the 24 hyperedges include a {memory-archetype-b, -d, -e, -f} grouping the prose itself never names as a set). Update archetype-A's adoption-order step 1 to make this decision explicit before any tooling install.
+
+2. **Egress framing was correct**. Pass 2 ships document content to whatever LLM the invoking session uses. The earlier reversibility-except-egress framing applies in full and is the gate that determines whether graphify is even a viable topology layer for sensitive prose corpora.
+
+3. **File-level aggregation matters for prose footers**. Each markdown file produces many concept nodes (mean 6.6, max 28 in this run), not one. Footer-injection scripts that look up edges by *file-path-as-node-id* return zero edges; they have to aggregate node-level edges by `source_file` to produce a "Related" footer. The script in `scripts/graphify_footer_inject.py` was updated 2026-04-28 to do this; the original node-keyed lookup was a code-corpus assumption that doesn't survive contact with prose.
+
+4. **Subagent model selection is a real cost lever**. The 8 Pass 2 subagents each consumed 80k–190k tokens on the parent's Opus 4.7. Subagent extraction is mechanical structured output; pass `model: "sonnet"` to graphify-style fan-outs (or run graphify under a Sonnet-default Claude Code session) and the run is 4–8× cheaper with no quality difference observed.
+
+---
+
+## Three places the analysis is structurally weak
+
+- **Reversibility framing on adoption-order step 1s**: deleting a graphify output folder undoes the local index, but Pass 2 has already shipped content to whatever LLM the invoking session uses, and that egress is not reversible. This document now distinguishes "reversible-local" from "reversible-except-egress" but the broader pattern — that any LLM-touching tool's first run is egress-irreversible — applies across many recommendations and is not consistently flagged.
+
+- **The "never combine graphify + Understand-Anything" rule was overstated initially**. They're architecturally different: Understand-Anything uses your `[[wikilinks]]` as ground truth; graphify discovers structure via AST + LLM passes. Running both *can* be coherent if one is explicitly authoritative and the other is read-only. The never-combine entry (§ Never-combine list above) has been softened to reflect this; the absolute version was wrong.
+
+- **Evidence-gap list misses the foundational experiment**. The deepest unknown isn't graphify's 71× token claim — it's whether wiki + graph beats plain markdown + good cross-refs at 30-doc scale, at 500-doc scale, and at 5,000-doc scale. That requires 3+ months of A/B on real query patterns at each scale. Without it, every recommendation is sophisticated guessing about the payoff curve.
+
+---
+
+## Two reframings worth considering
+
+- **Archetype A's right answer splits by scale.** Below ~200 docs: "good wikilinks + Understand-Anything, defer everything else" — it respects existing wikilinks and is strictly downstream; manual cross-referencing is tractable. At ~500 docs: automated graphify becomes necessary, footer-injection glue is worth maintaining, contradiction-lint earns its keep. Don't over-generalize a small-scale recommendation to design-target projects, or vice versa.
+
+- **OpenBrain as the archetype-G primary is contingent on a feature that hasn't shipped.** Recommending OpenBrain *now* treats Tier D speculation as Tier C evidence. The honest archetype-G primary today is "wait for the compilation agent to ship and reproduce its claims, OR roll a minimal Postgres + pgvector + tiny MCP shim yourself." OpenBrain's full stack is recorded in § Archetype G above as a forward-planning state, not a current adoption.
+
+---
+
+## Applied corrections during iteration
+
+The recommendations above reflect these corrections from earlier drafts:
+
+| Correction | What changed |
+|---|---|
+| Archetype A primary stack split by scale | Understand-Anything-only added as the explicit primary at <~200 docs; graphify+footer-injection remains the primary at ~500-doc design target |
+| Archetype G flagged as roadmap-contingent | "Wait or roll your own Postgres+pgvector+MCP" is the recommendation today; full OpenBrain stack captured as future state |
+| Adoption-order step 1s distinguish reversibility classes | Reversible-local vs reversible-except-egress; LLM Pass 2 = irreversible egress |
+| Never-combine graphify+Understand-Anything softened | Allowed if one is explicitly authoritative |
+| Karpathy paradigm Tier B by author authority | Corrected from prior Tier C downgrade |
+| Threshold calibrated to ~500 docs | Earlier "200+" replaced with the more defensible single-curator threshold; 100–200 noted for multi-author or active-ingestion |
+| All four "check repo" licenses verified 2026-04-28 | Pratiyush, MehmetGoekce, Understand-Anything = MIT; Rowboat = Apache 2.0 (rowboatlabs/rowboat). Re-verified unchanged 2026-08-28 |
+| Rowboat description corrected | README lists Google Gmail/Calendar/Drive + optional Composio MCP (not Granola/Fireflies as the inventory had) |
+| InfraNodus added to license/cost table | Acknowledged as paradigm alternative (text network analysis) but doesn't fit local-first + markdown-substrate constraints |
+
+---
+
+## What I shouldn't have shortcut
+
+- "(analyses are public)" was used to justify graphify Pass 2 egress on this repo. Public-on-GitHub bounds external-disclosure harm; it does not address vendor retention, what bulk-indexers actually ship (the whole working tree, not just the public-by-intent subset), or future drift. The honest framing is: "the action is reversible-bounded-not-undoable; even public content's egress is one-way; verify what would ship before running."
+
+- Treating every April-2026 tool as Tier C uniformly. Author authority distinguishes paradigm claims from tool implementations. Karpathy's paradigm carries weight; a specific implementation's benchmark does not, until reproduced.
+
+---
+
 ## Sources
 
 ### Tier A
@@ -584,7 +770,10 @@ For **concurrent-write team shared memory** across multiple AI tools — where f
 - Direct read of [`Graphify-Labs/graphify`](https://github.com/Graphify-Labs/graphify) pyproject.toml at 0.9.51 and `skills/graphify/skill.md` Part B (2026-08-28) — **Tier A**. Two findings, previously bundled as one claim: (a) zero LLM SDKs among the 29 *required* dependencies still holds (anthropic/openai/tiktoken/boto3 appear only under optional provider extras); (b) session routing is a property of the **skill path**, not of the package — `skill.md` Part B dispatches Pass 2 through the invoking session's Agent tool ("MANDATORY: You MUST use the Agent tool here"), while headless `graphify extract` has its own `--backend` provider chain. The old repo path no longer resolves; v1 is a frozen branch at 0.1.15.
   - **Method note.** Absence of a dependency is *corroboration*, not proof of no-egress, and should not be modelled as a proof pattern elsewhere in this repo — graphify's own `claude-cli` backend is a zero-SDK-dependency direct-egress path. Cite the dispatch mechanism; use the dependency list to support it.
 - [archive/memory-systems-genealogy-baseline.md](../archive/memory-systems-genealogy-baseline.md) — Direct measurement across 3 genealogy projects, N=9 queries; 8/9 DEFINITIVE (89%) on the unaugmented stack; Tier B empirical evidence informing archetype C and C-EC. Archived 2026-07-10 as a dated measurement (claims dated 2026-04-29); the finding survives here and in §C-EC.6.
-- [memory-systems-recommendation-methodology.md](memory-systems-recommendation-methodology.md) — Methodology, threshold math, assumption challenges, applied corrections, and the owner-authorized-egress deciding rule that underpin all per-archetype recommendations.
+- *(from the merged methodology)* Direct read of `safishamsi/graphify` v1 `skills/graphify/skill.md` Part B + `graphify/extract.py` + `pyproject.toml` (2026-08-28) — Pass 2 is dispatched through the invoking session's Agent tool; zero LLM SDK dependencies and zero egress symbols corroborate. **This supersedes the 2026-04-28 entry, which cited only the dependency list** and therefore recorded corroboration as if it were proof. Source for assumption #5 sub-finding and assumption #8 egress framing. Scope: the `/graphify` skill path only.
+- *(from the merged methodology)* Current graphify ([`Graphify-Labs/graphify`](https://github.com/Graphify-Labs/graphify), default branch `v8`, 2026-08-28) — documents `--backend ollama` and `OPENAI_BASE_URL`; provider auto-detection chain reaches Ollama last. Source for the retirement of assumption #5's local-model corollary. The old `safishamsi/graphify` path no longer resolves; v1 is a frozen branch at 0.1.15.
+- *(from the merged methodology)* Understand-Anything v2.3.2 plugin detector verification (2026-04-28) — `parse-knowledge-base.py` gates on lowercase `index.md` at root or under `wiki/`; uppercase `INDEX.md` fails detection. Source for assumption #7. **Superseded 2026-08-29** (the 2026-08-28 stale-flag's re-verification, performed): v2.9.4 resolves the filename case-insensitively and gates on `has_index and md_count >= 3` only. Run against this repo it detects `karpathy`. Tier A, direct execution of upstream source fetched at `main`.
+- *(from the merged methodology)* graphify v0.5.4 empirical run (2026-04-28) — Pass 1: 243 nodes / 427 edges / 0 analysis docs; Pass 2: 1187 nodes / 1651 edges / 67 communities / 251 nodes from analysis docs. Token benchmark: 57.5× vs naive full-corpus. Source for assumption #8 and the Pass-2-or-no-graphify decision.
 
 ### Tier B
 
@@ -608,7 +797,8 @@ For **concurrent-write team shared memory** across multiple AI tools — where f
 ## Related analyses
 
 - [`memory-systems-archetype-a-curated-kb.md`](memory-systems-archetype-a-curated-kb.md) — archetype A, the heavily-routed primary (own file)
-- [`memory-systems-recommendation-methodology.md`](memory-systems-recommendation-methodology.md) — framing, threshold math, self-critique, and the owner-authorized-egress deciding rule
+- [`archive/memory-systems-recommendation-methodology.md`](../archive/memory-systems-recommendation-methodology.md) — pre-merge snapshot of the methodology now in § Methodology and self-critique (folded in 2026-11-07)
+- [`evidence-tiers.md`](evidence-tiers.md) — the evidence-tier framework the methodology applies; [`evidence-based-revalidation.md`](evidence-based-revalidation.md) — how to keep these recommendations current
 - [`memory-system-patterns.md`](memory-system-patterns.md) — earlier pattern survey (precedes this archetype-driven view); the auto-memory layer used by C-EC
 - [`archive/federated-query-architecture.md`](../archive/federated-query-architecture.md) — archived spoke case study relevant to archetype D (evicted 2026-07-10; canonical depth in the spoke repos)
 - [`archive/local-cloud-llm-orchestration.md`](../archive/local-cloud-llm-orchestration.md) — archived spoke case study on routing deterministic work locally and Pass 2 to a vendor *only when corpus permits* (evicted 2026-07-10)

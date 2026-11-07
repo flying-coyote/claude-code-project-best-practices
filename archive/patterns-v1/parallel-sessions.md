@@ -416,7 +416,7 @@ For most development work, **manual parallel sessions remain the recommended app
 
 ## Case Study: Parallel C Compiler Build (February 2026)
 
-**Source**: [Building a C compiler with a team of parallel Claudes](https://www.anthropic.com/engineering/building-c-compiler) (Tier A)
+**Source**: [Building a C compiler with a team of parallel Claudes](https://www.anthropic.com/research/building-c-compiler) (Tier A)
 
 Anthropic engineers used parallel Claude sessions to build a 100,000-line C compiler capable of building Linux 6.9 on x86, ARM, and RISC-V. Key patterns:
 
@@ -473,6 +473,6 @@ This multiplied effectiveness beyond what simple task distribution achieves.
 - [Boris Cherny Interview - Paddo.dev](https://paddo.dev/blog/how-boris-uses-claude-code/)
 - [VentureBeat - Creator of Claude Code Workflow](https://venturebeat.com/technology/the-creator-of-claude-code-just-revealed-his-workflow-and-developers-are)
 - [Agent Teams Documentation](https://code.claude.com/docs/en/agent-teams) (February 2026)
-- [Building a C compiler with parallel Claudes](https://www.anthropic.com/engineering/building-c-compiler) (February 2026) - Git-based task claiming, LLM-aware design, agent specialization
+- [Building a C compiler with parallel Claudes](https://www.anthropic.com/research/building-c-compiler) (February 2026) - Git-based task claiming, LLM-aware design, agent specialization
 
 *Last updated: March 2026*
