@@ -771,6 +771,37 @@ One place to update when a source revises, which is the case the expiry checker 
 
 ---
 
+## Decision 14: Model pinning is a host concern, not a per-repo one (2026-11-08)
+
+### Context
+
+The 2026-07-27 fleet audit (Tier B, single practitioner, the maintainer's own nine repos) found that no repo in the fleet pins a model in `.claude/settings.json` or `settings.local.json`, and that three things move independently underneath them: the host `~/.claude/settings.json` pin, the CLI default (Sonnet 5 since v2.1.197) and the `claude-code-action` default in CI. It also found the fleet is not blind to which model produced what, because each commit carries the model in its `Co-Authored-By` trailer. The open question was whether every repo should carry its own pin.
+
+### Alternatives Considered
+
+1. **Pin a model in every repo's settings.** Rejected: nine copies of one value drift apart on the next model release, and a repo-level pin does not travel with an artifact that leaves the repo.
+2. **Leave everything unpinned, host included.** Rejected: a session that inherits no pin gets whatever the CLI default became, which is the silent change the audit was asked about.
+3. **Chosen: the host pin is enough** for interactive and locally scheduled sessions, with the trailer as the per-commit record.
+
+### Decision
+
+Ruled by the repository owner, 2026-11-08 (hub backlog triage R18: "record 'host pin is enough' for model pinning").
+
+- The host `~/.claude/settings.json` `model` key is the one pin for sessions run on the maintainer's machine. Repos stay unpinned by design and inherit it.
+- The revalidation trigger for anything model-sensitive in a repo reads "the host pin or the CLI default changed", since those are the two movers a local session sees.
+- CI that runs `claude-code-action` does not inherit the host pin. A repo whose CI job writes to the repo is the case where a pin in the workflow file is still worth adding; that is a per-workflow call, not a fleet rule.
+
+### Trade-offs Accepted
+
+- A clone on another machine runs on that machine's default, not the maintainer's pin; acceptable while the fleet is single-operator.
+- An artifact exported from a repo (a benchmark result, a monthly report) does not carry the pin; stamping the resolved model into such an artifact remains the cheaper fix where it matters.
+
+### Impact
+
+One value to change on a model upgrade instead of nine, and audits stop flagging "no model pin" as a per-repo finding in this fleet.
+
+---
+
 ## Owner Exceptions
 
 The register the `convergence`-gate clause points at. AUDIT-CONTEXT.md § Recommendation
@@ -790,4 +821,4 @@ weekly-review function table and the doc's own frontmatter.
 
 ---
 
-*Last updated: 2026-11-07 (Owner Exceptions: second entry, `agents-md-shadowed` and `claude-md-bytes`).* *Prior: 2026-11-05 (Decision 13: provenance in `measurement-claims` frontmatter; inline history for audited measurements, fix-in-place for guidance prose).* *Prior: 2026-11-03 (first Owner Exceptions entry: the `tool-*` audit signals on `analysis/ai-tool-vetting.md`).* *Prior: 2026-08-29 (was 2026-07-16 — the file's only currency marker, and it was not touched by the substantive 2026-08-28 edit at Decision §565 that it sits below. A currency marker that a content edit does not update is worse than none: it certifies the staleness it is hiding.)*
+*Last updated: 2026-11-08 (Decision 14: the host model pin is enough; repos stay unpinned).* *Prior: 2026-11-07 (Owner Exceptions: second entry, `agents-md-shadowed` and `claude-md-bytes`); 2026-11-05 (Decision 13: provenance in `measurement-claims` frontmatter; inline history for audited measurements, fix-in-place for guidance prose).* *Prior: 2026-11-03 (first Owner Exceptions entry: the `tool-*` audit signals on `analysis/ai-tool-vetting.md`).* *Prior: 2026-08-29 (was 2026-07-16 — the file's only currency marker, and it was not touched by the substantive 2026-08-28 edit at Decision §565 that it sits below. A currency marker that a content edit does not update is worse than none: it certifies the staleness it is hiding.)*
