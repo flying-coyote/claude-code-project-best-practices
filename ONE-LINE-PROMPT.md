@@ -161,6 +161,8 @@ If `cron-disabled` was observed, state that the scheduler is off and skip loop-h
    - Signal: `{signal-key}` — {what was observed}
    - Source: `analysis/{doc}.md` (evidence-tier: A)
    - Action: {concrete next step, with a file:line if applicable}
+   - Claim behind it: {the specific claim, with its own tier if the doc's evidence table or `measurement-claims` gives one; otherwise "doc-level tier only"}
+   - How to check it here: {for a presence or config fix, "none needed"; for a claim that one method beats another, the comparison that would confirm it on this repo, per `analysis/agent-evaluation.md` § Comparing Two Methods on Your Own Repo}
 
 ### Medium Priority (Tier B backing)
 
@@ -199,6 +201,8 @@ This is the exact citation format required:
 - Source: `analysis/model-migration-anti-patterns.md` (evidence-tier: Mixed)
 - Action: Replace the line "Dispatch the work to available subagents" with an explicit mechanism, e.g., "Use the Explore subagent to scan src/, then the Plan subagent to design the change." The explicit-dispatch default carries forward from 4.7 to 4.8, and this aligns with Anthropic's preference for positive examples over MUST NOT rules. (Separately, if any skill/harness passes `thinking: {budget_tokens: N}`, that now returns a 400 on 4.8 — migrate to `thinking: {type: "adaptive"}` + `effort`.)
 ```
+
+The two optional lines in the template above (*Claim behind it* and *How to check it here*, added 2026-11-09) exist because the doc-level `evidence-tier` is often `Mixed`, which tells the reader nothing about the one claim a recommendation rests on, and because a recommendation that one method works better than another is a prediction the reader can test on their own tasks. They are optional so existing audits stay compliant.
 
 Three things make this compliant:
 
