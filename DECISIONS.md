@@ -802,6 +802,51 @@ One value to change on a model upgrade instead of nine, and audits stop flagging
 
 ---
 
+## Decision 15: Grade sources by claim type; re-set the harness falsifiability test (2026-11-09)
+
+### Context
+
+The 2026-11-09 evidence-and-method pass (PR #1016) found two problems a reader comparing methods would hit. The A-D ladder in `analysis/evidence-tiers.md` ranked vendor and first-party self-report above peer review for performance claims, listed vendor documentation in two tiers, and disagreed with the maintainer's literature-review ladder ([drafts/tier-ladder-reconciliation-2026-11-09.md](drafts/tier-ladder-reconciliation-2026-11-09.md)). Separately, the falsifiability test for "the harness is the multiplier" in `analysis/harness-engineering.md` compared a model swap against the maximum harness row, so the thesis could pass without being tested on typical spreads.
+
+### Alternatives Considered
+
+1. **Keep the ladder and publish a mapping.** Rejected: leaves self-report above peer review for performance claims.
+2. **Chosen: split by claim type.** Vendor and first-party sources stay Tier A for what a feature does; performance and comparison claims are graded by how they were measured, with vendor self-measurement at Tier C and its bias flagged.
+3. **Adopt the literature-review ladder outright.** Rejected: moves first-party mechanism documentation to B, which reads oddly in a repo about one vendor's product.
+
+For the falsifiability test, the alternative was to keep the 6x-maximum test; the re-set compares typical harness and model spreads on one task set, with intervals.
+
+### Decision
+
+- `analysis/evidence-tiers.md` carries the claim-type split at the head of Source Quality Tiers.
+- Re-tiered now, A to C with vendor bias flagged: the Vercel tool-reduction rows (`harness-engineering.md`), the ~80% CLAUDE.md adherence row and the auto-mode row (`behavioral-insights.md`). The fourth row the proposal named, the 50% skills-vs-MCP figure, lives in an archived doc and is left as archived.
+- Other Tier A performance rows are re-tiered when their doc is next revalidated, since a single sweep would touch most of `analysis/`. To find them: `grep -rn "Tier A" analysis/ | grep -iE "faster|accuracy|%|x "`.
+- The harness falsifiability test is the re-set one. On the Harness Leaderboard v0.1.2 the general claim fails it (model spread about 4.1x, harness spread 2-5 points), and that result is recorded in the doc. The verdict text and its Medium-High confidence were left for a separate ruling (applied the same day as Decision 16).
+
+### Consequences
+
+Confidence on the three re-tiered rows drops from High to Medium-Low per the canonical mapping. The harness doc now carries a verdict that its own test currently fails, which Decision 16 resolved the same day.
+
+---
+
+## Decision 16: Harness verdict narrowed; confidence Medium (2026-11-09)
+
+### Context
+
+Decision 15 adopted a falsifiability test for `analysis/harness-engineering.md` that compares typical harness and model spreads on one task set, and on the Harness Leaderboard v0.1.2 the general verdict, "the harness is the multiplier", failed it (model spread about 4.1x on a fixed Claude Code harness, 2-5 points among the five best harnesses on any one model). That left the doc carrying a verdict its own test failed.
+
+### Alternatives Considered
+
+1. **Keep the verdict and its Medium-High confidence with a scope note.** Rejected: the doc would contradict its own test.
+2. **Chosen: narrow the verdict to "avoid a bad harness, and configure the one you have for the model you run" and lower confidence to Medium.**
+3. **Retire the thesis.** Rejected: the misconfiguration evidence (6x scaffold gaps, the Leaderboard's harness-defaults changelog) still supports the narrower reading.
+
+### Decision
+
+The Verdict and the Consolidated Claim in `analysis/harness-engineering.md` carry the narrower reading at Medium confidence; the 2026-11-09 scope note is folded into the verdict, and the prior wording stays struck with its date. Re-check at the board's next measurement-claim revalidation (2027-02-08), or sooner if a board with frontier models reports both spreads.
+
+---
+
 ## Owner Exceptions
 
 The register the `convergence`-gate clause points at. AUDIT-CONTEXT.md § Recommendation
@@ -821,4 +866,4 @@ weekly-review function table and the doc's own frontmatter.
 
 ---
 
-*Last updated: 2026-11-08 (Decision 14: the host model pin is enough; repos stay unpinned).* *Prior: 2026-11-07 (Owner Exceptions: second entry, `agents-md-shadowed` and `claude-md-bytes`); 2026-11-05 (Decision 13: provenance in `measurement-claims` frontmatter; inline history for audited measurements, fix-in-place for guidance prose).* *Prior: 2026-11-03 (first Owner Exceptions entry: the `tool-*` audit signals on `analysis/ai-tool-vetting.md`).* *Prior: 2026-08-29 (was 2026-07-16 — the file's only currency marker, and it was not touched by the substantive 2026-08-28 edit at Decision §565 that it sits below. A currency marker that a content edit does not update is worse than none: it certifies the staleness it is hiding.)*
+*Last updated: 2026-11-09 (Decision 16: harness verdict narrowed, confidence Medium; Decision 15: grade sources by claim type; harness falsifiability test re-set).* *Prior: 2026-11-08 (Decision 14: the host model pin is enough; repos stay unpinned); 2026-11-07 (Owner Exceptions: second entry, `agents-md-shadowed` and `claude-md-bytes`); 2026-11-05 (Decision 13: provenance in `measurement-claims` frontmatter; inline history for audited measurements, fix-in-place for guidance prose).* *Prior: 2026-11-03 (first Owner Exceptions entry: the `tool-*` audit signals on `analysis/ai-tool-vetting.md`).* *Prior: 2026-08-29 (was 2026-07-16 — the file's only currency marker, and it was not touched by the substantive 2026-08-28 edit at Decision §565 that it sits below. A currency marker that a content edit does not update is worse than none: it certifies the staleness it is hiding.)*
