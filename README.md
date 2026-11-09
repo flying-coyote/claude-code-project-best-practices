@@ -100,6 +100,7 @@ The prompt above is kept identical to the one in ONE-LINE-PROMPT.md (synced 2026
 |---|---|---|
 | An external practitioner with a specific project | The Quick Start audit above | Follow the 4–8 cited docs the audit returns |
 | Evaluating a claim from any AI tooling source | [`analysis/evidence-tiers.md`](analysis/evidence-tiers.md) | The A–D source-tier system applies broadly (the 1–5 claim-strength axis is RETIRED; A–D is the only tier system) |
+| Deciding whether one method beats another on your own repo | [`analysis/agent-evaluation.md` § Comparing Two Methods](analysis/agent-evaluation.md#comparing-two-methods-on-your-own-repo-protocol-added-2026-11-09) | A nine-step paired comparison with a worked, pre-registered example in this repo; product-level harness leaderboards do not answer this question |
 | Choosing a tool or framework | [`analysis/orchestration-comparison.md`](analysis/orchestration-comparison.md) | Native-mechanism selection is first-party now; the Framework Selection section (merged 2026-07-16) keeps the external-framework comparison |
 | Contributing an analysis doc | [`CONTRIBUTING.md`](CONTRIBUTING.md) → Integration Checklist | Start from [`analysis/CANONICAL-DOC-TEMPLATE.md`](analysis/CANONICAL-DOC-TEMPLATE.md) |
 
