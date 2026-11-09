@@ -1,11 +1,11 @@
 ---
-status: proposal
+status: ruled
 convergence: single-source
 ---
 
 # Proposal: reconcile the A–D source-tier ladder (staged for an owner ruling, 2026-11-09)
 
-Nothing in this file is applied. It records a taxonomy question the 2026-11-09 evidence-and-method pass raised, with options and a recommended default, so the owner can rule on it.
+**Ruled 2026-11-09: option 2 (split by claim type), recorded as Decision 15 in DECISIONS.md.** The text below is the proposal as staged. It records a taxonomy question the 2026-11-09 evidence-and-method pass raised, with options and a recommended default, so the owner can rule on it.
 
 ## The problem
 

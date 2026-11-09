@@ -25,12 +25,14 @@ It previously also described a second axis, **Tier 1-5** for research evidence s
 
 ## Source Quality Tiers (A-D)
 
+> **Grade by claim type (Decision 15, owner ruling 2026-11-09).** The tier a source earns depends on what it is cited *for*. For **what a feature does or how a product is configured**, the vendor is the authority on its own product, so official vendor documentation and first-party engineering posts are Tier A. For **how well something works, how fast it is, or how it compares**, the tier comes from how the figure was measured: peer-reviewed work, or a measurement whose method, task set and data are published so it can be re-run, is Tier A; a practitioner measurement with its method disclosed, or a peer-reviewed paper's secondary figure, is Tier B; a vendor's measurement of its own product or of a product it sells alongside, or any figure stated without its method, is Tier C with the bias flagged; an unattributed figure is Tier D. The lists below are read through that split. This mirrors the split the maintainer's literature review adopted on 2026-11-03 (`flying-coyote/security-data-literature-review`), and the reasoning is in [drafts/tier-ladder-reconciliation-2026-11-09.md](../drafts/tier-ladder-reconciliation-2026-11-09.md).
+
 ### Tier A: Primary Sources
 - **What**: Direct observation, production data, official documentation
 - **Examples**:
   - Anthropic's own engineering blog posts
-  - Your own production implementation results
-  - Official vendor documentation
+  - Your own production implementation results, when the method and data are published (otherwise Tier B)
+  - Official vendor documentation (for what a feature does; its performance claims are Tier C, see the note above)
   - Published specifications (RFC, IEEE, NIST)
 - **Weight**: Strongest evidence - suitable for definitive claims
 
@@ -44,10 +46,10 @@ It previously also described a second axis, **Tier 1-5** for research evidence s
 - **Weight**: Strong evidence - suitable for confident claims
 
 ### Tier C: Industry & Analysis
-- **What**: Industry reports, vendor documentation, analysis pieces
+- **What**: Industry reports, vendor performance and comparison claims, analysis pieces
 - **Examples**:
   - Gartner/Forrester reports
-  - Vendor whitepapers (treated with skepticism)
+  - Vendor whitepapers and vendor self-measurements (bias flagged)
   - Industry blog posts from practitioners
   - Community best practices
 - **Weight**: Supporting evidence - should be corroborated
