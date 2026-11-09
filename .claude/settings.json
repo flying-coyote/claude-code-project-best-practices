@@ -15,6 +15,18 @@
       "Bash(python3 automation/*)",
       "Bash(npm run lint*)",
       "Bash(curl*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git remote add:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(gh repo create:*)",
+      "Bash(curl * | bash)",
+      "Bash(curl * | sh)",
+      "Bash(wget * | bash)",
+      "Bash(wget * | sh)"
     ]
   },
   "hooks": {
