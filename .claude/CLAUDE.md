@@ -42,4 +42,7 @@ v2.1 — 24 routable analysis docs (44→27 in the 2026-07 reduction, Decision 1
 
 Note: This project uses emoji prefixes (documentation project). Code repos in the portfolio use conventional commits (`feat:`, `fix:`, `docs:`).
 
-Portfolio-review program (2026-07): see [`review-protocol.md`](review-protocol.md) before any review-program session.
+## Review rules (folded from the retired `.claude/review-protocol.md`, 2026-11-08)
+
+- **apply_now** (edit without staging for Jeremy) requires ALL of: mechanically derivable from a named source; reversible in one commit; no narrative, voice or framing change; no price, tier or taxonomy choice; not touching a settled decision in the hub's DO-NOT-REFLAG list. Anything else is staged for the owner in the hub.
+- **Numbers**: every quantitative claim in agent-drafted, publication-bound prose is re-derived by a different agent from the named source before commit; unverifiable means stage it, never ship it.
