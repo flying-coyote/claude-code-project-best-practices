@@ -1,20 +1,28 @@
 #!/usr/bin/env python3
 """
-Check for expired measurement claims in patterns/.
+Check for expired measurement claims in analysis/.
 
-Scans pattern files for YAML frontmatter with measurement claims,
-identifies claims past their re-validation date, and creates GitHub
-issues for expired measurements.
+Adapted 2026-11-10 (ported back from securing-ai-best-practices) with one
+change: a --changed-files argument. In that repo the job failed for every
+expired claim anywhere, so a cohort of docs written together turned the
+default branch red together and the check blocked unrelated pull requests,
+including the ones that would have fixed the expiry. With --changed-files the
+exit code is non-zero only when an expired claim sits in one of the named
+files; the full expired count still prints on one summary line for the weekly
+review. Passing --changed-files with no paths therefore never fails, which is
+what CI does on push and scheduled runs.
 
 Usage:
-    python scripts/check-measurement-expiry.py
+    python scripts/check-measurement-expiry.py                      # fail on any expired claim
+    python scripts/check-measurement-expiry.py --changed-files a.md # fail only for a.md
+    python scripts/check-measurement-expiry.py --changed-files      # report only
     python scripts/check-measurement-expiry.py --create-issue
 """
 
 import argparse
 import re
 import sys
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import List, Dict, Optional
 
@@ -29,12 +37,18 @@ class MeasurementExpiryChecker:
         self.expired_claims = []
         self.expiring_soon = []  # Within 30 days
         self.frozen_claims = []  # revalidate: never — deliberately unrepeatable
+        # Files whose claims could not be read. Upstream printed a warning and
+        # carried on, so an unreadable claim counted as current: the fail-open
+        # shape. Here an error is reported and fails the run (scoped like an
+        # expiry when --changed-files is given).
+        self.errors = []
 
     def check_all_patterns(self) -> Dict:
         """Scan all pattern files for expired measurement claims."""
         print(f"🔍 Checking measurement claims in {self.patterns_dir}...")
 
-        pattern_files = list(self.patterns_dir.glob("*.md"))
+        pattern_files = sorted(p for p in self.patterns_dir.rglob("*.md")
+                               if p.name != "CANONICAL-DOC-TEMPLATE.md")
         print(f"   Found {len(pattern_files)} pattern files")
 
         today = datetime.now().date()
@@ -44,6 +58,7 @@ class MeasurementExpiryChecker:
 
         return {
             "frozen": self.frozen_claims,
+            "errors": self.errors,
             "expired": self.expired_claims,
             "expiring_soon": self.expiring_soon,
             "checked_files": len(pattern_files),
@@ -76,6 +91,7 @@ class MeasurementExpiryChecker:
 
         except Exception as e:
             print(f"   ⚠️  Error checking {pattern_file}: {e}")
+            self.errors.append({"file": str(pattern_file), "error": str(e)})
 
     def _extract_frontmatter(self, content: str) -> Optional[Dict]:
         """Extract YAML frontmatter from markdown file."""
@@ -86,11 +102,9 @@ class MeasurementExpiryChecker:
         if not match:
             return None
 
-        try:
-            return yaml.safe_load(match.group(1))
-        except yaml.YAMLError as e:
-            print(f"   ⚠️  YAML parsing error: {e}")
-            return None
+        # A YAML error propagates to _check_pattern_file, which records it as an
+        # error rather than treating the file as having no claims.
+        return yaml.safe_load(match.group(1))
 
     def _check_claim(self, pattern_file: Path, claim: Dict, today):
         """Check a single measurement claim for expiry."""
@@ -122,11 +136,19 @@ class MeasurementExpiryChecker:
             })
             return
 
-        try:
-            revalidate_date = datetime.strptime(revalidate_str, "%Y-%m-%d").date()
-        except ValueError:
-            print(f"   ⚠️  Invalid revalidate date format in {pattern_file}: {revalidate_str}")
-            return
+        # PyYAML parses an unquoted YYYY-MM-DD into a datetime.date. Upstream
+        # passed that to strptime, which raised TypeError, and the outer handler
+        # swallowed it, so every unquoted date was silently never checked.
+        if isinstance(revalidate_str, date):
+            revalidate_date = revalidate_str
+            revalidate_str = revalidate_date.isoformat()
+        else:
+            try:
+                revalidate_date = datetime.strptime(str(revalidate_str).strip(), "%Y-%m-%d").date()
+            except ValueError:
+                raise ValueError(f"invalid revalidate date {revalidate_str!r}")
+        if isinstance(date_str, date):
+            date_str = date_str.isoformat()
 
         # Check if expired
         if revalidate_date < today:
@@ -176,9 +198,9 @@ def generate_issue_body(results: Dict) -> str:
             body.append(f"| {claim_short} | {claim['source']} | {claim['revalidate']} | {claim['days_expired']} | {file_name} |\n")
 
         body.append("\n**Action Required**:\n")
-        body.append("1. Re-run benchmarks/tests with current Claude Code version\n")
+        body.append("1. Re-run the measurement at its source (the lab run or standard the claim cites)\n")
         body.append("2. Update measurement claim if result changed\n")
-        body.append("3. Update `revalidate` date to 1 year from today\n")
+        body.append("3. Set a new `revalidate` date (three months for ATLAS-dependent claims, up to eight otherwise)\n")
         body.append(
             "4. If the measurement is no longer valid, mark it historical rather than deleting it "
             "— see `analysis/evidence-tiers.md` \u00a7 Expired but not invalid. If it can never be "
@@ -201,7 +223,7 @@ def generate_issue_body(results: Dict) -> str:
         body.append("\n**Upcoming Action**:\n")
         body.append("- Plan to re-validate these measurements before expiry\n")
         body.append(
-            "- Add to the review cadence: `.claude/commands/maintenance/weekly-review.md` step 4\n\n"
+            "- Add to the review cadence: the weekly review\n\n"
         )
 
     frozen = results.get("frozen", [])
@@ -233,7 +255,17 @@ def main():
     parser = argparse.ArgumentParser(description="Check for expired measurement claims")
     parser.add_argument("--create-issue", action="store_true", help="Create GitHub issue for expired claims")
     parser.add_argument("--patterns-dir", default="analysis", help="Directory of docs carrying measurement-claims frontmatter (default: analysis)")
+    parser.add_argument("--changed-files", nargs="*", default=None, metavar="PATH",
+                        help="Fail only for expired claims in these files (a PR's changed files). "
+                             "Given with no paths, report the full count and never fail.")
     args = parser.parse_args()
+
+    # A missing directory must not read as "no expired claims"; rglob on a
+    # nonexistent path yields nothing and raises nothing.
+    if not Path(args.patterns_dir).is_dir():
+        print(f"error: {args.patterns_dir} is not a directory; refusing to report a count "
+              "for a path that was never scanned.")
+        return 2
 
     # Check for expired measurements
     checker = MeasurementExpiryChecker(Path(args.patterns_dir))
@@ -257,15 +289,14 @@ def main():
     issue_body = generate_issue_body(results)
 
     if args.create_issue:
-        # NOTE: nothing consumes this file automatically. `grep -rn
-        # "measurement-expiry" .github/` returns zero hits — no workflow reads it,
-        # and no workflow runs this script at all. The flag writes a body for a
-        # human to paste. It said "GitHub Actions will create issue from this
-        # file" until 2026-08-29, which was never true in this repo.
+        # NOTE: nothing consumes this file automatically. CI runs this script
+        # (test-instruments, scoped to changed files) but never reads the issue
+        # file, and no job files issues (DECISIONS.md, Decision 9). The flag
+        # writes a body for a human to paste.
         issue_file = Path("measurement-expiry-issue.md")
         issue_file.write_text(issue_body)
         print(f"\n✅ Issue body written to {issue_file}")
-        print("   Nothing reads this automatically — no workflow runs this script.")
+        print("   Nothing reads this file automatically; no job files issues.")
         print("   Paste it into a new issue by hand, or pipe it somewhere useful.")
     else:
         print("\n📝 Issue Body Preview:")
@@ -273,6 +304,32 @@ def main():
         print(issue_body)
         print("=" * 60)
         print("\n💡 Run with --create-issue to generate issue file")
+
+    # Scope the failure. Paths are compared resolved, so "analysis/x.md" from
+    # git diff and the checker's own relative paths match regardless of cwd.
+    if args.changed_files is not None:
+        changed = {Path(f).resolve() for f in args.changed_files}
+        in_scope = [c for c in results["expired"] if Path(c["file"]).resolve() in changed]
+        err_scope = [e for e in results["errors"] if Path(e["file"]).resolve() in changed]
+        print(f"\nexpired-claims total={expired_count} in-changed-files={len(in_scope)} "
+              f"unreadable total={len(results['errors'])} in-changed-files={len(err_scope)} "
+              f"files-checked={results['checked_files']} date={results['check_date']}")
+        if err_scope:
+            print("\n❌ Unreadable measurement-claims in files this change touches (exit code 1):")
+            for e in err_scope:
+                print(f"   - {e['file']}: {e['error']}")
+            return 1
+        if in_scope:
+            print("\n❌ Expired claims in files this change touches (exit code 1):")
+            for c in in_scope:
+                print(f"   - {c['file']}: {c['claim'][:60]} (revalidate {c['revalidate']})")
+            return 1
+        print("\n✅ No expired claims in the changed files (exit code 0)")
+        return 0
+
+    if results["errors"]:
+        print(f"\n❌ {len(results['errors'])} file(s) with unreadable measurement-claims (exit code 1)")
+        return 1
 
     # Exit with error code if expired claims found
     if expired_count > 0:

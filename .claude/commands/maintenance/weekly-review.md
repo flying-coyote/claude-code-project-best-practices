@@ -28,7 +28,8 @@ Conduct the weekly review of project status and documentation currency. This pro
    - Read the `**Last curated**` line near the top of SOURCES.md and compute its age. If it is older than 45 days, add "SOURCES curation pass" to next week's priorities.
    - Confirm SOURCES-QUICK-REFERENCE.md's "Last Updated" footer names the same curation pass as SOURCES.md; if they diverge, flag which one is behind.
    - Skim the **Unverified / pending revalidation** section at the end of SOURCES.md for items whose stated revalidation condition has come due this week.
-   - Run `python3 scripts/check-measurement-expiry.py` and note any expired measurement claims.
+   - Run `python3 scripts/check-measurement-expiry.py --changed-files` and record the full expired count from its summary line (it reports without failing; CI fails a PR only for expired claims in the files that PR changes).
+   - Record branch protection and stale branches: `gh api repos/flying-coyote/claude-code-project-best-practices/branches/master --jq .protected` and `git ls-remote --heads origin` (any head other than master that is fully merged is a reap candidate; check `git cherry origin/master origin/<branch>` first).
    - **Read the upstream release surfaces for anything new since the last review.**
      PLAN.md's Review Cadence table has always named this step as the mechanism for
      "Anthropic engineering blog + changelog, weekly", and until 2026-08-29 this step
