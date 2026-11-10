@@ -261,6 +261,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -301,10 +303,22 @@ jobs:
       # delete it" -- this takes the first. It exits non-zero only on genuinely
       # EXPIRED claims; expiring-soon is printed and does not fail.
       #
-      # NOTE: `master` is not protected, so today this reports rather than
-      # gates. It becomes a gate when branch protection is configured.
+      # Scoped 2026-11-10: on a pull request it fails only when an expired claim
+      # sits in a file the PR changes, so a cohort of claims expiring together no
+      # longer blocks unrelated PRs (including the ones that would fix them). On
+      # push and schedule it reports the full expired count without failing; the
+      # weekly review reads that line.
       - name: Check for expired measurement claims
-        run: python3 scripts/check-measurement-expiry.py
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE: ${{ github.base_ref }}
+        run: |
+          if [ "$EVENT" = "pull_request" ]; then
+            mapfile -t files < <(git diff --name-only "origin/$BASE"...HEAD -- 'analysis/*.md')
+            python3 scripts/check-measurement-expiry.py --changed-files "${files[@]}"
+          else
+            python3 scripts/check-measurement-expiry.py --changed-files
+          fi
 
   check-source-accessibility:
     runs-on: ubuntu-latest
