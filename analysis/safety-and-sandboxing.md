@@ -239,7 +239,7 @@ exit 0
 
 **Corporate agentic-practice canons (directional framing only, 2026-07-16)**: Vercel's "Agent responsibly" (vercel.com/blog/agent-responsibly) and Shopify's AI-first engineering playbook are cited here as directional framing only (Tier C, verified 2026-07-16) — they are not absorbers for this doc's OWASP mapping, cred-boundary pattern, or unattended-execution delta. The one community security-hub attempt in this space, `efij/awesome-claude-code-security`, was created and abandoned the same day (2026-03-12); the durable sources for this doc remain Anthropic, named vendors, and academic/standards work.
 
-- [Beyond Permission Prompts: Making Claude Code More Secure](https://www.anthropic.com/engineering/beyond-permission-prompts) (October 2025, Tier A) — sandboxing impact measurement
+- [Beyond Permission Prompts: Making Claude Code More Secure](https://www.anthropic.com/research/claude-code-sandboxing) (October 2025, Tier A) — sandboxing impact measurement
 - [Claude Code Auto Mode](https://www.anthropic.com/research/claude-code-auto-mode) (March 25, 2026, Tier A) — classifier cited in the `hard_deny` and attack-surface analysis above
 - [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) (Tier A)
 - [Claude Code Security Documentation](https://code.claude.com/docs/en/security) (Tier A)

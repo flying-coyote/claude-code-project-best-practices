@@ -363,10 +363,10 @@ Two data points survive from the now-superseded native-mechanism sections for sc
 ## Sources
 
 **Tier A (Vendor)**:
-- [Claude Code Sub-agents Documentation](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
+- [Claude Code Sub-agents Documentation](https://code.claude.com/docs/en/sub-agents)
 - [Agent Teams Documentation](https://code.claude.com/docs/en/agent-teams)
 - [How we built our multi-agent research system](https://www.anthropic.com/research/multi-agent-research-system) (2025-06-13; quotes re-fetched 2026-11-03) — each subagent needs "an objective, an output format, guidance on the tools and sources to use, and clear task boundaries"
-- [Building a C Compiler with Parallel Claudes](https://www.anthropic.com/engineering/building-a-c-compiler-with-parallel-claudes)
+- [Building a C Compiler with Parallel Claudes](https://www.anthropic.com/research/building-c-compiler)
 - Boris Cherny: premature-orchestration principle (March 2026)
 - Anthropic: Advisor strategy benchmark claims (April 2026)
 - [What's new — Claude Opus 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) (released 2026-07-24, `claude-opus-5`, $5/$25; fetched 2026-08-13) — "In multi-agent frameworks, it delegates to subagents more readily"; "verifies its own work without being told to"; carried-over verification instructions "cause over-verification."

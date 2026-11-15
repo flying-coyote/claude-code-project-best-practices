@@ -55,7 +55,7 @@ convergence: single-source
 **Referenced in**: [agent-evaluation.md](analysis/agent-evaluation.md)
 
 ### 7. Beyond Permission Prompts (Security) — Authority: 5 (Foundational)
-**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/beyond-permission-prompts)
+**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/research/claude-code-sandboxing)
 **Date**: 2025 | **Foundational**: Yes | **Effective Weight**: 0.70 (1.0 x 0.7 floor)
 **Key Insights**: OS-level sandboxing, permission prompts vs isolation trade-offs
 **Referenced in**: [safety-and-sandboxing.md](analysis/safety-and-sandboxing.md)

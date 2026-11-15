@@ -41,7 +41,7 @@ Conduct the weekly review of project status and documentation currency. This pro
      that anyone read it.
      - <https://www.anthropic.com/engineering> and <https://www.anthropic.com/news> —
        new posts since the date recorded in SOURCES.md's `**Last curated**` line.
-     - <https://code.claude.com/docs/en/release-notes> — Claude Code releases since
+     - <https://code.claude.com/docs/en/changelog> — Claude Code releases since
        the version SOURCES.md last registered.
      Register anything load-bearing in SOURCES.md with its tier, and open a PLAN row
      for anything that contradicts a live claim. Finding nothing is a valid outcome

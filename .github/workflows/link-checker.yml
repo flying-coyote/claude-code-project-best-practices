@@ -115,6 +115,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # archive/ is the historical record (ARCHIVE.md): its links point at files this
+      # repo deleted on purpose and at pages that were live when it was written, so
+      # checking them only refills the standing issue with rot nobody will fix. The
+      # checkout is throwaway, so dropping the folder here changes nothing else.
+      - name: Skip the archive lane
+        run: rm -rf archive
+
       - name: Check links in markdown files
         id: link-check
         uses: gaurav-nelson/github-action-markdown-link-check@v1
@@ -344,7 +351,7 @@ jobs:
           TIER_A_SOURCES=(
             "https://www.anthropic.com/engineering"
             "https://github.com/anthropics/claude-code"
-            "https://docs.anthropic.com"
+            "https://code.claude.com/docs"
             "https://agentskills.io"
             "https://github.com/github/spec-kit"
           )
