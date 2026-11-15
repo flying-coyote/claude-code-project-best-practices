@@ -15,7 +15,7 @@ last-verified: "2026-02-16"
 
 > **ARCHIVED — not current guidance.** This is a v1 pattern doc, superseded by the v2.0 repositioning (March 2026, DECISIONS.md § Reposition as Analytical Layer) and retained for historical comparison only. The live successor is `analysis/orchestration-comparison.md`. Its `measurement-claims` and dates below are the v1-era snapshot, preserved as recorded — do not treat them as current. (Status corrected 2026-08-28: this file previously asserted a live `status:` in its own frontmatter, so retrieval surfaced it as current. See `analysis/prose-corpus-discoverability.md`.)
 
-📚 **Official Documentation**: [Claude Code Documentation - Sub-agents](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
+📚 **Official Documentation**: [Claude Code Documentation - Sub-agents](https://code.claude.com/docs/en/sub-agents)
 
 **Evidence Tier**: A (Primary vendor documentation)
 
@@ -718,7 +718,7 @@ Parent synthesizes: merge findings, resolve overlaps
 
 ## Pattern 10: Agent Teams (Experimental)
 
-**Source**: [Agent Teams Documentation](https://code.claude.com/docs/en/agent-teams) + [C Compiler Case Study](https://www.anthropic.com/engineering/building-a-c-compiler-with-parallel-claudes)
+**Source**: [Agent Teams Documentation](https://code.claude.com/docs/en/agent-teams) + [C Compiler Case Study](https://www.anthropic.com/research/building-c-compiler)
 **Evidence Tier**: A (Primary vendor documentation)
 **Status**: Research preview — experimental, disabled by default
 
@@ -947,11 +947,11 @@ CAII organizes by cognitive function, not domain:
 ## Sources
 
 **Primary (Tier A)**:
-- [Claude Code Sub-agents Documentation](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
+- [Claude Code Sub-agents Documentation](https://code.claude.com/docs/en/sub-agents)
 - [Anthropic Engineering Blog: Effective Harnesses](https://www.anthropic.com/research/effective-harnesses-for-long-running-agents)
 - [Agent Teams Documentation](https://code.claude.com/docs/en/agent-teams)
-- [Building a C Compiler with Parallel Claudes](https://www.anthropic.com/engineering/building-a-c-compiler-with-parallel-claudes) (February 2026)
-- [How We Built Our Multi-Agent Research System](https://www.anthropic.com/engineering/how-we-built-our-multi-agent-research-system) (June 2025)
+- [Building a C Compiler with Parallel Claudes](https://www.anthropic.com/research/building-c-compiler) (February 2026)
+- [How We Built Our Multi-Agent Research System](https://www.anthropic.com/research/multi-agent-research-system) (June 2025)
 
 **Community Tools (Tier C)**:
 - [Auto-Claude](https://github.com/AndyMik90/Auto-Claude) - Worktree isolation, parallel agents (5.1k stars)

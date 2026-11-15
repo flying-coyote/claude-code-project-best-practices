@@ -853,7 +853,7 @@ exit 0  # Allow
 
 ## Sandboxing: OS-Level Security (Complementary to Hooks)
 
-**Source**: [Beyond Permission Prompts: Making Claude Code More Secure](https://www.anthropic.com/engineering/beyond-permission-prompts) (October 2025)
+**Source**: [Beyond Permission Prompts: Making Claude Code More Secure](https://www.anthropic.com/research/claude-code-sandboxing) (October 2025)
 **Evidence Tier**: A
 
 While hooks provide programmatic quality gates, sandboxing provides OS-level filesystem and network isolation. These are complementary, not competing approaches.
@@ -1023,7 +1023,7 @@ When compacting, always preserve:
 
 - [Claude Code Hooks Reference](https://docs.anthropic.com/en/docs/claude-code/hooks)
 - [Claude Blog: How to Configure Hooks](https://claude.com/blog/how-to-configure-hooks)
-- [Beyond Permission Prompts](https://www.anthropic.com/engineering/beyond-permission-prompts) (October 2025)
+- [Beyond Permission Prompts](https://www.anthropic.com/research/claude-code-sandboxing) (October 2025)
 - Production validation from 12+ projects
 
 *Last updated: March 2026*

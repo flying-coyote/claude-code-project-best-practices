@@ -331,7 +331,7 @@ Before contributing, ask:
 
 - [obra/superpowers](https://github.com/obra/superpowers) - Production-grade frameworks
 - [Our lightweight skills](https://github.com/flying-coyote/claude-code-project-best-practices/tree/master/skills/examples) - Learning alternatives
-- [Claude Code Subagents](https://docs.anthropic.com/en/docs/claude-code/sub-agents) - Official docs
+- [Claude Code Subagents](https://code.claude.com/docs/en/sub-agents) - Official docs
 - [Our hooks pattern](https://github.com/flying-coyote/claude-code-project-best-practices/blob/master/patterns/advanced-hooks.md) - Quality gates
 
 ---
