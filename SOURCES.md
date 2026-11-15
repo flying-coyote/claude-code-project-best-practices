@@ -220,6 +220,7 @@ All analysis documents in this repository are derived from authoritative sources
   - Auto mode (`--permission-mode auto`) — AI classifier reviews commands, 0.4% FPR, replaces `--dangerously-skip-permissions`
   - `/btw` for side questions without growing context (dismissible overlay)
   - "Summarize from here" via `/rewind` — selective partial compaction
+  - **Claude Code Projects** (public beta on Pro, Max and Ultra, November 2026; read 2026-11-15): one coordinating conversation that starts cloud threads, each on its own branch and pull request; threads load root `CLAUDE.md`, `.claude/CLAUDE.md` and `.claude/rules/` only, not skills, `.mcp.json`, agents, commands, hooks or `settings.json` permission rules; web, desktop and mobile only, not the CLI — `https://code.claude.com/docs/en/claude-projects` (backs `tool-guardrails-local-only`)
   - **Agent view** (`claude agents`, research preview, v2.1.139+): unified TUI dashboard for all background sessions — `https://code.claude.com/docs/en/agent-view`
   - **Ultrareview** (cloud bug-hunting agent fleet, v2.1.118+; CI subcommand `claude ultrareview <target>`): `https://code.claude.com/docs/en/ultrareview`
   - **`/goal` command** (completion-condition loop; the changelog does not specify the per-turn checker mechanism): `https://code.claude.com/docs/en/goal`
